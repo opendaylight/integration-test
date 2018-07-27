@@ -15,7 +15,7 @@ Resource          ../../../libraries/TemplatedRequests.robot
 *** Variables ***
 ${VERSION_DIR}    master
 ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions-logicalsff.json
-${SF_DPI_URI}     ${SERVICE_FUNCTION_URI}dpi-1/
+${SF_DPI_URI}     ${SERVICE_FUNCTION_URI}/dpi-1/
 ${SF_DPI_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sf_dpi.json
 
 *** Test Cases ***
@@ -45,18 +45,18 @@ Get one Service Function
     [Documentation]    Get one Service Function. Logical SFF
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     ${elements}=    Create List    firewall-1    firewall
-    Check For Elements At URI    ${SERVICE_FUNCTION_URI}firewall-1    ${elements}
+    Check For Elements At URI    ${SERVICE_FUNCTION_URI}/firewall-1    ${elements}
 
 Get A Non-existing Service Function
     [Documentation]    Get A Non-existing Service Function. Logical SFF
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_URI}non-existing-sf
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function
     [Documentation]    Delete A Service Function. Logical SFF
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Remove All Elements At URI    ${SERVICE_FUNCTION_URI}dpi-1
+    Remove All Elements At URI    ${SERVICE_FUNCTION_URI}/dpi-1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.content}    dpi-1
@@ -67,7 +67,7 @@ Delete A Non-existing Empty Service Function
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_URI}non-existing-sf
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}

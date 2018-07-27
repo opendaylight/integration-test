@@ -37,9 +37,9 @@ Get Rendered Service Path By Name
     [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs. Full Deploy
     # The RSP should be symetric, so 2 should be created for the SFP
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}
-    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_name}
+    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_name}
     ${rsp_rev_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}    True
-    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_rev_name}
+    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_rev_name}
     ${elements} =    BuiltIn.Create List    ${rsp_name}    "parent-service-function-path":"${SFP_NAME}"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254
     Utils.Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
