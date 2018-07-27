@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d66b8282_5af938f1",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-27T09:13:32Z",
+      "side": 1,
+      "message": "Use the appropriate Openstack library call and do the grep for the output received",
+      "range": {
+        "startLine": 163,
+        "startChar": 60,
+        "endLine": 163,
+        "endChar": 96
+      },
+      "revId": "f0d3478f3e6e51bb44d1e73657ec37bc4fab157d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
