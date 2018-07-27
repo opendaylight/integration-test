@@ -14,9 +14,10 @@ Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${VERSION_DIR}    master
-${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders-logicallsff.json
-${SFF_SFFLOG_URI}    ${SERVICE_FORWARDER_URI}sfflogical1/
-${SFF_SFFLOG_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarder-logicallsff1.json
+${TEST_DIR}       ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+${SERVICE_FORWARDERS_FILE}    ${TEST_DIR}/service-function-forwarders-logicallsff.json
+${SFF_SFFLOG_URI}    ${SERVICE_FORWARDER_URI}/sfflogical1
+${SFF_SFFLOG_FILE}    ${TEST_DIR}/service-function-forwarder-logicallsff1.json
 
 *** Test Cases ***
 Put Service Function Forwarders
@@ -47,16 +48,16 @@ Get one Service Function Forwarder
     [Tags]    include
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${elements}=    Create List    sfflogical1
-    Check For Elements At URI    ${SERVICE_FORWARDER_URI}sfflogical1    ${elements}
+    Check For Elements At URI    ${SFF_SFFLOG_URI}    ${elements}
 
 Delete A Service Function Forwarder
     [Documentation]    Delete A Service Function Forwarder. Logical SFF
     [Tags]    include
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDER_URI}sfflogical1
+    ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Remove All Elements At URI    ${SERVICE_FORWARDER_URI}sfflogical1
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDER_URI}sfflogical1
+    Remove All Elements At URI    ${SFF_SFFLOG_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
