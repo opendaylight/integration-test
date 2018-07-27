@@ -1,6 +1,8 @@
 FROM socketplane/busybox:latest
 MAINTAINER The SocketPlane Team <support@socketplane.io>
-ENV OVS openvswitch_2.6.1
+ARG OVS_VERSION
+
+ENV OVS openvswitch_${OVS_VERSION}
 
 # Configure supervisord
 RUN mkdir -p /var/log/supervisor/
@@ -28,6 +30,7 @@ RUN tar -xzvf ${OVS}.tgz &&\
     rm -r openvswitch &&\
     rm ${OVS}.tgz
 ADD configure-ovs.sh /usr/local/share/openvswitch/
+RUN mkdir -p /usr/local/var/run/openvswitch
 
 COPY libcrypto.so.10 /usr/lib
 COPY libssl.so.10 /usr/lib
