@@ -37,19 +37,19 @@ Get Ramdom Schedule Algorithm Type
     [Documentation]    Get Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
     ${elements}=    Create List    random    "enabled":false    service-function-scheduler-type:random
-    Check For Elements At URI    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random    ${elements}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random
+    Check For Elements At URI    ${SERVICE_RANDOM_SCHED_TYPE_URI}    ${elements}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_RANDOM_SCHED_TYPE_URI}
 
 Get A Non-existing Service Function Schedule Algorithm Type
     [Documentation]    Get A Non-existing Service Function Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete Ramdom Schedule Algorithm Type
     [Documentation]    Delete Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random
+    Remove All Elements At URI    ${SERVICE_RANDOM_SCHED_TYPE_URI}
     ${elements}=    Create List    random    service-function-scheduler-type:random
     Check For Elements Not At URI    ${SERVICE_SCHED_TYPES_URI}    ${elements}
 
@@ -59,7 +59,7 @@ Delete A Non-existing Service Function Schedule Algorithm Type
     ${body}    OperatingSystem.Get File    ${SERVICE_SCHED_TYPES_FILE}
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -80,7 +80,7 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
-    Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-schedule-types.json
-    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path
-    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-wsp-schedule-type.json
+    Set Suite Variable    ${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+    Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${TEST_DIR}/service-schedule-types.json
+    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    ${SERVICE_SCHED_TYPE_URI_BASE}weighted-shortest-path
+    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_FILE}    ${TEST_DIR}/service-wsp-schedule-type.json

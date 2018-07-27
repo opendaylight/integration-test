@@ -16,10 +16,11 @@ Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${VERSION_DIR}    master
-${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions-logicalsff.json
-${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders-logicallsff.json
-${SERVICE_CHAINS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains-logicalsff.json
-${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths-logicalsff.json
+${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+${SERVICE_FUNCTIONS_FILE}    ${TEST_DIR}/service-functions-logicalsff.json
+${SERVICE_FORWARDERS_FILE}    ${TEST_DIR}/service-function-forwarders-logicallsff.json
+${SERVICE_CHAINS_FILE}    ${TEST_DIR}/service-function-chains-logicalsff.json
+${SERVICE_FUNCTION_PATHS_FILE}    ${TEST_DIR}/service-function-paths-logicalsff.json
 ${CREATE_RSP1_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP1","symmetric": "true"}}
 ${CREATE_RSP2_INPUT}    {"input":{"name": "RSP2","parent-service-function-path": "SFP2","symmetric": "true"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP3","symmetric": "true"}}
@@ -58,7 +59,7 @@ Create Get Rendered Service Path Failure
 Get Rendered Service Path By Name
     [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs. Logical SFF
     Post Elements To URI    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/RSP1
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}rendered-service-path/RSP1
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}=    Create List    RSP1    "parent-service-function-path":"SFP1"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254

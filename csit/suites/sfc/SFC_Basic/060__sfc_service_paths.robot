@@ -37,21 +37,21 @@ Get one Service Function Path
     [Documentation]    Get one Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${elements}=    Create List    SFC1-100    "service-chain-name":"SFC1"
-    Check For Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100    ${elements}
+    Check For Elements At URI    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100    ${elements}
 
 Get A Non-existing Service Function Path
     [Documentation]    Get A Non-existing Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Path
     [Documentation]    Delete A Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
+    Remove All Elements At URI    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -63,7 +63,7 @@ Delete A Non-existing Empty Service Function Path
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -87,7 +87,7 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_FUNCTION_PATHS_URI}    /restconf/config/service-function-path:service-function-paths/
-    Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths.json
-    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_URI}    /restconf/config/service-function-path:service-function-paths/service-function-path/SFC1-400
-    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfp_sfc1_path400.json
+    Set Suite Variable    ${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+    Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${TEST_DIR}/service-function-paths.json
+    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH_URI}/SFC1-400
+    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_FILE}    ${TEST_DIR}/sfp_sfc1_path400.json
