@@ -37,18 +37,18 @@ Get one Service Node
     [Documentation]    Get one Service Node
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     ${elements}=    Create List    node-101    firewall-101-2    10.3.1.101
-    Check For Elements At URI    ${SERVICE_NODES_URI}service-node/node-101    ${elements}
+    Check For Elements At URI    ${SERVICE_NODE_URI}/node-101    ${elements}
 
 Get A Non-existing Service Node
     [Documentation]    Get A Non-existing Service Node
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}service-node/non-existing-sf
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODE_URI}/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Node
     [Documentation]    Delete A Service Node
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
-    Remove All Elements At URI    ${SERVICE_NODES_URI}service-node/node-101
+    Remove All Elements At URI    ${SERVICE_NODE_URI}/node-101
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.content}    node-101
@@ -59,7 +59,7 @@ Delete A Non-existing Service Node
     ${body}    OperatingSystem.Get File    ${SERVICE_NODES_FILE}
     ${jsonbody}    To Json    ${body}
     ${nodes}    Get From Dictionary    ${jsonbody}    service-nodes
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_NODES_URI}service-node/non-existing-sn
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_NODE_URI}/non-existing-sn
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -80,7 +80,7 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_NODES_URI}    /restconf/config/service-node:service-nodes/
-    Set Suite Variable    ${SERVICE_NODES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-nodes.json
-    Set Suite Variable    ${SN_NODE100_URI}    /restconf/config/service-node:service-nodes/service-node/node-100
-    Set Suite Variable    ${SN_NODE100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sn_node_100.json
+    Set Suite Variable    ${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+    Set Suite Variable    ${SERVICE_NODES_FILE}    ${TEST_DIR}/service-nodes.json
+    Set Suite Variable    ${SN_NODE100_URI}    ${SERVICE_NODE_URI}/node-100
+    Set Suite Variable    ${SN_NODE100_FILE}    ${TEST_DIR}/sn_node_100.json

@@ -82,8 +82,6 @@ Init Suite
     Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SFC_JSON_TEST_FILES_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${SFC_JSON_TEST_FILES_DIR}/service-function-paths.json
-    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATHS_URI}/SFC1-400
-    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_FILE}    ${SFC_JSON_TEST_FILES_DIR}/sfp_sfc1_path400.json
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}    ${SFC_JSON_TEST_FILES_DIR}/service-function-paths-with-one-hop.json
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_WITH_THREE_HOPS_FILE}    ${SFC_JSON_TEST_FILES_DIR}/service-function-paths-with-three-hops-firewall-napt44-dpi.json
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${SFC_JSON_TEST_FILES_DIR}/service-functions.json
