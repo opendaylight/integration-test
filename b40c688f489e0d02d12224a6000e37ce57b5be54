@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "489259b8_e54ca2b1",
+        "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-28T16:48:13Z",
+      "side": 1,
+      "message": "Might as well just remove the whole word or does having it hear and empty make it more explicit when reading the code?\n\nThis method though, does mean you always have to run these two suites together and in order.",
+      "revId": "b40c688f489e0d02d12224a6000e37ce57b5be54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
