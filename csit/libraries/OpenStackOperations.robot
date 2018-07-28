@@ -1003,6 +1003,7 @@ OpenStack Suite Setup
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
     ClusterManagement.Dump_Local_Shards_For_Each_Member
     Verify Expected Default Tables On Nodes
 
