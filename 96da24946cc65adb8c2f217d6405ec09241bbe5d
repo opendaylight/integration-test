@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75cb787a_b295f385",
+        "filename": "csit/scripts/dash_config.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-28T22:41:15Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "96da24946cc65adb8c2f217d6405ec09241bbe5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d40d2790_44cd6f31",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-28T22:41:15Z",
+      "side": 1,
+      "message": "lets put all dashboard yaml files in a new folder named dashboard at the root of the test repo, so in this case this would be \u0027dashboard/viz_config.yaml\u0027",
+      "revId": "96da24946cc65adb8c2f217d6405ec09241bbe5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0724218c_009f5450",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-28T22:41:15Z",
+      "side": 1,
+      "message": "same comment with dashboard folder. A single file with all dashboard config could be fine for now but in future I think it will be more clear to have seperate yaml files per projects (e.g. openflowplugin_dash_config.yaml, ovsdb_dash_config.yaml, netvirt_dash_config.yaml) containing 1 or more dashboards.",
+      "revId": "96da24946cc65adb8c2f217d6405ec09241bbe5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "819f362f_4b738ac1",
+        "filename": "csit/scripts/viz_config.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-28T22:41:15Z",
+      "side": 1,
+      "message": "just remove trailing spaces",
+      "revId": "96da24946cc65adb8c2f217d6405ec09241bbe5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
