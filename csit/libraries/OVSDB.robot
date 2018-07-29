@@ -422,7 +422,7 @@ Get Tunnel Id And Packet Count
     [Arguments]    ${conn_id}    ${table_id}    ${direction}    ${tun_id}    ${dst_mac}=""
     [Documentation]    Get tunnel id and packet count from specified table id and destination port mac address
     ${tun_id} =    BuiltIn.Convert To Hex    ${tun_id}    prefix=0x    lowercase=yes
-    ${base_cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep ${tun_id}
+    ${base_cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep tun_id=${tun_id}
     ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($7,a,"[:-]"); print a[2]}'
     ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($6,a,"[,=]"); {print a[4]}}'
     SSHLibrary.Switch Connection    ${conn_id}
