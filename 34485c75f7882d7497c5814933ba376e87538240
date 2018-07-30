@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd6a8ff8_3c5140b9",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T18:19:18Z",
+      "side": 1,
+      "message": "${time} \u003d\n\napplies below/elsewhere\n\nthis is just a style we have been following in most other\ncsit changes, and it\u0027s nice to keep things consistent.\n\nI won\u0027t hold up merging this though, but if you want\nto push a syntax update for it, that would be appreciated.",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 12
+      },
+      "revId": "34485c75f7882d7497c5814933ba376e87538240",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
