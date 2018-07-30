@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify SFC configuration and packet flows.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
@@ -24,39 +24,6 @@ ${SECURITY_GROUP}    sg-sfc
 ...               dest_vm_port
 
 *** Test Cases ***
-Create VXLAN Network net_1
-    [Documentation]    Create Network with neutron request.
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-
-Create Subnets For net_1
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-
-Add Allow All Rules
-    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-
-Create Neutron Ports
-    [Documentation]    Precreate neutron ports to be used for SFC VMs
-    : FOR    ${port}    IN    @{PORTS}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port}    sg=${SECURITY_GROUP}
-
-Create Vm Instances
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instance With Ports    p1in    p1out    sf1    sg=${SECURITY_GROUP}
-    Create Vm Instance With Ports    p2in    p2out    sf2    sg=${SECURITY_GROUP}
-    Create Vm Instance With Ports    p3in    p3out    sf3    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port    source_vm_port    source_vm    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
-
-Check Vm Instances Have Ip Address
-    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET1_DHCP_IP}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
 Create Flow Classifiers
     [Documentation]    Create SFC Flow Classifier for TCP traffic between source VM and destination VM
     OpenStackOperations.Create SFC Flow Classifier    FC_http    @{NET1_VM_IPS}[3]    @{NET1_VM_IPS}[4]    tcp    80    source_vm_port
@@ -118,3 +85,23 @@ Delete Configurations
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Delete Network    ${network}
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
+
+*** Keywords ***
+Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    : FOR    ${port}    IN    @{PORTS}
+    \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p1in    p1out    sf1    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p2in    p2out    sf2    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p3in    p3out    sf3    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port    source_vm_port    source_vm    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
+    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET1_DHCP_IP}    None
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}
+    OpenStackOperations.Get Suite Debugs
