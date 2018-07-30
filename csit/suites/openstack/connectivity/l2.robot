@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -25,50 +25,6 @@ ${SECURITY_GROUP}    l2_sg
 ${NET_1_VLAN_ID}    1121
 
 *** Test Cases ***
-Create VLAN Network net_1
-    [Documentation]    Create Network with neutron request.
-    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
-
-Create Subnet For net_1
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-
-Create VXLAN Network net_2
-    [Documentation]    Create Network with neutron request.
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-
-Create Subnet For net_2
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
-
-Add Ssh Allow All Rule
-    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-
-Create Vm Instances For net_1
-    [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-
-Create Vm Instances For net_2
-    [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-
-Check Vm Instances Have Ip Address
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
@@ -126,3 +82,28 @@ Delete A Vm Instance
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+
+*** Keywords ***
+Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
