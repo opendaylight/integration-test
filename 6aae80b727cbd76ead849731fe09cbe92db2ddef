@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2899c05c_c5a8c6d4",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T20:10:34Z",
+      "side": 1,
+      "message": "nitpick, but this is making this variable confusing to\nme. I\u0027d name it \"TRANSPORT_ZONE_ENDPOINT\" or _URI, etc.\n\nyou can do a GET on that endpoint, or a POST, or whatever,\nso the GET is not really accurate.",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 5
+      },
+      "revId": "6aae80b727cbd76ead849731fe09cbe92db2ddef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bef910aa_cfe4cbb1",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T20:10:34Z",
+      "side": 1,
+      "message": "TEP_NOT_HOSTED is more readable, and only two extra characters.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "6aae80b727cbd76ead849731fe09cbe92db2ddef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
