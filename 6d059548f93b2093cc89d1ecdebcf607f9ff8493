@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13b3f630_7809fa18",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T19:48:06Z",
+      "side": 1,
+      "message": "space \u003d",
+      "revId": "6d059548f93b2093cc89d1ecdebcf607f9ff8493",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
