@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e69f4270_0a20caff",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T20:02:49Z",
+      "side": 1,
+      "message": "I missed this final patch in this stack which is changing\nlocal vars to lower case. you can ignore my comments\non those patches I guess. I do agree with Sam here\nthough, if you don\u0027t mind to update all variable assignments\nto use the ${var} \u003d format.",
+      "parentUuid": "7f2e6c49_1eb5c87c",
+      "revId": "d869b363dbdbbe952d35ed841edc6afbc37887b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6d11b27_7394f02e",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 4
