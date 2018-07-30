@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66a47acb_5aedff63",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T20:00:26Z",
+      "side": 1,
+      "message": "lower case, for these kinds of local variables.\n\nalso, most int/test robot code coming in is using the\nformat:\n\n${data} \u003d\n\nwith a space and \u003d, for variable assignment. not a big\ndeal, but with the next update, it would be nice to\nkeep that format.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 10
+      },
+      "revId": "48e9852fd91e49824734258c2b56ee2fb328d413",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
