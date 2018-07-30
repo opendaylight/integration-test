@@ -3,7 +3,6 @@ Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
 # Exceptions for which we will not create a failure
-@{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 @{NETVIRT_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk

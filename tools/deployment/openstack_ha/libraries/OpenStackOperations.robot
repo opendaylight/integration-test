@@ -697,41 +697,6 @@ Neutron Security Group Rule Create
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}    ${rule_id}
 
-Neutron Security Group Rule Create Legacy Cli
-    [Arguments]    ${Security_group_name}    &{Kwargs}
-    [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are BuiltIn.Catenated with mandatory args, example of usage: "OpenStack Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
-    BuiltIn.Run Keyword If    ${Kwargs}    BuiltIn.Log    ${Kwargs}
-    ${description}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    description    default=${None}
-    ${direction}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    direction    default=${None}
-    ${ethertype}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    ethertype    default=${None}
-    ${port_range_max}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_max    default=${None}
-    ${port_range_min}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_min    default=${None}
-    ${protocol}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    protocol    default=${None}
-    ${remote_group_id}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
-    ${remote_ip_prefix}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
-    ${cmd} =    BuiltIn.Set Variable    neutron security-group-rule-create ${Security_group_name}
-    ${cmd} =    BuiltIn.Run Keyword If    '${description}'!='None'    BuiltIn.Catenate    ${cmd}    --description ${description}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${direction}'!='None'    BuiltIn.Catenate    ${cmd}    --direction ${direction}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${ethertype}'!='None'    BuiltIn.Catenate    ${cmd}    --ethertype ${ethertype}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${port_range_max}'!='None'    BuiltIn.Catenate    ${cmd}    --port_range_max ${port_range_max}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${port_range_min}'!='None'    BuiltIn.Catenate    ${cmd}    --port_range_min ${port_range_min}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${protocol}'!='None'    BuiltIn.Catenate    ${cmd}    --protocol ${protocol}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote_group_id ${remote_group_id}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --remote_ip_prefix ${remote_ip_prefix}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
-    BuiltIn.Log    ${rule_id}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}    ${rule_id}
-
 Security Group Create Without Default Security Rules
     [Arguments]    ${sg_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Neutron Security Group with no default rules, using specified name and optional arguments.

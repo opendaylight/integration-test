@@ -31,11 +31,7 @@ ${SECURITY_GROUP}    l3_sg
 *** Test Cases ***
 Create VLAN Network net_1
     [Documentation]    Create Network with neutron request.
-    # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
-    # and we cannot create a vlan network. If those features are installed we will instead stick with vxlan.
-    ${feature_check_status} =    OpenStackOperations.Is Feature Installed    ${legacy_feature_list}
-    Run Keyword If    '${feature_check_status}' == 'True'    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    ...    ELSE    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment @{NET_VLAN_ID}[0]
+    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment @{NET_VLAN_ID}[0]
 
 Create Subnet For net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
