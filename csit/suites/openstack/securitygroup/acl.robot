@@ -30,7 +30,6 @@ ${PACKET_COUNT}    5
 ${RANDOM_IP}      11.11.11.11
 ${NETMASK}        255.255.255.0
 ${PACKET_COUNT_ZERO}    0
-${FLOW_DUMP_CMD}    sudo ovs-ofctl dump-flows -O Openflow13 ${INTEGRATION_BRIDGE}
 ${DHCP_CMD}       sudo /sbin/cirros-dhcpc up eth1
 @{SPOOF}          30.30.30.100
 @{SPOOF_MAC_ADDRESS}    FA:17:3E:73:65:86    fa:16:3e:3d:3b:5e
@@ -41,30 +40,22 @@ ${timeout}        60
 Verify ARP request Valid MAC and Valid IP for the VM Egress Table
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{VM_IP_DPN1}[0]    ${DHCP_CMD}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{VM_IP_DPN2}[0]    ${DHCP_CMD}
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_before_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -I eth0 -c ${PACKET_COUNT} \ ${RANDOM_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    ${REQ_NETWORKS[1]}    @{VM_IP_DPN1}[1]    ${arping_cli}
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_after_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
 
 Verify ARP request generated from Spoofed IP for the VM
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
     ${arp_int_up_cli} =    BuiltIn.Set Variable    sudo ifconfig eth0:1 ${SPOOF[0]} netmask ${NETMASK} up
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN1[1]}
     ...    ${arp_int_up_cli}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_before_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_before}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -s ${SPOOF[0]} -c ${PACKET_COUNT} \ ${RANDOM_IP}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]
     ...    ${arping_cli}
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_after_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${pkt_diff_arp_drop} =    BuiltIn.Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
@@ -73,19 +64,15 @@ Verify ARP request generated from Spoofed IP for the VM
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${PACKET_COUNT}
 
 Verify ARP request generated from Spoofed MAC for the VM
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
     ${count} =    String.Get Line Count    ${ARP_CONFIG}
     : FOR    ${index}    IN RANGE    0    ${count}
     \    ${cmd} =    String.Get Line    ${ARP_CONFIG}    ${index}
     \    ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]
     \    ...    @{VM_IP_DPN1}[1]    ${cmd}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_before_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_before}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -I eth0 -c ${PACKET_COUNT} \ ${RANDOM_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arping_cli}
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_after_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
@@ -94,14 +81,10 @@ Verify ARP request generated from Spoofed MAC for the VM
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${PACKET_COUNT}
 
 Verify ARP request generated from Spoofed IP and spoofed MAC for the VM
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_before_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_before}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -s @{SPOOF}[0] -c ${PACKET_COUNT} \ ${RANDOM_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arping_cli}
-    SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    SSHLibrary.Execute Command    ${FLOW_DUMP_CMD}
     ${get_pkt_count_after_arp}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep ${VM1_METADATA}|grep arp_sha
     ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    ${TABLE_NO}    |grep arp|grep goto_table:217
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
