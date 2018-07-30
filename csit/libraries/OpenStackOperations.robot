@@ -555,6 +555,9 @@ Get Test Teardown Debugs
     BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
+Get Suite Debugs
+    Get Test Teardown Debugs    test_name=${SUITE_NAME}
+
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_sfc_data_models}
@@ -1013,6 +1016,9 @@ OpenStack Suite Teardown
     ...    to clean up all openstack resources. For example, all instances, networks, ports, etc will be listed and
     ...    and deleted. As other global cleanup tasks are needed, they can be added here and the suites will all
     ...    benefit automatically.
+    # TODO: followup patch will add the list of vms to pass to Show Debugs
+    # OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
     OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
