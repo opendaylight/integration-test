@@ -548,11 +548,11 @@ Get OvsDebugInfo
     \    OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
 
 Get Test Teardown Debugs
-    [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
+    [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
-    Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}
+    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}

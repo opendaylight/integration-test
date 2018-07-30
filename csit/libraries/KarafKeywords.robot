@@ -231,7 +231,7 @@ Get Karaf Log Lines From Test Start
     [Return]    ${log_lines}
 
 Fail If Exceptions Found During Test
-    [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}
+    [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}    ${fail}=False
     [Documentation]    Create a failure if an Exception is found in the karaf.log that has not been whitelisted.
     ...    Will work for single controller jobs as well as 3node cluster jobs
     : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
@@ -240,7 +240,7 @@ Fail If Exceptions Found During Test
     \    ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
     \    Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
     \    ${listlength} =    BuiltIn.Get Length    ${exlist}
-    \    BuiltIn.Run Keyword If    ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
+    \    BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
     \    ...    ELSE    Collections.Log List    ${matchlist}
 
 Log And Fail Exceptions
