@@ -1114,7 +1114,7 @@ Verify Expected Default Tables On Nodes
 Verify Expected Default Tables
     [Arguments]    ${ovs_ip}
     [Documentation]    Verify if Default Table Entries are programmed on specific Node
-    ${flow_dump} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${flow_dump} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13
     BuiltIn.Log    ${flow_dump}
     ${failed_table_list} =    BuiltIn.Create List
     : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
