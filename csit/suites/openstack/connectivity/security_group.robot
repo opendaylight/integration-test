@@ -3,7 +3,7 @@ Documentation     Test suite to verify security groups basic and advanced functi
 ...               These test cases are not so relevant for transparent mode, so each test case will be tagged with
 ...               "skip_if_transparent" to allow any underlying keywords to return with a PASS without risking
 ...               a false failure. The real value of this suite will be in stateful mode.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -29,43 +29,6 @@ ${ROUTER}         sg_router
 @{SUBNET_CIDRS}    51.0.0.0/24    52.0.0.0/24
 
 *** Test Cases ***
-Neutron Setup
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
-    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
-
-Add TCP Allow Rules
-    [Documentation]    Allow only TCP packets for this suite
-    OpenStackOperations.Security Group Create Without Default Security Rules    ${SECURITY_GROUP}
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    OpenStackOperations.Neutron Security Group Show    ${SECURITY_GROUP}
-
-Create Vm Instances For net_1
-    [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-
-Create Vm Instances For net_2
-    [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-
-Check Vm Instances Have Ip Address
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Set Suite Variable    ${NET_1_DHCP_IP}
-    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
 No Ping From DHCP To Vm Instance1
     [Documentation]    Check non-reachability of vm instances by pinging to them.
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
@@ -227,3 +190,31 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With net_2 VM Deleted
     [Documentation]    Login to the vm instance and test operations
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+
+*** Keywords ***
+Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
+    OpenStackOperations.Security Group Create Without Default Security Rules    ${SECURITY_GROUP}
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
+    OpenStackOperations.Neutron Security Group Show    ${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Set Suite Variable    ${NET_1_DHCP_IP}
+    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Test Teardown Debugs
