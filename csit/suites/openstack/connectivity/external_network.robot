@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -34,77 +34,6 @@ ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${EXTERNAL_INTERNET_ADDR}    10.9.9.9
 
 *** Test Cases ***
-Create All Controller Sessions
-    [Documentation]    Create sessions for all three controllers
-    ClusterManagement.ClusterManagement Setup
-
-Create Private Networks
-    [Documentation]    Create Network with neutron request.
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
-
-Create Subnets For Private Networks
-    [Documentation]    Create Sub Net for the Network with neutron request.
-    : FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
-    ...    ${SUBNET_CIDRS}
-    \    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
-
-Add Ssh Allow Rule
-    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-
-Create Vm Instances
-    [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_SNAT_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-
-Check Vm Instances Have Ip Address
-    @{NET1_FIP_VM_IPS}    ${NET1_FIP_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET1_FIP_VMS}
-    @{NET1_SNAT_VM_IPS}    ${NET1_SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET1_SNAT_VMS}
-    @{NET2_SNAT_VM_IPS}    ${NET2_SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET2_SNAT_VMS}
-    BuiltIn.Set Suite Variable    @{NET1_FIP_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET1_SNAT_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET2_SNAT_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET1_FIP_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET1_SNAT_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET2_SNAT_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET1_FIP_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET1_SNAT_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET2_SNAT_DHCP_IP}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{SNAT_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
-Create External Network And Subnet
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
-
-Create Routers
-    [Documentation]    Create Router and Add Interface to the subnets.
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
-
-Add Router Gateway To Router
-    [Documentation]    OpenStackOperations.Add Router Gateway
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
-
-Verify Created Routers
-    [Documentation]    Check created routers using northbound rest calls
-    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
-    BuiltIn.Log    ${data}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    Should Contain    ${data}    ${router}
-
 Initial Ping To External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
@@ -233,3 +162,46 @@ Ping External Network PNF from Vm Instance 2 After Floating IP Removal
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+
+*** Keywords ***
+Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    OpenStackOperations.Create Network    ${network}
+    : FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
+    ...    ${SUBNET_CIDRS}
+    \    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_SNAT_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    @{NET1_FIP_VM_IPS}    ${NET1_FIP_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET1_FIP_VMS}
+    @{NET1_SNAT_VM_IPS}    ${NET1_SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET1_SNAT_VMS}
+    @{NET2_SNAT_VM_IPS}    ${NET2_SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET2_SNAT_VMS}
+    BuiltIn.Set Suite Variable    @{NET1_FIP_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET1_SNAT_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET2_SNAT_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET1_FIP_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET1_SNAT_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET2_SNAT_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET1_FIP_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET1_SNAT_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET2_SNAT_DHCP_IP}    None
+    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
+    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Create Router    ${router}
+    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
+    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
+    BuiltIn.Log    ${data}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    Should Contain    ${data}    ${router}
+    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
+    OpenStackOperations.Get Test Teardown Debugs
