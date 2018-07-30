@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2c2453c_dead9afe",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-30T17:40:53Z",
+      "side": 1,
+      "message": "We typically name the keyword with the suffix \"On Compute Node\". Adding this param will break users of the keyword that doesn\u0027t supply hostname - like the sfc.robot tests, so you won\u0027t catch this unless you run a sfc csit.\n\njust cut and paste this keyword and add On Compute Node so you can use it.\n\nLater refactor all these keywords. Have a root keyword that takes all the params and then wrappers that don\u0027t but call the root one. The root one can check the params for empty and just build the right command.",
+      "range": {
+        "startLine": 225,
+        "startChar": 77,
+        "endLine": 225,
+        "endChar": 90
+      },
+      "revId": "9424f9682e85f5af5ae5a42fc395dcf957be9b01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca9ee099_b0195c0a",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-30T17:40:53Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 41,
+        "startChar": 54,
+        "endLine": 41,
+        "endChar": 55
+      },
+      "revId": "9424f9682e85f5af5ae5a42fc395dcf957be9b01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f63bf5_97057883",
+        "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-30T17:40:53Z",
+      "side": 1,
+      "message": "move this up above the jvm plots suite. that suite is a end of job suite that collects statistics.",
+      "revId": "9424f9682e85f5af5ae5a42fc395dcf957be9b01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
