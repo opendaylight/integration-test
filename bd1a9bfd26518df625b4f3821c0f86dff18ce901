@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc22b604_6a5ffcbe",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-30T18:54:35Z",
+      "side": 1,
+      "message": "This argument was never used before. And hence we were actually printing flow dumps on same node thrice.",
+      "revId": "bd1a9bfd26518df625b4f3821c0f86dff18ce901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
