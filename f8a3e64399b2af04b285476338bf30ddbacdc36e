@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4308bb97_94646461",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-30T20:00:57Z",
+      "side": 1,
+      "message": "lower case. see comments in c/74066/",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 10
+      },
+      "revId": "f8a3e64399b2af04b285476338bf30ddbacdc36e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
