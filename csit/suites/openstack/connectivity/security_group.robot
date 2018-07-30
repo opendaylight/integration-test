@@ -227,11 +227,3 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With net_2 VM Deleted
     [Documentation]    Login to the vm instance and test operations
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
-
-Delete Vm Instances In net_1
-    : FOR    ${VmElement}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${VmElement}
-
-Delete Security Groups
-    OpenStackOperations.Delete SecurityGroup    additional-sg
-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}

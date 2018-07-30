@@ -126,35 +126,3 @@ Delete A Vm Instance
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
-
-Delete Vm Instances In net_1
-    [Documentation]    Delete Vm instances using instance names in net_1.
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-
-Delete Vm Instances In net_2
-    [Documentation]    Delete Vm instances using instance names in net_2.
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-
-Delete Sub Network In net_1
-    [Documentation]    Delete Sub Net for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
-
-Delete Sub Network In net_2
-    [Documentation]    Delete Sub Net for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[1]
-
-Delete Networks
-    [Documentation]    Delete Networks with neutron request.
-    : FOR    ${networks}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${networks}
-
-Delete Security Group
-    [Documentation]    Delete security group with neutron request
-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
-
-Verify Flows Cleanup
-    [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
-    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    odl-vtn-manager-neutron
-    BuiltIn.Run Keyword If    '${feature_check_status}' != 'True'    DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
