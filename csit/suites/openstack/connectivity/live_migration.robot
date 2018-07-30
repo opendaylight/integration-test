@@ -71,21 +71,3 @@ Migrate Instance And Verify Connectivity While Migration And After
     BuiltIn.Should Contain    ${output}    64 bytes
     ${output} =    DevstackUtils.Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 10 @{NET1_VM_IPS}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
-
-Delete Vm Instances In migration_net_1
-    [Documentation]    Delete Vm instances using instance names in network_1.
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-
-Delete Sub Networks In migration_net_1
-    [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
-
-Delete Networks
-    [Documentation]    Delete Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${NetworkElement}
-
-Delete SecurityGroup
-    [Documentation]    Delete SecurityGroup with neutron request.
-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
