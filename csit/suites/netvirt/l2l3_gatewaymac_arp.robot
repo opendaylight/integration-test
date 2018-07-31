@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Suite for Gateway mac based L2L3 seggragation
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -126,10 +126,12 @@ Verify GWMAC entires are populated with port MAC address for network with vpn as
     BuiltIn.Should Match Regexp    ${output}    .*${VRF_ID}.*${REQ_SUBNET_CIDR[1]}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Test Suite for Gateway mac based L2L3 seggragation
     VpnOperations.Basic Suite Setup
     Create Setup
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
 
 Create Neutron Networks
     [Arguments]    ${NUM_OF_NETWORK}
