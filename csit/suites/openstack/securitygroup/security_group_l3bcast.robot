@@ -57,6 +57,8 @@ Start Suite
     [Documentation]    Test Suite for Network and Subnet Broadcast with security group
     OpenStackOperations.OpenStack Suite Setup
     Create Setup
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
 
 Create Setup
     : FOR    ${network}    IN    @{NETWORKS}
