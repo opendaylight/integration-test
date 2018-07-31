@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2f706160_74459c49",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 8040
+      },
+      "writtenOn": "2018-07-31T17:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca461ef5_338ee930",
+      "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5c88d61_0bb60821",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 19
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "924611a5_5d6b1d07",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 8040
+      },
+      "writtenOn": "2018-07-31T17:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5c88d61_0bb60821",
+      "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39ef3a73_50726c99",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 19
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "6f70adeb_768b3f48",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 8040
+      },
+      "writtenOn": "2018-07-31T17:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39ef3a73_50726c99",
+      "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78bf2c4a_db87fcba",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 19
@@ -87,6 +141,24 @@
       "writtenOn": "2018-07-31T14:54:41Z",
       "side": 1,
       "message": "single regex might be cleaner, it should be able to grab both ips in one regex.\n\nAnother thought is the openstack server show command might return what you need when using the -f -c options. look at Get Hypervisor of Vm keyword for how it is used, but you request specific columns of data.",
+      "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33148675_cad056f9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 8040
+      },
+      "writtenOn": "2018-07-31T17:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78bf2c4a_db87fcba",
       "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
