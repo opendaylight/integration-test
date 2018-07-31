@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a6ef370c_3f15d22f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 8040
+      },
+      "writtenOn": "2018-07-31T19:10:20Z",
+      "side": 1,
+      "message": "I am spawning VM on compute-1 and compute-2 . Hence it is needed . OpenStack CLI does not switch the connection. I have reverted back to add conn_id.",
+      "parentUuid": "2f706160_74459c49",
+      "revId": "e68ce78ede799d1d56d2fecfbd2aaeda9c39e7e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5c88d61_0bb60821",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 19
