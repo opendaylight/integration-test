@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a74cd3f7_8b8a3c66",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-31T11:50:42Z",
+      "side": 1,
+      "message": "this should be above the PRE_CLEAN_OPENSTACK_ALL since that check expects ODL to be fully up and ready to prrocess openstack apis. The check is only used in the downstream so not a problem for the upstream.",
+      "revId": "1b0452569e80769cc7f4f00f15242ab4be05ec8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
