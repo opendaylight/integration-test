@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for ODL Upgrade. It is assumed that OLD + OpenStack
 ...               integrated environment is deployed and ready.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    Upgrade Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -85,6 +85,12 @@ Check Connectivity With Previously Created Resources And br-int Info
     Wait Until Keyword Succeeds    90s    10s    Check Resource Connectivity
 
 *** Keywords ***
+Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    Create Resources
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
+
 Create Resources
     [Documentation]    Create 2 VXLAN networks, subnets with 2 VMs each and a router. Ping all 4 VMs.
     : FOR    ${net}    IN    @{NETWORKS}

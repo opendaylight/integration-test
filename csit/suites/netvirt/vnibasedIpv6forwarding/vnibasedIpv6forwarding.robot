@@ -8,8 +8,8 @@ Documentation     Test Suite for vni-based-l2-l3-nat:
 ...               presence of LPort tags, ELAN tags and MPLS labels on the
 ...               wire and instead, replaces them with VNIs supplied by the
 ...               tenant’s OpenStack.
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Setup       Suite Setup
+Suite Teardown    Suite Teardown
 Test Setup        VpnOperations.VNI Test Setup
 Test Teardown     VpnOperations.VNI Test Teardown
 Library           OperatingSystem
@@ -130,7 +130,7 @@ VNI Based IPv6 Forwarding With Two Routers And BGPVPN With Irt Ert
     ...    @{VNI6_NETWORKS}[3]    @{VM_IP_NET2}[0]    @{VM_IP_NET3}[0]    ${IP}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
     ...    Create Two VMs for TC1 : (VM1, N1, Compute1) and (VM2, N2, Compute2) and R1
     BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
@@ -174,8 +174,9 @@ Start Suite
     BuiltIn.Set Suite Variable    ${VM_IP_NET1}
     BuiltIn.Should Not Contain    ${VM_IP_NET0}    None
     BuiltIn.Should Not Contain    ${VM_IP_NET1}    None
-    Get OvsDebugInfo
+    OpenStackOperations.Show Debugs    @{VNI6_NET_0_VMS}    @{VNI6_NET_1_VMS}
+    OpenStackOperations.Get Suite Debugs
 
-Stop Suite
+Suite Teardown
     BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
     OpenStackOperations.OpenStack Suite Teardown
