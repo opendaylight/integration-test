@@ -1002,9 +1002,9 @@ OpenStack Suite Setup
     DevstackUtils.Devstack Suite Setup
     @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
-    BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
-    OpenStackOperations.Add OVS Logging On All OpenStack Nodes
     Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
+    BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
+    OpenStackOperations.Add OVS Logging On All OpenStack Node
     ClusterManagement.Dump_Local_Shards_For_Each_Member
     Verify Expected Default Tables On Nodes
 
