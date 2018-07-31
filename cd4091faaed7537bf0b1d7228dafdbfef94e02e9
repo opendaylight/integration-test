@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf705c37_c382378f",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-31T00:42:58Z",
+      "side": 1,
+      "message": "Use Split String ${SUITES} and it will create a list so that this Get From List works. As it is now the whole SUITES var is a single item.",
+      "revId": "cd4091faaed7537bf0b1d7228dafdbfef94e02e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99754dc3_ad8d9931",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-31T00:42:58Z",
+      "side": 1,
+      "message": "SUITE_NAME will not have the whole path like the SUITES vars do so need to do a search for SUITE_NAME in first_suite, or strip first suite from the right last /.",
+      "range": {
+        "startLine": 223,
+        "startChar": 6,
+        "endLine": 223,
+        "endChar": 13
+      },
+      "revId": "cd4091faaed7537bf0b1d7228dafdbfef94e02e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
