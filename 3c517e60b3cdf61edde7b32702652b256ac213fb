@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd3b56a8_24fadaa0",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 29
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-31T18:48:47Z",
+      "side": 1,
+      "message": "is this check enough to know not to install quagga? Do all jobs with a tools vm need quagga? Like sfc jobs don\u0027t need quagga but they also don\u0027t have a tools vm. But maybe checking explicitly for ENABLE_NETWORKING_L2GW\u003dyes would be better? I would move the check up to the top of the file so that we don\u0027t do the cat piece or wrap the cat into a function that is then called in this if check.",
+      "revId": "3c517e60b3cdf61edde7b32702652b256ac213fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
