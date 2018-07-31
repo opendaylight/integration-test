@@ -8,8 +8,8 @@ Documentation     Test Suite for vni-based-l2-l3-nat:
 ...               presence of LPort tags, ELAN tags and MPLS labels on the
 ...               wire and instead, replaces them with VNIs supplied by the
 ...               tenant’s OpenStack.
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Setup       Suite Setup
+Suite Teardown    Suite Teardown
 Test Setup        VpnOperations.VNI Test Setup
 Test Teardown     VpnOperations.VNI Test Teardown
 Library           OperatingSystem
@@ -72,7 +72,7 @@ VNI Based L2 Switching
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
     BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
     VpnOperations.Basic Suite Setup
@@ -88,8 +88,9 @@ Start Suite
     BuiltIn.Set Suite Variable    @{VNI_NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${VNI_NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${vni_net_1_dhcp_ip}    None
-    Get OvsDebugInfo
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}
+    OpenStackOperations.Get Suite Debugs
 
-Stop Suite
+Suite Teardown
     BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
     OpenStackOperations.OpenStack Suite Teardown

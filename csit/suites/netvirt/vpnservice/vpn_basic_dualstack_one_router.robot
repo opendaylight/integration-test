@@ -3,8 +3,8 @@ Documentation     Test suite to validate dualstack (IPv4 + IPv6) vpnservice func
 ...               integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       VpnOperations.Basic Suite Setup
-Suite Teardown    VpnOperations.Basic Vpnservice Suite Cleanup
+Suite Setup       Suite Setup
+Suite Teardown    Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           Collections
@@ -44,28 +44,16 @@ ${UPDATE_PORT}    UpdatePort_dualstack
 @{RDS}            ["2506:2"]    ["2606:2"]    ["2706:2"]
 
 *** Test Cases ***
-Create Neutron Networks
-    [Documentation]    Create two networks.
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-    ${NET_LIST} =    OpenStackOperations.List Networks
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    OpenStackOperations.Update Network    @{NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
-    ${output} =    OpenStackOperations.Show Network    @{NETWORKS}[0]
-    BuiltIn.Should Contain    ${output}    ${UPDATE_NETWORK}
-
-Create Neutron Subnets
-    [Documentation]    Create subnets for previously created networks.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS4}[0]    @{SUBNETS4_CIDR}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS6}[0]    @{SUBNETS6_CIDR}[0]    ${SUBNET_ADDITIONAL_ARGS}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS4}[1]    @{SUBNETS4_CIDR}[1]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS6}[1]    @{SUBNETS6_CIDR}[1]    ${SUBNET_ADDITIONAL_ARGS}
-    ${SUB_LIST} =    OpenStackOperations.List Subnets
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS4}
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS6}
-    OpenStackOperations.Update SubNet    @{SUBNETS4}[0]    additional_args=--description ${UPDATE_SUBNET}
-    ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS4}[0]
-    BuiltIn.Should Contain    ${output}    ${UPDATE_SUBNET}
+Check ELAN Datapath Traffic Within The Networks
+    [Documentation]    Checks datapath within the same network with different vlans.
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ping -I ${NET_1_VM_IPV4[0]} -c 3 ${NET_1_VM_IPV4[1]}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ping6 -I ${NET_1_VM_IPV6[0]} -c 3 ${NET_1_VM_IPV6[1]}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -I ${NET_2_VM_IPV4[0]} -c 3 ${NET_2_VM_IPV4[1]}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -I ${NET_2_VM_IPV6[0]} -c 3 ${NET_2_VM_IPV6[1]}
+    BuiltIn.Should Contain    ${output}    64 bytes
 
 Create Router
     [Documentation]    Create Router.
@@ -89,83 +77,6 @@ Add Router Ports
     BuiltIn.Set Suite Variable    ${GW_MAC_ADDRS}
     BuiltIn.Set Suite Variable    ${GW_IPV4_ADDRS}
     BuiltIn.Set Suite Variable    ${GW_IPV6_ADDRS}
-
-Create Allow All Security Group IPv4+IPv6
-    [Documentation]    Create neutron security group with Allow All rule set for IPv4 ethertype.
-    ...    Then add in this group Allow All rule set for IPv6 ethertype.
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}    IPv4
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    protocol=icmp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    protocol=icmp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
-    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
-
-Create Neutron Ports
-    [Documentation]    Create 2 ports in previously created IPv4 subnets and 2 ports in previously created IPv6 subnets.
-    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[1]
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    ${PORTS_MACADDR} =    OpenStackOperations.Get Ports MacAddr    ${PORTS}
-    BuiltIn.Set Suite Variable    ${PORTS_MACADDR}
-    OpenStackOperations.Update Port    @{PORTS}[0]    additional_args=--name ${UPDATE_PORT}
-    ${output} =    Show Port    ${UPDATE_PORT}
-    BuiltIn.Should Contain    ${output}    ${UPDATE_PORT}
-    OpenStackOperations.Update Port    ${UPDATE_PORT}    additional_args=--name @{PORTS}[0]
-
-Create Nova VMs
-    [Documentation]    Launch a VM for each previously created port.
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    ${NET_1_VM_INSTANCES[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    ${NET_1_VM_INSTANCES[1]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    ${NET_2_VM_INSTANCES[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    ${NET_2_VM_INSTANCES[1]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    ${VM_INSTANCES} =    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    BuiltIn.Set Suite Variable    ${VM_INSTANCES}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS4_CIDR}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS6_CIDR}
-    @{NET_1_VM_IPV4}    ${NET_1_DHCP_IPV4} =    OpenStackOperations.Get VM IPs    @{NET_1_VM_INSTANCES}
-    @{NET_2_VM_IPV4}    ${NET_2_DHCP_IPV4} =    OpenStackOperations.Get VM IPs    @{NET_2_VM_INSTANCES}
-    BuiltIn.Should Not Contain    ${NET_1_VM_IPV4}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPV4}    None
-    BuiltIn.Should Not Contain    ${NET_1_DHCP_IPV4}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IPV4}    None
-    BuiltIn.Log    Collect VMs IPv6 addresses
-    ${prefix_net10} =    String.Replace String    @{SUBNETS6_CIDR}[0]    ${IP6_SUBNET_CIDR_SUFFIX}    ${IP6_ADDR_SUFFIX}
-    ${prefix_net20} =    String.Replace String    @{SUBNETS6_CIDR}[1]    ${IP6_SUBNET_CIDR_SUFFIX}    ${IP6_ADDR_SUFFIX}
-    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${NET_1_VM_INSTANCES}    @{NETWORKS}[0]    ${prefix_net10}
-    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
-    ${NET_1_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_1_VM_INSTANCES}    @{NETWORKS}[0]    ${prefix_net10}
-    ${NET_2_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
-    ${LOOP_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_1_VM_IPV6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VM_INSTANCES}[${index}]    30s
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_2_VM_IPV6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VM_INSTANCES}[${index}]    30s
-    BuiltIn.Set Suite Variable    ${NET_1_VM_IPV4}
-    BuiltIn.Set Suite Variable    ${NET_2_VM_IPV4}
-    BuiltIn.Set Suite Variable    ${NET_1_VM_IPV6}
-    BuiltIn.Set Suite Variable    ${NET_2_VM_IPV6}
-    ${VM_IPS} =    BuiltIn.Create List    @{NET_1_VM_IPV4}    @{NET_2_VM_IPV4}    @{NET_1_VM_IPV6}    @{NET_2_VM_IPV6}
-    BuiltIn.Set Suite Variable    ${VM_IPS}
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
-Check ELAN Datapath Traffic Within The Networks
-    [Documentation]    Checks datapath within the same network with different vlans.
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ping -I ${NET_1_VM_IPV4[0]} -c 3 ${NET_1_VM_IPV4[1]}
-    BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ping6 -I ${NET_1_VM_IPV6[0]} -c 3 ${NET_1_VM_IPV6[1]}
-    BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -I ${NET_2_VM_IPV4[0]} -c 3 ${NET_2_VM_IPV4[1]}
-    BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -I ${NET_2_VM_IPV6[0]} -c 3 ${NET_2_VM_IPV6[1]}
-    BuiltIn.Should Contain    ${output}    64 bytes
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    L3 Datapath test across networks using previously created router.
@@ -391,6 +302,89 @@ Create Multiple L3VPN
     BuiltIn.Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
 
 *** Keywords ***
+Suite Setup
+    VpnOperations.Basic Suite Setup
+    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    ${NET_LIST} =    OpenStackOperations.List Networks
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
+    OpenStackOperations.Update Network    @{NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
+    ${output} =    OpenStackOperations.Show Network    @{NETWORKS}[0]
+    BuiltIn.Should Contain    ${output}    ${UPDATE_NETWORK}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS4}[0]    @{SUBNETS4_CIDR}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS6}[0]    @{SUBNETS6_CIDR}[0]    ${SUBNET_ADDITIONAL_ARGS}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS4}[1]    @{SUBNETS4_CIDR}[1]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS6}[1]    @{SUBNETS6_CIDR}[1]    ${SUBNET_ADDITIONAL_ARGS}
+    ${SUB_LIST} =    OpenStackOperations.List Subnets
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS4}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS6}
+    OpenStackOperations.Update SubNet    @{SUBNETS4}[0]    additional_args=--description ${UPDATE_SUBNET}
+    ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS4}[0]
+    BuiltIn.Should Contain    ${output}    ${UPDATE_SUBNET}
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}    IPv4
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    protocol=icmp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    protocol=icmp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
+    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[1]
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
+    ${PORTS_MACADDR} =    OpenStackOperations.Get Ports MacAddr    ${PORTS}
+    BuiltIn.Set Suite Variable    ${PORTS_MACADDR}
+    OpenStackOperations.Update Port    @{PORTS}[0]    additional_args=--name ${UPDATE_PORT}
+    ${output} =    Show Port    ${UPDATE_PORT}
+    BuiltIn.Should Contain    ${output}    ${UPDATE_PORT}
+    OpenStackOperations.Update Port    ${UPDATE_PORT}    additional_args=--name @{PORTS}[0]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    ${NET_1_VM_INSTANCES[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    ${NET_1_VM_INSTANCES[1]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    ${NET_2_VM_INSTANCES[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    ${NET_2_VM_INSTANCES[1]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    ${VM_INSTANCES} =    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    BuiltIn.Set Suite Variable    ${VM_INSTANCES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS4_CIDR}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS6_CIDR}
+    @{NET_1_VM_IPV4}    ${NET_1_DHCP_IPV4} =    OpenStackOperations.Get VM IPs    @{NET_1_VM_INSTANCES}
+    @{NET_2_VM_IPV4}    ${NET_2_DHCP_IPV4} =    OpenStackOperations.Get VM IPs    @{NET_2_VM_INSTANCES}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPV4}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPV4}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IPV4}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IPV4}    None
+    BuiltIn.Log    Collect VMs IPv6 addresses
+    ${prefix_net10} =    String.Replace String    @{SUBNETS6_CIDR}[0]    ${IP6_SUBNET_CIDR_SUFFIX}    ${IP6_ADDR_SUFFIX}
+    ${prefix_net20} =    String.Replace String    @{SUBNETS6_CIDR}[1]    ${IP6_SUBNET_CIDR_SUFFIX}    ${IP6_ADDR_SUFFIX}
+    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
+    ...    true    ${NET_1_VM_INSTANCES}    @{NETWORKS}[0]    ${prefix_net10}
+    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
+    ...    true    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
+    ${NET_1_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_1_VM_INSTANCES}    @{NETWORKS}[0]    ${prefix_net10}
+    ${NET_2_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
+    ${LOOP_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
+    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_1_VM_IPV6}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VM_INSTANCES}[${index}]    30s
+    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_2_VM_IPV6}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VM_INSTANCES}[${index}]    30s
+    BuiltIn.Set Suite Variable    ${NET_1_VM_IPV4}
+    BuiltIn.Set Suite Variable    ${NET_2_VM_IPV4}
+    BuiltIn.Set Suite Variable    ${NET_1_VM_IPV6}
+    BuiltIn.Set Suite Variable    ${NET_2_VM_IPV6}
+    ${VM_IPS} =    BuiltIn.Create List    @{NET_1_VM_IPV4}    @{NET_2_VM_IPV4}    @{NET_1_VM_IPV6}    @{NET_2_VM_IPV6}
+    BuiltIn.Set Suite Variable    ${VM_IPS}
+    OpenStackOperations.Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    OpenStackOperations.Get Suite Debugs
+
+Suite Teardown
+    [Documentation]    Delete the setup
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_ID}[1]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_ID}[2]
+    OpenStackOperations.OpenStack Suite Teardown
+
 Verify GWMAC Flow Entry On Flow Table
     [Arguments]    ${cnIp}
     [Documentation]    Verify GWMAC Table, ARP Response table and Dispatcher table.
