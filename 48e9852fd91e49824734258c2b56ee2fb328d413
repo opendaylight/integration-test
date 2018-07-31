@@ -22,6 +22,30 @@
       "revId": "48e9852fd91e49824734258c2b56ee2fb328d413",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbb37041_096c93fc",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-07-31T07:26:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66a47acb_5aedff63",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 10
+      },
+      "revId": "48e9852fd91e49824734258c2b56ee2fb328d413",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
