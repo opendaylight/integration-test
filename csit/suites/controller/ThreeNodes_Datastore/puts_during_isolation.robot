@@ -60,7 +60,7 @@ Verify_Cars_Configured
     [Documentation]    Verify that all cars are configured.
     BuiltIn.Wait_Until_Keyword_Succeeds    120x    2s    SSHLibrary.Read_Until_Prompt
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
-    Verify_Cars_Count    ${ITEM_COUNT}    ${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Cars_Count    ${ITEM_COUNT}    ${session}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
