@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for VM based Host Route Handling
-Suite Setup       Create Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Library           Collections
 Library           RequestsLibrary
@@ -48,7 +48,7 @@ Verify removal of host route
     Verify No Hostroutes In Subnet    ${SUBNETS[${0}]}    destination='${NON_NEUTRON_DESTINATION[${0}]}${PREFIX24}',\\sgateway='${SUBNET_GW_IP[${0}]}'
 
 *** Keywords ***
-Create Setup
+Suite Setup
     [Documentation]    Creates initial setup
     VpnOperations.Basic Suite Setup
     : FOR    ${network}    IN    @{NETWORKS}
