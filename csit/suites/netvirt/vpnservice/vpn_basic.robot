@@ -2,8 +2,8 @@
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       VpnOperations.Basic Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Suite Setup
+Suite Teardown    Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -40,57 +40,6 @@ ${VM_NAME_NEW}    vpn_net_1_vm_new
 ${INVALID_VPN_INSTANCE_ID}    AAAAAAAAAA-4848-4949-9494-666666666666
 
 *** Test Cases ***
-Create Neutron Networks
-    # TODO: Many of these steps to verify if updates occurred should be in a different suite
-    # that is checking for such operations.
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    OpenStackOperations.Update Network    @{NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
-    ${output} =    OpenStackOperations.Show Network    @{NETWORKS}[0]
-    BuiltIn.Should Contain    ${output}    ${UPDATE_NETWORK}
-
-Create Neutron Subnets
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
-    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    additional_args=--description ${UPDATE_SUBNET}
-    ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS}[0]
-    BuiltIn.Should Contain    ${output}    ${UPDATE_SUBNET}
-
-Add Ssh Allow All Rule
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-
-Create Neutron Ports
-    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1]
-    Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORTS}
-    Set Suite Variable    ${PORTS_MACADDR}
-    Update Port    @{PORTS}[0]    additional_args=--description ${UPDATE_PORT}
-    ${output} =    Show Port    @{PORTS}[0]
-    Should Contain    ${output}    ${UPDATE_PORT}
-
-Create Nova VMs
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
@@ -318,8 +267,52 @@ Create Multiple L3VPN
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
     BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[2]
 
-Delete Multiple L3VPN
-    [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
+*** Keywords ***
+Suite Setup
+    VpnOperations.Basic Suite Setup
+    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
+    OpenStackOperations.Update Network    @{NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
+    ${output} =    OpenStackOperations.Show Network    @{NETWORKS}[0]
+    BuiltIn.Should Contain    ${output}    ${UPDATE_NETWORK}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
+    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    additional_args=--description ${UPDATE_SUBNET}
+    ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS}[0]
+    BuiltIn.Should Contain    ${output}    ${UPDATE_SUBNET}
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1]
+    Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
+    ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORTS}
+    Set Suite Variable    ${PORTS_MACADDR}
+    Update Port    @{PORTS}[0]    additional_args=--description ${UPDATE_PORT}
+    ${output} =    Show Port    @{PORTS}[0]
+    Should Contain    ${output}    ${UPDATE_PORT}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Get Suite Debugs
+
+Suite Teardown
+    [Documentation]    Delete the setup
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
+    OpenStackOperations.OpenStack Suite Teardown

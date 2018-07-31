@@ -1,15 +1,15 @@
 *** Settings ***
 Documentation     Test suite for ARP Request. More test cases to be added in subsequent patches.
-Suite Setup       VpnOperations.Basic Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup
+Suite Teardown    Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/VpnOperations.robot
+Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
@@ -37,75 +37,6 @@ ${RPING_MIP_IP_2}    sudo arping -I eth0:1 -c 5 -b -s 192.168.20.110 192.168.20.
 ${RPING_EXP_STR}    broadcast
 
 *** Test Cases ***
-Create Neutron Networks
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
-    ${neutron_networks} =    OpenStackOperations.List Networks
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    BuiltIn.Should Contain    ${neutron_networks}    ${network}
-    ${NET_ID} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
-    BuiltIn.Set Suite Variable    ${NET_ID}
-
-Create Neutron Subnets
-    : FOR    ${i}    IN RANGE    0    3
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
-    ${neutron_subnets} =    OpenStackOperations.List Subnets
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
-
-Add Ssh Allow All Rule
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-
-Create Neutron Ports
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORTS}
-
-Create Nova VMs
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
-    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET_3_VM_IPS}
-    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_3_DHCP_IP}    None
-
-Create Router
-    OpenStackOperations.Create Router    ${ROUTER}
-    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[1]
-    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[2]
-
-Create L3VPN
-    ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${NET_ID}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=${VPN_NAMES[0]}    rd=${RD1}    exportrt=${EXPORT_RT}    importrt=${IMPORT_RT}    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
-
-Associate L3VPN To ROUTER
-    VpnOperations.Associate L3VPN To Network    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    ${NET_ID}
-    ${ROUTER_ID} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    BuiltIn.Set Suite Variable    ${ROUTER_ID}
-    VpnOperations.Associate VPN to Router    routerid=${ROUTER_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    ${ROUTER_ID}
-
 Verify Setup
     [Documentation]    Verify that VMs received ip and ping is happening between different VM
     ${vms} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
@@ -186,23 +117,74 @@ Same DPN MIP Migration
     [Tags]    not-implemented    exclude
     TODO
 
-Cleanup
-    [Documentation]    Delete the setup
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    VpnOperations.Dissociate VPN to Router    routerid=${ROUTER_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[1]
-    OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[2]
-    OpenStackOperations.Delete Router    ${ROUTER}
-    @{vms} =    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
-    @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
-    OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
-
 *** Keywords ***
-Start Suite
-    [Documentation]    Run at start of the suite
-    OpenStackOperations.OpenStack Suite Setup
-    TemplatedRequests.Create Default Session    timeout=10
+Suite Setup
+    VpnOperations.Basic Suite Setup
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    OpenStackOperations.Create Network    ${network}
+    ${neutron_networks} =    OpenStackOperations.List Networks
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    BuiltIn.Should Contain    ${neutron_networks}    ${network}
+    ${NET_ID} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    BuiltIn.Set Suite Variable    ${NET_ID}
+    : FOR    ${i}    IN RANGE    0    3
+    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
+    ${neutron_subnets} =    OpenStackOperations.List Subnets
+    : FOR    ${subnet}    IN    @{SUBNETS}
+    \    BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORTS}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
+    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET_3_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_3_DHCP_IP}    None
+    OpenStackOperations.Create Router    ${ROUTER}
+    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[1]
+    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[2]
+    ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${NET_ID}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=${VPN_NAMES[0]}    rd=${RD1}    exportrt=${EXPORT_RT}    importrt=${IMPORT_RT}    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
+    OpenStackOperations.Get Suite Debugs
+
+Suite Teardown
+    [Documentation]    Delete the setup
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.Dissociate L3VPN From Networks    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.Dissociate VPN to Router    routerid=${ROUTER_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    OpenStackOperations.OpenStack Suite Teardown
+
+Associate L3VPN To ROUTER
+    VpnOperations.Associate L3VPN To Network    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${NET_ID}
+    ${ROUTER_ID} =    OpenStackOperations.Get Router Id    ${ROUTER}
+    BuiltIn.Set Suite Variable    ${ROUTER_ID}
+    VpnOperations.Associate VPN to Router    routerid=${ROUTER_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${ROUTER_ID}
+
 
 Verify Ping On Same Networks
     [Documentation]    Verify ping among VM of same network
