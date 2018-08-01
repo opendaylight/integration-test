@@ -419,24 +419,22 @@ Delete Ports On Bridge By Type
     BuiltIn.Log    ${ports_present_after_delete}
 
 Get Tunnel Id And Packet Count
-    [Arguments]    ${conn_id}    ${table_id}    ${direction}    ${tun_id}    ${dst_mac}=""
-    [Documentation]    Get tunnel id and packet count from specified table id and destination port mac address
+    [Arguments]    ${conn_id}    ${table_id}    ${tun_id}    ${mac}=""
     ${tun_id} =    BuiltIn.Convert To Hex    ${tun_id}    prefix=0x    lowercase=yes
-    ${base_cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep tun_id=${tun_id}
-    ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($7,a,"[:-]"); print a[2]}'
-    ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($6,a,"[,=]"); {print a[4]}}'
+    ${cmd} =    BuiltIn.Run Keyword If    "${table_id}" == "${INTERNAL_TUNNEL_TABLE}"    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep ${mac} | grep tun_id=${tun_id} | grep goto_table:${ELAN_DMACTABLE}
+    ...    ELSE    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep ${mac}
     SSHLibrary.Switch Connection    ${conn_id}
-    Utils.Write Commands Until Expected Prompt    ${base_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    ${output} =    Utils.Write Commands Until Expected Prompt    ${full_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    @{list} =    String.Split String    ${output}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list}=    Split to lines    ${output}
     ${output} =    Set Variable    @{list}[0]
-    ${tunnel_id} =    Convert To Integer    ${output}    16
-    ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($4,a,"[=,]"); {print a[2]}}'
-    ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($4,a,"[=,]"); {print a[2]}}'
-    SSHLibrary.Switch Connection    ${conn_id}
-    ${output} =    Utils.Write Commands Until Expected Prompt    ${full_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    @{list} =    String.Split String    ${output}
-    ${packet_count} =    BuiltIn.Set Variable    @{list}[0]
+    ${output} =    String.Get Regexp Matches    ${output}    n_packets=([0-9]+),.*set_field:(0x[0-9a-z]+)|n_packets=([0-9]+),.*tun_id=(0x[0-9a-z]+)    1    2    3
+    ...    4
+    ${output} =    BuiltIn.Set Variable    @{output}[0]
+    ${output}    Convert To List    ${output}
+    ${packet_count}    ${tunnel_id} =    BuiltIn.Run Keyword If    "${table_id}" == "${ELAN_DMACTABLE}"    BuiltIn.Set Variable    @{output}[0]    @{output}[1]
+    ...    ELSE IF    "${table_id}" == "${INTERNAL_TUNNEL_TABLE}"    BuiltIn.Set Variable    @{output}[2]    @{output}[3]
+    ...    ELSE IF    "${table_id}" == "${L3_TABLE}"    BuiltIn.Set Variable    @{output}[0]    @{output}[1]
+    ${tunnel_id} =    Convert To Integer    ${tunnel_id}    16
     [Return]    ${tunnel_id}    ${packet_count}
 
 Verify Dump Flows For Specific Table
@@ -456,15 +454,13 @@ Verify Vni Segmentation Id and Tunnel Id
     ${port_mac2} =    OpenStackOperations.Get Port Mac    ${port2}
     ${segmentation_id1} =    OpenStackOperations.Get Network Segmentation Id    ${net1}
     ${segmentation_id2} =    OpenStackOperations.Get Network Segmentation Id    ${net2}
-    ${egress_tun_id}    ${before_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${L3_TABLE}    direction=${EGRESS}    tun_id=${segmentation_id2}
-    ...    dst_mac=${port_mac2}
+    ${egress_tun_id}    ${before_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${L3_TABLE}    tun_id=${segmentation_id2}    mac=${port_mac2}
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id2}    ${egress_tun_id}
-    ${egress_tun_id}    ${before_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${L3_TABLE}    direction=${EGRESS}    tun_id=${segmentation_id1}
-    ...    dst_mac=${port_mac1}
+    ${egress_tun_id}    ${before_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${L3_TABLE}    tun_id=${segmentation_id1}    mac=${port_mac1}
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id1}    ${egress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id1}
+    ${ingress_tun_id}    ${before_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id1}    mac=""
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id1}    ${ingress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id2}
+    ${ingress_tun_id}    ${before_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id2}    mac=""
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id2}    ${ingress_tun_id}
     ${ping_cmd} =    BuiltIn.Run Keyword If    '${ip}'=='ipv4'    BuiltIn.Set Variable    ping -c ${DEFAULT_PING_COUNT} ${vm2_ip}
     ...    ELSE    BuiltIn.Set Variable    ping6 -c ${DEFAULT_PING_COUNT} ${vm2_ip}
@@ -477,12 +473,10 @@ Verify Vni Packet Count After Traffic
     [Arguments]    ${before_count_egress_port1}    ${before_count_egress_port2}    ${before_count_ingress_port1}    ${before_count_ingress_port2}    ${segmentation_id1}    ${segmentation_id2}
     ...    ${port_mac1}    ${port_mac2}
     [Documentation]    Verify the packet count after the traffic sent
-    ${tun_id}    ${after_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${L3_TABLE}    direction=${EGRESS}    tun_id=${segmentation_id1}
-    ...    dst_mac=${port_mac1}
-    ${tun_id}    ${after_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id2}
-    ${tun_id}    ${after_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${L3_TABLE}    direction=${EGRESS}    tun_id=${segmentation_id2}
-    ...    dst_mac=${port_mac2}
-    ${tun_id}    ${after_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id1}
+    ${tun_id}    ${after_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${L3_TABLE}    tun_id=${segmentation_id1}    mac=${port_mac1}
+    ${tun_id}    ${after_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id2}    mac=""
+    ${tun_id}    ${after_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${L3_TABLE}    tun_id=${segmentation_id2}    mac=${port_mac2}
+    ${tun_id}    ${after_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id1}    mac=""
     ${diff_count_egress_port1} =    BuiltIn.Evaluate    ${after_count_egress_port1} - ${before_count_egress_port1}
     ${diff_count_ingress_port1} =    BuiltIn.Evaluate    ${after_count_ingress_port1} - ${before_count_ingress_port1}
     ${diff_count_egress_port2} =    BuiltIn.Evaluate    ${after_count_egress_port2} - ${before_count_egress_port2}
