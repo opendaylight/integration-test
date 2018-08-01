@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7f38a29c_411d2034",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-08-01T17:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf705c37_c382378f",
+      "revId": "cd4091faaed7537bf0b1d7228dafdbfef94e02e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99754dc3_ad8d9931",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 21
@@ -30,6 +48,30 @@
       "writtenOn": "2018-07-31T00:42:58Z",
       "side": 1,
       "message": "SUITE_NAME will not have the whole path like the SUITES vars do so need to do a search for SUITE_NAME in first_suite, or strip first suite from the right last /.",
+      "range": {
+        "startLine": 223,
+        "startChar": 6,
+        "endLine": 223,
+        "endChar": 13
+      },
+      "revId": "cd4091faaed7537bf0b1d7228dafdbfef94e02e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87377862_97c8a7a9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-08-01T17:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99754dc3_ad8d9931",
       "range": {
         "startLine": 223,
         "startChar": 6,
