@@ -94,6 +94,30 @@
       "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82624703_31b1c2e9",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-01T16:03:36Z",
+      "side": 1,
+      "message": "What jobs need the dcgw-setup? The jobs usually have a feature to load or enable so those checks can help us. I simply looked at jobs with NUM_TOOLS_SYSTEM \u003e 0 in netvirt and that was only the l2gw jobs which is why I suggested that flag. So just need to know what jobs need the setup and we can get the right flags.",
+      "parentUuid": "136b29c6_ec9d3246",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
