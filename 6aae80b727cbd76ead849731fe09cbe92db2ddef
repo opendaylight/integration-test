@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93da95fa_ffbe3d47",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-01T06:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2899c05c_c5a8c6d4",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 5
+      },
+      "revId": "6aae80b727cbd76ead849731fe09cbe92db2ddef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bef910aa_cfe4cbb1",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-30T20:10:34Z",
       "side": 1,
       "message": "TEP_NOT_HOSTED is more readable, and only two extra characters.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "6aae80b727cbd76ead849731fe09cbe92db2ddef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1289f4b8_b7dd1f3b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-01T06:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bef910aa_cfe4cbb1",
       "range": {
         "startLine": 101,
         "startChar": 2,
