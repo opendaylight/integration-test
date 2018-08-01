@@ -27,8 +27,6 @@ Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${EGRESS}         Egress
-${INGRESS}        Ingress
 ${VNI_SECURITY_GROUP}    vni_l2_sg
 @{VNI_NETWORKS}    vni_l2_net_1
 @{VNI_SUBNETS}    vni_l2_sub_1    vni_l2_sub_2    vni_l2_sub_3
@@ -44,24 +42,20 @@ VNI Based L2 Switching
     ${port_mac2} =    OpenStackOperations.Get Port Mac    @{VNI_NET_1_PORTS}[1]
     ${segmentation_id} =    OpenStackOperations.Get Network Segmentation Id    @{VNI_NETWORKS}[0]
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{VNI_NETWORKS}[0]    @{VNI_NET_1_VM_IPS}[0]    ping -c ${DEFAULT_PING_COUNT} @{VNI_NET_1_VM_IPS}[1]
-    ${egress_tun_id}    ${before_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${ELAN_DMACTABLE}    direction=${EGRESS}    tun_id=${segmentation_id}
-    ...    dst_mac=${port_mac2}
+    ${egress_tun_id}    ${before_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${ELAN_DMACTABLE}    tun_id=${segmentation_id}    mac=${port_mac2}
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id}    ${egress_tun_id}
-    ${egress_tun_id}    ${before_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${ELAN_DMACTABLE}    direction=${EGRESS}    tun_id=${segmentation_id}
-    ...    dst_mac=${port_mac1}
+    ${egress_tun_id}    ${before_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${ELAN_DMACTABLE}    tun_id=${segmentation_id}    mac=${port_mac1}
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id}    ${egress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id}
+    ${ingress_tun_id}    ${before_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id}    mac=""
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id}    ${ingress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id}
+    ${ingress_tun_id}    ${before_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id}    mac=""
     BuiltIn.Should Be Equal As Numbers    ${segmentation_id}    ${ingress_tun_id}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{VNI_NETWORKS}[0]    @{VNI_NET_1_VM_IPS}[0]    ping -c ${DEFAULT_PING_COUNT} @{VNI_NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${tun_id}    ${after_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${ELAN_DMACTABLE}    direction=${EGRESS}    tun_id=${segmentation_id}
-    ...    dst_mac=${port_mac2}
-    ${tun_id}    ${after_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id}
-    ${tun_id}    ${after_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${ELAN_DMACTABLE}    direction=${EGRESS}    tun_id=${segmentation_id}
-    ...    dst_mac=${port_mac1}
-    ${tun_id}    ${after_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id}
+    ${tun_id}    ${after_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${ELAN_DMACTABLE}    tun_id=${segmentation_id}    mac=${port_mac2}
+    ${tun_id}    ${after_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP1_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id}    mac=""
+    ${tun_id}    ${after_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${ELAN_DMACTABLE}    tun_id=${segmentation_id}    mac=${port_mac1}
+    ${tun_id}    ${after_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    tun_id=${segmentation_id}    mac=""
     ${diff_count_egress_port1} =    BuiltIn.Evaluate    ${after_count_egress_port1} - ${before_count_egress_port1}
     ${diff_count_ingress_port1} =    BuiltIn.Evaluate    ${after_count_ingress_port1} - ${before_count_ingress_port1}
     ${diff_count_egress_port2} =    BuiltIn.Evaluate    ${after_count_egress_port2} - ${before_count_egress_port2}
