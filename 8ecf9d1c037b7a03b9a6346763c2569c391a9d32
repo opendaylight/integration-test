@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60304992_c9eea3fb",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-08-01T09:45:26Z",
+      "side": 1,
+      "message": "You need another instance of vxlan_tool running to forward reverse traffic:\n--do forward --interface ens3 --output ens2",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 123
+      },
+      "revId": "8ecf9d1c037b7a03b9a6346763c2569c391a9d32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "685dfb34_62e9253f",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-08-01T09:45:26Z",
+      "side": 1,
+      "message": "You need another instance of vxlan_tool running to forward reverse traffic (it wont be forwarded because you are blocking the forward path, but you need it to make sure the forward path blocking is actually what is preventing traffic from working instead of the reverse path not being forwarded):\n--do forward --interface ens3 --output ens2",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 134
+      },
+      "revId": "8ecf9d1c037b7a03b9a6346763c2569c391a9d32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbad16c4_c67d7e08",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-08-01T09:45:26Z",
+      "side": 1,
+      "message": "You need another instance of vxlan_tool running to forward reverse traffic:\n--do forward --interface ens3 --output ens2",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 123
+      },
+      "revId": "8ecf9d1c037b7a03b9a6346763c2569c391a9d32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f5c98a2_02220595",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-08-01T09:45:26Z",
+      "side": 1,
+      "message": "You need to block on the reverse path, not the forward path. So run a vxlan_tool instance not blocking in the forward path:\n--do forward --interface ens2 --output ens3\nAnmd run another vxlan_toll instance blocking in the reverse path:\n--do forward --interface ens3 --output ens2 --block 2000",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 136
+      },
+      "revId": "8ecf9d1c037b7a03b9a6346763c2569c391a9d32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
