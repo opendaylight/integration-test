@@ -22,6 +22,30 @@
       "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a96fddf_4104ece4",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-01T12:28:42Z",
+      "side": 1,
+      "message": "Also if this check goes up top, then you need to wrap the cat in a function so that it can be called inside the positive case so that the here doc is created.",
+      "parentUuid": "f9e84aff_1ed00c8b",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
