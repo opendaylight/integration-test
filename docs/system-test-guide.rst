@@ -180,6 +180,9 @@ Explanation:
   by comma.
 * robot-options: robot option you want to pass to the test separated by space.
 
+Self-Managed projects
+^^^^^^^^^^^^^^^^^^^^^
+
 For Self-Managed project, we need 2 extra parameters:
 
 * trigger-jobs: Self-Managed CSIT will run after succesful project merge, so just
