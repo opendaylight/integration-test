@@ -46,6 +46,54 @@
       "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "136b29c6_ec9d3246",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-01T12:56:52Z",
+      "side": 1,
+      "message": "ok, i\u0027ll remove it and I think l2gw does not need quagga installations, what should be specific check ? please suggest me how to go ahead.",
+      "parentUuid": "f9e84aff_1ed00c8b",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d906efc_142d4f96",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-01T12:56:52Z",
+      "side": 1,
+      "message": "I have sent separate analysis mail regarding it. please go through that mail and let us know how to proceed it.",
+      "parentUuid": "6a96fddf_4104ece4",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
