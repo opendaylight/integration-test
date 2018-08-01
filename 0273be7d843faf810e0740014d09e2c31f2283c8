@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9e84aff_1ed00c8b",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-01T12:25:42Z",
+      "side": 1,
+      "message": "Why is this flag used and not the specific features requiring the tools vms with dcgw setup - like l2gw?? This flag has also been removed completely in the latest builder code so it can not be used.",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
