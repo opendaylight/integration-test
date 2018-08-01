@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ccc161e_124a7517",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-08-01T15:49:40Z",
+      "side": 1,
+      "message": "The RSP names used in ${SERVICE_FUNCTION_ACLS_FILE} no longer match the ones generated from the created SFPs in ${SERVICE_FUNCTION_PATHS_FILE} so we probably need to change the former.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 104
+      },
+      "revId": "1a5f3b22dae3a20842b147177073a1af698849fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
