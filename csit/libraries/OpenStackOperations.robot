@@ -556,7 +556,7 @@ Get Test Teardown Debugs
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
 Get Suite Debugs
-    Get Test Teardown Debugs    test_name=${SUITE_NAME}
+    Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
