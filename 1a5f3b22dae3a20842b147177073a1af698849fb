@@ -22,6 +22,30 @@
       "revId": "1a5f3b22dae3a20842b147177073a1af698849fb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab8821d5_c3b6b426",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-08-02T09:33:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ccc161e_124a7517",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 104
+      },
+      "revId": "1a5f3b22dae3a20842b147177073a1af698849fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
