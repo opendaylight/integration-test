@@ -20,6 +20,7 @@ Resource          ../variables/netvirt/Variables.robot
 ${genius_config_dir}    ${CURDIR}/../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
+${Bridge-3}       BR3
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 @{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    OVSDB
 ${vlan}           0
@@ -73,6 +74,31 @@ Start Suite
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
 
+Start Suite For Third Node
+    [Documentation]    Initial setup for third dpn
+    Log    >>>>>Switch 3 configuration <<<<<
+    ${conn_id_3} =    Open Connection    ${TOOLS_SYSTEM_3_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Global Variable    ${conn_id_3}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Log    ${conn_id_3}
+    ${rmout}    Execute Command    sudo rm /etc/openvswitch/conf.db
+    Log    ${rmout}
+    ${restartout}    Execute Command    sudo service openvswitch-switch restart
+    Log    ${restartout}
+    Execute Command    sudo ovs-vsctl add-br BR3
+    Execute Command    sudo ovs-vsctl set bridge BR3 protocols=OpenFlow13
+    Execute Command    sudo ovs-vsctl set-controller BR3 tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ifconfig BR3 up
+    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    ${output_3}    Execute Command    sudo ovs-vsctl show
+    Log    ${output_3}
+    ${dpn_Id_1} =    Genius.Get Dpn Ids    ${conn_id_1}
+    ${dpn_Id_2} =    Genius.Get Dpn Ids    ${conn_id_2}
+    ${dpn_Id_3} =    Genius.Get Dpn Ids    ${conn_id_3}
+    BuiltIn.Set Global Variable    ${dpn_Id_1}
+    BuiltIn.Set Global Variable    ${dpn_Id_2}
+    BuiltIn.Set Global Variable    ${dpn_Id_3}
+
 Stop Suite
     Log    Stop the tests
     Switch Connection    ${conn_id_1}
@@ -88,6 +114,15 @@ Stop Suite
     Write    exit
     close connection
 
+Stop Suite For Third Node
+    Log    Stop the tests for 3rd node
+    Switch Connection    ${conn_id_3}
+    Log    ${conn_id_3}
+    Execute Command    sudo ovs-vsctl del-br BR3
+    Execute Command    sudo ovs-vsctl del-manager
+    Write    exit
+    close connection
+
 check establishment
     [Arguments]    ${conn_id}    ${port}
     Switch Connection    ${conn_id}
@@ -97,8 +132,9 @@ check establishment
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ...    ${file}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
+    ${body}    OperatingSystem.Get File    ${genius_config_dir}/${file}
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
@@ -106,7 +142,7 @@ Create Vteps
     ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
     ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
-    ...    ${gateway-ip}    ${subnet}
+    ...    ${gateway-ip}    ${subnet}    ${file}
     ${vtep_body}    Set Variable    ${body}
     Set Global Variable    ${vtep_body}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
@@ -115,9 +151,9 @@ Create Vteps
 
 Set Json
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    ...    ${subnet}
+    ...    ${subnet}    ${file}
     [Documentation]    Sets Json with the values passed for it.
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
+    ${body}    OperatingSystem.Get File    ${genius_config_dir}/${file}
     ${body}    replace string    ${body}    1.1.1.1    ${subnet}
     ${body}    replace string    ${body}    "dpn-id": 101    "dpn-id": ${Dpn_id_1}
     ${body}    replace string    ${body}    "dpn-id": 102    "dpn-id": ${Dpn_id_2}
@@ -127,6 +163,22 @@ Set Json
     ${body}    replace string    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway-ip}"
     Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
+
+set json for 3 dpns
+    [Arguments]    ${dpn1_ip}    ${dpn2_ip}    ${dpn3_ip}    ${vlan}    ${gateway-ip}    ${subnet}
+    ...    ${file}
+    [Documentation]    Sets Json for 3 dpns with the values passed for it.
+    ${body}    OperatingSystem.Get File    ${genius_config_dir}/${file}
+    ${body}    String.Replace String    ${body}    1.1.1.1    ${subnet}
+    ${body}    String.Replace String    ${body}    "dpn-id": 101    "dpn-id": ${dpn_Id_1}
+    ${body}    String.Replace String    ${body}    "dpn-id": 102    "dpn-id": ${dpn_Id_2}
+    ${body}    String.Replace String    ${body}    "dpn-id": 103    "dpn-id": ${dpn_Id_3}
+    ${body}    String.Replace String    ${body}    "ip-address": "2.2.2.2"    "ip-address": "${dpn1_ip}"
+    ${body}    String.Replace String    ${body}    "ip-address": "3.3.3.3"    "ip-address": "${dpn2_ip}"
+    ${body}    String.Replace String    ${body}    "ip-address": "4.4.4.4"    "ip-address": "${dpn3_ip}"
+    ${body}    String.Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
+    ${body}    String.Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway-ip}"
+    [Return]    ${body}
 
 Get Dpn Ids
     [Arguments]    ${connection_id}
