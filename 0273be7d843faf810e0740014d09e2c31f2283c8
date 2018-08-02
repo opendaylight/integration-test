@@ -118,6 +118,30 @@
       "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c85056b_eecff245",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-02T07:05:10Z",
+      "side": 1,
+      "message": "All netvirt L3VPN related jobs needed dcgw-setup configurations. Is there any flag related to L3VPN jobs ?",
+      "parentUuid": "82624703_31b1c2e9",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 54
+      },
+      "revId": "0273be7d843faf810e0740014d09e2c31f2283c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
