@@ -490,3 +490,12 @@ Verify Vni Packet Count After Traffic
     BuiltIn.Should Be True    ${diff_count_ingress_port1} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_egress_port2} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
+
+Ovs Verification For Tunnels
+    [Arguments]    ${connection_id}    ${flag}    @{matching_paras}
+    [Documentation]    Checks whether the created Interface is seen on OVS or not.
+    SSHLibrary.Switch Connection    ${connection_id}
+    ${output}    SSHLibrary.Execute Command    sudo ovs-vsctl show
+    : FOR    ${matching_str}    IN    @{matching_paras}
+    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${output}    ${matching_str}
+    \    ...    ELSE    BuiltIn.Should Not Contain    ${output}    ${matching_str}
