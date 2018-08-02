@@ -284,7 +284,7 @@ Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
 Delete Multiple L3VPNs
     [Arguments]    @{vpns}
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
-    : FOR    ${vpn}    IN    ${vpns}
+    : FOR    ${vpn}    IN    @{vpns}
     \    VPN Delete L3VPN    vpnid=${vpn}
 
 VNI Test Setup
