@@ -129,7 +129,7 @@ else:
 
 BODY['jenkins-silo'] = os.environ['SILO']
 BODY['test-name'] = os.environ['JOB_NAME']
-BODY['test-run'] = os.environ['BUILD_NUMBER']
+BODY['test-run'] = int(os.environ['BUILD_NUMBER'])
 
 # Parsing robot log for stats on start-time, pass/fail tests and duration.
 
