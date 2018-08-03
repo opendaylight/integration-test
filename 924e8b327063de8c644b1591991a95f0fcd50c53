@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9938010_711f3a6a",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:18:11Z",
+      "side": 1,
+      "message": "not blocking review on this, but this should be named\nbetter so we know what it is when it\u0027s used below. And\nso it\u0027s less likely to conflict with other variables.\nfor example, you have the same REST_CONTEXT variable\ndefined in Sxp.robot lib. If a suite sources both of these\nlibs and tries to use REST_CONTEXT somehow, what value\nis it going to get?",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "924e8b327063de8c644b1591991a95f0fcd50c53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a984335_f2151b40",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:18:11Z",
+      "side": 1,
+      "message": "see comment in other lib",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "924e8b327063de8c644b1591991a95f0fcd50c53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a03af48_357d2abf",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:18:11Z",
+      "side": 1,
+      "message": "also not a blocking comment, but the int/test repo\nis slowly standardizing on using this format for\nvariable assignment.\n\n${output} \u003d    Get From Dictionary...\n\nso, space and \u003d after the variable name. Would be nice\nto convert to that for consistency in some new patch.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 13
+      },
+      "revId": "924e8b327063de8c644b1591991a95f0fcd50c53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0721d02_28a1fee7",
+        "filename": "csit/suites/sxp/binding-origin/010_Binding_Origins_Configuration.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:18:11Z",
+      "side": 1,
+      "message": "no need for these kinds of comments when it\u0027s pretty\nclear (because of good keyword naming) what is going\non by reading the next two lines.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "924e8b327063de8c644b1591991a95f0fcd50c53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
