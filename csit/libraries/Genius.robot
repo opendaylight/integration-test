@@ -160,10 +160,11 @@ Genius Test Setup
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 
 Genius Test Teardown
-    [Arguments]    ${data_models}
+    [Arguments]    ${data_models}    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
