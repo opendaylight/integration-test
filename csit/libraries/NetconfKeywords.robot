@@ -30,7 +30,7 @@ ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
-${TESTTOOL_DEFAULT_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/netconf/netconf-testtool/1.3.2/netconf-testtool-1.3.2-executable.jar
+${TESTTOOL_DEFAULT_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/netconf/netconf-testtool/1.4.2/netconf-testtool-1.4.2-executable.jar
 ${TESTTOOL_BOOT_TIMEOUT}    60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
 
