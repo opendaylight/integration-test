@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c55fc792_5d3f021a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:56:48Z",
+      "side": 1,
+      "message": "put your own minus 1 on the review if you want to be\nextra clear that you aren\u0027t ready for a review.\n\nOR, you can push it as a \"draft\" which doesn\u0027t even\nlet gerrit trigger the verify jobs and wont let anyone\nmerge it on accident. usually overkill, but just fyi.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 16
+      },
+      "revId": "45605e2b8d2f68802c8dea7401dc27e16778a8d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
