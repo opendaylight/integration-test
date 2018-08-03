@@ -164,6 +164,7 @@ Genius Test Teardown
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
