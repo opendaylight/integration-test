@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fea12745_d3b025b2",
+        "filename": "csit/suites/sxp/binding-origin/020_Binding_Origins_Checks.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-03T18:22:13Z",
+      "side": 1,
+      "message": "some of the BuiltIn.Comment lines are \njust noise.\n\nfor example:\n    BuiltIn.Comment    Add binding\n    SxpLib.Add Bindings    10    1.1.1.1/32    LOCAL\n\nRobot is pretty verbose and human readable to start with,\nso no need to add a comment that\u0027s essentially saying\nexactly the same thing the actual keyword says.",
+      "revId": "7bb03d4fc68b79e1213544104fe51ca443fc61ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
