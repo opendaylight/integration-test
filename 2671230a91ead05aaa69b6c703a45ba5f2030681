@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "566b4739_6409ea44",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:19:32Z",
+      "side": 1,
+      "message": "SNAT_ENABLED",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 8
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "605af163_ce361a23",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:19:32Z",
+      "side": 1,
+      "message": "SNAT_DISABLED",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 9
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b437ad64_0036b65d",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:19:32Z",
+      "side": 1,
+      "message": "need the \u00271\u0027 for something?",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f50b49e_aa84dada",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:19:32Z",
+      "side": 1,
+      "message": "what are we gaining in this test case that we don\u0027t\ncheck in the next test case?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 66
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b22df7f_cb651d80",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:19:32Z",
+      "side": 1,
+      "message": "space \u003d",
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
