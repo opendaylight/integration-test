@@ -142,7 +142,7 @@ Verify L3Broadcast With Antispoofing Table
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_IP}    ${DUMP_FLOW} | grep table=${EGRESS_ACL_TABLE} | grep ${BCAST_IP}
     ${get_pkt_count_after_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
-    ${pkt_diff_expected} =    BuiltIn.Set Variable If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    ${PACKET_DIFF_CMB}    ${PACKET_DIFF}
-    ${pkt_count} =    BuiltIn.Set Variable If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    ${PACKET_COUNT_CMB}    ${PACKET_COUNT}
+    ${pkt_diff_expected} =    BuiltIn.Set Variable If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    ${PACKET_DIFF_CMB}    ${PACKET_DIFF}
+    ${pkt_count} =    BuiltIn.Set Variable If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    ${PACKET_COUNT_CMB}    ${PACKET_COUNT}
     BuiltIn.Run Keyword If    '${subnet_var}' == 'same'    Should Be Equal As Numbers    ${pkt_diff}    ${pkt_count}
     ...    ELSE    Should Be True    ${pkt_diff} == ${pkt_diff_expected}

@@ -99,8 +99,8 @@ Get DevStack Nodes Data
     [Documentation]    Assign global variables for DevStack nodes
     BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
     DevstackUtils.Open Connection    OS_CNTL_CONN_ID    ${OS_CNTL_IP}
-    BuiltIn.Run Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    DevstackUtils.Set Node Data For AllinOne Setup
-    ...    ELSE IF    "${OS_DEPLOY}" == "1cmb-0ctl-1cmp"    DevstackUtils.Set Node Data For Control And Compute Node Setup
-    ...    ELSE IF    "${OS_DEPLOY}" == "0cmb-1ctl-2cmp"    DevstackUtils.Set Node Data For Control And Two Compute Node Setup
+    BuiltIn.Run Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    DevstackUtils.Set Node Data For AllinOne Setup
+    ...    ELSE IF    "${OPENSTACK_TOPO}" == "1cmb-0ctl-1cmp"    DevstackUtils.Set Node Data For Control And Compute Node Setup
+    ...    ELSE IF    "${OPENSTACK_TOPO}" == "0cmb-1ctl-2cmp"    DevstackUtils.Set Node Data For Control And Two Compute Node Setup
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data

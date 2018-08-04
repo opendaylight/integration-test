@@ -46,7 +46,7 @@ Verify Setup
 
 Verify GARP Requests
     [Documentation]    Verify that GARP request are sent to controller
-    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
+    BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     BuiltIn.Set Test Variable    ${fib_entry_1}    @{NET_1_VM_IPS}[0]
     BuiltIn.Set Test Variable    ${fib_entry_3}    @{NET_1_VM_IPS}[1]
     Verify Flows Are Present On All Compute Nodes
@@ -76,7 +76,7 @@ Verify GARP Requests
 
 Verify MIP Migration
     [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes
-    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
+    BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${unconfig_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} down
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${unconfig_extra_route_ip1}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ifconfig

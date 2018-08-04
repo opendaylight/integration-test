@@ -39,7 +39,7 @@ ${VNI_SECURITY_GROUP}    vni_l2_sg
 *** Test Cases ***
 VNI Based L2 Switching
     [Documentation]    verify VNI id for L2 Unicast frames exchanged over OVS datapaths that are on different hypervisors
-    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
+    BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${port_mac1} =    OpenStackOperations.Get Port Mac    @{VNI_NET_1_PORTS}[0]
     ${port_mac2} =    OpenStackOperations.Get Port Mac    @{VNI_NET_1_PORTS}[1]
     ${segmentation_id} =    OpenStackOperations.Get Network Segmentation Id    @{VNI_NETWORKS}[0]
@@ -74,7 +74,7 @@ VNI Based L2 Switching
 *** Keywords ***
 Suite Setup
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
-    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI_SECURITY_GROUP}
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[0]
@@ -92,5 +92,5 @@ Suite Setup
     OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
-    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     OpenStackOperations.OpenStack Suite Teardown

@@ -288,9 +288,9 @@ Delete Multiple L3VPNs
     \    VPN Delete L3VPN    vpnid=${vpn}
 
 VNI Test Setup
-    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 
 VNI Test Teardown
-    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     OpenStackOperations.Get Test Teardown Debugs
