@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c950a69d_2ee3c291",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "is it too expensive to only pass ${router} and then always\ndo the Get Router Id step? Would make this read easier,\nbut I get the idea that we can be more efficient if we\nalready know the router_id.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 35
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd808005_1fb11d2d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "Get Router VNI Value With Restconf",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 12
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23f094e9_2478b384",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "remove this line and move lines 814-815 up here.",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 812,
+        "endChar": 55
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0ace0d6_f8efd8c2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "content",
+      "range": {
+        "startLine": 817,
+        "startChar": 6,
+        "endLine": 817,
+        "endChar": 12
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e6d228b_647aa27d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "all three comments in the above keyword apply to this one.",
+      "range": {
+        "startLine": 822,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 23
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60684535_ab2d40f4",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "remove. you have it below.\n\nalphabetize these Resource imports.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f4e1848_b77eaeb2",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "I think we have a better ping regex somewhere. you want\nto check that we have 100% packet success right?",
+      "range": {
+        "startLine": 80,
+        "startChar": 43,
+        "endLine": 80,
+        "endChar": 51
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97ed0e95_5bf500ab",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "how about just using @{list}[0] here and deleting line 109 entirely. applies below as well.",
+      "range": {
+        "startLine": 110,
+        "startChar": 53,
+        "endLine": 110,
+        "endChar": 61
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1d58d32_096d4162",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:30:25Z",
+      "side": 1,
+      "message": "move these to the URL section below and use the NAPT_SWITCH_URL naming. Maybe VNI_URL should be VNI_IDS_URL\nto be more explicit?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 94
+      },
+      "revId": "5f5228210680695652957ab08ac425b0e08a6aca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
