@@ -23,7 +23,7 @@ opendaylight-test-feature:
             schema: metric
             value_axis: 1
         build:
-            field: performance.test-run.keyword
+            field: performance.test-run
             label: Build Number
             schema: segment
             not_in_seriesParams: true
@@ -43,7 +43,7 @@ opendaylight-test-performance:
             value_axis: 1
     aggs:
         build:
-            field: performance.test-run.keyword
+            field: performance.test-run
             custom_label: Build Number
             schema: segment
         default:
