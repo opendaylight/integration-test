@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eca768a6_a362537a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade_napt1.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:37:39Z",
+      "side": 1,
+      "message": "why the 1 in upgrade_napt1.robot?\n\nalso, instead of the copy/paste from the netvirt/upgrade.robot suite, it\u0027s time to move common\nthings to a lib and share.",
+      "revId": "85c17aa861463a353608551a68711305ad5729b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1da9ae8_8f73bbe6",
+        "filename": "csit/suites/netvirt/upgrade/upgrade_napt1.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-04T05:37:39Z",
+      "side": 1,
+      "message": "TYPE is too generic of a word. can you name it a little\nmore descriptively?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "85c17aa861463a353608551a68711305ad5729b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
