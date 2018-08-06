@@ -3,6 +3,7 @@ Documentation     Library containing Keywords used for SXP testing
 Library           Collections
 Library           RequestsLibrary
 Library           ./Sxp.py
+Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
@@ -78,7 +79,7 @@ Verify Connection
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${origin}=LOCAL
     [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
     ${data} =    Sxp.Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
     Post To Controller    ${session}    add-bindings    ${data}
@@ -96,10 +97,11 @@ Clean Bindings
     ${resp} =    Get Bindings    ${node}    ${session}    ${domain}    ${scope}
     @{bindings} =    Sxp.Parse Bindings    ${resp}
     : FOR    ${binding}    IN    @{bindings}
-    \    Delete Bindings    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}    ${domain}    ${session}
+    \    @{prefixes} =    collections.Get From Dictionary    ${binding}    ip-prefix
+    \    Delete Bindings    ${binding['sgt']}    ${node}    ${domain}    ${session}    @{prefixes}
 
 Delete Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
+    [Arguments]    ${sgt}    ${node}=127.0.0.1    ${domain}=global    ${session}=session    @{prefixes}
     [Documentation]    Delete one or more bindings via RPC from Master DB of node
     ${data} =    Sxp.Delete Bindings Xml    ${node}    ${domain}    ${sgt}    @{prefixes}
     Post To Controller    ${session}    delete-bindings    ${data}
@@ -135,7 +137,7 @@ Clean Peer Groups
 Add Filter
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
     [Documentation]    Add Filter via RPC from Node
-    ${data} =    BuiltIn.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
+    ${data} =    CompareStream.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
     ...    ${node}    ${policy}
     ...    ELSE    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
     Post To Controller    ${session}    add-filter    ${data}
