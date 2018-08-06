@@ -913,7 +913,7 @@ def add_domain_xml_fluorine(node_id, name, sgt, prefixes, origin):
     :type sgt: int
     :param prefixes: List of ip-prefixes
     :type prefixes: str
-    :param origin: Origin of added bindings
+    :param origin: Origin of added xml_prefixes
     :type origin: str
     :returns: String containing xml data for request
 
@@ -1019,7 +1019,7 @@ def add_bindings_xml_fluorine(node_id, domain, sgt, prefixes, origin):
     :type sgt: int
     :param prefixes: List of ip-prefixes
     :type prefixes: str
-    :param origin: Origin of added bindings
+    :param origin: Origin of added xml_prefixes
     :type origin: str
     :returns: String containing xml data for request
 
