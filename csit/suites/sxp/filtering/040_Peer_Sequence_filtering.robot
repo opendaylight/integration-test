@@ -13,27 +13,27 @@ Resource          ../../../libraries/SxpLib.robot
 Peer Sequence Filtering
     [Documentation]    Test PeerSequence filter behaviour
     [Tags]    SXP    Filtering
-    ${peers}    Sxp.Add Peers    127.0.0.2
+    ${peers} =    Sxp.Add Peers    127.0.0.2
     SxpLib.Add PeerGroup    GROUP    ${peers}
-    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,0
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,0
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check PeerSequence One
     SxpLib.Delete Filter    GROUP    outbound
-    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,1
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,1
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check PeerSequence Two
     SxpLib.Delete Filter    GROUP    outbound
-    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,2
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,2
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check PeerSequence Three
     SxpLib.Delete Filter    GROUP    outbound
-    ${entry1}    Sxp.Get Filter Entry    10    deny    ps=eq,1
-    ${entry2}    Sxp.Get Filter Entry    20    permit    ps=ge,0
-    ${entries}    Common.Combine Strings    ${entry1}    ${entry2}
+    ${entry1} =    Sxp.Get Filter Entry    10    deny    ps=eq,1
+    ${entry2} =    Sxp.Get Filter Entry    20    permit    ps=ge,0
+    ${entries} =    Common.Combine Strings    ${entry1}    ${entry2}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check PeerSequence Mix
     SxpLib.Delete Filter    GROUP    outbound
@@ -41,17 +41,17 @@ Peer Sequence Filtering
 Inbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
     [Tags]    SXP    Filtering
-    @{scopes}    BuiltIn.Create List    inbound    inbound-discarding
+    @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
     \    SxpLib.Add PeerGroup    GROUP
-    \    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,1
-    \    ${entries}    Common.Combine Strings    ${entry1}
+    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,1
+    \    ${entries} =    Common.Combine Strings    ${entry1}
     \    SxpLib.Add Filter    GROUP    ${scope}    ${entries}
     \    Setup Nodes Inbound Test
-    \    ${peers}    Sxp.Add Peers    127.0.0.2
+    \    ${peers} =    Sxp.Add Peers    127.0.0.2
     \    SxpLib.Add PeerGroup    GROUP2    ${peers}
-    \    ${entry1}    Sxp.Get Filter Entry    10    permit    pl=1.1.0.0/16
-    \    ${entries}    Common.Combine Strings    ${entry1}
+    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    pl=1.1.0.0/16
+    \    ${entries} =    Common.Combine Strings    ${entry1}
     \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
     \    BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound PL Combinations Filtering
     \    Clean Nodes
@@ -59,21 +59,21 @@ Inbound PL Combinations Filtering
 Inbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
     [Tags]    SXP    Filtering
-    @{scopes}    BuiltIn.Create List    inbound    inbound-discarding
+    @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
-    \    ${peers}    Sxp.Add Peers    127.0.0.2
+    \    ${peers} =    Sxp.Add Peers    127.0.0.2
     \    SxpLib.Add PeerGroup    GROUP2    ${peers}
-    \    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,2
+    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,2
     \    ${entries}    Common.Combine Strings    ${entry1}
     \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
     \    Setup Nodes Inbound Test
-    \    ${entry1}    Sxp.Get Filter Entry    10    permit    acl=1.1.1.0,0.0.0.255
-    \    ${entries}    Common.Combine Strings    ${entry1}
+    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    acl=1.1.1.0,0.0.0.255
+    \    ${entries} =    Common.Combine Strings    ${entry1}
     \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
-    \    ${peers}    Sxp.Add Peers    127.0.0.5
+    \    ${peers} =    Sxp.Add Peers    127.0.0.5
     \    SxpLib.Add PeerGroup    GROUP5    ${peers}
-    \    ${entry1}    Sxp.Get Filter Entry    10    permit    sgt=40
-    \    ${entries}    Common.Combine Strings    ${entry1}
+    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    sgt=40
+    \    ${entries} =    Common.Combine Strings    ${entry1}
     \    SxpLib.Add Filter    GROUP5    ${scope}    ${entries}
     \    BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound ACL Combinations Filtering
     \    Clean Nodes
@@ -82,14 +82,14 @@ Outbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
     [Tags]    SXP    Filtering
     SxpLib.Add PeerGroup    GROUP
-    ${entry1}    Sxp.Get Filter Entry    10    permit    pl=1.1.1.0/24
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    pl=1.1.1.0/24
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     Setup Nodes Outbound Test
-    ${peers}    Sxp.Add Peers    127.0.0.2
+    ${peers} =    Sxp.Add Peers    127.0.0.2
     SxpLib.Add PeerGroup    GROUP2    ${peers}
-    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=le,1
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,1
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP2    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check Outbound PL Combinations Filtering
 
@@ -97,15 +97,15 @@ Outbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
     [Tags]    SXP    Filtering
     SxpLib.Add PeerGroup    GROUP
-    ${entry1}    Sxp.Get Filter Entry    10    permit    ps=eq,0
-    ${entry2}    Sxp.Get Filter Entry    20    permit    ps=ge,2
-    ${entries}    Common.Combine Strings    ${entry1}    ${entry2}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=eq,0
+    ${entry2} =    Sxp.Get Filter Entry    20    permit    ps=ge,2
+    ${entries} =    Common.Combine Strings    ${entry1}    ${entry2}
     SxpLib.Add Filter    GROUP    outbound    ${entries}
     Setup Nodes Outbound Test
-    ${peers}    Sxp.Add Peers    127.0.0.2
+    ${peers} =    Sxp.Add Peers    127.0.0.2
     SxpLib.Add PeerGroup    GROUP2    ${peers}
-    ${entry1}    Sxp.Get Filter Entry    10    permit    acl=1.1.0.0,0.0.255.255
-    ${entries}    Common.Combine Strings    ${entry1}
+    ${entry1} =    Sxp.Get Filter Entry    10    permit    acl=1.1.0.0,0.0.255.255
+    ${entries} =    Common.Combine Strings    ${entry1}
     SxpLib.Add Filter    GROUP2    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check Outbound ACL Combinations Filtering
 
@@ -192,7 +192,7 @@ Setup Nodes Outbound Test
 
 Check PeerSequence One
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 1
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
     SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
@@ -205,7 +205,7 @@ Check PeerSequence One
 
 Check PeerSequence Two
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 2
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
     SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
@@ -222,7 +222,7 @@ Check PeerSequence Two
 
 Check PeerSequence Three
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 3
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
     SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
@@ -242,7 +242,7 @@ Check PeerSequence Three
 
 Check PeerSequence Mix
     [Documentation]    Node 127.0.0.2 should not contain bindings with peer sequence 1
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
     SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
@@ -262,7 +262,7 @@ Check PeerSequence Mix
 
 Check Inbound PL Combinations Filtering
     [Documentation]    Node 127.0.0.1 should containt bindings with peer sequence lower than 1 and pl 1.1.0.0/16
-    ${resp}    SxpLib.Get Bindings    127.0.0.1
+    ${resp} =    SxpLib.Get Bindings    127.0.0.1
     SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32
     SxpLib.Should Contain Binding    ${resp}    20    1.1.2.0/24
     SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16
@@ -282,7 +282,7 @@ Check Inbound PL Combinations Filtering
 
 Check Inbound ACL Combinations Filtering
     [Documentation]    Node 127.0.0.1 should containt bindings with peer sequence lower than 2 and acl 1.1.1.0 0.0.0.255
-    ${resp}    SxpLib.Get Bindings    127.0.0.1
+    ${resp} =    SxpLib.Get Bindings    127.0.0.1
     SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32
     SxpLib.Should Not Contain Binding    ${resp}    20    1.1.2.0/24
     SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16
@@ -302,7 +302,7 @@ Check Inbound ACL Combinations Filtering
 
 Check Outbound PL Combinations Filtering
     [Documentation]    Node 127.0.0.2 should containt bindings with peer sequence lower than 1 and pl 1.1.1.0/24
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32
     SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24
     SxpLib.Should Not Contain Binding    ${resp}    10    1.1.0.0/16
@@ -322,7 +322,7 @@ Check Outbound PL Combinations Filtering
 
 Check Outbound ACL Combinations Filtering
     [Documentation]    Node 127.0.0.2 should containt bindings with peer sequence equals to 0 or greter than 2 and acl 1.1.0.0 0.0.255.255
-    ${resp}    SxpLib.Get Bindings    127.0.0.2
+    ${resp} =    SxpLib.Get Bindings    127.0.0.2
     SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32
     SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24
     SxpLib.Should Contain Binding    ${resp}    10    1.1.0.0/16
