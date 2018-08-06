@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29114652_aff7f494",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:20:24Z",
+      "side": 1,
+      "message": "is the local_ip the only ip that can be in other_config? maybe add local_ip: to the regex to make it more specific",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d967fbf_60115969",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:20:24Z",
+      "side": 1,
+      "message": "why a different regex? why not just call the ovs-vsctl command and do a single regex here to extract the ip? Could also validate that a match was also found before just returning the match[0].",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f94fe33_19d4092c",
+        "filename": "csit/testplans/netvirt-3node-tdd-wip-openstack.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:20:24Z",
+      "side": 1,
+      "message": "is this a genius test suite? if yo why is it in the netvirt testplan?",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1afc2bfd_ac32b4b3",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:20:24Z",
+      "side": 1,
+      "message": "I think we append_URL (or URI) to these vars.",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
