@@ -46,32 +46,32 @@ Check One Group 4-5
     : FOR    ${node}    IN RANGE    4    6
     \    ${resp}    Get Bindings    127.0.0.${node}
     \    Log    ${resp}
-    \    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    \    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    \    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    \    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    \    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    \    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    \    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    \    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    \    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16
+    \    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    \    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    \    Should Not Contain Binding    ${resp}    20    10.10.20.0/24
+    \    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    \    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+    \    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    \    Should Not Contain Binding    ${resp}    30    10.10.30.0/24
+    \    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
     ${resp}    Get Bindings    127.0.0.2
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Contain Binding    ${resp}    40    40.0.0.0/8
 
 Check Two Group 4-5
     [Documentation]    Check if only bindings matching filter nodes 4 and 5
@@ -82,32 +82,32 @@ Check Two Group 4-5
     : FOR    ${node}    IN RANGE    4    6
     \    ${resp}    Get Bindings    127.0.0.${node}
     \    Log    ${resp}
-    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    \    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    \    Should Not Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    \    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    \    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    \    Should Not Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+    \    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    \    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+    \    Should Not Contain Binding    ${resp}    20    10.10.10.20/32
+    \    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    \    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    \    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+    \    Should Not Contain Binding    ${resp}    30    10.10.10.30/32
+    \    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
     ${resp}    Get Bindings    127.0.0.2
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Contain Binding    ${resp}    40    40.0.0.0/8
 
 Check One Group 2-5
     [Documentation]    Check if only bindings matching filter nodes 2 and 5
@@ -120,32 +120,32 @@ Check One Group 2-5
     : FOR    ${node}    IN    @{list}
     \    ${resp}    Get Bindings    ${node}
     \    Log    ${resp}
-    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    \    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    \    Should Not Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    \    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+    \    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    \    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+    \    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    \    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    \    Should Not Contain Binding    ${resp}    40    10.10.10.40/32
+    \    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16
+    \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
     ${resp}    Get Bindings    127.0.0.4
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
 
 Check Two Group 2-5
     [Documentation]    Check if only bindings matching filter nodes 2 and 5
@@ -156,32 +156,32 @@ Check Two Group 2-5
     : FOR    ${node}    IN    @{list}
     \    ${resp}    Get Bindings    ${node}
     \    Log    ${resp}
-    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    \    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    \    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    \    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+    \    Should Not Contain Binding    ${resp}    10    10.10.10.0/24
+    \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16
+    \    Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+    \    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    \    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    \    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    \    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16
+    \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
     ${resp}    Get Bindings    127.0.0.4
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
 
 Check One Group 4-2
     [Documentation]    Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB other nodes
@@ -191,28 +191,28 @@ Check One Group 4-2
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     ${resp}    Get Bindings    127.0.0.5
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Not Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Not Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
     ${resp}    Get Bindings    127.0.0.3
     Log    ${resp}
-    Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
-    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    50    10.10.10.50/32
+    Should Contain Binding    ${resp}    50    10.10.50.0/24
+    Should Contain Binding    ${resp}    50    10.50.0.0/16
+    Should Contain Binding    ${resp}    50    50.0.0.0/8
 
 Check Two Group 4-2
     [Documentation]    Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB of other nodes
@@ -221,28 +221,28 @@ Check Two Group 4-2
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     ${resp}    Get Bindings    127.0.0.5
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
     ${resp}    Get Bindings    127.0.0.3
     Log    ${resp}
-    Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
-    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    50    10.10.10.50/32
+    Should Contain Binding    ${resp}    50    10.10.50.0/24
+    Should Contain Binding    ${resp}    50    10.50.0.0/16
+    Should Contain Binding    ${resp}    50    50.0.0.0/8
 
 Check Three Group 4-2
     [Documentation]    Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB of other nodes
@@ -251,22 +251,22 @@ Check Three Group 4-2
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     ${resp}    Get Bindings    127.0.0.5
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Not Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Not Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Not Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Not Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Not Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Not Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Not Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Not Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
 
 Check One Group 5-3
     [Documentation]    Check if only bindings matching filter from node 5 and 3 are propagated to SXP-DB of other nodes
@@ -276,28 +276,28 @@ Check One Group 5-3
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     ${resp}    Get Bindings    127.0.0.4
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
-    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Not Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Not Contain Binding    ${resp}    50    10.10.10.50/32
+    Should Not Contain Binding    ${resp}    50    10.10.50.0/24
+    Should Contain Binding    ${resp}    50    10.50.0.0/16
+    Should Not Contain Binding    ${resp}    50    50.0.0.0/8
     ${resp}    Get Bindings    127.0.0.2
     Log    ${resp}
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Contain Binding    ${resp}    40    40.0.0.0/8
 
 Check Two Group 5-3
     [Documentation]    Check if only bindings matching filter from node 5 and 3 are propagated to SXP-DB of other nodes
@@ -306,25 +306,25 @@ Check Two Group 5-3
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     ${resp}    Get Bindings    127.0.0.4
     Log    ${resp}
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
-    Should Not Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.10/32
+    Should Contain Binding    ${resp}    10    10.10.10.0/24
+    Should Contain Binding    ${resp}    10    10.10.0.0/16
+    Should Contain Binding    ${resp}    10    10.0.0.0/8
+    Should Contain Binding    ${resp}    20    10.10.10.20/32
+    Should Contain Binding    ${resp}    20    10.10.20.0/24
+    Should Contain Binding    ${resp}    20    10.20.0.0/16
+    Should Contain Binding    ${resp}    20    20.0.0.0/8
+    Should Contain Binding    ${resp}    30    10.10.10.30/32
+    Should Contain Binding    ${resp}    30    10.10.30.0/24
+    Should Contain Binding    ${resp}    30    10.30.0.0/16
+    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    Should Not Contain Binding    ${resp}    50    10.10.10.50/32
+    Should Not Contain Binding    ${resp}    50    10.10.50.0/24
+    Should Not Contain Binding    ${resp}    50    10.50.0.0/16
+    Should Not Contain Binding    ${resp}    50    50.0.0.0/8
     ${resp}    Get Bindings    127.0.0.2
     Log    ${resp}
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    40    10.10.10.40/32
+    Should Contain Binding    ${resp}    40    10.10.40.0/24
+    Should Contain Binding    ${resp}    40    10.40.0.0/16
+    Should Contain Binding    ${resp}    40    40.0.0.0/8
