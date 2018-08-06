@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14a2bf48_14bbeb0f",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:25:53Z",
+      "side": 1,
+      "message": "move up above RequestsLibrary",
+      "revId": "7c5f07192454a7c0cb5aceb60321434146922232",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a224564e_3954acc9",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:25:53Z",
+      "side": 1,
+      "message": "add\nOpenStackOperations.Show Debugs    @{NET_1_VMS}\nOpenStackOperations.Get Suite Debugs",
+      "revId": "7c5f07192454a7c0cb5aceb60321434146922232",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14acb1d6_9c019990",
+        "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-06T18:25:53Z",
+      "side": 1,
+      "message": "move up before jvm plots",
+      "revId": "7c5f07192454a7c0cb5aceb60321434146922232",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
