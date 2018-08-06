@@ -155,31 +155,31 @@ Check Export Part Three
 Check Forwarding V2=>V1
     [Documentation]    Check if appropriate bindings are exported per version
     ${resp}    Get Bindings
-    Should Not Contain Binding    ${resp}    6    56.56.56.0/24    sxp
-    Should Contain Binding    ${resp}    66    9.9.9.9/32    sxp
-    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128    sxp
-    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64    sxp
+    Should Not Contain Binding    ${resp}    6    56.56.56.0/24
+    Should Contain Binding    ${resp}    66    9.9.9.9/32
+    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128
+    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Init OK
     ${resp}    Get Bindings    127.0.0.3
-    Should Not Contain Binding    ${resp}    6    56.56.56.0/24    sxp
-    Should Contain Binding    ${resp}    66    9.9.9.9/32    sxp
-    Should Not Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128    sxp
-    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64    sxp
+    Should Not Contain Binding    ${resp}    6    56.56.56.0/24
+    Should Contain Binding    ${resp}    66    9.9.9.9/32
+    Should Not Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128
+    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Forward OK
 
 Check Forwarding V3=>V2
     [Documentation]    Check if appropriate bindings are exported per version
     ${resp}    Get Bindings
-    Should Contain Binding    ${resp}    6    56.56.56.0/24    sxp
-    Should Contain Binding    ${resp}    66    9.9.9.9/32    sxp
-    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128    sxp
-    Should Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64    sxp
+    Should Contain Binding    ${resp}    6    56.56.56.0/24
+    Should Contain Binding    ${resp}    66    9.9.9.9/32
+    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128
+    Should Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Init OK
     ${resp}    Get Bindings    127.0.0.3
-    Should Not Contain Binding    ${resp}    6    56.56.56.0/24    sxp
-    Should Contain Binding    ${resp}    66    9.9.9.9/32    sxp
-    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128    sxp
-    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64    sxp
+    Should Not Contain Binding    ${resp}    6    56.56.56.0/24
+    Should Contain Binding    ${resp}    66    9.9.9.9/32
+    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128
+    Should Not Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Forward OK
 
 Check Forwarding V4=>V3
@@ -191,10 +191,10 @@ Check Forwarding V4=>V3
     Should Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Init OK
     ${resp}    Get Bindings    127.0.0.3
-    Should Contain Binding    ${resp}    6    56.56.56.0/24    sxp
-    Should Contain Binding    ${resp}    66    9.9.9.9/32    sxp
-    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128    sxp
-    Should Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64    sxp
+    Should Contain Binding    ${resp}    6    56.56.56.0/24
+    Should Contain Binding    ${resp}    66    9.9.9.9/32
+    Should Contain Binding    ${resp}    666    2001:db8:0:0:0:0:1428:57ab/128
+    Should Contain Binding    ${resp}    555    2001:db8:85a3:8d3:0:0:0:0/64
     Log    Forward OK
 
 Check Shorthest Path

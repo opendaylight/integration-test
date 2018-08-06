@@ -70,7 +70,7 @@ Check Binding Range
     ${resp}    Get Bindings    ${node}
     : FOR    ${num}    IN RANGE    ${start}    ${end}
     \    ${ip}    Get Ip From Number    ${num}
-    \    Should Contain Binding    ${resp}    ${num}    ${ip}/32    sxp
+    \    Should Contain Binding    ${resp}    ${num}    ${ip}/32
 
 Clean Nodes
     : FOR    ${num}    IN RANGE    1    32

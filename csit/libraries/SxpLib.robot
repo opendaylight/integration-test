@@ -3,6 +3,7 @@ Documentation     Library containing Keywords used for SXP testing
 Library           Collections
 Library           RequestsLibrary
 Library           ./Sxp.py
+Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
@@ -78,9 +79,22 @@ Verify Connection
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
-    ${data} =    Sxp.Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${origin}=LOCAL
+    [Documentation]    Based on ODL version decide if bindings will be added with or without origin type (introduced in Fluorine)
+    CompareStream.Run_Keyword_If_At_Least_Fluorine  Add Bindings Fluorine    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
+    ...    ${origin}
+    CompareStream.Run_Keyword_If_At_Most_Oxygen  Add Bindings Oxygen    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
+
+Add Bindings Fluorine
+    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}    ${origin}
+    [Documentation]    Add/Update one or more bindings with origin type via RPC to Master DB of the node
+    ${data} =    Sxp.Add Bindings Xml Fluorine    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
+    Post To Controller    ${session}    add-bindings    ${data}
+
+Add Bindings Oxygen
+    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
+    [Documentation]    Add/Update one or more bindings without origin type via RPC to Master DB of the node
+    ${data} =    Sxp.Add Bindings Xml Oxygen    ${node}    ${domain}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    add-bindings    ${data}
 
 Get Bindings
@@ -96,12 +110,14 @@ Clean Bindings
     ${resp} =    Get Bindings    ${node}    ${session}    ${domain}    ${scope}
     @{bindings} =    Sxp.Parse Bindings    ${resp}
     : FOR    ${binding}    IN    @{bindings}
-    \    Delete Bindings    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}    ${domain}    ${session}
+    \    @{prefixes_list} =    collections.Get From Dictionary    ${binding}    ip-prefix
+    \    ${prefixes} =    BuiltIn.Catenate    SEPARATOR=,    @{prefixes_list}
+    \    Delete Bindings    ${binding['sgt']}    ${prefixes}    ${node}    ${domain}    ${session}
 
 Delete Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
     [Documentation]    Delete one or more bindings via RPC from Master DB of node
-    ${data} =    Sxp.Delete Bindings Xml    ${node}    ${domain}    ${sgt}    @{prefixes}
+    ${data} =    Sxp.Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    delete-bindings    ${data}
 
 Add PeerGroup
@@ -135,7 +151,7 @@ Clean Peer Groups
 Add Filter
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
     [Documentation]    Add Filter via RPC from Node
-    ${data} =    BuiltIn.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
+    ${data} =    CompareStream.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
     ...    ${node}    ${policy}
     ...    ELSE    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
     Post To Controller    ${session}    add-filter    ${data}
@@ -253,9 +269,22 @@ Clean SXP Session
     RequestsLibrary.Delete All Sessions
 
 Add Domain
-    [Arguments]    ${domain_name}    ${sgt}=None    ${prefixes}=''    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session
-    [Documentation]    Add Domain with bindings via RPC
-    ${data} =    Sxp.Add Domain Xml    ${node}    ${domain_name}    ${sgt}    ${prefixes}    ${origin}
+    [Arguments]    ${domain_name}    ${sgt}=None    ${prefixes}=None    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Based on ODL version decide if domain's bindings will be added with or without origin type (introduced in Fluorine)
+    CompareStream.Run_Keyword_If_At_Least_Fluorine  Add Domain Fluorine    ${domain_name}    ${sgt}    ${prefixes}    ${origin}    ${node}
+    ...    ${session}
+    CompareStream.Run_Keyword_If_At_Most_Oxygen  Add Domain Oxygen    ${domain_name}    ${sgt}    ${prefixes}    ${node}    ${session}
+
+Add Domain Fluorine
+    [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${origin}    ${node}    ${session}
+    [Documentation]    Add Domain with bindings (with origin) via RPC
+    ${data} =    Sxp.Add Domain Xml Fluorine    ${node}    ${domain_name}    ${sgt}    ${prefixes}    ${origin}
+    Post To Controller    ${session}    add-domain    ${data}
+
+Add Domain Oxygen
+    [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${node}    ${session}
+    [Documentation]    Add Domain with bindings (without origin) via RPC
+    ${data} =    Sxp.Add Domain Xml Oxygen    ${node}    ${domain_name}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    add-domain    ${data}
 
 Delete Domain
@@ -267,13 +296,13 @@ Delete Domain
 Add Bindings Range
     [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Add Bindings to Node specified by range
-    ${prefixes} =    BuiltIn.Prefix Range    ${start}    ${size}
+    ${prefixes} =    Sxp.Prefix Range    ${start}    ${size}
     Add Bindings    ${sgt}    ${prefixes}    ${node}
 
 Delete Bindings Range
     [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Delete Bindings to Node specified by range
-    ${prefixes} =    BuiltIn.Prefix Range    ${start}    ${size}
+    ${prefixes} =    Sxp.Prefix Range    ${start}    ${size}
     Delete Bindings    ${sgt}    ${prefixes}    ${node}
 
 Check Binding Range
