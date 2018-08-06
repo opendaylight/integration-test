@@ -1,6 +1,7 @@
 import json
 from netaddr import IPAddress
 from string import Template
+from pip._vendor.html5lib.constants import prefixes
 
 
 def get_active_controller_from_json(resp, service):
@@ -460,6 +461,14 @@ def parse_bindings(bindings_json):
     data = json.loads(bindings_json)
     output = []
     for bindings_json in data['output'].values():
+        for binding in bindings_json:
+            output.append(binding)
+    return output
+
+
+def parse_prefixes(bindings_json):
+    output = []
+    for bindings_json in data['ip-prefix'].values():
         for binding in bindings_json:
             output.append(binding)
     return output
@@ -1004,7 +1013,7 @@ def add_bindings_xml(node_id, domain, sgt, prefixes, origin):
     return data
 
 
-def delete_bindings_xml(node_id, domain, sgt, prefixes):
+def delete_bindings_xml(node_id, domain, sgt, *prefixes):
     """Generate xml for Remove Bindings request
 
     :param node_id: Id of node
@@ -1019,7 +1028,7 @@ def delete_bindings_xml(node_id, domain, sgt, prefixes):
 
     """
     bindings = ''
-    for prefix in prefixes.split(','):
+    for prefix in prefixes:
         bindings += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
     templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
