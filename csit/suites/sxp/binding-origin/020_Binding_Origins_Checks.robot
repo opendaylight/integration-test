@@ -12,9 +12,9 @@ Test Add Lower Priority Binding
     ...    higher priority binding in master database for the same IP prefix
     [Tags]    Binding Origins Checks    SXP
     BuiltIn.Comment    Add binding
-    SxpLib.Add Bindings    10    1.1.1.1/32    LOCAL
+    SxpLib.Add Bindings    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Try to add binding with lower priority
-    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    NETWORK
+    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    origin=NETWORK
     BuiltIn.Comment    Verify that new binding is not added and previous binding is preserved
     Verify Bindings Content    10    20    1.1.1.1/32
 
@@ -23,9 +23,9 @@ Test Add Higher Priority Binding
     ...    lower priority binding in master database for the same IP prefix
     [Tags]    Binding Origins Checks    SXP
     BuiltIn.Comment    Add binding
-    SxpLib.Add Bindings    10    1.1.1.1/32    NETWORK
+    SxpLib.Add Bindings    10    1.1.1.1/32    origin=NETWORK
     BuiltIn.Comment    Add binding with higher priority
-    SxpLib.Add Bindings    20    1.1.1.1/32    LOCAL
+    SxpLib.Add Bindings    20    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Verify that new binding replaced previous binding
     Verify Bindings Content    20    10    1.1.1.1/32
 
@@ -33,7 +33,7 @@ Test Add Unknown Priority Binding
     [Documentation]    Test that incoming binding with unknown priority cannot be added to master database
     [Tags]    Binding Origins Checks    SXP
     BuiltIn.Comment    Try to add binding with unknown origin priority
-    BuiltIn.Run Keyword And Expect Error    400 != 200    SxpLib.Add Bindings    10    1.1.1.1/32    CLUSTER
+    BuiltIn.Run Keyword And Expect Error    400 != 200    SxpLib.Add Bindings    10    1.1.1.1/32    origin=CLUSTER
     BuiltIn.Comment    Verify that binding is not in master database
     SxpLib.Bindings Should Not Contain    10    1.1.1.1/32
 
@@ -41,9 +41,9 @@ Test Add Lower Priority Binding To Domain
     [Documentation]    Test that incoming binding with lower priority does not override already existing
     ...    higher priority binding in master database for the same IP prefix
     BuiltIn.Comment    Create custom domain with binding
-    SxpLib.Add Domain    guest    10    1.1.1.1/32    LOCAL
+    SxpLib.Add Domain    guest    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Try add binding to custom domain with lower priority
-    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    NETWORK    domain=guest
+    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    domain=guest    origin=NETWORK
     BuiltIn.Comment    Verify that new binding is not added and previous binding is preserved
     Verify Bindings Content    10    20    1.1.1.1/32    guest
 
@@ -51,18 +51,18 @@ Test Add Higher Priority Binding To Domain
     [Documentation]    Test that incoming binding with lower priority does not override already existing
     ...    higher priority binding in master database for the same IP prefix
     BuiltIn.Comment    Create custom domain with binding
-    SxpLib.Add Domain    guest    10    1.1.1.1/32    NETWORK
+    SxpLib.Add Domain    guest    10    1.1.1.1/32    origin=NETWORK
     BuiltIn.Comment    Add binding to custom domain with higher priority
-    SxpLib.Add Bindings    20    1.1.1.1/32    LOCAL    domain=guest
+    SxpLib.Add Bindings    20    1.1.1.1/32    domain=guest    origin=LOCAL
     BuiltIn.Comment    Verify that new binding replaced previous binding
     Verify Bindings Content    20    10    1.1.1.1/32    guest
 
 Test Get Bindings
     [Documentation]    Test that when requesting for LOCAL bindings then only LOCAL bindings are returned
     BuiltIn.Comment    Add LOCAL binding
-    SxpLib.Add Bindings    10    1.1.1.1/32    LOCAL
+    SxpLib.Add Bindings    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Add NETWORK binding
-    SxpLib.Add Bindings    20    2.2.2.2/32    NETWORK
+    SxpLib.Add Bindings    20    2.2.2.2/32    origin=NETWORK
     BuiltIn.Comment    Verify request for LOCAL bindings
     Verify Local Bindings Content    10    1.1.1.1/32    20    2.2.2.2/32
     BuiltIn.Comment    Verify request for ALL bindings

@@ -193,10 +193,10 @@ Setup Nodes Outbound Test
 Check PeerSequence One
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 1
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
     : FOR    ${node}    IN RANGE    3    6
     \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
     \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
@@ -206,14 +206,14 @@ Check PeerSequence One
 Check PeerSequence Two
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 2
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
+    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
+    SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    30    30.0.0.0/8
     : FOR    ${node}    IN RANGE    4    6
     \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
     \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
@@ -223,18 +223,18 @@ Check PeerSequence Two
 Check PeerSequence Three
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 3
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
+    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
+    SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    30    30.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32
+    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
+    SxpLib.Should Contain Binding    ${resp}    40    10.40.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    40    40.0.0.0/8
     SxpLib.Should Not Contain Binding    ${resp}    50    10.10.10.50/32
     SxpLib.Should Not Contain Binding    ${resp}    50    10.10.50.0/24
     SxpLib.Should Not Contain Binding    ${resp}    50    10.50.0.0/16
@@ -243,18 +243,18 @@ Check PeerSequence Three
 Check PeerSequence Mix
     [Documentation]    Node 127.0.0.2 should not contain bindings with peer sequence 1
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.10.30/32
+    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.30.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32
+    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
+    SxpLib.Should Contain Binding    ${resp}    40    10.40.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    40    40.0.0.0/8
     SxpLib.Should Contain Binding    ${resp}    50    10.10.10.50/32
     SxpLib.Should Contain Binding    ${resp}    50    10.10.50.0/24
     SxpLib.Should Contain Binding    ${resp}    50    10.50.0.0/16
@@ -263,82 +263,82 @@ Check PeerSequence Mix
 Check Inbound PL Combinations Filtering
     [Documentation]    Node 127.0.0.1 should containt bindings with peer sequence lower than 1 and pl 1.1.0.0/16
     ${resp}    SxpLib.Get Bindings    127.0.0.1
-    SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    20    1.1.2.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    20    2.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.1.3/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.1.4/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    1.1.1.5/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    1.1.5.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    1.5.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    5.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32
+    SxpLib.Should Contain Binding    ${resp}    20    1.1.2.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    20    2.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.1.3/32
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.1.4/32
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    50    1.1.1.5/32
+    SxpLib.Should Contain Binding    ${resp}    50    1.1.5.0/24
+    SxpLib.Should Contain Binding    ${resp}    50    1.5.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    50    5.0.0.0/8
 
 Check Inbound ACL Combinations Filtering
     [Documentation]    Node 127.0.0.1 should containt bindings with peer sequence lower than 2 and acl 1.1.1.0 0.0.0.255
     ${resp}    SxpLib.Get Bindings    127.0.0.1
-    SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    20    1.1.2.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    20    2.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    1.1.1.3/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    1.1.1.4/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    1.1.4.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    1.4.0.0/16    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    4.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.1.5/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.5.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    20    1.1.1.2/32
+    SxpLib.Should Not Contain Binding    ${resp}    20    1.1.2.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    20    1.2.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    20    2.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    30    1.1.1.3/32
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    40    1.1.1.4/32
+    SxpLib.Should Contain Binding    ${resp}    40    1.1.4.0/24
+    SxpLib.Should Contain Binding    ${resp}    40    1.4.0.0/16
+    SxpLib.Should Contain Binding    ${resp}    40    4.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.1.5/32
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.5.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8
 
 Check Outbound PL Combinations Filtering
     [Documentation]    Node 127.0.0.2 should containt bindings with peer sequence lower than 1 and pl 1.1.1.0/24
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    10    1.1.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    10    1.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    30    1.1.1.3/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    40    1.1.1.4/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.1.5/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.5.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32
+    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    10    1.1.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    10    1.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    30    1.1.1.3/32
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    40    1.1.1.4/32
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.1.5/32
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.1.5.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8
 
 Check Outbound ACL Combinations Filtering
     [Documentation]    Node 127.0.0.2 should containt bindings with peer sequence equals to 0 or greter than 2 and acl 1.1.0.0 0.0.255.255
     ${resp}    SxpLib.Get Bindings    127.0.0.2
-    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24    sxp
-    SxpLib.Should Contain Binding    ${resp}    10    1.1.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    10    1.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.1.3/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.1.4/32    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    1.1.1.5/32    sxp
-    SxpLib.Should Contain Binding    ${resp}    50    1.1.5.0/24    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16    sxp
-    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8    sxp
+    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.1/32
+    SxpLib.Should Contain Binding    ${resp}    10    1.1.1.0/24
+    SxpLib.Should Contain Binding    ${resp}    10    1.1.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    10    1.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.1.3/32
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.1.3.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    30    1.3.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    30    3.0.0.0/8
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.1.4/32
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.1.4.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    40    1.4.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    40    4.0.0.0/8
+    SxpLib.Should Contain Binding    ${resp}    50    1.1.1.5/32
+    SxpLib.Should Contain Binding    ${resp}    50    1.1.5.0/24
+    SxpLib.Should Not Contain Binding    ${resp}    50    1.5.0.0/16
+    SxpLib.Should Not Contain Binding    ${resp}    50    5.0.0.0/8
 
 Clean Nodes
     SxpLib.Clean Bindings    127.0.0.1
