@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe47004e_fc5406aa",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 32
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-07T07:47:16Z",
+      "side": 1,
+      "message": "Hi Sam,\nAll netvirt L3VPN related jobs needed dcgw-setup configurations. Please suggest us how to proceed this dcgw_setup script with l3vpn flag.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "37e6c3be7aa01145aeee31e5be0509e2297262f2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
