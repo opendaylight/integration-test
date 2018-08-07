@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "238301e0_1b374280",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "Very cool if you get this all worked out. I can see this going into a common suites library. SUITES parsed into a list and then keywords to check Is First, Is Last, etc. Also name normalizing like removing spaces and /\u0027s, etc. Much o that code is here and the Coe Suite Setup really just needs to call the suites library for the first or last boolean. No need to do that now, as coe is the only user so far, but once you get this working, in a follow on patch we can move to a common library,",
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30428931_68913614",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "\u003d , BuiltIn.",
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3417f5e_604d5313",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "Builtin.  same comment applies all through this patch",
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fee3e1f0_5e27c3e6",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "this is fine I think, but we also use this to do the same: ${suite_} \u003d    BuiltIn.Evaluate    \"\"\"${SUITE_NAME}\"\"\".replace(\" \",\"_\").replace(\"/\",\"_\").replace(\".\",\"_\")",
+      "range": {
+        "startLine": 222,
+        "startChar": 53,
+        "endLine": 222,
+        "endChar": 54
+      },
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f27d6c84_f6fdc5e2",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "145f0460_86bc7855",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-07T01:21:28Z",
+      "side": 1,
+      "message": "\u003d , BuiltIn.",
+      "revId": "4717c621e22f63e04ba427edb933759f71881582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
