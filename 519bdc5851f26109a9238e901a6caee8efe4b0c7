@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0158c09f_0467e81c",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-08-07T07:18:23Z",
+      "side": 1,
+      "message": "why is this variable required?",
+      "range": {
+        "startLine": 78,
+        "startChar": 20,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "519bdc5851f26109a9238e901a6caee8efe4b0c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aadb14fd_548fefa9",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-08-07T07:18:23Z",
+      "side": 1,
+      "message": "Same name for both the keyword is intentional ? (arg differes)?",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 22
+      },
+      "revId": "519bdc5851f26109a9238e901a6caee8efe4b0c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
