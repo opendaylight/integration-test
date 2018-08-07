@@ -51,7 +51,7 @@ Create And Associate Floating IPs for VMs
     ${VM_FLOATING_IPS} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NET_NAME}    @{NET1_FIP_VMS}
     BuiltIn.Set Suite Variable    ${VM_FLOATING_IPS}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}
-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Ping External Gateway From Control Node
     [Documentation]    Check reachability of external gateway by pinging it from the control node.
