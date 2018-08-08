@@ -161,9 +161,7 @@ Clean OVSDB Test Environment
 Restart OVSDB
     [Arguments]    ${ovs_ip}
     [Documentation]    Restart the OVS node without cleaning the current configuration.
-    ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
-    BuiltIn.Log    ${output}
-    ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl restart
     BuiltIn.Log    ${output}
 
 Set Controller In OVS Bridge
