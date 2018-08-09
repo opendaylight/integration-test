@@ -39,16 +39,6 @@ Start Suite
     [Documentation]    Initial setup for Genius test suites
     CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     KarafKeywords.Setup_Karaf_Keywords
-    # TODO: Move this to generic library
-    @{TOOLS_SYSTEM_LIST} =    BuiltIn.Create List
-    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM} + 1
-    \    Collections.Append To List    @{TOOLS_SYSTEM_LIST}    ${TOOLS_SYSTEM_${i}_IP}
-    BuiltIn.Set Suite Variable    @{TOOLS_SYSTEM_LIST}
-    @{CONN_ID_LIST} =    BuiltIn.Create List
-    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
-    \    ${conn_id} =    SSHLibrary.Open Connection    ${tools_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    \    Collections.Append To List    ${CONN_ID_LIST}    ${conn_id}
-    BuiltIn.Set Suite Variable    ${CONN_ID_LIST}
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
     Comment    @{BRIDGE_LIST}    BuiltIn.Create List
