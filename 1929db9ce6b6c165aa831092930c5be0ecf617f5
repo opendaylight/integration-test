@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f67f138c_3198c3e8",
+        "filename": "csit/scripts/set_genius_host.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-09T23:37:15Z",
+      "side": 1,
+      "message": "is this the right filename you wanted?",
+      "revId": "1929db9ce6b6c165aa831092930c5be0ecf617f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
