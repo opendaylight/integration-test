@@ -943,7 +943,7 @@ OpenStack CLI Get List
     [Arguments]    ${cmd}
     [Documentation]    Return a json list from the output of an OpenStack command.
     @{list} =    BuiltIn.Create List
-    ${json} =    OpenStack CLI    ${cmd}
+    ${json} =    OpenStack CLI Suppress Stderr    ${cmd}
     @{list} =    RequestsLibrary.To Json    ${json}
     BuiltIn.Log    ${list}
     [Return]    @{list}
@@ -952,6 +952,14 @@ OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and log the output.
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    [Return]    ${output}
+
+OpenStack CLI Suppress Stderr
+    [Arguments]    ${cmd}
+    [Documentation]    Run the given OpenStack ${cmd} and log the output.
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd} 2>/dev/null
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
