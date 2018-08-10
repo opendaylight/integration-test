@@ -943,8 +943,8 @@ OpenStack CLI Get List
     [Arguments]    ${cmd}
     [Documentation]    Return a json list from the output of an OpenStack command.
     @{list} =    BuiltIn.Create List
-    ${json} =    OpenStack CLI    ${cmd}
-    @{list} =    RequestsLibrary.To Json    ${json}
+    ${result} =    Run Process With Logging And Status Check    ${cmd}
+    @{list} =    RequestsLibrary.To Json    ${result.stdout}
     BuiltIn.Log    ${list}
     [Return]    @{list}
 
