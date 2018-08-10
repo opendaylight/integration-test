@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "6bf8b2db_5816f691",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-10T16:14:32Z",
+      "side": 1,
+      "message": "same comment below, but I think we don\u0027t want a one off std error to null long term.",
+      "range": {
+        "startLine": 946,
+        "startChar": 31,
+        "endLine": 946,
+        "endChar": 47
+      },
+      "revId": "97f96bbce7cc87aed926bd5cb2ce1a23ea8d0455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "608b1251_e2700430",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2018-08-10T16:09:18Z",
       "side": 1,
       "message": "not sure what robot syntax is, but it looks like 4 spaces separates args or something so I used 1 space to make this all one input arg. Is that right?",
+      "range": {
+        "startLine": 962,
+        "startChar": 72,
+        "endLine": 962,
+        "endChar": 94
+      },
+      "revId": "97f96bbce7cc87aed926bd5cb2ce1a23ea8d0455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "852db80c_d860f51a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-10T16:14:32Z",
+      "side": 1,
+      "message": "yeah args are four spaces apart.\n\nI might want to think about this fix. This should work short term, but there is a Process library that is better than OperatingSystem and in there the return variable has the stderr and stdout separated so we can see everything.",
+      "parentUuid": "608b1251_e2700430",
       "range": {
         "startLine": 962,
         "startChar": 72,
