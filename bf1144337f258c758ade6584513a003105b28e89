@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7b93ee5_057f0f12",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-10T06:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b2817b4_f0eea34e",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "bf1144337f258c758ade6584513a003105b28e89",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af7dd9e9_49362284",
         "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
         "patchSetId": 34
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-06T18:37:19Z",
       "side": 1,
       "message": "find a range of addresses not already used.",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 60
+      },
+      "revId": "bf1144337f258c758ade6584513a003105b28e89",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b77882c_85e52e08",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-10T06:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af7dd9e9_49362284",
       "range": {
         "startLine": 41,
         "startChar": 19,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "ea428ff4_6ec680fa",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-10T06:48:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32d1f1eb_e8e55d50",
+      "revId": "bf1144337f258c758ade6584513a003105b28e89",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7de2a61_308b6540",
         "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
         "patchSetId": 34
@@ -76,6 +142,30 @@
       "writtenOn": "2018-08-06T18:37:19Z",
       "side": 1,
       "message": "no need for thsi right? Just use the same pattern in the create neutron networks",
+      "range": {
+        "startLine": 197,
+        "startChar": 19,
+        "endLine": 197,
+        "endChar": 36
+      },
+      "revId": "bf1144337f258c758ade6584513a003105b28e89",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79e5b19e_f7ed69df",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-10T06:48:57Z",
+      "side": 1,
+      "message": "Here we need the number of networks as the index number for networks, subnets, subnet range values.\nI have removed the argument now and getting the number of networks using Get Length built in keyword and using it.",
+      "parentUuid": "f7de2a61_308b6540",
       "range": {
         "startLine": 197,
         "startChar": 19,
