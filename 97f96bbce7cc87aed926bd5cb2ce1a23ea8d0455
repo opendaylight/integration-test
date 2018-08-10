@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "608b1251_e2700430",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-08-10T16:09:18Z",
+      "side": 1,
+      "message": "not sure what robot syntax is, but it looks like 4 spaces separates args or something so I used 1 space to make this all one input arg. Is that right?",
+      "range": {
+        "startLine": 962,
+        "startChar": 72,
+        "endLine": 962,
+        "endChar": 94
+      },
+      "revId": "97f96bbce7cc87aed926bd5cb2ce1a23ea8d0455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
