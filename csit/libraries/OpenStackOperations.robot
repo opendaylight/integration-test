@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           Collections
+Library           Process
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -951,17 +952,18 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    BuiltIn.Log    ${output}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}
+    ${result} =    Process.Run Process    ${cmd}    shell=True
+    BuiltIn.Log    ${result.stdout}
+    BuiltIn.Log    ${result.stderr}
+    BuiltIn.Should Be True    '${result.rc}' == '0'
+    [Return]    ${result.stdout}
 
 OpenStack CLI With No Log
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and do not log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}
+    ${result} =    Process.Run Process    ${cmd}    shell=True
+    BuiltIn.Should Be True    '${result.rc}' == '0'
+    [Return]    ${result.stdout}
 
 OpenStack Cleanup All
     [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
