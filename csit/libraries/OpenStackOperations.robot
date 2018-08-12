@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           Collections
+Library           Process
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -939,6 +940,22 @@ OpenStack List All
     : FOR    ${module}    IN    @{modules}
     \    ${output} =    OpenStack CLI    openstack ${module} list
 
+Run Process With Logging And Status Check
+    [Arguments]    ${cmd}    ${shell}=False
+    [Documentation]    Execute an OS command, log STDOUT and STDERR output and check exit code to be 0
+    ${result} =    Process.Run Process    ${cmd}    shell=${shell}
+    BuiltIn.Log    ${result.stdout}
+    BuiltIn.Log    ${result.stderr}
+    BuiltIn.Should Be Equal As Integers    ${result.rc}    0
+    [Return]    ${result}
+
+Run Process With Status Check
+    [Arguments]    ${cmd}    ${shell}=False
+    [Documentation]    Execute an OS command and check exit code to be 0
+    ${result} =    Process.Run Process    ${cmd}    shell=${shell}
+    BuiltIn.Should Be Equal As Integers    ${result.rc}    0
+    [Return]    ${result}
+
 OpenStack CLI Get List
     [Arguments]    ${cmd}
     [Documentation]    Return a json list from the output of an OpenStack command.
@@ -951,17 +968,14 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    BuiltIn.Log    ${output}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}
+    ${result} =    Run Process With Logging And Status Check    ${cmd}    shell=True
+    [Return]    ${result.stdout}
 
 OpenStack CLI With No Log
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and do not log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}
+    ${result} =    Run Process With Status Check    ${cmd}    shell=True
+    [Return]    ${result.stdout}
 
 OpenStack Cleanup All
     [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
