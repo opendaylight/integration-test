@@ -22,11 +22,13 @@ ${HOST_INVENTORY}    ${CURDIR}/../variables/coe/hosts.yaml
 ${K8s_MASTER_IP}    ${TOOLS_SYSTEM_1_IP}
 ${K8s_MINION1_IP}    ${TOOLS_SYSTEM_2_IP}
 ${K8s_MINION2_IP}    ${TOOLS_SYSTEM_3_IP}
+${K8s_MINION3_IP}    ${TOOLS_SYSTEM_4_IP}
+${K8s_MINION4_IP}    ${TOOLS_SYSTEM_5_IP}
 ${NODE_READY_STATUS}    \\sReady
 ${PLAYBOOK}       ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
-@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
+@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}    ${K8s_MINION3_IP}    ${K8s_MINION4_IP}
 @{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 ${VARIABLES_PATH}    ${CURDIR}/../variables/coe
 
@@ -40,7 +42,7 @@ Start Suite
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
     BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
-    Genius.Verify Tunnel Status as UP    default-transport-zone
+    BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status as UP    default-transport-zone
     Coe.Derive Coe Data Models
 
 Configuration Playbook
@@ -49,6 +51,8 @@ Configuration Playbook
     ${hosts} =    String.Replace String    ${hosts}    master_ip    ${K8s_MASTER_IP}
     ${hosts} =    String.Replace String    ${hosts}    minion1_ip    ${K8s_MINION1_IP}
     ${hosts} =    String.Replace String    ${hosts}    minion2_ip    ${K8s_MINION2_IP}
+    ${hosts} =    String.Replace String    ${hosts}    minion3_ip    ${K8s_MINION3_IP}
+    ${hosts} =    String.Replace String    ${hosts}    minion4_ip    ${K8s_MINION4_IP}
     ${hosts} =    String.Replace String    ${hosts}    odl_ip    ${ODL_SYSTEM_IP}
     ${hosts} =    String.Replace String    ${hosts}    mport    ${OVSDBPORT}
     ${hosts} =    String.Replace String    ${hosts}    cport    ${ODL_OF_PORT_6653}
@@ -75,6 +79,12 @@ Set Connection ids and Bridge
     ${conn_id_3} =    SSHLibrary.Open Connection    ${K8s_MINION2_IP}
     SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     BuiltIn.Set Global Variable    ${conn_id_3}
+    ${conn_id_4} =    SSHLibrary.Open Connection    ${K8s_MINION3_IP}
+    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    BuiltIn.Set Global Variable    ${conn_id_4}
+    ${conn_id_5} =    SSHLibrary.Open Connection    ${K8s_MINION4_IP}
+    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    BuiltIn.Set Global Variable    ${conn_id_5}
     ${file} =    OperatingSystem.Get File    ${CONFIG_FILE_TEMPLATE}
     ${line}    ${bridge} =    Should Match Regexp    ${file}    "ovsBridge": "(\\w.*)"
     BuiltIn.Set Global Variable    ${bridge}
@@ -100,13 +110,13 @@ Check Node Status Is Ready
 
 Label Nodes
     [Documentation]    Create labels for minions so that random allocation of pods to minions is avoided
-    ${nodes} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get nodes
-    ${node_1} =    String.Get Line    ${nodes}    2
-    ${minion_1} =    BuiltIn.Should Match Regexp    ${node_1}    ^\\w+-.*-\\d+
-    ${node_2} =    String.Get Line    ${nodes}    3
-    ${minion_2} =    BuiltIn.Should Match Regexp    ${node_2}    ^\\w+-.*-\\d+
-    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion_1} disktype=ssd
-    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion_2} disktype=ssl
+    ${i} =    BuiltIn.Set Variable    1
+    ${lines} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes
+    @{lines} =    String.Split To Lines    ${lines}    2
+    : FOR    ${status}    IN    @{lines}
+    \    ${minion} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-.*-\\d+
+    \    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion} disktype=ss${i}
+    \    ${i} =    BuiltIn.Evaluate    ${i}+1
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes --show-labels
 
 Derive Coe Data Models
@@ -126,6 +136,8 @@ Tear Down
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    ${bridge}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    ${bridge}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_3}    ${bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_4}    ${bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_5}    ${bridge}
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${coe_data_models}
     Coe.DumpConfig File
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -137,7 +149,7 @@ Delete Pods
     ${lines} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide
     @{lines} =    String.Split To Lines    ${lines}    1
     : FOR    ${status}    IN    @{lines}
-    \    ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+
+    \    ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-\\w+
     \    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl delete pods ${pod_name}
     BuiltIn.Wait Until Keyword Succeeds    60s    3s    Coe.Check If Pods Are Terminated
 
@@ -199,21 +211,35 @@ Create Pods
 
 Collect Pod Names and Ping
     [Documentation]    This keyword collects the pod names and checks connectivity between each and every pod with respect to one another.
-    ${lines} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide
-    @{lines} =    String.Split To Lines    ${lines}    1
-    : FOR    ${status}    IN    @{lines}
-    \    ${pod_name} =    Builtin.Should Match Regexp    ${status}    ^\\w+
-    \    Ping Pods    ${pod_name}    @{lines}
+    SSHLibrary.Open Connection    ${K8s_MASTER_IP}
+    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    ${lines} =    Write Commands Until Expected Prompt    kubectl get pods -o wide    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{pod ips} =    String.Get Regexp Matches    ${lines}    \\d+\\.\\d+\\.\\d+\\.\\d+
+    @{test}=    String.Get Regexp Matches    ${lines}    ^\\w+-\\w+
+    @{pod names} =    String.Get Regexp Matches    ${lines}    ss\\w+-\\w+
+    : FOR    ${pod_name}    IN    @{pod names}
+    \    ${logs} =    Log Statements    ${pod ips}    ${pod names}    ${pod_name}
+    \    Ping Pods    ${pod_name}    ${pod ips}    ${logs}
+    SSHLibrary.Close Connection
+
+Log Statements
+    [Arguments]    ${pod ips}    ${pod names}    ${pod_name}
+    @{log statement}    Create List
+    ${i}    Set Variable    0
+    : FOR    ${pod ip}    IN    @{pod ips}
+    \    ${line}    Set Variable    Ping ${pod_name} and ${pod names[${i}]} : ${pod ip}
+    \    Append To List    ${log statement}    ${line}
+    \    ${i} =    Evaluate    ${i}+1
+    [Return]    @{log statement}
 
 Ping Pods
-    [Arguments]    ${pod_name}    @{lines}
-    [Documentation]    Ping pods to check connectivity between them
-    : FOR    ${pod ip}    IN    @{lines}
-    \    ${status} =    Run Keyword And Return Status    Should Contain    ${pod ip}    ${pod_name}
-    \    BuiltIn.Continue For Loop If    ${status} == True
-    \    ${pod_ip} =    Builtin.Should Match Regexp    ${pod ip}    \\d+.\\d+.\\d+.\\d+
-    \    ${ping} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl exec -it ${pod_name} -- ping -c 3 ${pod_ip}
+    [Arguments]    ${pod_name}    ${pod ips}    ${logs}
+    ${i} =    Set Variable    0
+    : FOR    ${ping info}    IN    @{logs}
+    \    ${ping} =    Write Commands Until Expected Prompt    kubectl exec -it ${pod_name} -- ping -c 3 ${pod ips[${i}]}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    \    BuiltIn.log    ${ping}
     \    Builtin.Should Match Regexp    ${ping}    ${PING_REGEXP}
+    \    ${i}    Evaluate    ${i}+1
 
 Coe Suite Setup
     @{suite names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
