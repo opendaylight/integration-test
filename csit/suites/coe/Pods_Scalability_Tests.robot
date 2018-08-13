@@ -17,8 +17,14 @@ ${NO_OF_PODS_PER_VM}    15
 
 *** Test Cases ***
 Verify Connectivity Between Pods
-    : FOR    ${i}    IN RANGE    1    ${NO_OF_PODS_PER_VM}+1
-    \    Coe.Create Pods    ssd    busybox${i}.yaml    busybox${i}
-    \    Coe.Create Pods    ssl    pod${i}.yaml    pod${i}
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
+    \    ${label} =    BuiltIn.Set Variable    ss${i}
+    \    Apply label and Create pods    ${label}
     BuiltIn.Wait Until Keyword Succeeds    55s    2s    Coe.Check Pod Status Is Running
     Coe.Collect Pod Names and Ping
+
+*** Keywords ***
+Apply label and Create pods
+    [Arguments]    ${label}
+    : FOR    ${i}    IN RANGE    1    ${NO_OF_PODS_PER_VM}+1
+    \    Coe.Create Pods    ${label}    ${label}-busybox${i}.yaml    ${label}-busybox${i}
