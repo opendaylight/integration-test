@@ -1,6 +1,6 @@
 ---
 
-- hosts: coe-master:coe-minion1:coe-minion2
+- hosts: coe-master:coe-minion1:coe-minion2:coe-minion3:coe-minion4
   vars:
     gopath: "{{ ansible_env.HOME }}/go"
     coe_path: "{{ gopath }}/src/git.opendaylight.org/gerrit/p/coe.git"
@@ -83,7 +83,7 @@
         remote_src: true
       become: true
 
-- hosts: coe-master:coe-minion1:coe-minion2
+- hosts: coe-master:coe-minion1:coe-minion2:coe-minion3:coe-minion4
   tasks:
     - name: Set OVS Manager
       shell: ovs-vsctl set-manager tcp:{{ manager_ip }}:{{ manager_port }} && touch /tmp/ovs-set-manager
@@ -141,7 +141,7 @@
       args:
         creates: /tmp/watcher.out
 
-- hosts: coe-minion1:coe-minion2
+- hosts: coe-minion1:coe-minion2:coe-minion3:coe-minion4
   tasks:
     - name: Disable swapfile
       shell: swapoff -a
