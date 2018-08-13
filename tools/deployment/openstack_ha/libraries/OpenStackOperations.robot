@@ -602,6 +602,7 @@ Get OvsDebugInfo
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
+    ODLTools.Get Cluster Info
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     OpenStackOperations.Get Karaf Log Events From Test Start    ${test_name}
