@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbe73cd1_7f8ad5c1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 82
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T20:37:55Z",
+      "side": 1,
+      "message": "This is only logging the final attempt and not all three.",
+      "revId": "e497f785bd22cfbb097f7a754c56576a64f5b01d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
