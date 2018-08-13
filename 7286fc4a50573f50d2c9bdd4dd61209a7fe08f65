@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a76e5411_ca28a909",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T14:26:40Z",
+      "side": 1,
+      "message": "add Depends-On: I16130e39a7ecb536cf1dc025335c413f7c49fe09 if that applies.",
+      "revId": "7286fc4a50573f50d2c9bdd4dd61209a7fe08f65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
