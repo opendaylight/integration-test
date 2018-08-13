@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "778a42d9_296a673d",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T14:12:21Z",
+      "side": 1,
+      "message": "this dumps the grep error so can\u0027t use this. A \"\" or \u0027\u0027 will not return an error as Jamo mentions. It seems goofy to grep for \u0027\u0027 but I guess that is fine to move this patch forward.",
+      "range": {
+        "startLine": 231,
+        "startChar": 90,
+        "endLine": 231,
+        "endChar": 98
+      },
+      "revId": "4f3e68e999f00eb4b8e5842143be69975c0e5707",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb3a00cb_6e035ea0",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T14:12:21Z",
+      "side": 1,
+      "message": "what about the |? additional args isn\u0027t a good name now. This is intended to be a grep argument right? Maybe extra_grep_pattern?",
+      "range": {
+        "startLine": 233,
+        "startChar": 132,
+        "endLine": 233,
+        "endChar": 150
+      },
+      "revId": "4f3e68e999f00eb4b8e5842143be69975c0e5707",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
