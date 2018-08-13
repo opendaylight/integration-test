@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb93c337_7b37693d",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:56:18Z",
+      "side": 1,
+      "message": "we should really fix this keyword to take params and not have to require adding a release specific version each new branch.",
+      "revId": "33f4c1ce0d4daf83f2488b7e20ef942d760e1c0e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
