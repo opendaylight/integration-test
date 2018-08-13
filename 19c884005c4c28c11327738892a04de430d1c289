@@ -33,6 +33,24 @@
       "revId": "19c884005c4c28c11327738892a04de430d1c289",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb16b8a9_949e816b",
+        "filename": "tools/deployment/openstack_ha/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-13T14:19:24Z",
+      "side": 1,
+      "message": "From my intellij, when i browsed tear down for l2.robot, it automatically took me here, and hence I added here too. I think I was wrong. Will update the review",
+      "parentUuid": "cfe095b5_c221a951",
+      "revId": "19c884005c4c28c11327738892a04de430d1c289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
