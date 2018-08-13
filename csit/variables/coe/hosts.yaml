@@ -16,31 +16,38 @@ coe-master:
     k8s_advertise_address: master_ip
     watcher_path: yamlpath
 
-coe-minion1:
+coe-minions:
   hosts:
     minion1_ip:
-  vars:
-    external_interface: enp0s9
+	     var1:
     overlay_ip: minion1_ip
     external_ip: 192.168.50.12
     subnet: 10.11.2.0/24
     gateway: 10.11.2.1
-    manager_ip: odl_ip
-    manager_port: mport
-    controller_ip: odl_ip
-    controller_port: cport
-    go_version: \1.10.2\
-    conf_path: filepath
 
-coe-minion2:
-  hosts:
     minion2_ip:
-  vars:
-    external_interface: enp0s9
+	     var2:
     overlay_ip: minion2_ip
     external_ip: 192.168.50.13
     subnet: 10.11.3.0/24
     gateway: 10.11.3.1
+
+    minion3_ip:
+	     var3:
+    overlay_ip: minion3_ip
+    external_ip: 192.168.50.14
+    subnet: 10.11.4.0/24
+    gateway: 10.11.4.1
+
+    minion4_ip:
+	     var4:
+    overlay_ip: minion4_ip
+    external_ip: 192.168.50.15
+    subnet: 10.11.5.0/24
+    gateway: 10.11.5.1
+
+  vars:
+    external_interface: enp0s9
     manager_ip: odl_ip
     manager_port: mport
     controller_ip: odl_ip
