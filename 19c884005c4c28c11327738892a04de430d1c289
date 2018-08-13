@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ef555331_57dd9140",
+        "filename": "csit/libraries/ODLTools.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-13T14:20:19Z",
+      "side": 1,
+      "message": "This is what is being done in the Get EOS, just above.. and hence followed the same procedure. I think we should not fail on this, will update the review",
+      "parentUuid": "0722b6b5_4d1629e9",
+      "revId": "19c884005c4c28c11327738892a04de430d1c289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfe095b5_c221a951",
         "filename": "tools/deployment/openstack_ha/libraries/OpenStackOperations.robot",
         "patchSetId": 2
