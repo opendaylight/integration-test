@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09baa3c1_e158c1eb",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:46:22Z",
+      "side": 1,
+      "message": "uppercase first letter of each word",
+      "revId": "e7bfdbf68938779fc5300b9f1483adffc21b8e22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
