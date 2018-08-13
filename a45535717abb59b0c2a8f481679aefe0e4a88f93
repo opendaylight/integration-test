@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4255b3ba_7488f5a6",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "where is this used?",
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13d98f4c_62fbca7b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "maybe this should be a list of conditions to check? As it is now, this is a specific flow check function that does not match the name of the keyword - for being in a generic library. Same for the Delete Flows From ODL keyword above. Look in the FlowLib.robot at the \"Verify Flow On Mininet Switch\" keyword which does similar.",
+      "range": {
+        "startLine": 502,
+        "startChar": 46,
+        "endLine": 502,
+        "endChar": 57
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99b620b4_68a7a7b0",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "better name for flag, like the action it is doing.",
+      "range": {
+        "startLine": 502,
+        "startChar": 61,
+        "endLine": 502,
+        "endChar": 73
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e54fb5fb_eb279597",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "lowercase name for the file. Does the name need to include both interface and service. service is implied in elan. I guess this suite is really trying to test service recover interface for elan - is that right? So maybe just elan_service_recovery.robot?",
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b48197d_13e89f87",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 30
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edaff656_86bcebe7",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "make prefix different than existing elan.robot suite which uses elan_ already. Maybe elansr_. Then follow convention for net_1_vm_1 - notice _ between type and number.",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 31
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7bbb91a_80fcfb15",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "use 85.1.1.0/16 - elan is using 81-83 so far so continue in the 8x range",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "635c6b36_4478bd67",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "elansr_sg",
+      "range": {
+        "startLine": 36,
+        "startChar": 21,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05e533db_abafbf1a",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "Just use the OpenStackOperations.Suite Setup",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79108412_3bc626ba",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "look at current suite setup and teardown sections in tests. Add:\n\nOpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}\nOpenStackOperations.Get Suite Debugs",
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3af6a1db_4ffc79bd",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "\u003d use space between var and \u003d. same comment anywhere else in this patch",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 15
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5967255_e65c721f",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "add \u003d , same comment for all var assignments",
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ca0464b_0b45f5f9",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "looks like a candidate keyword to go in OVSDB.robot",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 15
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d78fe1c0_8c2c6260",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "just say DPNID since I guess the openflowid is openflow:dpnid. And change the keyword name to match.",
+      "range": {
+        "startLine": 146,
+        "startChar": 34,
+        "endLine": 146,
+        "endChar": 55
+      },
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b4e314f_d31a3949",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-13T13:40:37Z",
+      "side": 1,
+      "message": "move up to under the other elan.robot suite",
+      "revId": "a45535717abb59b0c2a8f481679aefe0e4a88f93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
