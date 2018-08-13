@@ -166,6 +166,10 @@ Genius Test Teardown
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
 
+Genius Suite Debugs
+    [Arguments]    ${data_models}
+    Genius Test Teardown    ${data_models}    test_name=${SUITE_NAME}    fail=False
+
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
@@ -301,10 +305,10 @@ SRM Start Suite
     ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${dpn_Id_1}    ${dpn_Id_2}
     ...    odl-interface:tunnel-type-vxlan
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status as UP    TZA
-    Genius Test Teardown    ${data_models}
+    Genius Suite Debugs    ${data_models}
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
     Delete All Vteps
-    Genius Test Teardown    ${data_models}
+    Genius Suite Debugs    ${data_models}
     Genius Suite Teardown
