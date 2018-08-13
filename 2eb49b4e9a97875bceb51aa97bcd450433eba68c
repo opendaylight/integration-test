@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72c5359f_5090b630",
+        "filename": "csit/libraries/ODLTools.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-13T18:23:26Z",
+      "side": 1,
+      "message": "cluster?",
+      "range": {
+        "startLine": 27,
+        "startChar": 59,
+        "endLine": 27,
+        "endChar": 65
+      },
+      "revId": "2eb49b4e9a97875bceb51aa97bcd450433eba68c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
