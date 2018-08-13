@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb94f787_1642a888",
+        "filename": "csit/scripts/set_genius_host.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-13T17:14:55Z",
+      "side": 1,
+      "message": "we do this as part of set_unique_node_uuid.sh. Since both COE and Genius needed it, i had renamed it before. Why are we adding this back?",
+      "revId": "2a33a25926a38c7b92102b04e6e2deb402c320e5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
