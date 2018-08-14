@@ -16,6 +16,24 @@
       "revId": "da0f645fca1ff6c7a56b62cbac9c3e5440307920",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3a2e9b0_8b2788ff",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-14T13:33:32Z",
+      "side": 1,
+      "message": "The call is being made as show below. But it fails because we have not built a new odltools with your changes for the cluster-info. I will push a new version. Look for this log in the console.log: odltools -V. Current 0.1.25. Maybe we can find a way to dump what features are available so we know what is in odltools.\n\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/faseela-l2-netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-upstream-stateful-oxygen/1/robot-plugin/log_01_l2.html.gz#s1-t1-k3-k1",
+      "parentUuid": "1bd95c59_af067fa0",
+      "revId": "da0f645fca1ff6c7a56b62cbac9c3e5440307920",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
