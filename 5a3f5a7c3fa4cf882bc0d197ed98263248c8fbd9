@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62dc174d_e0e2b706",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T08:44:05Z",
+      "side": 1,
+      "message": "can\u0027t we do : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS} and then execute the commands on the remot system. it will help us see the IP in the output than seeing i-0, 1, 2",
+      "revId": "5a3f5a7c3fa4cf882bc0d197ed98263248c8fbd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6c4bf93_60886a4a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T08:44:05Z",
+      "side": 1,
+      "message": "same as above comment",
+      "revId": "5a3f5a7c3fa4cf882bc0d197ed98263248c8fbd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
