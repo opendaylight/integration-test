@@ -13,7 +13,7 @@ Version
 
 Get EOS
     [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}
-    [Documentation]    Get the odltools version
+    [Documentation]    Get the various ODL entity ownership information
     ${cmd} =    BuiltIn.Set Variable    odltools show eos -i ${node_ip} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD}
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    rc: ${rc}, output: ${output}
