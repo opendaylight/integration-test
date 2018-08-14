@@ -34,6 +34,24 @@
       "revId": "da0f645fca1ff6c7a56b62cbac9c3e5440307920",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7a2674c_edb4440d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T17:14:53Z",
+      "side": 1,
+      "message": "Thanks for the information! Now it is working. Btw, one question, should we add this to Suite TearDown, rather than doing on each test case tear down? As this is fetching a lot of data.",
+      "parentUuid": "a3a2e9b0_8b2788ff",
+      "revId": "da0f645fca1ff6c7a56b62cbac9c3e5440307920",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
