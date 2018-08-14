@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f805fac_d1d1122e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-14T17:00:34Z",
+      "side": 1,
+      "message": "not here since it is the Switch Connection being called later, which is the ssh connection id - and not an ip. if you want the ip then you can just add a log.",
+      "parentUuid": "62dc174d_e0e2b706",
+      "revId": "5a3f5a7c3fa4cf882bc0d197ed98263248c8fbd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c4bf93_60886a4a",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 103
