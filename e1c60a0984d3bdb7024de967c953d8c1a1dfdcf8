@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cffbcf59_039cfcea",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "can you give some other meaningful name instead of lines",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d55c1ed_1a6c9c44",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "wherever lines are used, the above comment applies",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f23b7c1_281a5921",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "rename",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e94b4feb_045c5f63",
+        "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "make it POD_NAMES",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3122a104_d15a2fdb",
+        "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "make it POD_YAMLS",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b841fa74_b9ad0b09",
+        "filename": "csit/suites/coe/Pods_Scalability_Tests.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-14T06:13:54Z",
+      "side": 1,
+      "message": "whats is the difference between pods.yaml and busybox.yaml??",
+      "revId": "e1c60a0984d3bdb7024de967c953d8c1a1dfdcf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
