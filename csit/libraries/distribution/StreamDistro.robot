@@ -15,9 +15,9 @@ Resource          ${CURDIR}/../CompareStream.robot
 
 *** Keywords ***
 Compose_Zip_Filename_Prefix
-    [Documentation]    Return "karaf" if at least Nitrogen, else return "distribution-karaf".
-    BuiltIn.Run_Keyword_And_Return    CompareStream.Set_Variable_If_At_Least_Nitrogen    karaf    distribution-karaf
+    [Documentation]    Return "karaf" if at least Oxygen, else return "distribution-karaf".
+    BuiltIn.Run_Keyword_And_Return    CompareStream.Set_Variable_If_At_Least_Oxygen    karaf    distribution-karaf
 
 Compose_Test_Feature_Repo_Name
-    [Documentation]    Return "features-test" if at least Nitrogen, else return "features-integration-test".
-    BuiltIn.Run_Keyword_And_Return    CompareStream.Set_Variable_If_At_Least_Nitrogen    features-test    features-integration-test
+    [Documentation]    Return "features-test" if at least Oxygen, else return "features-integration-test".
+    BuiltIn.Run_Keyword_And_Return    CompareStream.Set_Variable_If_At_Least_Oxygen    features-test    features-integration-test

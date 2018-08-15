@@ -95,7 +95,7 @@ Install_Older_Odl
     ${csit_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
     ${karaf4_features} =    Extract_Karaf4_Boot_Features    ${csit_line}
     # TODO: this works only if old odl is karaf3. Once old and new odl both are e.g. karaf4 this will create invalid line.
-    ${new_csit_line} =    CompareStream.Set_Variable_If_At_Least_Nitrogen    ${vanilla_line},${karaf4_features}    ${csit_line}
+    ${new_csit_line} =    CompareStream.Set_Variable_If_At_Least_Oxygen    ${vanilla_line},${karaf4_features}    ${csit_line}
     # Replace the vanilla line.
     SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${new_csit_line}/g' "${cfg_older}"
     # Verify the replaced line.

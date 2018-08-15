@@ -151,9 +151,7 @@ Clean Peer Groups
 Add Filter
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
     [Documentation]    Add Filter via RPC from Node
-    ${data} =    CompareStream.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
-    ...    ${node}    ${policy}
-    ...    ELSE    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
+    ${data} =    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}    ${policy}
     Post To Controller    ${session}    add-filter    ${data}
 
 Add Domain Filter

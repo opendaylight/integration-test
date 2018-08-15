@@ -141,7 +141,6 @@ TC14 Create, Update And Attach 2nd Neutron Port to Hwvtep Namespace 1
     [Documentation]    Create and attach 2nd port to HWVTEP in network 1
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     OpenStackOperations.Create Neutron Port With Additional Params    ${NET_1}    ${HWVTEP_PORT_3}    ${SECURITY_GROUP_L2GW_NONE}
     ${port_mac}=    Get Port Mac    ${HWVTEP_PORT_3}    #port_mac[4]
     ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_3}    #port_ip[4]
@@ -155,7 +154,6 @@ TC15 Update Existing L2Gateway With 2nd Port And Verify
     [Documentation]    Add the new port ${NS_PORT3} to existing L2GW ${L2GW_NAME1} that has an existing connection. ${NS_PORT1} is already attached, adding ${NS_PORT3}
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     ${output}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Update And Verify L2Gateway    ${HWVTEP_BRIDGE}    ${L2GW_NAME1}
     ...    ${NS_PORT1}    ${NS_PORT3}
 
@@ -163,7 +161,6 @@ TC16 Verify L2Gateway Connection
     [Documentation]    Verify the L2GW connection has the 2nd port. Verify db in hardware vtep emulator tables.
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Ovs Tunnel    ${HWVTEP_IP}    ${OVS_IP}
     ${output}=    ITM Get Tunnels
@@ -181,14 +178,12 @@ TC17 Dhcp Ip Allocation For Hwvtep Tap Port
     [Documentation]    Verify the 2nd HWVTEP port was able to get an IP address
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[4]}
 
 TC18 Verify Ping From Compute Node Vm To Hwvtep Port 2
     [Documentation]    Verify IP connectivity between VM in net1 and 2nd HWVTEP port in net 1
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
     ...    ping -c 3 ${port_ip_list[4]}
     Log    ${output}
@@ -201,7 +196,6 @@ TC19 Ping Verification From Namespace Tap To Ovs Vm
     [Documentation]    Verify IP connectivity between 2nd HWVTEP port and VM in compute node
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[4]}    ${port_ip_list[0]}
 
 TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network

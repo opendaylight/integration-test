@@ -95,7 +95,6 @@ Deconfigure_Device_From_Netconf_Temporarily
     ...    data was really stored in the device.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
     CompareStream.Run_Keyword_If_At_Least_Oxygen    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc_delete}    http_timeout=2    http_method=post
 
 Wait_For_Device_To_Be_Gone
@@ -206,7 +205,6 @@ Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
     CompareStream.Run_Keyword_If_At_Least_Oxygen    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc_delete}    http_timeout=2    http_method=post
 
 Check_Device_Going_To_Be_Gone_After_Deconfiguring
@@ -229,8 +227,7 @@ Setup_Everything
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     ${device_type_rpc}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type_rpc}
-    ${device_type}    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_rpc}    ${device_type_rpc_create}
-    BuiltIn.Set_Suite_Variable    ${device_type}
+    BuiltIn.Set_Suite_Variable    ${device_type_rpc_create}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

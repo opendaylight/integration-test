@@ -109,8 +109,6 @@ Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
     ${device_type_passw}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type_passw}
-    ${device_type}    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_passw}    ${device_type_key}
-    BuiltIn.Set_Suite_Variable    ${device_type}
+    BuiltIn.Set_Suite_Variable    ${device_type_key}
     Run Netopeer Docker Container
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    Configure ODL with Key config
     CompareStream.Run_Keyword_If_At_Least_Oxygen    Add Netconf Key
