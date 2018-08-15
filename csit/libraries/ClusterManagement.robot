@@ -98,19 +98,6 @@ Get_Sync_Status_Of_Member
     ${oper_status} =    ClusterManagement__Parse_Sync_Status    shard_manager_text=${oper_text}
     [Return]    ${oper_status}
 
-Dump_Local_Shards_For_Each_Member
-    [Arguments]    ${member_index_list}=${EMPTY}
-    [Documentation]    Obtain IP, two GETs from jolokia URIs, return combined local shard list
-    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    \    ${conf_shard_list} =    Wait Until Keyword Succeeds    60    2    TemplatedRequests.Get_As_Json_From_Uri    uri=${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}
-    \    ...    session=${session}
-    \    Log    ${conf_shard_list}
-    \    ${oper_shard_list} =    Wait Until Keyword Succeeds    60    2    TemplatedRequests.Get_As_Json_From_Uri    uri=${JOLOKIA_OPER_LOCAL_SHARDS_URI}
-    \    ...    session=${session}
-    \    Log    ${oper_shard_list}
-
 Verify_Leader_Exists_For_Each_Shard
     [Arguments]    ${shard_name_list}    ${shard_type}=operational    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
     [Documentation]    For each shard name, call Get_Leader_And_Followers_For_Shard.
