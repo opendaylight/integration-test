@@ -44,17 +44,17 @@ ${ENABLE_BCAST}    echo 0 | sudo tee /proc/sys/net/ipv4/icmp_echo_ignore_broadca
 *** Test case ***
 Verify Network Broadcast traffic between the VMs hosted in Single Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Same Network on same/different compute node
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[0]    same    pingsuccess
 
 Verify Network Broadcast traffic between the VMs hosted in Multi Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Different Network on same/different compute node.
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[3]    different    pingsuccess
 
 Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
     [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET1_BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET1_BCAST_IP}
     ...    @{VM_IPS}[0]    same    pingsuccess    ${VM2_SUBMETA}    additional_args=| grep ${VM2_SUBMETA}
 
 Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Single Network
@@ -64,7 +64,7 @@ Verify Subnet Broadcast traffic between the VMs hosted on Different compute node
 
 Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
     [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET2_BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET2_BCAST_IP}
     ...    @{VM_IPS}[0]    different    nosuccess    ${VM4_SUBMETA}    additional_args=| grep ${VM4_SUBMETA}
 
 Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Multi Network
