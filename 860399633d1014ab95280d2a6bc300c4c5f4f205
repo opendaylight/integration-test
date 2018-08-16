@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f0d4b38_e83e12ba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-16T18:37:21Z",
+      "side": 0,
+      "message": "weird that this was ever merged?",
+      "range": {
+        "startLine": 504,
+        "startChar": 4,
+        "endLine": 504,
+        "endChar": 15
+      },
+      "revId": "860399633d1014ab95280d2a6bc300c4c5f4f205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
