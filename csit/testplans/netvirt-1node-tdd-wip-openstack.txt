@@ -7,4 +7,5 @@ integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
 integration/test/csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot
 integration/test/csit/suites/netvirt/snatdnat/snat_dnat.robot
 integration/test/csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot
+integration/test/csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
