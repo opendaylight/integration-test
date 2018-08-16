@@ -154,3 +154,25 @@ Shutdown Tools Node
     ${stdout} =    BuiltIn.Run Keyword And Return If    ${rc} == 0    Utils.Run Command On Remote System    ${ip_address}    sudo shutdown -P 0    ${user}
     ...    ${passwd}
     BuiltIn.Log    ${stdout}
+
+Create Virtual Interface Eth0
+    [Documentation]    Create virtual interface on all of the cluster nodes
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo modprobe dummy    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link set name eth0 dev dummy0    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    ip link show eth0    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ifconfig -a    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+
+Delete Virtual Interface Eth0
+    [Documentation]    Create virtual interface on all of the cluster nodes
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link delete eth0 type dummy    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo rmmod dummy    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
+    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ifconfig -a    ${ODL_SYSTEM_USER}
+${ODL_SYSTEM_PASSWORD}
