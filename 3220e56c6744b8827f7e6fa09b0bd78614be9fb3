@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "246f89d2_bc3e082f",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-08-16T12:57:42Z",
+      "side": 1,
+      "message": "what about this?",
+      "range": {
+        "startLine": 72,
+        "startChar": 96,
+        "endLine": 72,
+        "endChar": 110
+      },
+      "revId": "3220e56c6744b8827f7e6fa09b0bd78614be9fb3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
