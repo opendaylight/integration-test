@@ -27,3 +27,19 @@ Get Cluster Info
     \    ${cmd} =    BuiltIn.Set Variable    odltools show cluster-info -i ${ODL_SYSTEM_${i+1}_IP} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD}
     \    ${output} =    OperatingSystem.Run    ${cmd}
     \    BuiltIn.Log    output: ${output}
+
+Analyze Tunnels
+    [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}
+    [Documentation]    Analyze Tunnel Mesh creation for any errorsand log results
+    ${cmd} =    BuiltIn.Set Variable    odltools analyze tunnels -i ${node_ip} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD} -p
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    rc: ${rc}, output: ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    [Return]    ${output}
+
+Get All
+    [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}
+    [Documentation]    Get all results provided by ODLTools
+    ODLTools.Get Cluster Info
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Analyze Tunnels    ${HA_PROXY_IP}
