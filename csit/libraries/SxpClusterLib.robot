@@ -49,11 +49,11 @@ Setup SXP Cluster
     SxpLib.Add Node    ${DEVICE_NODE_ID}    ip=0.0.0.0    session=${DEVICE_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}    system=${TOOLS_SYSTEM_IP}
     ...    ip=${EMPTY}
-    ${cluster_mode}    Sxp.Get Opposing Mode    ${peer_mode}
+    ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    ${DEVICE_NODE_ID}
     \    ...    session=${DEVICE_SESSION}
-    ${controller_id}    Get Any Controller
+    ${controller_id} =    Get Any Controller
     SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=0.0.0.0    session=controller${controller_id}
     BuiltIn.Wait Until Keyword Succeeds    20    1    Check Cluster Node started    ${CLUSTER_NODE_ID}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=controller${controller_id}
@@ -64,65 +64,65 @@ Clean SXP Cluster
     ClusterManagement.Flush_Iptables_From_List_Or_All
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
-    ${controller_index}    Get Active Controller
+    ${controller_index} =    Get Active Controller
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=controller${controller_index}
 
 Check Cluster Node started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${EMPTY}
     [Documentation]    Verify that SxpNode has data written to Operational datastore and Node is running on one of cluster nodes
-    ${started}    BuiltIn.Set Variable    ${False}
+    ${started} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${rc}    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
     \    ...    prompt=${ODL_SYSTEM_PROMPT}
-    \    ${started}    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
+    \    ${started} =    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
     BuiltIn.Should Be True    ${started}
 
 Check Device is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${session}=session
     [Documentation]    Checks if SXP device is connected to at least one cluster node
-    ${is_connected}    BuiltIn.Set Variable    ${False}
-    ${resp}    SxpLib.Get Connections    node=${node}    session=${session}
+    ${is_connected} =    BuiltIn.Set Variable    ${False}
+    ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${follower}    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
+    \    ${follower} =    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
     \    ...    ${port}    on
-    \    ${is_connected}    BuiltIn.Run Keyword If    ${follower}    BuiltIn.Set Variable    ${True}
+    \    ${is_connected} =    BuiltIn.Run Keyword If    ${follower}    BuiltIn.Set Variable    ${True}
     \    ...    ELSE    BuiltIn.Set Variable    ${is_connected}
     BuiltIn.Should Be True    ${is_connected}
 
 Check Cluster is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${mode}=speaker    ${session}=session
     [Documentation]    Checks if SXP device is connected to at least one cluster node
-    ${resp}    SxpLib.Get Connections    node=${node}    session=${session}
+    ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     SxpLib.Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
 
 Get Active Controller
     [Documentation]    Find cluster controller that is marked as leader for SXP service in cluster
-    @{votes}    BuiltIn.Create List
+    @{votes} =    BuiltIn.Create List
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${resp}    RequestsLibrary.Get Request    controller${i+1}    /restconf/operational/entity-owners:entity-owners
+    \    ${resp} =    RequestsLibrary.Get Request    controller${i+1}    /restconf/operational/entity-owners:entity-owners
     \    BuiltIn.Continue For Loop If    ${resp.status_code} != 200
-    \    ${controller}    Sxp.Get Active Controller From Json    ${resp.content}    SxpControllerInstance
+    \    ${controller} =    Sxp.Get Active Controller From Json    ${resp.content}    SxpControllerInstance
     \    Collections.Append To List    ${votes}    ${controller}
-    ${length}    BuiltIn.Get Length    ${votes}
+    ${length} =    BuiltIn.Get Length    ${votes}
     BuiltIn.Should Not Be Equal As Integers    ${length}    0
-    ${active_controller}    BuiltIn.Evaluate    collections.Counter(${votes}).most_common(1)[0][0]    collections
+    ${active_controller} =    BuiltIn.Evaluate    collections.Counter(${votes}).most_common(1)[0][0]    collections
     [Return]    ${active_controller}
 
 Get Inactive Controller
     [Documentation]    Find cluster controller that is not marked as leader for SXP service in cluster
-    ${active_controller}    Get Active Controller
-    ${controller}    BuiltIn.Evaluate    random.choice( filter( lambda i: i!=${active_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
+    ${active_controller} =    Get Active Controller
+    ${controller} =    BuiltIn.Evaluate    random.choice( filter( lambda i: i!=${active_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
     [Return]    ${controller}
 
 Get Any Controller
     [Documentation]    Get any controller from cluster range
-    ${follower}    BuiltIn.Evaluate    random.choice( range(1, ${NUM_ODL_SYSTEM} + 1))    random
+    ${follower} =    BuiltIn.Evaluate    random.choice( range(1, ${NUM_ODL_SYSTEM} + 1))    random
     [Return]    ${follower}
 
 Map Followers To Mac Addresses
     [Documentation]    Creates Map containing ODL_SYSTEM_IP to corresponding MAC-ADDRESS
-    ${mac_addresses}    BuiltIn.Create dictionary
+    ${mac_addresses} =    BuiltIn.Create dictionary
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    ${mac_address}    Find Mac Address Of Ip Address    ${ODL_SYSTEM_${i+1}_IP}
     \    Collections.Set To Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${i+1}_IP}    ${mac_address}
@@ -132,28 +132,28 @@ Map Followers To Mac Addresses
 Find Mac Address Of Ip Address
     [Arguments]    ${ip}
     [Documentation]    Finds out MAC-ADDRESS of specified IP by pinging it from TOOLS_SYSTEM machine
-    ${mac_address}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ping -c 1 -W 1 ${ip} >/dev/null && arp -n | grep ${ip} | awk '{print $3}'    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    ${mac_address} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ping -c 1 -W 1 ${ip} >/dev/null && arp -n | grep ${ip} | awk '{print $3}'    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
     [Return]    ${mac_address}
 
 Ip Addres Should Not Be Routed To Follower
     [Arguments]    ${mac_addresses}    ${ip_address}    ${follower_index}
     [Documentation]    Verify that IP-ADDRESS is not routed to follower specified by ID
-    ${mac_address_assigned}    Collections.Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
-    ${mac_address_resolved}    Find Mac Address Of Ip Address    ${ip_address}
+    ${mac_address_assigned} =    Collections.Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
+    ${mac_address_resolved} =    Find Mac Address Of Ip Address    ${ip_address}
     BuiltIn.Should Not Be Equal As Strings    ${mac_address_assigned}    ${mac_address_resolved}
 
 Ip Addres Should Be Routed To Follower
     [Arguments]    ${mac_addresses}    ${ip_address}    ${follower_index}
     [Documentation]    Verify that IP-ADDRESS is routed to follower specified by ID
-    ${mac_address_assigned}    Collections.Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
-    ${mac_address_resolved}    Find Mac Address Of Ip Address    ${ip_address}
+    ${mac_address_assigned} =    Collections.Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
+    ${mac_address_resolved} =    Find Mac Address Of Ip Address    ${ip_address}
     BuiltIn.Should Not Be Empty    ${mac_address_resolved}
     BuiltIn.Should Be Equal As Strings    ${mac_address_assigned}    ${mac_address_resolved}
 
 Shutdown Tools Node
     [Arguments]    ${ip_address}=${TOOLS_SYSTEM_2_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${passwd}=${TOOLS_SYSTEM_PASSWORD}
     [Documentation]    Shutdown Tools node to avoid conflict in resolving virtual ip that is overlaping that node.
-    ${rc}    OperatingSystem.Run And Return Rc    ping -q -c 3 ${ip_address}
-    ${stdout}    BuiltIn.Run Keyword And Return If    ${rc} == 0    Utils.Run Command On Remote System    ${ip_address}    sudo shutdown -P 0    ${user}
+    ${rc} =    OperatingSystem.Run And Return Rc    ping -q -c 3 ${ip_address}
+    ${stdout} =    BuiltIn.Run Keyword And Return If    ${rc} == 0    Utils.Run Command On Remote System    ${ip_address}    sudo shutdown -P 0    ${user}
     ...    ${passwd}
     BuiltIn.Log    ${stdout}
