@@ -40,6 +40,14 @@ Analyze Tunnels
 Get All
     [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}
     [Documentation]    Get all results provided by ODLTools
+    ${testname} =    ODLTools.Get Test Name
     ODLTools.Get Cluster Info
-    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
-    BuiltIn.run Keyword And Ignore Error    ODLTools.Analyze Tunnels    ${HA_PROXY_IP}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}    test_name=${testname}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Analyze Tunnels    ${HA_PROXY_IP}    test_name=${testname}
+
+Get Test Name
+    [Documentation]    Get a name that can be used during suite or test setup and teardown. TEST_NAME is not
+    ...    available during suite setup and tear down so it cannot be used then.
+    ${status}    ${message} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Variable Should Exist    ${TEST_NAME}
+    ${testname} =    BuiltIn.Set Variable If    "${status}" == "PASS"    ${SUITE_NAME}.${TEST_NAME}    ${SUITE_NAME}
+    [Return]    ${testname}
