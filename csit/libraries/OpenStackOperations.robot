@@ -551,7 +551,7 @@ Get OvsDebugInfo
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
-    ODLTools.Get All
+    ODLTools.Get All    test_name=${test_name}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
