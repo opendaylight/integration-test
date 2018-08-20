@@ -554,10 +554,11 @@ Get Test Teardown Debugs
     ODLTools.Get All    test_name=${test_name}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
-    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
+    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}    ${wlfile}=test/csit/libraries/odltools/whitelist.exceptions.netvirt.json
 
 Get Suite Debugs
-    Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
+    ${fail} =    BuiltIn.Set Variable If    "${PREV_TEST_STATUS}" == "${EMPTY}"    False    True
+    Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=${fail}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
