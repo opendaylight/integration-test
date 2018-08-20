@@ -1,0 +1,20 @@
+{
+    "whitelist": [
+        {
+            "issue": "https://jira.opendaylight.org/browse/NETVIRT-972",
+            "id": "ConflictingModificationAppliedException",
+            "context": [
+                "path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node[{(urn:opendaylight:inventory?revision=2013-08-19)id=table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3.",
+                ".21.", ".42.", "some string that will never match"
+            ]
+        },
+        {
+            "issue": "https://jira.opendaylight.org/browse/NETVIRT-1135",
+            "id": "ConflictingModificationAppliedException",
+            "context": [
+                "path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node[{(urn:opendaylight:inventory?revision=2013-08-19)id=table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=SNAT.",
+                ".47.", "some string that will never match"
+            ]
+        }
+    ]
+}

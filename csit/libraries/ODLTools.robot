@@ -51,3 +51,13 @@ Get Path
     [Documentation]    Get odltools path for a given test case
     ${tmpdir} =    BuiltIn.Evaluate    """${test_name}""".replace(" ","_").replace("/","_").replace(".","_")
     [Return]    /tmp/${tmpdir}
+
+Karaf Exceptions
+    [Arguments]    ${logfile}={KARAF_LOG}    ${outfile}=/tmp/karaf.exceptions.txt    ${wlfile}=${WHITELIST_FILE}    ${noprint}=False    testname=${SUITE_NAME}.${TEST_NAME}
+    [Documentation]    Get the odltools karaf exceptions
+    ${cmd} =    BuiltIn.Set Variable    odltools karaf exceptions --logfile ${logfile} --outfile ${outfile} --wlfile ${wlfile} --testname=${test_name}
+    ${cmd} =    BuiltIn.Run Keyword If    ${noprint}    BuiltIn.Catenate    ${cmd}    --noprint
+    {result} =    Process.Run Process    ${cmd}    shell=True
+    BuiltIn.Should Be Equal As Integers    ${result.rc}    ${0}
+    BuiltIn.Log    rc: ${result.rc}\n, stdout: ${rc.stdout}\n, stderr: ${rc.stderr}
+    [Return]    ${rc.stdout}
