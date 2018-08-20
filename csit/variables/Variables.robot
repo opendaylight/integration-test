@@ -207,4 +207,5 @@ ${VTN_INVENTORY_NODE_API}    /restconf/operational/vtn-inventory:vtn-nodes    # 
 ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
+${WHITELIST_FILE}    test/csit/libraries/odltools/whitelist.exceptions.json    # default whitelist exceptions file
 # Keep this list sorted alphabetically.
