@@ -19,9 +19,6 @@ ${SXP_LOG_LEVEL}    INFO
 *** Keywords ***
 Setup SXP Cluster Session
     [Documentation]    Create sessions asociated with SXP cluster setup
-    BuiltIn.Wait Until Keyword Succeeds    120    10    SxpLib.Prepare SSH Keys On Karaf    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
-    ...    ${TOOLS_SYSTEM_PROMPT}    /tmp
-    SxpLib.Setup SXP Session    ${DEVICE_SESSION}    ${TOOLS_SYSTEM_IP}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    120    10    SxpLib.Prepare SSH Keys On Karaf    ${ODL_SYSTEM_${i+1}_IP}
     \    SxpLib.Setup SXP Session    controller${i+1}    ${ODL_SYSTEM_${i+1}_IP}
