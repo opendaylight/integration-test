@@ -9,6 +9,7 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           ${CURDIR}/netvirt/excepts.py
 Resource          ${CURDIR}/ClusterManagement.robot
+Resource          ${CURDIR}/ODLTools.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
@@ -231,14 +232,11 @@ Get Karaf Log Lines From Test Start
     [Return]    ${log_lines}
 
 Fail If Exceptions Found During Test
-    [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}    ${fail}=False
+    [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}    ${fail}=False    ${wlfile}=${WHITELIST_FILE}
     [Documentation]    Create a failure if an Exception is found in the karaf.log that has not been whitelisted.
     ...    Will work for single controller jobs as well as 3node cluster jobs
     : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
-    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
-    \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
-    \    ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
-    \    Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
+    \    ${exlist} =    ODLTools.Karaf Exceptions    ${log_file}    /tmp/odl${i}_exceptions.txt    ${wlfile}    test_name=${test_name}
     \    ${listlength} =    BuiltIn.Get Length    ${exlist}
     \    BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
     \    ...    ELSE    Collections.Log List    ${matchlist}
