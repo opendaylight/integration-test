@@ -440,7 +440,7 @@ Get Tunnel Id And Packet Count
 Verify Dump Flows For Specific Table
     [Arguments]    ${compute_ip}    ${table_num}    ${flag}    ${additional_args}=${EMPTY}    @{matching_paras}
     [Documentation]    To Verify flows are present for the corresponding table Number
-    ${flow_output} =    Utils.Run Command On Remote System    ${compute_ip}    ${DUMP_FLOWS}|grep table=${table_num} ${additional_args}
+    ${flow_output} =    Utils.Run Command On Remote System    ${compute_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}|grep table=${table_num} ${additional_args}
     Log    ${flow_output}
     : FOR    ${matching_str}    IN    @{matching_paras}
     \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
