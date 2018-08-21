@@ -11,10 +11,14 @@ Resource          ../variables/Variables.robot
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
 @{SHARD_CONF_LIST}    inventory    topology    default
 ${DEVICE_SESSION}    device_1
-${DEVICE_NODE_ID}    1.1.1.1
-${CLUSTER_NODE_ID}    2.2.2.2
+${DEVICE_NODE_ID}   1.1.1.1
+${CLUSTER_NODE_ID}  2.2.2.2
 ${SXP_LOG_LEVEL}    INFO
-@{SXP_PACKAGE}    org.opendaylight.sxp
+@{SXP_PACKAGE}      org.opendaylight.sxp
+${VIRTUAL_IP}       ${TOOLS_SYSTEM_2_IP}
+${VIRTUAL_IP_MASK}    255.255.255.0
+${VIRTUAL_INTERFACE}    eth0
+${MAC_ADDRESS_TABLE}    &{EMPTY}
 
 *** Keywords ***
 Setup SXP Cluster Session
@@ -155,14 +159,14 @@ Shutdown Tools Node
     ...    ${passwd}
     BuiltIn.Log    ${stdout}
 
-Create Virtual Interface Eth0
+Create Virtual Interface
     [Documentation]    Create virtual interface on all of the cluster nodes
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo modprobe dummy    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link set name eth0 dev dummy0    ${ODL_SYSTEM_USER}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link set name ${VIRTUAL_INTERFACE} dev dummy0    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    ip link show eth0    ${ODL_SYSTEM_USER}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    ip link show ${VIRTUAL_INTERFACE}    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
     \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ifconfig -a    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
@@ -170,7 +174,7 @@ Create Virtual Interface Eth0
 Delete Virtual Interface Eth0
     [Documentation]    Create virtual interface on all of the cluster nodes
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link delete eth0 type dummy    ${ODL_SYSTEM_USER}
+    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link delete ${VIRTUAL_INTERFACE} type dummy    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
     \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo rmmod dummy    ${ODL_SYSTEM_USER}
     ...    ${ODL_SYSTEM_PASSWORD}
