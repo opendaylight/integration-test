@@ -8,23 +8,18 @@ Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SxpClusterLib.robot
 
-*** Variables ***
-${SAMPLES}        1
-
 *** Test Cases ***
 Isolation of SXP service follower Test
     [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
     Check Shards Status
-    : FOR    ${i}    IN RANGE    0    ${SAMPLES}
-    \    ${controller_index}    Get Active Controller
-    \    Isolate SXP Controller    ${controller_index}
+    ${controller_index} =    Get Active Controller
+    Isolate SXP Controller    ${controller_index}
 
 Isolation of SXP noservice follower Test
     [Documentation]    Test SXP connection switchover only if Controller without SCS are isolated
     Check Shards Status
-    : FOR    ${i}    IN RANGE    0    ${SAMPLES}
-    \    ${controller_index}    Get Inactive Controller
-    \    Isolate SXP Controller    ${controller_index}
+    ${controller_index} =    Get Inactive Controller
+    Isolate SXP Controller    ${controller_index}
 
 *** Keywords ***
 Isolate SXP Controller
