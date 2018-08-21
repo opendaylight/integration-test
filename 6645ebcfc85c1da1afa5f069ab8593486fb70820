@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ffb66da_c2a95ae9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-21T06:50:39Z",
+      "side": 1,
+      "message": "Hi,\nHere I have changed the hardcode value 30s to ${DEFAULT_TIMEOUT} parameter which is also equal to 30s.\n\nIn one of my suites, I need to increase the timeout period for this keyword.\nAs the timeout value was hardcoded, it was not allowing me to increase the timeout.\n\nNow,with this change I can change DEFAULT_TIMEOUT value to other value in suite itself.\n\nPlease review the same.\n\nThanks",
+      "revId": "6645ebcfc85c1da1afa5f069ab8593486fb70820",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
