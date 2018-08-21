@@ -45,6 +45,30 @@
       "revId": "283d673855876af63706f863b61cdfb493c21666",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8501af3_0760df54",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-21T21:26:35Z",
+      "side": 1,
+      "message": "funny you ask... I was thinking this would always run on the robot node with the karaf.log there. worked great in my local testing, but not so good in our csit. I will push another patch to change this a bit since that won\u0027t work.",
+      "parentUuid": "8aa27e46_a1dab3b4",
+      "range": {
+        "startLine": 239,
+        "startChar": 24,
+        "endLine": 239,
+        "endChar": 49
+      },
+      "revId": "283d673855876af63706f863b61cdfb493c21666",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
