@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a75b0ee8_6f0cdf18",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-21T17:51:43Z",
+      "side": 1,
+      "message": "whitelist_file for readability?",
+      "range": {
+        "startLine": 235,
+        "startChar": 82,
+        "endLine": 235,
+        "endChar": 88
+      },
+      "revId": "283d673855876af63706f863b61cdfb493c21666",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aa27e46_a1dab3b4",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-21T17:51:43Z",
+      "side": 1,
+      "message": "how does this work? I don\u0027t see where it\u0027s telling odltools\nto go to a specific controller.",
+      "range": {
+        "startLine": 239,
+        "startChar": 24,
+        "endLine": 239,
+        "endChar": 49
+      },
+      "revId": "283d673855876af63706f863b61cdfb493c21666",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
