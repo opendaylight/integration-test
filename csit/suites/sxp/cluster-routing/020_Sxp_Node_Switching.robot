@@ -9,22 +9,13 @@ Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SxpClusterLib.robot
 
-*** Variables ***
-${BINDINGS}       25
-${SAMPLES}        1
-${MAC_ADDRESS_TABLE}    &{EMPTY}
-${VIRTUAL_IP}     ${TOOLS_SYSTEM_2_IP}
-${VIRTUAL_INTERFACE}    eth0:0
-${VIRTUAL_IP_MASK}    255.255.255.0
-
 *** Test Cases ***
 Isolation of SXP service follower Test
     [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
     Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
-    : FOR    ${i}    IN RANGE    0    ${SAMPLES}
-    \    ${controller_index} =    SxpClusterLib.Get Active Controller
-    \    Isolate SXP Controller    ${controller_index}    listener
+    ${controller_index} =    SxpClusterLib.Get Active Controller
+    Isolate SXP Controller    ${controller_index}    listener
 
 Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
@@ -32,9 +23,8 @@ Isolation of SXP service follower Test Listener Part
     ${controller_index} =    SxpClusterLib.Get Active Controller
     Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
     Setup SXP Cluster Bindings    ${CLUSTER_NODE_ID}    controller${controller_index}
-    : FOR    ${i}    IN RANGE    0    ${SAMPLES}
-    \    ${controller_index} =    SxpClusterLib.Get Active Controller
-    \    Isolate SXP Controller With Bindings    ${controller_index}    ${DEVICE_NODE_ID}    listener    ${DEVICE_SESSION}
+    ${controller_index} =    SxpClusterLib.Get Active Controller
+    Isolate SXP Controller With Bindings    ${controller_index}    ${DEVICE_NODE_ID}    listener    ${DEVICE_SESSION}
 
 Isolation of SXP service follower Test Speaker Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated,
@@ -42,9 +32,8 @@ Isolation of SXP service follower Test Speaker Part
     SxpClusterLib.Check Shards Status
     Setup Custom SXP Cluster    ${VIRTUAL_IP}    speaker
     Setup SXP Cluster Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
-    : FOR    ${i}    IN RANGE    0    ${SAMPLES}
-    \    ${controller_index} =    SxpClusterLib.Get Active Controller
-    \    Isolate SXP Controller With Bindings    ${controller_index}    ${CLUSTER_NODE_ID}    speaker
+    ${controller_index} =    SxpClusterLib.Get Active Controller
+    Isolate SXP Controller With Bindings    ${controller_index}    ${CLUSTER_NODE_ID}    speaker
 
 *** Keywords ***
 Setup Custom SXP Cluster Session
