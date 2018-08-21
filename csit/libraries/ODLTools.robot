@@ -12,7 +12,7 @@ Version
     [Return]    ${output}
 
 Get EOS
-    [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
+    [Arguments]    ${node_ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     [Documentation]    Get the various ODL entity ownership information
     ${dstdir} =    Get Path    ${test_name}
     ${cmd} =    BuiltIn.Set Variable    odltools show eos -i ${node_ip} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD} --path ${dstdir}
@@ -30,7 +30,7 @@ Get Cluster Info
     \    BuiltIn.Log    output: ${output}
 
 Analyze Tunnels
-    [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
+    [Arguments]    ${node_ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     [Documentation]    Analyze Tunnel Mesh creation for any errors and log results
     ${dstdir} =    Get Path    ${test_name}
     ${cmd} =    BuiltIn.Set Variable    odltools analyze tunnels -i ${node_ip} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD} --path ${dstdir}
@@ -40,11 +40,11 @@ Analyze Tunnels
     [Return]    ${output}
 
 Get All
-    [Arguments]    ${node_ip}=${TOOLS_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
+    [Arguments]    ${node_ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     [Documentation]    Get all results provided by ODLTools
     ODLTools.Get Cluster Info
-    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}    test_name=${test_name}
-    BuiltIn.run Keyword And Ignore Error    ODLTools.Analyze Tunnels    ${HA_PROXY_IP}    test_name=${test_name}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${node_ip}    test_name=${test_name}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Analyze Tunnels    ${node_ip}    test_name=${test_name}
 
 Get Path
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
