@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3112e43_cb06334f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-22T05:48:11Z",
+      "side": 1,
+      "message": "It should be openstack CLI.",
+      "revId": "191f487e9585db474b8550db7103b5bee24552f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f9f89ec_c66289ac",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-22T05:48:11Z",
+      "side": 1,
+      "message": "To make this as a generic keyword, I have modified the 2nd argument to empty value and for one of the suites, need to pass extra parameter in addition to show router.",
+      "revId": "191f487e9585db474b8550db7103b5bee24552f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
