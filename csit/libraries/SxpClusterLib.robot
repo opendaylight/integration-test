@@ -97,10 +97,21 @@ Check Cluster is Connected
     SxpLib.Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
 
 Get Active Controller
-    [Documentation]    Find cluster controller that is marked as leader for SXP service in cluster
-    @{votes} =    BuiltIn.Create List
+    [Documentation]    Find cluster controller that is marked as leader in cluster with all members running
+    @{running_members} =    BuiltIn.Create List
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${resp} =    RequestsLibrary.Get Request    controller${i+1}    /restconf/operational/entity-owners:entity-owners
+    \    Collections.Append To List    ${running_members}    ${i+1}
+    \    BuiltIn.Log    ${i+1}
+    BuiltIn.Log    ${running_members}
+    ${active_controller} =    Get Active Controller From Running    @{running_members}
+    [Return]    ${active_controller}
+
+Get Active Controller From Running
+    [Arguments]    @{running-members}
+    [Documentation]    Find cluster controller that is marked as leader in cluster with only some members running
+    @{votes} =    BuiltIn.Create List
+    : FOR    ${i}    IN    @{running-members}
+    \    ${resp} =    RequestsLibrary.Get Request    controller${i}    /restconf/operational/entity-owners:entity-owners
     \    BuiltIn.Continue For Loop If    ${resp.status_code} != 200
     \    ${controller} =    Sxp.Get Active Controller From Json    ${resp.content}    SxpControllerInstance
     \    Collections.Append To List    ${votes}    ${controller}
