@@ -13,14 +13,14 @@ Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
     Setup Custom SXP Cluster    listener    ${CLUSTER_NODE_ID}    controller1
-    ${controller_index} =    SxpClusterLib.Get Active Controller
+    ${controller_index} =    SxpClusterLib.Get Leader Controller
     Isolate SXP Controller    ${controller_index}    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
 
 Isolation of SXP service follower Test Speaker Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
     Setup Custom SXP Cluster    speaker
-    ${controller_index} =    SxpClusterLib.Get Active Controller
+    ${controller_index} =    SxpClusterLib.Get Leader Controller
     Isolate SXP Controller    ${controller_index}    ${CLUSTER_NODE_ID}
 
 Isolation of SXP noservice follower Test Listener Part
@@ -50,10 +50,10 @@ Isolate SXP Controller
     [Documentation]    Isolate one of cluster nodes and perform check that bindings were propagated afterwards reverts isolation
     ${find_session} =    BuiltIn.Set Variable If    '${session}' == ''    ${True}    ${False}
     ${session} =    BuiltIn.Set Variable If    ${find_session}    controller${controller_index}    ${session}
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    ${active_controller} =    SxpClusterLib.Get Active Controller
+    ${active_controller} =    SxpClusterLib.Get Leader Controller From Running    @{running_members}
     ${session} =    BuiltIn.Set Variable If    ${find_session}    controller${active_controller}    ${session}
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings    ${node}    ${session}
     ClusterManagement.Flush_Iptables_From_List_Or_All
