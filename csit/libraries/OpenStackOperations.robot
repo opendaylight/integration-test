@@ -742,7 +742,7 @@ Delete All Security Group Rules
     \    ${output} =    OpenStack CLI    openstack security group rule delete ${rule}
 
 Create Allow All SecurityGroup
-    [Arguments]    ${sg_name}    ${ether_type}=IPv4
+    [Arguments]    ${sg_name}    ${ether_type}=IPv4    ${dual}=False
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     OpenStackOperations.Neutron Security Group Create    ${sg_name}
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=tcp
@@ -751,6 +751,16 @@ Create Allow All SecurityGroup
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    protocol=icmp
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
+    BuiltIn.Run Keyword If    "${dual}"=="True"    Run Keywords    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=IPv6
+    ...    port_range_max=65535    port_range_min=1    protocol=tcp
+    ...    AND    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=IPv6    port_range_max=65535
+    ...    port_range_min=1    protocol=tcp
+    ...    AND    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=IPv6    protocol=icmp
+    ...    AND    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=IPv6    protocol=icmp
+    ...    AND    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=IPv6    port_range_max=65535
+    ...    port_range_min=1    protocol=udp
+    ...    AND    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=IPv6    port_range_max=65535
+    ...    port_range_min=1    protocol=udp
 
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
