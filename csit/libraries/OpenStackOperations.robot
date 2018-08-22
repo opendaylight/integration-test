@@ -501,7 +501,7 @@ Remove Interface
 Remove Gateway
     [Arguments]    ${router_name}
     [Documentation]    Remove external gateway from the router.
-    BuiltIn.Log    openstack router unset ${router_name} --external-gateway
+    ${output} =    OpenStack CLI    openstack router unset ${router_name} --external-gateway
 
 Update Router
     [Arguments]    ${router_name}    ${cmd}
@@ -509,9 +509,9 @@ Update Router
     ${output} =    OpenStack CLI    openstack router set ${router_name} ${cmd}
 
 Show Router
-    [Arguments]    ${router_name}    ${options}
+    [Arguments]    ${router_name}    ${additional_args}=${EMPTY}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
-    ${output} =    OpenStack CLI    openstack router show ${router_name}
+    ${output} =    OpenStack CLI    openstack router show ${router_name} ${additional_args}
     [Return]    ${output}
 
 Delete Router
