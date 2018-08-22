@@ -64,7 +64,7 @@ Clean SXP Cluster
     ClusterManagement.Flush_Iptables_From_List_Or_All
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
-    ${controller_index} =    Get Active Controller
+    ${controller_index} =    Get Leader Controller
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=controller${controller_index}
 
@@ -96,13 +96,23 @@ Check Cluster is Connected
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     SxpLib.Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
 
-Get Active Controller
-    [Documentation]    Find cluster controller that is marked as leader for SXP service in cluster
-    @{votes} =    BuiltIn.Create List
+Get Leader Controller
+    [Documentation]    Find cluster controller that is marked as leader in cluster with all members running
+    @{running_members} =    BuiltIn.Create List
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${resp} =    RequestsLibrary.Get Request    controller${i+1}    /restconf/operational/entity-owners:entity-owners
+    \    Collections.Append To List    ${running_members}    ${i+1}
+    ${active_controller} =    Get Leader Controller From Running    @{running_members}
+    [Return]    ${active_controller}
+
+Get Leader Controller From Running
+    [Arguments]    @{running_members}
+    [Documentation]    Find cluster controller that is marked as leader in cluster with only some members running
+    BuiltIn.Log    ${running_members}
+    @{votes} =    BuiltIn.Create List
+    : FOR    ${i}    IN    @{running_members}
+    \    ${resp} =    RequestsLibrary.Get Request    controller${i}    /restconf/operational/entity-owners:entity-owners
     \    BuiltIn.Continue For Loop If    ${resp.status_code} != 200
-    \    ${controller} =    Sxp.Get Active Controller From Json    ${resp.content}    SxpControllerInstance
+    \    ${controller} =    Sxp.Get Leader Controller From Json    ${resp.content}    SxpControllerInstance
     \    Collections.Append To List    ${votes}    ${controller}
     ${length} =    BuiltIn.Get Length    ${votes}
     BuiltIn.Should Not Be Equal As Integers    ${length}    0
@@ -111,7 +121,7 @@ Get Active Controller
 
 Get Inactive Controller
     [Documentation]    Find cluster controller that is not marked as leader for SXP service in cluster
-    ${active_controller} =    Get Active Controller
+    ${active_controller} =    Get Leader Controller
     ${controller} =    BuiltIn.Evaluate    random.choice( filter( lambda i: i!=${active_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
     [Return]    ${controller}
 
