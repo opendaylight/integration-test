@@ -31,12 +31,15 @@ dashboard:
           1:
             field: performance.plots.rate.Config DS
             label: Config DS
+            color: red
           2:
             field: performance.plots.rate.OVS Switch
             label: OVS Switch
+            color: yellow
           3:
             field:  performance.plots.rate.Operational DS
             label: Operational DS
+            color: blue
 
       co_ords:
         h: 3
