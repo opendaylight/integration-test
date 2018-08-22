@@ -77,10 +77,10 @@ Isolate SXP Controller
     [Arguments]    ${controller_index}    ${peer_mode}
     [Documentation]    Isolate one of cluster nodes and perform check that Device is still connected then revert isolation (and check connection again).
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${controller_index}
-    ${active_follower} =    SxpClusterLib.Get Active Controller
+    ${active_follower} =    SxpClusterLib.Get Active Controller From Running    @{running_members}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SXpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${active_follower}
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=controller${active_follower}
     BuiltIn.Wait Until Keyword Succeeds    60    1    Check Device is Connected    ${DEVICE_NODE_ID}    ${VIRTUAL_IP}    ${peer_mode}
@@ -97,10 +97,10 @@ Isolate SXP Controller With Bindings
     ${find_session} =    BuiltIn.Set Variable If    '${session}' == '${EMPTY}'    ${True}    ${False}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     ${session} =    BuiltIn.Set Variable If    ${find_session}    controller${controller_index}    ${session}
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${controller_index}
-    ${active_follower} =    SxpClusterLib.Get Active Controller
+    ${active_follower} =    SxpClusterLib.Get Active Controller From Running    @{running_members}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SXpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${active_follower}
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=controller${active_follower}
     BuiltIn.Wait Until Keyword Succeeds    60    1    Check Device is Connected    ${DEVICE_NODE_ID}    ${VIRTUAL_IP}    ${peer_mode}

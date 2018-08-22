@@ -29,10 +29,10 @@ Isolate SXP Controller
     ${active_controller} =    SxpClusterLib.Get Active Controller
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings Exist
-    ${active_controller} =    SxpClusterLib.Get Active Controller
+    ${active_controller} =    SxpClusterLib.Get Active Controller From Running    @{running_members}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SXpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
     ClusterManagement.Flush_Iptables_From_List_Or_All
