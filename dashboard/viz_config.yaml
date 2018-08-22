@@ -15,6 +15,7 @@ opendaylight-test-feature:
             label: Pass tests
             schema: metric
             value_axis: 1
+            color: green
         fail:
             data_type: histogram
             mode: stacked
@@ -22,6 +23,7 @@ opendaylight-test-feature:
             label: Fail tests
             schema: metric
             value_axis: 1
+            color: red
         build:
             field: performance.test-run
             label: Build Number

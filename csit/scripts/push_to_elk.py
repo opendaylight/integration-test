@@ -52,7 +52,7 @@ and plot files available in workspace available post-build.
 import json
 import os
 import sys
-
+import glob
 
 # 3rd party lib
 from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
@@ -60,6 +60,7 @@ import yaml
 
 # User defined libs
 import generate_visState as vis_gen
+import generate_uiStateJSON as uiStateJSON_gen
 import generate_dashVis as dash_gen
 import data_generate as data_gen
 
@@ -193,6 +194,9 @@ for _, i in dash_config['dashboard']['viz'].items():
     intermediate_format, visState = vis_gen.generate(
         i, viz_config[i['viz-template']])
 
+    uiStateJSON = uiStateJSON_gen.generate(
+        i, viz_config[i['viz-template']])
+
     # p(intermediate_format)
     # p(visState)
 
@@ -213,6 +217,7 @@ for _, i in dash_config['dashboard']['viz'].items():
 
     VIZ_BODY['visualization']['title'] = intermediate_format['title']
     VIZ_BODY['visualization']['visState'] = JSONToString(visState)
+    VIZ_BODY['visualization']['uiStateJSON'] = JSONToString(uiStateJSON)
     VIZ_BODY['visualization']['description'] = intermediate_format['desc']
 
     p(VIZ_BODY)
