@@ -28,7 +28,7 @@ Post To Controller
     BuiltIn.Should Be True    ${result}    RPC result is False
 
 Add Node
-    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${node}
     ...    ${ssl_stores}=${EMPTY}    ${retry_open_timer}=1
     [Documentation]    Add node via RPC to ODL
     ${data} =    Sxp.Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
@@ -332,7 +332,7 @@ Setup SXP Environment
     \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
 
 Check Node Started
-    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}    ${session}=session    ${ip}=${node}
+    [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
     ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
