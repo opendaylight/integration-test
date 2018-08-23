@@ -313,7 +313,7 @@ Setup SXP Environment
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
-    [Documentation]    Verify that SxpNode has data writed to Operational datastore
+    [Documentation]    Verify that SxpNode has data writen to Operational datastore and is running
     ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${rc} =    Utils.Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
