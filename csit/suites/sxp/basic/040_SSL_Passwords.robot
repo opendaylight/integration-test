@@ -129,7 +129,6 @@ SSL ConectivityCase 4
 Setup SXP Environment Local
     [Arguments]    ${node_range}
     [Documentation]    Create session to Controller, copy keystores to ODL machines and setup topology for testing
-    SxpLib.Setup SXP Session
     SSHKeywords.Open_Connection_To_ODL_System
     ${ODL_SYSTEM_JAVA_HOME}    SSHLibrary.Execute_Command    java -XshowSettings:properties -version 2>&1 | grep java.home | sed 's/.*= //'
     : FOR    ${node}    IN RANGE    1    ${node_range}
