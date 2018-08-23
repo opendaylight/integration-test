@@ -10,8 +10,8 @@ Resource          ../variables/Variables.robot
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
 @{SHARD_CONF_LIST}    inventory    topology    default
 @{SXP_PACKAGE}    org.opendaylight.sxp
-${DEVICE_SESSION}    device_1
-${DEVICE_NODE_ID}    1.1.1.1
+${DEVICE_SESSION}    device1
+${DEVICE_NODE_ID}    ${TOOLS_SYSTEM_IP}
 ${CLUSTER_NODE_ID}    2.2.2.2
 ${SXP_LOG_LEVEL}    INFO
 ${VIRTUAL_IP}     ${TOOLS_SYSTEM_2_IP}
@@ -28,6 +28,11 @@ Setup SXP Cluster Session
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
+
+Setup Device Session
+    [Documentation]    Create session on the SXP device
+    BuiltIn.Wait Until Keyword Succeeds    120    10    SxpLib.Prepare SSH Keys On Karaf    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${TOOLS_SYSTEM_PROMPT}    /tmp
+    SxpLib.Setup SXP Session    ${DEVICE_SESSION}    ${TOOLS_SYSTEM_IP}
 
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
@@ -69,7 +74,7 @@ Clean SXP Cluster
     SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=controller${controller_index}
 
 Check Cluster Node started
-    [Arguments]    ${node}    ${port}=64999    ${ip}=${EMPTY}
+    [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data written to Operational datastore and Node is running on one of cluster nodes
     ${started} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}

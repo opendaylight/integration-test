@@ -13,7 +13,7 @@ Resource          ../../../libraries/SxpClusterLib.robot
 Isolation of SXP service follower Test
     [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
+    Setup Custom SXP Cluster    listener
     ${controller_index} =    SxpClusterLib.Get Active Controller
     Isolate SXP Controller    ${controller_index}    listener
 
@@ -21,7 +21,7 @@ Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
     ${controller_index} =    SxpClusterLib.Get Active Controller
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
+    Setup Custom SXP Cluster    listener
     Setup SXP Cluster Bindings    ${CLUSTER_NODE_ID}    controller${controller_index}
     ${controller_index} =    SxpClusterLib.Get Active Controller
     Isolate SXP Controller With Bindings    ${controller_index}    ${DEVICE_NODE_ID}    listener    ${DEVICE_SESSION}
@@ -30,7 +30,7 @@ Isolation of SXP service follower Test Speaker Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated,
     ...    the same case as above but with initiator of connection between nodes in oposite mode
     SxpClusterLib.Check Shards Status
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    speaker
+    Setup Custom SXP Cluster    speaker
     Setup SXP Cluster Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     ${controller_index} =    SxpClusterLib.Get Active Controller
     Isolate SXP Controller With Bindings    ${controller_index}    ${CLUSTER_NODE_ID}    speaker
@@ -40,6 +40,7 @@ Setup Custom SXP Cluster Session
     [Documentation]    Prepare topology for testing, creates sessions and generate Route definitions based on Cluster nodes ip
     SxpClusterLib.Shutdown Tools Node
     SxpClusterLib.Setup SXP Cluster Session
+    SxpClusterLib.Setup Device Session
     ${controller_index} =    SxpClusterLib.Get Active Controller
     ${mac_addresses} =    SxpClusterLib.Map Followers To Mac Addresses
     BuiltIn.Set Suite Variable    ${MAC_ADDRESS_TABLE}    ${mac_addresses}
@@ -54,18 +55,17 @@ Clean Custom SXP Cluster Session
     SxpClusterLib.Clean SXP Cluster Session
 
 Setup Custom SXP Cluster
-    [Arguments]    ${peer_address}    ${peer_mode}
+    [Arguments]    ${peer_mode}
     [Documentation]    Setup and connect SXP cluster topology
-    SxpLib.Add Node    ${DEVICE_NODE_ID}    ip=0.0.0.0    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}    system=${TOOLS_SYSTEM_IP}
-    ...    ip=${EMPTY}
+    SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    SxpLib.Add Connection    version4    ${peer_mode}    ${VIRTUAL_IP}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
-    SxpLib.Add Connection    version4    ${peer_mode}    ${peer_address}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ${controller_id} =    SxpClusterLib.Get Active Controller
-    SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=${peer_address}    session=controller${controller_id}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpClusterLib.Check Cluster Node started    ${CLUSTER_NODE_ID}
-    SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=controller${controller_id}
-    BuiltIn.Wait Until Keyword Succeeds    120    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=controller${controller_id}
+    SxpLib.Add Node    ${VIRTUAL_IP}    session=controller${controller_id}
+    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpClusterLib.Check Node started    ${VIRTUAL_IP}    session=controller${controller_id}
+    SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${VIRTUAL_IP}    session=controller${controller_id}
+    BuiltIn.Wait Until Keyword Succeeds    120    1    SxpClusterLib.Check Cluster is Connected    ${VIRTUAL_IP}    mode=${cluster_mode}    session=controller${controller_id}
 
 Setup SXP Cluster Bindings
     [Arguments]    ${node}    ${session}
