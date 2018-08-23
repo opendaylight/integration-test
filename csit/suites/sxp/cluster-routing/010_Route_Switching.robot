@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to test cluster connection switchover using virtual ip, this suite requires additional TOOLS_SYSTEM VM.
+Documentation     Test suite to test cluster connection switchover using virtual IP, this suite requires additional TOOLS_SYSTEM VM.
 ...               VM is used for its assigned ip-address that will be overlayed by virtual-ip used in test suites.
 ...               Resources of this VM are not required and after start of Test suite this node shutted down and to reduce routing conflicts.
 Suite Setup       Setup Custom SXP Cluster Session
@@ -52,7 +52,7 @@ Custom Clean SXP Cluster
     SxpLib.Clean Routing Configuration To Controller    ${CONTROLLER_SESSION}
 
 Setup Custom SXP Cluster Session
-    [Documentation]    Prepare topology for testing, creates sessions and generate Route definitions based on Cluster nodes ip
+    [Documentation]    Prepare topology for testing, creates sessions and generate Route definitions based on Cluster nodes IP
     SxpClusterLib.Shutdown Tools Node
     SxpClusterLib.Setup SXP Cluster Session
     ${mac_addresses} =    SxpClusterLib.Map Followers To Mac Addresses
