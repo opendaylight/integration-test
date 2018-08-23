@@ -90,7 +90,7 @@ Check Device is Connected
 
 Check Cluster is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${mode}=speaker    ${session}=session
-    [Documentation]    Get SXP connections from cluster and verify that they contain a connection to the device in state "on"
+    [Documentation]    Get SXP connections of cluster ${node} and verify that they contain a connection to the device ${DEVICE_NODE_ID} in state "on"
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     SxpLib.Should Contain Connection    ${resp}    ${DEVICE_NODE_ID}    ${port}    ${mode}    ${version}    on
 
