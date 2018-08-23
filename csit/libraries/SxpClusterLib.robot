@@ -11,13 +11,13 @@ Resource          ./SxpLib.robot
 @{SXP_PACKAGE}    org.opendaylight.sxp
 ${DEVICE_SESSION}    device_1
 ${CONTROLLER_SESSION}    ClusterManagement__session_1
-${DEVICE_NODE_ID}    1.1.1.1
-${CLUSTER_NODE_ID}    2.2.2.2
 ${SXP_LOG_LEVEL}    INFO
 ${VIRTUAL_IP}     ${TOOLS_SYSTEM_2_IP}
 ${VIRTUAL_IP_MASK}    255.255.255.0
 ${VIRTUAL_INTERFACE}    eth0
 ${MAC_ADDRESS_TABLE}    &{EMPTY}
+${DEVICE_NODE_ID}    ${TOOLS_SYSTEM_IP}
+${CLUSTER_NODE_ID}    ${TOOLS_SYSTEM_2_IP}
 
 *** Keywords ***
 Setup SXP Cluster Session
@@ -25,6 +25,10 @@ Setup SXP Cluster Session
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
+
+Setup Device Session
+    [Documentation]    Create session on the SXP device
+    RequestsLibrary.Create Session    ${DEVICE_SESSION}    url=http://${DEVICE_NODE_ID}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
 
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
@@ -50,9 +54,9 @@ Setup SXP Cluster
     \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    ${DEVICE_NODE_ID}
     \    ...    session=${DEVICE_SESSION}
     ${controller_id} =    Get Any Controller
-    SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=0.0.0.0    session=controller${controller_id}
+    SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=0.0.0.0    session=ClusterManagement__session_${controller_id}
     BuiltIn.Wait Until Keyword Succeeds    20    1    Check Cluster Node started    ${CLUSTER_NODE_ID}
-    SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=controller${controller_id}
+    SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=ClusterManagement__session_${controller_id}
     BuiltIn.Wait Until Keyword Succeeds    120    1    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
@@ -60,12 +64,11 @@ Clean SXP Cluster
     ClusterManagement.Flush_Iptables_From_List_Or_All
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
-    ${controller_index} =    Get Owner Controller
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=controller${controller_index}
+    SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=${CONTROLLER_SESSION}
 
 Check Cluster Node started
-    [Arguments]    ${node}    ${port}=64999    ${ip}=${EMPTY}
+    [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data written to Operational datastore and Node is running on one of cluster nodes
     ${started} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
@@ -76,21 +79,20 @@ Check Cluster Node started
 
 Check Device is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${session}=session
-    [Documentation]    Checks if SXP device is connected to at least one cluster node
-    ${is_connected} =    BuiltIn.Set Variable    ${False}
+    [Documentation]    Checks if SXP device is connected to the cluster. It means it has connection in state "on" with one of the cluster members.
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
+    ${is_connected} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${follower} =    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
+    \    ${is_connected} =    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
     \    ...    ${port}    on
-    \    ${is_connected} =    BuiltIn.Run Keyword If    ${follower}    BuiltIn.Set Variable    ${True}
-    \    ...    ELSE    BuiltIn.Set Variable    ${is_connected}
+    \    BuiltIn.Exit For Loop If    ${is_connected}
     BuiltIn.Should Be True    ${is_connected}
 
 Check Cluster is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${mode}=speaker    ${session}=session
-    [Documentation]    Checks if SXP device is connected to at least one cluster node
+    [Documentation]    Get SXP connections from cluster and verify that they contain a connection to the device in state "on"
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
-    SxpLib.Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
+    SxpLib.Should Contain Connection    ${resp}    ${DEVICE_NODE_ID}    ${port}    ${mode}    ${version}    on
 
 Get Owner Controller
     [Arguments]    ${running_member}=1
