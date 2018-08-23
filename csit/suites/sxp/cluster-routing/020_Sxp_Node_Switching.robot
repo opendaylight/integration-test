@@ -1,48 +1,66 @@
 *** Settings ***
-Documentation     Test suite to test cluster connection and propagation switchover using virtual ip, this suite requires additional TOOLS_SYSTEM VM.
+Documentation     Test suite to test cluster connection and propagation switchover using virtual IP, this suite requires additional TOOLS_SYSTEM_2 VM.
 ...               VM is used for its assigned ip-address that will be overlayed by virtual-ip used in test suites.
-...               Resources of this VM are not required and after start of Test suite this node shutted down and to reduce routing conflicts.
+...               Resources of this VM are not required. At suite start this node is shutted down to reduce routing conflicts.
 Suite Setup       Setup Custom SXP Cluster Session
 Suite Teardown    Clean Custom SXP Cluster Session
+Test Setup        SxpClusterLib.Check Shards Status
 Test Teardown     Clean SXP Cluster
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SxpClusterLib.robot
 
+*** Variables ***
+${BINDINGS}    4
+
 *** Test Cases ***
-Isolation of SXP service follower Test
+Isolation Of SXP Service Follower W/O Bindings Listener Test
     [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
-    SxpClusterLib.Check Shards Status
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
+    Setup Nodes And Connections    listener
     ${controller_index} =    SxpClusterLib.Get Active Controller
     Isolate SXP Controller    ${controller_index}    listener
 
-Isolation of SXP service follower Test Listener Part
+Isolation Of SXP Service Follower W/O Bindings Speaker Test
+    [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
+    Setup Nodes And Connections    speaker
+    ${controller_index} =    SxpClusterLib.Get Active Controller
+    Isolate SXP Controller    ${controller_index}    listener
+
+Isolation Of SXP Service Follower Listener Test
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
-    SxpClusterLib.Check Shards Status
+    Setup Nodes And Connections    listener
     ${controller_index} =    SxpClusterLib.Get Active Controller
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    listener
-    Setup SXP Cluster Bindings    ${CLUSTER_NODE_ID}    controller${controller_index}
-    ${controller_index} =    SxpClusterLib.Get Active Controller
+    Add Bindings To Node    ${CLUSTER_NODE_ID}    controller${controller_index}
     Isolate SXP Controller With Bindings    ${controller_index}    ${DEVICE_NODE_ID}    listener    ${DEVICE_SESSION}
 
-Isolation of SXP service follower Test Speaker Part
+Isolation Of SXP Service Follower Speaker Test
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated,
     ...    the same case as above but with initiator of connection between nodes in oposite mode
-    SxpClusterLib.Check Shards Status
-    Setup Custom SXP Cluster    ${VIRTUAL_IP}    speaker
-    Setup SXP Cluster Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
+    Setup Nodes And Connections    speaker
+    Add Bindings To Node    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     ${controller_index} =    SxpClusterLib.Get Active Controller
-    Isolate SXP Controller With Bindings    ${controller_index}    ${CLUSTER_NODE_ID}    speaker
+    Isolate SXP Controller With Bindings    ${controller_index}    ${CLUSTER_NODE_ID}    speaker    controller${controller_index}
 
 *** Keywords ***
 Setup Custom SXP Cluster Session
     [Documentation]    Prepare topology for testing, creates sessions and generate Route definitions based on Cluster nodes ip
     SxpClusterLib.Shutdown Tools Node
+    SxpClusterLib.Create Virtual Interface
     SxpClusterLib.Setup SXP Cluster Session
+    SxpClusterLib.Setup Device Session
     ${controller_index} =    SxpClusterLib.Get Active Controller
+    Retrieve Mac-addresses    ${controller_index}
+    Setup Virtual IP    ${controller_index}
+
+Retrieve Mac-addresses
+    [Arguments]    ${controller_index}
+    [Documentation]    Create list of ODL nodes mac-addresses
     ${mac_addresses} =    SxpClusterLib.Map Followers To Mac Addresses
     BuiltIn.Set Suite Variable    ${MAC_ADDRESS_TABLE}    ${mac_addresses}
+
+Setup Virtual IP
+    [Arguments]    ${controller_index}
+    [Documentation]    Enable routing to cluster through virtual IP
     ${route} =    Sxp.Route Definition Xml    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}
     ${routes} =    Sxp.Route Definitions Xml    ${route}
     SxpLib.Put Routing Configuration To Controller    ${routes}    controller${controller_index}
@@ -52,22 +70,22 @@ Clean Custom SXP Cluster Session
     ${controller_index} =    SxpClusterLib.Get Active Controller
     SxpLib.Clean Routing Configuration To Controller    controller${controller_index}
     SxpClusterLib.Clean SXP Cluster Session
+    SxpClusterLib.Delete Virtual Interface
 
-Setup Custom SXP Cluster
-    [Arguments]    ${peer_address}    ${peer_mode}
+Setup Nodes And Connections
+    [Arguments]    ${peer_mode}
     [Documentation]    Setup and connect SXP cluster topology
-    SxpLib.Add Node    ${DEVICE_NODE_ID}    ip=0.0.0.0    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}    system=${TOOLS_SYSTEM_IP}
-    ...    ip=${EMPTY}
+    SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    SxpLib.Add Connection    version4    ${peer_mode}    ${VIRTUAL_IP}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
-    SxpLib.Add Connection    version4    ${peer_mode}    ${peer_address}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ${controller_id} =    SxpClusterLib.Get Active Controller
-    SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=${peer_address}    session=controller${controller_id}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpClusterLib.Check Cluster Node started    ${CLUSTER_NODE_ID}
-    SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=controller${controller_id}
+    SxpLib.Add Node    ${CLUSTER_NODE_ID}    session=controller${controller_id}
+    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node started    ${CLUSTER_NODE_ID}    system=${ODL_SYSTEM_${controller_id}_IP}    session=controller${controller_id}
+    SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${CLUSTER_NODE_ID}    session=controller${controller_id}
     BuiltIn.Wait Until Keyword Succeeds    120    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=controller${controller_id}
 
-Setup SXP Cluster Bindings
+Add Bindings To Node
     [Arguments]    ${node}    ${session}
     [Documentation]    Setup initial bindings to SXP device
     : FOR    ${i}    IN RANGE    1    ${BINDINGS}
@@ -94,9 +112,7 @@ Isolate SXP Controller
 Isolate SXP Controller With Bindings
     [Arguments]    ${controller_index}    ${node}    ${peer_mode}    ${session}=${EMPTY}
     [Documentation]    Isolate one of cluster nodes and perform check that bindings were propagated then revert isolation (and check connection again).
-    ${find_session} =    BuiltIn.Set Variable If    '${session}' == '${EMPTY}'    ${True}    ${False}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
-    ${session} =    BuiltIn.Set Variable If    ${find_session}    controller${controller_index}    ${session}
     @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${controller_index}
@@ -105,7 +121,6 @@ Isolate SXP Controller With Bindings
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=controller${active_follower}
     BuiltIn.Wait Until Keyword Succeeds    60    1    Check Device is Connected    ${DEVICE_NODE_ID}    ${VIRTUAL_IP}    ${peer_mode}
     ...    session=${DEVICE_SESSION}
-    ${session} =    BuiltIn.Set Variable If    ${find_session}    controller${active_follower}    ${session}
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings    ${node}    ${session}
     ClusterManagement.Flush_Iptables_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${controller_index}
