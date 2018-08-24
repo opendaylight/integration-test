@@ -83,7 +83,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${ext_rt2} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET}[1],gateway=@{NET_1_VM_IPS}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
@@ -95,7 +95,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
 
 Delete Extra Route
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
 
 Delete And Recreate Extra Route
     [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
@@ -104,12 +104,12 @@ Delete And Recreate Extra Route
     ${ext_rt1} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET}[0],gateway=@{NET_1_VM_IPS}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
     # clear off extra-routes before the next set of tests
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
-    ...    AND    OpenStackOperations.Show Router    ${ROUTER}    -D
+    ...    AND    OpenStackOperations.Show Router    ${ROUTER}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create L3VPN
