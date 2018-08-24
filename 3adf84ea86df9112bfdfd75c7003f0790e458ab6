@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91839624_b679eb5e",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "rename this Suite Setup",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10e60fbf_9df215b1",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "add:\n\n    OpenStackOperations.Get Suite Debugs",
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe460495_71bb03ff",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "Rename Suite Teardown",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "105e18b4_2be708fb",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "Add OpenStackOperations.Get Test Teardown Debugs",
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3664569e_b0f4bd40",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "This and the next one - are they steps that should go in the VpnOperations library if this is used in other suites also? Could make a quagga library, but maybe just putting them in VpnmOperations is good for now.",
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85f3b6a2_0a2fff94",
+        "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:25:13Z",
+      "side": 1,
+      "message": "move up above the plots",
+      "revId": "3adf84ea86df9112bfdfd75c7003f0790e458ab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
