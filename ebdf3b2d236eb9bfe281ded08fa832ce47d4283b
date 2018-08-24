@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64bc15a3_08c1a06e",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:47:47Z",
+      "side": 1,
+      "message": "would these be good keywords to have in the ClusterManagement.robot library for other suites to use?",
+      "revId": "ebdf3b2d236eb9bfe281ded08fa832ce47d4283b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
