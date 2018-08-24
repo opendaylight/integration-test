@@ -111,7 +111,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${ext_rt2} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV4}[1],gateway=@{NET_1_VM_IPV4}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     : FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV6}
     \    ${cmd} =    BuiltIn.Catenate    sudo ip -6 addr add ${extra_ip}/64 dev eth0
     \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${cmd}
@@ -121,7 +121,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${ext_rt4} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV6}[1],gateway=@{NET_1_VM_IPV6}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt3}    ${RT_OPTIONS}    ${ext_rt4}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Log    Verify FIB table
     ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET_IPV4}    @{EXTRA_NW_SUBNET_IPV6}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
@@ -145,13 +145,13 @@ Delete And Recreate Extra Route
     ...    Then check data path before L3VPN creation.
     BuiltIn.Log    Delete all extra routes
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     ${cmd}=    BuiltIn.Catenate    sudo ip addr add @{EXTRA_NW_IPV4}[0]/24 dev eth0
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${cmd}
     ${ext_rt_ipv4} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV4}[0],gateway=@{NET_1_VM_IPV4}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt_ipv4}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[1]    ping -c 3 @{EXTRA_NW_IPV4}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV4}[0]    ping -c 3 @{EXTRA_NW_IPV4}[0]
@@ -161,7 +161,7 @@ Delete And Recreate Extra Route
     ${ext_rt2} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV6}[0],gateway=@{NET_1_VM_IPV6}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[1]    ping6 -c 3 @{EXTRA_NW_IPV6}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV6}[0]    ping6 -c 3 @{EXTRA_NW_IPV6}[0]
@@ -169,7 +169,7 @@ Delete And Recreate Extra Route
     # clear off extra-routes before the next set of tests
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
-    ...    AND    OpenStackOperations.Show Router    ${ROUTER}    -D
+    ...    AND    OpenStackOperations.Show Router    ${ROUTER}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create L3VPN
@@ -210,7 +210,7 @@ Delete IPv6 Subnet And Check IPv4 datapath
     ...    Then recreate IPv6 subnet.
     BuiltIn.Log    Delete extra routes
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
-    OpenStackOperations.Show Router    ${ROUTER}    -D
+    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Log    Delete IPv6 subnet
     : FOR    ${PORT}    IN    @{SUBNETS6}
     \    Remove Interface    ${ROUTER}    ${PORT}
