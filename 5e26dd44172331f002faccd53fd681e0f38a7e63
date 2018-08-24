@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f1e96cf_9bd9a85a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "alpha order",
+      "range": {
+        "startLine": 13,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ddb17f_c17db955",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "these vars should be different from the existing dualstack suite. They are also named a little wrong so I guess we merged dualstack without cleaning it up.\n\nLook at how the vpn_basic.robot vars are named and try to follow that pattern but then add something unique for the vpn_dualstack_subnet. like vpndssr_sg - vpn\u003cDualDtack\u003e\u003cSubnet\u003e\u003cRouting\u003e. vpndssr_net_1...",
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ffb47ad_82c93120",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "NET_1_VMS",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e601022e_a745cfe2",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "tcpdump_vpndssr",
+      "range": {
+        "startLine": 61,
+        "startChar": 82,
+        "endLine": 61,
+        "endChar": 96
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49f5f2ee_dfe42db0",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "lowercase for local vars",
+      "range": {
+        "startLine": 64,
+        "startChar": 15,
+        "endLine": 64,
+        "endChar": 17
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d52893c3_a3b1964b",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "use the @{NET_1_VM_IP}[0] form for all list indexing.",
+      "range": {
+        "startLine": 80,
+        "startChar": 58,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d75f22_1e511e1a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T12:36:24Z",
+      "side": 1,
+      "message": "just name the first list dst_ips and then reuse the list var. no need to create a new one each time to pass a list.",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "5e26dd44172331f002faccd53fd681e0f38a7e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
