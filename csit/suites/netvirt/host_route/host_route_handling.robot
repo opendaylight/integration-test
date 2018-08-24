@@ -53,9 +53,9 @@ Verify creation of host route via openstack subnet create option
     BuiltIn.Set Suite Variable    ${NETWORK_1_VM_IPS}
     @{GATEWAY_VM_IPS}    ${GATEWAY_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{GATEWAY_VMS}
     BuiltIn.Set Suite Variable    @{GATEWAY_VM_IPS}
-    #TODO: Verifiy the routes in VM.
     OpenStackOperations.Show Debugs    ${NETWORK_1_VMS}    @{GATEWAY_VMS}
     OpenStackOperations.Get Suite Debugs
+    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[2]\\s+${NON_NEUTRON_NEXTHOP}
 
 Verify creation of host route via openstack subnet update option
     [Documentation]    Creating host route using subnet update option and setting nexthop ip to subnet gateway ip. Verifying in controller and openstack.
@@ -131,3 +131,11 @@ Verify No Hostroutes In Subnet
     ${output} =    OpenStackOperations.Show SubNet    ${subnet_name}
     : FOR    ${element}    IN    @{elements}
     \    BuiltIn.Should Not Match Regexp    ${output}    ${element}
+
+Verify Hostroutes In VM
+    [Arguments]    ${net_name}    ${vm_ip}    @{elements}
+    [Documentation]    Show subnet with openstack request and verifies given hostroute in VM.
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo /sbin/udhcpc
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo route -n
+    : FOR    ${element}    IN    @{elements}
+    \    BuiltIn.Should Match Regexp    ${output}    ${element}
