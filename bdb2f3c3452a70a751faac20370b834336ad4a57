@@ -50,6 +50,23 @@
       "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f73593a3_92cc43dd",
+        "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-24T05:34:13Z",
+      "side": 1,
+      "message": "rename, no hardcoding anywhere",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
