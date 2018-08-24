@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "076bff44_1bd4cf20",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:08:22Z",
+      "side": 1,
+      "message": "we should have this type of stuff wrapped in a keyword - Get Request, check 200, log content, return content. no need to do that here and we can do that in a different patch.",
+      "revId": "5413d4d73b9c637b0bfda2a60d18e980522a560f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e63bf75_fbd49e26",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T14:08:22Z",
+      "side": 1,
+      "message": "this is confusing using the ${output} overloaded. Maybe no need to do that. The Get From Dictionary returns a list, so just make it @{content}, then use @{content}[0] directly. probably also should then start using the actual data names as the vars. output was fine to start with, but maybe after that use identries and idvalues so this is more readable.",
+      "revId": "5413d4d73b9c637b0bfda2a60d18e980522a560f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
