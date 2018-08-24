@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a744fed_7b6867b0",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "Remove the To - Delete is the action word",
+      "range": {
+        "startLine": 492,
+        "startChar": 23,
+        "endLine": 492,
+        "endChar": 26
+      },
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c3edc05_908f8d8f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "add \u003d for all assignments. Apply to all the new code in the file and the other files.",
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5000e64_0224c5da",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "\u003d\u003d , add space around \u003d\u003d",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 35
+      },
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91ddb9f4_ec9b3c58",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "@{flow_id}[0]",
+      "range": {
+        "startLine": 511,
+        "startChar": 16,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c478aea_592ef68a",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "remove these as I think they are not used anywhere",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3169faa4_ad396286",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-08-24T13:55:49Z",
+      "side": 1,
+      "message": "elansr_net_1_vm_1",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "ec83577bed0648bfad8b25c3d0e6333ad92bd330",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
