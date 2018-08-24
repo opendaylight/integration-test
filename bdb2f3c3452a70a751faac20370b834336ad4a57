@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b24d4fa4_df834bd4",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-24T05:31:25Z",
+      "side": 1,
+      "message": "make this generic so that you don\u0027t have to add script everytime we scale the setup",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a874e01_3e112d89",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-24T05:31:25Z",
+      "side": 1,
+      "message": "name variables meaningfully",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3910b4a9_ea9494f7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-08-24T05:31:25Z",
+      "side": 1,
+      "message": "should be genric..no hardcoding",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
