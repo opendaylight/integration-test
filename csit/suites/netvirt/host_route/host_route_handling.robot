@@ -18,6 +18,7 @@ Resource          ../../../variables/Variables.robot
 @{NETWORKS}       host_route_network_1    host_route_network_2    host_route_network_3    host_route_network_4
 @{SUBNETS}        host_route_subnet_1    host_route_subnet_2    host_route_subnet_3    host_route_subnet_4
 @{SUBNET_CIDR}    10.10.10.0    10.20.20.0    10.30.30.0    10.40.40.0
+@{EXTRA_SUBNETS_CIDR}    100.10.10.0    100.20.20.0    100.30.30.0    100.40.40.0    100.50.50.0    100.60.60.0
 ${PREFIX24}       /24
 ${SECURITY_GROUP}    host_route_security_group
 @{PORTS}          host_route_port_1    host_route_port_2    host_route_port_3    host_route_port_4    host_route_port_5    host_route_port_6    host_route_port_7
@@ -31,10 +32,12 @@ ${NETWORK_1_VMS}    host_route_vm_1
 ${ROUTER}         host_route_router_1
 @{NON_NEUTRON_DESTINATION}    5.5.5.0    6.6.6.0
 ${NON_NEUTRON_NEXTHOP}    10.10.10.250
+${RENEW_DHCP}    sudo /sbin/cirros-dhcpc up eth0
+${DISPAY_ROUTES}    route -n
 
 *** Test Cases ***
 Verify creation of host route via openstack subnet create option
-    [Documentation]    Creating subnet host route via openstack cli and verifying in controller and openstack.
+    [Documentation]    Creating subnet host route via openstack cli and verifying routes in vm, controller and openstack.
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDR}[0]${PREFIX24}    --host-route destination=@{SUBNET_CIDR}[2]${PREFIX24},gateway=${NON_NEUTRON_NEXTHOP}
     ${SUBNET_GW_IP}    BuiltIn.Create List
     : FOR    ${subnet}    IN    @{SUBNETS}
@@ -53,46 +56,61 @@ Verify creation of host route via openstack subnet create option
     BuiltIn.Set Suite Variable    ${NETWORK_1_VM_IPS}
     @{GATEWAY_VM_IPS}    ${GATEWAY_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{GATEWAY_VMS}
     BuiltIn.Set Suite Variable    @{GATEWAY_VM_IPS}
-    #TODO: Verifiy the routes in VM.
     OpenStackOperations.Show Debugs    ${NETWORK_1_VMS}    @{GATEWAY_VMS}
     OpenStackOperations.Get Suite Debugs
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[2]\\s+${NON_NEUTRON_NEXTHOP}
 
 Verify creation of host route via openstack subnet update option
-    [Documentation]    Creating host route using subnet update option and setting nexthop ip to subnet gateway ip. Verifying in controller and openstack.
+    [Documentation]    Creating host route using subnet update option and setting nexthop ip to subnet gateway ip. Verifying routes vm, in controller and openstack.
     OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{NON_NEUTRON_DESTINATION}[0]${PREFIX24},gateway=@{SUBNET_GW_IP}[0]
     ${elements} =    BuiltIn.Create List    "destination":"@{NON_NEUTRON_DESTINATION}[0]${PREFIX24}","nexthop":"@{SUBNET_GW_IP}[0]"
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
     Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{NON_NEUTRON_DESTINATION}[0]${PREFIX24}',\\sgateway='@{SUBNET_GW_IP}[0]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{NON_NEUTRON_DESTINATION}[0]\\s+@{SUBNET_GW_IP}[0]    @{SUBNET_CIDR}[2]\\s+${NON_NEUTRON_NEXTHOP}
 
 Verify removal of host route
-    [Documentation]    Removing subnet host routes via cli and verifying in controller and openstack.
+    [Documentation]    Removing subnet host routes via cli and verifying routes in vm, controller and openstack.
     OpenStackOperations.Unset SubNet    @{SUBNETS}[0]    --host-route destination=@{NON_NEUTRON_DESTINATION}[0]${PREFIX24},gateway=@{SUBNET_GW_IP}[0]
     ${elements} =    BuiltIn.Create List    "destination":"@{NON_NEUTRON_DESTINATION}[0]${PREFIX24}","nexthop":"@{SUBNET_GW_IP}[0]"
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements Not At URI    ${SUBNETWORK_URL}    ${elements}
     Verify No Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{NON_NEUTRON_DESTINATION}[0]${PREFIX24}',\\sgateway='@{SUBNET_GW_IP}[0]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify No Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{NON_NEUTRON_DESTINATION}[0]\\s+@{SUBNET_GW_IP}[0]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[2]\\s+${NON_NEUTRON_NEXTHOP}
 
 Verify creation of host route via openstack subnet set option with VM port as next hop IP
-    [Documentation]    Creating host route using subnet update option and setting nexthop to gateway vm ip and verifying in controller and openstack.
+    [Documentation]    Creating host route using subnet update option and setting nexthop to gateway vm ip and verifying routes in vm, controller and openstack.
     OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{SUBNET_CIDR}[2]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0]
     ${elements} =    BuiltIn.Create List    "destination":"@{SUBNET_CIDR}[2]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
     Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{SUBNET_CIDR}[2]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[2]\\s+@{GATEWAY_VM_IPS}[0]
 
 Verify creation of host route via openstack subnet set option with VM port as next hop IP with change in destination prefix
     [Documentation]    Creating host route using subnet update option and setting nexthop ip to gateway vm ip and changing destination prefix.
-    ...    Verifying in controller and openstack.
+    ...    Verifying routes in vm, controller and openstack.
     OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{SUBNET_CIDR}[1]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0]
     ${elements} =    BuiltIn.Create List    "destination":"@{SUBNET_CIDR}[1]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
     Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{SUBNET_CIDR}[1]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[1]\\s+@{GATEWAY_VM_IPS}[0]    @{SUBNET_CIDR}[2]\\s+@{GATEWAY_VM_IPS}[0]
 
 Verify creation of host route via openstack subnet set option with change in next hop IP
     [Documentation]    Creating host route using subnet update option and setting nexthop ip to new gateway vm ip without changing the
-    ...    destination prefix. Verifying in controller and openstack.
-    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{SUBNET_CIDR}[1]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[1]
-    ${elements} =    BuiltIn.Create List    "destination":"@{SUBNET_CIDR}[1]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[1]"
+    ...    destination prefix. Verifying routes in vm, controller and openstack.
+    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{SUBNET_CIDR}[1]${PREFIX24},gateway=@{SUBNET_GW_IP}[0]
+    ${elements} =    BuiltIn.Create List    "destination":"@{SUBNET_CIDR}[1]${PREFIX24}","nexthop":"@{SUBNET_GW_IP}[0]"
+    Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{SUBNET_CIDR}[1]${PREFIX24}',\\sgateway='@{SUBNET_GW_IP}[0]'
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
-    Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{SUBNET_CIDR}[1]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[1]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{SUBNET_CIDR}[1]\\s+@{SUBNET_GW_IP}[0]    @{SUBNET_CIDR}[2]\\s+@{GATEWAY_VM_IPS}[0]
+
+Verify host route in VM with multi destination prefix to next hop IP VM.
+    [Documentation]    Creating host route using subnet update option and setting multiple detination to nexthop ip.
+    ...    Verifying routes in vm, controller and openstack.
+    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    --host-route destination=@{EXTRA_SUBNETS_CIDR}[0]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0] --host-route destination=@{EXTRA_SUBNETS_CIDR}[1]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0] --host-route destination=@{EXTRA_SUBNETS_CIDR}[2]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0] --host-route destination=@{EXTRA_SUBNETS_CIDR}[3]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0] --host-route destination=@{EXTRA_SUBNETS_CIDR}[4]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0] --host-route destination=@{EXTRA_SUBNETS_CIDR}[5]${PREFIX24},gateway=@{GATEWAY_VM_IPS}[0]
+    ${elements} =    BuiltIn.Create List    "destination":"@{EXTRA_SUBNETS_CIDR}[0]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"    "destination":"@{EXTRA_SUBNETS_CIDR}[1]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"    "destination":"@{EXTRA_SUBNETS_CIDR}[2]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"    "destination":"@{EXTRA_SUBNETS_CIDR}[3]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"    "destination":"@{EXTRA_SUBNETS_CIDR}[4]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"    "destination":"@{EXTRA_SUBNETS_CIDR}[5]${PREFIX24}","nexthop":"@{GATEWAY_VM_IPS}[0]"
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
+    Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{EXTRA_SUBNETS_CIDR}[0]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'    destination='@{EXTRA_SUBNETS_CIDR}[1]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'    destination='@{EXTRA_SUBNETS_CIDR}[2]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'    destination='@{EXTRA_SUBNETS_CIDR}[3]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'    destination='@{EXTRA_SUBNETS_CIDR}[4]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'    destination='@{EXTRA_SUBNETS_CIDR}[5]${PREFIX24}',\\sgateway='@{GATEWAY_VM_IPS}[0]'
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Hostroutes In VM    @{NETWORKS}[0]    ${NETWORK_1_VM_IPS}    @{EXTRA_SUBNETS_CIDR}[0]\\s+@{GATEWAY_VM_IPS}[0]    @{EXTRA_SUBNETS_CIDR}[1]\\s+@{GATEWAY_VM_IPS}[0]    @{EXTRA_SUBNETS_CIDR}[2]\\s+@{GATEWAY_VM_IPS}[0]    @{EXTRA_SUBNETS_CIDR}[3]\\s+@{GATEWAY_VM_IPS}[0]    @{EXTRA_SUBNETS_CIDR}[4]\\s+@{GATEWAY_VM_IPS}[0]    @{EXTRA_SUBNETS_CIDR}[5]\\s+@{GATEWAY_VM_IPS}[0]
 
 *** Keywords ***
 Suite Setup
@@ -129,5 +147,21 @@ Verify No Hostroutes In Subnet
     [Arguments]    ${subnet_name}    @{elements}
     [Documentation]    Show subnet with openstack request and verifies no given hostroute in subnet.
     ${output} =    OpenStackOperations.Show SubNet    ${subnet_name}
+    : FOR    ${element}    IN    @{elements}
+    \    BuiltIn.Should Not Match Regexp    ${output}    ${element}
+
+Verify Hostroutes In VM
+    [Arguments]    ${net_name}    ${vm_ip}    @{elements}
+    [Documentation]    Show subnet with openstack request and verifies given hostroute in VM.
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    ${RENEW_DHCP}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    ${DISPAY_ROUTES}
+    : FOR    ${element}    IN    @{elements}
+    \    BuiltIn.Should Match Regexp    ${output}    ${element}
+
+Verify No Hostroutes In VM
+    [Arguments]    ${net_name}    ${vm_ip}    @{elements}
+    [Documentation]    Show subnet with openstack request and verifies given hostroute in VM.
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    ${RENEW_DHCP}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    ${DISPAY_ROUTES}
     : FOR    ${element}    IN    @{elements}
     \    BuiltIn.Should Not Match Regexp    ${output}    ${element}
