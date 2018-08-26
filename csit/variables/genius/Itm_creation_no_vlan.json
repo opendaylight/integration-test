@@ -10,12 +10,12 @@
                         {
                             "dpn-id": 101,
                             "ip-address": "2.2.2.2",
-                            "portname": "BR1-eth1"
+                            "portname": "BR1"
                         },
                         {
                             "dpn-id": 102,
                             "ip-address": "3.3.3.3",
-                            "portname": "BR2-eth1"
+                            "portname": "BR2"
                         }
                     ]
                 }
