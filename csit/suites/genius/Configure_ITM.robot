@@ -26,11 +26,23 @@ Create and Verify VTEP -No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+
+    ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    tep:show
+    ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    tep:show-state
+    ${output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    ifconfig
+    ${output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl list Open_vSwitch | grep local_ip
+
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
     Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
+
+    ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    tep:show
+    ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    tep:show-state
+    ${output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    ifconfig
+    ${output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl list Open_vSwitch | grep local_ip
+
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
@@ -278,8 +290,8 @@ Get ITM
     ...    ${TOOLS_SYSTEM_2_IP}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
-    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
-    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}    ${TOOLS_SYSTEM_2_IP}
     Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Get Network Topology with Tunnel
