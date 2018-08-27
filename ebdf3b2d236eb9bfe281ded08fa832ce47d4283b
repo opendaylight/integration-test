@@ -16,6 +16,24 @@
       "revId": "ebdf3b2d236eb9bfe281ded08fa832ce47d4283b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1683f78b_2f8062bb",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-08-27T14:11:22Z",
+      "side": 1,
+      "message": "No. I don\u0027t think so.\nActually, in next patch I am reworking them to use ClusterManagemet KWs.",
+      "parentUuid": "64bc15a3_08c1a06e",
+      "revId": "ebdf3b2d236eb9bfe281ded08fa832ce47d4283b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
