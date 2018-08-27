@@ -4,13 +4,13 @@ Library           RequestsLibrary
 Resource          ./ClusterManagement.robot
 Resource          ./SetupUtils.robot
 Resource          ./SxpLib.robot
-Resource          ../variables/Variables.robot
 
 *** Variables ***
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
 @{SHARD_CONF_LIST}    inventory    topology    default
 @{SXP_PACKAGE}    org.opendaylight.sxp
 ${DEVICE_SESSION}    device_1
+${CONTROLLER_SESSION}    ClusterManagement__session_1
 ${DEVICE_NODE_ID}    1.1.1.1
 ${CLUSTER_NODE_ID}    2.2.2.2
 ${SXP_LOG_LEVEL}    INFO
@@ -22,9 +22,6 @@ ${MAC_ADDRESS_TABLE}    &{EMPTY}
 *** Keywords ***
 Setup SXP Cluster Session
     [Documentation]    Create sessions asociated with SXP cluster setup
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    BuiltIn.Wait Until Keyword Succeeds    120    10    SxpLib.Prepare SSH Keys On Karaf    ${ODL_SYSTEM_${i+1}_IP}
-    \    SxpLib.Setup SXP Session    controller${i+1}    ${ODL_SYSTEM_${i+1}_IP}
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
@@ -64,7 +61,7 @@ Clean SXP Cluster
     ClusterManagement.Flush_Iptables_From_List_Or_All
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
-    ${controller_index} =    Get Leader Controller
+    ${controller_index} =    Get Owner Controller
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=controller${controller_index}
 
@@ -96,33 +93,17 @@ Check Cluster is Connected
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     SxpLib.Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
 
-Get Leader Controller
-    [Documentation]    Find cluster controller that is marked as leader in cluster with all members running
-    @{running_members} =    BuiltIn.Create List
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Collections.Append To List    ${running_members}    ${i+1}
-    ${active_controller} =    Get Leader Controller From Running    @{running_members}
-    [Return]    ${active_controller}
+Get Owner Controller
+    [Arguments]    ${running_member}=1
+    [Documentation]    Find cluster controller that is marked as cluster owner by requesting ownership data from ${running_member} node of the cluster
+    ${owner}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
+    ...    Sxp    ${running_member}
+    [Return]    ${owner}
 
-Get Leader Controller From Running
-    [Arguments]    @{running_members}
-    [Documentation]    Find cluster controller that is marked as leader in cluster with only some members running
-    BuiltIn.Log    ${running_members}
-    @{votes} =    BuiltIn.Create List
-    : FOR    ${i}    IN    @{running_members}
-    \    ${resp} =    RequestsLibrary.Get Request    controller${i}    /restconf/operational/entity-owners:entity-owners
-    \    BuiltIn.Continue For Loop If    ${resp.status_code} != 200
-    \    ${controller} =    Sxp.Get Leader Controller From Json    ${resp.content}    SxpControllerInstance
-    \    Collections.Append To List    ${votes}    ${controller}
-    ${length} =    BuiltIn.Get Length    ${votes}
-    BuiltIn.Should Not Be Equal As Integers    ${length}    0
-    ${active_controller} =    BuiltIn.Evaluate    collections.Counter(${votes}).most_common(1)[0][0]    collections
-    [Return]    ${active_controller}
-
-Get Inactive Controller
-    [Documentation]    Find cluster controller that is not marked as leader for SXP service in cluster
-    ${active_controller} =    Get Leader Controller
-    ${controller} =    BuiltIn.Evaluate    random.choice( filter( lambda i: i!=${active_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
+Get Not Owner Controller
+    [Documentation]    Find cluster controller that is not marked as owner for SXP service in cluster
+    ${owner_controller} =    Get Owner Controller
+    ${controller} =    BuiltIn.Evaluate    random.choice( filter( lambda i: i!=${owner_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
     [Return]    ${controller}
 
 Get Any Controller
