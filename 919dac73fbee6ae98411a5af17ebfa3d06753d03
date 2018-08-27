@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d877bbf3_1ca5ffcb",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-27T19:08:20Z",
+      "side": 1,
+      "message": "do you want to use Leader instead of the word Active? seems\nmore clear that way, what you are doing.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 34
+      },
+      "revId": "919dac73fbee6ae98411a5af17ebfa3d06753d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
