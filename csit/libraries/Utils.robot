@@ -404,11 +404,11 @@ No Content From URI
 Get Index From List Of Dictionaries
     [Arguments]    ${dictionary_list}    ${key}    ${value}
     [Documentation]    Extract index for the dictionary in a list that contains a key-value pair. Returns -1 if key-value is not found.
-    ${length}=    Get Length    ${dictionary_list}
-    ${index}=    Set Variable    -1
+    ${length}=    BuiltIn.Get Length    ${dictionary_list}
+    ${index}=    BuiltIn.Set Variable    -1
     : FOR    ${i}    IN RANGE    ${length}
-    \    ${dictionary}=    Get From List    ${dictionary_list}    ${i}
-    \    Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
+    \    ${dictionary}=    Collections.Get From List    ${dictionary_list}    ${i}
+    \    Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    BuiltIn.Set Variable    ${index}    ${i}
     [Return]    ${index}
 
 Check Item Occurrence
