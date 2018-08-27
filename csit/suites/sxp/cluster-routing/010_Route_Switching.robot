@@ -74,7 +74,8 @@ Isolate SXP Controller
     @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${controller_index}
-    ${active_follower} =    SxpClusterLib.Get Active Controller From Running    @{running_members}
+    ${running_member} =    Collections.Get From List    ${running_members}    0
+    ${active_follower} =    SxpClusterLib.Get Active Controller    ${running_member}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${active_follower}
     ClusterManagement.Flush_Iptables_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${controller_index}

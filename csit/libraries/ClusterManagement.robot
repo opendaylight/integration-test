@@ -54,6 +54,8 @@ ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
 ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
 ${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group']
+${SINGLETON_SXP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
+${SINGLETON_SXP_DEVICE_ID_SUFFIX}    ']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_ROLE_INDEX_START}    1
@@ -275,6 +277,21 @@ Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
     # Get change ownership entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
     ${id} =    BuiltIn.Set_Variable    ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
+    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
+    # Owners must be same, if not, there is still some election or change ownership in progress
+    BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
+    [Return]    ${owner_1}    ${candidate_list_1}
+
+Get_Owner_And_Candidates_For_Device_Singleton_Sxp
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
+    # Get election entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_SXP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_SXP_DEVICE_ID_SUFFIX}
+    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
+    # Get change ownership entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_SXP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_SXP_DEVICE_ID_SUFFIX}
     ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Owners must be same, if not, there is still some election or change ownership in progress
     BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
