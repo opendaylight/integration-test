@@ -323,8 +323,8 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
-    ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
-    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    ${withdraw_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${ADJ_RIB_IN}    session=${CONFIG_SESSION}
@@ -337,6 +337,14 @@ Play_To_Odl_Template
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
+
+Play_To_Odl_Non_Removal_Template
+    [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
+    ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    BgpRpcClient.play_clean
+    BgpRpcClient.play_send    ${announce_hex}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ...    verify=True
 
 Get_Update_Message
     [Documentation]    Returns hex update message.
