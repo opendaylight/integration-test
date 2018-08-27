@@ -16,48 +16,48 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
-Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
+Library           ../../../libraries/BgpRpcMultiPlay.py
+Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BgpOperations.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${HOLDTIME}       180
-${DEVICE_NAME}    controller-config
-${BGP_PEER_NAME}    example-bgp-peer
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${APP_PEER_NAME}    example-bgp-peer-app
-${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${BGP_L3VPN_DIR}    ${BGP_VAR_FOLDER}/l3vpn_ipv4
+${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
+${CONFIG_SESSION}    config-session
+${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
 ${DEFAUTL_EXA_CFG}    exa.cfg
+${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
+${HOLDTIME}       180
 ${L3VPN_EXA_CFG}    bgp-l3vpn-ipv4.cfg
-${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
+${L3VPN_EXP}      ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
 ${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
+${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
 ${L3VPN_RSP_PATH}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-path.json
 ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
-${L3VPN_EXP}      ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
-${CONFIG_SESSION}    config-session
-${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
-${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${RIB_INSTANCE}    example-bgp-rib
+${RT_CONSTRAIN_DIR}    ${CURDIR}/../../../variables/bgpfunctional/rt_constrain
 
 *** Test Cases ***
 Configure_App_Peer
     [Documentation]    Configures bgp application peer. Openconfig is used for carbon and above.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    ...    IP=${ODL_SYSTEM_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_L3VPN_DIR}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
@@ -65,6 +65,25 @@ L3vpn_Ipv4_To_Odl
     ${L3VPN_RESPONSE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${L3VPN_RSP_PATH}    ${L3VPN_RSP}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RESPONSE}
     [Teardown]    Teardown_Simple
+
+Start_Bgp_Peer
+    [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start_Bgp_Peer
+
+Play_To_Odl_rt_constrain_type_0
+    [Template]    Play_To_Odl_Non_Removal_Template
+    rt_constrain_type_0    ${RT_CONSTRAIN_DIR}
+
+Odl_To_Play_l3vpn_rt_arg
+    [Template]    Odl_To_Play_Template
+    l3vpn_rt_arg    ${RT_CONSTRAIN_DIR}
+
+Kill_Talking_BGP_Speaker
+    [Documentation]    Abort the Python speaker
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    BGPSpeaker.Kill_BGP_Speaker
+    BGPcliKeywords.Store_File_To_Workspace    play.py.out    010_l3vpn_play.log
 
 L3vpn_Ipv4_From_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported from odl to exabgp
@@ -78,12 +97,12 @@ L3vpn_Ipv4_From_Odl
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
@@ -159,3 +178,8 @@ Get_Expected_Response_From_File
     Return From Keyword If    '${status}' == 'PASS'    ${expresponse}
     ${expresponse}=    OperatingSystem.Get File    ${exprspfile}
     [Return]    ${expresponse}
+
+Start_Bgp_Peer
+    [Documentation]    Starts bgp peer and verifies that the peer runs.
+    BGPSpeaker.Start_BGP_Speaker    --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug --allf --wfr 1
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
