@@ -11,13 +11,13 @@ Resource          ../../../libraries/SxpClusterLib.robot
 Isolation of SXP service follower Test
     [Documentation]    Test SXP connection switchover only if Controller with SCS is isolated
     SxpClusterLib.Check Shards Status
-    ${controller_index} =    SxpClusterLib.Get Leader Controller
+    ${controller_index} =    SxpClusterLib.Get Owner Controller
     Isolate SXP Controller    ${controller_index}
 
 Isolation of SXP noservice follower Test
     [Documentation]    Test SXP connection switchover only if Controller without SCS are isolated
     SxpClusterLib.Check Shards Status
-    ${controller_index} =    SxpClusterLib.Get Inactive Controller
+    ${controller_index} =    SxpClusterLib.Get Not Owner Controller
     Isolate SXP Controller    ${controller_index}
 
 *** Keywords ***
