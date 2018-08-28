@@ -340,10 +340,10 @@ Play_To_Odl_Template
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
 
 Play_To_Odl_Non_Removal_Template
-    [Arguments]    ${bgprpcclient_lib_imported}    ${totest}    ${dir}    ${ipv}=ipv4
+    [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
     ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
-    ${bgprpcclient_lib_imported}.play_clean
-    ${bgprpcclient_lib_imported}.play_send    ${announce_hex}
+    BgpRpcClient.play_clean
+    BgpRpcClient.play_send    ${announce_hex}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
 
