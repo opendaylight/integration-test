@@ -37,7 +37,10 @@ dashboard:
           3:
             field:  performance.plots.rate.Operational DS
             label: Operational DS
-
+      filter:
+          1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
       co_ords:
         h: 3
         w: 6
@@ -63,6 +66,10 @@ dashboard:
           3:
             field:  performance.plots.time.Operational DS
             label: Operational DS
+      filter:
+          1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
       co_ords:
         h: 3
         w: 12

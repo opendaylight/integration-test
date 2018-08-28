@@ -27,6 +27,10 @@ opendaylight-test-feature:
             label: Build Number
             schema: segment
             not_in_seriesParams: true
+    filter:
+        1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
 
 opendaylight-test-performance:
     type: line
