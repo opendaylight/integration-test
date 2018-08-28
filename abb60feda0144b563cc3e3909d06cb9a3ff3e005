@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c623b61a_7bf5c8a2",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "what\u0027s going on here? why these variable assignments?\nThen you do it again a few lines down? I\u0027m confused :)",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 47
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b2d6070_89d65473",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "this is the default, so no need to pass it.",
+      "range": {
+        "startLine": 71,
+        "startChar": 66,
+        "endLine": 71,
+        "endChar": 70
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "245671d1_7f79f68a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "not doing anything with this ${output} so no need to\nkeep it. applies below, obviously.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 19
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e15f4682_23e051bd",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "is it too long and/or ugly to take these three lines and make\nthem:\n\n  OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[1]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[1]/64 dev eth0; ip -6 a\n\nto me that removes the noise and error-prone-ness of the 3 nearly identical\nlines 8 times back to back.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 121
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfe22be3_a610aa0b",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "this keyword is already there in two other suites.\ntime to put it in a library and share it. you can\ndo that as a refactor patch on top of this, OR better\nyet do it as it\u0027s own small patch separate, then we\u0027ll\nmerge it and you can rebase this on top.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 57
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7acd465_66565566",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "I\u0027m guessing my comment above applies here too.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 65
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ccddf968_f6114326",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "does it not work to use the same keyword in line 179 but with the IPv6 argument?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 177
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68ca00d8_b2c4e0f5",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T18:31:01Z",
+      "side": 1,
+      "message": "where is index 2 in all of this? I only noticed because I\nwas trying to find a cleaner way to write this. Lines\nthat are nearly identical like this tend to lead to \nmistakes and trouble maintaining. missing an index or\nwhatever. better if a loop can handle it, but I\u0027m not\nsure the right way.",
+      "range": {
+        "startLine": 238,
+        "startChar": 141,
+        "endLine": 238,
+        "endChar": 142
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
