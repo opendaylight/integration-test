@@ -347,11 +347,24 @@ Play_To_Odl_Non_Removal_Template
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
 
+Play_To_Odl_Routes_Removal_Template
+    [Arguments]    ${bgprpcclient_lib_imported}    ${totest}    ${dir}    ${ipv}=ipv4
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    ${bgprpcclient_lib_imported}.play_clean
+    ${bgprpcclient_lib_imported}.play_send   ${withdraw_hex}
+
 Get_Update_Message
     [Documentation]    Returns hex update message.
     ${update} =    BgpRpcClient.play_get
     BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
     [Return]    ${update}
+
+Get_Update_Message_And_Compare_With_Hex
+    [Documentation]    Returns hex update message and compares it to hex.
+    [Arguments]    ${bgprpcclient_lib_imported}    ${hex}    ${should_be_equal}
+    \    ${update}=    ${bgprpcclient_lib_imported}.play_get
+    \    BuiltIn.Run_Keyword_If    "${should_be_equal}"=="true"    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${hex}
+    \    BuiltIn.Run_Keyword_If    "${should_be_equal}"=="false"    BuiltIn.Should_Not_Be_Equal_As_Strings    ${update}    ${hex}
 
 Remove_Configured_Routes
     [Arguments]    ${totest}    ${dir}
