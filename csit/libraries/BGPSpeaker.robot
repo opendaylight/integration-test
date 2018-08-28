@@ -87,3 +87,10 @@ Kill_BGP_Speaker
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'
     BuiltIn.Log    ${message}
     BuiltIn.Fail    The prompt was not seen within timeout period.
+
+Kill_All_BGP_Speakers
+    [Documentation]    Kill all play.py processes.
+    ${command}=    BuiltIn.Set_Variable    ps axf | grep play.py | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    SSHLibrary.Write    ${command}
+    ${output}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${output}
