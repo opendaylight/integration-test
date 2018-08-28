@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dfb8c7d_84ec8a76",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T17:56:24Z",
+      "side": 1,
+      "message": "needs to be Leader now right, based on parent patch change?",
+      "range": {
+        "startLine": 17,
+        "startChar": 47,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "92ead7369330a7b621f6d290faccc82f26131929",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
