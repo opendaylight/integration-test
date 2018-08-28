@@ -133,6 +133,7 @@ ${ODL_RESTCONF_PASSWORD}    admin    # Plaintext password for basic HTTP authent
 ${ODL_SYSTEM_1_IP}    127.0.0.1    # IP address of system hosting member 1 od ODL cluster.
 ${ODL_SYSTEM_2_IP}    127.0.0.2    # IP address of system hosting member 2 od ODL cluster.
 ${ODL_SYSTEM_3_IP}    127.0.0.3    # IP address of system hosting member 3 od ODL cluster.
+${ODL_SYSTEM_4_IP}    127.0.0.4    # IP address of system hosting member 4 od ODL cluster.
 ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_1_IP}    # IP address of system hosting ODL for SSHLibrary to connect to. First node if ODL is a cluster.
 @{ODL_SYSTEM_IP_LIST}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}    # Deprecated. List of ODL cluster member IP addresses. See ClusterManagement.robot for alternatives.
 ${ODL_SYSTEM_USER}    ${DEFAULT_USER}    # Linux username specific for ODL systems.

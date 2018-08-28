@@ -348,6 +348,16 @@ Play_To_Odl_Non_Removal_Template
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
 
+Play_To_Odl_Routes_Removal_Template
+    [Arguments]    ${ip}    ${totest}    ${dir}    ${ipv}=ipv4
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    ${proxy}=    BgpRpcClientFunctions.proxy_return    ${ip}
+    BgpRpcMultiPlay.play_clean    ${proxy}
+    BgpRpcMultiPlay.play_send    ${proxy}    ${withdraw_hex}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ...    verify=True
+    [Teardown]    BgpRpcMultiPlay.play_send    ${proxy}    ${withdraw_hex}
+
 Get_Update_Message
     [Documentation]    Returns hex update message.
     ${update} =    BgpRpcClient.play_get
