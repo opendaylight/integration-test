@@ -8,12 +8,9 @@
 # http://www.eclipse.org/legal/epl-v10.html
 ##############################################################################
 import yaml
-import copy
+from copy import deepcopy as dc
 
 import json
-
-
-dc = copy.deepcopy
 
 
 def p(x):
