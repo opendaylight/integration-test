@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c7b50bc_1763aa2e",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T06:05:27Z",
+      "side": 1,
+      "message": "why not Suite?",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "753e5ff7de6de0378de8b1ee5d7d2d889d94c6be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa7278f2_8fedd5e8",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T06:05:27Z",
+      "side": 1,
+      "message": "pod_ip",
+      "range": {
+        "startLine": 211,
+        "startChar": 15,
+        "endLine": 211,
+        "endChar": 21
+      },
+      "revId": "753e5ff7de6de0378de8b1ee5d7d2d889d94c6be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81e255ca_be4b946c",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T06:05:27Z",
+      "side": 1,
+      "message": "[Documentation]\n\nit would be a good place to explain what\u0027s going on with\nall the logic around first_suite?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 15
+      },
+      "revId": "753e5ff7de6de0378de8b1ee5d7d2d889d94c6be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee7422c4_06648a84",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T06:05:27Z",
+      "side": 1,
+      "message": "first_suite",
+      "range": {
+        "startLine": 224,
+        "startChar": 6,
+        "endLine": 224,
+        "endChar": 17
+      },
+      "revId": "753e5ff7de6de0378de8b1ee5d7d2d889d94c6be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ae2ac0e_5bebb22d",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-28T06:05:27Z",
+      "side": 1,
+      "message": "same documentation comment as in suite setup.",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 18
+      },
+      "revId": "753e5ff7de6de0378de8b1ee5d7d2d889d94c6be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
