@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03c789bb_22ddbc6f",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-28T09:35:46Z",
+      "side": 1,
+      "message": "yes local_ip is the only ip in this command, i removed regex in this variable as its added in keyword.",
+      "parentUuid": "29114652_aff7f494",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d967fbf_60115969",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 16
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-06T18:20:24Z",
       "side": 1,
       "message": "why a different regex? why not just call the ovs-vsctl command and do a single regex here to extract the ip? Could also validate that a match was also found before just returning the match[0].",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f6964f1_8abbd8f2",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-28T09:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d967fbf_60115969",
       "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ddaa1481_26ad9669",
+        "filename": "csit/testplans/netvirt-3node-tdd-wip-openstack.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-28T09:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f94fe33_19d4092c",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1afc2bfd_ac32b4b3",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 16
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-06T18:20:24Z",
       "side": 1,
       "message": "I think we append_URL (or URI) to these vars.",
+      "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "496fed05_7aa2f4be",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-08-28T09:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1afc2bfd_ac32b4b3",
       "revId": "82ab3870db01dfdc708a349c51c0f276513d02e6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
