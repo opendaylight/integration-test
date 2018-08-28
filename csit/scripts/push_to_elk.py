@@ -57,11 +57,13 @@ import glob
 # 3rd party lib
 from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
 import yaml
+import glob
 
 # User defined libs
 import generate_visState as vis_gen
 import generate_uiStateJSON as uiStateJSON_gen
 import generate_dashVis as dash_gen
+import generate_searchSourceJSON as searchSourceJSON_gen
 import data_generate as data_gen
 
 
@@ -187,12 +189,13 @@ with open(dash_config_path, 'r') as f:
 with open(viz_config_path, 'r') as f:
     viz_config = yaml.safe_load(f)
 
-SEARCH_SOURCE = {"index": None, "filter": [],
-                 "query": {"language": "lucene", "query": ""}}
 
 for _, i in dash_config['dashboard']['viz'].items():
     intermediate_format, visState = vis_gen.generate(
         i, viz_config[i['viz-template']])
+
+    searchSourceJSON = searchSourceJSON_gen.generate(
+        i, viz_config[i['viz-template']], intermediate_format['index_pattern'])
 
     uiStateJSON = uiStateJSON_gen.generate(
         i, viz_config[i['viz-template']])
@@ -200,7 +203,6 @@ for _, i in dash_config['dashboard']['viz'].items():
     # p(intermediate_format)
     # p(visState)
 
-    SEARCH_SOURCE['index'] = intermediate_format['index_pattern']
     VIZ_BODY = {
         'type': 'visualization',
         'visualization': {
@@ -210,7 +212,7 @@ for _, i in dash_config['dashboard']['viz'].items():
             "description": None,
             "version": 1,
             "kibanaSavedObjectMeta": {
-                "searchSourceJSON": JSONToString(SEARCH_SOURCE)
+                "searchSourceJSON": None
             }
         }
     }
@@ -219,6 +221,9 @@ for _, i in dash_config['dashboard']['viz'].items():
     VIZ_BODY['visualization']['visState'] = JSONToString(visState)
     VIZ_BODY['visualization']['uiStateJSON'] = JSONToString(uiStateJSON)
     VIZ_BODY['visualization']['description'] = intermediate_format['desc']
+    VIZ_BODY['visualization']['kibanaSavedObjectMeta']['searchSourceJSON']  \
+        = JSONToString(
+        searchSourceJSON)
 
     p(VIZ_BODY)
     index = '.kibana'
@@ -227,7 +232,7 @@ for _, i in dash_config['dashboard']['viz'].items():
     print(json.dumps(res, indent=4))
 
 
-# Create and push dashboard
+# Create and push dashboards
 
 
 for _, i in dash_config.items():
