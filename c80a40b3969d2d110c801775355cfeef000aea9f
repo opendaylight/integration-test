@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b9ac5ce_63b7c0a0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-29T19:03:15Z",
+      "side": 1,
+      "message": "not totally accurate, and I see it\u0027s a copy/paste of\nline 227 which is also not totally accurate.",
+      "range": {
+        "startLine": 236,
+        "startChar": 23,
+        "endLine": 236,
+        "endChar": 100
+      },
+      "revId": "c80a40b3969d2d110c801775355cfeef000aea9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f7c4c3a_2de125a5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-29T19:03:15Z",
+      "side": 1,
+      "message": "Addresses",
+      "range": {
+        "startLine": 330,
+        "startChar": 19,
+        "endLine": 330,
+        "endChar": 26
+      },
+      "revId": "c80a40b3969d2d110c801775355cfeef000aea9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96ad3f63_f59493bc",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-29T19:03:15Z",
+      "side": 1,
+      "message": "separate | with spaces for readability",
+      "range": {
+        "startLine": 43,
+        "startChar": 182,
+        "endLine": 43,
+        "endChar": 183
+      },
+      "revId": "c80a40b3969d2d110c801775355cfeef000aea9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63518ae3_1f502644",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-29T19:03:15Z",
+      "side": 1,
+      "message": "This doesn\u0027t read correctly. Also, what is CR156?",
+      "range": {
+        "startLine": 100,
+        "startChar": 23,
+        "endLine": 100,
+        "endChar": 63
+      },
+      "revId": "c80a40b3969d2d110c801775355cfeef000aea9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1e477e5_2d32eb83",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-08-29T19:03:15Z",
+      "side": 1,
+      "message": "this is along polling time as well as the interval. Can\nit be shorter? Also, I don\u0027t see you checking that ips\nwere not None which will let us abort the suite and save\nresources when there is trouble. see other netvirt suites\nfor examples.",
+      "range": {
+        "startLine": 117,
+        "startChar": 62,
+        "endLine": 117,
+        "endChar": 79
+      },
+      "revId": "c80a40b3969d2d110c801775355cfeef000aea9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
