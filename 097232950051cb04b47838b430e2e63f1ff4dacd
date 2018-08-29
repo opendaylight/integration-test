@@ -33,6 +33,23 @@
       "revId": "097232950051cb04b47838b430e2e63f1ff4dacd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a48be943_94007dd1",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-08-29T21:10:24Z",
+      "side": 1,
+      "message": "Get Owner is probably more appropriate, Leader is normally linked to shard leader.",
+      "revId": "097232950051cb04b47838b430e2e63f1ff4dacd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
