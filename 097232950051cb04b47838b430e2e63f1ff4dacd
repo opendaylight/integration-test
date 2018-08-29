@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0d41204_bc8dbe2e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-08-29T20:54:05Z",
+      "side": 1,
+      "message": "This library is generic (e.g. not project specific), I would suggest to move this KW to an SXP related library.",
+      "revId": "097232950051cb04b47838b430e2e63f1ff4dacd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
