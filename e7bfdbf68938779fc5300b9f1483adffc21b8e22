@@ -16,6 +16,24 @@
       "revId": "e7bfdbf68938779fc5300b9f1483adffc21b8e22",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a10a9a5_488b27ef",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09baa3c1_e158c1eb",
+      "revId": "e7bfdbf68938779fc5300b9f1483adffc21b8e22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
