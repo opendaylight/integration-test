@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f7e91e35_46aedee2",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "566b4739_6409ea44",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 8
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "605af163_ce361a23",
         "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-04T05:19:32Z",
       "side": 1,
       "message": "SNAT_DISABLED",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 9
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7711e8c_3e476d2c",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "605af163_ce361a23",
       "range": {
         "startLine": 35,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "770b43b1_e1fe692a",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "Removed \"1\" from variable name and assigned it to scalar variable.",
+      "parentUuid": "b437ad64_0036b65d",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f50b49e_aa84dada",
         "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a0e1ac7_81d3d9ce",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "In this test case we are creating external network by enabling snat.\nIn the next test case, updating the network by disabling and enabling SNAT and verifying the same.",
+      "parentUuid": "4f50b49e_aa84dada",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 66
+      },
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b22df7f_cb651d80",
         "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
         "patchSetId": 8
@@ -105,6 +201,24 @@
       "writtenOn": "2018-08-04T05:19:32Z",
       "side": 1,
       "message": "space \u003d",
+      "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f41ba926_a39446f7",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-08-29T12:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b22df7f_cb651d80",
       "revId": "2671230a91ead05aaa69b6c703a45ba5f2030681",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
