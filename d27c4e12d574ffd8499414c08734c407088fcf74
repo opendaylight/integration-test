@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "436599ea_4d3a5f9d",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "move into variable file so other people can use it.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 79
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a772c57_24426596",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "add lib prefix name",
+      "range": {
+        "startLine": 495,
+        "startChar": 4,
+        "endLine": 495,
+        "endChar": 29
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28f47d91_bbf8b185",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "unused library. check for other libraries also",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 33
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0734d97b_cad1410c",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "imported unused resource, check for other resources too",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a73b893a_13b138ed",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "use @{PORT_MAC_ADDR}[0] instead of ${PORT_MAC_ADDR[0]} wherever applicable.",
+      "range": {
+        "startLine": 39,
+        "startChar": 70,
+        "endLine": 39,
+        "endChar": 90
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60556def_c34aaa3c",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "remove spaces",
+      "range": {
+        "startLine": 41,
+        "startChar": 97,
+        "endLine": 41,
+        "endChar": 101
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3213cb5_76ec2f76",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "remove spaces",
+      "range": {
+        "startLine": 42,
+        "startChar": 97,
+        "endLine": 42,
+        "endChar": 101
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e40102f_a44259a6",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-29T09:29:01Z",
+      "side": 1,
+      "message": "variable is not being used anywhere, remove it",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "d27c4e12d574ffd8499414c08734c407088fcf74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
