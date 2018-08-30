@@ -58,7 +58,7 @@ Switches Still Be Connected To All Nodes
 Stop Mininet And Verify No Owners
     [Template]    NONE
     Utils.Stop Mininet
-    BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check No Owners In Controller
+    BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check No Device Owners In Controller
     [Teardown]    Report_Failure_Due_To_Bug    6177
 
 *** Keywords ***
@@ -153,11 +153,11 @@ Isolate Controller From The Cluster
     ClusterManagement.Isolate Member From List Or All    ${isolated_node}
     [Teardown]    SSHLibrary.Switch Connection    ${mininet_conn_id}
 
-Check No Owners In Controller
+Check No Device Owners In Controller
     [Documentation]    Check there is no owners in controllers
     ${session} =    Resolve_Http_Session_For_Member    member_index=${active_member}
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
-    BuiltIn.Should Not Contain    ${data}    member
+    BuiltIn.Should Contain X Times    ${data}    member    3
 
 Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
