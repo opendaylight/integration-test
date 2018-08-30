@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650f0361_d1217f16",
+        "filename": "csit/suites/openflowplugin/EntityOwnership/030_Cluster_Sync_Problems.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-08-30T21:02:42Z",
+      "side": 1,
+      "message": "Can you edit this line to explain why we need to match 3 times below or alternatively point to this gerrit to see explanation.",
+      "revId": "37581a7ee20bd27a7e2b52fbaee4a04b26217eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
