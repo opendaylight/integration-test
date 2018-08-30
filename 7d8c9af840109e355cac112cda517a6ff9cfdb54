@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b45fbef_b266f4de",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-08-30T13:51:02Z",
+      "side": 1,
+      "message": "Unused variable",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "7d8c9af840109e355cac112cda517a6ff9cfdb54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
