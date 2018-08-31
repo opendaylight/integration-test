@@ -38,8 +38,8 @@ Start_All_And_Sync
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ClusterManagement.Run_Bash_Command_On_List_Or_All    netstat -punta
     ${index_list} =    List_Indices_Or_All
     : FOR    ${index}    IN    @{index_list}
-    \    ${output} =    ClusterManagement.Check_Bash_Command_On_Member    command=sudo netstat -punta | grep 2550 | grep LISTEN    member_index=${index}
-    \    ${listening} =    Get Match    ${output}    LISTEN
+    \    ${output} =    ClusterManagement.Check_Bash_Command_On_Member    command=sudo netstat -punta | grep 2550 | grep ESTABLISHED    member_index=${index}
+    \    ${listening} =    Get Match    ${output}    ESTABLISHED
     \    BuiltIn.Run Keyword If    '${listening}' == 'None'    ClusterManagement.Check_Bash_Command_On_Member    command=pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    member_index=${index}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
 
