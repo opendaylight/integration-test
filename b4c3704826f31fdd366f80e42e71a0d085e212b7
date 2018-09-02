@@ -16,6 +16,24 @@
       "revId": "b4c3704826f31fdd366f80e42e71a0d085e212b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c5b5b98_4bef05c9",
+        "filename": "dashboard/viz_config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8129
+      },
+      "writtenOn": "2018-09-02T19:36:00Z",
+      "side": 1,
+      "message": "Oh. That\u0027s right. I will change it.",
+      "parentUuid": "4ed01c91_4417da55",
+      "revId": "b4c3704826f31fdd366f80e42e71a0d085e212b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
