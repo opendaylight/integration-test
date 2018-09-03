@@ -5,5 +5,9 @@ integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.r
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot
 integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
 integration/test/csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot
+<<<<<<< HEAD
 integration/test/csit/suites/netvirt/snatdnat/snat_dnat.robot
+=======
+integration/test/csit/suites/openstack/securitygroup/acl.robot
+>>>>>>> 2d33abc... Update Change 73638
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
