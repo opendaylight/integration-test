@@ -43,6 +43,17 @@ Create Network
     ${output} =    OpenStack CLI    openstack network create ${network_name} ${additional_args}
     [Return]    ${output}
 
+Create Multiple Networks
+    [Arguments]    ${num_of_network}    @{name_of_networks}
+    [Documentation]    Create required number of networks
+    : FOR    ${net}    IN    @{name_of_networks}
+    \    OpenStackOperations.Create Network    ${net}
+    ${net_list}    OpenStackOperations.List Networks
+    : FOR    ${index}    IN RANGE    0    ${num_of_network}
+    \    BuiltIn.Should Contain    ${net_list}    ${name_of_networks[${index}]}
+    @{net_list_id}    Get Regexp Matches    ${net_list}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    [Return]    @{net_list_id}
+
 Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
@@ -74,6 +85,19 @@ Create SubNet
     [Arguments]    ${network_name}    ${subnet_name}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
     ${output} =    OpenStack CLI    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet_name} ${additional_args}
+
+Create Multiple Subnets
+    [Arguments]    ${number_of_networks}    ${name_of_networks}    ${name_of_subnets}    ${subnet_cidr}
+    [Documentation]    Create required number of subnets for previously created networks and return subnet id
+    @{sunet_id_list}    BuiltIn.Create List    @{EMPTY}
+    : FOR    ${index}    IN RANGE    0    ${number_of_networks}
+    \    OpenStackOperations.Create SubNet    ${name_of_networks[${index}]}    ${name_of_subnets[${index}]}    ${subnet_cidr[${index}]}
+    ${sub_list}    OpenStackOperations.List Subnets
+    : FOR    ${index}    IN RANGE    0    ${number_of_networks}
+    \    BuiltIn.Should Contain    ${sub_list}    ${name_of_subnets[${index}]}
+    \    ${subnet_id}    OpenStackOperations.Get Subnet Id    ${name_of_subnets[${index}]}
+    \    Collections.Append To List    ${subnet_id_list}    ${subnet_id}
+    [Return]    @{subnet_id_list}
 
 Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
@@ -202,6 +226,13 @@ Get Router Id
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${router_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${router_id}
+
+Get VMs OVS Port Number
+    [Arguments]    ${ip_address}    ${portname}
+    [Documentation]    Get the port number for given portname
+    ${subportid} =    OpenStackOperations.Get Sub Port Id    ${portname}
+    ${vm_port_number} =    OVSDB.Get Port Number    ${subportid}    ${ip_address}
+    [Return]    ${vm_port_number}
 
 Add New Image From Url
     [Arguments]    ${image_url}    ${image_name}
@@ -374,6 +405,17 @@ Get VM IPs
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
     OpenStackOperations.Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
+
+Get Two Port VM IP Addresses
+    [Arguments]    ${conn_id}    ${vm_name}
+    [Documentation]    Show information of a given two port VM and grep for two ip address. VM name should be sent as arguments.
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${cmd} =    BuiltIn.Set Variable    openstack server show ${vm_name}
+    ${output} =    OpenStackOperations.OpenStack CLI    ${cmd}
+    BuiltIn.Log    ${output}
+    ${address_output} =    OpenStackOperations.OpenStack CLI    ${cmd} | grep "addresses" | awk '{print $4$5}'
+    @{vm_ips} =    String.Get Regexp Matches    ${address_output}    ${REGEX_IPV4}
+    [Return]    @{vm_ips}
 
 Get Subnet Gateway Ip
     [Arguments]    ${subnet_name}
@@ -716,6 +758,7 @@ Neutron Security Group Rule Create
     ${protocol}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    protocol    default=${None}
     ${remote_group_id}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
     ${remote_ip_prefix}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
+    ${remote_ip}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip    default=${None}
     ${cmd} =    BuiltIn.Set Variable    openstack security group rule create ${Security_group_name}
     ${cmd} =    BuiltIn.Run Keyword If    '${description}'!='None'    BuiltIn.Catenate    ${cmd}    --description ${description}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
@@ -732,6 +775,8 @@ Neutron Security Group Rule Create
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-group ${remote_group_id}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
+    ...    ELSE    BuiltIn.Catenate    ${cmd}
+    ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-ip ${remote_ip}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${output} =    OpenStack CLI    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
