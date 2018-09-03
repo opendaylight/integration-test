@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3eaf1a2c_92218f2d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2889e6d2_2ec69feb",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 29
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35aff3b0_801cc594",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 59
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "Create Keypair",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 28
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44a71f14_838ecf20",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35aff3b0_801cc594",
       "range": {
         "startLine": 215,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f0fbe0bd_e59db6f9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3943327f_7b68dbf1",
+      "range": {
+        "startLine": 220,
+        "startChar": 24,
+        "endLine": 220,
+        "endChar": 37
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e687ef4a_083c2f21",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 59
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "what\u0027s this for?",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 50
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5c04352_8c99a8bf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "The following line to copy the file seems to require this. It failed while testing",
+      "parentUuid": "e687ef4a_083c2f21",
       "range": {
         "startLine": 228,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d11cc33d_8d320a23",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Moved to utils",
+      "parentUuid": "00fdee1c_57082e23",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 121
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "633bf8c9_fe5e06c4",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 59
@@ -128,6 +248,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "Namespace",
+      "range": {
+        "startLine": 333,
+        "startChar": 43,
+        "endLine": 333,
+        "endChar": 48
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ecb6075_eedc8880",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "633bf8c9_fe5e06c4",
       "range": {
         "startLine": 333,
         "startChar": 43,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e2ea5f44_80d7e9d0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "262611ca_92d50bed",
+      "range": {
+        "startLine": 344,
+        "startChar": 40,
+        "endLine": 344,
+        "endChar": 49
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ac9005_9da1f8f7",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 59
@@ -174,6 +342,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 350,
+        "startChar": 40,
+        "endLine": 350,
+        "endChar": 49
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66c01040_8d0539ca",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1ac9005_9da1f8f7",
       "range": {
         "startLine": 350,
         "startChar": 40,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "ab85c5b5_bdb13f1e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "the control and compute nodes will have the text \"jenkins\" as output when the command \"id\" is issued. The VM instance created will not have \"jenkins\" Instead the text would be cirros/ubuntu",
+      "parentUuid": "9917e899_a39cd093",
+      "range": {
+        "startLine": 453,
+        "startChar": 4,
+        "endLine": 453,
+        "endChar": 54
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d608fb06_100e42a4",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 59
@@ -220,6 +436,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "how about just \"Execute Command On VM Instance With Publickey Auth\"\n\nusing cirros to identify seems to narrow and maybe we move\naway from cirros eventually.",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 40
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f33acad5_3f8fc26c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "changed. thanks for the suggestion, was also not sure of a general keyword.",
+      "parentUuid": "d608fb06_100e42a4",
       "range": {
         "startLine": 491,
         "startChar": 0,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "befe2424_639cf716",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "this line uses \"scp\". The Previous keyword helps to do ssh to the VM instance.",
+      "parentUuid": "ee76d711_877cba01",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 508,
+        "endChar": 44
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46f2ae4d_34829881",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 59
@@ -266,6 +530,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "I think all of these things are \"suite setup\" types of\nthings. None of the steps are really testing anything\nright? just setup and if anything has trouble, the\nrest of the suite is probably not even worth running.",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 58
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6b9730a_f2cc4d1f",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Moved them to suite setup",
+      "parentUuid": "46f2ae4d_34829881",
       "range": {
         "startLine": 53,
         "startChar": 1,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "76d573ca_b0d808d5",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Currently only the Openstack Command status is available. the other way is to check flow entries, which can get delayed and the test may fail.",
+      "parentUuid": "1308d58f_0b9046a7",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 90
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c93e75a_bfc024a5",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 59
@@ -312,6 +624,30 @@
       "writtenOn": "2018-08-31T19:05:54Z",
       "side": 1,
       "message": "user lower case for variables that are local to this\nkeyword (e.g. SFC1_MAC)",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 40
+      },
+      "revId": "1a5b1ba194dc3fb6cca182a2f905e3aca99e86f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9db810d7_05e39284",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-09-03T12:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c93e75a_bfc024a5",
       "range": {
         "startLine": 237,
         "startChar": 0,
