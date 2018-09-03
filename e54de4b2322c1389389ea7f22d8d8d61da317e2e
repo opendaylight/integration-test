@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8afb67e9_e61f2476",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "add more detail into what we are doing",
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "835290d8_6ec5182b",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "Old bgprpcclient lib is used now, because of WITH NAME syntax in robot",
+      "range": {
+        "startLine": 354,
+        "startChar": 17,
+        "endLine": 354,
+        "endChar": 60
+      },
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f6e37a8_7e71f2a8",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "we can do \nWITH NAME    bgprpc1\nand do this 3 times",
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86005039_14592623",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "here we are using mapping with ODL_SYSTEM_IP so we dont have to do 2   5 in for loop",
+      "range": {
+        "startLine": 41,
+        "startChar": 87,
+        "endLine": 41,
+        "endChar": 109
+      },
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91b7403c_57531159",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "1    4",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632a69e8_fa64cdbb",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "l3vpn_rt_arg",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dea5cfb8_40e85c86",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "we either have to start this in multiple ssh sessions, or run them with \u0026 at the end of the command, and kill them after test finishes",
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3ab9b38_7e709ba5",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-03T10:47:59Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary, actually when I am looking at the application peer conf, there is no 127.0.0.1 configured, so just change it back to 1,2,3.",
+      "revId": "e54de4b2322c1389389ea7f22d8d8d61da317e2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
