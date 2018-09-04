@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf060e43_9aaea4f6",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "I removed this testcases, its duplicate and its already covered as part of vpn_basic_dualstack_one_router.robot",
+      "parentUuid": "c623b61a_7bf5c8a2",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 47
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b2d6070_89d65473",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-28T18:31:01Z",
       "side": 1,
       "message": "this is the default, so no need to pass it.",
+      "range": {
+        "startLine": 71,
+        "startChar": 66,
+        "endLine": 71,
+        "endChar": 70
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3ddc268_62b56ce3",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b2d6070_89d65473",
       "range": {
         "startLine": 71,
         "startChar": 66,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1df96160_a20a8034",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "245671d1_7f79f68a",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 19
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e15f4682_23e051bd",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ba4c5cb9_3cc73b33",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "thanks for the comments, i changed it as per your suggestion",
+      "parentUuid": "e15f4682_23e051bd",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 121
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfe22be3_a610aa0b",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2018-08-28T18:31:01Z",
       "side": 1,
       "message": "this keyword is already there in two other suites.\ntime to put it in a library and share it. you can\ndo that as a refactor patch on top of this, OR better\nyet do it as it\u0027s own small patch separate, then we\u0027ll\nmerge it and you can rebase this on top.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 57
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a49f8b7a_4b797bbc",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "Hi this is not a keyword , this is the testcase here , we are dissociating the L3VPN from router and verifying traffic and now updated the testcases with traffic.please check",
+      "parentUuid": "dfe22be3_a610aa0b",
       "range": {
         "startLine": 132,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "769916a6_92a0f28a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "yes it works but when we do ipv4 and ipv6 seperatly its try to create security group with the same name and getting failed(since same securiy group created for ipv4), so i created new function,Please review it we can move this function to operation.robot once its approved",
+      "parentUuid": "ccddf968_f6114326",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 177
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68ca00d8_b2c4e0f5",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 5
@@ -174,6 +318,30 @@
       "writtenOn": "2018-08-28T18:31:01Z",
       "side": 1,
       "message": "where is index 2 in all of this? I only noticed because I\nwas trying to find a cleaner way to write this. Lines\nthat are nearly identical like this tend to lead to \nmistakes and trouble maintaining. missing an index or\nwhatever. better if a loop can handle it, but I\u0027m not\nsure the right way.",
+      "range": {
+        "startLine": 238,
+        "startChar": 141,
+        "endLine": 238,
+        "endChar": 142
+      },
+      "revId": "abb60feda0144b563cc3e3909d06cb9a3ff3e005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9df2ed8_a42fc8c9",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-04T19:22:20Z",
+      "side": 1,
+      "message": "I tried with loop but its becoming same(identical lines) and not easy to understand, i verified existing scripts() and i used the same approach.",
+      "parentUuid": "68ca00d8_b2c4e0f5",
       "range": {
         "startLine": 238,
         "startChar": 141,
