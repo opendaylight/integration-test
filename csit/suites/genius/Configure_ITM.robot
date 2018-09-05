@@ -16,7 +16,7 @@ Resource          ../../libraries/Utils.robot
 Resource          ../../variables/Variables.robot
 
 *** Variables ***
-@{itm_created}    TZA
+@{itm_created}   TZA
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
@@ -27,6 +27,7 @@ Create and Verify VTEP -No Vlan
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${vlan}=    Set Variable    0
+    Set Suite Variable     ${vlan}
     ${gateway-ip}=    Set Variable    0.0.0.0
     Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
@@ -72,7 +73,10 @@ Delete and Verify VTEP -No Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_1} ${Bridge-1} ${vlan} ${TOOLS_SYSTEM_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_2} ${Bridge-2} ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:commit
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
@@ -111,6 +115,9 @@ Delete and Verify VTEP IPv6 -No Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_1} ${Bridge-1} ${vlan} ${TOOLS_SYSTEM_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_2} ${Bridge-2} ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:commit
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
@@ -168,6 +175,9 @@ Delete and Verify VTEP -Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_1} ${Bridge-1} ${vlan} ${TOOLS_SYSTEM_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_2} ${Bridge-2} ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:commit
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
@@ -226,6 +236,9 @@ Delete VTEP -Vlan and gateway
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_1} ${Bridge-1} ${vlan} ${TOOLS_SYSTEM_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:delete ${Dpn_id_2} ${Bridge-2} ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet} null ${itm_created[0]}
+    Issue Command On Karaf Console    tep:commit
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
