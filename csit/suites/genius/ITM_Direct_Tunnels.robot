@@ -17,20 +17,22 @@ Resource          ../../libraries/ClusterManagement.robot
 Resource          ../../libraries/KarafKeywords.robot
 Resource          ../../libraries/Utils.robot
 Resource          ../../libraries/Genius.robot
+Resource          ../../variables/netvirt/Variables.robot
 Resource          ../../variables/Variables.robot
 Resource          ../../libraries/OVSDB.robot
 
 *** Variables ***
+@{PORT}           BR1-eth1    BR2-eth1
+${VLAN}           0
 
 *** Test Cases ***
 Create and Verify VTEP
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
-    ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${VLAN}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${VLAN}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
@@ -91,6 +93,11 @@ Delete and Verify VTEP
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    KarafKeywords.Issue Command On Karaf Console    tep:delete ${Dpn_id_1} @{PORT}[0] ${VLAN} ${TOOLS_SYSTEM_IP} ${subnet} null ${itm_created[0]}
+    KarafKeywords.Issue Command On Karaf Console    tep:delete ${Dpn_id_2} @{PORT}[1] ${VLAN} ${TOOLS_SYSTEM_2_IP} ${subnet} null ${itm_created[0]}
+    KarafKeywords.Issue Command On Karaf Console    tep:commit
+    ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
@@ -133,7 +140,7 @@ Verify Tunnel State After OVS Restart
 
 Verify Tunnel Down
     [Documentation]    In this we will check whether tunnel is in down or not
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    ${output}=    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Should Contain    ${output}    DOWN
 
 Get Port Number
