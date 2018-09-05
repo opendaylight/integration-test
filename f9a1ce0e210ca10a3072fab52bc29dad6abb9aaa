@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ced090f_4623d517",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-05T23:17:21Z",
+      "side": 1,
+      "message": "remove these two lines and add:\n\n${VLAN}    0\n\nto the *** Variables *** section above. make sure to change\nto UPPER CASE wherever you are using it in this suite.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "f9a1ce0e210ca10a3072fab52bc29dad6abb9aaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
