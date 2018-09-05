@@ -29,8 +29,7 @@ Setup SXP Cluster Session
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
     ClusterManagement.Flush_Iptables_From_List_Or_All
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
+    ClusterManagement.Check_Cluster_Is_In_Sync
     SxpLib.Clean SXP Session
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${SXP_PACKAGE}
 
