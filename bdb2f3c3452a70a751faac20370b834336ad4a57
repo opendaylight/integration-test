@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a76ba0c5_af0b15fc",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-09-05T06:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b24d4fa4_df834bd4",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a874e01_3e112d89",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-24T05:31:25Z",
       "side": 1,
       "message": "name variables meaningfully",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4402d072_e85c1b75",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-09-05T06:21:27Z",
+      "side": 1,
+      "message": "It is just the looping variable.",
+      "parentUuid": "5a874e01_3e112d89",
       "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6954edc4_8b7ef8c8",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-09-05T06:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3910b4a9_ea9494f7",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f73593a3_92cc43dd",
         "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-24T05:34:13Z",
       "side": 1,
       "message": "rename, no hardcoding anywhere",
+      "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67ce324b_82998f45",
+        "filename": "csit/suites/coe/Pods_Basic_Connectivity_Tests.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-09-05T06:21:27Z",
+      "side": 1,
+      "message": "Faseela,since we bring up only 2 pods here things are hard coded for more number of pods it if generic in the scalability suite.",
+      "parentUuid": "f73593a3_92cc43dd",
       "revId": "bdb2f3c3452a70a751faac20370b834336ad4a57",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
