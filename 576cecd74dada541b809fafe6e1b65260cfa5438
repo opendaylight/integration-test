@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46b25b20_a2e6d900",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-06T11:44:43Z",
+      "side": 1,
+      "message": "You could possibly do:\nif $lib \u003d\u003d 1\n    lib1.function\nBut I am not sure whether this would even reduce number of lines necessary",
+      "revId": "576cecd74dada541b809fafe6e1b65260cfa5438",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
