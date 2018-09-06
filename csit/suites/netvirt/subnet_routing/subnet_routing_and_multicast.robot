@@ -45,9 +45,11 @@ ${L3VPN_RD}       2200:2
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 @{EXTRA_NW_SUBNET}    10.1.0.100    10.2.0.100    10.3.0.100
 @{MASK}           32    255.255.255.0
+${NEW_EXTRA_NW_SUBNET}    10.1.0.110
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
 ${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
 ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
+${RPING_MIP_IP3}    sudo arping -I eth0:1 -c 5 -b -s ${NEW_EXTRA_NW_SUBNET} ${NEW_EXTRA_NW_SUBNET}
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 @{REQ_VM_INSTANCES_NET1}    mc_net_1_vm_1    mc_net_1_vm_2    mc_net_1_vm_3    mc_net_1_vm_4
 @{REQ_VM_INSTANCES_NET2}    mc_net_2_vm_1    mc_net_2_vm_2    mc_net_2_vm_3    mc_net_2_vm_4
@@ -88,6 +90,54 @@ Verify the subnet route for multiple subnets on multi VSwitch topology when DC-G
 Verify the subnet route for multiple subnets on multi VSwitch topology when QBGP is restarted
     [Documentation]    Verify Enterprise Hosts Reachability After Qbgp Restart
     BgpOperations.Restart BGP Processes On ODL    ${ODL_SYSTEM_IP}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify the subnet route when VSwitch hosting subnet route is restarted on single VSwitch topology
+    [Documentation]    Verify the subnet route when VSwitch hosting subnet route is restarted on single VSwitch topology
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Get Ovsdb State    ${OS_COMPUTE_2_IP}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When The Network Is Removed From The Vpn
+    [Documentation]    Verify The Subnet Route When The Network Is Removed From The Vpn
+    : FOR    ${network}    IN    @{REQ_NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    ${vm_ip_list} =    BuiltIn.Create List    @{VM_IP_NET1}    @{VM_IP_NET2}    @{VM_IP_NET3}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements Not At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    : FOR    ${network}    IN    @{REQ_NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify the subnet route when VSwitch hosting subnet Enterprise Host is restarted on single multiple VSwitch topology
+    [Documentation]    Verify Enterprise Hosts Reachability OVS Control Plane Restart On CSS
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Get Ovsdb State    ${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Get Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify the subnet route for one subnet on a single VSwitch
+    [Documentation]    Verify the subnet route for one subnet on a single VSwitch
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[2]    @{VM_IP_NET2}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify the subnet route for multiple subnets on multi VSwitch topology
+    [Documentation]    Verify the subnet route for multiple subnets on multi VSwitch topology
+    BuiltIn.Log    Bring up enterprise host in another vswitch
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{REQ_NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{VM_IP_NET1}[2]
+    ...    @{MASK}[1]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{REQ_NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{VM_IP_NET1}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{VM_IP_NET1}[2]    ${RPING_MIP_IP3}
+    BuiltIn.Should Contain    ${output}    broadcast
+    BuiltIn.Should Contain    ${output}    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[2]    @{VM_IP_NET1}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    BuiltIn.Should Contain    ${output}    64 bytes
     Verify Ping between Inter Intra And Enterprise host
 
 *** Keywords ***

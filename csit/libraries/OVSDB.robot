@@ -16,6 +16,7 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
 ${OVSDB_NODE_PORT}    6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 ${SOUTHBOUND_NODE_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+${OVSDB_STATE}    state=ACTIVE
 
 *** Keywords ***
 Log Request
@@ -242,6 +243,13 @@ Get Port Metadata
     ${metadata} =    Builtin.Convert To String    @{list_any_matches}
     ${output} =    String.Get Substring    ${metadata}    2
     [Return]    ${output}
+
+Get Ovsdb State
+    [Arguments]    ${dpn_ip}
+    [Documentation]    Get Ovsdb State for the DPN
+    ${output} =    Utils.Run Command On Remote System    ${dpn_ip}    sudo ovsdb-client dump -f list Open_vSwitch Controller | grep state
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Contain    ${output}    ${OVSDB_STATE}
 
 Log Config And Operational Topology
     [Documentation]    For debugging purposes, this will log both config and operational topo data stores
