@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eaab971_4d67ce65",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7866
+      },
+      "writtenOn": "2018-09-06T05:36:26Z",
+      "side": 1,
+      "message": "After this step, it is better to have check if teps are deleted or not.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 62
+      },
+      "revId": "e38894db03bb84517db81d6369df80391f3d8265",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
