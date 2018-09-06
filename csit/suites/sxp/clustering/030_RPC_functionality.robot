@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify RPC funcionality on cluster
-Suite Setup       Setup SXP Cluster Session
+Suite Setup       BuiltIn.Run Keywords    Setup SXP Cluster Session
+...               AND    SxpClusterLib.Setup Device Session
 Suite Teardown    Clean SXP Cluster Session
 Test Setup        Setup SXP Cluster
 Test Teardown     Clean SXP Cluster
@@ -28,14 +29,14 @@ Isolate SXP Controller
     [Documentation]    Isolate one of cluster nodes and perform check that RPC changes were performed afterwards reverts isolation
     ${owner_controller} =    SxpClusterLib.Get Owner Controller
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${owner_controller}
+    \    SxpLib.Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
     @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings Exist
     ${running_member} =    Collections.Get From List    ${running_members}    0
     ${owner_controller} =    SxpClusterLib.Get Owner Controller    ${running_member}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SXpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${owner_controller}
+    \    SXpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
     ClusterManagement.Flush_Iptables_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings Does Not Exist
@@ -43,13 +44,13 @@ Isolate SXP Controller
 Check Bindings Exist
     [Documentation]    Check that bindings exists in Cluster datastore
     ${controller_index} =    SxpClusterLib.Get Owner Controller
-    ${resp} =    SxpLib.Get Bindings    node=${CLUSTER_NODE_ID}    session=controller${controller_index}
+    ${resp} =    SxpLib.Get Bindings    node=${INADDR_ANY}    session=ClusterManagement__session_${controller_index}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Should Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
 
 Check Bindings Does Not Exist
     [Documentation]    Check that bindings does not exist in Cluster datastore
     ${controller_index} =    SxpClusterLib.Get Owner Controller
-    ${resp} =    SxpLib.Get Bindings    node=${CLUSTER_NODE_ID}    session=controller${controller_index}
+    ${resp} =    SxpLib.Get Bindings    node=${INADDR_ANY}    session=ClusterManagement__session_${controller_index}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Should Not Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
