@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation     Test suite to test cluster binding propagation
-Suite Setup       Setup SXP Cluster Session
+Suite Setup       BuiltIn.Run Keywords
+...               Setup SXP Cluster Session    AND
+...               SxpClusterLib.Setup Device Session
 Suite Teardown    Clean SXP Cluster Session
 Test Teardown     Clean SXP Cluster
 Library           ../../../libraries/Sxp.py

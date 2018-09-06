@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation     Test suite to test cluster connection switchover
-Suite Setup       Setup SXP Cluster Session
+Suite Setup       BuiltIn.Run Keywords
+...               Setup SXP Cluster Session    AND
+...               SxpClusterLib.Setup Device Session
 Suite Teardown    Clean SXP Cluster Session
 Test Setup        Setup SXP Cluster
 Test Teardown     Clean SXP Cluster
