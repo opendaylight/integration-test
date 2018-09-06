@@ -572,6 +572,9 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
             <keep-alive-time>30</keep-alive-time>
             <reconciliation-time>$timeout</reconciliation-time>
             <delete-hold-down-time>$timeout</delete-hold-down-time>
+            <hold-time>90</hold-time>
+            <hold-time-max>180</hold-time-max>
+            <hold-time-min>90</hold-time-min>
          </connection-timers>
       </connection>
    </connections>
