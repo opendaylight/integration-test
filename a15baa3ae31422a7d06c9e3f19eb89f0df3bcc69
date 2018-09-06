@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25eb7d46_d52e9017",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-06T11:44:43Z",
+      "side": 1,
+      "message": "Name of library has to be hardcoded, so you have to move this keyword into your test suite, and address each library separately.",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 22
+      },
+      "revId": "a15baa3ae31422a7d06c9e3f19eb89f0df3bcc69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
