@@ -248,10 +248,6 @@ Verify Snapshot Was Pushed
     ${output} =    Utils.Run Command On Controller    ${ODL_SYSTEM_IP}    cat ${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log* | grep -c 'Successfully pushed configuration snapshot.*${snapshot_string}'
     BuiltIn.Should Not Be Equal As Strings    ${output}    0
 
-Clean SXP Session
-    [Documentation]    Destroy created sessions
-    RequestsLibrary.Delete All Sessions
-
 Add Domain
     [Arguments]    ${domain_name}    ${sgt}=None    ${prefixes}=None    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Based on ODL version decide if domain's bindings will be added with or without origin type (introduced in Fluorine)
@@ -329,7 +325,7 @@ Clean SXP Environment
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    Delete Node    ${ip}
-    Clean SXP Session
+    RequestsLibrary.Delete All Sessions
 
 Get Routing Configuration From Controller
     [Arguments]    ${session}

@@ -18,6 +18,7 @@ ${VIRTUAL_INTERFACE}    eth0
 ${MAC_ADDRESS_TABLE}    &{EMPTY}
 ${DEVICE_NODE_ID}    ${TOOLS_SYSTEM_IP}
 ${CLUSTER_NODE_ID}    ${TOOLS_SYSTEM_2_IP}
+${INADDR_ANY}     0.0.0.0
 
 *** Keywords ***
 Setup SXP Cluster Session
@@ -30,11 +31,16 @@ Setup Device Session
     [Documentation]    Create session on the SXP device
     RequestsLibrary.Create Session    ${DEVICE_SESSION}    url=http://${DEVICE_NODE_ID}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
 
+Setup SXP Cluster Session With Device
+    [Documentation]    Create sessions asociated with SXP cluster setup and one SXP device
+    Setup SXP Cluster Session
+    Setup Device Session
+
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
     ClusterManagement.Flush_Iptables_From_List_Or_All
     ClusterManagement.Check_Cluster_Is_In_Sync
-    SxpLib.Clean SXP Session
+    RequestsLibrary.Delete All Sessions
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${SXP_PACKAGE}
 
 Check Shards Status
@@ -46,18 +52,16 @@ Check Shards Status
 Setup SXP Cluster
     [Arguments]    ${peer_mode}=listener
     [Documentation]    Setup and connect SXP cluster topology
-    SxpLib.Add Node    ${DEVICE_NODE_ID}    ip=0.0.0.0    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}    system=${TOOLS_SYSTEM_IP}
-    ...    ip=${EMPTY}
-    ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
+    SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    ${DEVICE_NODE_ID}
+    \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    node=${DEVICE_NODE_ID}
     \    ...    session=${DEVICE_SESSION}
-    ${controller_id} =    Get Any Controller
-    SxpLib.Add Node    ${CLUSTER_NODE_ID}    ip=0.0.0.0    session=ClusterManagement__session_${controller_id}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Cluster Node started    ${CLUSTER_NODE_ID}
-    SxpLib.Add Connection    version4    ${cluster_mode}    ${TOOLS_SYSTEM_IP}    64999    ${CLUSTER_NODE_ID}    session=ClusterManagement__session_${controller_id}
-    BuiltIn.Wait Until Keyword Succeeds    120    1    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
+    SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    1m    1x    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    1m    1x    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    4m    1x    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
@@ -65,7 +69,7 @@ Clean SXP Cluster
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=${CONTROLLER_SESSION}
+    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
 
 Check Cluster Node started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}

@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation     Test suite to test cluster connection switchover
-Suite Setup       Setup SXP Cluster Session
-Suite Teardown    Clean SXP Cluster Session
-Test Setup        Setup SXP Cluster
-Test Teardown     Clean SXP Cluster
+Suite Setup       SxpClusterLib.Setup SXP Cluster Session With Device
+Suite Teardown    SxpClusterLib.Clean SXP Cluster Session
+Test Setup        SxpClusterLib.Setup SXP Cluster
+Test Teardown     SxpClusterLib.Clean SXP Cluster
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SxpClusterLib.robot
 
