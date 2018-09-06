@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83ad27d0_9594d7e2",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-06T08:35:39Z",
+      "side": 1,
+      "message": "add documentation (for all TCs where it\u0027s missing)",
+      "revId": "2302b5cdbee0c9e0445af74c1902437412e77c37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e917dae7_a380e3bb",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-06T08:35:39Z",
+      "side": 1,
+      "message": "probably necessary to hardcore this, since it\u0027s before variable def",
+      "range": {
+        "startLine": 19,
+        "startChar": 62,
+        "endLine": 19,
+        "endChar": 68
+      },
+      "revId": "2302b5cdbee0c9e0445af74c1902437412e77c37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4753586a_0e417abd",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-06T08:35:39Z",
+      "side": 1,
+      "message": "this doesnt work, so we have to find a work around",
+      "range": {
+        "startLine": 73,
+        "startChar": 66,
+        "endLine": 73,
+        "endChar": 82
+      },
+      "revId": "2302b5cdbee0c9e0445af74c1902437412e77c37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
