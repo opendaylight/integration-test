@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309f285b_b0565c48",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-09-07T08:04:47Z",
+      "side": 1,
+      "message": "Follow camel case pattern for test case name.",
+      "revId": "a355e585b7b32ce8168d39adcc57e614f012ac07",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d6cfad4_5d47116d",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-09-07T08:04:47Z",
+      "side": 1,
+      "message": "Write a single keyword for both the positive and negative scenario using flag value as TRUE[should match] or FALSE [should not match]",
+      "revId": "a355e585b7b32ce8168d39adcc57e614f012ac07",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
