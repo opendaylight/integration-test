@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to test SSL security fuctionality
 Suite Setup       Setup SXP Environment Local    6
-Suite Teardown    Clean SXP Environment    6
+Suite Teardown    Clean SXP Environment    5
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
