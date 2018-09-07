@@ -81,7 +81,7 @@ Binding Replacement Test
 *** Keywords ***
 Setup Nodes Local
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data will be shared by filter.
-    Setup SXP Environment    10
+    Setup SXP Environment    9
     : FOR    ${node}    IN RANGE    2    5
     \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.${node}0/32    127.0.0.${node}
     \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}

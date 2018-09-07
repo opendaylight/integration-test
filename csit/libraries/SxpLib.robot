@@ -306,7 +306,7 @@ Check Binding Range Negative
     \    Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
 
 Setup SXP Environment
-    [Arguments]    ${node_range}=2
+    [Arguments]    ${node_range}=1
     [Documentation]    Create session to Controller, node_range parameter specifies number of nodes to be created plus one
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
     : FOR    ${num}    IN RANGE    1    ${node_range}
