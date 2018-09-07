@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify binding origins checks are performed in master database
-Suite Setup       Create Session And Node
-Suite Teardown    Delete Node And Close Session
+Suite Setup       SxpLib.Setup SXP Environment
+Suite Teardown    SxpLib.Clean SXP Environment
 Test Setup        Clean Bindings
 Library           RequestsLibrary
 Resource          ../../../libraries/SxpLib.robot
@@ -69,14 +69,6 @@ Test Get Bindings
     Verify All Bindings Content    10    1.1.1.1/32    20    2.2.2.2/32
 
 *** Keywords ***
-Create Session And Node
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    SxpLib.Setup SXP Environment
-
-Delete Node And Close Session
-    SxpLib.Clean SXP Environment
-    RequestsLibrary.Delete All Sessions
-
 Clean Bindings
     SxpLib.Clean Bindings    scope=all
     SxpLib.Clean Bindings    domain=guest    scope=all

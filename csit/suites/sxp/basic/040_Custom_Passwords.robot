@@ -44,7 +44,7 @@ Version 4
 *** Keywords ***
 Setup SXP Environment Local
     [Documentation]    Create session to Controller
-    Setup SXP Session
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
     Add Node    127.0.0.1    ${EMPTY}
     Add Node    127.0.0.2    ${EMPTY}
     Add Node    127.0.0.3    CUSTOM

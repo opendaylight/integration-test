@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify binding origins configuration possibilities (CRUD)
-Suite Setup       RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    RequestsLibrary.Delete All Sessions
+Suite Setup       SxpLib.Setup SXP Environment    0
+Suite Teardown    SxpLib.Clean SXP Environment    0
 Test Setup        SxpBindingOriginsLib.Revert To Default Binding Origins Configuration
 Library           RequestsLibrary
 Resource          ../../../libraries/SxpBindingOriginsLib.robot
