@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify Domain data consistency during data change
 Test Setup        Setup Nodes Local
-Test Teardown     Clean SXP Environment    15
+Test Teardown     Clean SXP Environment    14
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
@@ -79,7 +79,7 @@ Export Separation Node 11-14 Test
 Setup Nodes Local
     [Arguments]    ${version}=version4
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data between domains must remain separated.
-    Setup SXP Environment    15
+    Setup SXP Environment    14
     : FOR    ${node}    IN RANGE    2    7
     \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
     : FOR    ${node}    IN RANGE    7    11

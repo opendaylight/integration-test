@@ -306,10 +306,10 @@ Check Binding Range Negative
     \    Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
 
 Setup SXP Environment
-    [Arguments]    ${node_range}=2
-    [Documentation]    Create session to Controller, node_range parameter specifies number of nodes to be created plus one
+    [Arguments]    ${node_range}=1
+    [Documentation]    Create session to Controller, ${node_range} parameter specifies number of nodes to be created
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
-    : FOR    ${num}    IN RANGE    1    ${node_range}
+    : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 10)    modules=random
     \    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
@@ -324,9 +324,9 @@ Check Node Started
     BuiltIn.Should Be Equal As Strings    ${rc}    0
 
 Clean SXP Environment
-    [Arguments]    ${node_range}=2
+    [Arguments]    ${node_range}=1
     [Documentation]    Destroy created sessions
-    : FOR    ${num}    IN RANGE    1    ${node_range}
+    : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    Delete Node    ${ip}
     Clean SXP Session
