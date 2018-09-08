@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7980cdb9_2d3add42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-08T00:19:24Z",
+      "side": 1,
+      "message": "can you add more details to this message? Someone would\nhave to have a good memory to know that 73638 went in but\nbroke netvirt csit so was reverted and this is an attempt\nto get that original patch in without breaking netvirt\ncsit. that\u0027s the case right?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "2d33abca5a2dd5874c99323b6570ab6e236d17b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
