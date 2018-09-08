@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8cdc12_c0e4d865",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-08T04:23:54Z",
+      "side": 1,
+      "message": "these are all failing, right?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
