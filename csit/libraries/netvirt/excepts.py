@@ -114,6 +114,19 @@ _whitelist = [
          "/(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)fibEntries/" +
          "vrfTables/vrfTables[{(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)routeDistinguisher="
      ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1427",
+     "id": "ModifiedNodeDoesNotExistException",
+     "context": [
+         "/(urn:huawei:params:xml:ns:yang:l3vpn?revision=2014-08-15)vpn-interfaces/vpn-interface/vpn-interface" +
+         "[{(urn:huawei:params:xml:ns:yang:l3vpn?revision=2014-08-15)name=",
+         "AugmentationIdentifier{childNames=[(urn:opendaylight:netvirt:l3vpn?revision=2013-09-11)adjacency]}"
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1428",
+     "id": "ModifiedNodeDoesNotExistException",
+     "context": [
+         "/(urn:huawei:params:xml:ns:yang:l3vpn?revision=2014-08-15)vpn-interfaces/vpn-interface/vpn-interface" +
+         "[{(urn:huawei:params:xml:ns:yang:l3vpn?revision=2014-08-15)name=",
+     ]},
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
      "id": "ConflictingModificationAppliedException",
      "context": [
