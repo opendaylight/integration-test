@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "195f45a6_0431d6e7",
+        "filename": "csit/testplans/netvirt-3node-tdd-wip-openstack.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-10T10:32:13Z",
+      "side": 1,
+      "message": "why is this in the 3node testplan rather than the 1node?",
+      "revId": "4990ca65ac6ec1c87a2ef4cf8db7597e6ac8a61c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
