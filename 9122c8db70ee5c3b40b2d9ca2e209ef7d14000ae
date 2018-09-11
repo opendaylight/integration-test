@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fabf5dda_dd6a9ffb",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1842
+      },
+      "writtenOn": "2018-09-11T16:42:16Z",
+      "side": 1,
+      "message": "this one should tell-only",
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a49bf4d_5f6a0c2d",
         "filename": "csit/testplans/controller-clustering-ask.txt",
         "patchSetId": 5
@@ -13,6 +30,30 @@
       "writtenOn": "2018-09-11T16:34:37Z",
       "side": 1,
       "message": "I think Tom was suggesting we don\u0027t do this part.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 95
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e950c42_85ae3ec8",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1842
+      },
+      "writtenOn": "2018-09-11T16:42:16Z",
+      "side": 1,
+      "message": "right",
+      "parentUuid": "7a49bf4d_5f6a0c2d",
       "range": {
         "startLine": 16,
         "startChar": 0,
