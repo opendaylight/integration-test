@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a49bf4d_5f6a0c2d",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-11T16:34:37Z",
+      "side": 1,
+      "message": "I think Tom was suggesting we don\u0027t do this part.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 95
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b8cdc12_c0e4d865",
         "filename": "csit/testplans/controller-clustering-ask.txt",
         "patchSetId": 5
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "Yes, these are failing but I believe expected to pass. We can confirm with Tom, or we can get these in and then create Jira for all failures.",
       "parentUuid": "6b8cdc12_c0e4d865",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc146a29_4902c86c",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-11T16:34:37Z",
+      "side": 1,
+      "message": "Tom, why are these failing?",
+      "parentUuid": "0ea70f7b_b9bf54f0",
       "range": {
         "startLine": 39,
         "startChar": 0,
