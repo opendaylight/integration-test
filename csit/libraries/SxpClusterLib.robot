@@ -65,9 +65,7 @@ Setup SXP Cluster
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
-    ClusterManagement.Flush_Iptables_From_List_Or_All
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${i+1}
+    ClusterManagement.Check_Cluster_Is_In_Sync
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
 
