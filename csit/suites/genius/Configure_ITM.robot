@@ -12,9 +12,7 @@ Library           re
 Variables         ../../variables/genius/Modules.py
 Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Genius.robot
-Resource          ../../libraries/KarafKeywords.robot
 Resource          ../../libraries/Utils.robot
-Resource          ../../variables/netvirt/Variables.robot
 Resource          ../../variables/Variables.robot
 
 *** Variables ***
@@ -22,17 +20,16 @@ Resource          ../../variables/Variables.robot
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
-@{PORT}           BR1-eth1    BR2-eth1
-@{VLAN}           0    100    101
 
 *** Test Cases ***
 Create and Verify VTEP -No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    @{VLAN}[0]    ${gateway-ip}
-    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    @{VLAN}[0]
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
@@ -75,13 +72,7 @@ Delete and Verify VTEP -No Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[0] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[0] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
-    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
@@ -91,11 +82,12 @@ Create and Verify VTEP IPv6 - No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    ::
     ${TOOLS_SYSTEM_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:1000
     ${TOOLS_SYSTEM_2_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:2000
-    Create Vteps IPv6    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    @{VLAN}[0]    ${gateway-ip}
-    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    @{VLAN}[0]
+    Create Vteps IPv6    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
@@ -117,14 +109,8 @@ Delete and Verify VTEP IPv6 -No Vlan
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${ipv6_1}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:1000
-    ${ipv6_2}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:2000
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/@{PORT}[0]
-    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/@{PORT}[1]
-    ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
-    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
@@ -135,10 +121,11 @@ Create and Verify VTEP-Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and \ without Gateway configured in Json.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    100
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    @{VLAN}[1]    ${gateway-ip}
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     ${get}    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}
-    ...    @{VLAN}[1]    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    ...    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     Log    ${get}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
@@ -181,13 +168,7 @@ Delete and Verify VTEP -Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[1] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[1] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd1}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
-    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
@@ -196,13 +177,13 @@ Create VTEP - Vlan and Gateway
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and Gateway configured in Json.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    101
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     ${gateway-ip}    Catenate    ${substr}1
-    Set Suite Variable    ${GATEWAY_IP}    ${gateway-ip}
     Log    ${subnet}
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    @{VLAN}[2]    ${gateway-ip}
-    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    @{VLAN}[2]
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
@@ -245,13 +226,7 @@ Delete VTEP -Vlan and gateway
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[2] ${TOOLS_SYSTEM_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[2] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd1}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
-    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
@@ -265,6 +240,7 @@ Create Vteps IPv6
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
     Set Global Variable    ${subnet}
+    ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
     ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
     ...    ${gateway-ip}    ${subnet}
