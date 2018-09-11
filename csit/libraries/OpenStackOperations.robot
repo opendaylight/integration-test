@@ -1062,6 +1062,7 @@ OpenStack Cleanup All
     \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
     @{vms} =    OpenStack CLI Get List    openstack server list -f json
     : FOR    ${vm}    IN    @{vms}
+    \    OpenStack CLI    openstack server show ${vm}
     \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
     @{routers} =    OpenStack CLI Get List    openstack router list -f json
     : FOR    ${router}    IN    @{routers}
