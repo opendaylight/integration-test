@@ -4,7 +4,7 @@ Documentation     Test suite to test cluster connection and propagation switchov
 ...               Resources of this VM are not required. At suite start this node is shutted down to reduce routing conflicts.
 Suite Setup       Setup Custom SXP Cluster Session
 Suite Teardown    Clean Custom SXP Cluster Session
-Test Teardown     Clean SXP Cluster
+Test Teardown     Clean Custom SXP Cluster
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SxpClusterLib.robot
@@ -80,6 +80,12 @@ Setup Nodes And Connections
     BuiltIn.Wait Until Keyword Succeeds    20    1    SxpLib.Check Node started    ${CLUSTER_NODE_ID}    system=${ODL_SYSTEM_${controller_id}_IP}    session=ClusterManagement__session_${controller_id}
     BuiltIn.Wait Until Keyword Succeeds    120    1    Check Device is Connected    mode=${peer_mode}
     BuiltIn.Wait Until Keyword Succeeds    120    1    SxpClusterLib.Check Cluster is Connected    ${CLUSTER_NODE_ID}    mode=${cluster_mode}    session=ClusterManagement__session_${controller_id}
+
+Clean Custom SXP Cluster
+    [Documentation]    Disconnect SXP cluster topology
+    ClusterManagement.Check_Cluster_Is_In_Sync
+    SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    SxpLib.Delete Node    ${CLUSTER_NODE_ID}    session=${CONTROLLER_SESSION}
 
 Add Bindings To Node
     [Arguments]    ${node}    ${session}
