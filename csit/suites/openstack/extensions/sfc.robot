@@ -198,11 +198,12 @@ Create Ports For Testing
     OpenStackOperations.Get Suite Debugs
 
 Create Instances For Testing
-    BuiltIn.Comment    Create one ubuntu instances and two cirros instances
+    ${SF_COMP_HOST} =    BuiltIn.Set Variable If    2 < ${NUM_OS_SYSTEM}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}
+    BuiltIn.Comment    Create one ubuntu instance and two cirros instances
     OpenStackOperations.Add New Image From Url    ${CLOUD_IMAGE}    ${CLOUD_IMAGE_NAME}
     OpenStackOperations.Create Flavor    ${CLOUD_FLAVOR_NAME}    2048    4
     OpenStackOperations.Generate And Add Keypair    sfctest    odlsfctest
-    OpenStackOperations.Create Vm Instance With Ports And Key On Compute Node    p1in    p1out    sf1    ${OS_CMP1_HOSTNAME}    image=${CLOUD_IMAGE_NAME}    flavor=${CLOUD_FLAVOR_NAME}
+    OpenStackOperations.Create Vm Instance With Ports And Key On Compute Node    p1in    p1out    sf1    ${SF_COMP_HOST}    image=${CLOUD_IMAGE_NAME}    flavor=${CLOUD_FLAVOR_NAME}
     ...    sg=${SECURITY_GROUP}    keyname=sfctest
     OpenStackOperations.Create Vm Instance With Port On Compute Node    source_vm_port    sourcevm    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}    flavor=cirros256
     OpenStackOperations.Create Vm Instance With Port On Compute Node    dest_vm_port    destvm    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}    flavor=cirros256
