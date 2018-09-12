@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8c83871_1b4f5332",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "${ODL_SYSTEM_IP}",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a8e1300_f4e0b61b",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "No need to log this, all info is avaiable from request",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 50
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dd484f6_fd301694",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "remove line, it\u0027s enough to get it when terminating play.py\u0027s",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 101
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95e47415_295ac66e",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "Documentation for all TC\u0027s",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b488222_24fec21b",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "String",
+      "range": {
+        "startLine": 80,
+        "startChar": 24,
+        "endLine": 80,
+        "endChar": 31
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "464489ee_f1eca06a",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "Not used anymore",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 52
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d262a36_335593ed",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "No need to call these templates anymore, since they are not used as such.",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 32
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd379c59_b17f4eb4",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "We can change this to  default\u003dFalse, action\u003d\"store_true\", help\u003dstr_help\n\nThan in play.py call we use only --usepeerip and remove the \u003dTrue",
+      "range": {
+        "startLine": 132,
+        "startChar": 37,
+        "endLine": 132,
+        "endChar": 78
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ba63f7b_0de0c0e5",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-12T13:09:14Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 29
+      },
+      "revId": "2a4a9c32ccfb48c16812e10fa3ce7ab56f1ff1e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
