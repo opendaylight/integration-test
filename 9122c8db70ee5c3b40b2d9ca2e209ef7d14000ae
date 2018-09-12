@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e969c45d_5f93ac53",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-09-12T06:36:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fabf5dda_dd6a9ffb",
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a49bf4d_5f6a0c2d",
         "filename": "csit/testplans/controller-clustering-ask.txt",
         "patchSetId": 5
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "right",
       "parentUuid": "7a49bf4d_5f6a0c2d",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 95
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be8ec7e0_0c9984bc",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-09-12T06:36:13Z",
+      "side": 1,
+      "message": "Aha, so back to the patchset1 then :) This was done at Josh\u0027s suggestion, to try running and see if any tests are applicable/passing for both, in case tests were supposed to be added for both but never were.",
+      "parentUuid": "4e950c42_85ae3ec8",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -173,6 +215,30 @@
       "side": 1,
       "message": "I have not really even dug in to it, but we didn\u0027t\nexpect them to fail in ask based, right Vishal?\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/builder-copy-sandbox-logs/384/thapar-controller-csit-3node-clustering-ask-all-oxygen/2/robot-plugin/log.html.gz",
       "parentUuid": "260a4aed_2f11bae1",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "9122c8db70ee5c3b40b2d9ca2e209ef7d14000ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b2ed0e1_3bc99259",
+        "filename": "csit/testplans/controller-clustering-ask.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-09-12T06:36:13Z",
+      "side": 1,
+      "message": "Yes, we\u0027re not touching them at all, they\u0027re as is from existing.",
+      "parentUuid": "6c8bc82c_940917f0",
       "range": {
         "startLine": 39,
         "startChar": 0,
