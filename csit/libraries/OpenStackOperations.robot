@@ -296,7 +296,7 @@ Verify VM Is ACTIVE
     BuiltIn.Should Contain    ${output}    active
 
 Poll VM Is ACTIVE
-    [Arguments]    ${vm_name}    ${retry}=600s    ${retry_interval}=30s
+    [Arguments]    ${vm_name}    ${retry}=1200s    ${retry_interval}=30s
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     BuiltIn.Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    OpenStackOperations.Verify VM Is ACTIVE    ${vm_name}
 
