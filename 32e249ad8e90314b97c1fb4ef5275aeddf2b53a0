@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "513ecac1_36cf7f6d",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-12T05:25:45Z",
+      "side": 1,
+      "message": "these either already exist or should be moved to\nthe openflow FlowLib.robot library. for example, we\nalready have \"Delete Flow Via Restconf\".",
+      "range": {
+        "startLine": 489,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "616d0e01_b120b9f6",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-12T05:25:45Z",
+      "side": 1,
+      "message": "put this before the JVM_Plots suite",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facabd66_575ab479",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-12T05:25:45Z",
+      "side": 1,
+      "message": "where is this used? I\u0027m wondering if we don\u0027t already\nhave a general keyword in ovsdb.robot or ovs.robot that\nwill handle this?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 79
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
