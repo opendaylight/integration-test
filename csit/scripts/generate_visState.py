@@ -393,9 +393,11 @@ def generate(dash_config, viz_config):
             # print("No default index found")
             pass
 
-    if not config_validator(format):
-        raise ValueError('Missing required field values')
+    missing = config_validator(format)
+    if len(missing):
+        raise ValueError('Missing required field values :-', *missing)
 
+    # print(format)
     p(format)
 
     vis = visState()
@@ -404,28 +406,29 @@ def generate(dash_config, viz_config):
     # checking incase there are None values \
     # in the format indicating missing fields
 
-    if not config_validator(generated_visState):
-        raise KeyError('required fields are missing values!')
+    missing = config_validator(generated_visState)
+    if len(missing):
+        raise ValueError('required fields are missing values! ', *missing)
     return format, generated_visState
 
 
 # Check the generated format if it contains any key with None
 # as it's value which indicates incomplete information
-def config_validator(val):
-    flag = True
-    for _, i in val.items():
-        if isinstance(i, dict):
-            flag = config_validator(i)
-        if i is None:
-            return False
-    return flag
+
+def config_validator(val, missing=[]):
+    for key, value in val.items():
+        if isinstance(value, dict):
+            config_validator(value)
+        if value is None:
+            missing.append(key)
+    return missing
 
 
 if __name__ == '__main__':
-    with open('viz.yaml', 'r') as f:
+    with open('viz_config.yaml', 'r') as f:
         viz_config = yaml.safe_load(f)
 
-    with open('dashboard.yaml', 'r') as f:
+    with open('dash_config.yaml', 'r') as f:
         dash_config = yaml.safe_load(f)
 
     generate(dash_config['dashboard']['viz'][2],
