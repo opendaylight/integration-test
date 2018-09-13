@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d28ae41a_a1990fc3",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-13T23:55:41Z",
+      "side": 1,
+      "message": "if you put this in the middle of these args, we need to double check all places this keyword is used to make sure\nthey will be ok and not accidentally think they are \npassing check_system_status and this keyword uses it for\nmsg.",
+      "range": {
+        "startLine": 449,
+        "startChar": 76,
+        "endLine": 449,
+        "endChar": 92
+      },
+      "revId": "a48f1c94a6b69f54e6b7b72a0645bfe3b8a1728f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
