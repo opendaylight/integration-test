@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37715da2_5bae330f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-13T18:51:11Z",
+      "side": 1,
+      "message": "instead of a whole new keyword, what if you just add\n${msg}\u003d\"\" to the Stop_Single_Member keyword above.\nthen in line 427 you just add ${msg} to the string.\n\nthen in the suites you call it like:\n\nClusterManagement.Stop_Single_Member    1    up\u003dODL1, ODL2,ODL3 down\u003dnone\n\nseems less complicated. you are already adding karaf logging to Stop_Single_Member\nanyway.",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 35
+      },
+      "revId": "14566e765f0f03f3aace680dca477374cc644a9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42aae41b_bbaa62b1",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-13T18:51:11Z",
+      "side": 1,
+      "message": "this will probably not work for other projects if they want\nto use this keyword. maybe pass it as an argument?",
+      "range": {
+        "startLine": 462,
+        "startChar": 93,
+        "endLine": 462,
+        "endChar": 130
+      },
+      "revId": "14566e765f0f03f3aace680dca477374cc644a9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
