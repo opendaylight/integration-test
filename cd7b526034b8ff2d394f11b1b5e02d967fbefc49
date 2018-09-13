@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35a1a34c_623df706",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-13T16:57:55Z",
+      "side": 1,
+      "message": "Yes, to the nodes that are down it won\u0027t work. The keyword ignores failures like that.",
+      "parentUuid": "dd615b48_d83aa108",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 87
+      },
+      "revId": "cd7b526034b8ff2d394f11b1b5e02d967fbefc49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e731c61_52938c60",
         "filename": "csit/suites/openstack/clustering/Clustering.robot",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-09-13T16:55:03Z",
       "side": 1,
       "message": "why in a new lib file and not clustermanagement?",
+      "revId": "cd7b526034b8ff2d394f11b1b5e02d967fbefc49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de513837_52d6efd0",
+        "filename": "csit/suites/openstack/clustering/Clustering.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-13T16:57:55Z",
+      "side": 1,
+      "message": "I started that way and then did this... no idea way, so let me move these back.",
+      "parentUuid": "9e731c61_52938c60",
       "revId": "cd7b526034b8ff2d394f11b1b5e02d967fbefc49",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
