@@ -423,8 +423,16 @@ Stop_Single_Member
     [Documentation]    Convenience keyword that stops the specified member of the cluster.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
     ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${member_ip} =    Return_Member_IP    ${member}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Stopping ODL${member} ${member_ip}
     ${updated_index_list} =    Stop_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
     [Return]    ${updated_index_list}
+
+Stop Member and Log
+    [Arguments]    ${member}    ${up}=none    ${down}=none
+    KarafKeywords.Log Message To Controller Karaf    Stopping: ODL${member}, up: ${up}, down: ${down}
+    ${new_cluster_list} =    ClusterManagement.Stop Single Member    ${member}
+    [Return]    ${new_cluster_list}
 
 Stop_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=120s
@@ -447,6 +455,11 @@ Start_Single_Member
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}    check_system_status=${check_system_status}    service_list=@{service_list}
+
+Start Member and Log
+    [Arguments]    ${member}    ${up}=none    ${down}=none
+    KarafKeywords.Log Message To Controller Karaf    Starting: ODL${member}, up: ${up}, down: ${down}
+    ClusterManagement.Start Single Member    member=${member}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
