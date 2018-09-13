@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d734c16_35a7b1ed",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-13T15:28:11Z",
+      "side": 1,
+      "message": "I might be reading this wrong, but at this point we have\nodl3 and old1 that should be syncing to each other right?",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 141
+      },
+      "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
