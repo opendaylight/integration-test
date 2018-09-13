@@ -171,7 +171,7 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Allow Port On ODL1 Again
     [Documentation]    Allow connection on first controller the second time
-    ClusterManagement.Rejoin_Member_From_List_Or_All    ${1}    protocol=tcp    port=${ODL_AKKA_PORT}
+    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Rejoin_Member_From_List_Or_All    ${1}    protocol=tcp    port=${ODL_AKKA_PORT}
 
 Allow Port On ODL2 Again
     [Documentation]    Allow connection on the second controller the second time
@@ -207,7 +207,7 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Allow Port On ODL2 Finally
     [Documentation]    Allow connection on second controller for the last time
-    ClusterManagement.Rejoin_Member_From_List_Or_All    ${2}    protocol=tcp    port=${ODL_AKKA_PORT}
+    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Rejoin_Member_From_List_Or_All    ${2}    protocol=tcp    port=${ODL_AKKA_PORT}
 
 Allow Port On ODL3 Again
     [Documentation]    Allow connection on the third controller for the second time
