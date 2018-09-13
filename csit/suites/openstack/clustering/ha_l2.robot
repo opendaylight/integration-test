@@ -17,6 +17,7 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          Clustering.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl2_sg
@@ -65,8 +66,8 @@ Delete the Bridge Manually and Verify Before Fail
     ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Take Down ODL1
-    [Documentation]    Kill the karaf in First Controller
-    ${new_cluster_list} =    ClusterManagement.Kill Single Member    1
+    [Documentation]    Stop the karaf in First Controller
+    ${new_cluster_list} =    Clustering.Stop Member and Log    1    up=ODL1, ODL2, ODL3    down=none
     BuiltIn.Set Suite Variable    ${new_cluster_list}
 
 Create Bridge Manually and Verify After Fail
@@ -83,7 +84,7 @@ Delete the Bridge Manually and Verify After Fail
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    member=1    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    Clustering.Start Member and Log    1    up=ODL2, ODL3    down=ODL1
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -98,8 +99,8 @@ Delete the Bridge Manually and Verify After Recover
     ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Take Down ODL2
-    [Documentation]    Kill the karaf in Second Controller
-    ClusterManagement.Kill Single Member    2
+    [Documentation]    Stop the karaf in Second Controller
+    Clustering.Stop Member and Log    2    up=ODL1, ODL2, ODL3    down=none
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -127,7 +128,7 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    Clustering.Start Member and Log    2    up=ODL1, ODL3    down=ODL2
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -154,8 +155,8 @@ Ping Vm Instance3 In net_2
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]
 
 Take Down ODL3
-    [Documentation]    Kill the karaf in Third Controller
-    ClusterManagement.Kill Single Member    3
+    [Documentation]    Stop the karaf in Third Controller
+    Clustering.Stop Member and Log    3    up=ODL1, ODL2, ODL3    down=none
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -171,11 +172,12 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    member=3    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    Clustering.Start Member and Log    3    up=ODL1, ODL2    down=ODL3
 
 Take Down ODL1 and ODL2
-    [Documentation]    Kill the karaf in First and Second Controller
-    ClusterManagement.Kill Members From List Or All    ${CLUSTER_DOWN_LIST}
+    [Documentation]    Stop the karaf in First and Second Controller
+    Clustering.Stop Member and Log    1    up=ODL1, ODL2, ODL3    down=none
+    Clustering.Stop Member and Log    2    up=ODL2, ODL3    down=ODL1
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -191,7 +193,8 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
-    ClusterManagement.Start Members From List Or All    member_index_list=${CLUSTER_DOWN_LIST}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    Clustering.Start Member and Log    1    up=ODL3    down=ODL1, ODL2
+    Clustering.Start Member and Log    2    up=ODL1, ODL3    down=ODL2
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
