@@ -22,6 +22,30 @@
       "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49601c9a_e85e69c5",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2018-09-13T15:54:53Z",
+      "side": 1,
+      "message": "From a look at ClusterManagement.Check_Cluster_Is_In_Sync it seems it iterates over all members of the cluster, regardless of their expected status, and fails if they aren\u0027t. The third controller is still isolated at this stage, so it won\u0027t be in sync and the check will fail",
+      "parentUuid": "1d734c16_35a7b1ed",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 141
+      },
+      "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
