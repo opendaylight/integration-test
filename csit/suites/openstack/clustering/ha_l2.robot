@@ -175,8 +175,8 @@ Bring Up ODL3
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
-    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
-    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    Logging to the vm instance using generated key pair.
