@@ -4,10 +4,10 @@ dashboard:
   desc: Dashboard for openflowplugin project
   viz:
     1:
-      id: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen-test
-      title: Performance Bulkomatic Test Oxygen
+      id: flow-services-oxygen
+      title: Flow Services Oxygen
       viz-template: opendaylight-test-feature
-      job-name: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
+      job-name: openflowplugin-csit-1node-flow-services-only-oxygen
       y-axis:
         value_axes:
             1:
@@ -15,22 +15,76 @@ dashboard:
       filter:
         1:
             field: performance.test-name
-            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
+            match-with: openflowplugin-csit-1node-flow-services-only-oxygen
+      co_ords:
+        h: 3
+        w: 6
+        x: 0
+        y: 0
+    2:
+      id: flow-services-fluorine
+      title: Flow Services Fluorine
+      viz-template: opendaylight-test-feature
+      job-name: openflowplugin-csit-1node-flow-services-only-fluorine
+      y-axis:
+        value_axes:
+            1:
+                values: from default
+      filter:
+        1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-1node-flow-services-only-fluorine
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 0
+    3:
+      id: clustering-oxygen
+      title: Clustering Oxygen
+      viz-template: opendaylight-test-feature
+      job-name: openflowplugin-csit-3node-clustering-only-oxygen
+      y-axis:
+        value_axes:
+            1:
+                values: from default
+      filter:
+        1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-3node-clustering-only-oxygen
       co_ords:
         h: 3
         w: 6
         x: 0
         y: 3
-    2:
-      id: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen-rate
-      title: Performance Bulkomatic Flow Add Rate Oxygen
+    4:
+      id: clustering-fluorine
+      title: Clustering Fluorine
+      viz-template: opendaylight-test-feature
+      job-name: openflowplugin-csit-3node-clustering-only-fluorine
+      y-axis:
+        value_axes:
+            1:
+                values: from default
+      filter:
+        1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-3node-clustering-only-fluorine
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 3
+    5:
+      id: perf-rate-oxygen
+      title: Performance Flow Add Rate Oxygen
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
       job-name: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
       y-axis:
         value_axes:
             1:
-                title: mods/sec
+                title: flowmods/sec
         series:
           1:
             field: performance.plots.rate.Config DS
@@ -39,9 +93,9 @@ dashboard:
           2:
             field: performance.plots.rate.OVS Switch
             label: OVS Switch
-            color: yellow
+            color: green
           3:
-            field:  performance.plots.rate.Operational DS
+            field: performance.plots.rate.Operational DS
             label: Operational DS
             color: blue
       filter:
@@ -51,34 +105,102 @@ dashboard:
       co_ords:
         h: 3
         w: 6
-        x: 6
-        y: 3
-    3:
-      id: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen-time
-      title: Performance Bulkomatic Flow Add Time Oxygen
-      desc: Test to measure controller flow add time
+        x: 0
+        y: 6
+    6:
+      id: perf-rate-fluorine
+      title: Performance Flow Add Rate Fluorine
+      desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
-      job-name: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
+      job-name: openflowplugin-csit-1node-perf-bulkomatic-only-fluorine
       y-axis:
         value_axes:
             1:
-                title: sec
+                title: flowmods/sec
         series:
           1:
-            field: performance.plots.time.Config DS
+            field: performance.plots.rate.Config DS
             label: Config DS
+            color: red
           2:
-            field: performance.plots.time.OVS Switch
+            field: performance.plots.rate.OVS Switch
             label: OVS Switch
+            color: green
           3:
-            field:  performance.plots.time.Operational DS
+            field: performance.plots.rate.Operational DS
             label: Operational DS
+            color: blue
       filter:
           1:
             field: performance.test-name
-            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
+            match-with: openflowplugin-csit-1node-perf-bulkomatic-only-fluorine
       co_ords:
         h: 3
-        w: 12
+        w: 6
+        x: 6
+        y: 6
+    7:
+      id: cluster-perf-rate-oxygen
+      title: Cluster Performance Flow Add Rate Oxygen
+      desc: Test to measure controller flow add rate
+      viz-template: opendaylight-test-performance
+      job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-oxygen
+      y-axis:
+        value_axes:
+            1:
+                title: flowmods/sec
+        series:
+          1:
+            field: performance.plots.rate.Config DS
+            label: Config DS
+            color: red
+          2:
+            field: performance.plots.rate.OVS Switch
+            label: OVS Switch
+            color: green
+          3:
+            field: performance.plots.rate.Operational DS
+            label: Operational DS
+            color: blue
+      filter:
+          1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-oxygen
+      co_ords:
+        h: 3
+        w: 6
         x: 0
-        y: 0
+        y: 9
+    8:
+      id: cluster-perf-rate-fluorine
+      title: Cluster Performance Flow Add Rate Fluorine
+      desc: Test to measure controller flow add rate
+      viz-template: opendaylight-test-performance
+      job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-fluorine
+      y-axis:
+        value_axes:
+            1:
+                title: flowmods/sec
+        series:
+          1:
+            field: performance.plots.rate.Config DS
+            label: Config DS
+            color: red
+          2:
+            field: performance.plots.rate.OVS Switch
+            label: OVS Switch
+            color: green
+          3:
+            field: performance.plots.rate.Operational DS
+            label: Operational DS
+            color: blue
+      filter:
+          1:
+            field: performance.test-name
+            match-with: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-fluorine
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 9
+
