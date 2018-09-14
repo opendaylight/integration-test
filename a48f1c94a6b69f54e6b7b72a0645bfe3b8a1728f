@@ -22,6 +22,30 @@
       "revId": "a48f1c94a6b69f54e6b7b72a0645bfe3b8a1728f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a0ac301_8e369ea6",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-14T00:28:17Z",
+      "side": 1,
+      "message": "All good. All uses either use just the ${member} or if they have extra args they assign them.",
+      "parentUuid": "d28ae41a_a1990fc3",
+      "range": {
+        "startLine": 449,
+        "startChar": 76,
+        "endLine": 449,
+        "endChar": 92
+      },
+      "revId": "a48f1c94a6b69f54e6b7b72a0645bfe3b8a1728f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
