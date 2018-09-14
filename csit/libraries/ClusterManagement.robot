@@ -419,10 +419,13 @@ Kill_Members_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Stop_Single_Member
-    [Arguments]    ${member}    ${original_index_list}=${EMPTY}    ${confirm}=True
+    [Arguments]    ${member}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${msg}=${EMPTY}
     [Documentation]    Convenience keyword that stops the specified member of the cluster.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
     ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${member_ip} =    Return_Member_IP    ${member}
+    ${msg} =    Builtin.Set Variable If    "${msg}" == "${EMPTY}"    Stopping ODL${member} ${member_ip}    Stopping ODL${member} ${member_ip}, ${msg}
+    KarafKeywords.Log_Message_To_Controller_Karaf    ${msg}
     ${updated_index_list} =    Stop_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
     [Return]    ${updated_index_list}
 
@@ -443,9 +446,12 @@ Stop_Members_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Start_Single_Member
-    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${check_system_status}=False    ${service_list}=@{EMPTY}
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${msg}=${EMPTY}    ${check_system_status}=False    ${service_list}=@{EMPTY}
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${member_ip} =    Return_Member_IP    ${member}
+    ${msg} =    Builtin.Set Variable If    "${msg}" == "${EMPTY}"    Starting ODL${member} ${member_ip}    Starting ODL${member} ${member_ip}, ${msg}
+    KarafKeywords.Log_Message_To_Controller_Karaf    ${msg}
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}    check_system_status=${check_system_status}    service_list=@{service_list}
 
 Start_Members_From_List_Or_All
