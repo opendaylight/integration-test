@@ -145,7 +145,11 @@ Open_Controller_Karaf_Console_On_Background
     ${odl_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
     SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     ${karaf_connection_object} =    SSHLibrary.Get_Connection
+    BuiltIn.Log    Open_Controller_Karaf_Console_On_Background: 1: ${connection_index_dict}, in mi: ${member_index}
+    BuiltIn.Log To Console    Open_Controller_Karaf_Console_On_Background: 1: ${connection_index_dict}, in mi: ${member_index}
     Collections.Set_To_Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
+    BuiltIn.Log    Open_Controller_Karaf_Console_On_Background: 2: ${connection_index_dict}, in mi: ${member_index}
+    BuiltIn.Log To Console    Open_Controller_Karaf_Console_On_Background: 2: ${connection_index_dict}, in mi: ${member_index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     [Teardown]    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_ssh_connection_object.index}
 
@@ -171,6 +175,8 @@ Configure_Timeout_For_Karaf_Console
 Execute_Controller_Karaf_Command_On_Background
     [Arguments]    ${command}    ${member_index}=${1}
     [Documentation]    Send command to karaf without affecting current SSH connection. Read, log and return response.
+    BuiltIn.Log    Execute_Controller_Karaf_Command_On_Background: ${connection_index_dict}
+    BuiltIn.Log To Console    Execute_Controller_Karaf_Command_On_Background: ${connection_index_dict}
     ${karaf_connection_index} =    Collections.Get_From_Dictionary    ${connection_index_dict}    ${member_index}
     ${current_connection_index} =    SSHLibrary.Switch_Connection    ${karaf_connection_index}
     ${status_write}    ${message_write} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Write    ${command}
@@ -187,18 +193,28 @@ Execute_Controller_Karaf_Command_With_Retry_On_Background
     ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_On_Background    ${command}    ${member_index}
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
     # TODO: Verify this does not leak connections indices.
+    BuiltIn.Log    Execute_Controller_Karaf_Command_With_Retry_On_Background: 1: ${connection_index_dict}, in mi: ${member_index}
+    BuiltIn.Log To Console    Execute_Controller_Karaf_Command_With_Retry_On_Background: 1: ${connection_index_dict}, in mi: ${member_index}
     Open_Controller_Karaf_Console_On_Background    ${member_index}
+    BuiltIn.Log    Execute_Controller_Karaf_Command_With_Retry_On_Background: 2: ${connection_index_dict}, in mi: ${member_index}
+    BuiltIn.Log To Console    Execute_Controller_Karaf_Command_With_Retry_On_Background: 2: ${connection_index_dict}, in mi: ${member_index}
     ${message} =    Execute_Controller_Karaf_Command_On_Background    ${command}    ${member_index}
+    BuiltIn.Log    Execute_Controller_Karaf_Command_With_Retry_On_Background: 3: ${connection_index_dict}, in mi: ${member_index}
+    BuiltIn.Log To Console    Execute_Controller_Karaf_Command_With_Retry_On_Background: 3: ${connection_index_dict}, in mi: ${member_index}
     [Return]    ${message}
 
 Log_Message_To_Controller_Karaf
     [Arguments]    ${message}    ${member_index_list}=${EMPTY}    ${tolerate_failure}=True
     [Documentation]    Make sure this resource is initialized. Send a message into the controller's karaf log file on every node listed (or all).
     ...    By default, failure while processing a node is silently ignored, unless ${tolerate_failure} is False.
+    BuiltIn.Log    Log_Message_To_Controller_Karaf: 1: ${connection_index_dict}, in mi: ${member_index_list}
+    BuiltIn.Log To Console    Log_Message_To_Controller_Karaf: 1: ${connection_index_dict}, in mi: ${member_index_list}
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
     \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
+    BuiltIn.Log    Log_Message_To_Controller_Karaf: 2: ${connection_index_dict}, in mi: ${member_index_list}
+    BuiltIn.Log To Console    Log_Message_To_Controller_Karaf: 2: ${connection_index_dict}, in mi: ${member_index_list}
 
 Log_Test_Suite_Start_To_Controller_Karaf
     [Arguments]    ${member_index_list}=${EMPTY}
