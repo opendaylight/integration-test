@@ -36,10 +36,11 @@ Create All Controller Sessions
     ClusterManagement.ClusterManagement Setup
 
 Take Down Leader Of Default Shard
-    [Documentation]    Kill the karaf on ODL cluster leader
+    [Documentation]    Stop the karaf on ODL cluster leader
     ${cluster_leader}    ${followers} =    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     BuiltIn.Set Suite Variable    ${cluster_leader}
-    ClusterManagement.Kill Single Member    ${cluster_leader}
+    ${new_cluster_list} =    ClusterManagement.Stop Single Member    ${cluster_leader}    msg=up: ODL1, ODL2, ODL3, down=none
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
 
 Create Networks
     [Documentation]    Create Network with neutron request.
@@ -56,15 +57,15 @@ Create Subnets For net_2
 
 Bring Up Leader Of Default Shard
     [Documentation]    Bring up on cluster leader
-    ClusterManagement.Start Single Member    member=${cluster_leader}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    ${cluster_leader}    msg=up: ${new_cluster_list}, down: ${cluster_leader}
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Take Down ODL1
-    [Documentation]    Kill the karaf in First Controller
-    ClusterManagement.Kill Single Member    1
+    [Documentation]    Stop the karaf in First Controller
+    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -74,11 +75,11 @@ Create Vm Instances For net_1
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    member=1    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    1    msg=up: ODL2, ODL3, down: ODL1
 
 Take Down ODL2
-    [Documentation]    Kill the karaf in Second Controller
-    ClusterManagement.Kill Single Member    2
+    [Documentation]    Stop the karaf in Second Controller
+    ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -100,11 +101,11 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
 
 Take Down ODL3
-    [Documentation]    Kill the karaf in Third Controller
-    ClusterManagement.Kill Single Member    3
+    [Documentation]    Stop the karaf in Third Controller
+    ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL2, ODL3, down=none
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -128,7 +129,7 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    member=3    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -155,9 +156,10 @@ Ping Vm Instance3 In net_1 From net_2
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[2]
 
 Take Down ODL1 and ODL2
-    [Documentation]    Kill the karaf in First and Second Controller
-    ClusterManagement.Kill Members From List Or All    ${ODL_1_AND_2_DOWN}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Documentation]    Stop the karaf in First and Second Controller
+    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    ssh to the VM instance and test operations.
@@ -178,13 +180,17 @@ Connectivity Tests From Vm Instance3 In net_1
     [Teardown]    OpenStackOperations.Get OvsDebugInfo
 
 Bring Up ODL1 and ODL2
-    [Documentation]    Bring up ODL1 and ODL2 again
-    ClusterManagement.Start Members From List Or All    member_index_list=${ODL_1_AND_2_DOWN}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
+    ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
+    ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down ODL2 and ODL3
-    [Documentation]    Kill the karaf in First and Second Controller
-    ClusterManagement.Kill Members From List Or All    ${ODL_2_AND_3_DOWN}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Documentation]    Stop the karaf in First and Second Controller
+    ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL3, down=ODL2
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    ssh to the VM instance and test operations.
@@ -205,16 +211,26 @@ Connectivity Tests From Vm Instance3 In net_2
     [Teardown]    OpenStackOperations.Get OvsDebugInfo
 
 Bring Up ODL2 and ODL3
-    [Documentation]    Bring up ODL2 and ODL3 again.
-    ClusterManagement.Start Members From List Or All    member_index_list=${ODL_2_AND_3_DOWN}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    [Documentation]    Bring up ODL2 and ODL3 again. Do not check for cluster sync until all nodes are
+    ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Start Single Member    2    msg=up: ODL1, down: ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
-    ClusterManagement.Kill Members From List Or All
+    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    ClusterManagement.Stop Single Member    3    msg=up: ODL3, down=ODL1, ODL2
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up All Instances
-    [Documentation]    Bring up all controllers
-    ClusterManagement.Start Members From List Or All    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    [Documentation]    Bring up all controllers. Do not check for cluster sync until all nodes are
+    ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Start Single Member    1    msg=up: none, down: ODL1, ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Start Single Member    2    msg=up: ~ODL1, down: ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Start Single Member    3    msg=up: ~ODL1, ~ODL2, down: ODL3
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
     [Documentation]    ssh to the VM instance and test operations.
