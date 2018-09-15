@@ -1,11 +1,100 @@
 dashboard:
+  id: bgpcep
+  title: BGP and PCEP
+  desc: Dashboard for bgpcep project
+  viz:
+    1:
+      id: bgpcep-features-oxygen
+      title: BGPCEP Features Oxygen
+      viz-template: opendaylight-test-feature
+      job-name: bgpcep-csit-1node-userfeatures-all-oxygen
+      y-axis:
+        value_axes:
+            1:
+                values: from default
+      filter:
+        1:
+            field: performance.test-name
+            match-with: bgpcep-csit-1node-userfeatures-all-oxygen
+      co_ords:
+        h: 3
+        w: 6
+        x: 0
+        y: 0
+    2:
+      id: bgpcep-features-fluorine
+      title: BGPCEP Features Fluorine
+      viz-template: opendaylight-test-feature
+      job-name: bgpcep-csit-1node-userfeatures-all-fluorine
+      y-axis:
+        value_axes:
+            1:
+                values: from default
+      filter:
+        1:
+            field: performance.test-name
+            match-with: bgpcep-csit-1node-userfeatures-all-fluorine
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 0
+    3:
+      id: bgpcep-update-rate-oxygen
+      title: BGP Update Rate Oxygen
+      desc: Test to measure controller BGP update rate
+      viz-template: opendaylight-test-performance
+      job-name: bgpcep-csit-1node-bgp-ingest-mixed-all-oxygen
+      y-axis:
+        value_axes:
+            1:
+                title: BGP updates/sec
+        series:
+          1:
+            field: performance.plots.totals-bgp.+10/-9 routes per UPDATE
+            label: Config DS
+            color: red
+      filter:
+          1:
+            field: performance.test-name
+            match-with: bgpcep-csit-1node-bgp-ingest-mixed-all-oxygen
+      co_ords:
+        h: 3
+        w: 6
+        x: 0
+        y: 3
+    4:
+      id: bgpcep-update-rate-fluorine
+      title: BGP Update Rate Fluorine
+      desc: Test to measure controller BGP update rate
+      viz-template: opendaylight-test-performance
+      job-name: bgpcep-csit-1node-bgp-ingest-mixed-all-fluorine
+      y-axis:
+        value_axes:
+            1:
+                title: BGP updates/sec
+        series:
+          1:
+            field: performance.plots.totals-bgp.+10/-9 routes per UPDATE
+            label: Config DS
+            color: red
+      filter:
+          1:
+            field: performance.test-name
+            match-with: bgpcep-csit-1node-bgp-ingest-mixed-all-fluorine
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 3
+dashboard:
   id: openflowplugin
-  title: openflowplugin
+  title: OpenFlow
   desc: Dashboard for openflowplugin project
   viz:
     1:
-      id: flow-services-oxygen
-      title: Flow Services Oxygen
+      id: openflowplugin-features-oxygen
+      title: OpenFlow Features Oxygen
       viz-template: opendaylight-test-feature
       job-name: openflowplugin-csit-1node-flow-services-only-oxygen
       y-axis:
@@ -22,8 +111,8 @@ dashboard:
         x: 0
         y: 0
     2:
-      id: flow-services-fluorine
-      title: Flow Services Fluorine
+      id: openflowplugin-features-fluorine
+      title: OpenFlow Features Fluorine
       viz-template: opendaylight-test-feature
       job-name: openflowplugin-csit-1node-flow-services-only-fluorine
       y-axis:
@@ -40,8 +129,8 @@ dashboard:
         x: 6
         y: 0
     3:
-      id: clustering-oxygen
-      title: Clustering Oxygen
+      id: openflowplugin-clustering-oxygen
+      title: OpenFlow Clustering Oxygen
       viz-template: opendaylight-test-feature
       job-name: openflowplugin-csit-3node-clustering-only-oxygen
       y-axis:
@@ -58,8 +147,8 @@ dashboard:
         x: 0
         y: 3
     4:
-      id: clustering-fluorine
-      title: Clustering Fluorine
+      id: openflowplugin-clustering-fluorine
+      title: OpenFlow Clustering Fluorine
       viz-template: opendaylight-test-feature
       job-name: openflowplugin-csit-3node-clustering-only-fluorine
       y-axis:
@@ -76,8 +165,8 @@ dashboard:
         x: 6
         y: 3
     5:
-      id: perf-rate-oxygen
-      title: Performance Flow Add Rate Oxygen
+      id: openflowplugin-add-rate-oxygen
+      title: OpenFlow Flow Add Rate Oxygen
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
       job-name: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
@@ -108,8 +197,8 @@ dashboard:
         x: 0
         y: 6
     6:
-      id: perf-rate-fluorine
-      title: Performance Flow Add Rate Fluorine
+      id: openflowplugin-add-rate-fluorine
+      title: OpenFlow Flow Add Rate Fluorine
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
       job-name: openflowplugin-csit-1node-perf-bulkomatic-only-fluorine
@@ -140,8 +229,8 @@ dashboard:
         x: 6
         y: 6
     7:
-      id: cluster-perf-rate-oxygen
-      title: Cluster Performance Flow Add Rate Oxygen
+      id: openflowplugin-cluster-add-rate-oxygen
+      title: OpenFlow Cluster Flow Add Rate Oxygen
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
       job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-oxygen
@@ -172,8 +261,8 @@ dashboard:
         x: 0
         y: 9
     8:
-      id: cluster-perf-rate-fluorine
-      title: Cluster Performance Flow Add Rate Fluorine
+      id: openflowplugin-cluster-perf-rate-fluorine
+      title: OpenFlow Cluster Flow Add Rate Fluorine
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
       job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-fluorine
