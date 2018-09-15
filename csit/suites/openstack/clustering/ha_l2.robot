@@ -175,7 +175,7 @@ Bring Up ODL3
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none    wait_for_sync=False
+    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
 
 Connectivity Tests From Vm Instance1 In net_2
@@ -192,7 +192,7 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
-    ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2
+    ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
 
 Delete Vm Instance
