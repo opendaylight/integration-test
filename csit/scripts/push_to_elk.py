@@ -190,52 +190,52 @@ with open(viz_config_path, 'r') as f:
     viz_config = yaml.safe_load(f)
 
 
-for _, i in dash_config['dashboard']['viz'].items():
-    intermediate_format, visState = vis_gen.generate(
-        i, viz_config[i['viz-template']])
+for dashboard_id, dashboard_content in dash_config.items():
 
-    searchSourceJSON = searchSourceJSON_gen.generate(
-        i, viz_config[i['viz-template']], intermediate_format['index_pattern'])
+    for _, i in dash_config[dashboard_id]['viz'].items():
+        intermediate_format, visState = vis_gen.generate(
+            i, viz_config[i['viz-template']])
 
-    uiStateJSON = uiStateJSON_gen.generate(
-        i, viz_config[i['viz-template']])
+        searchSourceJSON = searchSourceJSON_gen.generate(
+            i, viz_config[i['viz-template']],
+            intermediate_format['index_pattern'])
 
-    # p(intermediate_format)
-    # p(visState)
+        uiStateJSON = uiStateJSON_gen.generate(
+            i, viz_config[i['viz-template']])
 
-    VIZ_BODY = {
-        'type': 'visualization',
-        'visualization': {
-            "title": None,
-            "visState": None,
-            "uiStateJSON": "{}",
-            "description": None,
-            "version": 1,
-            "kibanaSavedObjectMeta": {
-                "searchSourceJSON": None
+        # p(intermediate_format)
+        # p(visState)
+
+        VIZ_BODY = {
+            'type': 'visualization',
+            'visualization': {
+                "title": None,
+                "visState": None,
+                "uiStateJSON": "{}",
+                "description": None,
+                "version": 1,
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": None
+                }
             }
         }
-    }
 
-    VIZ_BODY['visualization']['title'] = intermediate_format['title']
-    VIZ_BODY['visualization']['visState'] = JSONToString(visState)
-    VIZ_BODY['visualization']['uiStateJSON'] = JSONToString(uiStateJSON)
-    VIZ_BODY['visualization']['description'] = intermediate_format['desc']
-    VIZ_BODY['visualization']['kibanaSavedObjectMeta']['searchSourceJSON']  \
-        = JSONToString(
-        searchSourceJSON)
+        VIZ_BODY['visualization']['title'] = intermediate_format['title']
+        VIZ_BODY['visualization']['visState'] = JSONToString(visState)
+        VIZ_BODY['visualization']['uiStateJSON'] = JSONToString(uiStateJSON)
+        VIZ_BODY['visualization']['description'] = intermediate_format['desc']
+        VIZ_BODY['visualization']['kibanaSavedObjectMeta']['searchSourceJSON']\
+            = JSONToString(
+            searchSourceJSON)
 
-    p(VIZ_BODY)
-    index = '.kibana'
-    ES_ID = 'visualization:{}'.format(i['id'])
-    res = es.index(index=index, doc_type='doc', id=ES_ID, body=VIZ_BODY)
-    print(json.dumps(res, indent=4))
+        p(VIZ_BODY)
+        index = '.kibana'
+        ES_ID = 'visualization:{}'.format(i['id'])
+        res = es.index(index=index, doc_type='doc', id=ES_ID, body=VIZ_BODY)
+        print(json.dumps(res, indent=4))
 
+    # Create and push dashboards
 
-# Create and push dashboards
-
-
-for _, i in dash_config.items():
     DASH_BODY = {
         'type': 'dashboard',
         'dashboard': {
@@ -254,14 +254,14 @@ for _, i in dash_config.items():
         }
     }
 
-    DASH_BODY['dashboard']['title'] = i['title']
-    DASH_BODY['dashboard']['description'] = i['desc']
+    DASH_BODY['dashboard']['title'] = dashboard_content['title']
+    DASH_BODY['dashboard']['description'] = dashboard_content['desc']
     DASH_BODY['dashboard']['panelsJSON'] = JSONToString(
-        dash_gen.generate(i['viz']))
+        dash_gen.generate(dashboard_content['viz']))
 
     p(DASH_BODY)
 
     index = '.kibana'
-    ES_ID = 'dashboard:{}'.format(i['id'])
+    ES_ID = 'dashboard:{}'.format(dashboard_content['id'])
     res = es.index(index=index, doc_type='doc', id=ES_ID, body=DASH_BODY)
     print(json.dumps(res, indent=4))

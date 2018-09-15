@@ -1,4 +1,4 @@
-dashboard:
+bgpcep:
   id: bgpcep
   title: BGP and PCEP
   desc: Dashboard for bgpcep project
@@ -7,7 +7,6 @@ dashboard:
       id: bgpcep-features-oxygen
       title: BGPCEP Features Oxygen
       viz-template: opendaylight-test-feature
-      job-name: bgpcep-csit-1node-userfeatures-all-oxygen
       y-axis:
         value_axes:
             1:
@@ -25,7 +24,6 @@ dashboard:
       id: bgpcep-features-fluorine
       title: BGPCEP Features Fluorine
       viz-template: opendaylight-test-feature
-      job-name: bgpcep-csit-1node-userfeatures-all-fluorine
       y-axis:
         value_axes:
             1:
@@ -44,7 +42,6 @@ dashboard:
       title: BGP Update Rate Oxygen
       desc: Test to measure controller BGP update rate
       viz-template: opendaylight-test-performance
-      job-name: bgpcep-csit-1node-bgp-ingest-mixed-all-oxygen
       y-axis:
         value_axes:
             1:
@@ -68,7 +65,6 @@ dashboard:
       title: BGP Update Rate Fluorine
       desc: Test to measure controller BGP update rate
       viz-template: opendaylight-test-performance
-      job-name: bgpcep-csit-1node-bgp-ingest-mixed-all-fluorine
       y-axis:
         value_axes:
             1:
@@ -87,7 +83,8 @@ dashboard:
         w: 6
         x: 6
         y: 3
-dashboard:
+
+openflowplugin:
   id: openflowplugin
   title: OpenFlow
   desc: Dashboard for openflowplugin project
@@ -96,7 +93,6 @@ dashboard:
       id: openflowplugin-features-oxygen
       title: OpenFlow Features Oxygen
       viz-template: opendaylight-test-feature
-      job-name: openflowplugin-csit-1node-flow-services-only-oxygen
       y-axis:
         value_axes:
             1:
@@ -114,7 +110,6 @@ dashboard:
       id: openflowplugin-features-fluorine
       title: OpenFlow Features Fluorine
       viz-template: opendaylight-test-feature
-      job-name: openflowplugin-csit-1node-flow-services-only-fluorine
       y-axis:
         value_axes:
             1:
@@ -132,7 +127,6 @@ dashboard:
       id: openflowplugin-clustering-oxygen
       title: OpenFlow Clustering Oxygen
       viz-template: opendaylight-test-feature
-      job-name: openflowplugin-csit-3node-clustering-only-oxygen
       y-axis:
         value_axes:
             1:
@@ -150,7 +144,6 @@ dashboard:
       id: openflowplugin-clustering-fluorine
       title: OpenFlow Clustering Fluorine
       viz-template: opendaylight-test-feature
-      job-name: openflowplugin-csit-3node-clustering-only-fluorine
       y-axis:
         value_axes:
             1:
@@ -169,7 +162,6 @@ dashboard:
       title: OpenFlow Flow Add Rate Oxygen
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
-      job-name: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
       y-axis:
         value_axes:
             1:
@@ -201,7 +193,6 @@ dashboard:
       title: OpenFlow Flow Add Rate Fluorine
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
-      job-name: openflowplugin-csit-1node-perf-bulkomatic-only-fluorine
       y-axis:
         value_axes:
             1:
@@ -233,7 +224,6 @@ dashboard:
       title: OpenFlow Cluster Flow Add Rate Oxygen
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
-      job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-oxygen
       y-axis:
         value_axes:
             1:
@@ -265,7 +255,6 @@ dashboard:
       title: OpenFlow Cluster Flow Add Rate Fluorine
       desc: Test to measure controller flow add rate
       viz-template: opendaylight-test-performance
-      job-name: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-fluorine
       y-axis:
         value_axes:
             1:
