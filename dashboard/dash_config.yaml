@@ -1,4 +1,4 @@
-dashboard:
+dashboard-2:
   id: bgpcep
   title: BGP and PCEP
   desc: Dashboard for bgpcep project
@@ -87,7 +87,9 @@ dashboard:
         w: 6
         x: 6
         y: 3
-dashboard:
+
+
+dashboard-1:
   id: openflowplugin
   title: OpenFlow
   desc: Dashboard for openflowplugin project
