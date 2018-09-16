@@ -34,9 +34,8 @@ def generate():
                 lines = file.readlines()
             props = lines[0].strip().split(',')
             vals = lines[1].strip().split(',')
-            BODY['plots'][key][props[0]] = float(vals[0])
-            BODY['plots'][key][props[1]] = float(vals[1])
-            BODY['plots'][key][props[2]] = float(vals[2])
+            for i in range(len(props)):
+                BODY['plots'][key][props[i]] = float(vals[i])
 
     # Fill the required parameters whose values are obtained from environment.
 
@@ -60,10 +59,5 @@ def generate():
     elap_time = datetime.strptime(endtime, '%Y%m%d %H:%M:%S.%f') \
         - datetime.strptime(starttime, '%Y%m%d %H:%M:%S.%f')
     BODY['duration'] = str(elap_time)
-
-    BODY = {
-        'type': BODY['test-type'],
-        BODY['test-type']: BODY
-    }
 
     return BODY
