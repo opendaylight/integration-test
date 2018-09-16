@@ -13,7 +13,7 @@ bgpcep:
                 values: from default
       filter:
         1:
-            field: performance.test-name
+            field: test-name
             match-with: bgpcep-csit-1node-userfeatures-all-oxygen
       co_ords:
         h: 3
@@ -30,7 +30,7 @@ bgpcep:
                 values: from default
       filter:
         1:
-            field: performance.test-name
+            field: test-name
             match-with: bgpcep-csit-1node-userfeatures-all-fluorine
       co_ords:
         h: 3
@@ -48,12 +48,12 @@ bgpcep:
                 title: BGP updates/sec
         series:
           1:
-            field: performance.plots.totals-bgp.+10/-9 routes per UPDATE
-            label: Config DS
+            field: plots.performance-bgp.+10/-9 routes per UPDATE
+            label: +10/-9 routes per UPDATE
             color: red
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: bgpcep-csit-1node-bgp-ingest-mixed-all-oxygen
       co_ords:
         h: 3
@@ -71,12 +71,12 @@ bgpcep:
                 title: BGP updates/sec
         series:
           1:
-            field: performance.plots.totals-bgp.+10/-9 routes per UPDATE
-            label: Config DS
+            field: plots.performance-bgp.+10/-9 routes per UPDATE
+            label: +10/-9 routes per UPDATE
             color: red
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: bgpcep-csit-1node-bgp-ingest-mixed-all-fluorine
       co_ords:
         h: 3
@@ -99,8 +99,8 @@ openflowplugin:
                 values: from default
       filter:
         1:
-            field: performance.test-name
-            match-with: openflowplugin-csit-1node-flow-services-only-oxygen
+            field: test-name
+            match-with: openflowplugin-csit-1node-flow-services-all-oxygen
       co_ords:
         h: 3
         w: 6
@@ -116,8 +116,8 @@ openflowplugin:
                 values: from default
       filter:
         1:
-            field: performance.test-name
-            match-with: openflowplugin-csit-1node-flow-services-only-fluorine
+            field: test-name
+            match-with: openflowplugin-csit-1node-flow-services-all-fluorine
       co_ords:
         h: 3
         w: 6
@@ -133,7 +133,7 @@ openflowplugin:
                 values: from default
       filter:
         1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-3node-clustering-only-oxygen
       co_ords:
         h: 3
@@ -150,7 +150,7 @@ openflowplugin:
                 values: from default
       filter:
         1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-3node-clustering-only-fluorine
       co_ords:
         h: 3
@@ -168,20 +168,20 @@ openflowplugin:
                 title: flowmods/sec
         series:
           1:
-            field: performance.plots.rate.Config DS
+            field: plots.rate.Config DS
             label: Config DS
             color: red
           2:
-            field: performance.plots.rate.OVS Switch
+            field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
           3:
-            field: performance.plots.rate.Operational DS
+            field: plots.rate.Operational DS
             label: Operational DS
             color: blue
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
       co_ords:
         h: 3
@@ -199,20 +199,20 @@ openflowplugin:
                 title: flowmods/sec
         series:
           1:
-            field: performance.plots.rate.Config DS
+            field: plots.rate.Config DS
             label: Config DS
             color: red
           2:
-            field: performance.plots.rate.OVS Switch
+            field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
           3:
-            field: performance.plots.rate.Operational DS
+            field: plots.rate.Operational DS
             label: Operational DS
             color: blue
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-1node-perf-bulkomatic-only-fluorine
       co_ords:
         h: 3
@@ -230,20 +230,20 @@ openflowplugin:
                 title: flowmods/sec
         series:
           1:
-            field: performance.plots.rate.Config DS
+            field: plots.rate.Config DS
             label: Config DS
             color: red
           2:
-            field: performance.plots.rate.OVS Switch
+            field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
           3:
-            field: performance.plots.rate.Operational DS
+            field: plots.rate.Operational DS
             label: Operational DS
             color: blue
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-oxygen
       co_ords:
         h: 3
@@ -261,20 +261,20 @@ openflowplugin:
                 title: flowmods/sec
         series:
           1:
-            field: performance.plots.rate.Config DS
+            field: plots.rate.Config DS
             label: Config DS
             color: red
           2:
-            field: performance.plots.rate.OVS Switch
+            field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
           3:
-            field: performance.plots.rate.Operational DS
+            field: plots.rate.Operational DS
             label: Operational DS
             color: blue
       filter:
           1:
-            field: performance.test-name
+            field: test-name
             match-with: openflowplugin-csit-3node-clustering-perf-bulkomatic-only-fluorine
       co_ords:
         h: 3
