@@ -105,10 +105,10 @@ print(json.dumps(BODY, indent=4))
 # Try to send request to ELK DB.
 
 try:
-    index = '{}-{}'.format(BODY[BODY['type']]['project'],
-                           BODY[BODY['type']]['subject'])
-    ES_ID = '{}:{}-{}'.format(BODY['type'], BODY[BODY['type']]
-                              ['test-name'], BODY[BODY['type']]['test-run'])
+    index = '{}-{}'.format(BODY['project'],
+                           BODY['subject'])
+    ES_ID = '{}:{}-{}'.format(BODY['test-type'], BODY[BODY['test-name'],
+                              BODY['test-run'])
     res = es.index(index=index, doc_type='doc', id=ES_ID, body=BODY)
     print(json.dumps(res, indent=4))
 except Exception as e:
@@ -138,15 +138,15 @@ INDEX_PATTERN_BODY = {
     "type": "index-pattern",
     "index-pattern": {
         "timeFieldName": "performance.@timestamp",
-        "title": '{}-{}'.format(BODY[BODY['type']]['project'],
-                                BODY[BODY['type']]['subject'])
+        "title": '{}-{}'.format(BODY['project'],
+                                BODY['subject'])
     }
 }
 
 
 KIBANA_CONFIG = {'config': {
-    'defaultIndex': 'pattern-for-{}-{}'.format(BODY[BODY['type']]['project'],
-                                               BODY[BODY['type']]['subject']),
+    'defaultIndex': 'pattern-for-{}-{}'.format(BODY['project'],
+                                               BODY['subject']),
     'timepicker:timeDefaults': '{\n  "from": "now-5y",\n \
                                 "to": "now",\n  "mode": "quick"\n}',
     'xPackMonitoring:showBanner': False},
@@ -160,7 +160,7 @@ res = es.index(index='.kibana', doc_type='doc',
 try:
     index = '.kibana'
     ES_ID = 'index-pattern:pattern-for-{}-{}'.format(
-        BODY[BODY['type']]['project'], BODY[BODY['type']]['subject'])
+        BODY['project'], BODY['subject'])
     res = es.index(index=index, doc_type='doc',
                    id=ES_ID, body=INDEX_PATTERN_BODY)
     p(json.dumps(INDEX_PATTERN_BODY, indent=4))
