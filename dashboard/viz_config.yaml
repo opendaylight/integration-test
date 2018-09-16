@@ -11,7 +11,7 @@ opendaylight-test-feature:
         pass:
             data_type: histogram
             mode: stacked
-            field: performance.pass-tests
+            field: pass-tests
             label: Pass tests
             schema: metric
             value_axis: 1
@@ -19,13 +19,13 @@ opendaylight-test-feature:
         fail:
             data_type: histogram
             mode: stacked
-            field: performance.fail-tests
+            field: fail-tests
             label: Fail tests
             schema: metric
             value_axis: 1
             color: red
         build:
-            field: performance.test-run
+            field: test-run
             label: Build Number
             schema: segment
             not_in_seriesParams: true
@@ -45,7 +45,7 @@ opendaylight-test-performance:
             value_axis: 1
     aggs:
         build:
-            field: performance.test-run
+            field: test-run
             custom_label: Build Number
             schema: segment
         default:
