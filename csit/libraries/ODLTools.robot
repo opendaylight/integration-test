@@ -49,5 +49,5 @@ Get All
 Get Path
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     [Documentation]    Get odltools path for a given test case
-    ${tmpdir} =    BuiltIn.Evaluate    """${test_name}""".replace(" ","_").replace("/","_").replace(".","_")
+    ${tmpdir} =    BuiltIn.Evaluate    """${test_name}""".replace(" ","_").replace("/","_").replace(".","_").replace("(","_").replace(")","_")
     [Return]    /tmp/${tmpdir}
