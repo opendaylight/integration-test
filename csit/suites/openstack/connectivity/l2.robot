@@ -101,6 +101,8 @@ Suite Setup
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    Log To Console     JAMO: SLEEPING FOR TWO HOURS FOR LIVE DEBUGGING
+    Sleep    7200s
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
