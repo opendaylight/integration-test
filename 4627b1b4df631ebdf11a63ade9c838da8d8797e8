@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f8140db_b6160ab2",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:14:46Z",
+      "side": 1,
+      "message": "vpndssr_sg",
+      "revId": "4627b1b4df631ebdf11a63ade9c838da8d8797e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "209b972d_4617f3cd",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:14:46Z",
+      "side": 1,
+      "message": "vpndssr_net_1",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 45
+      },
+      "revId": "4627b1b4df631ebdf11a63ade9c838da8d8797e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fc28cac_4d4ed118",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:14:46Z",
+      "side": 1,
+      "message": "vpndssr_ipv4_sub_1",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "4627b1b4df631ebdf11a63ade9c838da8d8797e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9e0ddf8_9c2fd20c",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:14:46Z",
+      "side": 1,
+      "message": "vpndssr_ipv6_sub_1",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "4627b1b4df631ebdf11a63ade9c838da8d8797e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffacbf4d_83435e46",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:14:46Z",
+      "side": 1,
+      "message": "vpndssr_net_1_vm_1",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "4627b1b4df631ebdf11a63ade9c838da8d8797e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
