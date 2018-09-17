@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13052068_7acecaa6",
+        "filename": "csit/scripts/data_generate.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8129
+      },
+      "writtenOn": "2018-09-17T07:48:07Z",
+      "side": 0,
+      "message": "I think we need to keep this part because of the removal of multiple mapping types as mentioned here. https://www.elastic.co/blog/kibana-6-removal-of-mapping-types \nBut then, if we only have a single mapping type, this should not be a problem. I\u0027ll test this to see if it\u0027s working or not and get back to you.",
+      "revId": "04e124073c480ad14edc4ce462acf57cda5c6bc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
