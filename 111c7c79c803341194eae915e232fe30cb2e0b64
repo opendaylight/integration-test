@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d59d67cc_9a3760f3",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:38:16Z",
+      "side": 1,
+      "message": "guess we don\u0027t need to worry about any other ip\u0027s being in the other_config? Or should we also match local_ip in the regex as a group",
+      "revId": "111c7c79c803341194eae915e232fe30cb2e0b64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e40db838_34a810f9",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:38:16Z",
+      "side": 1,
+      "message": "leave off the trailing slash, let wherever this var is used add a slash as part of adding further to the path",
+      "range": {
+        "startLine": 99,
+        "startChar": 53,
+        "endLine": 99,
+        "endChar": 54
+      },
+      "revId": "111c7c79c803341194eae915e232fe30cb2e0b64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6560a6e1_f90c4934",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:38:16Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 100,
+        "startChar": 79,
+        "endLine": 100,
+        "endChar": 80
+      },
+      "revId": "111c7c79c803341194eae915e232fe30cb2e0b64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
