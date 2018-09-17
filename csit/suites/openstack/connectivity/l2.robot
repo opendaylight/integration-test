@@ -86,7 +86,7 @@ No Ping For Deleted Vm
 *** Keywords ***
 Suite Setup
     OpenStackOperations.OpenStack Suite Setup
-    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
+    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
     OpenStackOperations.Create Network    @{NETWORKS}[1]
     OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
@@ -101,6 +101,8 @@ Suite Setup
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
+    Log To Console     JAMO: SLEEPING FOR TWO HOURS FOR LIVE DEBUGGING
+    # Sleep    7200s
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
