@@ -34,6 +34,24 @@
       "revId": "04e124073c480ad14edc4ce462acf57cda5c6bc6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56c394d8_0e15a111",
+        "filename": "csit/scripts/data_generate.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8129
+      },
+      "writtenOn": "2018-09-17T16:29:36Z",
+      "side": 0,
+      "message": "Oh. I got it. That\u0027s great!",
+      "parentUuid": "6923130d_cbe6a480",
+      "revId": "04e124073c480ad14edc4ce462acf57cda5c6bc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
