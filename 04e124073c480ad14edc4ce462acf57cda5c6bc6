@@ -16,6 +16,24 @@
       "revId": "04e124073c480ad14edc4ce462acf57cda5c6bc6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6923130d_cbe6a480",
+        "filename": "csit/scripts/data_generate.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-09-17T16:17:22Z",
+      "side": 0,
+      "message": "Your post is for kibana while this BODY is what the test publishes in ES, I think we can manage both independently and also I have tested this change in sandbox and did not see any problem.",
+      "parentUuid": "13052068_7acecaa6",
+      "revId": "04e124073c480ad14edc4ce462acf57cda5c6bc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
