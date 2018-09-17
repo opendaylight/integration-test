@@ -46,6 +46,30 @@
       "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b49c0a67_fb702dee",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:32:46Z",
+      "side": 1,
+      "message": "In this state it may never sync until both are brought back. Something I just found out, if two members are taken down then both have to be brought back. Something in the way akka works. When I modified the other ha tests to do graceful stop and start I found this. Take odl1 and odl2 down. bring back odl1 - the cluster will not sync until odl2 comes back.",
+      "parentUuid": "49601c9a_e85e69c5",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 141
+      },
+      "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
