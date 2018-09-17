@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28e5c53f_f6a6cc33",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:44:56Z",
+      "side": 1,
+      "message": "whitespace and also a few other places in this file.",
+      "range": {
+        "startLine": 47,
+        "startChar": 60,
+        "endLine": 47,
+        "endChar": 64
+      },
+      "revId": "239e18610eb022332874152514c41c7ec7a309b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5235b8fb_5b705d33",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:44:56Z",
+      "side": 1,
+      "message": "Maybe put this in the OVSDB.robot lib?",
+      "range": {
+        "startLine": 296,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 3
+      },
+      "revId": "239e18610eb022332874152514c41c7ec7a309b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65407b66_0c2e4bf9",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-17T15:44:56Z",
+      "side": 1,
+      "message": "DPN",
+      "range": {
+        "startLine": 298,
+        "startChar": 47,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "239e18610eb022332874152514c41c7ec7a309b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
