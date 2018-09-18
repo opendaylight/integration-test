@@ -132,6 +132,16 @@ def JSONToString(jobj):
     return retval
 
 
+# Clear .kibana index before pushing visualizations
+try:
+    index = '.kibana'
+    res = es.indices.delete(index=index)
+except Exception as e:
+    print(e)
+    # raise e
+    print('Unable to push data to ElasticSearch')
+
+
 # Create and push index-pattern to be used by visualizations
 
 INDEX_PATTERN_BODY = {
