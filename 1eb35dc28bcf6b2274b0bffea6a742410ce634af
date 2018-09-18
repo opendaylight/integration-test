@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8de100b6_ea09649b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-18T10:59:53Z",
+      "side": 1,
+      "message": "Don\u0027t worry about trying to fix this whole file to be more consistent with current conventions. But try to get the new lines to follow current conventions. We will fix the rest of the file in a different patch.",
+      "revId": "1eb35dc28bcf6b2274b0bffea6a742410ce634af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e09d5637_9a110d23",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-18T10:59:53Z",
+      "side": 1,
+      "message": "\u003d \nuse lowercase for local vars",
+      "revId": "1eb35dc28bcf6b2274b0bffea6a742410ce634af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9af038f_f3c3db44",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-18T10:59:53Z",
+      "side": 1,
+      "message": "\u003d , BuiltIn.",
+      "revId": "1eb35dc28bcf6b2274b0bffea6a742410ce634af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ef9db78_09b53a69",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-18T10:59:53Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "1eb35dc28bcf6b2274b0bffea6a742410ce634af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa26dea3_473db669",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-09-18T10:59:53Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "1eb35dc28bcf6b2274b0bffea6a742410ce634af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
