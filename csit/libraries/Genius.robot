@@ -25,6 +25,7 @@ ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels)
 @{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    OVSDB
 ${vlan}           0
 ${gateway-ip}     0.0.0.0
+@{PORT}           BR1-eth1    BR2-eth1
 
 *** Keywords ***
 Genius Suite Setup
@@ -150,11 +151,24 @@ BFD Suite Stop
 
 Delete All Vteps
     [Documentation]    This will delete vtep.
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${cmd}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] ${vlan} ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
+    KarafKeywords.Issue Command On Karaf Console    ${cmd}
+    KarafKeywords.Issue Command On Karaf Console    tep:commit
+    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
+    KarafKeywords.Issue Command On Karaf Console    tep:commit
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/    data=${vtep_body}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Log    "Before disconnecting CSS with controller"
     ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     BuiltIn.Wait Until Keyword Succeeds    30    5    Verify All Tunnel Delete on DS
+    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
+    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    Log    ${respjson}
+    BuiltIn.Should Not Contain    ${resp.content}    ${itm_created[0]}
 
 Genius Test Setup
     [Documentation]    Genius test case setup
