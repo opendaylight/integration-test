@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d74a53c1_2e194531",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T19:51:39Z",
+      "side": 1,
+      "message": "can\u0027t you just use \"Check Operational FLow\" above and\nnot have to add a whole new keyword to do the same? unless\nI missed the point of this, which is also possible :)",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 88
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfcecf67_6bd12615",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T19:51:39Z",
+      "side": 1,
+      "message": "Get Flow Id",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 15
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8a736b2_e16ae1f8",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T19:51:39Z",
+      "side": 1,
+      "message": "these variables are named \"SHOW-*\" indicating it will\njust be listing some output, but the values are\n\"srm:recover *\" which makes me think some real changes\nare going to happen when it\u0027s executed. I think a better\nvar name would help.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 63
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "171a52c6_44b134c6",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T19:51:39Z",
+      "side": 1,
+      "message": "just flow_id",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc4511af_795771ba",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T19:51:39Z",
+      "side": 1,
+      "message": "just flow_id\n\nthese are just quick local vars and you aren\u0027t doing anything\nwith them after you check them, so you can use the same name\nfor them each time. same applies below",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
