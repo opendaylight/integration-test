@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c235a9b1_0672f9c6",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "update_network is more our style, but you can change that\nwith a different patch if needed.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37aec793_bf5bbe95",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "you aren\u0027t expecting any drops right? If so, this is\nprobably a better match string from netvirt variables:\n${PING_REGEXP}\n\notherwise, I think we\u0027d still see a 64 bytes if only 1 of\nthe 3 pings worked and that probably indicates some \ntrouble right?",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 51
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3ddb71b_2799b40d",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "how about using two loops here instead?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 170
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "891cc8cc_8a474c98",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "a two line for loop would be cleaner. applies below",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 141
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0aac79db_04eeb4d3",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "${PING_REGEXP} ?",
+      "range": {
+        "startLine": 189,
+        "startChar": 43,
+        "endLine": 189,
+        "endChar": 51
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12713d83_b738cc72",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-18T18:52:39Z",
+      "side": 1,
+      "message": "why doesn\u0027t the OpenStackOperations.Create Allow All Security Group keyword not work here?",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 170
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
