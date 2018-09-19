@@ -94,6 +94,30 @@
       "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caaa5d65_def4878a",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T17:21:19Z",
+      "side": 1,
+      "message": "ok after learning what we\u0027ve learned I think this\npatch is right to merge.",
+      "parentUuid": "ebd3f94e_721f6fb5",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 141
+      },
+      "revId": "69781baf8cee2f5bb594ae3229bf8648dbdb1b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
