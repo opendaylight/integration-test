@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b0cf612_87b23266",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T16:51:02Z",
+      "side": 1,
+      "message": "just dpn works. then dpn_id below. in line 52 you are\ncreating DPN1 as a suite variable and only using that\nafterward.\n\nthen same thing in lines 53-55. just use dpn and dpn_id",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 11
+      },
+      "revId": "f3a0a1e3e8aa46da11a156a6a9662d2e9a478eba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de77bb3a_4fed059b",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T16:51:02Z",
+      "side": 1,
+      "message": "is this what you want?\n\nif itm_data doesn\u0027t have DPN2 it will still pass I think.\n\nthis same question will apply everywhere below that you\nare using \"Should Contain Any\".",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 96
+      },
+      "revId": "f3a0a1e3e8aa46da11a156a6a9662d2e9a478eba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5646e99_154c80d4",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T16:51:02Z",
+      "side": 1,
+      "message": "space \u003d",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "f3a0a1e3e8aa46da11a156a6a9662d2e9a478eba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc04a161_f028980e",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T16:51:02Z",
+      "side": 1,
+      "message": "what is this checking? just that our REST call worked?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 51
+      },
+      "revId": "f3a0a1e3e8aa46da11a156a6a9662d2e9a478eba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
