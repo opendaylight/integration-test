@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7011054c_25f656f1",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "699549b0_9e5cdbfd",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "we are not sending anything to app-peer anymore, write more about flow of the suite, like in the task description",
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32bd85bc_f0254165",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "Check on odl loc-rib that it recieved the route.",
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a68bafac_8b62cdbf",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "we are sending route to odl as in previous tc, and also odl should advertize the route from previous tc",
+      "range": {
+        "startLine": 77,
+        "startChar": 53,
+        "endLine": 77,
+        "endChar": 61
+      },
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f7251ba_55dbf230",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "check that odl recieved the route.",
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dac341c4_76b0db98",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "check that odl recieved the route on loc-rib",
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabb93c7_058e85c1",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "move this into separate keyword such as\nCheck for odl advertisement",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 79
+      },
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57fc55c4_20f4c4ba",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "Suite doesnt use app-peer at the moment at all, so we might as well remove the first TC for configuration of it.",
+      "range": {
+        "startLine": 86,
+        "startChar": 53,
+        "endLine": 86,
+        "endChar": 91
+      },
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0794891f_0abf4537",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "move this into keyword above, as we dont have access to this variable here.",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 56
+      },
+      "revId": "34acd071b6e2afd970e95a3abb7bccba8516e898",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
