@@ -7,8 +7,6 @@ Resource          SSHKeywords.robot
 Resource          ../variables/Variables.robot
 
 *** Variables ***
-@{stable/ocata_EXCLUSION_REGEXES}    ${EMPTY}
-@{stable/pike_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/queens_EXCLUSION_REGEXES}    ${EMPTY}
 @{master_EXCLUSION_REGEXES}    ${EMPTY}
 ${BLACKLIST_FILE}    /tmp/blacklist.txt
