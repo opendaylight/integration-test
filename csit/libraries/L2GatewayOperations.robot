@@ -296,5 +296,4 @@ Verify Elan Flow Entries
 
 Cleanup L2GW Optional Resources
     [Documentation]    Cleanup resources that are only allocated on certain combos...
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
