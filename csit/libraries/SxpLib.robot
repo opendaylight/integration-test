@@ -305,11 +305,19 @@ Setup SXP Environment
     [Arguments]    ${node_range}=1
     [Documentation]    Create session to Controller, ${node_range} parameter specifies number of nodes to be created
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
+    BuiltIn.Wait Until Keyword Succeeds    5x    1min    Check Session Is Ready    session
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 10)    modules=random
     \    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
     \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
+
+Check Session Is Ready
+    [Arguments]    ${session}=session
+    [Documentation]    Check if ${session} is ready to be used for Restconf calls
+    ${resp} =    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should Contain    ${resp.content}    ietf-restconf
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
