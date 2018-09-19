@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff166486_e400c322",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "docs",
+      "revId": "75bd67dd77fa38a52448abe036032502d164a254",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9c2c09_084510e6",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "${ODL_SYSTEM_IP}",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "75bd67dd77fa38a52448abe036032502d164a254",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68ba4632_7391284a",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "${ODL_SYSTEM_IP}",
+      "range": {
+        "startLine": 20,
+        "startChar": 56,
+        "endLine": 20,
+        "endChar": 65
+      },
+      "revId": "75bd67dd77fa38a52448abe036032502d164a254",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8b3fc92_6f37f234",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-09-19T09:03:39Z",
+      "side": 1,
+      "message": "${ODL_SYSTEM_IP}",
+      "range": {
+        "startLine": 21,
+        "startChar": 56,
+        "endLine": 21,
+        "endChar": 65
+      },
+      "revId": "75bd67dd77fa38a52448abe036032502d164a254",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
