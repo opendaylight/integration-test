@@ -301,10 +301,19 @@ Check Binding Range Negative
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
 
+Create SXP Session
+    [Arguments]    ${session}=session    ${controller}=${ODL_SYSTEM_IP}
+    [Documentation]    Create session to Controller if odl-sxp-controller is installed and verify it works
+    KarafKeywords.Verify Feature Is Installed    odl-sxp-controller    ${controller}
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
+    ${resp} =    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should Contain    ${resp.content}    ietf-restconf
+
 Setup SXP Environment
     [Arguments]    ${node_range}=1
     [Documentation]    Create session to Controller, ${node_range} parameter specifies number of nodes to be created
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
+    Create SXP Session
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 10)    modules=random
