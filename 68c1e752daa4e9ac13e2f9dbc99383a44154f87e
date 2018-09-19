@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2819c9ee_842c300f",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-19T16:41:31Z",
+      "side": 1,
+      "message": "this is kind of what we already do when we bring up\nthe csit environment. Is this needed because you are\ndoing controller restarts or something?\n\nEither way, I think you can add this keyword to Utils.robot\ninstead. Maybe call it something more specific like\n\"Check Restconf Modules Exists\"?",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 62
+      },
+      "revId": "68c1e752daa4e9ac13e2f9dbc99383a44154f87e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
