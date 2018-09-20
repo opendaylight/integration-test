@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d118b63_c33867d5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 437
+      },
+      "writtenOn": "2018-09-20T10:10:26Z",
+      "side": 1,
+      "message": "This URL will only work for ITM Direct Tunnel and not for the ODL default non-ITM Direct Tunnel. The default is ITM Direct tunnel OFF and this URL will not work. Do you plan to support both ITM direct and non direct tunnels",
+      "revId": "119db6cf3da23e5024779ebac16d01317b45ecf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
