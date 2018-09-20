@@ -159,8 +159,8 @@ Check No Device Owners In Controller
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
     #ofp-topology-manager entity is introduced in the OPNFLWPLUG-1022 bug fix, and this entity will
     #always be present in the EOS output. All 3 controller nodes will be candidate, so EOS output will
-    #contain 3 members.
-    BuiltIn.Should Contain X Times    ${data}    member    3
+    #contain 6 members (members show 2 times).
+    BuiltIn.Should Contain X Times    ${data}    member    6
 
 Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
