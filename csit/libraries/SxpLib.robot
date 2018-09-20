@@ -303,13 +303,13 @@ Check Binding Range Negative
 
 Setup SXP Environment
     [Arguments]    ${node_range}=1
-    [Documentation]    Create session to Controller, ${node_range} parameter specifies number of nodes to be created
+    [Documentation]    Create session to Controller, ${node_range} parameter specifies number of localhost nodes to be created on ${ODL_SYSTEM_IP}.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
-    \    ${ip} =    Sxp.Get Ip From Number    ${num}
+    \    ${node} =    Sxp.Get Ip From Number    ${num}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 10)    modules=random
-    \    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
-    \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
+    \    Add Node    ${node}    retry_open_timer=${rnd_retry_time}
+    \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${node}    system=${ODL_SYSTEM_IP}
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
