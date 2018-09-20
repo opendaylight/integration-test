@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed47160a_e3c458fb",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Removed this keyword and used the above keyword in script whereever required.",
+      "parentUuid": "a6045b81_1c9958ac",
+      "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f19c896d_3874b5ff",
         "filename": "csit/libraries/FlowLib.robot",
         "patchSetId": 36
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e540e783_3231259a",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "this keyword is not used anymore",
+      "parentUuid": "f19c896d_3874b5ff",
+      "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14ab4c8b_ee48159e",
         "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
         "patchSetId": 36
@@ -47,6 +83,30 @@
       "writtenOn": "2018-09-17T15:26:37Z",
       "side": 1,
       "message": "elansr_sub_1",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b9f8420_ff755d79",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14ab4c8b_ee48159e",
       "range": {
         "startLine": 21,
         "startChar": 18,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f93f5939_9a466e36",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1f6d1397_8c78fa26",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1304dc82_af90054a",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 36
@@ -93,6 +177,24 @@
       "writtenOn": "2018-09-17T15:26:37Z",
       "side": 1,
       "message": "move this up with the other elan suite?",
+      "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d87b3997_fea827ce",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 36
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1304dc82_af90054a",
       "revId": "10b8c26d117c7eb48c187ae36a9bc7aca9d741da",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
