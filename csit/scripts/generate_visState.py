@@ -59,11 +59,12 @@ class visState:
 
         agg = aggs()
 
-        temp['aggs'] = [dc(agg.create(field=i['field'],
-                                      custom_label=i['custom_label'],
-                                      schema=i['schema']))
-                        for _, i in
-                        config['aggs'].items()]
+        temp['aggs'] = [dc(agg.create(id=i,
+                                      field=config['aggs'][i]['field'],
+                                      custom_label= \
+                                          config['aggs'][i]['custom_label'],
+                                      schema=config['aggs'][i]['schema']))
+                        for i in range(len(config['aggs']))]
 
         temp['params']['seriesParams'] = [seriesParams(i['data_type'],
                                                        i['mode'],
@@ -179,10 +180,9 @@ class aggs:
         }
         self.counter = 0
 
-    def create(self, field, custom_label, schema):
-        self.counter += 1
+    def create(self, id, field, custom_label, schema):
         temp = dc(self.content)
-        temp['id'] = str(self.counter)
+        temp['id'] = id
         temp['params']['field'] = field
         temp['params']['customLabel'] = custom_label
         temp['schema'] = schema
@@ -278,22 +278,19 @@ def generate(dash_config, viz_config):
             format['value_axes'].update(temp)
             value_axes_counter += 1
 
-    seriesParams_counter = 1
     seriesParams_fields = ['value_axis',
                            'data_type', 'mode', 'label', 'agg_id']
     try:
         for m in viz_config['seriesParams']:
             if m != 'default':
                 temp = dc(seriesParams_format)
-                temp[str(seriesParams_counter)] = temp['index']
+                temp[m] = temp['index']
                 for i in seriesParams_fields:
                     try:
-                        temp[str(seriesParams_counter)
-                             ][i] = viz_config['seriesParams'][m][i]
+                        temp[m][i] = viz_config['seriesParams'][m][i]
                     except KeyError:
                         pass
                 format['seriesParams'].update(temp)
-                seriesParams_counter += 1
     except KeyError:
         pass
 
@@ -302,14 +299,13 @@ def generate(dash_config, viz_config):
         for m in viz_config['aggs']:
             if m != 'default':
                 temp = dc(aggs_format)
-                temp[str(agg_counter)] = temp['index']
+                temp[m] = temp['index']
                 for i in ['field', 'custom_label', 'schema']:
                     try:
-                        temp[str(agg_counter)][i] = viz_config['aggs'][m][i]
+                        temp[m][i] = viz_config['aggs'][m][i]
                     except KeyError:
                         pass
                 format['aggs'].update(temp)
-                agg_counter += 1
     except KeyError:
         pass
 
@@ -355,33 +351,26 @@ def generate(dash_config, viz_config):
                     config['series'][key]['not_in_seriesParams']
                 except KeyError:
                     seriesParams_temp = dc(seriesParams_format)
-                    seriesParams_temp[str(
-                        seriesParams_counter)] = seriesParams_temp['index']
+                    seriesParams_temp[key] = seriesParams_temp['index']
                     for index in ['value_axis', 'data_type', 'mode', 'label']:
                         try:
-                            seriesParams_temp[str(
-                                seriesParams_counter)][index] = \
+                            seriesParams_temp[key][index] = \
                                 config['series'][key][index]
                         except KeyError as e:
                             pass
-                    seriesParams_temp[str(
-                        seriesParams_counter)]['agg_id'] = agg_counter
+                    seriesParams_temp[key]['agg_id'] = key
                     format['seriesParams'].update(seriesParams_temp)
-                    seriesParams_counter += 1
                 finally:
                     agg_temp = dc(aggs_format)
-                    agg_temp[str(agg_counter)] = agg_temp['index']
+                    agg_temp[key] = agg_temp['index']
                     for index in ['field', 'schema']:
                         try:
-                            agg_temp[str(agg_counter)
-                                     ][index] = config['series'][key][index]
+                            agg_temp[key][index] = config['series'][key][index]
                         except KeyError as e:
                             pass
-                    agg_temp[str(
-                        agg_counter)]['custom_label'] = \
+                    agg_temp[key]['custom_label'] = \
                         config['series'][key]['label']
                     format['aggs'].update(agg_temp)
-                    agg_counter += 1
         except KeyError as e:
             print("required fields are empty!")
 

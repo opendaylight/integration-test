@@ -44,13 +44,13 @@ bgpcep:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: BGP updates/sec
-        series:
           1:
+            title: BGP updates/sec
+        series:
+          2:
             field: plots.performance-bgp.+10/-9 routes per UPDATE
             label: +10/-9 routes per UPDATE
-            color: red
+            color: blue
       filter:
           1:
             field: test-name
@@ -67,13 +67,13 @@ bgpcep:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: BGP updates/sec
-        series:
           1:
+            title: BGP updates/sec
+        series:
+          2:
             field: plots.performance-bgp.+10/-9 routes per UPDATE
             label: +10/-9 routes per UPDATE
-            color: red
+            color: blue
       filter:
           1:
             field: test-name
@@ -164,18 +164,18 @@ openflowplugin:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: flowmods/sec
-        series:
           1:
+            title: flowmods/sec
+        series:
+          2:
             field: plots.rate.Config DS
             label: Config DS
             color: red
-          2:
+          3:
             field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
-          3:
+          4:
             field: plots.rate.Operational DS
             label: Operational DS
             color: blue
@@ -195,18 +195,18 @@ openflowplugin:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: flowmods/sec
-        series:
           1:
+            title: flowmods/sec
+        series:
+          2:
             field: plots.rate.Config DS
             label: Config DS
             color: red
-          2:
+          3:
             field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
-          3:
+          4:
             field: plots.rate.Operational DS
             label: Operational DS
             color: blue
@@ -226,18 +226,18 @@ openflowplugin:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: flowmods/sec
-        series:
           1:
+            title: flowmods/sec
+        series:
+          2:
             field: plots.rate.Config DS
             label: Config DS
             color: red
-          2:
+          3:
             field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
-          3:
+          4:
             field: plots.rate.Operational DS
             label: Operational DS
             color: blue
@@ -257,18 +257,18 @@ openflowplugin:
       viz-template: opendaylight-test-performance
       y-axis:
         value_axes:
-            1:
-                title: flowmods/sec
-        series:
           1:
+            title: flowmods/sec
+        series:
+          2:
             field: plots.rate.Config DS
             label: Config DS
             color: red
-          2:
+          3:
             field: plots.rate.OVS Switch
             label: OVS Switch
             color: green
-          3:
+          4:
             field: plots.rate.Operational DS
             label: Operational DS
             color: blue
