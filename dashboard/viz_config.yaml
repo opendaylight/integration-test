@@ -8,15 +8,8 @@ opendaylight-test-feature:
             position: left
             title: No. of test cases
     series:
-        fail:
-            data_type: histogram
-            mode: stacked
-            field: fail-tests
-            label: Fail tests
-            schema: metric
-            value_axis: 1
-            color: red
         pass:
+            order: 1
             data_type: histogram
             mode: stacked
             field: pass-tests
@@ -24,7 +17,17 @@ opendaylight-test-feature:
             schema: metric
             value_axis: 1
             color: green
+        fail:
+            order: 2
+            data_type: histogram
+            mode: stacked
+            field: fail-tests
+            label: Fail tests
+            schema: metric
+            value_axis: 1
+            color: red
         build:
+            order: 3
             field: test-run
             label: Build Number
             schema: segment
