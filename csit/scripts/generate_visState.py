@@ -278,22 +278,20 @@ def generate(dash_config, viz_config):
             format['value_axes'].update(temp)
             value_axes_counter += 1
 
-    seriesParams_counter = 1
     seriesParams_fields = ['value_axis',
                            'data_type', 'mode', 'label', 'agg_id']
     try:
         for m in viz_config['seriesParams']:
             if m != 'default':
+                order = viz_config['seriesParams'][m]
                 temp = dc(seriesParams_format)
-                temp[str(seriesParams_counter)] = temp['index']
+                temp[order] = temp['index']
                 for i in seriesParams_fields:
                     try:
-                        temp[str(seriesParams_counter)
-                             ][i] = viz_config['seriesParams'][m][i]
+                        temp[order][i] = viz_config['seriesParams'][m][i]
                     except KeyError:
                         pass
                 format['seriesParams'].update(temp)
-                seriesParams_counter += 1
     except KeyError:
         pass
 
@@ -301,15 +299,15 @@ def generate(dash_config, viz_config):
     try:
         for m in viz_config['aggs']:
             if m != 'default':
+                order = viz_config['aggs'][m]
                 temp = dc(aggs_format)
-                temp[str(agg_counter)] = temp['index']
+                temp[order] = temp['index']
                 for i in ['field', 'custom_label', 'schema']:
                     try:
-                        temp[str(agg_counter)][i] = viz_config['aggs'][m][i]
+                        temp[order][i] = viz_config['aggs'][m][i]
                     except KeyError:
                         pass
                 format['aggs'].update(temp)
-                agg_counter += 1
     except KeyError:
         pass
 
@@ -350,38 +348,32 @@ def generate(dash_config, viz_config):
 
         try:
             for key in config['series']:
+                order = config['series'][key]
                 try:
                     # check if this key is present or not
                     config['series'][key]['not_in_seriesParams']
                 except KeyError:
                     seriesParams_temp = dc(seriesParams_format)
-                    seriesParams_temp[str(
-                        seriesParams_counter)] = seriesParams_temp['index']
+                    seriesParams_temp[order] = seriesParams_temp['index']
                     for index in ['value_axis', 'data_type', 'mode', 'label']:
                         try:
-                            seriesParams_temp[str(
-                                seriesParams_counter)][index] = \
+                            seriesParams_temp[order][index] = \
                                 config['series'][key][index]
                         except KeyError as e:
                             pass
-                    seriesParams_temp[str(
-                        seriesParams_counter)]['agg_id'] = agg_counter
+                    seriesParams_temp[order]['agg_id'] = order
                     format['seriesParams'].update(seriesParams_temp)
-                    seriesParams_counter += 1
                 finally:
                     agg_temp = dc(aggs_format)
-                    agg_temp[str(agg_counter)] = agg_temp['index']
+                    agg_temp[order] = agg_temp['index']
                     for index in ['field', 'schema']:
                         try:
-                            agg_temp[str(agg_counter)
-                                     ][index] = config['series'][key][index]
+                            agg_temp[order][index] = config['series'][key][index]
                         except KeyError as e:
                             pass
-                    agg_temp[str(
-                        agg_counter)]['custom_label'] = \
+                    agg_temp[order]['custom_label'] = \
                         config['series'][key]['label']
                     format['aggs'].update(agg_temp)
-                    agg_counter += 1
         except KeyError as e:
             print("required fields are empty!")
 
