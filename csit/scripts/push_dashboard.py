@@ -12,40 +12,11 @@
 ##############################################################################
 
 """
-This script is used to parse logs, construct JSON BODY and push
-it to ELK DB.
+This script is used to parse dashboard config files, construct
+JSON BODY and push it to ELK DB.
 
-Usage: python construct_json.py host:port
+Usage: python push_dashboard.py host:port
 
-JSON body similar to following is \
-constructed from robot files, jenkins environment
-and plot files available in workspace available post-build.
-{
-    "project": "opendaylight", <- fix string for ODL project
-    "subject": "test", <- fix string for ODL test
-    "test-type": "performance", <- if there are csv files, \
-                                     otherwise "functional"
-    "jenkins-silo": "releng" <- from Jenkins $SILO
-    "test-name": "openflowplugin-csit-1node-periodic \
-                -bulkomatic-perf-daily-only-carbon", <- from Jenkins $JOB_NAME
-    "test-run": 289, <- from Jenkins $BUILD_NUMBER
-    "start-time": "20170612 16:50:04 GMT-07:00",  <- from robot log
-    "duration": "00:01:05.942", <- from robot log
-    "pass-tests": 9, <- from robot log
-    "fail-tests": 0, <- from robot log
-    "plots": {
-        "rate": { <- csv filename
-            "Config DS": 5816.99726601, <- from csv file
-            "OVS Switch": 5757.05238918, <- from csv file
-            "Operational DS": 2654.49139945 <- from csv file
-        },
-        "time": { <- csv filename
-            "Config DS": 17.191, <- from csv file
-            "OVS Switch": 17.37, <- from csv file
-            "Operational DS": 37.672 <- from csv file
-        }
-    }
-}
 """
 
 # stdlib
@@ -57,7 +28,6 @@ import glob
 # 3rd party lib
 from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
 import yaml
-import glob
 
 # User defined libs
 import generate_visState as vis_gen
@@ -69,9 +39,9 @@ import data_generate as data_gen
 
 def p(x):
     print(json.dumps(x, indent=6, sort_keys=True))
+
+
 # ELK DB host and port to be passed as ':' separated argument
-
-
 if len(sys.argv) > 1:
     if ':' in sys.argv[1]:
         ELK_DB_HOST = sys.argv[1].split(':')[0]
@@ -80,10 +50,6 @@ else:
     print('Usage: python push_to_elk.py host:port')
     print('Unable to publish data to ELK. Exiting.')
     sys.exit()
-
-# Construct json body
-
-# BODY = {}
 
 try:
     es = Elasticsearch(
@@ -95,25 +61,6 @@ except Exception as e:
     print('Unexpected Error Occurred. Exiting')
     print(e)
 # print(es.info())
-
-
-# get data from the user defined script
-BODY = data_gen.generate()
-
-print(json.dumps(BODY, indent=4))
-
-# Try to send request to ELK DB.
-
-try:
-    index = '{}-{}'.format(BODY['project'],
-                           BODY['subject'])
-    ES_ID = '{}:{}-{}'.format(BODY['test-type'], BODY['test-name'],
-                              BODY['test-run'])
-    res = es.index(index=index, doc_type='doc', id=ES_ID, body=BODY)
-    print(json.dumps(res, indent=4))
-except Exception as e:
-    print(e)
-    print('Unable to push data to ElasticSearch')
 
 
 # sys.exit()
@@ -144,19 +91,19 @@ except Exception as e:
 
 # Create and push index-pattern to be used by visualizations
 
+TEST_DATA_INDEX = 'opendaylight-test'
+
 INDEX_PATTERN_BODY = {
     "type": "index-pattern",
     "index-pattern": {
         "timeFieldName": "@timestamp",
-        "title": '{}-{}'.format(BODY['project'],
-                                BODY['subject'])
+        "title": TEST_DATA_INDEX
     }
 }
 
 
 KIBANA_CONFIG = {'config': {
-    'defaultIndex': 'pattern-for-{}-{}'.format(BODY['project'],
-                                               BODY['subject']),
+    'defaultIndex': 'pattern-for-{}'.format(TEST_DATA_INDEX),
     'timepicker:timeDefaults': '{\n  "from": "now-5y",\n \
                                 "to": "now",\n  "mode": "quick"\n}',
     'xPackMonitoring:showBanner': False},
@@ -169,8 +116,8 @@ res = es.index(index='.kibana', doc_type='doc',
 
 try:
     index = '.kibana'
-    ES_ID = 'index-pattern:pattern-for-{}-{}'.format(
-        BODY['project'], BODY['subject'])
+    ES_ID = 'index-pattern:pattern-for-{}'.format(
+        TEST_DATA_INDEX)
     res = es.index(index=index, doc_type='doc',
                    id=ES_ID, body=INDEX_PATTERN_BODY)
     p(json.dumps(INDEX_PATTERN_BODY, indent=4))
