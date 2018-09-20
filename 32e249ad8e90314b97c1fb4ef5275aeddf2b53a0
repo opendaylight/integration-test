@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66cc51bc_36afff07",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Moved all these keywords to flowlib libraries.Here i am deleting the flows for the particular port mac address which is different from \"Delete Flow via Restconf\"",
+      "parentUuid": "513ecac1_36cf7f6d",
+      "range": {
+        "startLine": 489,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "616d0e01_b120b9f6",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 34
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "714ddfc7_a95458dd",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "616d0e01_b120b9f6",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facabd66_575ab479",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 34
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-12T05:25:45Z",
       "side": 1,
       "message": "where is this used? I\u0027m wondering if we don\u0027t already\nhave a general keyword in ovsdb.robot or ovs.robot that\nwill handle this?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 79
+      },
+      "revId": "32e249ad8e90314b97c1fb4ef5275aeddf2b53a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92374c27_f70edaa7",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-09-20T07:18:47Z",
+      "side": 1,
+      "message": "Deleted,since the value is directly used in OVSDB.robot",
+      "parentUuid": "facabd66_575ab479",
       "range": {
         "startLine": 98,
         "startChar": 0,
