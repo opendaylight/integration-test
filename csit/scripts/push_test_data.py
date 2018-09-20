@@ -94,8 +94,12 @@ BODY = data_gen.generate()
 
 print(json.dumps(BODY, indent=4))
 
-# Try to send request to ELK DB.
+# Skip ELK update if it comes from sandbox.
+if BODY['jenkins-silo'] == 'sandbox':
+    print('silo is sandbox, ELK update is skipped')
+    sys.exit()
 
+# Try to send request to ELK DB.
 try:
     index = '{}-{}'.format(BODY['project'],
                            BODY['subject'])
