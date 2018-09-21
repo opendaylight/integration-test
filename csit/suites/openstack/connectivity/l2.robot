@@ -29,49 +29,21 @@ Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
 
-Ping Vm Instance2 In net_1
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
-
-Ping Vm Instance3 In net_1
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]
-
-Ping Vm Instance1 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]
-
-Ping Vm Instance2 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]
-
-Ping Vm Instance3 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]
-
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Login to the vm instance and test some operations
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
 
-Connectivity Tests From Vm Instance2 In net_1
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${NET_1_VM_IPS}
+CHECK CIRROS PROBLEMS 1
+    ${conn_id} =    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    Utils.Write Commands Until Expected Prompt    sudo netstat -tulpn     ${OS_SYSTEM_PROMPT}
+    Utils.Write Commands Until Expected Prompt    sudo iptables -L     ${OS_SYSTEM_PROMPT}
+    Utils.Write Commands Until Expected Prompt    sudo dmesg -Tr     ${OS_SYSTEM_PROMPT}
+    Utils.Write Commands Until Expected Prompt    sudo journalctl -xe     ${OS_SYSTEM_PROMPT}
+    Utils.Run Command On Remote System    ${OS_CNTL_IP}
+    OpenStackOperations.Get ControlNode Connection
+    Utils.Write Commands Until Expected Prompt    \n     ${OS_SYSTEM_PROMPT}
 
-Connectivity Tests From Vm Instance3 In net_1
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${NET_1_VM_IPS}
-
-Connectivity Tests From Vm Instance1 In net_2
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In net_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In net_2
-    [Documentation]    Login to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
