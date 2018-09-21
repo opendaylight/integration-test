@@ -4,6 +4,8 @@ Documentation     Variables for Netvirt Test Suites
 *** Variables ***
 # Exceptions for which we will not create a failure
 @{NETVIRT_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
+${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
+${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
 ${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 ${DEFAULT_PING_COUNT}    3
