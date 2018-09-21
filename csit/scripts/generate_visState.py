@@ -12,12 +12,15 @@ from copy import deepcopy as dc
 
 import json
 
+# Pretty Printer
+
 
 def p(x):
     print(json.dumps(x, indent=4, sort_keys=True))
 
 
 class visState:
+    # viState template
     def __init__(self):
         self.content = {
             'title': None,
@@ -97,6 +100,7 @@ class categoryAxes:
         }
         self.counter = 0
 
+    # Category axes are named as CategoryAxis-i
     def create(self):
         self.counter += 1
         temp = dc(self.content)
@@ -146,6 +150,10 @@ class ValueAxes:
 
         return temp
 
+# 'seriesParams' are the ones that actually show up in the plots.
+# They point to a data source a.k.a 'aggs' (short for aggregation)
+# to get their data.
+
 
 class seriesParams:
     def __init__(self, data_type, mode, label, agg_id, value_axis):
@@ -155,7 +163,7 @@ class seriesParams:
             'mode': mode,
             'data': {
                 'label': label,
-                'id': str(agg_id)
+                'id': str(agg_id)  # the id of the aggregation they point to
             },
             'valueAxis': 'ValueAxis-{}'.format(value_axis),
             'drawLinesBetweenPoints': True,
@@ -164,6 +172,21 @@ class seriesParams:
 
     def create(self):
         return self.content
+
+# 'aggs' or aggregation refers to collection of values. They are the data
+# source which are used by seriesParams. and as expected they take 'field'
+# as the nested name of the key.
+#
+# Example, if your value is in {
+#  'perfomance': {
+#  'plots': {
+#         'rate': myval,
+#          ...
+#        }
+#   },
+#   then I would have to use, 'performance.plots.rate' as the 'field' for aggs
+# the 'schema' of an agg is 'metric' which are to be
+# plotted in the Y-axis and 'segment' for the ones in X-axis
 
 
 class aggs:
@@ -196,6 +219,9 @@ class aggs:
             temp['params']['orderBy'] = '_term'
         return temp
 
+
+# 'series' actually combines and simplifies both 'seriesParams' and 'aggs'
+# Both 'seriesParams' and 'aggs' support 'default' to set default values
 
 # generate takes both the template config and project specific config and
 # parses and organizes as much info available from that and
@@ -264,6 +290,8 @@ def generate(dash_config, viz_config):
         except Exception:
             pass
 
+    ####################################################################
+    # Extract 'value_axes', 'seriesParams' or 'aggs' if present in viz_config
     value_axes_counter = 1
     for m in viz_config['value_axes']:
         if m != "default":
@@ -308,7 +336,9 @@ def generate(dash_config, viz_config):
                 format['aggs'].update(temp)
     except KeyError:
         pass
+    ####################################################################
 
+    # collect 'series' from both the configs
     configs = []
     try:
         viz_config['series']
@@ -322,6 +352,8 @@ def generate(dash_config, viz_config):
     except KeyError:
         pass
 
+    ########################################################################
+    # Extract 'series' from either of the configs
     for config in configs:
         try:
             value_axes_counter = 1
@@ -374,6 +406,8 @@ def generate(dash_config, viz_config):
         except KeyError as e:
             print("required fields are empty!")
 
+    ##########################################################################
+
     # to remove the default template index
     for i in ['value_axes', 'seriesParams', 'aggs']:
         try:
@@ -386,13 +420,12 @@ def generate(dash_config, viz_config):
     if len(missing):
         raise ValueError('Missing required field values :-', *missing)
 
-    # print(format)
     p(format)
 
     vis = visState()
     generated_visState = vis.create(format)
 
-    # checking incase there are None values \
+    # checking incase there are None values
     # in the format indicating missing fields
 
     missing = config_validator(generated_visState)

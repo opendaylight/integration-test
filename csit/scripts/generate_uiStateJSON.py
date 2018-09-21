@@ -1,3 +1,4 @@
+# Template for UIState (Currently supports only colors)
 UI_STATE_BODY = {
     "vis": {
         "colors": None
@@ -8,6 +9,12 @@ UI_STATE_BODY = {
 def generate(dash_config, viz_config):
 
     colors = {}
+
+    # Check for 'color' key in 'series' or 'seriesParams' in
+    # either viz_config and dash_config
+
+    # Note:- 'series' simplifies 'seriesParams' and 'aggs'
+    # and avoids duplication
 
     try:
         series = dash_config['y-axis']['series']
