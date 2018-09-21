@@ -1,8 +1,10 @@
 from copy import deepcopy as dc
 
+# Template for search source format
 SEARCH_SOURCE_FORMAT = {"index": None, "filter": [],
                         "query": {"language": "lucene", "query": ""}}
 
+# Template for filter format
 FILTER_FORMAT = {
     "query": {
         "match": {
@@ -18,6 +20,14 @@ FILTER_FORMAT = {
 def generate(dash_config, viz_config, index_pattern):
 
     search_source = dc(SEARCH_SOURCE_FORMAT)
+
+    # Search for 'match-with' and 'field' for each keys in 'filter' either 
+    # in viz_config or dash_config
+    #
+    # ex:- filter:
+    #        1:
+    #           field: my_field
+    #           match-with: pattern
 
     try:
         filters = dash_config['filter']

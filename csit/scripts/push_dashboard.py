@@ -127,7 +127,6 @@ except Exception as e:
     # raise e
     print('Unable to push data to ElasticSearch')
 
-# Create and push visualizations
 try:
     viz_config_path = glob.glob('**/dashboard/viz_config.yaml')[0]
 except IndexError:
@@ -147,6 +146,7 @@ with open(viz_config_path, 'r') as f:
     viz_config = yaml.safe_load(f)
 
 
+# Create and push visualizations
 for dashboard_id, dashboard_content in dash_config.items():
 
     for _, i in dash_config[dashboard_id]['viz'].items():
@@ -163,6 +163,7 @@ for dashboard_id, dashboard_content in dash_config.items():
         # p(intermediate_format)
         # p(visState)
 
+        # Template for visualization template
         VIZ_BODY = {
             'type': 'visualization',
             'visualization': {
@@ -186,6 +187,7 @@ for dashboard_id, dashboard_content in dash_config.items():
             searchSourceJSON)
 
         p(VIZ_BODY)
+        # Pushing visualization to Kibana
         index = '.kibana'
         ES_ID = 'visualization:{}'.format(i['id'])
         res = es.index(index=index, doc_type='doc', id=ES_ID, body=VIZ_BODY)
@@ -193,6 +195,7 @@ for dashboard_id, dashboard_content in dash_config.items():
 
     # Create and push dashboards
 
+    # Template for dashboard body in Kibana
     DASH_BODY = {
         'type': 'dashboard',
         'dashboard': {
@@ -217,7 +220,7 @@ for dashboard_id, dashboard_content in dash_config.items():
         dash_gen.generate(dashboard_content['viz']))
 
     p(DASH_BODY)
-
+    # Pushing dashboard to kibana
     index = '.kibana'
     ES_ID = 'dashboard:{}'.format(dashboard_content['id'])
     res = es.index(index=index, doc_type='doc', id=ES_ID, body=DASH_BODY)
