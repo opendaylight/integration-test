@@ -37,41 +37,9 @@ Ping Vm Instance3 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]
 
-Ping Vm Instance1 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]
-
-Ping Vm Instance2 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]
-
-Ping Vm Instance3 In net_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]
-
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Login to the vm instance and test some operations
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In net_1
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${NET_1_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In net_1
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${NET_1_VM_IPS}
-
-Connectivity Tests From Vm Instance1 In net_2
-    [Documentation]    Login to the vm instance and test operations
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In net_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In net_2
-    [Documentation]    Login to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
@@ -88,22 +56,13 @@ Suite Setup
     OpenStackOperations.OpenStack Suite Setup
     OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
-    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
-    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}
     OpenStackOperations.Get Suite Debugs
