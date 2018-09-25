@@ -16,6 +16,24 @@
       "revId": "119db6cf3da23e5024779ebac16d01317b45ecf2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c11a83ee_061270ab",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-09-25T11:58:53Z",
+      "side": 1,
+      "message": "Thanks for the information, i am not sure about support of direct and indirect tunnels,it was working earlier as per FT testplan instruction, will check with FT and delete this URL if not necessary.",
+      "parentUuid": "1d118b63_c33867d5",
+      "revId": "119db6cf3da23e5024779ebac16d01317b45ecf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
