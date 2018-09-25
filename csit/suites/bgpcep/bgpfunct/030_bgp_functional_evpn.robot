@@ -390,7 +390,7 @@ Odl_To_Play_Template
     Remove_Configured_Routes
     ${wupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${wupdate}
-    BuiltIn.Should Be Equal As Strings    ${wupdate}    ${withdraw_hex}
+    Verify_Two_Hex_Messages_Are_Equal    ${wupdate}    ${withdraw_hex}
     [Teardown]    Remove_Configured_Routes
 
 Play_To_Odl_Template
@@ -446,3 +446,29 @@ Loc_Rib_Presence
     [Documentation]    Verifies if loc-rib contains expected data
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}
+
+Verify_Two_Hex_Messages_Are_Equal
+    [Arguments]    ${hex_1}    ${hex_2}
+    [Documentation]    Verifies two hex messages are equal even in case, their arguments are misplaced.
+    ...    Compares length of the hex messages and sums hex messages arguments as integers and compares results.
+    ${len_1}=    BuiltIn.Get_Length    ${hex_1}
+    ${len_2}=    BuiltIn.Get_Length    ${hex_2}
+    BuiltIn.Should_Be_Equal    ${len_1}    ${len_2}
+    ${sum_1}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_1}
+    ${sum_2}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_2}
+    BuiltIn.Should_Be_Equal    ${sum_1}    ${sum_2}
+
+Sum_Hex_Message_Arguments_To_Integer
+    [Arguments]    ${hex_string}
+    [Documentation]    Converts hex message arguments to integers and sums them up and returns the sum.
+    ${partial_results}=    BuiltIn.Create_List
+    ${max_iteration}=    BuiltIn.Get_Length    ${hex_string}
+    : FOR    ${i}    IN RANGE    0    ${max_iteration}    2
+    \    ${i_2}=    BuiltIn.Set_Variable    ${${i}+1}
+    \    ${item1}=    Collections.Get_From_List    ${hex_string}    ${i}
+    \    ${item2}=    Collections.Get_From_List    ${hex_string}    ${i_2}
+    \    ${item_int}=    BuiltIn.Convert_To_Integer    ${item1}${item2}    16
+    \    Collections.Append_To_List    ${partial_results}    ${item_int}
+    \    BuiltIn.Log    ${partial_results}
+    ${final_sum}=    BuiltIn.Evaluate    sum(${partial_results})
+    [Return]    ${final_sum}
