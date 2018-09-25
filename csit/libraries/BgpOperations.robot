@@ -315,11 +315,11 @@ Odl_To_Play_Template
     BuiltIn.Run_Keyword_If    '${remove}' == 'True'    BgpRpcClient.play_clean
     TemplatedRequests.Post_As_Xml_Templated    ${dir}/${totest}/app    mapping=${APP_PEER}    session=${CONFIG_SESSION}
     ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
-    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${announce_hex}
+    Verify_Two_Hex_Messages_Are_Equal    ${update}    ${announce_hex}
     BgpRpcClient.play_clean
     Remove_Configured_Routes    ${totest}    ${dir}
     ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
-    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${withdraw_hex}
+    Verify_Two_Hex_Messages_Are_Equal    ${update}    ${withdraw_hex}
     [Teardown]    Remove_Configured_Routes    ${totest}    ${dir}
 
 Play_To_Odl_Template
@@ -357,3 +357,27 @@ Remove_Configured_Routes
     [Arguments]    ${totest}    ${dir}
     [Documentation]    Removes the route if present.
     BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Delete_Templated    ${dir}/${totest}/app    mapping=${APP_PEER}    session=${CONFIG_SESSION}
+
+Verify_Two_Hex_Messages_Are_Equal
+    [Arguments]    ${hex_1}    ${hex_2}
+    [Documentation]    Verifies two hex messages are equal even in case, their arguments are misplaced.
+    ...    Compares length of the hex messages and sums hex messages arguments as integers and compares results.
+    ${len_1}=    BuiltIn.Get_Length    ${hex_1}
+    ${len_2}=    BuiltIn.Get_Length    ${hex_2}
+    BuiltIn.Should_Be_Equal    ${len_1}    ${len_2}
+    ${sum_1}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_1}
+    ${sum_2}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_2}
+    BuiltIn.Should_Be_Equal    ${sum_1}    ${sum_2}
+
+Sum_Hex_Message_Arguments_To_Integer
+    [Arguments]    ${hex_string}
+    [Documentation]    Converts hex message arguments to integers and sums them up and returns the sum.
+    ${partial_results}=    BuiltIn.Create_List
+    ${string}=    String.Get_Substring    ${hex_string}    32
+    @{list}=    String.Get_Regexp_Matches    ${string}    [a-f0-9][a-f0-9]
+    : FOR    ${i}    IN    @{list}
+    \    ${item_int}=    BuiltIn.Convert_To_Integer    ${i}    16
+    \    Collections.Append_To_List    ${partial_results}    ${item_int}
+    \    BuiltIn.Log    ${partial_results}
+    ${final_sum}=    BuiltIn.Evaluate    sum(${partial_results})
+    [Return]    ${final_sum}

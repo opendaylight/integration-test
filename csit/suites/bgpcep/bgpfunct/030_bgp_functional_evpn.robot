@@ -22,6 +22,7 @@ Library           SSHLibrary
 Library           String
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/BGPSpeaker.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/SetupUtils.robot
@@ -385,12 +386,12 @@ Odl_To_Play_Template
     BuiltIn.Log    ${resp.content}
     ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${aupdate}
-    BuiltIn.Should_Be_Equal_As_Strings    ${aupdate}    ${announce_hex}
+    BgpOperations.Verify_Two_Hex_Messages_Are_Equal    ${aupdate}    ${announce_hex}
     BgpRpcClient.play_clean
     Remove_Configured_Routes
     ${wupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${wupdate}
-    BuiltIn.Should Be Equal As Strings    ${wupdate}    ${withdraw_hex}
+    BgpOperations.Verify_Two_Hex_Messages_Are_Equal    ${wupdate}    ${withdraw_hex}
     [Teardown]    Remove_Configured_Routes
 
 Play_To_Odl_Template
