@@ -1,0 +1,77 @@
+{
+    "bgp-inet:ipv4-routes": {
+        "ipv4-route": [
+            {
+                "path-id": 0,
+                "route-key": "8.0.0.0/28",
+                "prefix": "8.0.0.0/28",
+                "attributes": {
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "ipv4-next-hop": {
+                        "global": "192.0.2.1"
+                    },
+                    "local-pref": {
+                        "pref": 100
+                    },
+                    "as-path": {
+                        "segments": [
+                            {
+                                "as-sequence": [
+                                    64496
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "path-id": 0,
+                "route-key": "8.1.0.0/28",
+                "prefix": "8.1.0.0/28",
+                "attributes": {
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "ipv4-next-hop": {
+                        "global": "2.2.2.2"
+                    },
+                    "as-path": {
+                        "segments": [
+                            {
+                                "as-sequence": [
+                                    64496,
+                                    65000
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "path-id": 0,
+                "route-key": "8.2.0.0/28",
+                "prefix": "8.2.0.0/28",
+                "attributes": {
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "ipv4-next-hop": {
+                        "global": "3.3.3.3"
+                    },
+                    "as-path": {
+                        "segments": [
+                            {
+                                "as-sequence": [
+                                    64496,
+                                    64497
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
