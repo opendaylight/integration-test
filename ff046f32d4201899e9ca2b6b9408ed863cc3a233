@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ba7a424_dd206e90",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "comment addressed",
+      "parentUuid": "c235a9b1_0672f9c6",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37aec793_bf5bbe95",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-18T18:52:39Z",
       "side": 1,
       "message": "you aren\u0027t expecting any drops right? If so, this is\nprobably a better match string from netvirt variables:\n${PING_REGEXP}\n\notherwise, I think we\u0027d still see a 64 bytes if only 1 of\nthe 3 pings worked and that probably indicates some \ntrouble right?",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 51
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0029d5c7_de95b196",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "comment addressed",
+      "parentUuid": "37aec793_bf5bbe95",
       "range": {
         "startLine": 50,
         "startChar": 43,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "36430617_ab8b4d3f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "yup created a for loop and reduced the no of lines",
+      "parentUuid": "c3ddb71b_2799b40d",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 170
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "891cc8cc_8a474c98",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-18T18:52:39Z",
       "side": 1,
       "message": "a two line for loop would be cleaner. applies below",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 141
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77fd3bfe_e607a005",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "comment addressed and created for loop",
+      "parentUuid": "891cc8cc_8a474c98",
       "range": {
         "startLine": 141,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7fb08113_b5cf4b29",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "comment addressed",
+      "parentUuid": "0aac79db_04eeb4d3",
+      "range": {
+        "startLine": 189,
+        "startChar": 43,
+        "endLine": 189,
+        "endChar": 51
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12713d83_b738cc72",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
         "patchSetId": 9
@@ -128,6 +248,30 @@
       "writtenOn": "2018-09-18T18:52:39Z",
       "side": 1,
       "message": "why doesn\u0027t the OpenStackOperations.Create Allow All Security Group keyword not work here?",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 170
+      },
+      "revId": "ff046f32d4201899e9ca2b6b9408ed863cc3a233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf0795bf_b6c481e1",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 8111
+      },
+      "writtenOn": "2018-09-26T13:23:27Z",
+      "side": 1,
+      "message": "Existing keyword is to create either ipv4 or ipv6 cannot create both together, since everytime when we call the keyword its creating security name, when we create ipv4 first and ipv6 second, ipv6 is getting failed saying\"already security group present with the same name\" SO i modified the existing method without affecting other scripts please review it",
+      "parentUuid": "12713d83_b738cc72",
       "range": {
         "startLine": 278,
         "startChar": 0,
