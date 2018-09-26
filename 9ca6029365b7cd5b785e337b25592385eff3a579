@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81cc9e55_23dfbfa3",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-26T17:12:06Z",
+      "side": 1,
+      "message": "this needs a better name if this keyword is really \nonly checking that flows do NOT exist in the config\nstore.\n\nmaybe \"Verify Flows Not Present In Config\"\n\nwhat\u0027s ${flag} for?",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 19
+      },
+      "revId": "9ca6029365b7cd5b785e337b25592385eff3a579",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "497ccebb_c82b14e8",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-26T17:12:06Z",
+      "side": 1,
+      "message": "change to \"switch for a specific {table_id} matching a specific {flow_element}",
+      "range": {
+        "startLine": 528,
+        "startChar": 81,
+        "endLine": 528,
+        "endChar": 94
+      },
+      "revId": "9ca6029365b7cd5b785e337b25592385eff3a579",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71a1a852_92124f58",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-09-26T17:12:06Z",
+      "side": 1,
+      "message": "better names for these? seems there are more than just\nretrieving status and are actually triggering some\nwork (e.g. recovery).",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 66
+      },
+      "revId": "9ca6029365b7cd5b785e337b25592385eff3a579",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
