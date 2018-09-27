@@ -73,7 +73,13 @@ Check L3_Datapath Traffic Across Networks With Router
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
     [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop    ${tcpdump_conn_ids}
 
+Verify Remove Interface To Router For L3_Datapath Traffic Across Networks
+    OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ${ping_should_succeed}=False
+
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
+    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[0]
     ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
     ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
@@ -154,20 +160,27 @@ Delete Router Failure When Associated With L3VPN
     BuiltIn.Should Contain    ${resp}    ${router_id}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
 
-Remove Router Interfaces
-    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
-    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
-
 Disassociate L3VPN From Router
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
     VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${router_id}
+    ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    BuiltIn.Log    Check datapath from network2 to network1
+    ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+
+Remove Router Interfaces
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    \    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    \    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ${ping_should_succeed}=False
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
 
 Delete Router
     Delete Router    ${ROUTER}
