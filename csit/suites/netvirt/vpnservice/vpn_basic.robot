@@ -1,23 +1,3 @@
-*** Settings ***
-Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
-...               The assumption of this suite is that the environment is already configured with the proper
-...               integration bridges and vxlan tunnels.
-Suite Setup       Suite Setup
-Suite Teardown    Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/VpnOperations.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Tcpdump.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/netvirt/Variables.robot
-
 *** Variables ***
 ${SECURITY_GROUP}    vpn_sg
 @{NETWORKS}       vpn_net_1    vpn_net_2
@@ -154,20 +134,35 @@ Delete Router Failure When Associated With L3VPN
     BuiltIn.Should Contain    ${resp}    ${router_id}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
 
-Remove Router Interfaces
-    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
-    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+Verify Remove Interface From Router When Associated With L3VPN
+    OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ${ping_should_succeed}=False
 
-Disassociate L3VPN From Router
+Verify L3VPN Datapath With Router Dissociation When Interfaces are Added To Router
+    OpenStackOperations.Add Interface    ${ROUTER}    @{SUBNETS}[0]
+    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
     VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${router_id}
+    Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
+    ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    BuiltIn.Log    Check datapath from network2 to network1
+    ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+
+Remove Router Interfaces And Check L3_Datapath Traffic Across Networks
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    \    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    \    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ${ping_should_succeed}=False
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
 
 Delete Router
     Delete Router    ${ROUTER}
