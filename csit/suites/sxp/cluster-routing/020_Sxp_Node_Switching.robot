@@ -18,50 +18,6 @@ Isolation Of SXP Service Follower W/O Bindings Listener Test
     [Setup]    Setup Nodes And Connections    listener
     ${cluster_owner} =    SxpClusterLib.Get Owner Controller
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
-    Check Connections    ${cluster_owner}    listener
-    Isolate SXP Controller    ${cluster_owner}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
-    Check Connections    ${NEW_OWNER}    listener
-    [Teardown]    Clean Custom SXP Cluster
-
-Isolation Of SXP Service Follower W/O Bindings Speaker Test
-    [Documentation]    Device is speaker. Connection between device and cluster must be established despite of cluster owner isolation
-    [Setup]    Setup Nodes And Connections    speaker
-    ${cluster_owner} =    SxpClusterLib.Get Owner Controller
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
-    Check Connections    ${cluster_owner}    speaker
-    Isolate SXP Controller    ${cluster_owner}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
-    Check Connections    ${NEW_OWNER}    speaker
-    [Teardown]    Clean Custom SXP Cluster
-
-Isolation Of SXP Service Follower Listener Test
-    [Documentation]    Device is listener. Cluster owner is isolated but bindings must be propagated to the device throught virtual IP
-    [Setup]    Setup Nodes And Connections    listener
-    ${cluster_owner} =    SxpClusterLib.Get Owner Controller
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
-    Check Connections    ${cluster_owner}    ${DEVICE_NODE_ID}    listener
-    Add Bindings To Node    ${CLUSTER_NODE_ID}    ClusterManagement__session_${cluster_owner}
-    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
-    Isolate SXP Controller    ${cluster_owner}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
-    Check Connections    ${NEW_OWNER}    ${DEVICE_NODE_ID}    listener
-    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
-    [Teardown]    Clean Custom SXP Cluster
-
-Isolation Of SXP Service Follower Speaker Test
-    [Documentation]    Device is speaker. Cluster owner is isolated but bindings must be propagated to the cluster throught virtual IP
-    [Setup]    Setup Nodes And Connections    speaker
-    ${cluster_owner} =    SxpClusterLib.Get Owner Controller
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
-    Check Connections    ${cluster_owner}    ${CLUSTER_NODE_ID}    speaker
-    Add Bindings To Node    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
-    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${cluster_owner}
-    Isolate SXP Controller    ${cluster_owner}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
-    Check Connections    ${NEW_OWNER}    ${CLUSTER_NODE_ID}    speaker
-    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${NEW_OWNER}
-    [Teardown]    Clean Custom SXP Cluster
 
 *** Keywords ***
 Setup Custom SXP Cluster Session
