@@ -26,6 +26,8 @@ Setup SXP Cluster Session
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
+    ${log} =    KarafKeywords.Install_A_Feature    odl-sxp-controller    ${controller}=${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Log    ${log}
 
 Setup Device Session
     [Documentation]    Create session on the SXP device
