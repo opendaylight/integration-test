@@ -29,6 +29,17 @@ Setup SXP Cluster Session
 
 Setup Device Session
     [Documentation]    Create session on the SXP device
+    Utils.Run Command On Remote System And Log    ${DEVICE_NODE_ID}    java -version    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    Utils.Run Command On Remote System    ${DEVICE_NODE_ID}    curl https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/integration/karaf/0.10.0-SNAPSHOT/maven-metadata.xml > maven-metadata.xml    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    ${EXT} =    Utils.Run Command On Remote System    ${DEVICE_NODE_ID}    awk -vRS="</value>" '{gsub(/.*<value.*>/,"");print}' maven-metadata.xml | sed -n 1p    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    Utils.Run Command On Remote System And Log    ${DEVICE_NODE_ID}    wget https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/integration/karaf/0.10.0-SNAPSHOT/karaf-${EXT}.zip    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    Utils.Run Command On Remote System And Log    ${DEVICE_NODE_ID}    unzip karaf-${EXT}.zip    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    Utils.Run Command On Remote System And Log    ${DEVICE_NODE_ID}    karaf-0.10.0-SNAPSHOT/bin/start    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    BuiltIn.Sleep    1m
+    KarafKeywords.Install_A_Feature    odl-restconf    controller=${DEVICE_NODE_ID}
+    KarafKeywords.Install_A_Feature    odl-sxp-controller    controller=${DEVICE_NODE_ID}
+    KarafKeywords.Install_A_Feature    odl-sxp-routing    controller=${DEVICE_NODE_ID}
+    BuiltIn.Sleep    2m
     RequestsLibrary.Create Session    ${DEVICE_SESSION}    url=http://${DEVICE_NODE_ID}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
 
 Setup SXP Cluster Session With Device
