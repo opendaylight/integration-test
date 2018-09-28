@@ -29,6 +29,10 @@ Setup SXP Cluster Session
 
 Setup Device Session
     [Documentation]    Create session on the SXP device
+    KarafKeywords.Install_A_Feature    odl-restconf    controller=${DEVICE_NODE_ID}
+    KarafKeywords.Install_A_Feature    odl-sxp-controller    controller=${DEVICE_NODE_ID}
+    KarafKeywords.Install_A_Feature    odl-sxp-routing    controller=${DEVICE_NODE_ID}
+    BuiltIn.Sleep    2m
     RequestsLibrary.Create Session    ${DEVICE_SESSION}    url=http://${DEVICE_NODE_ID}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
 
 Setup SXP Cluster Session With Device
