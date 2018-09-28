@@ -26,6 +26,7 @@ Setup SXP Cluster Session
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
+    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_2_IP}    java -version    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_TIMEOUT}
 
 Setup Device Session
     [Documentation]    Create session on the SXP device

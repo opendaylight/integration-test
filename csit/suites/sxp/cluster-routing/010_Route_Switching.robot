@@ -13,23 +13,6 @@ Resource          ../../../libraries/SxpClusterLib.robot
 Route Definition Test
     [Documentation]    Test Route update mechanism without cluster node isolation
     SxpClusterLib.Check Shards Status
-    ${owner_controller} =    SxpClusterLib.Get Owner Controller
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    Add Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    SxpLib.Clean Routing Configuration To Controller    ClusterManagement__session_${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    Put Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-
-Isolation of SXP service follower Test
-    [Documentation]    Test Route update mechanism during Cluster isolation,
-    ...    after each isolation virtual IP should be pre-routed to new leader
-    SxpClusterLib.Check Shards Status
-    ${any_controller} =    SxpClusterLib.Get Any Controller
-    Add Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${any_controller}
-    ${controller_index} =    SxpClusterLib.Get Owner Controller
-    Isolate SXP Controller    ${controller_index}
 
 *** Keywords ***
 Put Route Definition To Cluster
@@ -53,7 +36,7 @@ Custom Clean SXP Cluster
 
 Setup Custom SXP Cluster Session
     [Documentation]    Prepare topology for testing, creates sessions and generate Route definitions based on Cluster nodes IP
-    SxpClusterLib.Shutdown Tools Node
+    #SxpClusterLib.Shutdown Tools Node
     SxpClusterLib.Setup SXP Cluster Session
     ${mac_addresses} =    SxpClusterLib.Map Followers To Mac Addresses
     BuiltIn.Set Suite Variable    ${MAC_ADDRESS_TABLE}    ${mac_addresses}
