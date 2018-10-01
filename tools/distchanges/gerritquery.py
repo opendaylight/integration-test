@@ -74,12 +74,15 @@ class GerritQuery:
 
     @staticmethod
     def print_safe_encoding(string):
-        if type(string) == unicode:
-            encoding = 'utf-8'
-            if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
-                encoding = sys.stdout.encoding
-            return string.encode(encoding or 'utf-8', 'replace')
-        else:
+        try:
+            if type(string) == unicode:
+                encoding = 'utf-8'
+                if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
+                    encoding = sys.stdout.encoding
+                return string.encode(encoding or 'utf-8', 'replace')
+            else:
+                return str(string)
+        except:
             return str(string)
 
     def run_command_status(self, *argv, **kwargs):
@@ -281,13 +284,14 @@ class GerritQuery:
         :return list: Lines of the JSON
         """
         lines = []
-        for line in changes.split("\n"):
-            if line.find('"type":"error","message"') != -1:
-                logger.warn("there was a query error")
-                continue
-            if line.find('stats') == -1:
+        skipped = 0
+        for i, line in enumerate(changes.split("\n")):
+            if line.find('"grantedOn":') != -1:
                 lines.append(line)
-        logger.debug("get_gerrit_lines: found %d lines", len(lines))
+            else:
+                logger.debug("skipping: {}".format(line))
+                skipped += 1
+        logger.debug("get_gerrit_lines: found {} lines, skipped: {}".format(len(lines), skipped))
         return lines
 
     def get_gerrits(self, project, changeid=None, limit=1, msg=None, status=None, comments=False, commitid=None):
@@ -326,6 +330,6 @@ class GerritQuery:
             return gerrits
         try:
             sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
-        except KeyError, e:
+        except KeyError as e:
             logger.warn("KeyError exception in %s, %s", project, str(e))
         return sorted_gerrits
