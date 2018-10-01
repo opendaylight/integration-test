@@ -140,6 +140,30 @@
       "revId": "9ca6029365b7cd5b785e337b25592385eff3a579",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "582e9ef1_c645669d",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-01T23:39:17Z",
+      "side": 1,
+      "message": "COMMAND is pretty much the same thing as CLI.\n\nIsn\u0027t this command \"srm:recover\" doing just that? recovering\nlost \"things\"? So, a better name is something like\nRECOVER-ELAN-SERVICE-CLI and RECOVER-ELAN-INTERFACE-CLI",
+      "parentUuid": "a7a53c47_22657754",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 66
+      },
+      "revId": "9ca6029365b7cd5b785e337b25592385eff3a579",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
