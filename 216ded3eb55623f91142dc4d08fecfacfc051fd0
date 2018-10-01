@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6aaaa94b_f2a4a283",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-01T23:39:17Z",
+      "side": 1,
+      "message": "it\u0027s not requiring an xml file, but I do see that other\nsuites using that keyword are passing in XML format\nand then asking restconf to deliver a an xml response.\n\nSo, in order to use it, you\u0027d have to make your flow\ndata in to xml format and try it. Probably not worth\nthe effort for that.",
+      "parentUuid": "4131d74b_f735fc53",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 88
+      },
+      "revId": "216ded3eb55623f91142dc4d08fecfacfc051fd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfcecf67_6bd12615",
         "filename": "csit/libraries/FlowLib.robot",
         "patchSetId": 37
