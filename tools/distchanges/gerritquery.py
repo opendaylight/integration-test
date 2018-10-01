@@ -74,12 +74,15 @@ class GerritQuery:
 
     @staticmethod
     def print_safe_encoding(string):
-        if type(string) == unicode:
-            encoding = 'utf-8'
-            if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
-                encoding = sys.stdout.encoding
-            return string.encode(encoding or 'utf-8', 'replace')
-        else:
+        try:
+            if type(string) == unicode:
+                encoding = 'utf-8'
+                if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
+                    encoding = sys.stdout.encoding
+                return string.encode(encoding or 'utf-8', 'replace')
+            else:
+                return str(string)
+        except:
             return str(string)
 
     def run_command_status(self, *argv, **kwargs):
@@ -326,6 +329,6 @@ class GerritQuery:
             return gerrits
         try:
             sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
-        except KeyError, e:
+        except KeyError as e:
             logger.warn("KeyError exception in %s, %s", project, str(e))
         return sorted_gerrits
