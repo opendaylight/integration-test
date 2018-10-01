@@ -74,7 +74,7 @@ ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    empty_topology    timeout=180s
+    Wait_For_Topology_To_Change_To    empty_topology    timeout=360s
 
 TC_LA_Reconfigure_Odl_To_Initiate_Connection
     [Documentation]    Configure ibgp peer with local-address.
