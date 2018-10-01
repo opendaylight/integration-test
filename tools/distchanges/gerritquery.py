@@ -12,6 +12,7 @@ import traceback
 import sys
 
 # TODO: Haven't tested python 3
+
 if sys.version < '3':
     import urllib
     import urlparse
@@ -74,7 +75,7 @@ class GerritQuery:
 
     @staticmethod
     def print_safe_encoding(string):
-        if type(string) == unicode:
+        if type(string) == bytes:
             encoding = 'utf-8'
             if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
                 encoding = sys.stdout.encoding
@@ -326,6 +327,6 @@ class GerritQuery:
             return gerrits
         try:
             sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
-        except KeyError, e:
+        except KeyError as e:
             logger.warn("KeyError exception in %s, %s", project, str(e))
         return sorted_gerrits
