@@ -8,6 +8,7 @@ Resource          ../variables/Variables.robot
 
 *** Variables ***
 @{stable/queens_EXCLUSION_REGEXES}    ${EMPTY}
+@{stable/rocky_EXCLUSION_REGEXES}    ${EMPTY}
 @{master_EXCLUSION_REGEXES}    ${EMPTY}
 ${BLACKLIST_FILE}    /tmp/blacklist.txt
 ${TEMPEST_DIR}    /opt/stack/tempest
