@@ -475,7 +475,7 @@ Execute Command on VM Instance
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=password    password:
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=password    password:
     ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}    timeout=${cmd_timeout}
@@ -487,7 +487,7 @@ Execute Command on VM Instance With PublicKey Auth
     [Documentation]    Login to the vm instance using ssh publickey in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${idfile} ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey    prompt=${OS_SYSTEM_PROMPT}    timeout=60s
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${idfile} ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey    prompt=${OS_SYSTEM_PROMPT}    timeout=60s
     ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
     [Teardown]    Exit From Vm Console
@@ -498,7 +498,7 @@ Copy File To VM Instance With PublicKey Auth
     [Documentation]    Login to the vm instance using ssh publickey in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    ${rc} =    SSHLibrary.Execute Command    sudo ip netns exec qdhcp-${net_id} scp -i ${idfile} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey ${file_to_copy} ${user}@${vm_ip}:/tmp/    return_stdout=False    return_rc=True
+    ${rc} =    SSHLibrary.Execute Command    sudo ip netns exec qdhcp-${net_id} scp -i ${idfile} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey ${file_to_copy} ${user}@${vm_ip}:/tmp/    return_stdout=False    return_rc=True
     BuiltIn.Should Be True    '${rc}' == '0'
 
 Test Operations From Vm Instance
