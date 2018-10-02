@@ -97,36 +97,44 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     : FOR    ${vm}    IN    @{NET_1_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
 Delete Vm Instances In net_2
     [Documentation]    Delete Vm instances using instance names in net_2.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     : FOR    ${vm}    IN    @{NET_2_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
 Delete Vm Instances In net_3
     [Documentation]    Delete Vm instances using instance names in net_3.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     : FOR    ${vm}    IN    @{NET_3_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
 Create Vm Instances For net_4
     [Documentation]    Create VM instances using flavor and image names for a network.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[3]    @{NET_4_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_5
     [Documentation]    Create VM instances using flavor and image names for a network.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[4]    @{NET_5_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Create Router2
     [Documentation]    Create Router
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Create Router    @{ROUTER}[1]
 
 Add net_4 Interfaces To Router2
     [Documentation]    Add Interfaces
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Add Router Interface    @{ROUTER}[1]    @{SUBNETS_2}[0]
 
 Check Vm Instances on net_4 and net_5 Have Ip Address
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     @{NET_4_L3_VM_IPS}    ${NET_4_L3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_4_VMS}
     @{NET_5_L3_VM_IPS}    ${NET_5_L3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_5_VMS}
     BuiltIn.Set Suite Variable    @{NET_4_L3_VM_IPS}
@@ -140,18 +148,22 @@ Check Vm Instances on net_4 and net_5 Have Ip Address
 
 Add net_5 Interfaces To Router2
     [Documentation]    Add Interfaces
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Add Router Interface    @{ROUTER}[1]    @{SUBNETS_2}[1]
 
 Ping Vm Instance5 In net_5 From net_4 (vlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[3]    @{NET_5_L3_VM_IPS}[0]
 
 Ping Vm Instance5 In net_4 From net_5 (vlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[4]    @{NET_4_L3_VM_IPS}[0]
 
 Connectivity Tests From Vm Instance4 In net_5
     [Documentation]    Check reachability of vm instance on a different network with one vlan vm in source and destination.
+    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
     ${dst_list} =    BuiltIn.Create List    @{NET_4_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[4]    @{NET_5_L3_VM_IPS}[0]    ${dst_list}
 
