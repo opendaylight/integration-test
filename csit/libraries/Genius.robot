@@ -325,6 +325,10 @@ SRM Start Suite
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}   sudo ovs-vsctl remove O . external_ids transport-zone
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}   sudo ovs-vsctl remove O . external_ids transport-zone
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Should Not Contain    ${output}    default-transport-zone
     Delete All Vteps
     Genius Suite Debugs    ${data_models}
     Genius Suite Teardown
