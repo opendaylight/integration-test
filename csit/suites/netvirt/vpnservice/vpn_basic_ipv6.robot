@@ -3,7 +3,7 @@ Documentation     Test suite to validate IPv6 vpnservice functionality in an Ope
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       Suite Setup
-# Suite Teardown    Suite Teardown
+Suite Teardown    Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -247,7 +247,6 @@ Suite Setup
     ${prefix_net20} =    Replace String    @{SUBNET_CIDRS}[1]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
     ...    fail_on_none=true    vm_list=${NET_2_VMS}    network=@{NETWORKS}[1]    subnet=${prefix_net20}
-    FATAL ERROR
     ${VM_IP_NET10} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${NET_1_VMS}    network=@{NETWORKS}[0]    subnet=${prefix_net10}
     ${VM_IP_NET20} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${NET_2_VMS}    network=@{NETWORKS}[1]    subnet=${prefix_net20}
     ${VM_INSTANCES} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
