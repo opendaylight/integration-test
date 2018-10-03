@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f4014a0_eeb36a6b",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-03T21:23:09Z",
+      "side": 1,
+      "message": "thsi needs to be the console expected for sfc which won\u0027t be jenkins. it will be fedora or ubuntu",
+      "revId": "8f9e02701ffdc444d15fb73dbc58c598ca69871c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
