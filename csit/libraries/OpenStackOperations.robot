@@ -334,15 +334,15 @@ Verify If Instance Is Arpingable From DHCP Namespace
     BuiltIn.Should Contain    ${output}    [${mac_uppercase}]
 
 Check If Instance Is Ready For Ssh Login Using PublicKey
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=centos    ${idfile}=/tmp/odlkey
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=centos    ${idfile}=/tmp/odlkey    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use publickey authentication
-    ${output} =    Execute Command on VM Instance with PublicKey Auth    ${net_name}    ${vm_ip}    ifconfig    user=${user}    idfile=${idfile}
+    ${output} =    Execute Command on VM Instance with PublicKey Auth    ${net_name}    ${vm_ip}    ifconfig    user=${user}    idfile=${idfile}    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Check If Instance Is Ready For Ssh Login Using Password
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
-    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
@@ -442,9 +442,10 @@ Close Vm Instance
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    exit
 
 Check If Console Is VmInstance
+    [Arguments]    ${console}=cirros
     [Documentation]    Check if the session has been able to login to the VM instance
     ${output} =    Utils.Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
-    BuiltIn.Should Not Contain    ${output}    jenkins
+    BuiltIn.Should Not Contain    ${output}    ${console}
 
 Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
