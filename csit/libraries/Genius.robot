@@ -315,16 +315,24 @@ Verify Tunnel Delete on DS
 SRM Start Suite
     [Documentation]    Start suite for service recovery.
     Genius Suite Setup
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
+    BuiltIn.Log    ${resp.content}
     ${dpn_Id_1} =    Genius.Get Dpn Ids    ${conn_id_1}
     ${dpn_Id_2} =    Genius.Get Dpn Ids    ${conn_id_2}
     Genius.Create Vteps    ${dpn_Id_1}    ${dpn_Id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${dpn_Id_1}    ${dpn_Id_2}
     ...    odl-interface:tunnel-type-vxlan
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
+    Builtin.Log    ${resp.content}
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status as UP    TZA
     Genius Suite Debugs    ${data_models}
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl remove O . external_ids transport-zone
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl remove O . external_ids transport-zone
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Should Not Contain    ${output}    default-transport-zone
     Delete All Vteps
     Genius Suite Debugs    ${data_models}
     Genius Suite Teardown

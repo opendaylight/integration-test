@@ -52,9 +52,10 @@ Verify TEP in controller and transport zone in OVSDB table of compute nodes
     ${dpn} =    BuiltIn.Convert To String    ${dpn}
     Set Suite Variable    ${DPN2}    ${dpn}
     @{tep_data} =    BuiltIn.Create List    ${DPN1}    ${DPN2}    ${DEFAULT_TRANSPORT_ZONE}
-    ${itm_data} =    Utils.Get Data From URI    session    ${TRANSPORTZONE_POST_URL}
-    : FOR    ${data}    IN    @{tep_data}
-    \    BuiltIn.Should Contain    ${itm_data}    ${data}
+    Utils.Check For Elements At URI    ${TRANSPORTZONE_POST_URL}    @{tep_data}
+    #    ${itm_data} =    Utils.Get Data From URI    session    ${TRANSPORTZONE_POST_URL}
+    #    : FOR    ${data}    IN    @{tep_data}
+    #    BuiltIn.Should Contain    ${itm_data}    ${data}
     ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     BuiltIn.Should Not Contain    ${tep_show_output}    ${STATUS_CHECK}
     BuiltIn.Should Contain    ${tep_show_output}    ${DPN1}
@@ -98,9 +99,10 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
     ${ip} =    OvsManager.Get OVS Local Ip    @{COMPUTE-NODE-LIST}[1]
     Set Suite Variable    ${IP2}    ${ip}
     @{tep_data} =    BuiltIn.Create List    ${DPN1}    ${DPN2}    ${TRANSPORT_ZONE}    ${IP1}    ${IP2}
-    ${config_data} =    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
-    : FOR    ${data}    IN    @{tep_data}
-    \    BuiltIn.Should Contain    ${config_data}    ${data}
+    Utils.Check For Elements At URI    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}    @{tep_data}
+    #    ${config_data} =    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
+    #    : FOR    ${data}    IN    @{tep_data}
+    #    BuiltIn.Should Contain    ${config_data}    ${data}
 
 Verify other-config-key and transport zone value in controller operational datastore
     [Documentation]    validate local_ip and transport-zone value from controller datastore and Verify value of external-id-key with transport_zone in Controller operational datastore
@@ -117,10 +119,11 @@ Delete transport zone on OVS and check ovsdb update to controller
     BuiltIn.Should Contain    ${tep_show_output}    ${DEFAULT_TRANSPORT_ZONE}
     VpnOperations.ITM Delete Tunnel    ${TRANSPORT_ZONE}
     @{tep_data} =    BuiltIn.Create List    ${DPN1}    ${DPN2}    ${IP1}    ${IP2}
-    ${default_zone_data} =    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${DEFAULT_TRANSPORT_ZONE}
-    BuiltIn.Should Not Contain    ${default_zone_data}    ${TRANSPORT_ZONE}
-    : FOR    ${data}    IN    @{tep_data}
-    \    BuiltIn.Should Contain    ${default_zone_data}    ${data}
+    Utils.Check For Elements At URI    ${TRANSPORT_ZONE_ENDPOINT_URL}/${DEFAULT_TRANSPORT_ZONE}    @{tep_data}
+    #    ${default_zone_data} =    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${DEFAULT_TRANSPORT_ZONE}
+    #    BuiltIn.Should Not Contain    ${default_zone_data}    ${TRANSPORT_ZONE}
+    #    : FOR    ${data}    IN    @{tep_data}
+    #    BuiltIn.Should Contain    ${default_zone_data}    ${data}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM1_IP}    ping -c ${DEFAULT_PING_COUNT} ${VM2_IP}
     BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
 
