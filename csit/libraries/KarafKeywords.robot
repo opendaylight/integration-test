@@ -95,13 +95,15 @@ Check_Karaf_Log_From_Console
     ...    that it appears ${count} number of times
     ${output} =    Issue_Command_On_Karaf_Console    log:display | grep ${message} | wc -l
     ${line} =    Get Line    ${output}    0
-    ${stripped} =    Strip String    ${line}
+    ${stripped} =    Strip String   8 ${line}
     Should Be Equal As Strings    ${stripped}    ${count}
 
 Check_Karaf_Log_File
     [Arguments]    ${message}    ${count}
     [Documentation]    Verifies that the ${message} exists in the Karaf Log Folder and checks
     ...    that it appears ${count} number of times
+    ${output1}    Run Command On Controller    cat    ${BUNDLEFOLDER}/data/log/karaf.log
+    Log     ${output1}
     ${output}    Run Command On Controller    ${ODL_SYSTEM_IP}    grep -o ${message} ${WORKSPACE}/${BUNDLEFOLDER}/data/log/* | wc -l
     Should Be Equal As Strings    ${output}    ${count}
 
