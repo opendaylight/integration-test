@@ -1,8 +1,10 @@
 #!/bin/bash
 TOOLS_WORK_DIR="/tmp"
+SXP_BUNDLE_URL=`echo ${ACTUAL_BUNDLE_URL} | sed -e 's/karaf/sxp\/karaf/g'`
 
-echo "Extracting the new controller... [${TOOLS_SYSTEM_IP}]"
-ssh ${TOOLS_SYSTEM_IP} wget --progress=dot:mega ${ACTUAL_BUNDLE_URL} -P ${TOOLS_WORK_DIR}
+echo "Extracting the new controller... [${TOOLS_SYSTEM_IP}] with [${SXP_BUNDLE_URL}]"
+ssh ${TOOLS_SYSTEM_IP}
+ssh ${TOOLS_SYSTEM_IP} wget --progress=dot:mega ${SXP_BUNDLE_URL} -P ${TOOLS_WORK_DIR}
 ssh ${TOOLS_SYSTEM_IP} unzip -q ${TOOLS_WORK_DIR}/${BUNDLE} -d ${TOOLS_WORK_DIR}
 
 echo "Set Java version"
