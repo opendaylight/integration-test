@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f876cfe_b3417af0",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-05T21:42:10Z",
+      "side": 1,
+      "message": "looks like maybe a copy/paste (or slight modification)\nof the keyword in openstackoperations. some reason\nwe can just use that one?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 65
+      },
+      "revId": "2165048734cd1ffc2f804b93267e751fa17addd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
