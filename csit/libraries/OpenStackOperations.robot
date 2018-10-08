@@ -334,15 +334,16 @@ Verify If Instance Is Arpingable From DHCP Namespace
     BuiltIn.Should Contain    ${output}    [${mac_uppercase}]
 
 Check If Instance Is Ready For Ssh Login Using PublicKey
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=centos    ${idfile}=/tmp/odlkey
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=centos    ${idfile}=/tmp/odlkey    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use publickey authentication
     ${output} =    Execute Command on VM Instance with PublicKey Auth    ${net_name}    ${vm_ip}    ifconfig    user=${user}    idfile=${idfile}
+    ...    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Check If Instance Is Ready For Ssh Login Using Password
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
-    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
@@ -442,9 +443,10 @@ Close Vm Instance
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    exit
 
 Check If Console Is VmInstance
+    [Arguments]    ${console}=cirros
     [Documentation]    Check if the session has been able to login to the VM instance
     ${output} =    Utils.Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
-    BuiltIn.Should Not Contain    ${output}    jenkins
+    BuiltIn.Should Contain    ${output}    ${console}
 
 Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
@@ -483,12 +485,12 @@ Execute Command on VM Instance
     [Return]    ${output}
 
 Execute Command on VM Instance With PublicKey Auth
-    [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=centos    ${idfile}=/tmp/odlkey
+    [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=centos    ${idfile}=/tmp/odlkey    ${console}=cirros
     [Documentation]    Login to the vm instance using ssh publickey in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${idfile} ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=publickey    prompt=${OS_SYSTEM_PROMPT}    timeout=60s
-    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
     [Teardown]    Exit From Vm Console
     [Return]    ${output}
