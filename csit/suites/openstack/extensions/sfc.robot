@@ -232,9 +232,9 @@ Check Vm Instances Have Ip Address And Ready For Test
     BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
     BuiltIn.Set Suite Variable    ${SF1_IP}
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using PublicKey    @{NETWORKS}[0]    ${SF1_IP}    user=ubuntu
-    ...    idfile=/tmp/odlsfctest
-    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]
-    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]
+    ...    idfile=/tmp/odlsfctest    console=ubuntu
+    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    console=ubuntu
+    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    console=ubuntu
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
     OpenStackOperations.Get Suite Debugs
 
