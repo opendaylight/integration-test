@@ -232,7 +232,7 @@ Check Vm Instances Have Ip Address And Ready For Test
     BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
     BuiltIn.Set Suite Variable    ${SF1_IP}
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using PublicKey    @{NETWORKS}[0]    ${SF1_IP}    user=ubuntu
-    ...    idfile=/tmp/odlsfctest
+    ...    idfile=/tmp/odlsfctest    console=ubuntu
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
@@ -248,17 +248,17 @@ Start Applications on VM Instances For Test
     BuiltIn.Comment    Copy vxlan_tool script to SFC VM
     OpenStackOperations.Copy File To VM Instance With PublicKey Auth    @{NETWORKS}[0]    ${SF1_IP}    /tmp/vxlan_tool.py    user=${CLOUD_USER_NAME}    idfile=/tmp/odlsfctest
     BuiltIn.Comment    Bring up the second Interface for egress
-    Execute Command on VM Instance with PublicKey Auth    @{NETWORKS}[0]    ${SF1_IP}    sudo ifconfig ens3 up    user=${CLOUD_USER_NAME}    idfile=/tmp/odlsfctest
+    Execute Command on VM Instance with PublicKey Auth    @{NETWORKS}[0]    ${SF1_IP}    sudo ifconfig ens3 up    user=${CLOUD_USER_NAME}    idfile=/tmp/odlsfctest    console=ubuntu
 
 Start Vxlan Tool in SF
     [Arguments]    ${network}    ${sf_vm_ip}    ${args}=${EMPTY}
     [Documentation]    Starts the tool in the SF VM's
-    Execute Command on VM Instance with PublicKey Auth    ${network}    ${sf_vm_ip}    nohup sudo python3 /tmp/vxlan_tool.py ${args} &    user=ubuntu    idfile=/tmp/odlsfctest
+    Execute Command on VM Instance with PublicKey Auth    ${network}    ${sf_vm_ip}    nohup sudo python3 /tmp/vxlan_tool.py ${args} &    user=ubuntu    idfile=/tmp/odlsfctest    console=ubuntu
 
 Stop Vxlan Tool in SF
     [Arguments]    ${network}    ${sf_vm_ip}
     [Documentation]    Starts the tool in the SF VM's
-    Execute Command on VM Instance With PublicKey Auth    ${network}    ${sf_vm_ip}    sudo pkill python3    user=ubuntu    idfile=/tmp/odlsfctest
+    Execute Command on VM Instance With PublicKey Auth    ${network}    ${sf_vm_ip}    sudo pkill python3    user=ubuntu    idfile=/tmp/odlsfctest    console=ubuntu
 
 Access Http And Check Status
     [Arguments]    ${vm_ip}    ${curl_command}    ${ret_code}    ${cmd_timeout}=30s
