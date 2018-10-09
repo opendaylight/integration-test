@@ -70,6 +70,7 @@ Test Teardown
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a    return_stdout=True    return_stderr=True
     ...    return_rc=True
+    Sleep    1s
     ${resp} =    RequestsLibrary.Delete_Request    session    ${whitelist}
 
 Suite Setup
