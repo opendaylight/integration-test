@@ -144,30 +144,30 @@ Ping Vm Instance3 In net_1 From net_2
 Block Port On ODL1 Again
     [Documentation]    Block connection on first controller the second time
     ClusterManagement.Isolate_Member_From_List_Or_All    ${1}    protocol=tcp    port=${ODL_AKKA_PORT}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Block Port On ODL2 Again
     [Documentation]    Block connection on second controller the second time
     ClusterManagement.Isolate_Member_From_List_Or_All    ${2}    protocol=tcp    port=${ODL_AKKA_PORT}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Allow Port On ODL1 Again
     [Documentation]    Allow connection on first controller the second time
@@ -180,30 +180,30 @@ Allow Port On ODL2 Again
 Block Port On ODL2 Finally
     [Documentation]    Block connection on second controller for the last time
     ClusterManagement.Isolate_Member_From_List_Or_All    ${2}    protocol=tcp    port=${ODL_AKKA_PORT}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Block Port On ODL3 Again
     [Documentation]    Block connection on the third controller for the second time
     ClusterManagement.Isolate_Member_From_List_Or_All    ${3}    protocol=tcp    port=${ODL_AKKA_PORT}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[0]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Allow Port On ODL2 Finally
     [Documentation]    Allow connection on second controller for the last time

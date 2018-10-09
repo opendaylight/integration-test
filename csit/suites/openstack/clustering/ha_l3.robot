@@ -165,19 +165,19 @@ Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
@@ -196,19 +196,19 @@ Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[0]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again. Do not check for cluster sync until all nodes are
@@ -236,13 +236,13 @@ Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_2 after recovering all nodes
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
-    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
