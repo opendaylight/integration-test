@@ -73,7 +73,7 @@ ${USE_NETCONF_CONNECTOR}    False
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
 ${DEVICE_NAME}    test-device
-${DEVICE_PORT}    1830
+${DEVICE_PORT}    2830
 ${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
