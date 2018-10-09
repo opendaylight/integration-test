@@ -66,11 +66,11 @@ Suite Teardown
 
 Test Teardown
     [Documentation]    Tears down the docker running netopeer and deletes entry from the whitelist.
+    ${resp} =    RequestsLibrary.Delete_Request    session    ${whitelist}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose down    return_stdout=True    return_stderr=True
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    ${resp} =    RequestsLibrary.Delete_Request    session    ${whitelist}
 
 Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.
