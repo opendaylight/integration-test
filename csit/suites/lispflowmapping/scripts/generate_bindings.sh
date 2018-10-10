@@ -10,7 +10,6 @@ mkdir -p ${WORKSPACE}/$DIRECTORY
 
 GITWEB_LISP="https://git.opendaylight.org/gerrit/gitweb?p=lispflowmapping.git;a=blob_plain;hb=refs/heads/${DISTROBRANCH}"
 GITWEB_MDSAL="https://git.opendaylight.org/gerrit/gitweb?p=mdsal.git;a=blob_plain;hb=refs/heads/${DISTROBRANCH}"
-GITWEB_CONTROLLER="https://git.opendaylight.org/gerrit/gitweb?p=controller.git;a=blob_plain;hb=refs/heads/${DISTROBRANCH}"
 
 # Download yang-files in the VM on fly using curl before generating
 # binding files.
@@ -18,19 +17,18 @@ curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-proto.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-inet-binary-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-inet-binary-types.yang
 curl "$GITWEB_LISP;f=mappingservice/api/src/main/yang/odl-mappingservice.yang" -o ${WORKSPACE}/$DIRECTORY/odl-mappingservice.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
-
-# ietf-lisp-address-types.yang moved to MD-SAL project in Nitrogen
-if [ ${DISTROBRANCH} = "stable/carbon" ]
-then
-    curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
-else
-    curl "$GITWEB_MDSAL;f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
-fi
-
-curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types-20130715/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
-curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types-2013-07-15/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
 curl "$GITWEB_MDSAL;f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE}/$DIRECTORY/yang-ext.yang
-curl "$GITWEB_CONTROLLER;f=opendaylight/config/config-api/src/main/yang/config.yang" -o ${WORKSPACE}/$DIRECTORY/config.yang
+curl "$GITWEB_MDSAL;f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
+
+# ietf-{inet,yang}-types.yang folder renamed in Neon
+if [ ${DISTROBRANCH} = "stable/oxygen" -o ${DISTROBRANCH} = "stable/fluorine" ]
+then
+    curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types-20130715/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
+    curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types-2013-07-15/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
+else
+    curl "$GITWEB_MDSAL;f=model/ietf/rfc6991-ietf-yang-types/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
+    curl "$GITWEB_MDSAL;f=model/ietf/rfc6991-ietf-inet-types/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
+fi
 
 # Copy bits patch to yang file directory
 cp ${WORKSPACE}/test/csit/suites/lispflowmapping/scripts/bits.patch ${WORKSPACE}/$DIRECTORY
