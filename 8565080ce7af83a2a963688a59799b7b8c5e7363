@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8585476d_3fe5083f",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "ebgp",
+      "range": {
+        "startLine": 12,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d0f6dc3_aaa8b5d3",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "only",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0a7e717_17770a18",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "Third ibgp sends wildcard RT route, and it is checked that odl doesn\u0027t advertize l3vpn route to it.",
+      "range": {
+        "startLine": 14,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9afc00fc_59398f74",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "withdrew RT route, and that odl withdrew l3vpn route from it.",
+      "range": {
+        "startLine": 15,
+        "startChar": 101,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f5c39eb_b62e9db3",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "there is just 2 ibgps, so edit all text accordingly, or just say first peer, second peer etc.",
+      "range": {
+        "startLine": 16,
+        "startChar": 39,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75bb4647_486d34b7",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "This is not necessary anymore",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48860270_78a70935",
+        "filename": "csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-10-11T10:21:18Z",
+      "side": 1,
+      "message": "make this 1,2,3",
+      "range": {
+        "startLine": 127,
+        "startChar": 58,
+        "endLine": 127,
+        "endChar": 59
+      },
+      "revId": "8565080ce7af83a2a963688a59799b7b8c5e7363",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
