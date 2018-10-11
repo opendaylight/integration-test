@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "a5b4d32c_dd4fe7bd",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "121994fb_f109ea63",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "171913d0_58a890c3",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 21
