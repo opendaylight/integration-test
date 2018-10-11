@@ -414,11 +414,13 @@ def parse_connections(connections_json):
 
     """
     data = json.loads(connections_json)
-    connections = data['output']['connections']
-    output = []
-    for connection in connections.values():
-        output += connection
-    return output
+    output = data['output']
+    result = []
+    if output:
+        connections = output['connections']
+        for connection in connections.values():
+            result += connection
+    return result
 
 
 def find_connection(connections_json, version, mode, ip, port, state):
