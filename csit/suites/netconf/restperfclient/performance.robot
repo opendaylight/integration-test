@@ -35,7 +35,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
-${REQUEST_COUNT}    65536
+${REQUEST_COUNT}    16384
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_type}    full-uri-device
 
@@ -86,7 +86,7 @@ Cleanup_And_Collect
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Calculate and set the value of the timeout
-    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/15+10
+    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+20
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
