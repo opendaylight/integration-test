@@ -33,7 +33,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/RestPerfClient
-${REQUEST_COUNT}    65536
+${REQUEST_COUNT}    16384
 ${device_type}    full-uri-device
 ${test_device}    odl-mdsal-northbound-via-netconf-connector
 
@@ -119,7 +119,7 @@ Setup_Everything
     # Calculate timeouts
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
-    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
+    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+20
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
 
 Teardown_Everything
