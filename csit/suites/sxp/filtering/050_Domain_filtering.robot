@@ -71,7 +71,7 @@ Binding Replacement Test
     [Tags]    SXP    Domains    Filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized After Update
     Add Bindings    400    35.35.35.35/32    127.0.0.4
-    Add Bindings    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    450    35.35.35.35/32    127.0.0.1    domain=${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check After Update Part One
     Add Filters After Update
     Wait Until Keyword Succeeds    15    1    Check After Update Part Two
@@ -93,12 +93,12 @@ Setup Nodes Local
     Add Domain    ${DOMAIN_1}
     Add Domain    ${DOMAIN_2}
     Add Domain    ${DOMAIN_3}
-    Add Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
-    Add Bindings    20    20.20.5.5/32    127.0.0.1    ${DOMAIN_1}
-    Add Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
-    Add Bindings    30    30.30.5.5/32    127.0.0.1    ${DOMAIN_2}
-    Add Bindings    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
-    Add Bindings    40    40.40.5.5/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    20    20.20.20.5/32    127.0.0.1    domain=${DOMAIN_1}
+    Add Bindings    20    20.20.5.5/32    127.0.0.1    domain=${DOMAIN_1}
+    Add Bindings    30    30.30.30.5/32    127.0.0.1    domain=${DOMAIN_2}
+    Add Bindings    30    30.30.5.5/32    127.0.0.1    domain=${DOMAIN_2}
+    Add Bindings    40    40.40.40.5/32    127.0.0.1    domain=${DOMAIN_3}
+    Add Bindings    40    40.40.5.5/32    127.0.0.1    domain=${DOMAIN_3}
     Add Bindings    300    25.25.25.25/32    127.0.0.4
     Add Bindings    500    35.35.35.35/32
     # NO DOMAIN
