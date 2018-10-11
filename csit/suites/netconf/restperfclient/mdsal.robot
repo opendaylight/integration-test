@@ -119,7 +119,7 @@ Setup_Everything
     # Calculate timeouts
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
-    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
+    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+20
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
 
 Teardown_Everything

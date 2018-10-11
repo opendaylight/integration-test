@@ -86,7 +86,7 @@ Cleanup_And_Collect
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Calculate and set the value of the timeout
-    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/15+10
+    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+20
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
