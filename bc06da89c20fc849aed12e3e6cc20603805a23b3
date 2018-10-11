@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "e859fcc4_9b9f251c",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40af7b3a_0a4e246f",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef435a3c_017490f5",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "7e3c27ee_1eee2198",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "I have no idea Jamo,just using it from genius suite",
+      "parentUuid": "ef435a3c_017490f5",
+      "range": {
+        "startLine": 34,
+        "startChar": 94,
+        "endLine": 34,
+        "endChar": 111
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d72e44b2_6f5e2953",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -82,6 +130,30 @@
       "writtenOn": "2018-07-06T17:09:28Z",
       "side": 1,
       "message": "I don\u0027t think this works to have multiple items in a \nShould Not Contain",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5837544_dd321354",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "I have taken it from the merged genius code but I will take a look at it and fix this",
+      "parentUuid": "d72e44b2_6f5e2953",
       "range": {
         "startLine": 36,
         "startChar": 4,
@@ -163,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "d6445d72_48f4a7f4",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1bd210c_06236263",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 22
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d6c2ffa_63c69eb4",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -174,6 +270,30 @@
       "writtenOn": "2018-07-06T17:09:28Z",
       "side": 1,
       "message": "space?",
+      "range": {
+        "startLine": 58,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 57
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "955ef5d4_e6546588",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6c2ffa_63c69eb4",
       "range": {
         "startLine": 58,
         "startChar": 56,
@@ -232,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "2a8a518e_5939f3d2",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a4b8b1a_6bbc6243",
+      "range": {
+        "startLine": 69,
+        "startChar": 103,
+        "endLine": 69,
+        "endChar": 107
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "366ff7b3_2f711603",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -243,6 +387,30 @@
       "writtenOn": "2018-07-06T17:09:28Z",
       "side": 1,
       "message": "isn\u0027t this in the Variables section?",
+      "range": {
+        "startLine": 85,
+        "startChar": 73,
+        "endLine": 85,
+        "endChar": 76
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e2df56f_6676f9db",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "No Jamo not present",
+      "parentUuid": "366ff7b3_2f711603",
       "range": {
         "startLine": 85,
         "startChar": 73,
@@ -301,6 +469,30 @@
     },
     {
       "key": {
+        "uuid": "4ef81279_a9624e3b",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf6f834_085e32d4",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 20
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebbcc267_70e80d87",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -312,6 +504,30 @@
       "writtenOn": "2018-07-06T17:09:28Z",
       "side": 1,
       "message": "please remove all Log statements unless absolutely \nneccessary. For example, we are gaining nothing here\nby putting a message to the robot logs that says \"switch\nconnection\", when line 121 above is doing and logging\nexactly that.",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 28
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b20d42_e6dabd49",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbcc267_70e80d87",
       "range": {
         "startLine": 122,
         "startChar": 4,
@@ -341,6 +557,24 @@
     },
     {
       "key": {
+        "uuid": "1b14e24e_dd69c628",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3626a396_54fbdbe9",
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a50e0bb3_18c14e4c",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 24
@@ -352,6 +586,30 @@
       "writtenOn": "2018-07-06T17:09:28Z",
       "side": 1,
       "message": "don\u0027t you have BR1 set up in Variables section?",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "bc06da89c20fc849aed12e3e6cc20603805a23b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca4c43a0_3cd4eb42",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-10-11T04:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a50e0bb3_18c14e4c",
       "range": {
         "startLine": 130,
         "startChar": 4,
