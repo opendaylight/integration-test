@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Robot wrapper around ODLTools.
+Library           OperatingSystem
 Resource          ../variables/Variables.robot
 
 *** Keywords ***
