@@ -327,6 +327,7 @@ Suite Setup
 
 Suite Teardown
     [Documentation]    Delete the setup
+    OpenStackOperations.Get Suite Debugs
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
