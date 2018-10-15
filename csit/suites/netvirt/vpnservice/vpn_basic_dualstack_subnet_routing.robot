@@ -103,9 +103,66 @@ Associate L3VPN Again To Routers and verify traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data Traffic
 
+Delete the configured extra IPv4/IPv6 Addresss and verify traffic
+    [Documentation]    Delete IPv4/IPv6 Address configuration on Interfaces and verify traffic
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[0]/64 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[1]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[1]/64 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV6}[0]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[3]/64 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV6}[1]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[4]/64 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    sudo ifconfig eth0:1 down
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[1]    sudo ifconfig eth0:1 down
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV4}[0]    sudo ifconfig eth0:1 down
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV4}[1]    sudo ifconfig eth0:1 down
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    40s    Verify Table 21 for No VPN Routes
+
+Configure Again Extra IPv4/IPv6 Addresss On Interface For Subnet Routing
+    [Documentation]    Extra IPv4/IPv6 Address configuration on Interfaces
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[0]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[1]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[1]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV6}[0]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[3]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV6}[1]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[4]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[0] netmask 255.255.255.0 up; ip a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[1]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[1] netmask 255.255.255.0 up; ip a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV4}[0]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[3] netmask 255.255.255.0 up; ip a
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPV4}[1]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[4] netmask 255.255.255.0 up; ip a
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data Traffic
+
+Remove interface from Router and verify traffic
+    [Documentation]    Remove subnet from router and check data path verification
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS4}
+    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS6}
+    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS4}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS6}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
+
+Add interface router to again and verify traffic
+    [Documentation]    Add interface router to again and check data path verification
+    : FOR    ${interface}    IN    @{SUBNETS4}
+    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS6}
+    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data Traffic
+
 Delete L3VPN
     [Documentation]    Delete L3VPN.
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
 
 *** Keywords ***
 Suite Setup
@@ -271,6 +328,22 @@ Verify Ipv6 Data No Traffic
     BuiltIn.Should Contain    ${output}    ${NO_PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{net_2_vm_ipv6}[1]    ping6 -c 3 @{EXTRA_NW_IPV6}[1]
     BuiltIn.Should Contain    ${output}    ${NO_PING_REGEXP}
+
+Verify Table 21 for VPN Routes
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[3]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[3]
+
+Verify Table 21 for No VPN Routes
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[3]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    nw_dst=@{EXTRA_NW_IPV4}[3]
 
 Suite Teardown
     [Documentation]    Delete the setup
