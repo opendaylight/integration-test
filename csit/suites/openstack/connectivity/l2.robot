@@ -76,13 +76,13 @@ Connectivity Tests From Vm Instance3 In net_2
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
     ...    list so that later cleanup will not try to delete it.
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
     Remove From List    ${NET_1_VMS}    0
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
 
 *** Keywords ***
