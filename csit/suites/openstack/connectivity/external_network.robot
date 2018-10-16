@@ -109,68 +109,68 @@ Ping External Network PNF from Vm Instance 1 After Floating IP Assignment
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance3
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance3
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
 Ping External Network PNF from SNAT VM Instance1
     [Documentation]    Check reachability of External Network PNF from SNAT VM Instance1
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${dst_ip}    ping_should_succeed=${expect_ping_to_work}
 
 Ping External Network PNF from SNAT VM Instance2
     [Documentation]    Check reachability of External Network PNF from SNAT VM Instance2
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${dst_ip}    ping_should_succeed=${expect_ping_to_work}
 
 Remove Floating Ip from VM Instance 1
     [Documentation]    Delete FIP from VM Instance 1
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Remove Floating Ip From Vm    @{NET1_FIP_VMS}[0]    @{VM_FLOATING_IPS}[0]
 
 Remove Floating Ip from VM Instance 2
     [Documentation]    Delete FIP from VM Instance 2
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     OpenStackOperations.Remove Floating Ip From Vm    @{NET1_FIP_VMS}[1]    @{VM_FLOATING_IPS}[1]
 
 Ping External Network PNF from Vm Instance 1 After Floating IP Removal
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
 
 Ping External Network PNF from Vm Instance 2 After Floating IP Removal
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
-    BuiltIn.Pass Execution If    "${GATE_JOB}" == "True"    "Skipping test case for automatic gating jobs to reduce run time"
+    [Tags]    NON_GATE
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
