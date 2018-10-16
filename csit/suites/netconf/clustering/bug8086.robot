@@ -210,4 +210,4 @@ Populate_Schema_Directory_Over_Active_Connection
     ...    TODO: Make this configurable and move to NexusKeywords.
     ${filename} =    NexusKeywords.Deploy_Artifact    component=carpeople    artifact=clustering-it-model    name_suffix=-sources.jar
     ${dir} =    BuiltIn.Set_Variable    '${SCHEMA_DIRECTORY}'
-    SSHKeywords.Execute_Command_Should_Pass    mkdir -p '${SCHEMA_DIRECTORY}' && unzip -j '${filename}' META-INF/yang/car.yang -d '${SCHEMA_DIRECTORY}/' && rm '${filename}'
+    SSHKeywords.Execute_Command_Should_Pass    mkdir -p '${SCHEMA_DIRECTORY}' && unzip -j '${filename}' META-INF/yang/car@2014-08-18.yang -d '${SCHEMA_DIRECTORY}/' && rm '${filename}'
