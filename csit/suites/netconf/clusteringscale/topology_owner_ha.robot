@@ -112,10 +112,10 @@ Wait_For_Config_Items
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Config_Items_Lower_Bound
 
 Reboot_Entity_Ownership_Leader
-    [Documentation]    Kill and restart member where entity-ownership shard leader was, including removal of persisted data.
+    [Documentation]    Stop and restart member where entity-ownership shard leader was, including removal of persisted data.
     ...    After cluster sync, sleep additional time to ensure entity-ownership shard processes requests with the rebooted member fully rejoined.
     [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
-    ClusterManagement.Kill_Single_Member    ${entity_ownership_leader_index}
+    ClusterManagement.Stop_Single_Member    ${entity_ownership_leader_index}
     ${owner_list} =    BuiltIn.Create_List    ${entity_ownership_leader_index}
     ClusterManagement.Start_Single_Member    ${entity_ownership_leader_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
