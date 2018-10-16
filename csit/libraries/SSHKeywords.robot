@@ -165,9 +165,10 @@ Virtual_Env_Set_Path
     BuiltIn.Set_Global_Variable    \${SSHKeywords__current_venv_path}    ${venv_path}
 
 Virtual_Env_Create
+    [Arguments]    ${upgrade_pip}=True
     [Documentation]    Creates virtual env. If not to use the default name, use Virtual_Env_Set_Path kw. Returns stdout.
     Execute_Command_At_Cwd_Should_Pass    virtualenv ${SSHKeywords__current_venv_path}
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip
+    BuiltIn.Run_Keyword_And_Return_If    ${upgrade_pip}    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip
 
 Virtual_Env_Delete
     [Documentation]    Deletes a directory with virtual env.

@@ -132,6 +132,7 @@ Start_Suite
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
+    SSHKeywords.Virtual_Env_Delete
     SSHLibrary.Close_All_Connections
     RequestsLibrary.Delete_All_Sessions
 

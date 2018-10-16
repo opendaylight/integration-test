@@ -90,7 +90,7 @@ Start_Suite
     ${conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=10s
     Builtin.Set_Suite_Variable    ${conn_id}
     SSHKeywords.Flexible_Controller_Login
-    SSHKeywords.Virtual_Env_Create
+    SSHKeywords.Virtual_Env_Create    upgrade_pip=False
     SSHKeywords.Virtual_Env_Install_Package    exabgp==4.0.5
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
