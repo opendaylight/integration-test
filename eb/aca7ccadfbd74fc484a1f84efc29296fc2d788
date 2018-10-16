@@ -1,0 +1,7 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+2: Tomas Markovic <tomas.markovic@pantheon.tech>
+Submitted-by: Tomas Markovic <tomas.markovic@pantheon.tech>
+Submitted-at: Tue, 16 Oct 2018 09:23:07 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/75531
+Project: integration/test
+Branch: refs/heads/master
