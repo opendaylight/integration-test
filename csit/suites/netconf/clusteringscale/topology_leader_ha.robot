@@ -36,7 +36,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${CONFIGURED_DEVICES_LIMIT}    20
-${CONNECTION_SLEEP}    1.2
+${CONNECTION_SLEEP}    1
 ${DEFAULT_TEARDOWN_KEYWORD}    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 ${DEVICE_BASE_NAME}    netconf-test-device
 ${DEVICE_SET_SIZE}    30
@@ -86,12 +86,13 @@ Wait_For_Config_Items
     [Documentation]    Make sure configurer is in phase when old devices are being deconfigured; or fail on timeout.
     ${timeout} =    Get_Typical_Time
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Config_Items_Lower_Bound
+    Sleep    120
 
 Reboot_Topology_Leader
-    [Documentation]    Kill and restart member where topology shard leader was, including removal of persisted data.
+    [Documentation]    Stop and restart member where topology shard leader was, including removal of persisted data.
     ...    After cluster sync, sleep additional time to ensure manager processes requests with the rebooted member fully rejoined.
-    [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
-    ClusterManagement.Kill_Single_Member    ${topology_config_leader_index}
+    [Tags]    exclude    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
+    ClusterManagement.Stop_Single_Member    ${topology_config_leader_index}
     ${owner_list} =    BuiltIn.Create_List    ${topology_config_leader_index}
     ClusterManagement.Start_Single_Member    ${topology_config_leader_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
@@ -121,6 +122,7 @@ Check_For_Connector_Leak
 Setup_Everything
     [Documentation]    Initialize libraries and set suite variables..
     ClusterManagement.ClusterManagement_Setup
+    ClusterManagement.Get_Leader_And_Followers_For_Shard    topology    configuration
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False
     ${testtool_connection_index} =    SSHKeywords.Open_Connection_To_Tools_System
