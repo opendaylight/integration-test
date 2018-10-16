@@ -10,6 +10,7 @@
 # http://www.eclipse.org/legal/epl-v10.html
 ##############################################################################
 
+import platform
 from docs_conf.conf import *
 
 # Append to intersphinx_mapping
@@ -23,7 +24,6 @@ linkcheck_ignore = [
 
 nitpicky = True
 
-import platform
 if platform.system() != 'Windows':
     import subprocess
     subprocess.call(["./build-integration-robot-libdoc.sh"])
