@@ -60,7 +60,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${CONFIGURED_DEVICES_LIMIT}    20
-${CONNECTION_SLEEP}    1.2
+${CONNECTION_SLEEP}    1
 ${DEFAULT_TEARDOWN_KEYWORD}    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 ${DEVICE_BASE_NAME}    netconf-test-device
 ${DEVICE_SET_SIZE}    30
@@ -112,10 +112,10 @@ Wait_For_Config_Items
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Config_Items_Lower_Bound
 
 Reboot_Entity_Ownership_Leader
-    [Documentation]    Kill and restart member where entity-ownership shard leader was, including removal of persisted data.
+    [Documentation]    Stop and restart member where entity-ownership shard leader was, including removal of persisted data.
     ...    After cluster sync, sleep additional time to ensure entity-ownership shard processes requests with the rebooted member fully rejoined.
     [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
-    ClusterManagement.Kill_Single_Member    ${entity_ownership_leader_index}
+    ClusterManagement.Stop_Single_Member    ${entity_ownership_leader_index}
     ${owner_list} =    BuiltIn.Create_List    ${entity_ownership_leader_index}
     ClusterManagement.Start_Single_Member    ${entity_ownership_leader_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
