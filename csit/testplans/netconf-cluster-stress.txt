@@ -7,16 +7,14 @@
 # Place the suites in run order:
 
 # Make sure ODL is ready.
-integration/test/csit/suites/netconf/ready
 
 # Run non intrusive cluster tests first.
 
 # Run the intrusive cluster tests after the non-intrusive ones.
-integration/test/csit/suites/netconf/clusteringscale/topology_owner_ha.robot
+#integration/test/csit/suites/netconf/clusteringscale/topology_owner_ha.robot
 
 # Reset in order to run more suites.
-integration/test/csit/suites/test/cluster_reset.robot
-integration/test/csit/suites/netconf/ready
+#integration/test/csit/suites/test/cluster_reset.robot
 
 # More suites.
 # This suite is less critical itself, but it may find bugs related to reset procedure.
