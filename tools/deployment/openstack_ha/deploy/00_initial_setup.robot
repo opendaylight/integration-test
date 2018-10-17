@@ -125,6 +125,7 @@ Install HAProxy
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    " user haproxy"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    $'\n'
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    "defaults"
+    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    " balance source"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    " log global"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    " maxconn 4000"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${HAPROXY_IP}    /etc/haproxy/haproxy.cfg    " option redispatch"
