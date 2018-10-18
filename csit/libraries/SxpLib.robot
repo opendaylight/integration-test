@@ -338,6 +338,7 @@ Put Routing Configuration To Controller
     [Arguments]    ${data}    ${session}
     [Documentation]    Put Routing configuration to Config DS
     ${resp} =    RequestsLibrary.Put Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    data=${data}    headers=${HEADERS_XML}
+    BuiltIn.Log    ${resp}
     BuiltIn.Should Match    "${resp.status_code}"    "20?"
 
 Clean Routing Configuration To Controller
