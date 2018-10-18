@@ -12,24 +12,8 @@ Resource          ../../../libraries/SxpClusterLib.robot
 *** Test Cases ***
 Route Definition Test
     [Documentation]    Test Route update mechanism without cluster node isolation
-    SxpClusterLib.Check Shards Status
-    ${owner_controller} =    SxpClusterLib.Get Owner Controller
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    Add Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    SxpLib.Clean Routing Configuration To Controller    ClusterManagement__session_${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Not Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-    Put Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${owner_controller}
-    BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
-
-Isolation of SXP service follower Test
-    [Documentation]    Test Route update mechanism during Cluster isolation,
-    ...    after each isolation virtual IP should be pre-routed to new leader
-    SxpClusterLib.Check Shards Status
-    ${any_controller} =    SxpClusterLib.Get Any Controller
-    Add Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${any_controller}
-    ${controller_index} =    SxpClusterLib.Get Owner Controller
-    Isolate SXP Controller    ${controller_index}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    ifconfig -a    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
 
 *** Keywords ***
 Put Route Definition To Cluster
