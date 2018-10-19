@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8d5f351_68f7dbf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-19T00:52:43Z",
+      "side": 1,
+      "message": "please add more details on this so we know what this patch does",
+      "revId": "60fcf35c9b41dcdd35f90a567d9945bba897262f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce4df5d7_2d5f77cd",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-19T00:52:43Z",
+      "side": 1,
+      "message": "move it up to the other securitygroup tests",
+      "revId": "60fcf35c9b41dcdd35f90a567d9945bba897262f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
