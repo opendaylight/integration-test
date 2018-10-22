@@ -163,6 +163,11 @@ def parse_arguments():
     str_help = "Open message includes Multicast in MPLS/BGP IP VPNs arguments.\
     Enabling this flag makes the script not decoding the update mesage, because of not\
     supported decoding for these elements."
+    parser.add_argument("--grace", default="4", type=int, help=str_help)
+    str_help = "Open message includes Graceful-restart capability, containing AFI/SAFIS:\
+    IPV4-Unicast, IPV6-Unicast, BGP-LS\
+    Enabling this flag makes the script not decoding the update mesage, because of not\
+    supported decoding for these elements."
     parser.add_argument("--mvpn", default=False, action="store_true", help=str_help)
     str_help = "Open message includes L3VPN-MULTICAST arguments.\
     Enabling this flag makes the script not decoding the update mesage, because of not\
@@ -380,6 +385,7 @@ class MessageGenerator(object):
         self.rt_constrain = args.rt_constrain
         self.allf = args.allf
         self.skipattr = args.skipattr
+        self.grace = args.grace
         # Default values when BGP-LS Attributes are used
         if self.bgpls:
             self.prefix_count_to_add_default = 1
@@ -937,6 +943,34 @@ class MessageGenerator(object):
         )
         optional_parameters_hex += optional_parameter_hex
 
+        if self.grace != 4:
+            b = list(bin(self.grace)[:2])
+            b = b + [0] * (2 - len(b))
+            if b[0] == '1':
+                restart_flag = "\x80\x0a"
+            else:
+                restart_flag = "\x00\x0a"
+            if b[1] == '1':
+                ipv4_flag = "\x80"
+            else:
+                ipv4_flag = "\x00"
+            # 00 = 0
+            # 01 = 1
+            # 10 = 2
+            # 11 = 3
+            # "\x02" Param type ("Capability Ad")
+            # "\x08" Length (8 bytes)
+            # "\x40" Graceful-restart capability
+            # "\x06" Length (6 bytes)
+            # "\x00\x05" Restart timers (5 sec)
+            # "\x00\x01" AFI (IPV4)
+            # "\x01"  SAFI (Unicast)
+            # "\x00"  Flag
+            optional_parameter_hex = "\x02\x0c\x40\x05{}\x00\x01\x01{}".format(
+                restart_flag, ipv4_flag)
+            optional_parameters_hex += optional_parameter_hex
+
+
         # Optional Parameters Length
         optional_parameters_length = len(optional_parameters_hex)
         optional_parameters_length_hex = struct.pack("B",
@@ -1156,6 +1190,9 @@ class MessageGenerator(object):
             path_attributes_hex +
             nlri_hex
         )
+
+        if self.grace != 8 and self.grace != 0:
+            message_hex = ( marker_hex + binascii.unhexlify("00170200000000"))
 
         if self.log_debug:
             logger.debug("UPDATE message encoding")
@@ -1382,7 +1419,7 @@ class ReadTracker(object):
 
     def __init__(self, bgp_socket, timer, storage, evpn=False, mvpn=False,
                  l3vpn_mcast=False, allf=False, l3vpn=False, rt_constrain=False,
-                 wait_for_read=10):
+                 grace=4, wait_for_read=10):
         """The reader initialisation.
 
         Arguments:
@@ -1391,6 +1428,7 @@ class ReadTracker(object):
             storage: thread safe dict
             evpn: flag that evpn functionality is tested
             mvpn: flag that mvpn functionality is tested
+            grace: flag that grace-restart functionality is tested
             l3vpn_mcast: flag that l3vpn_mcast functionality is tested
             l3vpn: flag that l3vpn unicast functionality is tested
             rt_constrain: flag that rt-constrain functionality is tested
@@ -1423,6 +1461,7 @@ class ReadTracker(object):
         self.rt_constrain = rt_constrain
         self.allf = allf
         self.wfr = wait_for_read
+        self.grace = grace
 
     def read_message_chunk(self):
         """Read up to one message
@@ -1630,6 +1669,11 @@ class ReadTracker(object):
             logger.debug("Skipping update decoding due to evpn data expected")
             return
 
+        logger.debug("Graceful-restart {}".format(self.grace))
+        if self.grace:
+            logger.debug("Skipping update decoding due to graceful-restart data expected")
+            return
+
         logger.debug("Mvpn {}".format(self.mvpn))
         if self.mvpn:
             logger.debug("Skipping update decoding due to mvpn data expected")
@@ -1821,7 +1865,7 @@ class StateTracker(object):
         # Sub-trackers.
         self.reader = ReadTracker(bgp_socket, timer, storage, evpn=cliargs.evpn, mvpn=cliargs.mvpn,
                                   l3vpn_mcast=cliargs.l3vpn_mcast, l3vpn=cliargs.l3vpn, allf=cliargs.allf,
-                                  rt_constrain=cliargs.rt_constrain, wait_for_read=cliargs.wfr)
+                                  rt_constrain=cliargs.rt_constrain, grace=cliargs.grace, wait_for_read=cliargs.wfr)
         self.writer = WriteTracker(bgp_socket, generator, timer)
         # Prioritization state.
         self.prioritize_writing = False
