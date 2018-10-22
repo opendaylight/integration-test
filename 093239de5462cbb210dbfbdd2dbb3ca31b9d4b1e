@@ -34,6 +34,24 @@
       "revId": "093239de5462cbb210dbfbdd2dbb3ca31b9d4b1e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1fcc677_6c467bea",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-22T15:27:55Z",
+      "side": 1,
+      "message": "try it in the sandbox. works for me on my fedora laptop, and\na centos VM I have in the cloud.\n\n$ ping -i 0.2 www.google.com\nPING www.google.com (172.217.5.68) 56(84) bytes of data.\n64 bytes from lax17s15-in-f4.1e100.net (172.217.5.68): icmp_seq\u003d1 ttl\u003d44 time\u003d24.0 ms\n64 bytes from lax17s15-in-f4.1e100.net (172.217.5.68): icmp_seq\u003d2 ttl\u003d44 time\u003d24.0 ms\n\n.\n.\n.",
+      "parentUuid": "e02de2c4_9df1c7a0",
+      "revId": "093239de5462cbb210dbfbdd2dbb3ca31b9d4b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
