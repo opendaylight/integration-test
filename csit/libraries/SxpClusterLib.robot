@@ -14,7 +14,7 @@ ${CONTROLLER_SESSION}    ClusterManagement__session_1
 ${SXP_LOG_LEVEL}    INFO
 ${VIRTUAL_IP}     ${TOOLS_SYSTEM_2_IP}
 ${VIRTUAL_IP_MASK}    255.255.255.0
-${VIRTUAL_INTERFACE}    eth0
+${VIRTUAL_INTERFACE}    dummy0
 ${MAC_ADDRESS_TABLE}    &{EMPTY}
 ${DEVICE_NODE_ID}    ${TOOLS_SYSTEM_IP}
 ${CLUSTER_NODE_ID}    ${TOOLS_SYSTEM_2_IP}
@@ -154,7 +154,6 @@ Create Virtual Interface
     [Documentation]    Create virtual interface on all of the cluster nodes
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo modprobe dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link set name ${VIRTUAL_INTERFACE} dev dummy0    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
     \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link show    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
 
 Delete Virtual Interface
