@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2148eb8_f68584c1",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "wrong feature documentation for SF441",
+      "range": {
+        "startLine": 2,
+        "startChar": 52,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50973c0c_4c0c5260",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "table 22, 46 and 195",
+      "range": {
+        "startLine": 57,
+        "startChar": 30,
+        "endLine": 57,
+        "endChar": 39
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9129ffbf_75a3212f",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "avoid hard coding where ever you can\nexample:\n@{HARD_TIMEOUT_VALUES}    20    30    100    1000    10000\n${cnt}\u003d    Get length    ${HARD_TIMEOUT_VALUES}\n: FOR    ${index}    IN RANGE    0    ${cnt}",
+      "range": {
+        "startLine": 59,
+        "startChar": 37,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e386e8bd_8653e9aa",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "${of_connections} \u003d number of dpins i guess, avoid hard coding",
+      "range": {
+        "startLine": 70,
+        "startChar": 114,
+        "endLine": 70,
+        "endChar": 116
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ac8bb33_fd1d001e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 83,
+        "startChar": 86,
+        "endLine": 83,
+        "endChar": 91
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80b37cee_b64e36d9",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "documentation is same has previous test case",
+      "range": {
+        "startLine": 84,
+        "startChar": 23,
+        "endLine": 84,
+        "endChar": 200
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6d21e59_fa8890a2",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "wrong Description",
+      "range": {
+        "startLine": 142,
+        "startChar": 29,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95fc8a96_bf73bde7",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 276,
+        "startChar": 45,
+        "endLine": 276,
+        "endChar": 50
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a668bd32_b9a5fc2d",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "hard coded",
+      "range": {
+        "startLine": 278,
+        "startChar": 85,
+        "endLine": 278,
+        "endChar": 96
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12d7aafe_f663712e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "wrong Description , returns compute ip",
+      "range": {
+        "startLine": 285,
+        "startChar": 23,
+        "endLine": 285,
+        "endChar": 39
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f47bd62_b47fc612",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 285,
+        "startChar": 45,
+        "endLine": 285,
+        "endChar": 50
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3477ba8e_31da225f",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 8096
+      },
+      "writtenOn": "2018-10-23T06:38:30Z",
+      "side": 1,
+      "message": "wrong Description",
+      "range": {
+        "startLine": 292,
+        "startChar": 31,
+        "endLine": 292,
+        "endChar": 61
+      },
+      "revId": "7a4d130765b92c98fd06efbd12469fb4e1aa578f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
