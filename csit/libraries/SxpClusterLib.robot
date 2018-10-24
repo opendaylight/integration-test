@@ -77,6 +77,16 @@ Check Cluster Node started
     \    ${started} =    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
     BuiltIn.Should Be True    ${started}
 
+Check Cluster Node stopped
+    [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
+    [Documentation]    Verify that SxpNode has data removed from Operational datastore and Node is stopped
+    ${stopped} =    BuiltIn.Set Variable    ${False}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    \    ...    prompt=${ODL_SYSTEM_PROMPT}
+    \    ${stopped} =    BuiltIn.Set Variable If    '${rc}' == '1'    ${True}    ${stopped}
+    BuiltIn.Should Be True    ${stopped}
+
 Check Device is Connected
     [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${session}=session
     [Documentation]    Checks if SXP device is connected to the cluster. It means it has connection in state "on" with one of the cluster members.
