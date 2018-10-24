@@ -996,7 +996,13 @@ def delete_domain_xml(node_id, name):
     :returns: String containing xml data for request
 
     """
-    return add_domain_xml(node_id, name)
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$node_id</node-id>
+    <domain-name>$name</domain-name>
+</input>''')
+
+    data = templ.substitute({'node_id': node_id, 'name': name})
+    return data
 
 
 def get_domain_name(domain_name):
