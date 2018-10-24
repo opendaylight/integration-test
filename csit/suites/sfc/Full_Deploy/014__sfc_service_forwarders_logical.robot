@@ -59,9 +59,6 @@ Delete A Service Function Forwarder
     Remove All Elements At URI    ${SFF_SFFLOG_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    SF1
 
 Put one Service Function Forwarder
     [Documentation]    Put one Service Function Forwarder. Logical SFF
