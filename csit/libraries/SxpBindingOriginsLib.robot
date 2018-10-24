@@ -4,14 +4,15 @@ Library           ./Sxp.py
 Resource          ./SxpLib.robot
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operations/sxp-config-controller
+${CONFIG_REST_CONTEXT}    /restconf/operations/sxp-config-controller
 
 *** Keywords ***
 Revert To Default Binding Origins Configuration
+    [Arguments]    ${session}=session
     [Documentation]    Remove CLUSTER binding origin and set default priorities to default origins
-    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Delete Binding Origin    CLUSTER
-    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Update Binding Origin    LOCAL    1
-    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Update Binding Origin    NETWORK    2
+    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Delete Binding Origin    CLUSTER    session=${session}
+    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Update Binding Origin    LOCAL    1    session=${session}
+    BuiltIn.Run Keyword And Ignore Error    SxpBindingOriginsLib.Update Binding Origin    NETWORK    2    session=${session}
 
 Get Binding Origins
     [Arguments]    ${session}=session
@@ -24,19 +25,19 @@ Add Binding Origin
     [Arguments]    ${origin}    ${priority}    ${session}=session
     [Documentation]    Add custom binding origin to configuration
     ${data} =    Sxp.Add Binding Origin Xml    ${origin}    ${priority}
-    SxpLib.Post To Controller    ${session}    add-binding-origin    ${data}    ${REST_CONTEXT}
+    SxpLib.Post To Controller    ${session}    path=add-binding-origin    data=${data}    rest_context=${CONFIG_REST_CONTEXT}
 
 Update Binding Origin
     [Arguments]    ${origin}    ${priority}    ${session}=session
     [Documentation]    Update binding origin in configuration
     ${data} =    Sxp.Update Binding Origin Xml    ${origin}    ${priority}
-    SxpLib.Post To Controller    ${session}    update-binding-origin    ${data}    ${REST_CONTEXT}
+    SxpLib.Post To Controller    ${session}    path=update-binding-origin    data=${data}    rest_context=${CONFIG_REST_CONTEXT}
 
 Delete Binding Origin
     [Arguments]    ${origin}    ${session}=session
     [Documentation]    Delete custom binding origin from configuration
     ${data} =    Sxp.Delete Binding Origin Xml    ${origin}
-    SxpLib.Post To Controller    ${session}    delete-binding-origin    ${data}    ${REST_CONTEXT}
+    SxpLib.Post To Controller    ${session}    path=delete-binding-origin    data=${data}    rest_context=${CONFIG_REST_CONTEXT}
 
 Should Contain Binding Origins
     [Arguments]    @{origins}
