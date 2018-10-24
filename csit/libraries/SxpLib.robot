@@ -151,10 +151,22 @@ Clean Peer Groups
 Add Filter
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
     [Documentation]    Add Filter via RPC from Node
+    ${data} =    Prepare Add/Update Filter Data    ${name}    ${type}    ${entries}    ${node}    ${policy}
+    Post To Controller    ${session}    add-filter    ${data}
+
+Update Filter
+    [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
+    [Documentation]    Update Filter via RPC
+    ${data} =    Prepare Add/Update Filter Data    ${name}    ${type}    ${entries}    ${node}    ${policy}
+    Post To Controller    ${session}    update-filter    ${data}
+
+Prepare Add/Update Filter Data
+    [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${policy}=auto-update
+    [Documentation]    Prepare XML payload for add-filter and update-filter RPCs. Payloads for both RPCs are the same.
     ${data} =    CompareStream.Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
     ...    ${node}    ${policy}
     ...    ELSE    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
-    Post To Controller    ${session}    add-filter    ${data}
+    [Return]    ${data}
 
 Add Domain Filter
     [Arguments]    ${name}    ${domains}    ${entries}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
