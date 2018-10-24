@@ -43,8 +43,7 @@ Check Rendered Service Path Created
 Check Rendered Service Path Deleted
     [Arguments]    ${sfp_name}
     [Documentation]    Check that the Rendered Service Path is deleted
-    ${sfp_name_elements_list} =    BuiltIn.Create List    ${sfp_name}
-    Utils.Check For Elements Not At URI    ${SERVICE_FUNCTION_PATHS_STATE_URI}    ${sfp_name_elements_list}
+    Utils.No Content From URI ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}
 
 Get Rendered Service Path Name
     [Arguments]    ${sfp_name}    ${get_reverse}=False
