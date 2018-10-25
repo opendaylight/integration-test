@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "933f9673_a7c2d2aa",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T01:28:07Z",
+      "side": 1,
+      "message": "suite vars should be all uppercase",
+      "range": {
+        "startLine": 84,
+        "startChar": 36,
+        "endLine": 84,
+        "endChar": 43
+      },
+      "revId": "907c6057203e85730c31ccda2379fa5f252295ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64c11b3a_47d20e38",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T01:28:07Z",
+      "side": 1,
+      "message": "lowercase for local vars",
+      "range": {
+        "startLine": 134,
+        "startChar": 15,
+        "endLine": 134,
+        "endChar": 24
+      },
+      "revId": "907c6057203e85730c31ccda2379fa5f252295ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0e3a0b1_e89e2814",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T01:28:07Z",
+      "side": 1,
+      "message": "reason to keep commented? If so add a comment so we can follow this later.",
+      "revId": "907c6057203e85730c31ccda2379fa5f252295ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78ff7882_de35076e",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T01:28:07Z",
+      "side": 1,
+      "message": "remove this if not used. Guess you are just wanting to dump the output here?",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 23
+      },
+      "revId": "907c6057203e85730c31ccda2379fa5f252295ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
