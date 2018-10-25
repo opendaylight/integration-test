@@ -173,20 +173,32 @@ Bring Up ODL3
     [Documentation]    Bring up ODL3 again
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
 
+Connectivity Tests From Vm Instance1 In net_2 In Healthy Cluster
+    [Documentation]    Logging to the vm instance using generated key pair.
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
+
+Connectivity Tests From Vm Instance2 In net_2 In Healthy Cluster
+    [Documentation]    Logging to the vm instance using generated key pair.
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
+
+Connectivity Tests From Vm Instance3 In net_2 In Healthy Cluster
+    [Documentation]    Logging to the vm instance using generated key pair.
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
+
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
 
-Connectivity Tests From Vm Instance1 In net_2
+Connectivity Tests From Vm Instance1 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
 
-Connectivity Tests From Vm Instance2 In net_2
+Connectivity Tests From Vm Instance2 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
 
-Connectivity Tests From Vm Instance3 In net_2
+Connectivity Tests From Vm Instance3 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
