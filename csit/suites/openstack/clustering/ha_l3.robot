@@ -155,25 +155,43 @@ Ping Vm Instance3 In net_1 From net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[2]
 
+Connectivity Tests From Vm Instance1 In net_1 In Healthy Cluster
+    [Documentation]    ssh to the VM instance and test operations.
+    ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
+
+Connectivity Tests From Vm Instance2 In net_1 In Healthy Cluster
+    [Documentation]    ssh to the VM instance and test operations.
+    ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
+
+Connectivity Tests From Vm Instance3 In net_1 In Healthy Cluster
+    [Documentation]    ssh to the VM instance and test operations.
+    ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
+    [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
+
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
-Connectivity Tests From Vm Instance1 In net_1
+Connectivity Tests From Vm Instance1 In net_1 With Two ODLs Down
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
-Connectivity Tests From Vm Instance2 In net_1
+Connectivity Tests From Vm Instance2 In net_1 With Two ODLs Down
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
-Connectivity Tests From Vm Instance3 In net_1
+Connectivity Tests From Vm Instance3 In net_1 With Two ODLs Down
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
