@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "3d599a42_0e3754d7",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T22:40:39Z",
+      "side": 1,
+      "message": "you can remove the To JSON and just used ${output} \u003d Utils.Log Content.",
+      "revId": "2165048734cd1ffc2f804b93267e751fa17addd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9bbca12_8b5f3409",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-10-25T22:40:39Z",
+      "side": 1,
+      "message": "you can remove the To JSON and just used ${output} \u003d Utils.Log Content.",
+      "revId": "2165048734cd1ffc2f804b93267e751fa17addd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f876cfe_b3417af0",
         "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
         "patchSetId": 36
