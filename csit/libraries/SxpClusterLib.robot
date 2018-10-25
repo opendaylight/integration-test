@@ -124,7 +124,7 @@ Map Followers To Mac Addresses
 Find Mac Address Of Ip Address
     [Arguments]    ${ip}
     [Documentation]    Finds out MAC-ADDRESS of specified IP by pinging it from TOOLS_SYSTEM machine
-    ${mac_address} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_IP}    ping -c 1 -W 10 ${ip} >/dev/null && arp -n | grep ${ip} | awk '{print $3}'    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    ${mac_address} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_IP}    ping -c 10 -W 10 ${ip} >/dev/null && sudo ip neighbor show | grep ${ip} | awk '{print $5}'    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
     [Return]    ${mac_address}
 
 Ip Addres Should Not Be Routed To Follower
