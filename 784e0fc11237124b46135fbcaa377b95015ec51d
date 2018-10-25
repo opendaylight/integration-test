@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0949a90d_238bda5e",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-25T00:01:26Z",
+      "side": 1,
+      "message": "why are we using Global here? Suite should be good enough right?",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "784e0fc11237124b46135fbcaa377b95015ec51d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "232c4d3a_c3103429",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-25T00:01:26Z",
+      "side": 1,
+      "message": "[Documentation] here is probably especially worthwhile since\n\"Suite Setup\" or \"Suite Teardown\" is so generic. I think\nyou are doing some magic around when and how to do any\nwork depending on which suite is being run?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 61
+      },
+      "revId": "784e0fc11237124b46135fbcaa377b95015ec51d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
