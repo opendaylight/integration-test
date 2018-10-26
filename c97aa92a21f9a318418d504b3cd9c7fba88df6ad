@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02097e96_d99e9a39",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-26T23:16:46Z",
+      "side": 1,
+      "message": "For HA",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "c97aa92a21f9a318418d504b3cd9c7fba88df6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
