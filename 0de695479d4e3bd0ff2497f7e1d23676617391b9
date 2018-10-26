@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "67904cdf_56135cb8",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-26T23:16:46Z",
+      "side": 1,
+      "message": "you missed this",
+      "parentUuid": "09896e7d_87c9a0bc",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "121994fb_f109ea63",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 21
@@ -236,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "e04a5c68_fe1686ab",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-26T23:16:46Z",
+      "side": 1,
+      "message": "you missed this one",
+      "parentUuid": "ba5f64d6_dc9b2b72",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b22180_6121b180",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 21
@@ -271,6 +313,24 @@
     },
     {
       "key": {
+        "uuid": "44553051_0513bb46",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-26T23:16:46Z",
+      "side": 1,
+      "message": "you missed this one",
+      "parentUuid": "32b5ff62_d0c7264a",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b83cbbb_454eed8e",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 21
@@ -300,6 +360,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "6b83cbbb_454eed8e",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dd2e580_3d719bba",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-26T23:16:46Z",
+      "side": 1,
+      "message": "you missed this one",
+      "parentUuid": "2b87cf41_37c45441",
       "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
