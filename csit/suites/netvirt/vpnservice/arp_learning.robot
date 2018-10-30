@@ -41,7 +41,10 @@ Verify Setup
     [Documentation]    Verify that VMs received ip and ping is happening between different VM
     ${vms} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vms}
+    # Verify ping among VMs on the same network. For this, we ssh to the Cirros VM using the dhcp-namespace on the
+    # controller node and then verify ping reachability to the second VM on the same network.
     Verify Ping On Same Networks
+    # Similar to above except that instead of pinging to the VM on the same network, we ping to VMs on the other networks.
     Verify Ping On Different Networks
 
 Verify GARP Requests
@@ -51,10 +54,14 @@ Verify GARP Requests
     BuiltIn.Set Test Variable    ${fib_entry_3}    @{NET_1_VM_IPS}[1]
     Verify Flows Are Present On All Compute Nodes
     ${output} =    VpnOperations.Get Fib Entries    session
+    # Verify that for VM1_net1, FIB Entry exists in the ODL Datastore and its nexthop points to Compute-1 hostIP
     ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\/32".*"${OS_CMP2_IP}\\"
+    # Similarly for VM0_net1, FIB Entry exists in the ODL Datastore and its nexthop points to Compute-0 hostIP
     ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\/32".*"${OS_CMP1_IP}\\"
     ${rx_packet1_before} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ifconfig eth0
     ${rx_packet0_before} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ifconfig eth0
+    # Create an alias interface (eth0:1) on VM1_net0 and configure it with an extra_route_ip and 
+    # trigger 5 GARPs from the VM for the extra_route_ip and ensure that ODL learns the extra_route_ip info.
     ${config_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${config_extra_route_ip1}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ifconfig
@@ -68,14 +75,20 @@ Verify GARP Requests
     BuiltIn.Should Not Be Equal    ${rx_packet1_before}    ${rx_packet1_after}
     Verify Flows Are Present On All Compute Nodes
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
+    # Query the odl-fib:fibEntries config store info and ensure that extra_route_ip configured on VM1_0 is present in
+    # the FIB Entry with its nexthop pointing to Compute-1 hostIP. At the same time, ensure that other FIB entries are valid.
     ${output} =    VpnOperations.Get Fib Entries    session
     ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\\/32".*"${OS_CMP2_IP}\\"
     ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\\/32".*"${OS_CMP1_IP}\\"
     ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_CMP2_IP}\\"
+    # Verify ping reachability to the extra_route_ip from other VMs on the network.
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
 
 Verify MIP Migration
     [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes
+    # Unconfigure the extra_route_ip on VM1_net0 and configure it on vm0_net0.
+    # Trigger 5 GARPs from the VM for the extra_route_ip and ensure that ODL learns/updates
+    # the extra_route_ip info with nexthop in the FIB entry pointing to Compute-0 hostip.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${unconfig_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} down
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${unconfig_extra_route_ip1}
@@ -119,6 +132,12 @@ Same DPN MIP Migration
 
 *** Keywords ***
 Suite Setup
+    # Create three tenant networks with a subnet in each network
+    # Create an allow-all Security Group (note: we are not using the default SG that OpenStack creates for a tenant) 
+    # In each of the networks, create two ports (i.e., total of 6 ports, two in each network)
+    # Create two VMs in each network (so total of 6 VMs). VM0_net0 on Compute-0 and VM1_net0 on Compute-1 
+    # Create a Neutron Router and associate subnet1 and subnet2
+    # Create an L3VPN instance and associate the L3VPN instance to the neutron router.
     VpnOperations.Basic Suite Setup
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
@@ -215,6 +234,8 @@ Verify Ping On Different Networks
 Verify Flows Are Present
     [Arguments]    ${ip}
     [Documentation]    Verify Flows Are Present
+    # Verify that Flows to support L3 Connectivity (like ELAN_SMAC_TABLE, FIB_TABLE)
+    # and a FIB entry to reach all the VMs in the network exist in the OVS pipeline.
     ${flow_output}=    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     BuiltIn.Log    ${flow_output}
     ${resp} =    BuiltIn.Should Contain    ${flow_output}    table=50
