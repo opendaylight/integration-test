@@ -57,6 +57,9 @@ Start Packet Capture On Node
 Stop Packet Capture on Node
     [Arguments]    ${conn_id}
     [Documentation]    This keyword will list the running processes looking for tcpdump and then kill the process with the name tcpdump
+    Log    conn_id: ${conn_id}
+    ${conn_output} =    SSHLibrary.Get Connections
+    Log Many    ${conn_output}
     SSHLibrary.Switch Connection    ${conn_id}
     ${stdout} =    SSHLibrary.Execute Command    sudo ps -elf | grep tcpdump
     Log    ${stdout}
@@ -67,7 +70,7 @@ Stop Packet Capture on Node
     Log    ${stdout}
     ${stdout} =    SSHLibrary.Execute Command    sudo ls -ls /tmp
     Log    ${stdout}
-    SSHLibrary. Close Connection
+    #SSHLibrary. Close Connection
 
 Start Packet Capture on Nodes
     [Arguments]    ${tag}=${EMPTY}    ${filter}=${EMPTY}    ${ips}=@{EMPTY}
