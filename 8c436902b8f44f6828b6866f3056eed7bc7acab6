@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8cabe7f_acaa0c03",
+        "filename": "csit/suites/netvirt/vpnservice/arp_learning.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-30T16:24:59Z",
+      "side": 1,
+      "message": "I would put your comments and descriptions as part of\nthe [Documentation] blocks of each test case. That will\nallow us to use the robot tools to extract just docs\nif/when we ever want to.",
+      "revId": "8c436902b8f44f6828b6866f3056eed7bc7acab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
