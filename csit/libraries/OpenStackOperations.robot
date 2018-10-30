@@ -20,6 +20,10 @@ Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
+*** Variables ***
+@{VALIDATION_KEYWORDS}    Verify Services    Verify Expected Default Tunnels    Verify Expected Default Tables On Nodes
+${VALIDATION_FILE}        /tmp/validations.txt
+
 *** Keywords ***
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -1132,9 +1136,19 @@ OpenStack Suite Teardown
 Validate Deployment
     [Documentation]    Validate the deployment. Examples to validate are verifying default table
     ...     flows are installed and that the tunnel mesh has been built correctly.
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
-    Verify Expected Default Tunnels
-    Verify Expected Default Tables On Nodes
+    Write To Validate File    ----------------------------------------\n${SUITE_NAME}\n
+    :FOR    ${keyword}    IN    @{VALIDATION_KEYWORDS}
+    \    ${status} =    Builtin.Run Keyword And Return Status    ${keyword}
+    \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Run Keywords    Write To Validate File    Failed: ${keyword}
+    \    ...    AND    BuiltIn.Fail
+    \    ...    ELSE    Write To Validate File    Passed: ${keyword}
+
+Write To Validate File
+    [ARGUMENTS]    ${msg}
+    [Documentation]    Write the given ${msg} to ${VALIDATION_FILE}. Create the file if not present.
+    ${status} =    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${VALIDATION_FILE}
+    BuiltIn.Run Keyword If    "${status}" == "False"    OperatingSystem.Create File    ${VALIDATION_FILE}
+    OperatingSystem.Append To File    ${VALIDATION_FILE}    ${msg}\n
 
 Copy DHCP Files From Control Node
     [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
@@ -1217,6 +1231,10 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Verify Services
+    [Documentation]    Verify if the services are operational
+    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
 
 Verify Expected Default Tunnels
     [Documentation]    Verify if the default tunnels are created
