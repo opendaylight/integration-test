@@ -1113,8 +1113,7 @@ OpenStack Suite Setup
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
-    Verify Expected Default Tables On Nodes
+    Validate Deployment
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1129,6 +1128,13 @@ OpenStack Suite Teardown
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    KarafKeywords.Issue Command On Karaf Console    threads --list | wc -l    ${ODL_SYSTEM_${i+1}_IP}
+
+Validate Deployment
+    [Documentation]    Validate the deployment. Examples to validate are verifying default table
+    ...     flows are installed and that the tunnel mesh has been built correctly.
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
+    Verify Expected Default Tunnels
+    Verify Expected Default Tables On Nodes
 
 Copy DHCP Files From Control Node
     [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
@@ -1211,6 +1217,11 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Verify Expected Default Tunnels
+    [Documentation]    Verify if the default tunnels are created
+    ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
+    BuiltIn.Should Contain    ${output}    All tunnels are up
 
 Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
