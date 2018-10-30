@@ -642,8 +642,16 @@ Get Test Teardown Debugs
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
+    : FOR    ${index}    IN RANGE    ${member_index_list}
+    \    ${transactions} =    KarafKeywords.Execute_Controller_Karaf_Command_With_Retry_On_Background    trace:transactions    ${index}
+    \    ${tx_count_lines} =    String.Get Regexp Matches    ${transactions}    .*[T|t]ransaction.*not closed
+    \    Fail If Open Transactions Is Too Many    7    @{tx_count_lines}
+
+Fail If Open Transactions Is Too Many
+    [Arguments]    ${open_transaction_failure_threshold}    @{open_transaction_count_list}
+    : FOR    ${tx_line}    IN    @{open_transaction_count_list}
+    \    ${tx_count} =    Split String    ${tx_line}    x
+    \    Run Keyword If    ${tx_count[0]} > ${open_transaction_failure_threshold}    Fail    Open Transactions: ${tx_count[0]} greater than threshold: ${open_transaction_failure_threshold}
 
 Get Suite Debugs
     Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
