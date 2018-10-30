@@ -8,7 +8,7 @@ Documentation     Cluster suite for testing minimal and sum-minimal member popul
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This test kills majority of the followers and verifies car addition is not possible,
+...               This test stops majority of the followers and verifies car addition is not possible,
 ...               then resumes single follower (first from original list) and checks that addition works.
 ...               Then remaining members are brought up.
 ...               Leader member is always up and assumed to remain Leading during the whole suite run.
@@ -40,10 +40,10 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
 ${CLUSTER_DIR}    ${CURDIR}/../../../variables/clustering
 
 *** Test Cases ***
-Kill_Majority_Of_The_Followers
-    [Documentation]    Kill half plus one car Follower members and set reviving followers down (otherwsise tipping followers cannot join cluster).
-    ...    Mark most of killed members as explicitly down, to allow the surviving leader make progress.
-    ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${list_of_killing}    confirm=True
+Stop_Majority_Of_The_Followers
+    [Documentation]    Stop half plus one car Follower members and set reviving followers down (otherwsise tipping followers cannot join cluster).
+    ...    Mark most of stopped members as explicitly down, to allow the surviving leader make progress.
+    ClusterManagement.Stop_Members_From_List_Or_All    member_index_list=${list_of_stopping}    confirm=True
     : FOR    ${index}    IN    @{list_of_reviving}
     \    ${data}    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
     \    ${member_ip} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
@@ -108,5 +108,5 @@ Set_Additional_Variables
     BuiltIn.Set_Suite_Variable    \${list_of_tipping}    ${tipping_list}
     ${revive_list} =    Collections.Get_Slice_From_List    ${car_follower_indices}    ${half_followers}    ${number_followers}
     BuiltIn.Set_Suite_Variable    \${list_of_reviving}    ${revive_list}
-    ${kill_list} =    Collections.Combine_Lists    ${tipping_list}    ${revive_list}
-    BuiltIn.Set_Suite_Variable    \${list_of_killing}    ${kill_list}
+    ${stop_list} =    Collections.Combine_Lists    ${tipping_list}    ${revive_list}
+    BuiltIn.Set_Suite_Variable    \${list_of_stopping}    ${stop_list}

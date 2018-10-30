@@ -34,9 +34,9 @@ Add_Cars_On_Leader_And_Verify
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}
 
-Kill_All_Members
-    [Documentation]    Kill all controllers.
-    ClusterManagement.Kill_Members_From_List_Or_All    confirm=True
+Stop_All_Members
+    [Documentation]    Stop all controllers.
+    ClusterManagement.Stop_Members_From_List_Or_All    confirm=True
 
 Start_All_Members
     [Documentation]    Start all controllers (should restore the persisted data).

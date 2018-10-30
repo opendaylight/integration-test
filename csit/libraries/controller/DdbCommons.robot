@@ -377,8 +377,8 @@ Verify_Shard_Replica_Not_Present
     BuiltIn.Should_Contain    ${text}    "status":404    javax.management.InstanceNotFoundException
 
 Restart_Test_Templ
-    [Documentation]    Kill every odl node and start again.
-    ClusterManagement.Kill_Members_From_List_Or_All
+    [Documentation]    Stop every odl node and start again.
+    ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True

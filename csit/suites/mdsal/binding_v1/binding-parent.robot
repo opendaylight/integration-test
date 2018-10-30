@@ -43,8 +43,8 @@ ${POM_FILENAME}    binding-parent-test.xml
 
 *** Test Cases ***
 Kill_Odl
-    [Documentation]    The ODL instance consumes resources, kill it.
-    ClusterManagement.Kill_Members_From_List_Or_All
+    [Documentation]    The ODL instance consumes resources, stop it.
+    ClusterManagement.Stop_Members_From_List_Or_All
 
 Detect_Config_Version
     [Documentation]    Examine ODL installation to figure out which version of binding-parent should be used.

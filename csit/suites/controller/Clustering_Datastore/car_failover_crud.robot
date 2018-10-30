@@ -8,8 +8,8 @@ Documentation     Suite mixing basic operations with restart of car Leader.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This test kills the current leader of the "car" shard and then executes CRD
-...               operations on the new leader and a new follower. The killed member is brought back.
+...               This test stops the current leader of the "car" shard and then executes CRD
+...               operations on the new leader and a new follower. The stopped member is brought back.
 ...               This suite uses 3 different car sets, same size but different starting ID.
 ...
 ...               Other models and shards (people, car-people) are not accessed by this suite.
@@ -42,9 +42,9 @@ Add_Original_Cars_On_Old_Leader_And_Verify
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
 
-Kill_Original_Car_Leader
-    [Documentation]    Kill the car Leader to cause a new leader to get elected.
-    ClusterManagement.Kill_Single_Member    ${car_leader_index}    confirm=True
+Stop_Original_Car_Leader
+    [Documentation]    Stop the car Leader to cause a new leader to get elected.
+    ClusterManagement.Stop_Single_Member    ${car_leader_index}    confirm=True
 
 Wait_For_New_Leader
     [Documentation]    Wait until new car Leader is elected.
@@ -94,7 +94,7 @@ See_Follower_Cars_On_New_Followers
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${FOLLOWER_2NODE_START_I}
 
 Start_Old_Car_Leader
-    [Documentation]    Start the killed member without deleting the persisted data.
+    [Documentation]    Start the stopped member without deleting the persisted data.
     ClusterManagement.Start_Single_Member    ${car_leader_index}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
