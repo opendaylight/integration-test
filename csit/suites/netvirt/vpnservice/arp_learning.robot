@@ -38,14 +38,24 @@ ${RPING_EXP_STR}    broadcast
 
 *** Test Cases ***
 Verify Setup
-    [Documentation]    Verify that VMs received ip and ping is happening between different VM
+    [Documentation]    Verify that VMs received ip and ping is happening between different VMs.
+    ...    For this, we ssh to the VM using the dhcp-namespace on the controller node and verify ping
+    ...    reachability to the second VM on the same network and VMs on other network (i.e., east-west routing)
     ${vms} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vms}
     Verify Ping On Same Networks
     Verify Ping On Different Networks
 
 Verify GARP Requests
-    [Documentation]    Verify that GARP request are sent to controller
+    [Documentation]    Verify that GARP request is sent to controller and controller learns this info.
+    ...    In this test-case, before we validate the GARPs, we ensure that the necessary pipeline
+    ...    flows for the VMs spawned on the networks are as expected (along with the FIB Entries
+    ...    in the ODL Datastore). For triggering GARPs, we create an alias interface (eth0:1) on
+    ...    VM1_net0, configure it with an extra_route_ip, trigger 5 GARPs from the VM for the
+    ...    extra_route_ip and ensure that ODL learns (by looking at odl-fib:fibEntries) the
+    ...    extra_route_ip info with the nexthop pointing to Compute-1 (where VM1_net0 is spawned)
+    ...    hostIP. Finally, we verify ping reachability to the extra_route_ip from other VMs on
+    ...    the network.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     BuiltIn.Set Test Variable    ${fib_entry_1}    @{NET_1_VM_IPS}[0]
     BuiltIn.Set Test Variable    ${fib_entry_3}    @{NET_1_VM_IPS}[1]
@@ -75,7 +85,10 @@ Verify GARP Requests
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
 
 Verify MIP Migration
-    [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes
+    [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes.
+    ...    Unconfigure the extra_route_ip on VM1_net0 and configure it on vm0_net0 (on Compute-0 host).
+    ...    Trigger 5 GARPs from the VM for the extra_route_ip and ensure that ODL learns/updates
+    ...    the extra_route_ip info with nexthop in the FIB entry pointing to Compute-0 hostip.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${unconfig_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} down
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${unconfig_extra_route_ip1}
@@ -119,6 +132,12 @@ Same DPN MIP Migration
 
 *** Keywords ***
 Suite Setup
+    [Documentation]    Suite Setup to create the necessary resources.
+    ...    Create three tenant networks with a subnet in each network and an allow-all Security Group.
+    ...    In each of the networks, create two ports (i.e., total of 6 ports, two in each network)
+    ...    Create two VMs in each network (so total of 6 VMs). VM0_net0 on Compute-0 and VM1_net0 on Compute-1.
+    ...    Create a Neutron Router and associate subnet1 and subnet2.
+    ...    Create an L3VPN instance and associate the L3VPN instance to the neutron router.
     VpnOperations.Basic Suite Setup
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
@@ -215,6 +234,8 @@ Verify Ping On Different Networks
 Verify Flows Are Present
     [Arguments]    ${ip}
     [Documentation]    Verify Flows Are Present
+    ...    Verify that Flows to support L3 Connectivity (like ELAN_SMAC_TABLE, FIB_TABLE)
+    ...    and a FIB entry to reach all the VMs in the network exist in the OVS pipeline.
     ${flow_output}=    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     BuiltIn.Log    ${flow_output}
     ${resp} =    BuiltIn.Should Contain    ${flow_output}    table=50
