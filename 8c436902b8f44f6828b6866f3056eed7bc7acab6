@@ -34,6 +34,24 @@
       "revId": "8c436902b8f44f6828b6866f3056eed7bc7acab6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b055f3de_496ef813",
+        "filename": "csit/suites/netvirt/vpnservice/arp_learning.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-10-31T13:26:40Z",
+      "side": 1,
+      "message": "oh, yeah... you have to use a tab, three dots and a tab :)\n\nhere\u0027s an example:\n\n[Documentation]    Get the instance IP addresses and nameserver address for the list of given vms.\n    ...    First poll for the vm instance to be in the active state, then poll for the vm ip address and nameserver.\n    ...    Get VM IPs returns two things: [0] a list of the ips for the vms passed to this keyword (may contain values\n    ...    of None) and [1] the dhcp ip address found in the last vm checked.\n    ...    TODO: there is a potential issue for a caller that passes in VMs belonging to different networks that\n    ...    may have different dhcp server addresses. Not sure what TODO about that, but noting it here for reference.",
+      "parentUuid": "ec67e020_d95d529b",
+      "revId": "8c436902b8f44f6828b6866f3056eed7bc7acab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
