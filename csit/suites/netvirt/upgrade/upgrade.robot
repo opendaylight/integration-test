@@ -70,7 +70,7 @@ Set Upgrade Flag
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    Run Command On Remote System    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+    \    Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
 UnSet Upgrade Flag
@@ -131,7 +131,7 @@ Check OVS Nodes Have Egress Flows
 Does OVS Have Multiple Egress Flows
     [Arguments]    ${ip}
     [Documentation]    Verifies that at least 1 flow exists on the node for the ${EGRESS_L2_FWD_TABLE}
-    ${flows} =    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
+    ${flows} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     ${egress_flows} =    String.Get Lines Containing String    ${flows}    table=${EGRESS_LPORT_DISPATCHER_TABLE}
     ${num_egress_flows} =    String.Get Line Count    ${egress_flows}
     BuiltIn.Should Be True    ${num_egress_flows} > 1
