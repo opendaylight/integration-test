@@ -2,7 +2,7 @@
 Documentation     Test suite for ODL Upgrade. It is assumed that OLD + OpenStack
 ...               integrated environment is deployed and ready.
 Suite Setup       Suite Setup
-Suite Teardown    Upgrade Suite Teardown
+#Suite Teardown    Upgrade Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
@@ -77,11 +77,11 @@ UnSet Upgrade Flag
     ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"config":{"upgradeInProgress":false}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
-Check Connectivity With Previously Created Resources And br-int Info
-    [Documentation]    Check that pre-existing instance connectivity still works after the new controller is brought
-    ...    up and config is sync'd
-    Dump Debug With Annotations    POST_UPGRADE
-    Wait Until Keyword Succeeds    90s    10s    Check Resource Connectivity
+#Check Connectivity With Previously Created Resources And br-int Info
+#    [Documentation]    Check that pre-existing instance connectivity still works after the new controller is brought
+#    ...    up and config is sync'd
+#    Dump Debug With Annotations    POST_UPGRADE
+#    Wait Until Keyword Succeeds    90s    10s    Check Resource Connectivity
 
 *** Keywords ***
 Suite Setup
