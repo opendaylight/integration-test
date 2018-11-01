@@ -172,7 +172,7 @@ Clean Datastore After Tests
     Utils.Remove All Elements At URI    ${SERVICE_NODES_URI}
     Utils.Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Utils.Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
-    Utils.Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
+    Utils.Remove All Elements If Exist    ${SERVICE_FUNCTION_PATHS_URI}
     BuiltIn.Wait Until Keyword Succeeds    60s    2s    SfcKeywords.Check Empty Service Function Paths State
 
 *** Keywords ***
