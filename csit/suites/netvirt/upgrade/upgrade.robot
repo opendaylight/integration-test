@@ -32,7 +32,6 @@ ${UPDATE_FLAG_PATH}    /restconf/config/genius-mdsalutil:config
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
     [Documentation]    Create 2 VXLAN networks, subnets with 2 VMs each and a router. Ping all 4 VMs.
-    Create Resources
     Check Resource Connectivity
     DevstackUtils.Set Node Data For Control Only Node Setup
     Dump Debug With Annotations    POST_SETUP
