@@ -67,7 +67,6 @@ Stop Packet Capture on Node
     Log    ${stdout}
     ${stdout} =    SSHLibrary.Execute Command    sudo ls -ls /tmp
     Log    ${stdout}
-    SSHLibrary. Close Connection
 
 Start Packet Capture on Nodes
     [Arguments]    ${tag}=${EMPTY}    ${filter}=${EMPTY}    ${ips}=@{EMPTY}
