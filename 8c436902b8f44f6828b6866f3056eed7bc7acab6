@@ -52,6 +52,24 @@
       "revId": "8c436902b8f44f6828b6866f3056eed7bc7acab6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4b91a5_d2c501f0",
+        "filename": "csit/suites/netvirt/vpnservice/arp_learning.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5197
+      },
+      "writtenOn": "2018-11-02T04:29:59Z",
+      "side": 1,
+      "message": "Thanks @JamO.",
+      "parentUuid": "b055f3de_496ef813",
+      "revId": "8c436902b8f44f6828b6866f3056eed7bc7acab6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
