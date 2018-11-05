@@ -643,7 +643,7 @@ Get Test Teardown Debugs
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
+    \    BuiltIn.Run Keyword And Ignore Error    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
 
 Get Suite Debugs
     Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
