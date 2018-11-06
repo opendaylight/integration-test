@@ -15,7 +15,7 @@ Documentation     Functional test for bgp - evpn
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-...               AND    Verify Test Preconditions
+...               AND    Verify_Test_Preconditions
 Test Template     Odl_To_Play_Template
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -42,6 +42,8 @@ ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${SS}             ${SPACE}${SPACE}${SPACE}${SPACE}
 ${PATH_ID_JSON}    ${SS}${SS}"path-id": 0,${\n}
 ${PATH_ID_XML}    ${SS}<path-id>0</path-id>${\n}
+${OLD_AS_PATH}    \n"as-path": {},
+${NEW_AS_PATH}    ${EMPTY}
 
 *** Test Cases ***
 Configure_App_Peer
@@ -351,7 +353,8 @@ Start_Suite
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
     BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    ${EMPTY_ROUTES} =    OperatingSystem.Get_File    ${EVPN_DIR}/empty_routes/empty_routes.json
+    ${EMPTY_ROUTES_FILE} =    OperatingSystem.Get_File    ${EVPN_DIR}/empty_routes/empty_routes.json
+    ${EMPTY_ROUTES} =    CompareStream.Set_Variable_If_At_Least_Neon    {}    ${EMPTY_ROUTES_FILE}
     BuiltIn.Set_Suite_Variable    ${EMPTY_ROUTES}
 
 Stop_Suite
@@ -397,7 +400,9 @@ Odl_To_Play_Template
 Play_To_Odl_Template
     [Arguments]    ${totest}
     ${data_xml} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.xml
-    ${data_json} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.json
+    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
+    ${data_json} =    TemplatedRequests.Resolve_Text_From_Template_File    ${EVPN_DIR}/${totest}    ${totest}.json    ${mapping}
     ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
     ${data_path_json}    CompareStream.Run_Keyword_If_Less_Than_Fluorine    String.Replace_String    ${data_json}    ${PATH_ID_JSON}    ${EMPTY}
