@@ -11,7 +11,7 @@ Documentation     Basic tests for BGP application peer.
 ...               BGP application peer operations and checks for IP4 topology updates
 ...               and updates towards BGP peer as follows:
 ...
-...               Test case 1: Initial BGP peer connection with pre-filled topology (Bug 4714),
+...               Test case 1: Initial BGP peer connection with pre-filled topology,
 ...               POST and simple DELETE requests used.
 ...               BGP_Application_Peer_Post_3_Initial_Routes,
 ...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
@@ -45,8 +45,6 @@ Documentation     Basic tests for BGP application peer.
 ...               how to use restconf application peer interface:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Application_Peer
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Programmer_Guide#BGP
-...               Covered bugs:
-...               Bug 4714 - No routes from loc-rib are advertised to newly connected peer
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -69,8 +67,6 @@ ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
 ${BGP_APP_PEER_LOG_LEVEL}    debug
-${ODL_LOG_LEVEL}    INFO
-${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    ${EMPTY}
 ${BGP_APP_PEER_ID}    ${ODL_SYSTEM_IP}
@@ -133,12 +129,11 @@ TC1_BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     Switch_To_BGP_Peer_Console
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.32/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    0
-    [Teardown]    Report_Failure_Due_To_Bug    4714
 
 TC1_BGP_Application_Peer_Delete_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
@@ -157,12 +152,11 @@ TC1_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     Switch_To_BGP_Peer_Console
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.32/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
-    [Teardown]    Report_Failure_Due_To_Bug    4714
 
 TC1_Stop_BGP_Peer
     [Documentation]    Stop BGP peer tool
@@ -197,7 +191,7 @@ TC2_BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     Switch_To_BGP_Peer_Console
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.32/28    1
@@ -220,7 +214,7 @@ TC2_BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     Switch_To_BGP_Peer_Console
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.32/28    1
@@ -252,7 +246,7 @@ TC3_Reconnect_BGP_Peer_And_Check_Incomming_Updates_For_3_Introduced_Prefixes
     Switch_To_BGP_Peer_Console
     Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
     Read_And_Fail_If_Prompt_Is_Seen
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.16/28    1
@@ -276,7 +270,7 @@ TC3_BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     Switch_To_BGP_Peer_Console
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    3
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.0/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.32/28    1
@@ -315,9 +309,6 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_app_peer.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/ipv4-routes-template.xml*
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed.
