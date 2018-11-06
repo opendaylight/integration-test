@@ -403,7 +403,7 @@ if __name__ == "__main__":
                         const=logging.DEBUG, default=logging.INFO,
                         help="Set log level to debug (default is info)")
     parser.add_argument("--logfile", default="bgp_app_peer.log", help="Log file name")
-    parser.add_argument("--stream", default="", help="Stream - oxygen, fluorine ...")
+    parser.add_argument("--stream", default="", help="ODL Stream - oxygen, fluorine ...")
 
     args = parser.parse_args()
 
@@ -425,12 +425,12 @@ if __name__ == "__main__":
     prefix_base = args.prefix
     prefix_len = args.prefixlen
     count = args.count
-    auth = (args.user, args.password)
     uri = args.uri
+
     # From Fluorine onward route-key argument is mandatory for identification.
-    route_key_stream = ["fluorine"]
+    route_key_stream = ["oxygen"]
     [xml_template, route_key] = ["{}.{}".format(args.xml, args.stream), True] \
-        if args.stream in route_key_stream else [args.xml, False]
+        if args.stream not in route_key_stream else [args.xml, False]
 
     test_start_time = time.time()
     total_build_data_time_counter = 0
