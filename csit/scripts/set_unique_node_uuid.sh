@@ -1,16 +1,15 @@
 #!/bin/bash
 
 cat > ${WORKSPACE}/system-ovs-restart.sh <<EOF
-
 sudo rm -rf /etc/openvswitch/conf.db
 sudo service openvswitch-switch restart
-
 EOF
-scp ${WORKSPACE}/system-ovs-restart.sh ${TOOLS_SYSTEM_2_IP}:/tmp/
-ssh ${TOOLS_SYSTEM_2_IP} 'sudo bash /tmp/system-ovs-restart.sh'
-scp ${WORKSPACE}/system-ovs-restart.sh ${TOOLS_SYSTEM_3_IP}:/tmp/
-ssh ${TOOLS_SYSTEM_3_IP} 'sudo bash /tmp/system-ovs-restart.sh'
-scp ${WORKSPACE}/system-ovs-restart.sh ${TOOLS_SYSTEM_4_IP}:/tmp/
-ssh ${TOOLS_SYSTEM_4_IP} 'sudo bash /tmp/system-ovs-restart.sh'
-scp ${WORKSPACE}/system-ovs-restart.sh ${TOOLS_SYSTEM_5_IP}:/tmp/
-ssh ${TOOLS_SYSTEM_5_IP} 'sudo bash /tmp/system-ovs-restart.sh'
+
+echo "Copying and running running set_unique_node_uuid.sh on tools system(s)"
+for i in `seq 2 ${NUM_TOOLS_SYSTEM}`; do
+    ip_var=TOOLS_SYSTEM_${i}_IP
+    ip=${!ip_var}
+    echo "Restarting openswitch to create unique node uuid"
+    scp ${WORKSPACE}/system-ovs-restart.sh ${ip}:/tmp/
+    ssh ${ip} 'sudo bash /tmp/system-ovs-restart.sh'
+done
