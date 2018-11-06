@@ -15,7 +15,7 @@ Documentation     Functional test for bgp - evpn
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-...               AND    Verify Test Preconditions
+...               AND    Verify_Test_Preconditions
 Test Template     Odl_To_Play_Template
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -42,6 +42,10 @@ ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${SS}             ${SPACE}${SPACE}${SPACE}${SPACE}
 ${PATH_ID_JSON}    ${SS}${SS}"path-id": 0,${\n}
 ${PATH_ID_XML}    ${SS}<path-id>0</path-id>${\n}
+${OLD_EVPN_ROUTES_LINE}    \n"odl-bgp-evpn:evpn-routes": {},
+${NEW_EVPN_ROUTES_LINE}    ${EMPTY}
+${OLD_AS_PATH}    ,\n"as-path": {}
+${NEW_AS_PATH}    ${EMPTY}
 
 *** Test Cases ***
 Configure_App_Peer
@@ -349,9 +353,12 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
+    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
     BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    ${EMPTY_ROUTES} =    OperatingSystem.Get_File    ${EVPN_DIR}/empty_routes/empty_routes.json
+    BuiltIn.Set_Suite_Variable    ${EVPN_FAMILY_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/
+    ${evpn_routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_EVPN_ROUTES_LINE}    ${OLD_EVPN_ROUTES_LINE}
+    &{mapping}    BuiltIn.Create_Dictionary    EVPN_ROUTES=${evpn_routes_line}
+    ${EMPTY_ROUTES} =    TemplatedRequests.Resolve_Text_From_Template_File    ${EVPN_DIR}/empty_routes    empty_routes.json    ${mapping}
     BuiltIn.Set_Suite_Variable    ${EMPTY_ROUTES}
 
 Stop_Suite
@@ -397,7 +404,9 @@ Odl_To_Play_Template
 Play_To_Odl_Template
     [Arguments]    ${totest}
     ${data_xml} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.xml
-    ${data_json} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.json
+    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
+    ${data_json} =    TemplatedRequests.Resolve_Text_From_Template_File    ${EVPN_DIR}/${totest}    ${totest}.json    ${mapping}
     ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
     ${data_path_json}    CompareStream.Run_Keyword_If_Less_Than_Fluorine    String.Replace_String    ${data_json}    ${PATH_ID_JSON}    ${EMPTY}
@@ -410,13 +419,14 @@ Play_To_Odl_Template
     BgpRpcClient.play_send    ${announce_hex}
     BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${data_json_exp}
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${EMPTY_ROUTES}
+    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Verify_Test_Preconditions
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
 
 Verify_Test_Preconditions
     ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    404
-    Loc_Rib_Presence    ${EMPTY_ROUTES}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_FAMILY_LOC_RIB}    headers=${HEADERS}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${EMPTY_ROUTES}    ${rsp.content}
 
 Remove_Configured_Routes
     [Documentation]    Removes the route if present. First GET is for debug purposes.
@@ -432,7 +442,7 @@ Withdraw_Route_And_Verify
     [Arguments]    ${withdraw_hex}
     [Documentation]    Sends withdraw update message from exabgp and verifies route removal from odl's rib
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Loc_Rib_Presence    ${EMPTY_ROUTES}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Test_Preconditions
 
 Get_Update_Content
     [Documentation]    Gets received data from odl's peer
@@ -446,4 +456,5 @@ Loc_Rib_Presence
     [Arguments]    ${exp_content}
     [Documentation]    Verifies if loc-rib contains expected data
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS}
+    BuiltIn.Log_Many    ${exp_content}    ${rsp.content}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}
