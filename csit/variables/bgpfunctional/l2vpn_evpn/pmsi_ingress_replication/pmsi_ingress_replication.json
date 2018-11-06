@@ -17,8 +17,7 @@
                     },
                     "local-pref": {
                         "pref": 100
-                    },
-                    "as-path": {},
+                    },$AS_PATH
                     "pmsi-tunnel": {
                         "leaf-information-required": false,
                         "mpls-label": 20024,
