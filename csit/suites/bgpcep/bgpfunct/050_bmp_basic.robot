@@ -30,6 +30,8 @@ ${CONFIG_SESSION}    config-session
 ${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
 ${BMP_LOG_FILE}    bmpmock.log
+${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
+${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
 
 *** Test Cases ***
 Verify BMP Feature
@@ -49,7 +51,8 @@ Start_Bmp_Mock
 
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data
-    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    ${IPV4_ROUTES_LINE} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_IPV4_ROUTES_LINE}    ${OLD_IPV4_ROUTES_LINE}
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}    ROUTES_LINE=${IPV4_ROUTES_LINE}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
     ...    verify=True
 
@@ -65,7 +68,7 @@ Set_It_Up
     ...    Figure out latest pcc-mock version and download it from Nexus to ToolsVm.
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
+    ${name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
 
 Tear_It_Down
@@ -73,7 +76,7 @@ Tear_It_Down
     ...    Compute and Log the diff between expected and actual normalized responses.
     ...    Close both HTTP client session and SSH connection to Mininet.
     SSHLibrary.Get_File    ${BMP_LOG_FILE}
-    ${cnt}=    OperatingSystem.Get_File    ${BMP_LOG_FILE}
+    ${cnt} =    OperatingSystem.Get_File    ${BMP_LOG_FILE}
     Log    ${cnt}
     Delete_All_Sessions
     Close_All_Connections
