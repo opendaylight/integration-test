@@ -61,7 +61,7 @@ Exa_To_Send_Route_Refresh
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=0    update_count=${nr_configured_routes}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=0    update_count=${nr_configured_routes}    receive_count=4
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
 Odl_To_Send_Route_Refresh
@@ -72,7 +72,8 @@ Odl_To_Send_Route_Refresh
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/route_refresh    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Route_Refresh    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=1    update_count=4
+    ${receive_count} =    CompareStream.Set_Variable_If_At_Least_Neon    6    4
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=1    update_count=4    receive_count=${receive_count}
     [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
@@ -147,21 +148,23 @@ Verify_ExaBgp_Received_Route_Refresh
     BuiltIn.Should Be Equal As Numbers    ${count}    ${expcount}
 
 Verify_Odl_Operational_State_Count
-    [Arguments]    ${notification_count}    ${update_count}
+    [Arguments]    ${notification_count}    ${update_count}    ${receive_count}
     [Documentation]    Check notification and update count gained from operatial neighbor state
     ...    On versions oxygen and above, it verifies these counts also against cli output.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    RCV_COUNT=${receive_count}
     ${ret}=    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_state    mapping=${mapping}
     ...    session=${CONFIG_SESSION}    verify=True
     BuiltIn.Log    ${ret}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Cli_Output_Count    ${notification_count}    ${update_count}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Cli_Output_Count    ${notification_count}    ${update_count}    ${receive_count}
 
 Verify_Cli_Output_Count
-    [Arguments]    ${notification_count}    ${update_count}
+    [Arguments]    ${notification_count}    ${update_count}    ${receive_count}
     [Documentation]    Checks notification and update count from odl-bgpcep-bgp-cli.
     ...    odl-bgpcep-bgp-cli is only avaiable on versions oxygen and above.
     ${output}    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     BuiltIn.Log    ${output}
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=│
+    ${line_ending} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${EMPTY}    \r
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=│    LNE=${line_ending}
+    ...    RCV_COUNT=${receive_count}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli    file_name=update.txt    mapping=${mapping}
     BuiltIn.Should_Contain    ${output}    ${expstate}
