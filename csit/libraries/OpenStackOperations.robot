@@ -1141,7 +1141,7 @@ Validate Deployment
     Write To Validate File    ----------------------------------------\n${SUITE_NAME}\n
     : FOR    ${keyword}    IN    @{VALIDATION_KEYWORDS}
     \    ${status} =    Builtin.Run Keyword And Return Status    ${keyword}
-    \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Run Keywords    Write To Validate File    Failed: ${keyword}
+    \    BuiltIn.Run Keyword If    "${status}" == "FAIL" or "${status}" == "False"    BuiltIn.Run Keywords    Write To Validate File    Failed: ${keyword}
     \    ...    AND    BuiltIn.Fail
     \    ...    ELSE    Write To Validate File    Passed: ${keyword}
 
