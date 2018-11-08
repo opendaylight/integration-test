@@ -12,9 +12,7 @@
                             "session-id": "*"
                         },
                         "messages": {
-                            "error-messages": {
-                                "last-received-error": {},
-                                "last-sent-error": {},
+                            "error-messages": {$ERRORS
                                 "received-error-msg-count": 0,
                                 "sent-error-msg-count": 0
                             },
