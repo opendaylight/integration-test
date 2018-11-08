@@ -36,8 +36,6 @@ ${BGP_PEER_OPTIONS}    &>${BGP_PEER_LOG_FILE}
 ${DEFAULT_RIB_CHECK_PERIOD}    1s
 ${DEFAULT_RIB_CHECK_TIMEOUT}    10s
 ${BGP_PEER_LOG_LEVEL}    debug
-${ODL_LOG_LEVEL}    INFO
-${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${JSONKEYSTR}     "linkstate-route"
 ${BGP_PEER_NAME}    example-bgp-peer
 ${DEVICE_NAME}    controller-config
@@ -130,6 +128,3 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Setup_Karaf_Keywords
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
