@@ -18,9 +18,8 @@ Documentation     TCPMD5 user-facing feature system tests, using PCEP.
 ...               Update the lsp, check a change in pcep-topology.
 ...               Change ODL PCEP configuration to not use password, pcep-topology empties, kill pcep-pcc-mock.
 ...
-...               Stable/carbon and stable/nitrogen are using netconf-connector-ssh to send restconf requests.
-...               Oxygen test cases no longer need netconf-connector-ssh, and they include comparison of
-...               pcep-session-state, which is exclusive to oxygen.
+...               Test cases no longer need netconf-connector-ssh, and they include comparison of
+...               pcep-session-state.
 Suite Setup       Set_It_Up
 Suite Teardown    Tear_It_Down
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
@@ -28,20 +27,21 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/NexusKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/WaitForFailure.robot
 Resource          ../../../libraries/RemoteBash.robot
-Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../variables/Variables.robot
+
 
 *** Variables ***
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/
 ${CONFIG_SESSION}    session
-${CONNECTOR_FEATURE}    odl-netconf-connector-all
-${PCEP_FEATURE}    odl-bgpcep-pcep
-${RESTCONF_FEATURE}    odl-restconf-all
+${OLD_ERROR_ARGS}    \n"last-received-error": {},\n"last-sent-error": {},
+${NEW_ERROR_ARGS}    ${EMPTY}
 
 *** Test Cases ***
 Topology_Precondition
@@ -62,8 +62,7 @@ Topology_Unauthorized_1
 Set_Wrong_Password
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
     ...    This password does not match what pcc-mock uses.
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Replace_Password_On_Pcep_Node    password=changeme
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Set_Password_Less_Than_Oxygen    password=changeme
+    Replace_Password_On_Pcep_Node    password=changeme
 
 Topology_Unauthorized_2
     [Documentation]    The same logic as Topology_Unauthorized_1 as incorrect password was provided to ODL.
@@ -73,16 +72,11 @@ Topology_Unauthorized_2
 Set_Correct_Password
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
     ...    This password finally matches what pcc-mock uses.
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Replace_Password_On_Pcep_Node    password=topsecret
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Set_Password_Less_Than_Oxygen    password=topsecret
+    Replace_Password_On_Pcep_Node    password=topsecret
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    ...    For oxygen compares full pcep-topology including pcep-session-state
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
-    ...    verify=True
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
 
@@ -111,16 +105,11 @@ Topology_Unauthorized_4
 Set_Correct_Password_2
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
     ...    This password again matches what second pcc-mock instance uses.
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Replace_Password_On_Pcep_Node    password=newtopsecret
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Set_Password_Less_Than_Oxygen    password=newtopsecret
+    Replace_Password_On_Pcep_Node    password=newtopsecret
 
 Topology_Intercondition_2
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    ...    For oxygen compares full pcep-topology including pcep-session-state
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
-    ...    verify=True
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
 
@@ -132,20 +121,15 @@ Update_Delegated
 
 Topology_Updated
     [Documentation]    Compare pcep-topology/path-computation-client to default_on_updated, which includes the updated tunnel.
-    ...    For oxygen compares full pcep-topology including pcep-session-state
     [Tags]    critical
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated    ${mapping}    ${CONFIG_SESSION}
-    ...    verify=True
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
 
 Unset_Password
     [Documentation]    De-configure password for pcep dispatcher for client with Mininet IP address.
     [Setup]    FailFast.Run_Even_When_Failing_Fast
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Unset_Password_On_Pcep_Node
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Replace_Password_Xml_Element_In_Pcep_Client_Module_Less_Than_Oxygen
+    Unset_Password_On_Pcep_Node
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing, if both previous and this test failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
@@ -171,18 +155,15 @@ Topology_Postcondition
 Delete_Pcep_Client_Module
     [Documentation]    Delete Pcep client module.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    TemplatedRequests.Delete_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_node    ${mapping}
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    TemplatedRequests.Delete_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_client_module    ${mapping}
+    TemplatedRequests.Delete_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_node    ${mapping}
 
 *** Keywords ***
 Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
-    ...    Sets up netconf-connector on odl-streams less than oxygen.
     KarafKeywords.Setup_Karaf_Keywords
     TemplatedRequests.Create_Default_Session
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Install_Netconf_Connector
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     ${current_connection}=    SSHLibrary.Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
@@ -196,6 +177,8 @@ Set_It_Up
     ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
     BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
     FailFast.Do_Not_Fail_Fast_From_Now_On
+    ${ERROR_ARGS} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
+    BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
 
 Tear_It_Down
     [Documentation]    Download pccmock.log and Log its contents.
@@ -204,42 +187,17 @@ Tear_It_Down
     SSHLibrary.Get_File    pccmock.log
     ${pccmocklog}=    OperatingSystem.Run    cat pccmock.log
     BuiltIn.Log    ${pccmocklog}
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Uninstall_Netconf_Connector
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Install_Netconf_Connector
-    [Documentation]    Installs ${CONNECTOR_FEATURE} feature.
-    # During the netconf connector installation the karaf's ssh is restarted and connection to karaf console is droped. This is causing an error
-    # which is ignored, because the feature should be installed anyway.
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${CONNECTOR_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${PCEP_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${RESTCONF_FEATURE}
-    BuiltIn.Log    ${results}
-    BuiltIn.Wait_Until_Keyword_Succeeds    240s    3s    Check_Netconf_Up_And_Running
-
-Check_Netconf_Up_And_Running
-    [Documentation]    Make a request to netconf connector's mounted pcep module and expect it is mounted.
-    TemplatedRequests.Get_From_Uri    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-pcep-topology-provider-cfg:pcep-topology-provider/pcep-topology
-
-Uninstall_Netconf_Connector
-    [Documentation]    Uninstalls ${CONNECTOR_FEATURE} feature.
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Uninstall_A_Feature    ${CONNECTOR_FEATURE}
-    BuiltIn.Log    ${results}
 
 Test_Unauthorized
     [Documentation]    Try to access pcep topology with wrong password, should get empty topology
     TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    session=${CONFIG_SESSION}    verify=True
 
-Set_Password_Less_Than_Oxygen
-    [Arguments]    ${password}=${EMPTY}
-    ${password_line}=    Construct_Password_Element_Line_Using_Password    password=${password}
-    Replace_Password_Xml_Element_In_Pcep_Client_Module_Less_Than_Oxygen    ${password_line}
-
 Read_Text_Before_Prompt
     [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
     ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text}=    SSHLibrary.Read_Until_Prompt
+    ${text} =    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
 
 Replace_Password_On_Pcep_Node
@@ -252,19 +210,6 @@ Unset_Password_On_Pcep_Node
     [Documentation]    Send restconf PUT to unset the config module.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_node_empty    mapping=${mapping}
-
-Construct_Password_Element_Line_Using_Password
-    [Arguments]    ${password}
-    [Documentation]    Return line with password XML element containing given password, whitespace is there so that data to send looks neat.
-    ${element}=    String.Replace_String    ${SPACE}${SPACE}<password>$PASSWORD</password>${\n}    $PASSWORD    ${password}
-    BuiltIn.Log    ${element}
-    [Return]    ${element}
-
-Replace_Password_Xml_Element_In_Pcep_Client_Module_Less_Than_Oxygen
-    [Arguments]    ${password_element}=${EMPTY}
-    [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element (may be empty=missing).
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${password_element}
-    TemplatedRequests.Put_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_client_module    mapping=${mapping}
 
 Stop_Pcc_Mock_Tool
     [Documentation]    Send ctrl+c to pcc-mock, fails if no prompt is seen
