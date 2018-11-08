@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71d18bb0_3aa23d81",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-08T21:19:46Z",
+      "side": 1,
+      "message": "Should Contain return True/False so kept that pattern",
+      "parentUuid": "c2b2c396_65372151",
+      "range": {
+        "startLine": 1243,
+        "startChar": 64,
+        "endLine": 1243,
+        "endChar": 71
+      },
+      "revId": "b66ff9f85a176986e646c99c2cd2aa2e2497d820",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8434fffe_be400435",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 1
