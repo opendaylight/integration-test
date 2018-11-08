@@ -178,6 +178,7 @@ Verify ARP REQUEST in groupTable
 
 Verify Tunnel Status as UP
     [Documentation]    Verify that the tunnels are UP
+    BuiltIn.Return From Keyword If    ${OS_NODE_CNT} == ${1}    ${True}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
     Should Contain    ${output}    ${STATE_UP}

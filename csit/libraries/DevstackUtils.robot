@@ -16,6 +16,7 @@ ${OS_CMP1_IP}     ${EMPTY}
 ${OS_CMP2_IP}     ${EMPTY}
 @{OS_ALL_IPS}     @{EMPTY}
 @{OS_CMP_IPS}     @{EMPTY}
+${OS_NODE_CNT}    ${1}
 
 *** Keywords ***
 Open Connection
@@ -50,7 +51,7 @@ Write Commands Until Prompt And Log
 
 Log Devstack Nodes Data
     ${output} =    BuiltIn.Catenate    SEPARATOR=\n    OS_CNTL_HOSTNAME: ${OS_CNTL_HOSTNAME} - OS_CNTL_IP: ${OS_CNTL_IP} - OS_CONTROL_NODE_IP: ${OS_CONTROL_NODE_IP}    OS_CMP1_HOSTNAME: ${OS_CMP1_HOSTNAME} - OS_CMP1_IP: ${OS_CMP1_IP} - OS_COMPUTE_1_IP: ${OS_COMPUTE_1_IP}    OS_CMP2_HOSTNAME: ${OS_CMP2_HOSTNAME} - OS_CMP2_IP: ${OS_CMP2_IP} - OS_COMPUTE_2_IP: ${OS_COMPUTE_2_IP}    OS_ALL_IPS: @{OS_ALL_IPS}
-    ...    OS_CMP_IPS: @{OS_CMP_IPS}
+    ...    OS_CMP_IPS: @{OS_CMP_IPS}    OS_NODE_CNT: ${OS_NODE_CNT}    OS_ALL_CONN_IDS: @{OS_ALL_CONN_IDS}    OS_CMP_CONN_IDS: @{OS_CMP_CONN_IDS}
     BuiltIn.Log    DevStack Nodes Data:\n${output}
 
 Get DevStack Hostnames
@@ -102,5 +103,6 @@ Get DevStack Nodes Data
     BuiltIn.Run Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    DevstackUtils.Set Node Data For AllinOne Setup
     ...    ELSE IF    "${OPENSTACK_TOPO}" == "1cmb-0ctl-1cmp"    DevstackUtils.Set Node Data For Control And Compute Node Setup
     ...    ELSE IF    "${OPENSTACK_TOPO}" == "0cmb-1ctl-2cmp"    DevstackUtils.Set Node Data For Control And Two Compute Node Setup
+    ${OS_NODE_CNT} =    BuiltIn.Get Length    ${OS_ALL_IPS}
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data

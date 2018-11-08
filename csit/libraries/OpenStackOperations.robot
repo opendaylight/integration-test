@@ -1240,6 +1240,7 @@ Verify Services
 
 Verify Expected Default Tunnels
     [Documentation]    Verify if the default tunnels are created
+    BuiltIn.Return From Keyword If    ${OS_NODE_CNT} == ${1}    ${True}
     ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
     BuiltIn.Should Contain    ${output}    All tunnels are up
 
