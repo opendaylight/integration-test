@@ -8,14 +8,19 @@
                     "vlan-id": 0,
                     "vteps": [
                         {
-                            "dpn-id": 101,
+                            "dpn-id": 100,
                             "ip-address": "2.2.2.2",
-                            "portname": "BR1-eth1"
+                            "portname": "br-int-eth1"
+                        },
+                        {
+                            "dpn-id": 101,
+                            "ip-address": "3.3.3.3",
+                            "portname": "br-int-eth1"
                         },
                         {
                             "dpn-id": 102,
-                            "ip-address": "3.3.3.3",
-                            "portname": "BR2-eth1"
+                            "ip-address": "4.4.4.4",
+                            "portname": "br-int-eth1"
                         }
                     ]
                 }

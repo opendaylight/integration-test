@@ -8,20 +8,20 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
-Library           re
-Variables         ../../variables/genius/Modules.py
 Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Genius.robot
 Resource          ../../libraries/KarafKeywords.robot
+Resource          ../../libraries/ToolsSystem.robot
 Resource          ../../libraries/Utils.robot
 Resource          ../../variables/netvirt/Variables.robot
 Resource          ../../variables/Variables.robot
+Variables         ../../variables/genius/Modules.py
 
 *** Variables ***
 @{itm_created}    TZA
-${genius_config_dir}    ${CURDIR}/../../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
+${genius_config_dir}    ${CURDIR}/../../variables/genius
 @{PORT}           BR1-eth1    BR2-eth1
 @{VLAN}           0    100    101
 
@@ -329,80 +329,64 @@ Get ITM
     Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Get Network Topology with Tunnel
-    [Arguments]    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}    ${url}
+    [Arguments]    ${url}    ${network_topology_list}
     [Documentation]    Returns the Network topology with Tunnel info in it.
-    @{bridges}    Create List    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}
-    Check For Elements At URI    ${url}    ${bridges}
+    Utils.Check For Elements At URI    ${url}    ${network_topology_list}
 
-Get Network Topology without Tunnel
-    [Arguments]    ${url}    ${tunnel-1}    ${tunnel-2}
-    [Documentation]    Returns the Network Topology after Deleting of ITM transport zone is done , which wont be having any TUNNEL info in it.
-    @{tunnels}    create list    ${tunnel-1}    ${tunnel-2}
-    Check For Elements Not At URI    ${url}    ${tunnels}
+Get Tunnel Between DPNs
+    [Arguments]    ${type}
+    [Documentation]    This keyword will get the tunnels between DPN's
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    \    @{DPN_ID_UPDATED_LIST} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove Values From List    ${DPN_ID_UPDATED_LIST}    ${DPN_ID_LIST[${i}]}
+    \    BuiltIn.Log Many    ${DPN_ID_UPDATED_LIST}
+    \    BuiltIn.Set Suite Variable    ${DPN_ID_UPDATED_LIST}
+    \    Get Tunnels On OVS    ${type}
 
-Validate interface state Delete
-    [Arguments]    ${tunnel}
-    [Documentation]    Check for the Tunnel / Interface absence in OPERATIONAL data base of IETF interface after ITM transport zone is deleted.
-    Log    ${tunnel}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
+Get Tunnels On OVS
+    [Arguments]    ${type}
+    [Documentation]    This keyword will get available tunnels
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM} -1
+    \    ${tunnel}    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${DPN_ID_LIST[${k}]}
+    \    ...    ${DPN_ID_UPDATED_LIST[${i}]}    ${type}
+    ${k} =    BuiltIn.Evaluate    ${k} +1
+    BuiltIn.Set Suite Variable    ${k}
+
+Get ITM IPV6
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
+    [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
+    @{Itm-no-vlan} =    BuiltIn.Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${DPN_ID_LIST}    ${INTEGRATION_BRIDGE}
+    @{Itm-no-vlan} =    Collections.Combine Lists    @{Itm-no-vlan}    ${TOOLS_SYSTEM_IPV6_LIST}
+    BuiltIn.Log Many    @{Itm-no-vlan}
+    Utils.Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+
+OVS Verification Between IPV6
+    [Documentation]    This keyword will verify tunnels available on ovs
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+    \    Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_IPV6_LIST}
+
+Get Tunnels On All DPNs
+    [Arguments]    ${type}
+    [Documentation]    This keyword will Get All the Tunnels available on DPN's
+    ${k} =    BuiltIn.Set Variable    0
+    BuiltIn.Set Suite Variable    ${k}
+    Get Tunnel Between DPNs    ${type}
+
+Verify Network Topology
+    [Documentation]    This keyword will verify whether all tunnels and bridges are populated in network topology
+    ${all_tunnels}    Genius.Get Tunnels List
+    @{network_topology_list}    BuiltIn.Create List
+    @{network_topology_list}    Collections.Combine Lists    ${network_topology_list}    ${INTEGRATION_BRIDGE}
+    @{network_topology_list}    Collections.Combine Lists    ${network_topology_list}    ${all_tunnels}
+    ${resp}    BuiltIn.Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${OPERATIONAL_TOPO_API}    ${network_topology_list}
+
+Verify Ietf Interface State
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    Should Be Equal As Strings    ${resp.status_code}    404
-    Should not contain    ${resp.content}    ${tunnel}
-
-check-Tunnel-delete-on-ovs
-    [Arguments]    ${connection-id}    ${tunnel}
-    [Documentation]    Verifies the Tunnel is deleted from OVS
-    Log    ${tunnel}
-    Switch Connection    ${connection-id}
-    Log    ${connection-id}
-    ${return}    Execute Command    sudo ovs-vsctl show
-    Log    ${return}
-    Should Not Contain    ${return}    ${tunnel}
-    [Return]    ${return}
-
-Check Interface Status
-    [Arguments]    ${tunnel}    ${dpid}
-    [Documentation]    Verifies the operational state of the interface .
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
-    Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should not contain    ${resp.content}    down
-    Should Contain    ${resp.content}    ${tunnel}    up    up
-    ${result-1}    re.sub    <.*?>    ,    ${resp.content}
-    Log    ${result-1}
-    ${lower_layer_if}    Should Match Regexp    ${result-1}    openflow:${dpid}:[0-9]+
-    log    ${lower_layer_if}
-    @{resp_array}    Split String    ${lower_layer_if}    :
-    ${port-num}    Get From List    ${resp_array}    2
-    Log    ${port-num}
-    [Return]    ${lower_layer_if}    ${port-num}
-
-Verify Data Base after Delete
-    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}    ${tunnel-2}
-    [Documentation]    Verifies the config database after the Tunnel deletion is done.
-    ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/
-    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/
-    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
-    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    ${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
-    Run Keyword if    '${resp_7.content}'=='404'    Response is 404
-    Run Keyword if    '${resp_7.content}'=='200'    Response is 200
-    ${resp_8}    Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${CONFIG_TOPO_API}    ${tunnel-1}
-    ...    ${tunnel-2}
-    Log    ${resp_8}
-    Wait Until Keyword Succeeds    40    10    check-Tunnel-delete-on-ovs    ${conn_id_1}    ${tunnel-1}
-    Wait Until Keyword Succeeds    40    10    check-Tunnel-delete-on-ovs    ${conn_id_2}    ${tunnel-2}
-    Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${OPERATIONAL_TOPO_API}    ${tunnel-1}    ${tunnel-2}
-    Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-1}
-    Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-2}
-
-Check Interface Name
-    [Arguments]    ${json}    ${expected_tunnel_interface_name}
-    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
-    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
-    Log    ${Tunnels}
-    [Return]    ${Tunnels[0]}
+    BuiltIn.Log    ${respjson}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
+    \    BuiltIn.Should Contain    ${resp.content}    ${dpn}
+    ${all_tunnels}    Genius.Get Tunnels List
+    : FOR    ${tun}    IN    @{all_tunnels}
+    \    BuiltIn.Should Contain    ${resp.content}    ${tun}
