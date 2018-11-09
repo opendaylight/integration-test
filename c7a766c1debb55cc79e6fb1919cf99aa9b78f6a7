@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13eaf9b3_a93ccfb8",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-09T23:43:12Z",
+      "side": 1,
+      "message": "what about those keywords like Utils.Check For Elements At URI",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 66
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a563f94d_559637ac",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-09T23:43:12Z",
+      "side": 1,
+      "message": "both of these can probably be done with the keyword in\nOVSDB lib: \"Verify Dump Flows For Specific Table\"",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
