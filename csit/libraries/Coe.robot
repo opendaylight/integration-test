@@ -48,7 +48,8 @@ Start Suite
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
     BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
-    BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status as UP    default-transport-zone
+    BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status as Up
+    Coe.Derive Coe Data Models
 
 Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .
