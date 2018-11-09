@@ -378,7 +378,7 @@ Get Bridge Data
     [Documentation]    This keyword returns first bridge name and UUID from list of bridges.
     ${result} =    SSHLibrary.Execute Command    sudo ovs-vsctl show
     ${uuid} =    String.Get Line    ${result}    0
-    ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge "(\\w+)"
+    ${line}    ${bridge_name} =    Builtin.Should Match Regexp    ${result}    Bridge (\\w.*)
     [Return]    ${uuid}    ${bridge_name}
 
 Delete OVS Controller
