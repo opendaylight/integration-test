@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4065e761_88611fa4",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-12T07:41:43Z",
+      "side": 1,
+      "message": "This keyword checks for some specific elements within the json body,but our code just checks response status code.",
+      "parentUuid": "13eaf9b3_a93ccfb8",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 66
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a563f94d_559637ac",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 36
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-09T23:43:12Z",
       "side": 1,
       "message": "both of these can probably be done with the keyword in\nOVSDB lib: \"Verify Dump Flows For Specific Table\"",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "204a7534_bdb1577c",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-12T07:41:43Z",
+      "side": 1,
+      "message": "Jamo,that keyword verifies dump flows for a specific table where as we just check if the table if present or not,so that detailed checking is not necessary over here",
+      "parentUuid": "a563f94d_559637ac",
       "range": {
         "startLine": 141,
         "startChar": 0,
