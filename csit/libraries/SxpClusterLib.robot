@@ -58,14 +58,14 @@ Setup SXP Cluster
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    1m    1x    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    1m    1x    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
-    BuiltIn.Wait Until Keyword Succeeds    4m    1x    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    2x    1m    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    2x    1m    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    2x    4m    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    3x    10s    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
 
 Check Cluster Node started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
@@ -107,7 +107,7 @@ Check Cluster is Connected
 Get Owner Controller
     [Arguments]    ${running_member}=1
     [Documentation]    Find cluster controller that is marked as cluster owner by requesting ownership data from ${running_member} node of the cluster
-    ${owner}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
+    ${owner}    ${candidates} =    BuiltIn.Wait Until Keyword Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
     ...    Sxp    ${running_member}
     [Return]    ${owner}
 
