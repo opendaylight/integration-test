@@ -15,6 +15,8 @@ ${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
 ${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}       example-bgp-rib
+${OLD_AS_PATH}    \n"as-path": {},
+${NEW_AS_PATH}    ${EMPTY}
 &{ADJ_RIB_IN}     PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}
 &{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
 &{EFFECTIVE_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}
@@ -344,7 +346,9 @@ Play_To_Odl_Non_Removal_Template
     ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{mapping} =    BuiltIn.Create_Dictionary    AS_PATH=${as_path}    PATH=loc-rib    BGP_RIB=${RIB_NAME}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
     ...    verify=True
 
 Get_Update_Message
