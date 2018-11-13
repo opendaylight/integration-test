@@ -28,11 +28,9 @@ Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/BGPSpeaker.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/ExaBgpLib.robot
-Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
@@ -154,7 +152,7 @@ Setup_Testcase
     [Arguments]    ${cfg_file}
     [Documentation]    Verifies initial test condition and starts the exabgp
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Empty_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
 
 Teardowm_With_Remove_Route
@@ -166,7 +164,7 @@ Teardowm_With_Remove_Route
 Teardown_Simple
     [Documentation]    Testcse teardown with data verification
     ExaBgpLib.Stop_ExaBgp
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Empty_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
 
 Verify_ExaBgp_Received_Update
     [Arguments]    ${exp_update_fn}
@@ -176,11 +174,19 @@ Verify_ExaBgp_Received_Update
     ${rcv_update}=    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_update}    ${rcv_update}
 
+Verify_Empty_Reported_Data
+    [Arguments]    ${url}    ${exprspfile}
+    [Documentation]    Verfiy empty data response
+    ${expected_rsp} =    Get_Expected_Response_From_File    ${exprspfile}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
+    CompareStream.Run_Keyword_If_At_Least_Neon    BuiltIn.Pass_Execution_If    "${rsp.status_code}" == "404"
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_rsp}    ${rsp.content}
+
 Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}
     [Documentation]    Verifies expected response
-    ${expected_rsp}=    Get_Expected_Response_From_File    ${exprspfile}
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
+    ${expected_rsp} =    Get_Expected_Response_From_File    ${exprspfile}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_rsp}    ${rsp.content}
 
 Get_Expected_Response_From_File
@@ -188,7 +194,7 @@ Get_Expected_Response_From_File
     [Documentation]    Looks for release specific response first, then take default.
     ${status}    ${expresponse}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get File    ${exprspfile}.${ODL_STREAM}
     Return From Keyword If    '${status}' == 'PASS'    ${expresponse}
-    ${expresponse}=    OperatingSystem.Get File    ${exprspfile}
+    ${expresponse} =    OperatingSystem.Get File    ${exprspfile}
     [Return]    ${expresponse}
 
 Start_Bgp_Peer
