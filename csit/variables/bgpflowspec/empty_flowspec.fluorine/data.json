@@ -1,0 +1,12 @@
+{
+    "tables": [
+        {
+            "afi": "bgp-types:ipv4-address-family",
+            "safi": "bgp-flowspec:flowspec-subsequent-address-family",
+            "bgp-flowspec:flowspec-routes": {},
+            "attributes": {
+                "uptodate": false
+            }
+        }
+    ]
+}
