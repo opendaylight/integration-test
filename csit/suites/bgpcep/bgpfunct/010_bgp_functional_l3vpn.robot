@@ -46,7 +46,6 @@ ${HOLDTIME}       180
 ${L3VPN_EXA_CFG}    bgp-l3vpn-ipv4.cfg
 ${L3VPN_EXP}      ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
 ${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
-${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
 ${L3VPN_RSP_PATH}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-path.json
 ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
@@ -154,7 +153,7 @@ Setup_Testcase
     [Arguments]    ${cfg_file}
     [Documentation]    Verifies initial test condition and starts the exabgp
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    Verify_Empty_Reported_Data
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
 
 Teardowm_With_Remove_Route
@@ -166,7 +165,7 @@ Teardowm_With_Remove_Route
 Teardown_Simple
     [Documentation]    Testcse teardown with data verification
     ExaBgpLib.Stop_ExaBgp
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    Verify_Empty_Reported_Data
 
 Verify_ExaBgp_Received_Update
     [Arguments]    ${exp_update_fn}
@@ -175,6 +174,10 @@ Verify_ExaBgp_Received_Update
     ${rcv_update_dict}=    BgpRpcClient.exa_get_update_message    msg_only=${True}
     ${rcv_update}=    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_update}    ${rcv_update}
+
+Verify_Empty_Reported_Data
+    [Documentation]    Verify empty response
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${BGP_L3VPN_DIR}/empty_l3vpn_ipv4    session=${CONFIG_SESSION}    verify=True
 
 Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}
