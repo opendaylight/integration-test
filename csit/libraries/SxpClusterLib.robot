@@ -65,7 +65,7 @@ Setup SXP Cluster
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    10s    3x    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
 
 Check Cluster Node started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
@@ -107,7 +107,7 @@ Check Cluster is Connected
 Get Owner Controller
     [Arguments]    ${running_member}=1
     [Documentation]    Find cluster controller that is marked as cluster owner by requesting ownership data from ${running_member} node of the cluster
-    ${owner}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
+    ${owner}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    2s    5x    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
     ...    Sxp    ${running_member}
     [Return]    ${owner}
 
