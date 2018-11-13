@@ -3,6 +3,7 @@ Documentation     SXP holds active SXP nodes only on the cluster owner node. Act
 Suite Setup       SxpClusterLib.Setup SXP Cluster Session
 Suite Teardown    SxpClusterLib.Clean SXP Cluster Session
 Library           ../../../libraries/Common.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/SxpBindingOriginsLib.robot
 Resource          ../../../libraries/SxpClusterLib.robot
 Resource          ../../../libraries/SxpLib.robot
@@ -81,6 +82,7 @@ Test Add/Delete Filter
 Test Add/Update/Delete Binding Origin
     [Documentation]    Binding origin operations need to be executed on cluster owner because they rely on static map which is present solely on cluster owner. To test that binding origin RPCs are redirected to cluster owner first add binding origin to the first node then update it on the second node (requires up-to date binding origin map) and update it on the third node (requires up-to date binding origin map).
     [Tags]    SXP Clustering Redirecting
+    CompareStream.Run_Keyword_If_Less_Than    fluorine    BuiltIn.Pass Execution     Binding origins are not supported before Fluorine
     SxpBindingOriginsLib.Add Binding Origin    CLUSTER    0    session=ClusterManagement__session_1
     SxpBindingOriginsLib.Update Binding Origin    CLUSTER    3    session=ClusterManagement__session_2
     SxpBindingOriginsLib.Delete Binding Origin    CLUSTER    session=ClusterManagement__session_3
