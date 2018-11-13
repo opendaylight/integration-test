@@ -4,6 +4,7 @@ Library           SSHLibrary
 Library           String
 Library           BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../variables/Variables.robot
+Resource          CompareStream.robot
 Resource          Utils.robot
 Resource          KillPythonTool.robot
 Resource          TemplatedRequests.robot
@@ -15,10 +16,9 @@ ${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
 ${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}       example-bgp-rib
-&{ADJ_RIB_IN}     PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}
-&{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
-&{EFFECTIVE_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}
-&{LOC_RIB}        PATH=loc-rib    BGP_RIB=${RIB_NAME}
+${OLD_AS_PATH}    \n"as-path": {},
+${NEW_AS_PATH}    ${EMPTY}
+&{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -324,18 +324,22 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
+    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{adj_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    ${as_path}
+    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     ${withdraw_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${ADJ_RIB_IN}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${adj_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${EFFECTIVE_RIB_IN}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${effective_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
 
@@ -344,7 +348,8 @@ Play_To_Odl_Non_Removal_Template
     ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
 
 Get_Update_Message
