@@ -4,6 +4,7 @@ Library           SSHLibrary
 Library           String
 Library           BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../variables/Variables.robot
+Resource          CompareStream.robot
 Resource          Utils.robot
 Resource          KillPythonTool.robot
 Resource          TemplatedRequests.robot
@@ -15,10 +16,9 @@ ${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
 ${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}       example-bgp-rib
-&{ADJ_RIB_IN}     PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}
+${OLD_AS_PATH}    \n"as-path": {},
+${NEW_AS_PATH}    ${EMPTY}
 &{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
-&{EFFECTIVE_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}
-&{LOC_RIB}        PATH=loc-rib    BGP_RIB=${RIB_NAME}
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -324,27 +324,33 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
-    ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
-    ${withdraw_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{adj_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${ADJ_RIB_IN}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${adj_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${EFFECTIVE_RIB_IN}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${effective_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
 
 Play_To_Odl_Non_Removal_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
-    ${announce_hex}=    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${loc_rib}    session=${CONFIG_SESSION}
     ...    verify=True
 
 Get_Update_Message
@@ -362,22 +368,15 @@ Verify_Two_Hex_Messages_Are_Equal
     [Arguments]    ${hex_1}    ${hex_2}
     [Documentation]    Verifies two hex messages are equal even in case, their arguments are misplaced.
     ...    Compares length of the hex messages and sums hex messages arguments as integers and compares results.
-    ${len_1}=    BuiltIn.Get_Length    ${hex_1}
-    ${len_2}=    BuiltIn.Get_Length    ${hex_2}
+    ${len_1} =    BuiltIn.Get_Length    ${hex_1}
+    ${len_2} =    BuiltIn.Get_Length    ${hex_2}
     BuiltIn.Should_Be_Equal    ${len_1}    ${len_2}
-    ${sum_1}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_1}
-    ${sum_2}=    Sum_Hex_Message_Arguments_To_Integer    ${hex_2}
+    ${sum_1} =    Sum_Hex_Message_Arguments_To_Integer    ${hex_1}
+    ${sum_2} =    Sum_Hex_Message_Arguments_To_Integer    ${hex_2}
     BuiltIn.Should_Be_Equal    ${sum_1}    ${sum_2}
 
 Sum_Hex_Message_Arguments_To_Integer
     [Arguments]    ${hex_string}
     [Documentation]    Converts hex message arguments to integers and sums them up and returns the sum.
-    ${partial_results}=    BuiltIn.Create_List
-    ${string}=    String.Get_Substring    ${hex_string}    32
-    @{list}=    String.Get_Regexp_Matches    ${string}    [a-f0-9][a-f0-9]
-    : FOR    ${i}    IN    @{list}
-    \    ${item_int}=    BuiltIn.Convert_To_Integer    ${i}    16
-    \    Collections.Append_To_List    ${partial_results}    ${item_int}
-    \    BuiltIn.Log    ${partial_results}
-    ${final_sum}=    BuiltIn.Evaluate    sum(${partial_results})
+    ${final_sum} =    BuiltIn.Evaluate    sum(map(lambda x: int(x, 16), re.compile('[a-f\d]{2}').findall('${hex_string}'[32:])))    modules=re
     [Return]    ${final_sum}

@@ -28,11 +28,9 @@ Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/BGPSpeaker.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/ExaBgpLib.robot
-Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
@@ -44,12 +42,12 @@ ${DEFAULT_EXA_CFG}    exa.cfg
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${HOLDTIME}       180
 ${L3VPN_EXA_CFG}    bgp-l3vpn-ipv4.cfg
-${L3VPN_EXP}      ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
-${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
-${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
-${L3VPN_RSP_PATH}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-path.json
-${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${L3VPN_EXP}      exa_expected
+${L3VPN_RSP}      bgp_l3vpn_ipv4
+${L3VPN_RSPEMPTY}    bgp_l3vpn_ipv4_empty
+${L3VPN_RSP_PATH}    bgp_l3vpn_ipv4_path
+${OLD_AS_PATH}    \n"as-path": {},
+${NEW_AS_PATH}    ${EMPTY}
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${RIB_INSTANCE}    example-bgp-rib
 ${RT_CONSTRAIN_DIR}    ${CURDIR}/../../../variables/bgpfunctional/rt_constrain
@@ -71,14 +69,14 @@ L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
     [Setup]    Setup_Testcase    ${L3VPN_EXA_CFG}
     ${L3VPN_RESPONSE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${L3VPN_RSP_PATH}    ${L3VPN_RSP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RESPONSE}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify_Reported_Data    ${L3VPN_RESPONSE}
     [Teardown]    Teardown_Simple
 
 Start_Play
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    "Only run on Fluorine and later"
-    SSHLibrary.Put File    ${PLAY_SCRIPT}    .
+    SSHLibrary.Put_File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Read
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start_Bgp_Peer
@@ -122,13 +120,15 @@ Deconfigure_App_Peer
 Start_Suite
     [Documentation]    Suite setup keyword.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ${tools_system_conn_id}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
+    ${tools_system_conn_id} =    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set_Suite_Variable    ${tools_system_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
+    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    BuiltIn.Set_Suite_Variable    ${AS_PATH}
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -154,7 +154,7 @@ Setup_Testcase
     [Arguments]    ${cfg_file}
     [Documentation]    Verifies initial test condition and starts the exabgp
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Empty_Reported_Data
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
 
 Teardowm_With_Remove_Route
@@ -166,30 +166,26 @@ Teardowm_With_Remove_Route
 Teardown_Simple
     [Documentation]    Testcse teardown with data verification
     ExaBgpLib.Stop_ExaBgp
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Empty_Reported_Data
 
 Verify_ExaBgp_Received_Update
     [Arguments]    ${exp_update_fn}
     [Documentation]    Verification of receiving particular update message
-    ${exp_update}=    Get_Expected_Response_From_File    ${exp_update_fn}
-    ${rcv_update_dict}=    BgpRpcClient.exa_get_update_message    msg_only=${True}
-    ${rcv_update}=    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
+    ${exp_update} =    TemplatedRequests.Resolve_Text_From_Template_File    ${BGP_L3VPN_DIR}${/}${exp_update_fn}    data.json
+    ${rcv_update_dict} =    BgpRpcClient.exa_get_update_message    msg_only=${True}
+    ${rcv_update} =    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_update}    ${rcv_update}
 
-Verify_Reported_Data
-    [Arguments]    ${url}    ${exprspfile}
-    [Documentation]    Verifies expected response
-    ${expected_rsp}=    Get_Expected_Response_From_File    ${exprspfile}
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
-    TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_rsp}    ${rsp.content}
+Verify_Empty_Reported_Data
+    [Documentation]    Verfiy empty data response
+    CompareStream.Run_Keyword_If_At_Most_Fluorine    TemplatedRequests.Get_As_Json_Templated    ${BGP_L3VPN_DIR}${/}${L3VPN_RSPEMPTY}    session=${CONFIG_SESSION}    verify=True
+    CompareStream.Run_Keyword_If_At_Least_Neon    Verify_Empty_Data_Neon
 
-Get_Expected_Response_From_File
-    [Arguments]    ${exprspfile}
-    [Documentation]    Looks for release specific response first, then take default.
-    ${status}    ${expresponse}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get File    ${exprspfile}.${ODL_STREAM}
-    Return From Keyword If    '${status}' == 'PASS'    ${expresponse}
-    ${expresponse}=    OperatingSystem.Get File    ${exprspfile}
-    [Return]    ${expresponse}
+Verify_Reported_Data
+    [Arguments]    ${exprspdir}
+    [Documentation]    Verifies expected response
+    &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_L3VPN_DIR}${/}${exprspdir}    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
 
 Start_Bgp_Peer
     [Documentation]    Starts bgp peer and verifies that the peer runs.
@@ -202,3 +198,7 @@ L3vpn_Ipv4_To_App
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}    APP_PEER_IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${L3VPN_EXP}
+
+Verify_Empty_Data_Neon
+    [Documentation]    Verify empty data on neon
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_L3VPN_DIR}${/}empty_route    session=${CONFIG_SESSION}    verify=True
