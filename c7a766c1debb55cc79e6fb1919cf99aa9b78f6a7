@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6b527fb2_67f981d9",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-13T13:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e524b54_5966af6b",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 66
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a563f94d_559637ac",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 36
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "again, just pointing out that we don\u0027t need to write \nnew custom keywords when we can get it for free from\na library.\n\nfor the first, it seems that all you care about is that\ntable\u003d0 is in the output of dump-flows right?\n\nif so, then try this:\n\nOVSDB.Verify Dump Flows For Specific Table    ${node_ip}    ${EMPTY}    True    ${EMPTY}    table\u003d0\n\nand for the second keyword, I think it would look like\nthis:\n\n\nOVSDB.Verify Dump Flows For Specific Table    ${node_ip}    ${EMPTY}    False    ${EMPTY}    table\u003d0    goto_table:17",
       "parentUuid": "204a7534_bdb1577c",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "c7a766c1debb55cc79e6fb1919cf99aa9b78f6a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "675e1ed9_f3142ea2",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-13T13:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5482cc14_433ec68b",
       "range": {
         "startLine": 141,
         "startChar": 0,
