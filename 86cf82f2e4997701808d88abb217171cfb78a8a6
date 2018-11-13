@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "426340ee_f8f91b19",
+        "filename": "csit/suites/sxp/clustering/040_RPC_Redirecting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-11-13T12:05:46Z",
+      "side": 1,
+      "message": "Can we skip this entire test if it is not at least fluorine. We can use \"Pass Execution If\" to do so \n(Ref:http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Pass%20Execution%20If)",
+      "revId": "86cf82f2e4997701808d88abb217171cfb78a8a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
