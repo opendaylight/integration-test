@@ -50,8 +50,10 @@ ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 # Bug 9044 workaround: delete etc/host.key before restart.
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
-${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
-${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
+${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
+${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}    ]]]]}']
+${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey{_topologyId=Uri{_value=topology-netconf}}], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey{_nodeId=Uri{_value=
+${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    }}]]}']
 ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
 ${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group']
 ${SINGLETON_SXP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
@@ -257,11 +259,11 @@ Get_Owner_And_Candidates_For_Device_Singleton_Netconf
     ...    Parsing method is set as netconf (using netconf device id prefix and suffix)
     # Get election entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
+    ${id} =    CompareStream.Set_Variable_If_At_Least_Flourine    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}
     ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Get change ownership entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
+    ${id} =    CompareStream.Set_Variable_If_At_Least_Flourine    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}
     ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Owners must be same, if not, there is still some election or change ownership in progress
     BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
