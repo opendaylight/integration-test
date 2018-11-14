@@ -58,9 +58,9 @@ Setup SXP Cluster
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    1m    1x    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    1m    1x    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
-    BuiltIn.Wait Until Keyword Succeeds    4m    1x    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    48x    10s    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
