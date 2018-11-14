@@ -22,7 +22,6 @@ Resource          ../../variables/Variables.robot
 Resource          ../../libraries/OVSDB.robot
 
 *** Variables ***
-@{PORT}           BR1-eth1    BR2-eth1
 ${VLAN}           0
 
 *** Test Cases ***
@@ -49,11 +48,11 @@ Create and Verify VTEP
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    ${Port_num1}    Get Port Number    ${conn_id_1}    ${Bridge-1}    ${tunnel-1}
-    ${Port_num2}    Get Port Number    ${conn_id_2}    ${Bridge-2}    ${tunnel-2}
-    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}
+    ${Port_num1}    Get Port Number    ${conn_id_1}    ${Bridge}    ${tunnel-1}
+    ${Port_num2}    Get Port Number    ${conn_id_2}    ${Bridge}    ${tunnel-2}
+    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge}
     ...    ${Port_num1}
-    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}
+    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge}
     ...    ${Port_num2}
 
 Verify VTEP After Restarting OVS
@@ -93,8 +92,8 @@ Delete and Verify VTEP
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] ${VLAN} ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] ${VLAN} ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} ${VLAN} ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} ${VLAN} ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
     KarafKeywords.Issue Command On Karaf Console    ${cmd1}
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     KarafKeywords.Issue Command On Karaf Console    ${cmd2}
