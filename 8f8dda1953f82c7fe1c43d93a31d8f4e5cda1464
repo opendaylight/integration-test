@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5a67e611_76d0b61c",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "abe3a833_05ec57db",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7a1901e_4170bf63",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "8fbb5673_613ea734",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d7a1901e_4170bf63",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c81a5d3f_9c7436f2",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -64,6 +100,30 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "_sub_1",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89c75519_96e18bd0",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "changed all variables with _1",
+      "parentUuid": "c81a5d3f_9c7436f2",
       "range": {
         "startLine": 20,
         "startChar": 26,
@@ -99,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "d7bfcea9_566d694d",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "removed this variable and using ${0} now",
+      "parentUuid": "0ddad39c_aafb6a9d",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 25
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f31d69d0_359e14f7",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -110,6 +194,30 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "should be uppercase, but instead of creating this here add it to the variables section set to @{EMPTY}",
+      "range": {
+        "startLine": 150,
+        "startChar": 6,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09711e06_c1a93da9",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "moved to Variable section",
+      "parentUuid": "f31d69d0_359e14f7",
       "range": {
         "startLine": 150,
         "startChar": 6,
@@ -145,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "ed914b34_f4ddc090",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "783ae405_641b2a89",
+      "range": {
+        "startLine": 155,
+        "startChar": 36,
+        "endLine": 155,
+        "endChar": 50
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cc1d8e1_b882cc5c",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -156,6 +288,30 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "use FOR ${subnet}    IN    @{SUBNETS}:",
+      "range": {
+        "startLine": 159,
+        "startChar": 6,
+        "endLine": 159,
+        "endChar": 43
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abe08e3e_8bc16b52",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "I have 3 subnets in list but adding only 2 subnets to the router so using range 0 to 2",
+      "parentUuid": "8cc1d8e1_b882cc5c",
       "range": {
         "startLine": 159,
         "startChar": 6,
@@ -191,6 +347,30 @@
     },
     {
       "key": {
+        "uuid": "c9c6f36f_d65e2025",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "converted to lowercase",
+      "parentUuid": "49a4597c_c9a56f38",
+      "range": {
+        "startLine": 199,
+        "startChar": 19,
+        "endLine": 199,
+        "endChar": 26
+      },
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a701623f_6a605075",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -202,6 +382,24 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "add OpenStackOperations.Show Debugs    @{VM_LIST}",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56409424_9cbb8ba1",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "a701623f_6a605075",
       "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -225,6 +423,24 @@
     },
     {
       "key": {
+        "uuid": "f30b2a6e_23b865b9",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "modified it as per your inputs",
+      "parentUuid": "e726f20f_b61f11b4",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea841be7_09ea0adf",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -236,6 +452,24 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "Use Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    cmd - this does the three steps listed here so you don\u0027t need them",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de2b9794_e82f16a9",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "now using Utils.Run Command On Remote System And Log keyword wherever its needed",
+      "parentUuid": "ea841be7_09ea0adf",
       "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -259,6 +493,24 @@
     },
     {
       "key": {
+        "uuid": "677f5024_366e7a14",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "Now using loop over @{OS_ALL_IPS} suite variable which was defined at time of DevstackUtils.Devstack Suite Setup",
+      "parentUuid": "cb6bc955_4a17f1bc",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7307d245_249ba784",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 9
@@ -276,6 +528,24 @@
     },
     {
       "key": {
+        "uuid": "a2d14a9a_f8eeac85",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "modified these logic",
+      "parentUuid": "7307d245_249ba784",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49f9f298_915a3406",
         "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
         "patchSetId": 9
@@ -287,6 +557,24 @@
       "writtenOn": "2018-11-08T21:32:03Z",
       "side": 1,
       "message": "put before Create JVM_Plots",
+      "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d96c7cfd_cfd78fa2",
+        "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-14T05:55:48Z",
+      "side": 1,
+      "message": "moved up",
+      "parentUuid": "49f9f298_915a3406",
       "revId": "8f8dda1953f82c7fe1c43d93a31d8f4e5cda1464",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
