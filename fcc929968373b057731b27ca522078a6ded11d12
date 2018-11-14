@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d57b069_9fa63397",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-11-14T01:27:14Z",
+      "side": 1,
+      "message": "Same comment here, I think WUKS works in different way you think.",
+      "revId": "fcc929968373b057731b27ca522078a6ded11d12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17302e1d_41fd831c",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-11-14T01:27:14Z",
+      "side": 1,
+      "message": "WUKS first argument is timeout and second is retry, the old says retry every 2s until you reach 5 times, the new i am not sure what you want to express.",
+      "revId": "fcc929968373b057731b27ca522078a6ded11d12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
