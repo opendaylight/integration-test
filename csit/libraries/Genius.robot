@@ -19,13 +19,12 @@ Resource          ../variables/netvirt/Variables.robot
 *** Variables ***
 @{itm_created}    TZA
 ${genius_config_dir}    ${CURDIR}/../variables/genius
-${Bridge-1}       BR1
-${Bridge-2}       BR2
+${Bridge}         ${INTEGRATION_BRIDGE}
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 @{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    OVSDB
 ${vlan}           0
 ${gateway-ip}     0.0.0.0
-@{PORT}           BR1-eth1    BR2-eth1
+${port_name}      br-int-eth1
 
 *** Keywords ***
 Genius Suite Setup
@@ -50,11 +49,11 @@ Start Suite
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl add-br BR1
-    Execute Command    sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:6633
-    Execute Command    sudo ifconfig BR1 up
-    Execute Command    sudo ovs-vsctl add-port BR1 tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
+    Execute Command    sudo ovs-vsctl add-br ${Bridge}
+    Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ifconfig ${Bridge} up
+    Execute Command    sudo ovs-vsctl add-port ${Bridge} tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_1}    Execute Command    sudo ovs-vsctl show
     Log    ${output_1}
@@ -67,10 +66,10 @@ Start Suite
     Set Global Variable    ${conn_id_2}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl add-br BR2
-    Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6633
-    Execute Command    sudo ifconfig BR2 up
+    Execute Command    sudo ovs-vsctl add-br ${Bridge}
+    Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ifconfig ${Bridge} up
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
@@ -79,13 +78,13 @@ Stop Suite
     Log    Stop the tests
     Switch Connection    ${conn_id_1}
     Log    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-br BR1
+    Execute Command    sudo ovs-vsctl del-br ${Bridge}
     Execute Command    sudo ovs-vsctl del-manager
     Write    exit
     close connection
     Switch Connection    ${conn_id_2}
     Log    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl del-br BR2
+    Execute Command    sudo ovs-vsctl del-br ${Bridge}
     Execute Command    sudo ovs-vsctl del-manager
     Write    exit
     close connection
@@ -134,10 +133,7 @@ Get Dpn Ids
     [Arguments]    ${connection_id}
     [Documentation]    This keyword gets the DPN id of the switch after configuring bridges on it.It returns the captured DPN id.
     Switch connection    ${connection_id}
-    ${cmd}    set Variable    sudo ovs-vsctl show | grep Bridge | awk -F "\\"" '{print $2}'
-    ${Bridgename1}    Execute command    ${cmd}
-    log    ${Bridgename1}
-    ${output1}    Execute command    sudo ovs-ofctl show -O Openflow13 ${Bridgename1} | head -1 | awk -F "dpid:" '{ print $2 }'
+    ${output1}    Execute command    sudo ovs-ofctl show -O Openflow13 ${Bridge} | head -1 | awk -F "dpid:" '{ print $2 }'
     log    ${output1}
     # "echo \$\(\(16\#${output1}\)\) command below converts ovs dpnid (i.e., output1) from hexadecimal to decimal."
     ${Dpn_id}    Execute command    echo \$\(\(16\#${output1}\)\)
@@ -153,8 +149,8 @@ Delete All Vteps
     [Documentation]    This will delete vtep.
     ${dpn_id_1} =    Genius.Get Dpn Ids    ${conn_id_1}
     ${dpn_id_2} =    Genius.Get Dpn Ids    ${conn_id_2}
-    ${cmd} =    BuiltIn.Set Variable    tep:delete ${dpn_id_1} @{PORT}[0] ${vlan} ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2} =    BuiltIn.Set Variable    tep:delete ${dpn_id_2} @{PORT}[1] ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd} =    BuiltIn.Set Variable    tep:delete ${dpn_id_1} ${port_name} ${vlan} ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd2} =    BuiltIn.Set Variable    tep:delete ${dpn_id_2} ${port_name} ${vlan} ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
     KarafKeywords.Issue Command On Karaf Console    ${cmd}
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     KarafKeywords.Issue Command On Karaf Console    ${cmd2}
@@ -176,8 +172,8 @@ Genius Test Setup
 
 Genius Test Teardown
     [Arguments]    ${data_models}    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
-    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
-    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    ${Bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    ${Bridge}
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
     ODLTools.Get All    node_ip=${ODL_SYSTEM_IP}    test_name=${test_name}
@@ -219,8 +215,8 @@ Get ITM
     ...    ${TOOLS_SYSTEM_2_IP}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
-    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
-    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${port_name}
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${port_name}    ${TOOLS_SYSTEM_2_IP}
     Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Check Tunnel Delete On OVS
