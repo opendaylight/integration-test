@@ -49,13 +49,20 @@ cat > ${WORKSPACE}/dcgw-setup.sh <<EOF
             sudo wget \${Nexus_url}/\${pkg}.deb
         done
         pkill -f dpkg
+        echo "killed process"
         sudo rm /var/lib/dpkg/lock
         sudo dpkg --configure -a
+        echo "killed dpkg"
         dpkg -i thrift-1.0.0.b2a4d4a.Ubuntu16.04.deb
+        echo "installed thrift"
         dpkg -i c-capnproto-1.0.2.75f7901.Ubuntu16.04.deb
+        echo "installed capnproto"
         dpkg -i zmq-4.1.3.56b71af.Ubuntu16.04.deb
+        echo "installed zmq"
         dpkg -i quagga-1.1.0.837f143.Ubuntu16.04.deb
+        echo "installed quagga"
         dpkg -i zrpc-0.2.56d11ae.thriftv4.Ubuntu16.04.deb
+        echo "installed zrpc"
         ;;
     esac
 EOF
