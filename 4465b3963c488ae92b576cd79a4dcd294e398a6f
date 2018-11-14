@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4198115_dd914496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-14T07:30:06Z",
+      "side": 1,
+      "message": "would be good to indicate that this is for Genius CSIT",
+      "revId": "4465b3963c488ae92b576cd79a4dcd294e398a6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "350d87a1_b4257bbc",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-14T07:30:06Z",
+      "side": 1,
+      "message": "space",
+      "revId": "4465b3963c488ae92b576cd79a4dcd294e398a6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
