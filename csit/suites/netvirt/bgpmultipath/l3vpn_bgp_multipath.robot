@@ -52,6 +52,31 @@ Verify ODL supports REST API/CLI for multipath configuration (enable/disable mul
     Configure Multipath On ODL    ${ENABLE}
     Verify Multipath    ${ENABLE}
 
+Verify CSC supports REST API/CLI for max path configuration
+    [Documentation]    Verify CSC supports REST API/CLI for max path configuration
+    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+    \    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${idx}]    vpnid=@{VPN_ID}[${idx}]    rd=@{L3VPN_RD_IRT_ERT}[${idx}]    exportrt=@{L3VPN_RD_IRT_ERT}[${idx}]    importrt=@{L3VPN_RD_IRT_ERT}[${idx}]
+    VpnOperations.Verify L3VPN On ODL    @{VPN_ID}
+    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+    \    Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
+    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
+
+Verify max-path error message with invalid inputs
+    [Documentation]    Verify max path error message while configuring maxpath with invalid range
+    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
+    VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
+    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    : FOR    ${invalid}    IN    @{MAX_PATH_INVALID_LIST}
+    \    Configure Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
+    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
+
 Verify ODL supports dynamic configuration changes for max path value
     [Documentation]    Verify ODL supports dynamic configuration changes for max path value
     VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
@@ -66,13 +91,35 @@ Verify ODL supports dynamic configuration changes for max path value
     \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
-    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     : FOR    ${index}    IN RANGE    0    3
     \    Configure Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
     \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
+    \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
     \    ...    @{NUM_OF_ROUTES}[2]
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[${index}]
+    \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[${index}]
+
+Verify that ECMP path gets withdrawn by QBGP after disabling multipath
+    [Documentation]    Verify that ECMP path gets withdrawn by QBGP after disabling multipath
+    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
+    VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
+    VpnOperations.Associate VPN to Router    routerid=@{router_id_list}[0]    vpnid=@{VPN_ID}[0]
+    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
+    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+    \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
+    Configure Maxpath    @{MAX_PATH_LIST}[0]    @{DCGW_RD_IRT_ERT}[0]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[0]
+    Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
 
 *** Keywords ***
 Start Suite
