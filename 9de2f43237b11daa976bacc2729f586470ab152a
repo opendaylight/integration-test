@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "01ea79c8_06bc4394",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-14T21:52:59Z",
+      "side": 1,
+      "message": "fine, but don\u0027t re-define it. use ${INTEGRATION_BRIDGE} from\nvariables/netvirt/Variables.robot",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa84cecd_950a35a9",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 7
