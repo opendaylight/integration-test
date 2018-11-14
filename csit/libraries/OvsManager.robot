@@ -247,7 +247,7 @@ Check Ovs Version Is Higher Than
     \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
     \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
     \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
-    \    BuiltIn.Should Be True    ${result} > ${ovs_version}
+    \    BuiltIn.Should Be True    ${result} >= ${ovs_version}
 
 Get OVS Local Ip
     [Arguments]    ${ip}
