@@ -17,7 +17,6 @@ Resource          ../../variables/Variables.robot
 
 *** Variables ***
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
-${bridgename}     BR1
 ${interface_name}    l2vlan-trunk
 ${trunk_json}     l2vlan.json
 ${trunk_member_json}    l2vlan_member.json
@@ -29,7 +28,7 @@ Create l2vlan transparent interface
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    transparent    l2vlan    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
-    Wait Until Keyword Succeeds    40    10    table0 entry    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    40    10    table0 entry    ${conn_id_1}    ${Bridge}
 
 Delete l2vlan transparent interface
     [Documentation]    This testcase deletes the l2vlan transparent interface created between 2 dpns.
@@ -43,7 +42,7 @@ Create l2vlan trunk interface
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    trunk    tap8ed70586-6c    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
-    Wait Until Keyword Succeeds    30    10    table0 entry    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    30    10    table0 entry    ${conn_id_1}    ${Bridge}
 
 Create l2vlan Trunk member interface
     [Documentation]    This testcase creates a l2vlan Trunk member interface for the l2vlan trunk interface created in 1st testcase.
@@ -56,7 +55,7 @@ Create l2vlan Trunk member interface
     ...    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    10    5    get operational interface    ${l2vlan[0]}
-    Wait Until Keyword Succeeds    40    10    ovs check for member interface creation    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    40    10    ovs check for member interface creation    ${conn_id_1}    ${Bridge}
 
 Bind service on Interface
     [Documentation]    This testcase binds service to the interface created .
@@ -72,7 +71,7 @@ Bind service on Interface
     @{bind_array}    create list    2    3    VPN    elan    50
     ...    21
     Check For Elements At URI    ${CONFIG_API}/interface-service-bindings:service-bindings/services-info/${interface_name}/${service_mode}/    ${bind_array}
-    ${command}    Set Variable    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
+    ${command}    Set Variable    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge}
     Wait Until Keyword Succeeds    40    10    table entry    ${command}
 
 unbind service on interface
@@ -119,8 +118,7 @@ table entry
 no table0 entry
     [Documentation]    After Deleting trunk interface, checking for absence of table 0 in the flow dumps
     switch connection    ${conn_id_1}
-    ${bridgename}    Set Variable    BR1
-    ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
+    ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge}
     log    ${ovs-check}
     should not contain    ${ovs-check}    table=0
     should not contain    ${ovs-check}    goto_table:17
@@ -129,7 +127,7 @@ no goto_table entry
     [Arguments]    ${table-id}
     [Documentation]    Checks for absence of no goto_table after unbinding the service on the interface.
     switch connection    ${conn_id_1}
-    ${ovs-check1}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
+    ${ovs-check1}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge}
     Log    ${ovs-check1}
     should not contain    ${ovs-check1}    goto_table:${table-id}
 
