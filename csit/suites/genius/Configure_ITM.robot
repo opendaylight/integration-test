@@ -72,23 +72,16 @@ Delete and Verify VTEP -No Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[0] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[0] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/${port_name}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/${port_name}
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
-    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
+    Log    ${resp}
+    BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    BuiltIn.Should Not Contain    ${resp.content}    ${itm_created[0]}
 
 Create and Verify VTEP IPv6 - No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
@@ -128,15 +121,12 @@ Delete and Verify VTEP IPv6 -No Vlan
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/${port_name}
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
-    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
+    Log    ${resp}
+    BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    BuiltIn.Should Not Contain    ${resp.content}    ${itm_created[0]}
 
 Create and Verify VTEP-Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and \ without Gateway configured in Json.
@@ -188,22 +178,17 @@ Delete and Verify VTEP -Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[1] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[1] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd1}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/${port_name}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/${port_name}
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
+    Log    ${resp}
+    BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    BuiltIn.Should Not Contain    ${resp.content}    ${itm_created[0]}
 
 Create VTEP - Vlan and Gateway
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and Gateway configured in Json.
@@ -258,22 +243,17 @@ Delete VTEP -Vlan and gateway
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[2] ${TOOLS_SYSTEM_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[2] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
-    KarafKeywords.Issue Command On Karaf Console    ${cmd1}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
-    KarafKeywords.Issue Command On Karaf Console    ${cmd2}
-    KarafKeywords.Issue Command On Karaf Console    tep:commit
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/${port_name}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/${port_name}
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
+    Log    ${resp}
+    BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
     Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    BuiltIn.Should Not Contain    ${resp.content}    ${itm_created[0]}
 
 *** Keywords ***
 Create Vteps IPv6
