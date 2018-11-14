@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "93a2f189_edd27efc",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-14T13:02:05Z",
+      "side": 1,
+      "message": "i thought it would be redundant hence made one single variable and changed everywhere else",
+      "parentUuid": "aa84cecd_950a35a9",
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "232aa5ba_f82f498f",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-14T12:48:44Z",
       "side": 1,
       "message": "why was this change needed? tox?",
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11a0c4c0_406d364f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-14T13:02:05Z",
+      "side": 1,
+      "message": "No the previous regex didnt recognise symbols.\nIt recognised BR1 but failed br-int because of \"-\" inbetween",
+      "parentUuid": "232aa5ba_f82f498f",
       "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
