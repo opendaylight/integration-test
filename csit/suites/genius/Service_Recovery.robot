@@ -47,7 +47,7 @@ IFM Service Recovery
     ${tunnel} =    Get Tunnel name
     SSHLibrary.Switch Connection    ${conn_id_1}
     ${uuid}    ${bridge} =    OVSDB.Get Bridge Data
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${uuid}%2Fbridge%2F${bridge}
+    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${uuid}%2Fbridge%2F${Bridge}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Delete on DS    ${tunnel}
     KarafKeywords.Issue Command On Karaf Console    srm:recover SERVICE IFM
