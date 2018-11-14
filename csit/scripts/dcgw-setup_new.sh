@@ -48,14 +48,23 @@ cat > ${WORKSPACE}/dcgw-setup.sh <<EOF
         do
             sudo wget \${Nexus_url}/\${pkg}.deb
         done
-        pkill -f dpkg
+        echo "starts installing pkgs"
+        #pkill -f dpkg
+        killall -Iw dpkg
+        echo "killed process"
         sudo rm /var/lib/dpkg/lock
         sudo dpkg --configure -a
-        dpkg -i thrift-1.0.0.b2a4d4a.Ubuntu16.04.deb
-        dpkg -i c-capnproto-1.0.2.75f7901.Ubuntu16.04.deb
-        dpkg -i zmq-4.1.3.56b71af.Ubuntu16.04.deb
-        dpkg -i quagga-1.1.0.837f143.Ubuntu16.04.deb
-        dpkg -i zrpc-0.2.56d11ae.thriftv4.Ubuntu16.04.deb
+        echo "killed dpkg"
+        DPKG_FRONTEND_LOCKED=1 dpkg -i thrift-1.0.0.b2a4d4a.Ubuntu16.04.deb
+        echo "installed thrift"
+        DPKG_FRONTEND_LOCKED=1 dpkg -i c-capnproto-1.0.2.75f7901.Ubuntu16.04.deb
+        echo "installed capnproto"
+        DPKG_FRONTEND_LOCKED=1 dpkg -i zmq-4.1.3.56b71af.Ubuntu16.04.deb
+        echo "installed zmq"
+        DPKG_FRONTEND_LOCKED=1 dpkg -i quagga-1.1.0.837f143.Ubuntu16.04.deb
+        echo "installed quagga"
+        DPKG_FRONTEND_LOCKED=1 dpkg -i zrpc-0.2.56d11ae.thriftv4.Ubuntu16.04.deb
+        echo "installed zrpc"
         ;;
     esac
 EOF
