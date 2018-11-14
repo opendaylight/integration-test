@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0006a790_d6ac6228",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-14T09:39:36Z",
+      "side": 1,
+      "message": "Though this testcase is verifying ping between computes on two nodes, i think this need not be there as part of an auto-tunnels test suite. As you know netvirt by default is using auto-tunnels and this basic test case is already verified many of the TCs in netvirt, and hence you can remove all openstack related operations in this particular TC, and just add verifications steps to see if tep:show-state is showing all expected tunnels. Use the keyword already available in Genius.robot to do that.",
+      "revId": "4a40e16a42945cbed78c5d26541ab2f96fb2fd34",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
