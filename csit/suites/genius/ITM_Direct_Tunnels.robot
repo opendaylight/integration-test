@@ -100,7 +100,8 @@ Delete and Verify VTEP
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
+    Should Not Contain    ${resp}    ${itm_created[0]}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
     ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
