@@ -20,9 +20,6 @@ Resource          ../../variables/Variables.robot
 *** Variables ***
 @{itm_created}    TZA
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
-${Bridge-1}       BR1
-${Bridge-2}       BR2
-@{PORT}           BR1-eth1    BR2-eth1
 @{VLAN}           0    100    101
 
 *** Test Cases ***
@@ -46,8 +43,8 @@ Create and Verify VTEP -No Vlan
     ...    ${tunnel-1}    ${tunnel-type}
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
-    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
-    ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
+    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge}    ${tunnel-1}
+    ...    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
     ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
@@ -60,8 +57,8 @@ Create and Verify VTEP -No Vlan
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge}    ${port-num-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
@@ -75,8 +72,8 @@ Delete and Verify VTEP -No Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[0] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[0] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[0] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[0] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
     KarafKeywords.Issue Command On Karaf Console    ${cmd}
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     KarafKeywords.Issue Command On Karaf Console    ${cmd2}
@@ -115,8 +112,8 @@ Create and Verify VTEP IPv6 - No Vlan
     ...    ${tunnel-1}    ${tunnel-type}
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
-    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
-    ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
+    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge}    ${tunnel-1}
+    ...    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
 
 Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
@@ -127,8 +124,8 @@ Delete and Verify VTEP IPv6 -No Vlan
     ${ipv6_2}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:2000
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/@{PORT}[0]
-    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/@{PORT}[1]
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_1}/${port_name}
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${subnet}%2F24/vteps/${Dpn_id_2}/${port_name}
     ${output}    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     BuiltIn.Run Keyword And Ignore Error    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -163,8 +160,8 @@ Create and Verify VTEP-Vlan
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
     ${url_2}    Set Variable    ${OPERATIONAL_API}/network-topology:network-topology/
-    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}
-    ...    ${tunnel-2}    ${url_2}
+    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge}    ${tunnel-1}    ${tunnel-2}
+    ...    ${url_2}
     ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
@@ -176,8 +173,8 @@ Create and Verify VTEP-Vlan
     Log    ${respjson}
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge}    ${port-num-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
@@ -191,8 +188,8 @@ Delete and Verify VTEP -Vlan
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[1] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[1] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[1] ${TOOLS_SYSTEM_IP} ${subnet}/24 null ${itm_created[0]}
+    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[1] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 null ${itm_created[0]}
     KarafKeywords.Issue Command On Karaf Console    ${cmd1}
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     KarafKeywords.Issue Command On Karaf Console    ${cmd2}
@@ -232,8 +229,8 @@ Create VTEP - Vlan and Gateway
     ...    ${tunnel-1}    ${tunnel-type}
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
-    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
-    ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
+    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge}    ${tunnel-1}
+    ...    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
     Log    ${resp}
     ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
@@ -246,8 +243,8 @@ Create VTEP - Vlan and Gateway
     Log    ${respjson}
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
-    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge}    ${port-num-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
@@ -261,8 +258,8 @@ Delete VTEP -Vlan and gateway
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
     ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
-    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} @{PORT}[0] @{VLAN}[2] ${TOOLS_SYSTEM_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
-    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} @{PORT}[1] @{VLAN}[2] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
+    ${cmd1}    Set Variable    tep:delete ${Dpn_id_1} ${port_name} @{VLAN}[2] ${TOOLS_SYSTEM_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
+    ${cmd2}    Set Variable    tep:delete ${Dpn_id_2} ${port_name} @{VLAN}[2] ${TOOLS_SYSTEM_2_IP} ${subnet}/24 ${GATEWAY_IP} ${itm_created[0]}
     KarafKeywords.Issue Command On Karaf Console    ${cmd1}
     KarafKeywords.Issue Command On Karaf Console    tep:commit
     KarafKeywords.Issue Command On Karaf Console    ${cmd2}
@@ -324,14 +321,14 @@ Get ITM
     ...    ${TOOLS_SYSTEM_2_IP}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
-    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
-    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${port_name}
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${port_name}    ${TOOLS_SYSTEM_2_IP}
     Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Get Network Topology with Tunnel
-    [Arguments]    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}    ${url}
+    [Arguments]    ${Bridge}    ${tunnel-1}    ${tunnel-2}    ${url}
     [Documentation]    Returns the Network topology with Tunnel info in it.
-    @{bridges}    Create List    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}
+    @{bridges}    Create List    ${Bridge}    ${tunnel-1}    ${tunnel-2}
     Check For Elements At URI    ${url}    ${bridges}
 
 Get Network Topology without Tunnel

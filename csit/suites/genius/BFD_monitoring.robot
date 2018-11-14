@@ -22,8 +22,6 @@ Resource          ../../variables/Variables.robot
 *** Variables ***
 @{itm_created}    TZA
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
-${Bridge-1}       BR1
-${Bridge-2}       BR2
 ${TEP_SHOW}       tep:show
 ${TEP_SHOW_STATE}    tep:show-state
 ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
@@ -86,17 +84,17 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-controller BR1
+    Execute Command    sudo ovs-vsctl del-controller ${Bridge}
     SSHLibrary.Switch Connection    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl del-controller BR2
+    Execute Command    sudo ovs-vsctl del-controller ${Bridge}
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UNKNOWN
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     SSHLibrary.Switch Connection    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     Log    "After connecting CSS with controller"
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
