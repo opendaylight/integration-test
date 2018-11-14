@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa84cecd_950a35a9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-11-14T12:48:44Z",
+      "side": 1,
+      "message": "won\u0027t it be simpler to just set bridge-1 and 2 both to br-int, and ports to br-int-eth1?",
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "232aa5ba_f82f498f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-11-14T12:48:44Z",
+      "side": 1,
+      "message": "why was this change needed? tox?",
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
