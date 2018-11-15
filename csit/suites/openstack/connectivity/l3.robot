@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+#Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+#Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -64,6 +64,7 @@ Ping Vm Instance2 In net_3 From net_2 (vxlan to vxlan)
 Ping Vm Instance3 In net_3 From net_2 (vxlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_3_L3_VM_IPS}[2]
+    FATAL ERROR
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Login to the VM instance and test operations
