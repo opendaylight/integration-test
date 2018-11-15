@@ -65,7 +65,9 @@ Setup SXP Cluster
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Stopped    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    3x    10s    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpClusterLib.Check Cluster Node stopped    ${INADDR_ANY}    ip=${EMPTY}
 
 Check Cluster Node started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}

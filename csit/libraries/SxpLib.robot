@@ -328,8 +328,22 @@ Check Node Started
     [Documentation]    Verify that SxpNode has data writen to Operational datastore and is running
     ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    ${rc} =    Utils.Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}   ${session}    ${ip}
     BuiltIn.Should Be Equal As Strings    ${rc}    0
+
+Check Node Stopped
+    [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
+    [Documentation]    Verify that SxpNode has data removed from Operational datastore and is not running
+    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
+    ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}    ${session}    ${ip}
+    BuiltIn.Should Be Equal As Strings    ${rc}    1
+
+Get Node Running Status
+    [Arguments]    ${node}    ${port}    ${system}    ${session}    ${ip}
+    [Documentation]    Get status if node is running by checking that netty server is running
+    ${rc} =    Utils.Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    [Return]    rc
 
 Clean SXP Environment
     [Arguments]    ${node_range}=1
