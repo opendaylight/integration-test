@@ -92,7 +92,7 @@ Setup Nodes And Connections
     SxpLib.Add Connection    version4    ${peer_mode}    ${VIRTUAL_IP}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${CLUSTER_NODE_ID}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpClusterLib.Check Cluster Node started    ${CLUSTER_NODE_ID}
+    BuiltIn.Wait Until Keyword Succeeds    20    1    SxpClusterLib.Check Cluster Node Started    ${CLUSTER_NODE_ID}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${CLUSTER_NODE_ID}    session=${CONTROLLER_SESSION}
 
 Clean Custom SXP Cluster Session

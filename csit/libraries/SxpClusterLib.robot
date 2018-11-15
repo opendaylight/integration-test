@@ -59,17 +59,21 @@ Setup SXP Cluster
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Cluster Node started    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
     BuiltIn.Wait Until Keyword Succeeds    48x    10s    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Stopped    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    3x    10s    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpClusterLib.Check Cluster Node Stopped    ${INADDR_ANY}    ip=${EMPTY}
 
-Check Cluster Node started
+Check Cluster Node Started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data written to Operational datastore and Node is running on one of cluster nodes
+    ${resp} =    RequestsLibrary.Get Request    ${CONTROLLER_SESSION}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${started} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
@@ -77,9 +81,11 @@ Check Cluster Node started
     \    ${started} =    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
     BuiltIn.Should Be True    ${started}
 
-Check Cluster Node stopped
+Check Cluster Node Stopped
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data removed from Operational datastore and Node is stopped
+    ${resp} =    RequestsLibrary.Get Request    ${CONTROLLER_SESSION}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
     ${stopped} =    BuiltIn.Set Variable    ${False}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
