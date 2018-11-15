@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fc42e14_0ab1f0f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-15T09:25:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01ea79c8_06bc4394",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "9de2f43237b11daa976bacc2729f586470ab152a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa84cecd_950a35a9",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 7
