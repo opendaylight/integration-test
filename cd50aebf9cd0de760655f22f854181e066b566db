@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40057c2a_08b8bf21",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "unused libraries, plz remove it if not using anywhere",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae17e007_aa5197d2",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 14,
+        "startChar": 35,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d34cdd31_ad6dd404",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "unused, remove it",
+      "range": {
+        "startLine": 17,
+        "startChar": 37,
+        "endLine": 17,
+        "endChar": 48
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5666f73_ee656e64",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 20,
+        "startChar": 37,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0e2f54e_c2f5a103",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "move it into Variable.robot file if possible or use ${ODL_RESTCONF_USER} variable from Variable.robot",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3cd6865_83ed7812",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "you can use ${STATE_UP} and ${STATE_DOWN} to define interface state from VpnOpenrations this lib you imported already in your suite.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f207399c_10f9a18e",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "you can avoid all these vars ? you can use reuse \u0026{L3VPN_CREATE_DEFAULT} from VpnOpenrations.robot.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95229f4b_3dd04040",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "Do you really need it ?",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 50
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8ffec42_782cef60",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "you can optimize it. use VpnOperations.Verify L3VPN On ODL",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 59
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "177af938_82740285",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-15T08:54:23Z",
+      "side": 1,
+      "message": "I dont think so these are required after first check",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 91
+      },
+      "revId": "cd50aebf9cd0de760655f22f854181e066b566db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
