@@ -32,8 +32,8 @@ ${NUM_OF_PORTS_PER_HOST}    2
 *** Test Cases ***
 To Verify ELAN Service Recovery
     [Documentation]    To Verify Elan Service recovery by deleting and recovering multiple flows
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_2_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[2]    actions=goto_table:${ELAN_DMACTABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[2]    actions=goto_table:${ELAN_DMACTABLE}
     ${flow_id} =    FlowLib.Get Flow Id    ${DPNID_1}    ${ELAN_SMAC_TABLE}    @{PORT_MAC_ADDR}[0]
     FlowLib.Delete Flow Via Restconf    ${DPNID_1}    ${ELAN_SMAC_TABLE}    ${flow_id}
     ${flow_id} =    FlowLib.Get Flow Id    ${DPNID_2}    ${ELAN_SMAC_TABLE}    @{PORT_MAC_ADDR}[2]
@@ -42,13 +42,13 @@ To Verify ELAN Service Recovery
     Utils.Check For Elements Not At URI    ${CONFIG_NODES_API}/node/openflow:${DPNID_1}/table/${ELAN_SMAC_TABLE}    ${mac_elements}
     ${mac_elements} =    BuiltIn.Create List    @{PORT_MAC_ADDR}[2]
     Utils.Check For Elements Not At URI    ${CONFIG_NODES_API}/node/openflow:${DPNID_2}/table/${ELAN_SMAC_TABLE}    ${mac_elements}
-    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    False
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    False
     ...    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]
-    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_2_IP}    ${ELAN_SMAC_TABLE}    False
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ELAN_SMAC_TABLE}    False
     ...    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[2]
     KarafKeywords.Issue Command On Karaf Console    ${SERVICE-STATUS-CLI}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_2_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[2]    actions=goto_table:${ELAN_DMACTABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[2]    actions=goto_table:${ELAN_DMACTABLE}
     ${mac_elements} =    BuiltIn.Create List    @{PORT_MAC_ADDR}[0]
     Utils.Check For Elements At URI    ${CONFIG_NODES_API}/node/openflow:${DPNID_1}/table/${ELAN_SMAC_TABLE}    ${mac_elements}
     ${mac_elements} =    BuiltIn.Create List    @{PORT_MAC_ADDR}[2]
@@ -56,20 +56,20 @@ To Verify ELAN Service Recovery
 
 To Verify Elan Interface recovery
     [Documentation]    To Verify the Elan Interface recovery by deleting single Flow
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    True
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    True
     ...    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
     ${flow_id} =    FlowLib.Get Flow Id    ${DPNID_1}    ${ELAN_SMAC_TABLE}    @{PORT_MAC_ADDR}[0]
     FlowLib.Delete Flow Via Restconf    ${DPNID_1}    ${ELAN_SMAC_TABLE}    ${flow_id}
     ${mac_elements} =    BuiltIn.Create List    @{PORT_MAC_ADDR}[0]
     Utils.Check For Elements Not At URI    ${CONFIG_NODES_API}/node/openflow:${DPNID_1}/table/${ELAN_SMAC_TABLE}    ${mac_elements}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    False
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    False
     ...    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]
     ${elan_instance_id} =    Get Elan Instance ID
     ${elan_interface_id} =    Get Elan Interfaces ID    ${elan_instance_id}    @{PORT_MAC_ADDR}[0]
     Recover Elan Flows    ${elan_interface_id}
     ${mac_elements} =    BuiltIn.Create List    @{PORT_MAC_ADDR}[0]
     BuiltIn.Wait Until Keyword Succeeds    10s    5s    Utils.Check For Elements At URI    ${CONFIG_NODES_API}/node/openflow:${DPNID_1}/table/${ELAN_SMAC_TABLE}    ${mac_elements}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
 
 *** Keywords ***
 Start Suite
@@ -108,8 +108,8 @@ Create Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     Create Neutron Ports
     Create Nova VMs    ${2}
-    ${DPNID_1} =    OVSDB.Get DPID    ${OS_COMPUTE_1_IP}
-    ${DPNID_2} =    OVSDB.Get DPID    ${OS_COMPUTE_2_IP}
+    ${DPNID_1} =    OVSDB.Get DPID    ${OS_CMP1_IP}
+    ${DPNID_2} =    OVSDB.Get DPID    ${OS_CMP2_IP}
     BuiltIn.Set Suite Variable    ${DPNID_1}
     BuiltIn.Set Suite Variable    ${DPNID_2}
 
