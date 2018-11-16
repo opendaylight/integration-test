@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49c3dd31_4ecbe176",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-16T17:00:45Z",
+      "side": 1,
+      "message": "move these keywords to openstackoperations and rename\nthem to Create Multiple Networks, or Create Multiple Subnets and have each keyword return a list of the ids for the \nthings it created. that will make this code useful for\nothers",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 74
+      },
+      "revId": "b570ee416c4fbec309340291fa22f6fb7ef5f40e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29bae996_3176b620",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-16T17:00:45Z",
+      "side": 1,
+      "message": "put this in openstackoperations as well.\n\nalso, I think the keyword name can be more clear. This is\nactually getting the name of the port from OVS right? if so,\nmaybe Get VMs OVS Port Number?",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "b570ee416c4fbec309340291fa22f6fb7ef5f40e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b34c32e_44560024",
+        "filename": "csit/testplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-16T17:00:45Z",
+      "side": 1,
+      "message": "don\u0027t need it here if it\u0027s going to be in the main job.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "b570ee416c4fbec309340291fa22f6fb7ef5f40e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
