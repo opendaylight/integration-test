@@ -92,7 +92,7 @@ Delete L2Gateway
     ${output}=    Exec Command    ${OS_CNTL_CONN_ID}    ${L2GW_DELETE} ${gw_name}
     Log    ${output}
     @{list_to_check}=    Create List    ${gw_name}
-    Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
 
 Create Verify L2Gateway Connection
     [Arguments]    ${gw_name}    ${net_name}
@@ -122,9 +122,9 @@ Delete L2Gateway Connection
     [Documentation]    Delete the L2 Gateway connection existing for Gateway ${gw_name} received in argument (Using Neutron CLI).
     ${l2gw_conn_id}=    OpenStackOperations.Get L2gw Connection Id    ${gw_name}
     ${output}=    Exec Command    ${OS_CNTL_CONN_ID}    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
-    @{list_to_check}=    Create List    ${l2gw_conn_id}
-    Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
     Log    ${output}
+    @{list_to_check}=    Create List    ${l2gw_conn_id}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
 
 Update Port For Hwvtep
     [Arguments]    ${port_name}
