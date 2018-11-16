@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c4df1b0_22269725",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-16T18:08:06Z",
+      "side": 1,
+      "message": "good catch, not sure how I let these slip in. But for these we should do a loop and use OS_CMP_IPS since there could be 1 to n cmps.",
+      "revId": "2e15b1d389ffb3cc5ad6a3492c5cf10850393a99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
