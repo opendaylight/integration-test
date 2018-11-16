@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "502462af_364662e8",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-16T10:44:45Z",
+      "side": 1,
+      "message": "remove all unnecessary resources. showing error in your sandbox logs",
+      "revId": "a90c0ced4f18ed777528e100279772b0bb473c4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
