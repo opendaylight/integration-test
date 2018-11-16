@@ -22,6 +22,30 @@
       "revId": "dff044654ff761615052cf554db2a795d57658ef",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0988663_d1c4413c",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-16T04:38:37Z",
+      "side": 1,
+      "message": "Actually I have created ${Bridge} in genius.robot so all suites can directly use it and have assigned it to ${INTEGRATION BRIDGE}.\nIf ${Bridge} should not be created then in every place again it should be replaced with ${INTEGRATION BRIDGE}",
+      "parentUuid": "622c823c_b9afef29",
+      "range": {
+        "startLine": 87,
+        "startChar": 53,
+        "endLine": 87,
+        "endChar": 62
+      },
+      "revId": "dff044654ff761615052cf554db2a795d57658ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
