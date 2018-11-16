@@ -104,5 +104,6 @@ Get DevStack Nodes Data
     ...    ELSE IF    "${OPENSTACK_TOPO}" == "1cmb-0ctl-1cmp"    DevstackUtils.Set Node Data For Control And Compute Node Setup
     ...    ELSE IF    "${OPENSTACK_TOPO}" == "0cmb-1ctl-2cmp"    DevstackUtils.Set Node Data For Control And Two Compute Node Setup
     ${OS_NODE_CNT} =    BuiltIn.Get Length    ${OS_ALL_IPS}
+    BuiltIn.Set Suite Variable    ${OS_NODE_CNT}
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data
