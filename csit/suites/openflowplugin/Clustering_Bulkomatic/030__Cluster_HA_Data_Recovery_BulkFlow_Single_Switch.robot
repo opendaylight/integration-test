@@ -136,6 +136,7 @@ Verify Data Recovery After Leader Restart
 
 Check No Network Operational Information After Leader Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
+    [Tags]    exclude    OPNFLWPLUG-1052
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
 
 Start Mininet Again Connect To Leader
@@ -202,6 +203,7 @@ Verify Data Recovery After Follower Node2 Restart
 
 Check No Network Operational Information After Follower Node2 Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
+    [Tags]    exclude    OPNFLWPLUG-1052
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
 
 Start Mininet Again Connect To Follower Node2
