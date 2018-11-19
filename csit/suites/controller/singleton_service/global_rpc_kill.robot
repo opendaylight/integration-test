@@ -94,7 +94,7 @@ Run_Rpc
     ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
     ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
     KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
-    TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${EMPTY_DICT}    ${EMPTY_DICT}    session=${session}
+    TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${HEADERS_XML}    ${ACCEPT_XML}    session=${session}
 
 Verify_Owner_Elected
     [Arguments]    ${new_elected}    ${old_owner}    ${node_to_ask}

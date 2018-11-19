@@ -103,7 +103,7 @@ Run_Rpc
     ...    Logging the details was a developer's request during the implementation to improve debugging.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
     Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
-    TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${EMPTY_DICT}    ${EMPTY_DICT}    session=${session}
+    TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${HEADERS_XML}    ${ACCEPT_XML}    session=${session}
 
 Verify_Owner_Elected
     [Arguments]    ${new_elected}    ${old_owner}    ${node_to_ask}
