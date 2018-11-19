@@ -37,7 +37,7 @@ Isolate SXP Controller
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
     ClusterManagement.Flush_Iptables_From_List_Or_All
-    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${controller_index}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Check_Cluster_Is_In_Sync
     BuiltIn.Wait Until Keyword Succeeds    30    1    Check Bindings Does Not Exist    ${owner_controller}
 
 Check Bindings Exist
