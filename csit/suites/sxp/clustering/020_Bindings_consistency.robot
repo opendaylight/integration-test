@@ -76,7 +76,7 @@ UnIsolate SXP Controller
     [Arguments]    ${controller_index}
     [Documentation]    Un-Isolate one of cluster nodes and perform check that device is connected
     ClusterManagement.Flush_Iptables_From_List_Or_All
-    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_True    ${controller_index}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Check_Cluster_Is_In_Sync
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Check Bindings
