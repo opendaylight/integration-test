@@ -28,7 +28,7 @@ TC01_Reconciliation check after switch restart
     ${switch_idx}    OVSDB.Get DPID    ${TOOLS_SYSTEM_IP}
     Push Flow Via Restcall    ${switch_idx}    ${FLOWFILE[6]}
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo service openvswitch-switch restart
-    Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
+    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
     Log    Check if static flow is removed in the switch
     ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenflow13
     Should Not Contain    ${Ovs1Flow}    ${STATIC_FLOW}
@@ -43,7 +43,7 @@ TC02_Reconcilation check with new switch added
     Push Groups Via Restcall    ${switch_idx}    0
     Push Flow Via Restcall    ${switch_idx}    ${FLOWFILE[0]}
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo service openvswitch-switch restart
-    Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
+    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
     Log    Check if static flow is removed in the switch
     ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenflow13
     Should Not Contain    ${Ovs1Flow}    ${STATIC_FLOW}
@@ -61,7 +61,7 @@ TC03_Reconciliation check by pushing group dependent flows
     \    Set Test Variable    ${flowbody[${index}]}    ${data}
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo service openvswitch-switch restart
     : FOR    ${index}    IN RANGE    1    6
-    \    Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${flowbody[${index}]}
+    \    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${flowbody[${index}]}
     Log    Check if flows are pushed as bundle messages
     ${Resyncdone_msg}=    BuiltIn.Set Variable    "Completing bundle based reconciliation for device ID:${switch_idx}"
     Check_Karaf_Log_Message_Count    ${Resyncdone_msg}    2
@@ -88,7 +88,7 @@ Configure DPN
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-controller ${INTEGRATION_BRIDGE} tcp:${ODL_SYSTEM_IP}:6653
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set bridge ${INTEGRATION_BRIDGE} protocols=OpenFlow13
-    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${DATA_MODELS}
+    Wait Until Keyword Succeeds    20s    2s    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${DATA_MODELS}
 
 Push Static Flow
     [Arguments]    ${ip}
@@ -103,10 +103,12 @@ Push Flow Via Restcall
     FlowLib.Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
     BuiltIn.Set Test Variable    ${switch_idx}
     FlowLib.Check Config Flow    ${True}    ${data}
-    Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
+    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
 
 Push Groups Via Restcall
     [Arguments]    ${switch_idx}    ${index}
     ${GROUP_BODY}    OperatingSystem.Get File    ${XMLSDIR}/${GROUPFILE[${index}]}
     ${node_id}    BuiltIn.Set Variable    openflow:${switch_idx}
-    FlowLib.Add Group To Controller And Verify    ${GROUP_BODY}    ${node_id}    ${GROUP_ID[${index}]}
+    ${group_id}    BuiltIn.Set Variable    ${GROUP_ID[${index}]}
+    FlowLib.Add Group To Controller And Verify    ${GROUP_BODY}    ${node_id}    ${group_id}
+    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${OPERATIONAL_NODES_API}/node/${node_id}/group/${group_id}
