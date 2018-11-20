@@ -3,7 +3,7 @@
 cat > ${WORKSPACE}/set_bundleresync_flag.sh <<EOF
     export CONFFILE=\`find /tmp/${BUNDLEFOLDER} -name "*openflowplugin*config.cfg"\`
     cp \$CONFFILE /tmp/${BUNDLEFOLDER}/etc/org.opendaylight.openflowplugin.cfg
-    sed -i "s/# basic-timer-delay=3000/basic-timer-delay=10000/" /tmp/${BUNDLEFOLDER}/etc/org.opendaylight.openflowplugin.cfg
+    sed -i "s/# basic-timer-delay=3000/basic-timer-delay=20000/" /tmp/${BUNDLEFOLDER}/etc/org.opendaylight.openflowplugin.cfg
     cat /tmp/${BUNDLEFOLDER}/etc/org.opendaylight.openflowplugin.cfg
 EOF
 
