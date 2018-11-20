@@ -52,14 +52,14 @@ Setup SXP Cluster
     [Arguments]    ${peer_mode}=listener
     [Documentation]    Setup and connect SXP cluster topology
     SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    node=${DEVICE_NODE_ID}
     \    ...    session=${DEVICE_SESSION}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    20x    10s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
     BuiltIn.Wait Until Keyword Succeeds    48x    10s    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
