@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ae381ad1_f4dbdf42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-20T09:48:56Z",
+      "side": 1,
+      "message": "Let us have a meaningful commit message \n\"Genius CSIT - Add AutoTunnels Suite\"",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f71e20_21271e20",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
