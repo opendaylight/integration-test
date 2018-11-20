@@ -1240,6 +1240,9 @@ Verify Services
 
 Verify Expected Default Tunnels
     [Documentation]    Verify if the default tunnels are created
+    ${check_feature_list} =    BuiltIn.Create List    odl-netvirt-sfc
+    ${is_sfc_enabled} =    OpenStackOperations.Is Feature Installed    features=${check_feature_list}
+    BuiltIn.Return From Keyword If    ${is_sfc_enabled} == ${True}    ${True}
     BuiltIn.Return From Keyword If    ${OS_NODE_CNT} == ${1}    ${True}
     ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
     BuiltIn.Should Contain    ${output}    All tunnels are up
