@@ -1119,7 +1119,7 @@ OpenStack Suite Setup
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
-    Validate Deployment
+    BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    Validate Deployment
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1240,6 +1240,8 @@ Verify Services
 
 Verify Expected Default Tunnels
     [Documentation]    Verify if the default tunnels are created
+    ${is_sfc_enabled} =    OpenStackOperations.Is Feature Installed    odl-netvirt-sfc
+    BuiltIn.Return From Keyword If    ${is_sfc_enabled} == ${True}    ${True}
     BuiltIn.Return From Keyword If    ${OS_NODE_CNT} == ${1}    ${True}
     ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
     BuiltIn.Should Contain    ${output}    All tunnels are up
