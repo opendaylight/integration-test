@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "53cabc04_a0e1dab8",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-20T09:53:49Z",
+      "side": 1,
+      "message": "Does this not change a commonly used library functionality.. Have you checked where else this utility is used?",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f71e20_21271e20",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -64,6 +81,23 @@
       "writtenOn": "2018-11-20T09:47:41Z",
       "side": 1,
       "message": "what is this used for?",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b7eb220_188be5f5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-20T09:53:49Z",
+      "side": 1,
+      "message": "it would be great, if we can discuss all these testcases f2f once, let me know whenever you have time",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
