@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f64a4576_dd5ec405",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-11-21T03:35:45Z",
+      "side": 1,
+      "message": "I think it is complaining about the spaces after #, a single space after # like the first line should work.",
+      "revId": "be650527e3528e70bfd3b75dbb9737bc2bcfcde2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
