@@ -173,8 +173,7 @@ Setup BGP Peering On ODL
     BuiltIn.Should Contain    ${output}    ${nbr_ip}
 
 Setup BGP Peering On DCGW
-    [Arguments]    ${dcgw_ip}    ${as_id}    ${nbr_ip}    ${vrf_name}    ${rd}
-    ...    ${loopback_ip}
+    [Arguments]    ${dcgw_ip}    ${as_id}    ${nbr_ip}    ${vrf_name}    ${rd}    ${loopback_ip}
     [Documentation]    Setup BGP peering between DCGW and given neighbor IP.
     ...    Configuring,adding neighbor on DCGW node and verifying BGP neighbor.
     BgpOperations.Configure BGP And Add Neighbor On DCGW    ${dcgw_ip}    ${as_id}    ${dcgw_ip}    ${nbr_ip}    ${vrf_name}    ${rd}
