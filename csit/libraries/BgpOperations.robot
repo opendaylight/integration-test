@@ -210,6 +210,28 @@ Add Routes On DCGW
     BgpOperations.Execute Command On Quagga Telnet Session    network ${network_ip}/32 rd ${rd} tag ${label}
     BgpOperations.Execute Command On Quagga Telnet Session    end
 
+Delete Routes From DCGW
+    [Arguments]    ${dcgw_ip}    ${rd}    ${network_ip}    ${label}
+    [Documentation]    Delete the routes from DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${AS_ID}
+    BgpOperations.Execute Command On Quagga Telnet Session    address-family vpnv4 unicast
+    BgpOperations.Execute Command On Quagga Telnet Session    no network ${network_ip}/32 rd ${rd} tag ${label}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
+Configure BGP Preference
+    [Arguments]    ${dcgw_ip}    ${preference}
+    [Documentation]    Configure BGP Preference on DCGW and soft reset bgp relationship
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${AS_ID}
+    BgpOperations.Execute Command On Quagga Telnet Session    bgp default local-preference ${preference}
+    BgpOperations.Execute Command On Quagga Telnet Session    exit
+    BgpOperations.Execute Command On Quagga Telnet Session    do clear ip bgp *
+    BuiltIn.Sleep    10s    reason=Performs soft reset of bgp neighbors relationship in both direction i.e in and out.
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
 Create BGP Configuration On ODL
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
