@@ -21,6 +21,7 @@ ${NEW_AS_PATH}    ${EMPTY}
 &{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
 ${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
 ${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
+${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 
 *** Keywords ***
 Start Quagga Processes On ODL

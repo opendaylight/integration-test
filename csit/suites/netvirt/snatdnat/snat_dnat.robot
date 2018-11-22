@@ -10,6 +10,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
+Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Tcpdump.robot
@@ -24,6 +25,14 @@ ${NETWORK_TYPE}    gre
 ${SNAT_ENABLED}    "enable_snat": true
 ${SNAT_DISABLED}    "enable_snat": false
 ${ROUTER}         nat_router
+${AS_ID}          100
+${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
+${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
+${LOOPBACK_IP}    5.5.5.2
+${DCGW_RD}        100:1
+${VPN_NAME}       vpn_1
+${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261442
+${FIP}            100.100.100.24
 @{NETWORKS}       nat_net_1    nat_net_2
 @{EXTERNAL_NETWORKS}    nat_ext_11    nat_ext_22
 @{EXTERNAL_SUB_NETWORKS}    nat_ext_sub_net_1    nat_ext_sub_net_2
@@ -35,6 +44,7 @@ ${ROUTER}         nat_router
 
 *** Test Cases ***
 Verify Successful Creation Of External Network With Router External Set To TRUE
+    [Documentation]    Create external network,enable snat on router and validate the same.
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --enable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_ENABLED}
@@ -42,6 +52,7 @@ Verify Successful Creation Of External Network With Router External Set To TRUE
     BuiltIn.Should Contain    ${output}    @{EXTERNAL_NETWORKS}[0]
 
 Verify Successful Update Of Router With External_gateway_info, Disable SNAT And Enable SNAT
+    [Documentation]    Disable snat, enable snat and validate the same.
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --disable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
@@ -50,14 +61,52 @@ Verify Successful Update Of Router With External_gateway_info, Disable SNAT And 
     BuiltIn.Should Contain    ${output}    ${SNAT_ENABLED}
 
 Verify Successful Deletion Of External Network
+    [Documentation]    Delete the external network and validate the same.
     OpenStackOperations.Remove Gateway    ${ROUTER}
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Not Contain    ${output}    ${SNAT_ENABLED}
+
+Verify Floating Ip Provision And Reachability From External Network Via Neutron Router Through L3vpn
+    [Documentation]    Check floating IP should be present in dump flows after creating the floating IP and associating it to external network
+    ...    which is associated to L3VPN
+    VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=["${DCGW_RD}"]    exportrt=["${DCGW_RD}"]    importrt=["${DCGW_RD}"]
+    ${ext_net_id} =    OpenStackOperations.Get Net Id    @{EXTERNAL_NETWORKS}[0]
+    VpnOperations.Associate L3VPN To Network    networkid=${ext_net_id}    vpnid=${VPN_INSTANCE_ID}
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --disable-snat
+    ${output} =    OpenStackOperations.Show Router    ${ROUTER}
+    BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${FIP}
+    ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
+    ${output} =    OVSDB.Get Flow Entries On Node
+    BuiltIn.Should Contain    ${output}    ${FIP}
+
+Verify Floating Ip De-provision And Reachability From External Network Via Neutron Router Through L3vpn
+    [Documentation]    Check floating IP should not be present in dump flows after deleting the floating IP
+    ...    and removing the external gateway from router which is associated to L3VPN
+    OpenStackOperations.Get ControlNode Connection
+    ${output} =    OpenStackOperations.OpenStack CLI    openstack floating ip list |awk '{print$2}'
+    ${floating_id} =    BuiltIn.Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    OpenStackOperations.Delete Floating IP    ${floating_id}
+    OpenStackOperations.Remove Gateway    ${ROUTER}
+    ${output} =    OVSDB.Get Flow Entries On Node
+    BuiltIn.Should Not Contain    ${output}    ${FIP}
+
+Verify Floating Ip Re-provision And Reachability From External Network Via Neutron Router Through L3vpn
+    [Documentation]    Check floating IP should be present in dump flows after creating the floating IP again wnd associating it to external network
+    ...    which is associated to L3VPN
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${FIP}
+    ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
+    ${output} =    OVSDB.Get Flow Entries On Node
+    BuiltIn.Should Contain    ${output}    ${FIP}
 
 *** Keywords ***
 Start Suite
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
     VpnOperations.Basic Suite Setup
+    BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
+    BgpOperations.Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
     Create Setup
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
     OpenStackOperations.Get Suite Debugs
@@ -69,6 +118,8 @@ Create Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     Create Neutron Ports
     Create Nova VMs
+    Create BGP Config On ODL
+    Create BGP Config On DCGW
     OpenStackOperations.Create Router    ${ROUTER}
     OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[0]
 
@@ -104,3 +155,18 @@ Create Nova VMs
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    @{NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+
+Create BGP Config On ODL
+    [Documentation]    Configure BGP Config on ODL
+    KarafKeywords.Issue Command On Karaf Console    ${BGP_CONFIG_SERVER_CMD}
+    BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
+    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
+    ${output} =    BgpOperations.Get BGP Configuration On ODL    session
+    BuiltIn.Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+
+Create BGP Config On DCGW
+    [Documentation]    Configure BGP on DCGW
+    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAME}    ${DCGW_RD}
+    ...    ${LOOPBACK_IP}
+    ${output} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    ${RUN_CONFIG}
+    BuiltIn.Should Contain    ${output}    ${ODL_SYSTEM_IP}
