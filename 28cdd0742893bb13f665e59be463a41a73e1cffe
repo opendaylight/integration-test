@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d55b9eff_5c45c5ab",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-22T21:20:00Z",
+      "side": 1,
+      "message": "add to the documentation why we are skipping because of\nsfc.",
+      "range": {
+        "startLine": 1242,
+        "startChar": 4,
+        "endLine": 1242,
+        "endChar": 19
+      },
+      "revId": "28cdd0742893bb13f665e59be463a41a73e1cffe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
