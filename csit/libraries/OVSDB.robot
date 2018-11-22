@@ -485,3 +485,11 @@ Verify Vni Packet Count After Traffic
     BuiltIn.Should Be True    ${diff_count_ingress_port1} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_egress_port2} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
+
+Get Flow Entries On Node
+    [Arguments]    ${conn_id}    ${switch}=${INTEGRATION_BRIDGE}
+    [Documentation]    Return flow entries on the given Node.
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    BuiltIn.Log    ${output}
+    [Return]    ${output}
