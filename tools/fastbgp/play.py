@@ -985,7 +985,7 @@ class MessageGenerator(object):
             # "\x00\x01" AFI (IPV4)
             # "\x01"  SAFI (Unicast)
             # "\x00"  Ipv4 Flag (customizable - turned on when grace == 1,3,5,7)
-            # "\x47\x07\x00\x01\x01\x00\x00\x00\x1e" ipv4 ll-graceful-restart capability, timer 30sec
+            # "\x47\x07\x00\x01\x01\x00\x00\x00\x0a" ipv4 ll-graceful-restart capability, timer 10sec
             # ll-gr turned on when grace is between 4-7
             optional_parameter_hex = "\x02{}\x40\x06{}\x00\x01\x01{}{}".format(
                 length, restart_flag, ipv4_flag, ll_gr)
