@@ -19,6 +19,8 @@ ${RIB_NAME}       example-bgp-rib
 ${OLD_AS_PATH}    \n"as-path": {},
 ${NEW_AS_PATH}    ${EMPTY}
 &{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
+${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
+${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -301,7 +303,8 @@ Bmp_Monitor_Precondition
 Bmp_Monitor_Postcondition
     [Arguments]    ${session}
     [Documentation]    Verifies if example-bmp-monitor data contains one peer.
-    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    ${routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_IPV4_ROUTES_LINE}    ${OLD_IPV4_ROUTES_LINE}
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}    ROUTES_LINE=${routes_line}
     ${output}    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}
     ...    session=${session}    verify=True
     BuiltIn.Log    ${output}
