@@ -33,6 +33,8 @@ ${HOLDTIME}       180
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/bgpclustering/
 ${PCC_LOG_FILE}    pccmock.restart.log
 ${CONFIG_SESSION}    session
+${OLD_ERROR_ARGS}    \n"last-received-error": {},\n"last-sent-error": {},
+${NEW_ERROR_ARGS}    ${EMPTY}
 
 *** Test Cases ***
 Get_Example_Pcep_Owner
@@ -103,6 +105,8 @@ Setup_Everything
     ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
     BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
     PcepOperations.Pcep_Topology_Precondition    ${CONFIG_SESSION}
+    ${ERROR_ARGS} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
+    BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
     Start_Pcc_Mock
 
 Teardown_Everything
@@ -118,7 +122,7 @@ Start_Pcc_Mock
 
 Pcep_Topology_Postcondition
     [Documentation]    Verifies if the tool reported expected data
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_${pcep_owner}_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_${pcep_owner}_IP}    ERRORS=${ERROR_ARGS}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_on_state    ${mapping}    ${living_session}
     ...    verify=True
 
