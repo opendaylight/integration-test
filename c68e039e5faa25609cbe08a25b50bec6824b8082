@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "47196ea5_6a949236",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "changed",
+      "parentUuid": "ae381ad1_f4dbdf42",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53cabc04_a0e1dab8",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-20T09:53:49Z",
       "side": 1,
       "message": "Does this not change a commonly used library functionality.. Have you checked where else this utility is used?",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b3b3a0_a2e7e5d8",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "this is newly added keyword for my suite, added as per first test scenario.",
+      "parentUuid": "53cabc04_a0e1dab8",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "343eeda0_fcc962cf",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "8b9152ab_3dc11555",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f71e20_21271e20",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-11-20T09:47:41Z",
       "side": 1,
       "message": "if you are using TZA transport zone for verification, there is one additional external-id to be set on the switch. if not, use DEFAULT_TRANSPORT_ZONE",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6786c3d_2dff30c9",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "TZA is required to check external id name change in ovs and DS , part of test scenario.",
+      "parentUuid": "d2f71e20_21271e20",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fce13c84_672e6bd4",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56cc7b84_2f9c0cfd",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1628df7c_a442ab39",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -98,6 +188,24 @@
       "writtenOn": "2018-11-21T08:54:07Z",
       "side": 1,
       "message": "we can remove this as this is already covered by subsequent verifications",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77521526_27c47e63",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "1628df7c_a442ab39",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -139,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "fb1eef79_f65a4ccb",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "c0d4a48a_2a2719cf",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e7e76a3_757307ae",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -150,6 +276,24 @@
       "writtenOn": "2018-11-21T08:54:07Z",
       "side": 1,
       "message": "change this documentation",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e3f5bb1_74920463",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e7e76a3_757307ae",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -173,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "6ff4e4a0_0bcf133b",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "dc868fc3_4ba9619e",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6892e26c_85d04453",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -184,6 +346,24 @@
       "writtenOn": "2018-11-21T08:54:07Z",
       "side": 1,
       "message": "rename DATA_FILE",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fbd107a_26dd6a6b",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6892e26c_85d04453",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -207,6 +387,24 @@
     },
     {
       "key": {
+        "uuid": "d5f1cc2c_ae590521",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f62e6ce0_c9fb01e1",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e2e15f5_1b3fcb3d",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -218,6 +416,24 @@
       "writtenOn": "2018-11-21T08:54:07Z",
       "side": 1,
       "message": "Don\u0027t do it repeatedly... if possible fetch it once for the suite",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3094e2b_f2c5faf8",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e2e15f5_1b3fcb3d",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -241,6 +457,24 @@
     },
     {
       "key": {
+        "uuid": "d501b6e1_8cf87be6",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "845765d3_c6290c2e",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b7eb220_188be5f5",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -258,6 +492,24 @@
     },
     {
       "key": {
+        "uuid": "28aaa5b3_739bd999",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b7eb220_188be5f5",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "682a67c4_57a06d7e",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 10
@@ -269,6 +521,24 @@
       "writtenOn": "2018-11-21T08:54:07Z",
       "side": 1,
       "message": "Let us not use VpnOperations keyword, check if the same is present in Genius.robot..\n\nPlease move this after line 98",
+      "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e9fba85_3cb35f79",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-23T19:43:16Z",
+      "side": 1,
+      "message": "not available in genius.robot, moved at last",
+      "parentUuid": "682a67c4_57a06d7e",
       "revId": "c68e039e5faa25609cbe08a25b50bec6824b8082",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
