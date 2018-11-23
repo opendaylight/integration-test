@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Functional test for bgp - graceful-restart
+Documentation     Functional test for bgp - long-lived graceful-restart
 ...
 ...               Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
 ...
@@ -31,6 +31,7 @@ ${RIB_NAME}       example-bgp-rib
 ${CONFIG_SESSION}    config-session
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${GR_FOLDER}      ${CURDIR}/../../../variables/bgpfunctional/graceful_restart
+${LL_GR_FOLDER}    ${GR_FOLDER}/ll_gr
 ${PEER1_AS}       65000
 ${PEER2_AS}       65001
 ${PEER1_IP}       127.0.0.2
@@ -46,86 +47,52 @@ ${PREFIX_LEN}     28
 TC_0
     [Documentation]    Prerequistes: One peer with one route running.
     ...    Verify peer route is present in odl's loc-rib.
-    ...    Kill bgp speaker. After graceful-restart restart-time runs out, route must not be
-    ...    present in odl's loc-rib.
+    ...    Kill bgp speaker. After graceful-restart restart-time runs out,
+    ...    route has to have additional community in rib.
     [Setup]    Setup_TC0
     Verify_Routes    dir=ipv4_1
-    Kill_Talking_BGP_Speakers    log_name=gr_tc0.out
+    Kill_Talking_BGP_Speakers    log_name=ll_gr_tc0.out
+    Verify_Routes    dir=ipv4_1
     BuiltIn.Sleep    5s
-    Verify_Routes    retry=10x
-    [Teardown]    Teardown_TC    gr_tc0.out
+    Verify_Routes    dir=ll_gr/ipv4_1
+    [Teardown]    Teardown_TC    ll_gr_tc0.out
 
 TC_1
     [Documentation]    Prerequistes: One peer with one route was just killed.
     ...    Restart killed peer with the same route.
-    ...    Wait for graceful-restart restart-timer to run out, and verify that route is still present in loc-rib.
-    ...    Verify odl advertised end-of-rib message with appropriate flags.
-    [Setup]    Setup_TC1
-    Start_Bgp_Peer    grace=3    log_name=gr_tc1.out
+    ...    Verify that ll-graceful-restart community was removed from the route in rib.
+    [Setup]    Setup_TC_LL_GR_Route
+    Start_Bgp_Peer    grace=7    log_name=ll_gr_tc1.out
     Verify_Routes    dir=ipv4_1
-    Verify_Hex_Message    tc1
-    [Teardown]    Teardown_TC    gr_tc1.out
+    [Teardown]    Teardown_TC    ll_gr_tc1.out
 
 TC_2
-    [Documentation]    Prerequistes: One peer with two routes was just killed.
-    ...    Restart killed peer with just one route. Verify only one route is present in loc-rib.
-    [Setup]    Setup_TC2
-    Start_Bgp_Peer    grace=2    log_name=gr_tc2.out
-    Verify_Routes    dir=ipv4_1
-    [Teardown]    Teardown_TC    gr_tc2.out
+    [Documentation]    Prerequistes: One peer with one route was just killed.
+    ...    Start another peer with ll-graceful-restart capability enabled.
+    ...    Verify odl advertizes route to second peer.
+    [Setup]    Setup_TC_LL_GR_Route
+    Start_Bgp_Peer    prefix=${SECOND_PREFIX}    myip=${PEER2_IP}    port=${PEER2_PORT}    as_number=${PEER2_AS}    log_name=ll_gr_tc2.out    amount=0    grace=4
+    Verify_Routes    dir=ll_gr/ipv4_1
+    Verify_Hex_Message    tc2    peer=${PEER2_IP}
+    [Teardown]    Teardown_TC    ll_gr_tc2.out
 
 TC_3
-    [Documentation]    Prerequistes: One peer with one route, was just killed. Second is still running.
-    ...    Restart killed peer with two routes. Verify that two routes from restarted peer and one route
-    ...    from second peer is in loc-rib. Verify odl advertised update message to second peer with new route
-    ...    and appropriate end-of-rib message.
-    [Setup]    Setup_TC3
-    Start_Bgp_Peer    amount=2    grace=2
-    Verify_Hex_Message    tc3
-    Verify_Routes    dir=ipv4_2_1
-    [Teardown]    Teardown_TC    gr_tc3.out
-
-TC_4
-    [Documentation]    Prerequistes: One peer with one route running.
-    ...    Graceful-restart odl. Close tcp connection from peer side and reopen it.
-    ...    Send end-of-rib with all 0 flags, and expect the route still in loc-rib.
-    ...    Verify end-of-rib message from odl with all flags set to 1.
-    [Setup]    Setup_TC_PG
-    Post_Graceful_Restart
-    Kill_Talking_BGP_Speakers
-    Start_Bgp_Peer    grace=0    log_name=gr_tc4.out
-    Verify_Hex_Message    tc4
-    Verify_Routes    dir=ipv4_1
-    [Teardown]    Teardown_TC    gr_tc4.out
-
-TC_5
-    [Documentation]    Prerequistes: One peer with one route running.
-    ...    Graceful-restart odl. Close tcp connection from peer side and reopen it.
-    ...    Start bgp peer with two routes, and send end-of-rib message with ipv4 flag
-    ...    set to 1. Verify loc-rib and end-of-rib message from odl.
-    [Setup]    Setup_TC_PG
-    Post_Graceful_Restart
-    Kill_Talking_BGP_Speakers
-    Start_Bgp_Peer    amount=2    grace=2    log_name=gr_tc5.out
-    Verify_Hex_Message    tc5
-    Verify_Routes    dir=ipv4_2
-    [Teardown]    Teardown_TC    gr_tc5.out
-
-TC_6
-    [Documentation]    Prerequistes: One peer with one ipv4 route and one ipv6 route running.
-    ...    Kill the speaker. And Verify that there is ipv4 route still present, but ipv6 rib should be empty
-    ...    because it had no graceful-restart ability configured.
-    [Setup]    Setup_TC6
-    Kill_Talking_BGP_Speakers
-    Verify_Routes    dir=ipv4_1
-    Verify_Routes    dir=empty_ipv6_route    interval=1s
-    [Teardown]    Teardown_TC    gr_tc6.out
+    [Documentation]    Prerequistes: One peer with one route was just killed.
+    ...    Start another peer with ll-graceful-restart capability disabled.
+    ...    Verify route is removed after 5 sec graceful timer.
+    [Setup]    Setup_TC_LL_GR_Route
+    Start_Bgp_Peer    prefix=${SECOND_PREFIX}    myip=${PEER2_IP}    port=${PEER2_PORT}    as_number=${PEER2_AS}    log_name=ll_gr_tc3.out    amount=0    grace=0
+    Verify_Routes    dir=ll_gr/ipv4_1
+    BuiltIn.Sleep    5s
+    Verify_Hex_Message    tc3    peer=${PEER2_IP}
+    [Teardown]    Teardown_TC    ll_gr_tc3.out
 
 *** Keywords ***
 Start_Suite
     [Documentation]    Initialize SetupUtils. Suite setup keyword.
     ...    Copies play.py script for peer simulation onto ODL VM.
-    ...    Configures peers on odl with graceful-restart enabled.
+    ...    Configures peers on odl with graceful-restart enabled,
+    ...    and ll-graceful-restart enabled.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     SSHKeywords.Flexible_Controller_Login
@@ -142,61 +109,27 @@ Stop_Suite
 
 Setup_TC0
     [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start one bgp peer with one routes.
+    ...    Start one bgp peer with one route.
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer    log_name=gr_tc0.out
+    Start_Bgp_Peer    log_name=ll_gr_tc0.out    grace=4
 
-Setup_TC1
+Setup_TC_LL_GR_Route
     [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start one bgp peer with one routes, and verify routes is present in loc-rib.
+    ...    Start one bgp peer with one route, and verify route is present in loc-rib.
     ...    Kill bgp speaker (effectively simulating graceful-restart)
+    ...    Verify route has additional community present in rib.
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer
+    Start_Bgp_Peer    grace=4
     Verify_Routes    dir=ipv4_1
     Kill_Talking_BGP_Speakers
-
-Setup_TC2
-    [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start one bgp peer with two routes, and verify routes are present in loc-rib.
-    ...    Kill bgp speaker (effectively simulating graceful-restart)
-    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer    amount=2
-    Verify_Routes    dir=ipv4_2
-    Kill_Talking_BGP_Speakers
-
-Setup_TC3
-    [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start two bgp peers, each with their default values, and verify their respective routes
-    ...    are present in loc-rib, than kill the first bgp speaker (effectively simulating graceful-restart)
-    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer    prefix=${SECOND_PREFIX}    myip=${PEER2_IP}    port=${PEER2_PORT}    as_number=${PEER2_AS}    log_name=gr_tc3.out
-    Start_Bgp_Peer    multiple=${EMPTY}
-    Verify_Routes    dir=ipv4_1_1
-    BGPSpeaker.Kill_BGP_Speaker
-
-Setup_TC_PG
-    [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start one bgp peer, and verify it's route is present in loc-rib.
-    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer
-    Verify_Routes    dir=ipv4_1
-
-Setup_TC6
-    [Documentation]    Log Test Case name into karaf log, and make sure it wont fail other TC's.
-    ...    Start one bgp peer with one routes, and send ipv6 route without gr configured.
-    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Start_Bgp_Peer    log_name=gr_tc6.out    ipv6=${SPACE}--ipv6
-    ${announce_hex} =    OperatingSystem.Get_File    ${GR_FOLDER}${/}ipv6.hex
-    ${announce_hex} =    String.Remove_String    ${announce_hex}    \n
-    Verify_Routes    dir=ipv4_1
-    BgpRpcClient1.play_send    ${announce_hex}
-    Verify_Routes    dir=ipv6_1
+    Verify_Routes    dir=ll_gr/ipv4_1    retry=10x
 
 Teardown_TC
     [Arguments]    ${log_name}=play.py.out
     [Documentation]    In case Test Case failed to close Python Speakers, we close them.
     ...    Wait until there are no routes present in loc-rib.
     Kill_Talking_BGP_Speakers    ${log_name}
+    BuiltIn.Sleep    25s
     Verify_Routes    dir=empty_route    retry=10x
     Verify_Routes    dir=empty_ipv6_route    interval=1s
 
@@ -206,9 +139,9 @@ Verify_Routes
     BuiltIn.Wait_Until_Keyword_Succeeds    ${retry}    ${interval}    TemplatedRequests.Get_As_Json_Templated    ${GR_FOLDER}${/}${dir}    session=${CONFIG_SESSION}    verify=True
 
 Verify_Hex_Message
-    [Arguments]    ${file_dir}    ${peer}=${PEER1_IP}    ${file_name}=${file_dir}.hex
+    [Arguments]    ${file_dir}    ${peer}=${PEER1_IP}
     [Documentation]    Verify hex message advertised from odl.
-    ${expected} =    TemplatedRequests.Resolve_Text_From_Template_File    ${GR_FOLDER}${/}${file_dir}    ${file_name}
+    ${expected} =    TemplatedRequests.Resolve_Text_From_Template_File    ${LL_GR_FOLDER}${/}${file_dir}    message.hex
     ${actual} =    BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    Get_Hex_Message    peer=${peer}
     BgpOperations.Verify_Two_Hex_Messages_Are_Equal    ${expected}    ${actual}
 
@@ -238,18 +171,18 @@ Kill_Talking_BGP_Speakers
 
 Configure_BGP_Peers
     [Arguments]    ${folder}=${EMPTY}
-    [Documentation]    Configure two eBGP peers with graceful-restart enabled
+    [Documentation]    Configure two eBGP peers with graceful-restart enabled, and long-lived graceful-restart enabled
     &{mapping}    BuiltIn.Create_Dictionary    IP=${PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    AS_NUMBER=${PEER1_AS}    BGP_RIB=${RIB_NAME}
-    TemplatedRequests.Put_As_Xml_Templated    ${GR_FOLDER}${/}${folder}peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${LL_GR_FOLDER}${/}${folder}peers    mapping=${mapping}    session=${CONFIG_SESSION}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${PEER2_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    AS_NUMBER=${PEER2_AS}    BGP_RIB=${RIB_NAME}
-    TemplatedRequests.Put_As_Xml_Templated    ${GR_FOLDER}${/}${folder}peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${LL_GR_FOLDER}${/}${folder}peers    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Delete_Bgp_Peers_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${PEER1_IP}    BGP_RIB=${RIB_NAME}
-    TemplatedRequests.Delete_Templated    ${GR_FOLDER}${/}peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated    ${LL_GR_FOLDER}${/}peers    mapping=${mapping}    session=${CONFIG_SESSION}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${PEER2_IP}    BGP_RIB=${RIB_NAME}
-    TemplatedRequests.Delete_Templated    ${GR_FOLDER}${/}peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated    ${LL_GR_FOLDER}${/}peers    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Post_Graceful_Restart
     [Arguments]    ${ip}=${PEER1_IP}
