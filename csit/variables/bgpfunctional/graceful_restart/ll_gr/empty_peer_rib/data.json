@@ -1,0 +1,44 @@
+{
+  "peer": [
+    {
+      "peer-id": "bgp://$IP",
+      "peer-role": "ebgp",
+      "effective-rib-in": {
+        "tables": [
+          {
+            "afi": "bgp-types:ipv4-address-family",
+            "safi": "bgp-types:unicast-subsequent-address-family",
+            "attributes": {
+              "uptodate": false
+            }
+          }
+        ]
+      },
+      "adj-rib-in": {
+        "tables": [
+          {
+            "afi": "bgp-types:ipv4-address-family",
+            "safi": "bgp-types:unicast-subsequent-address-family",
+            "attributes": {
+              "uptodate": false
+            }
+          }
+        ]
+      },
+      "supported-tables": [
+        {
+          "afi": "bgp-types:ipv4-address-family",
+          "safi": "bgp-types:unicast-subsequent-address-family"
+        }
+      ],
+      "adj-rib-out": {
+        "tables": [
+          {
+            "afi": "bgp-types:ipv4-address-family",
+            "safi": "bgp-types:unicast-subsequent-address-family"
+          }
+        ]
+      }
+    }
+  ]
+}
