@@ -16,6 +16,24 @@
       "revId": "2e15b1d389ffb3cc5ad6a3492c5cf10850393a99",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d2ebbee_ff352e8f",
+        "filename": "csit/suites/netvirt/elan/elan_service_recovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-26T23:52:18Z",
+      "side": 1,
+      "message": "I set out to put this in a loop, but realized the two lines also differ in which dl_src value they will be looking for.\nI guess I could use the \"IN ZIP\" version of the FOR loop,\nbut that is less common to see, and will require a few\nextra LOC to make the appropriate list(s) to pass in to\nthat FOR..IN ZIP loop.",
+      "parentUuid": "1c4df1b0_22269725",
+      "revId": "2e15b1d389ffb3cc5ad6a3492c5cf10850393a99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
