@@ -78,7 +78,7 @@ Configuration Playbook
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
@@ -100,6 +100,8 @@ Modifying templates in playbook
     \    ${template} =    String.Replace String    ${template}    192.168.50.1${i}    192.168.50.1${j}
     \    ${template} =    String.Replace String    ${template}    10.11.${i}.0/24    10.11.${j}.0/24
     \    ${template} =    String.Replace String    ${template}    10.11.${i}.1    10.11.${j}.1
+    \    ${template} =    String.Replace String    ${template}    GERRIT_BRANCH    ${GERRIT_BRANCH}
+    \    ${template} =    String.Replace String    ${template}    GERRIT_REFSPEC    ${GERRIT_REFSPEC}
     \    Append To File    ${HOST_INVENTORY}    ${template}
     ${host file} =    OperatingSystem.Get File    ${HOST_INVENTORY}
     ${host file} =    String.Replace String    ${host file}    master_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}

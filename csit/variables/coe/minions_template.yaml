@@ -13,3 +13,5 @@ coe-minion:
     controller_port: cport
     go_version: \1.10.2\
     conf_path: filepath
+    gerrit_branch: GERRIT_BRANCH
+    gerrit_refspec: GERRIT_REFSPEC
