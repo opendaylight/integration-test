@@ -148,7 +148,7 @@ Delete Router And Router Interfaces With L3VPN
     ${router_output} =    OpenStackOperations.List Routers
     BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
     @{router_list} =    BuiltIn.Create List    ${ROUTER}
-    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}    check_for_null=True
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${router_id}
     Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
