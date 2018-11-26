@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b0d508b_01e86e76",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-26T18:12:51Z",
+      "side": 1,
+      "message": "How about adding a new default argument to the original\nkeyword like ${pass_on_404}\u003dFalse and use that to enhance\nthe existing keyword instead of duplicating it line for line\nexcept the one new line?",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b856c400_509b6a8f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-26T18:12:51Z",
+      "side": 1,
+      "message": "if you like my comment in the lib, then this line would stay\nthe same, just with pass_on_404\u003dTrue\n\nIf we really want to be strict about how to do this depending\non release (since it\u0027s a new behavior just in Neon) we can\nadd a little logic to the suite setup to use the\nCompareStream lib to set this variable depending on what\nversion of ODL is under test.",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 134
+      },
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
