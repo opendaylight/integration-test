@@ -27,9 +27,16 @@
       shell: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       args:
         creates: "{{ gopath }}/bin/dep"
+    - debug:
+        msg:
+          - "Fetch COE git repository https://git.opendaylight.org/gerrit/p/coe.git"
+          - "gerrit_branch {{ gerrit_branch }}"
+          - "gerrit_refspec {{ gerrit_refspec }}"
     - name: Fetch COE git repository
       git:
-        repo: 'https://git.opendaylight.org/gerrit/p/coe.git'
+        repo: "https://git.opendaylight.org/gerrit/p/coe.git"
+        version: "{{ gerrit_branch }}"
+        refspec: "{{ gerrit_refspec }}"
         dest: "{{ coe_path }}"
     - name: Fetch odl-cni dependencies with dep
       shell: dep ensure -vendor-only
