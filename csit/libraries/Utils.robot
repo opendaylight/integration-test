@@ -119,12 +119,27 @@ Check For Elements At URI
     \    Should Contain    ${resp.content}    ${i}
 
 Check For Elements Not At URI
-    [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
-    [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
-    ...    ${elements} is verified to NOT exist in the response
+    [Arguments]    ${uri}    ${elements}    ${check_for_null}=False    ${session}=session    ${pretty_print_json}=False
+    [Documentation]    A GET is made at the supplied ${uri} and every item in the list of
+    ...    ${elements} is verified to NOT exist in the response. If ${check_for_null} is True
+    ...    return of 404 is treated as empty list. Neon onwards and empty list is always
+    ...    returned as null, giving 404 on rest call.
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
     ...    ELSE    BuiltIn.Log    ${resp.content}
+    BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${i}    IN    @{elements}
+    \    Should Not Contain    ${resp.content}    ${i}
+
+Check For Empty Or Elements Not At URI
+    [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
+    [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
+    ...    ${elements} is verified to NOT exist in the response or should return 404
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
+    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
+    ...    ELSE    BuiltIn.Log    ${resp.content}
+    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Not Contain    ${resp.content}    ${i}
