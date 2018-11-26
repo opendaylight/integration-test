@@ -78,7 +78,7 @@ Configuration Playbook
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":${GERRIT_BRANCH},"gerrit_refspec":${GERRIT_REFSPEC}'
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
