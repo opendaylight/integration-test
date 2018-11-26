@@ -23,15 +23,16 @@ ${HOST_INVENTORY}    ${CURDIR}/../variables/coe/hosts.yaml
 ${K8s_MASTER_IP}    ${TOOLS_SYSTEM_1_IP}
 ${K8s_MINION1_IP}    ${TOOLS_SYSTEM_2_IP}
 ${K8s_MINION2_IP}    ${TOOLS_SYSTEM_3_IP}
-${K8s_MINION3_IP}    ${TOOLS_SYSTEM_4_IP}
-${K8s_MINION4_IP}    ${TOOLS_SYSTEM_5_IP}
+#${K8s_MINION3_IP}    ${TOOLS_SYSTEM_4_IP}
+#${K8s_MINION4_IP}    ${TOOLS_SYSTEM_5_IP}
 ${HOSTS_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/minions_template.yaml
 ${NODE_READY_STATUS}    \\sReady
 ${PLAYBOOK_FILE}    ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${VARIABLES_PATH}    ${CURDIR}/../variables/coe
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
-@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}    ${K8s_MINION3_IP}    ${K8s_MINION4_IP}
+@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
+#    ${K8s_MINION3_IP}    ${K8s_MINION4_IP}
 @{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 *** Keywords ***
@@ -78,7 +79,7 @@ Configuration Playbook
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"${GERRIT_BRANCH}","gerrit_refspec":"${GERRIT_REFSPEC}"}'
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
