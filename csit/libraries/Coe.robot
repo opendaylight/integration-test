@@ -262,10 +262,14 @@ Coe Suite Teardown
 
 Extract current suite name
     [Documentation]    This keyword returns the name of current test suite.Appropriate replacement in text is done to make test suite names in SUITES and SUITE_NAME similar.
-    @{suite names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
-    @{suite names updated}    Create List
-    : FOR    ${suites}    IN    @{suite names}
-    \    ${suites}    Replace String    ${suites}    _    ${SPACE}
-    \    Append To List    ${suite names updated}    ${suites}
-    ${suite line}    ${current suite}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
-    [Return]    ${current suite}    ${suite names updated}
+    BuiltIn.Log    SUITE_NAME: ${SUITE_NAME}
+    BuiltIn.Log    SUITES: ${SUITES}
+    @{suite_names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
+    @{suite_names_updated}    Create List
+    : FOR    ${suite}    IN    @{suite_names}
+    \    ${suite}    Replace String    ${suite}    _    ${SPACE}
+    \    Append To List    ${suite_names_updated}    ${suite}
+    ${num_suites} =    BuiltIn.Get Length    ${suite_names_updated}
+    ${suite line}    ${current_suite} =    BuiltIn.Run Keyword If    ${num_suites} > ${1}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
+    ...    ELSE    BuiltIn.Set Variable    @{suite_names_updated}[0]    @{suite_names_updated}[0]
+    [Return]    ${current_suite}    ${suite_names_updated}
