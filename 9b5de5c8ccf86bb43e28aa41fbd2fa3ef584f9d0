@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "13546720_3349bed1",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-26T19:03:38Z",
+      "side": 1,
+      "message": "uri",
+      "range": {
+        "startLine": 134,
+        "startChar": 55,
+        "endLine": 134,
+        "endChar": 58
+      },
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f442265f_2f994221",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-26T19:03:38Z",
+      "side": 1,
+      "message": "add \" \u003d\"",
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48cbb0a4_3216493c",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-26T19:03:38Z",
+      "side": 1,
+      "message": "remove the _\u0027s",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 34
+      },
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b0d508b_01e86e76",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 2
@@ -37,6 +100,30 @@
       "side": 1,
       "message": "didn\u0027t want to write a new one but couldn\u0027t think of good way. Instead of pass_on_404, how about call it \"can_be_null\" or \"check_for_null\" and default is False.",
       "parentUuid": "2b0d508b_01e86e76",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "9b5de5c8ccf86bb43e28aa41fbd2fa3ef584f9d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e85803a3_c3d727d2",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-26T19:03:38Z",
+      "side": 1,
+      "message": "regardless of flag naming, should reword the Documentation. End the sentence about checking for to NOT exist, then add if flag is ${True} then 404 is also used to verify the elements do not exist.",
+      "parentUuid": "d54f29bf_4c6c314f",
       "range": {
         "startLine": 132,
         "startChar": 0,
