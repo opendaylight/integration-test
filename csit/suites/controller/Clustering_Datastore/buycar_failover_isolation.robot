@@ -34,14 +34,16 @@ Add_Cars_To_Leader_And_Verify
     ${car_items} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} * 4
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${car_items}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${car_items}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
+    ...    verify=True    iterations=${car_items}
 
 Add_People_To_First_Follower_And_Verify
     [Documentation]    Add all needed people to people first Follower, verify on each member.
     ${people_items} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} * 4
     CarPeople.Add_Several_People    session=${people_first_follower_session}    iterations=${people_items}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${people_items}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}
+    ...    verify=True    iterations=${people_items}
 
 Buy_Cars_On_Leader_And_Verify
     [Documentation]    Buy some cars on the leader member.
@@ -49,7 +51,8 @@ Buy_Cars_On_Leader_And_Verify
     CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    1 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}
+    ...    verify=True    iterations=${total_iterations}
 
 Buy_Cars_On_Follower_And_Verify
     [Documentation]    Buy some cars on the first follower member.
@@ -57,7 +60,8 @@ Buy_Cars_On_Follower_And_Verify
     CarPeople.Buy_Several_Cars    session=${car-people_first_follower_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    2 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}
+    ...    verify=True    iterations=${total_iterations}
 
 Isolate_and_Rejoin_People_Leader
     [Documentation]    Previous people Leader is isolated. We should never stop the people first follower, this is where people are registered.
@@ -73,7 +77,8 @@ Buy_Cars_On_Leader_After_Rejoin_And_Verify
     CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    3 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}
+    ...    verify=True    iterations=${total_iterations}
 
 Buy_Cars_On_Follower_After_Rejoin_And_Verify
     [Documentation]    Buy some cars on the first follower member.
@@ -81,7 +86,8 @@ Buy_Cars_On_Follower_After_Rejoin_And_Verify
     CarPeople.Buy_Several_Cars    session=${car-people_first_follower_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    4 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}
+    ...    verify=True    iterations=${total_iterations}
 
 Delete_All_CarPeople
     [Documentation]    DELETE car-people container. No verification beyond http status.

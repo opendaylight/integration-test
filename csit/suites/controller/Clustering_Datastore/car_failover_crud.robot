@@ -40,7 +40,8 @@ Add_Original_Cars_On_Old_Leader_And_Verify
     [Documentation]    Add initial cars on car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
+    ...    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
 
 Stop_Original_Car_Leader
     [Documentation]    Stop the car Leader to cause a new leader to get elected.
