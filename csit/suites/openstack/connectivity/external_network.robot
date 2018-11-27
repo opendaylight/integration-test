@@ -29,6 +29,7 @@ ${SECURITY_GROUP}    l3_ext_sg
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_PNF}    10.10.10.253
+${INTERNET_CHECK}     8.8.8.8
 ${EXTERNAL_SUBNET}    10.10.10.0/24
 ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${EXTERNAL_INTERNET_ADDR}    10.9.9.9
@@ -105,6 +106,11 @@ Ping Vm Instance2 Floating IP From SNAT VM Instance2
 Ping External Network PNF from Vm Instance 1 After Floating IP Assignment
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping Internet Site from Vm Instance 1 After Floating IP Assignment
+    [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
+    ${dst_ip} =    BuiltIn.Create List    ${INTERNET_CHECK}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
