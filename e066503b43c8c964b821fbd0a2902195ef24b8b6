@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "80403bed_0c409607",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "${WORKSPACE} path equivalent to /w/workspace/dcgw-netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-gate-tdd-wip-neon so it does not fulfill my requirements and i need to modify punt timeout in all the xml files to change default which are present in the below path before restarting karaf\n/tmp/${BUNDLEFOLDER}/etc/opendaylight/datastore/initial/config",
+      "parentUuid": "1c8653e1_73baa678",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f80ed2ed_e3139361",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "I wonder if it would make things more clear to use a dictionary. robot supports that, but it\u0027s not common\nfor our int/test code base to use them. But, it might\nmake the test case more clear to see something that\u0027s\nchecking on HARD_TIMEOUT_VALUES[\u0027L3_PUNT_TABLE\u0027] instead\nof HARD_TIMEOUT_VALUES[0]. It would make it easier to\nmaintain.\n\nI\u0027m bringing this up, because I was having a hard time\nfiguring out what was going on in the test cases below\nwithout referring back up to these lists.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 58
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b6792c5_32603567",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "There is no co-relation between these values. i\u0027ll try to optimize it OR define more understandable variable name and I will combine into dictionary these variables ${SNAT_DEFAULT_HARD_TIMEOUT} and @{OF_PUNT_TABLES}",
+      "parentUuid": "f80ed2ed_e3139361",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d5db8cc8_a9889c7e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "ok, i\u0027ll fix it",
+      "parentUuid": "c94e7666_217a3ab8",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 115
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90725e2_a39389b9",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "why are you doing this?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b32136b3_306c17e5",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "Reverting to original values.will check necessity also.",
+      "parentUuid": "a90725e2_a39389b9",
       "range": {
         "startLine": 62,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "22bfdaf0_6d9a3e21",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "Reverting to original values. will check necessity also.",
+      "parentUuid": "69c369bc_e85bee7e",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 73
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99aad25d_c1af8bbe",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -128,6 +248,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "do we also want to run the OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43c6c60b_98b2bf8e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "OpenStackOperations.OpenStack Suite Setup is called inside VpnOperation.Basic Suite Setup so no need to call it again explicitly.",
+      "parentUuid": "99aad25d_c1af8bbe",
       "range": {
         "startLine": 92,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "34b4cbfc_eea3e180",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "OK, I\u0027ll fix it.",
+      "parentUuid": "268fc170_8f750ddf",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4039548b_07987b65",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -174,6 +342,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "just add this line to the Suite Teardown line at the top\nand remove this whole \"Stop Suite\" keyword",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 45
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f03a9a4_5cbdb5a4",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "moved to top of the suite",
+      "parentUuid": "4039548b_07987b65",
       "range": {
         "startLine": 113,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "eb9d3a20_f4c281d8",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "OK, i\u0027ll check keyword applicability.",
+      "parentUuid": "d8cad5c4_43ef2c5c",
+      "range": {
+        "startLine": 122,
+        "startChar": 98,
+        "endLine": 122,
+        "endChar": 111
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11ae2a3f_2ff7241d",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -220,6 +436,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "so what is extra about these keywords that you couldn\u0027t\nuse the provided ones in OpenStackOperations. I know\nat least one thing you are doing is to check the config\nstore that things were created. maybe you can just add\nthat ability in to the existing keywords. you can add an\nargument called ${validate_config_store\u003dFalse and then add\nthat check in the keyword only when you pass in True for that\nargument. That makes a better lib keyword for everyone\nelse in the future and prevents all this extra duplicated\ncode that will need to be maintained in parallel.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 126
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3847961_93b662c7",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "1- I wrote all these keywords local to my suite, I am still \nusing only OpenStackKeywords keywords inside these local keywords as per my topology. multiple networks, subnets, ports, VMs and other things required as per topology. I have to use FOR LOOP to create all these things with different logic(as per topology)\n2- OR I can remove all these keywords and move all these logic up in Start Suite keyword.\nLet me know which one would be better way to create this pre setup topology.",
+      "parentUuid": "11ae2a3f_2ff7241d",
       "range": {
         "startLine": 124,
         "startChar": 0,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "7d37555e_bfc10efd",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "ok, will move up.",
+      "parentUuid": "ffb1a0c4_f4347135",
+      "range": {
+        "startLine": 202,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 49
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca3379de_dbd8c554",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -266,6 +530,30 @@
       "writtenOn": "2018-11-27T01:31:02Z",
       "side": 1,
       "message": "I\u0027m sure we have similar functionality already there in\nthe karafkeywords lib. let\u0027s use those and not make duplicate\nwork.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3082a4d_12fc1164",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-11-27T13:00:55Z",
+      "side": 1,
+      "message": "yeah, KarafKeywords.Restart_Karaf does the same functionality using \"shutdown -r -f \" CLI in karaf console but it throws some bundle error(configuration data lost), find the open JIRA bug for the same\nhttps://jira.opendaylight.org/browse/controller-186\n\nThat\u0027s why I wrote new keyword to restart karaf using shell file and its working fine. I have to restart karaf after changing xml punt timeout value in my very first testcase. without these keywords I will be blocked completely.",
+      "parentUuid": "ca3379de_dbd8c554",
       "range": {
         "startLine": 204,
         "startChar": 0,
