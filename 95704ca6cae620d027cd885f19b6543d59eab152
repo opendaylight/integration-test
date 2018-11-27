@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c49b248_51a022c3",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:07:46Z",
+      "side": 1,
+      "message": "If you are going to add this arg in this third spot, then you\nprobably need to go check everywhere else it\u0027s used to make\nsure someone isn\u0027t passing in their \"session\" which used to\nbe in this third place and refactor accordingly.\n\nor, just add this as the newest/last/5th argument",
+      "range": {
+        "startLine": 122,
+        "startChar": 44,
+        "endLine": 122,
+        "endChar": 67
+      },
+      "revId": "95704ca6cae620d027cd885f19b6543d59eab152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
