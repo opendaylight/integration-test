@@ -463,7 +463,7 @@ Check Ping
     [Documentation]    Run Ping command on the IP available as argument
     ${ethertype} =    String.Get Regexp Matches    ${ip_address}    ${IP_REGEX}
     ${ping} =    BuiltIn.Set Variable If    ${ethertype}    ping    ping6
-    ${cmd} =    BuiltIn.Set Variable    rc=0; for count in `seq 1 ${ping_tries}`; do ${ping} -W1 -t${ttl} -c1 ${ip_address}; rc=$?; if [ $rc -eq 0 ]; then break; fi; done; echo ping_rc=$rc
+    ${cmd} =    BuiltIn.Set Variable    rc=0; for count in `seq 1 ${ping_tries}`; do ${ping} -t${ttl} ${ip_address}; rc=$?; if [ $rc -eq 0 ]; then break; fi; done; echo ping_rc=$rc
     ${output} =    Utils.Write Commands Until Expected Regexp    ${cmd}    ping_rc=\\d+    120
     BuiltIn.Log    output: ${output}
     BuiltIn.Should Contain    ${output}    64 bytes
@@ -623,6 +623,8 @@ Get DumpFlows And Ovsconfig
     \    Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
     \    Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo iptables -L -t nat -v    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo iptables -L -v    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
