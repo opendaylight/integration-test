@@ -462,7 +462,7 @@ Check Ping
     [Arguments]    ${ip_address}    ${ttl}=64
     [Documentation]    Run Ping command on the IP available as argument
     ${ethertype} =    String.Get Regexp Matches    ${ip_address}    ${IP_REGEX}
-    ${output} =    BuiltIn.Run Keyword If    ${ethertype}    Utils.Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${output} =    BuiltIn.Run Keyword If    ${ethertype}    Utils.Write Commands Until Expected Prompt    ping -t ${ttl} -c 10 ${ip_address}    ${OS_SYSTEM_PROMPT}
     ...    ELSE    Utils.Write Commands Until Expected Prompt    ping6 -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     BuiltIn.Should Contain    ${output}    64 bytes
 
@@ -614,6 +614,8 @@ Get DumpFlows And Ovsconfig
     Utils.Write Commands Until Expected Prompt    ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    arp -an    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo iptables -L -v    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo iptables -L -t nat -v    ${DEFAULT_LINUX_PROMPT_STRICT}
     ${nslist} =    Utils.Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{lines}    Split To Lines    ${nslist}    end=-1
     : FOR    ${line}    IN    @{lines}
@@ -626,6 +628,10 @@ Get DumpFlows And Ovsconfig
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Get ControlNode Connection
     SSHLibrary.Switch Connection    ${OS_CNTL_CONN_ID}
