@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a869f613_0c7f155a",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-11-27T14:09:17Z",
+      "side": 1,
+      "message": "with these changes we can now just change the number of tools vms from the job yaml and it will be picked up with no problem, right?",
+      "range": {
+        "startLine": 208,
+        "startChar": 33,
+        "endLine": 208,
+        "endChar": 53
+      },
+      "revId": "6524ff59268dde058384794423e2a2e73b888dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
