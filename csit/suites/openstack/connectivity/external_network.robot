@@ -29,6 +29,8 @@ ${SECURITY_GROUP}    l3_ext_sg
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_PNF}    10.10.10.253
+${GOOGLE_DNS}    8.8.8.8
+${OPENDAYLIGHT_ORG}    https://www.opendaylight.org
 ${EXTERNAL_SUBNET}    10.10.10.0/24
 ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${EXTERNAL_INTERNET_ADDR}    10.9.9.9
@@ -106,6 +108,13 @@ Ping External Network PNF from Vm Instance 1 After Floating IP Assignment
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Access Internet Sites/Servers from Vm Instance 1 After Floating IP Assignment
+    [Documentation]    Check Internet Connectivity From Instances
+    ${dst_ip} =    BuiltIn.Create List    ${INTERNET_CHECK}
+    ${output} =    Utils.Write Commands Until Expected Prompt    curl -i -X GET ${OPENDAYLIGHT_ORG} --insecure -v    ${OS_SYSTEM_PROMPT}
+    BuiltIn.Should Contain    ${output}    200 OK
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${GOOGLE_DNS}
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
