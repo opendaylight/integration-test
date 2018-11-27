@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "985ccd8d_58e5f03a",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:28:37Z",
+      "side": 1,
+      "message": "you probably want some method here to let users skip this test in case their deployment is in some environment that doesn\u0027t have access to google. maybe just a tag",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 121
+      },
+      "revId": "35b54a01b0f1d164833596ac708e8edbe91a18ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
