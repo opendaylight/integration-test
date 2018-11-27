@@ -21,17 +21,12 @@ ${CONFIG_FILE}    /etc/cni/net.d/odlovs-cni.conf
 ${CONFIG_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/odlovs-cni.conf.j2
 ${HOST_INVENTORY}    ${CURDIR}/../variables/coe/hosts.yaml
 ${K8s_MASTER_IP}    ${TOOLS_SYSTEM_1_IP}
-${K8s_MINION1_IP}    ${TOOLS_SYSTEM_2_IP}
-${K8s_MINION2_IP}    ${TOOLS_SYSTEM_3_IP}
-${K8s_MINION3_IP}    ${TOOLS_SYSTEM_4_IP}
-${K8s_MINION4_IP}    ${TOOLS_SYSTEM_5_IP}
 ${HOSTS_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/minions_template.yaml
-${NODE_READY_STATUS}    \\sReady
+${NODE_READY_STATUS}    ${EMPTY}Ready    # The check using this variable should not mess up with NotReady
 ${PLAYBOOK_FILE}    ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${VARIABLES_PATH}    ${CURDIR}/../variables/coe
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
-@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}    ${K8s_MINION3_IP}    ${K8s_MINION4_IP}
 @{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 *** Keywords ***
@@ -61,8 +56,8 @@ Set Connection ids and Bridge
     \    SSHLibrary.Switch Connection    ${conn_id}
     \    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     ${file} =    OperatingSystem.Get File    ${CONFIG_FILE_TEMPLATE}
-    ${ovs bridge output}    ${bridge} =    Should Match Regexp    ${file}    "ovsBridge": "(\\w.*)"
-    Set Suite Variable    ${bridge}
+    ${ovs bridge output}    ${bridge} =    BuiltIn.Should Match Regexp    ${file}    "ovsBridge": "(\\w.*)"
+    BuiltIn.Set Suite Variable    ${bridge}
 
 Configuration Playbook
     [Documentation]    Ansible playbook which does all basic configuration for kubernetes nodes.
@@ -125,10 +120,8 @@ Verify Watcher Is Running
 
 Check Node Status Is Ready
     [Documentation]    Checks the status of nodes.This keyword is repeated until the status of all nodes is Ready
-    ${nodes} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get nodes    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    @{cluster} =    String.Split To Lines    ${nodes}    1
-    : FOR    ${node}    IN    @{cluster}
-    \    BuiltIn.Should Match Regexp    ${node}    ${NODE_READY_STATUS}
+    ${nodes} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    BuiltIn.Should Contain X Times    ${nodes}    ${NODE_READY_STATUS}    ${NUM_TOOLS_SYSTEM}
 
 Label Nodes
     [Documentation]    Create labels for minions so that random allocation of pods to minions is avoided
@@ -148,7 +141,7 @@ Derive Coe Data Models
 
 Check Pod Status Is Running
     [Documentation]    Checks the status of pods.This keyword is repeated until the status of all pods is Running
-    ${pods} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${pods} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get pods -o wide    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{cluster} =    String.Split To Lines    ${pods}    1
     : FOR    ${pod}    IN    @{cluster}
     \    BuiltIn.Should Match Regexp    ${pod}    ${POD_RUNNING_STATUS}
@@ -210,7 +203,7 @@ Stop Watcher
 
 Kube reset
     [Documentation]    Reset K8s to clear up all stale entries
-    : FOR    ${nodes}    IN    @{NODE_IPs}
+    : FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    ${kube} =    Utils.Run Command On Remote System And Log    ${nodes}    sudo kubeadm reset
     \    BuiltIn.Should Contain    ${kube}    Stopping the kubelet service.
 
