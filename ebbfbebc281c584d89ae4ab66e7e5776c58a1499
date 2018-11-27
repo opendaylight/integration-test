@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ca0215d_7a7c28ac",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:58:20Z",
+      "side": 1,
+      "message": "This is a small request, but can you make your test case\nname a little more succinct? Use the [Documentation] block\nto further explain the details of the test case. But, as is,\nthe test case name is really long and will start to make\nour robot html reports a little clumsy to read. Also, it\u0027s\nbarely any different than the docs section anyway.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 96
+      },
+      "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f33645fc_a75628b2",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:58:20Z",
+      "side": 1,
+      "message": "why is this line here, when you did it above in line 55?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 130
+      },
+      "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa8bb3a_98e91562",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:58:20Z",
+      "side": 1,
+      "message": "this is sort of meaningless as it\u0027s just a rewording of the\ntest case name. You should explain the point of this test\ncase (why it\u0027s important) and any details that might be hard\nto understand by reading the test case code.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 82
+      },
+      "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4da501e6_da4e8f71",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T23:58:20Z",
+      "side": 1,
+      "message": "this is obviously just for debugging (which is fine) as is\nline 68. but, double check that it\u0027s giving you all you need\nin the logs. Sometimes it\u0027s truncated. if that\u0027s the case,\nyou can just use the keyword \"Write Commands Until Expected Prompt And Log\" which was created for that scenario.",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 97
+      },
+      "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
