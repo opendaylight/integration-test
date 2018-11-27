@@ -13,7 +13,7 @@ Resource          ../../variables/netvirt/Variables.robot
 Resource          ../../variables/Variables.robot
 
 *** Variables ***
-${NO_OF_PODS_PER_VM}    9
+${NO_OF_PODS_PER_VM}    2
 
 *** Test Cases ***
 Verify Connectivity Between Pods
