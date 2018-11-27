@@ -626,6 +626,10 @@ Get DumpFlows And Ovsconfig
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${PUBLIC_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Get ControlNode Connection
     SSHLibrary.Switch Connection    ${OS_CNTL_CONN_ID}
