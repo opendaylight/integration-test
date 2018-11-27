@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c8653e1_73baa678",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "I think we want this to be ${WORKSPACE} instead of /tmp/ in\ncase it changes or other deployments want to run this suite\nat a later time.",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f80ed2ed_e3139361",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "I wonder if it would make things more clear to use a dictionary. robot supports that, but it\u0027s not common\nfor our int/test code base to use them. But, it might\nmake the test case more clear to see something that\u0027s\nchecking on HARD_TIMEOUT_VALUES[\u0027L3_PUNT_TABLE\u0027] instead\nof HARD_TIMEOUT_VALUES[0]. It would make it easier to\nmaintain.\n\nI\u0027m bringing this up, because I was having a hard time\nfiguring out what was going on in the test cases below\nwithout referring back up to these lists.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 58
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c94e7666_217a3ab8",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "I would maybe swap the [Documentation] wording to be the\ntest case name, or even shorten it a little to something\nlike \"Verify Default Timeouts In OVS Tables\" and then \nuse the extra descriptive wording to fully explain in the\ndocs section. That long test case name will probably get\na little ugly in the reports.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 115
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a90725e2_a39389b9",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "why are you doing this?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69c369bc_e85bee7e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "why are you doing this?",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 73
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99aad25d_c1af8bbe",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "do we also want to run the OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "268fc170_8f750ddf",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "I think it\u0027s just as clear and saves a few lines if you just add the steps here instead of pulling them in to a local\nkeyword right below. The lines are very easy to read and\nthere isn\u0027t any complicated logic we are trying to hide up\nat this level.",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4039548b_07987b65",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "just add this line to the Suite Teardown line at the top\nand remove this whole \"Stop Suite\" keyword",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 45
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8cad5c4_43ef2c5c",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "do you want to make this an argument too, so this keyword\ncan be more flexible?",
+      "range": {
+        "startLine": 122,
+        "startChar": 98,
+        "endLine": 122,
+        "endChar": 111
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11ae2a3f_2ff7241d",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "so what is extra about these keywords that you couldn\u0027t\nuse the provided ones in OpenStackOperations. I know\nat least one thing you are doing is to check the config\nstore that things were created. maybe you can just add\nthat ability in to the existing keywords. you can add an\nargument called ${validate_config_store\u003dFalse and then add\nthat check in the keyword only when you pass in True for that\nargument. That makes a better lib keyword for everyone\nelse in the future and prevents all this extra duplicated\ncode that will need to be maintained in parallel.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 126
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb1a0c4_f4347135",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "move this up above the \"Should Not Contain\" lines. If those\nlines were to fail, then this line would not execute and\nthat is the exact time when you want to see the debugs (when\nthere is trouble)",
+      "range": {
+        "startLine": 202,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 49
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca3379de_dbd8c554",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-27T01:31:02Z",
+      "side": 1,
+      "message": "I\u0027m sure we have similar functionality already there in\nthe karafkeywords lib. let\u0027s use those and not make duplicate\nwork.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
