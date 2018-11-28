@@ -196,7 +196,7 @@ Delete Router
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
-    ${rc}    ${output} =    Run And Return Rc And Output    neutron router-delete nonExistentRouter
+    ${output} =    OpenStackOperations.OpenStack CLI    openstack router delete nonExistentRouter
     BuiltIn.Should Match Regexp    ${output}    Unable Not At URIto find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
 Associate Networks To L3VPN
