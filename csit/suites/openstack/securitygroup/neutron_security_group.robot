@@ -31,10 +31,10 @@ ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --por
 ${SECURITY_GROUPS}    --security-group
 @{SGS}            sgs_sg_1    sgs_sg_2    sgs_sg_3    sgs_sg_4
 ${SG_UPDATED}     SSH_UPDATED
-${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
+${ADD_ARG_SSH5}    --ingress --ethertype IPv4 --dst-port 20:25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
-${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
-${ADD_ARG_SSH7}    --direction ingress --ethertype IPv4 --port_range_max -1 --port_range_min 20 --protocol tcp
+${ADD_ARG_SSH6}    --ingress --ethertype IPv4 --dst-port 25:-1 --protocol tcp
+${ADD_ARG_SSH7}    --ingress --ethertype IPv4 --dst-port -1:20 --protocol tcp
 ${PORT_RANGE_ERROR}    For TCP/UDP protocols, port_range_min must be <= port_range_max
 ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 
@@ -44,8 +44,7 @@ TC01_Update Security Group description and Name
     [Tags]    Regression
     ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGS[0]}
     Create Security Rule and Validate    ${SGS[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
-    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNETS[0]}    ${IP_SUBNETS[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
-    ...    ${sg_id}
+    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNETS[0]}    ${IP_SUBNETS[0]}    ${PORTS[0]}    ${PORTS[1]}    ${sg_id}
     Security group verification on Neutron port    ${PORTS[0]}    ${sg_id}
     Security group verification on Neutron port    ${PORTS[1]}    ${sg_id}
     Update Security Group Description and Verification    ${sg_id}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
@@ -84,13 +83,11 @@ Create Security Rule and Validate
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SEC_RULE_API}    ${rule_ids}
 
 Neutron Setup Creation
-    [Arguments]    ${network}    ${subnet}    ${ip_subnet}    ${port1}    ${port2}    ${sg_groups}
-    ...    ${sg_id}
+    [Arguments]    ${network}    ${subnet}    ${ip_subnet}    ${port1}    ${port2}    ${sg_id}
     ${net_id} =    OpenStackOperations.Create Network    ${network}
     ${subnet_id} =    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${ip_subnet}
-    ${add_args} =    BuiltIn.Set Variable    ${sg_groups} ${sg_id}
-    ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port1}    ${add_args}
-    ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port2}    ${add_args}
+    ${port_id} =    OpenStackOperations.Create Port    ${network}    ${port1}    ${sg_id}
+    ${port_id} =    OpenStackOperations.Create Port   ${network}    ${port2}    ${sg_id}
 
 Security group verification on Neutron port
     [Arguments]    ${port}    ${sg_id}
@@ -115,6 +112,6 @@ Update Security Group Name and Verification
 
 Neutron Rule Creation With Invalid Parameters
     [Arguments]    ${sg_name}    ${additional_args}    ${expected_error}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    neutron security-group-rule-create ${sg_name} ${additional_args}
+    ${rc}    ${output} =    OpenStackOperations.OpenStack CLI    openstack security group rule create ${additional_args} ${sg_name}
     BuiltIn.Log    ${output}
     BuiltIn.Should Contain    ${output}    ${expected_error}
