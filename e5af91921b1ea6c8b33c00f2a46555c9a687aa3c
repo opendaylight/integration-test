@@ -160,6 +160,24 @@
       "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dd88f56_af28116f",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T11:12:53Z",
+      "side": 1,
+      "message": "Ok,Shankar please move your suite above ITM_Direct_Tunnels in both testplans",
+      "parentUuid": "18f590ff_6d094995",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
