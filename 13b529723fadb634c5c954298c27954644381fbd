@@ -339,6 +339,193 @@
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29e0e90e_138652dd",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "use variables in Genius.robot?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48c937ab_04cfa10e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "what is this keyword doing? Need to prefix the library?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49d40595_0558278b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "verify data from which URL? :)",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4f96acc_101d4bce",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "do we need respjson?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7111196b_d3239dd2",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "need i?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51cccc11_53ec25b7",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "remove log",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f88cd06_a466b1cd",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "you have to explain me this logic :)",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e5b902a_8ffd1b9f",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "why is k set as suite variable?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2311dce4_64b9ad92",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "cannot understand difference between this keyword and the above one.",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e225d53f_f97f3ff7",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "why is k set as suite variable?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "303be795_2e1bf1e4",
+        "filename": "csit/variables/genius/l2vlan.json",
+        "patchSetId": 123
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:09:07Z",
+      "side": 1,
+      "message": "is this change needed?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
