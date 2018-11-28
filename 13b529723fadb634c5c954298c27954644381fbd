@@ -461,6 +461,23 @@
     },
     {
       "key": {
+        "uuid": "ed49a811_fcb1fc24",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:10:00Z",
+      "side": 1,
+      "message": "Feel there are several keywords duplicated between Configure_ITM, ITM_Direct_TUnnels and BFD suites. Could you please check?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e5b902a_8ffd1b9f",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 123
