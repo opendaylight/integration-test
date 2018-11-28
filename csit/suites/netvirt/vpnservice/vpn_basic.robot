@@ -196,8 +196,11 @@ Delete Router
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
-    ${rc}    ${output} =    Run And Return Rc And Output    neutron router-delete nonExistentRouter
-    BuiltIn.Should Match Regexp    ${output}    Unable Not At URIto find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
+    ${result} =    Process.Run Process    openstack router delete nonExistentRouter    shell=True
+    BuiltIn.Log    ${result.stdout}
+    BuiltIn.Log    ${result.stderr}
+    BuiltIn.Should Be True    '${result.rc}' == '1'
+    BuiltIn.Should Match Regexp    ${result.stderr}    Failed to delete router with name or ID 'nonExistentRouter': No Router found for nonExistentRouter
 
 Associate Networks To L3VPN
     [Documentation]    Associates L3VPN to networks and verify
