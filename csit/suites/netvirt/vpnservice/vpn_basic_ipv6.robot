@@ -154,8 +154,11 @@ Delete Router And Router Interfaces With L3VPN
     Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
 
 Delete Router With NonExistentRouter Name
-    ${rc}    ${output}=    Run And Return Rc And Output    neutron router-delete nonExistentRouter
-    BuiltIn.Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
+    ${result} =    Process.Run Process        openstack router delete nonExistentRouter        shell=True
+    BuiltIn.Log    ${result.stdout}
+    BuiltIn.Log    ${result.stderr}
+    BuiltIn.Should Be True    '${result.rc}' == '1'
+    BuiltIn.Should Match Regexp    ${result.stderr}    Failed to delete router with name or ID 'nonExistentRouter': No Router found for nonExistentRouter
 
 Associate L3VPN To Networks
     ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
