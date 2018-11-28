@@ -22,6 +22,30 @@
       "revId": "95704ca6cae620d027cd885f19b6543d59eab152",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22249ea4_7e8e7040",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-11-28T03:15:24Z",
+      "side": 1,
+      "message": "Good point. I wasn\u0027t familiar with option to call it with check_for_null\u003dFalse. Now that I do, makes sense to make it last one.",
+      "parentUuid": "3c49b248_51a022c3",
+      "range": {
+        "startLine": 122,
+        "startChar": 44,
+        "endLine": 122,
+        "endChar": 67
+      },
+      "revId": "95704ca6cae620d027cd885f19b6543d59eab152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
