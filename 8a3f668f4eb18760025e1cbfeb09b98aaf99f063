@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69d74d1f_8aea6126",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-28T00:18:37Z",
+      "side": 1,
+      "message": "make sure the test case or keyword names aren\u0027t just \nidentical to the documentation block. that\u0027s sort of \npointless. make the keyword/test case names clear and\nconcise. use [Docuementation] to explain the why and how\nwith more details.",
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d48f72f6_17a7ba1c",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-28T00:18:37Z",
+      "side": 1,
+      "message": "this is a candidate to be put in a variables file since it\nis used in other suites.\n\nthere may be many others like this as well. less duplicated code is preferred",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f259c5fd_6e24bdb9",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-28T00:18:37Z",
+      "side": 1,
+      "message": "do you need to create Suite Variables for these IP \nvariables you just found? that\u0027s the normal pattern\nin other suites, is why I ask. Maybe they are automatically\nset for some reason",
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06a4a5e_1023dec3",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-11-28T00:18:37Z",
+      "side": 1,
+      "message": "you are calling this Pretest, but you are running it Posttest\nwhat\u0027s the real plan? if it\u0027s to run it before the test cases then do it as a [Setup], otherwise name this Post Test Cleanup",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 8
+      },
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
