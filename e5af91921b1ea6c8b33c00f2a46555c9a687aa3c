@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "880ea133_e2a8a8f5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Alphabetical order",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93fae54_6cacc7de",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Qualify keywords everywhere,\nBuiltIn.Set Suite Variable",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "019c4395_19092585",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7ba2cff_a6c58522",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Isnt it similar to ${TOOLS_SYSTEM_1_IP}?",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57d130a8_c3d4da7c",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "You can directly set ${ip} as suite variable\nBuiltIn.Set Suite Variable  ${ip},\nIs there any specific reason for doing so?\n\nThis applies everywhere.",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cfe5277_87a95a91",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Please check ToolsSystem.Get Tools System Nodes Data,\nwhere we have a list @{TOOLS_SYSTEM_ALL_IPS}.\n\nIf I am right thinking that @{COMPUTE-NODE-LIST} is just a collection of IPs of nodes,then the above list should solve the need.",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e6c6b2_fd1d5746",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-11-28T10:49:40Z",
+      "side": 1,
+      "message": "Faseela,is it fine placing auto tunnels suite after enabling ITM flag?",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
