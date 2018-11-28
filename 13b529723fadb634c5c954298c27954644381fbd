@@ -1,0 +1,344 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d533b69_6aa3a87c",
+        "filename": "csit/libraries/ToolsSystem.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "is this log needed?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27bbaa43_86fb5362",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "why is this changed? There will be other people who are using this keyword, i think let us not touch such keywords and leave them as is. Else make sure it is changed everywhere else. have to check even in netvirt csit..so better to be safe, by leaving this untouched",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5677e2b8_bf59943a",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "VLAN and all were declared in Genius.robot, and now again getting hard coded",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef50030d_369d9832",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "same with gateway ip as above",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1fb9406_b7e2a7bd",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "rename i",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d912d5be_7adcfd19",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "can we use variables defined in Genius.robot?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6e9bd9c_d6191a8e",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "remove all these logs",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd0f42ca_e59e919c",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "remove the log",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6565444_cb20bccb",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "hope you will rebase this on top of shankar\u0027s patch to not use tep delete",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "119f82df_22ae3ffa",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "remove log",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30150001_dd9947d1",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "what is this keyword doing? keyword name does not make any sense",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1682c98d_c11ba19f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "what is respjson used for? if not used, delete",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f965cb4e_39f90afc",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "what is this i for?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6a0c816_40fd9250",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "should this be i or $node?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8908371_8c652eac",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05febf70_8d858b66",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4754da5f_dd6d82fd",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "$i and $node..some confusion",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a660f40_25c065ec",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "rename i",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c30d358a_52ccb78b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "rename k",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df1faf30_0563c02c",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-11-28T10:03:58Z",
+      "side": 1,
+      "message": "how is this different from keyword at line 219",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
