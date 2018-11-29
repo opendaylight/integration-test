@@ -234,6 +234,30 @@
       "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2c90d59_29e71843",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-11-29T09:29:49Z",
+      "side": 1,
+      "message": "Removed these lines[65 and 68].",
+      "parentUuid": "4da501e6_da4e8f71",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 97
+      },
+      "revId": "ebbfbebc281c584d89ae4ab66e7e5776c58a1499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
