@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d688b81_bac25483",
+        "filename": "csit/suites/openstack/securitygroup/neutron_security_group.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-11-29T11:50:35Z",
+      "side": 1,
+      "message": "Typo in the test above.",
+      "revId": "c47deac9160a7c5e64548678541da8d72e0ed294",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
