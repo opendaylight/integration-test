@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "68379f5a_46cd34a0",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-11-29T06:48:33Z",
+      "side": 1,
+      "message": "Implemented the same.",
+      "parentUuid": "69d74d1f_8aea6126",
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d48f72f6_17a7ba1c",
         "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
         "patchSetId": 46
@@ -30,6 +48,30 @@
       "writtenOn": "2018-11-28T00:18:37Z",
       "side": 1,
       "message": "this is a candidate to be put in a variables file since it\nis used in other suites.\n\nthere may be many others like this as well. less duplicated code is preferred",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ade23b4d_cf179a5e",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-11-29T06:48:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d48f72f6_17a7ba1c",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "c640df49_4768161b",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-11-29T06:48:33Z",
+      "side": 1,
+      "message": "Need to use these IP variables as suite variables as these variables are used throughout the suite.\n\nThese are not automatically set in keywords. Need to define it explicitely.",
+      "parentUuid": "f259c5fd_6e24bdb9",
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d06a4a5e_1023dec3",
         "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
         "patchSetId": 46
@@ -70,6 +130,30 @@
       "writtenOn": "2018-11-28T00:18:37Z",
       "side": 1,
       "message": "you are calling this Pretest, but you are running it Posttest\nwhat\u0027s the real plan? if it\u0027s to run it before the test cases then do it as a [Setup], otherwise name this Post Test Cleanup",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 8
+      },
+      "revId": "8a3f668f4eb18760025e1cbfeb09b98aaf99f063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f919f6d0_5d25a729",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-11-29T06:48:33Z",
+      "side": 1,
+      "message": "As I am using it in posttest. So, as per your suggestion, changed the keyword to Post Test Cleanup.",
+      "parentUuid": "d06a4a5e_1023dec3",
       "range": {
         "startLine": 274,
         "startChar": 0,
