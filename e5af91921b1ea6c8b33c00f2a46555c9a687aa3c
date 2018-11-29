@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ce1b4a3_bf73583c",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "880ea133_e2a8a8f5",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f93fae54_6cacc7de",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 22
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-28T10:49:40Z",
       "side": 1,
       "message": "Qualify keywords everywhere,\nBuiltIn.Set Suite Variable",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab9e764f_ed3f68f5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f93fae54_6cacc7de",
       "range": {
         "startLine": 45,
         "startChar": 3,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "b41b4858_0bf586d0",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "019c4395_19092585",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7ba2cff_a6c58522",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 22
@@ -76,6 +142,30 @@
       "writtenOn": "2018-11-28T10:49:40Z",
       "side": 1,
       "message": "Isnt it similar to ${TOOLS_SYSTEM_1_IP}?",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30a9f44c_4b2e60e3",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7ba2cff_a6c58522",
       "range": {
         "startLine": 49,
         "startChar": 45,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "147f0b25_861d1214",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "two local ip\u0027s need to be verified in other testcases so set it as suite variable",
+      "parentUuid": "57d130a8_c3d4da7c",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cfe5277_87a95a91",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 22
@@ -122,6 +236,24 @@
       "writtenOn": "2018-11-28T10:49:40Z",
       "side": 1,
       "message": "Please check ToolsSystem.Get Tools System Nodes Data,\nwhere we have a list @{TOOLS_SYSTEM_ALL_IPS}.\n\nIf I am right thinking that @{COMPUTE-NODE-LIST} is just a collection of IPs of nodes,then the above list should solve the need.",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6be96f25_393a9341",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "i just need two ip\u0027s not all three",
+      "parentUuid": "1cfe5277_87a95a91",
       "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -175,6 +307,24 @@
       "side": 1,
       "message": "Ok,Shankar please move your suite above ITM_Direct_Tunnels in both testplans",
       "parentUuid": "18f590ff_6d094995",
+      "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "358d460a_086a2bd9",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-11-29T11:51:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd88f56_af28116f",
       "revId": "e5af91921b1ea6c8b33c00f2a46555c9a687aa3c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
