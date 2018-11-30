@@ -215,5 +215,16 @@ Suite Setup
     BuiltIn.Log    ${data}
     : FOR    ${router}    IN    @{ROUTERS}
     \    Should Contain    ${data}    ${router}
+    # There is a sporadic timing (we believe) related issue (see https://jira.opendaylight.org/browse/NETVIRT-1144)
+    # that may end up in a brief hiccup (~2s) before the proper flows are programmed after the arp is seen.
+    # to avoid the first couple of test cases from failing if this is seen (testing shows it to happen 2-3 times
+    # in 100 iterations) we will run the ping (which triggers the arp learn) here first and ignore any failures
+    # this should ensure that by the time the first test cases are run, the flows should be present. If the failures
+    # still come at that point, we probably have a different issue.
+    # for reference, the 2s hiccup could be from this:
+    # https://git.opendaylight.org/gerrit/gitweb?p=netvirt.git;a=blob;f=vpnmanager/impl/src/main/java/org/opendaylight/netvirt/vpnmanager/VpnInterfaceManager.java;h=1350a29be4fa542a7501c6beb34ad5afdde495c2;hb=aa56b9d00c3c2a59406cea910bd774f21950a8f2#l1696
+    ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
+    Run Keyword And Ignore Error    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+    Run Keyword And Ignore Error    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
     OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
     OpenStackOperations.Get Suite Debugs
