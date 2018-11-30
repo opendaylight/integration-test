@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8de729a_47ab6824",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7866
+      },
+      "writtenOn": "2018-11-30T10:59:56Z",
+      "side": 1,
+      "message": "Append brief list of test-cases added in the commit msg.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36c8771e_051ce925",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7866
+      },
+      "writtenOn": "2018-11-30T10:59:56Z",
+      "side": 1,
+      "message": "Trivial comment:\nNot needed. Can be removed from other test cases too.",
+      "range": {
+        "startLine": 86,
+        "startChar": 47,
+        "endLine": 86,
+        "endChar": 76
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18e285a4_6e4c14b3",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7866
+      },
+      "writtenOn": "2018-11-30T10:59:56Z",
+      "side": 1,
+      "message": "Test case to change local-ip is not present. It will test tep deletion with old local_ip and create new tep with updated local_ip. It is major test-case.\nOther few cases can also be added like:\n- only tep-deletion\n- no default-TZ if def-tz-enabled flag is false in genius-itm-config.xml\n- change br-name in external_ids to have tunnels on other bridge instead of br-int\n\nComment can be taken separately in new patch if other reviewers also agree.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
