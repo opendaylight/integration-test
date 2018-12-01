@@ -33,7 +33,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/RestPerfClient
-${REQUEST_COUNT}    16384
+${REQUEST_COUNT}    4096
 ${device_type}    full-uri-device
 ${test_device}    odl-mdsal-northbound-via-netconf-connector
 
