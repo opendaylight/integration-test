@@ -38,13 +38,13 @@ Initial Ping To External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}    ping_tries=8
 
 Initial Ping To External Network PNF from Vm Instance 2
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
     ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}    ping_tries=8
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
@@ -105,7 +105,7 @@ Ping Vm Instance2 Floating IP From SNAT VM Instance2
 Ping External Network PNF from Vm Instance 1 After Floating IP Assignment
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_tries=8
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
