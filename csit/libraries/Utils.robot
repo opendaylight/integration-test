@@ -504,10 +504,12 @@ Convert_To_Minutes
 Write Commands Until Expected Prompt
     [Arguments]    ${cmd}    ${prompt}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    BuiltIn.Log    cmd: ${cmd}
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     SSHLibrary.Read
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
+    BuiltIn.Log    output: ${output}
     [Return]    ${output}
 
 Install Package On Ubuntu System
