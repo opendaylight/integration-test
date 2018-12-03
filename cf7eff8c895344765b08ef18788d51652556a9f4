@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "073e4952_f5d8f9d5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-12-03T21:43:17Z",
+      "side": 1,
+      "message": "oh I see cause you dont want to keep pinging after the first success?",
+      "parentUuid": "a6f5bbef_8602333f",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 51
+      },
+      "revId": "cf7eff8c895344765b08ef18788d51652556a9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c421562d_504f28bc",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
