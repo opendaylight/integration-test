@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5e9c1891_fdf79e68",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-12-03T21:55:39Z",
+      "side": 1,
+      "message": "I think it is clearer to call this tries (or max_attempts). This isn\u0027t really \"retries\". If you give set number of retries to 3, the code will break after 3 failures (not 4)",
+      "range": {
+        "startLine": 462,
+        "startChar": 51,
+        "endLine": 462,
+        "endChar": 63
+      },
+      "revId": "cf7eff8c895344765b08ef18788d51652556a9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6f5bbef_8602333f",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
