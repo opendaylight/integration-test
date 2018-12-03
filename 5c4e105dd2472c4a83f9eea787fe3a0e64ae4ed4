@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62aa9cc6_b76bd6be",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-03T16:52:22Z",
+      "side": 1,
+      "message": "this is really just adding a fake sleep right? We really should just fix the ping check since none of the tests are checking for how quickly flows are installed - that is an assumption made by the tests which is not valid. The tests just want to see if connectivity is established.",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "5c4e105dd2472c4a83f9eea787fe3a0e64ae4ed4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
