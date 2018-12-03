@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a6f5bbef_8602333f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-12-03T21:40:01Z",
+      "side": 1,
+      "message": "this change isn\u0027t just making the number of retries a variable, but also changing the way the ping is done as separate ping commands rather than a single ping command with a variablized number of packets. Can you comment maybe in the commit message as to why you are changing that?",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 51
+      },
+      "revId": "cf7eff8c895344765b08ef18788d51652556a9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c421562d_504f28bc",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
