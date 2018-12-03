@@ -459,11 +459,16 @@ Exit From Vm Console
     BuiltIn.Run Keyword If    ${rcode}    DevstackUtils.Write Commands Until Prompt    exit
 
 Check Ping
-    [Arguments]    ${ip_address}    ${ttl}=64
+    [Arguments]    ${ip_address}    ${ttl}=64    ${ping_tries}=3
     [Documentation]    Run Ping command on the IP available as argument
     ${ethertype} =    String.Get Regexp Matches    ${ip_address}    ${IP_REGEX}
-    ${output} =    BuiltIn.Run Keyword If    ${ethertype}    Utils.Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    ...    ELSE    Utils.Write Commands Until Expected Prompt    ping6 -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${ping} =    BuiltIn.Set Variable If    ${ethertype}    ping    ping6
+    SSHLibrary.Set Client Configuration    timeout=120
+    ${cmd} =    BuiltIn.Set Variable    ping_tries=${ping_tries}; count=0; rc=0; until ${ping} -t ${ttl} -c 1 ${ip_address} || ((++count >= ping_tries)); do rc=$?; done; echo ping_rc=$rc
+    # ${output}    ${rc} =    SSHLibrary.Execute Command    ${cmd}    return_rc=True
+    # BuiltIn.Log    rc: ${rc}\noutput: ${output}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}    120
+    BuiltIn.Log    output: ${output}
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Check No Ping
@@ -511,7 +516,7 @@ Copy File To VM Instance With PublicKey Auth
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
-    ...    ${ping_should_succeed}=True    ${check_metadata}=True    ${console}=cirros
+    ...    ${ping_should_succeed}=True    ${check_metadata}=True    ${console}=cirros    ${ping_tries}=3
     [Documentation]    Login to the vm instance using ssh in the network.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
@@ -526,7 +531,7 @@ Test Operations From Vm Instance
     : FOR    ${dest_ip}    IN    @{dest_ips}
     \    ${string_empty} =    BuiltIn.Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    BuiltIn.Run Keyword If    ${string_empty}    Continue For Loop
-    \    BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}
+    \    BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}    ping_tries=${ping_tries}
     \    ...    ELSE    OpenStackOperations.Check No Ping    ${dest_ip}    ttl=${ttl}
     ${ethertype} =    String.Get Regexp Matches    ${src_ip}    ${IP_REGEX}
     BuiltIn.Run Keyword If    ${rcode} and "${check_metadata}" and ${ethertype} == "True"    OpenStackOperations.Check Metadata Access
