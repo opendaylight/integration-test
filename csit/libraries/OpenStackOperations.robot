@@ -459,11 +459,13 @@ Exit From Vm Console
     BuiltIn.Run Keyword If    ${rcode}    DevstackUtils.Write Commands Until Prompt    exit
 
 Check Ping
-    [Arguments]    ${ip_address}    ${ttl}=64
+    [Arguments]    ${ip_address}    ${ttl}=64    ${ping_tries}=3
     [Documentation]    Run Ping command on the IP available as argument
     ${ethertype} =    String.Get Regexp Matches    ${ip_address}    ${IP_REGEX}
-    ${output} =    BuiltIn.Run Keyword If    ${ethertype}    Utils.Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    ...    ELSE    Utils.Write Commands Until Expected Prompt    ping6 -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${ping} =    BuiltIn.Set Variable If    ${ethertype}    ping    ping6
+    ${cmd} =    BuiltIn.Set Variable    rc=0; for count in `seq 1 ${ping_tries}`; do ${ping} -W1 -t${ttl} -c1 ${ip_address}; rc=$?; if [ $rc -eq 0 ]; then break; fi; done; echo ping_rc=$rc
+    ${output} =    Utils.Write Commands Until Expected Regexp    ${cmd}    ping_rc=\\d+    120
+    BuiltIn.Log    output: ${output}
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Check No Ping
@@ -511,7 +513,7 @@ Copy File To VM Instance With PublicKey Auth
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
-    ...    ${ping_should_succeed}=True    ${check_metadata}=True    ${console}=cirros
+    ...    ${ping_should_succeed}=True    ${check_metadata}=True    ${console}=cirros    ${ping_tries}=3
     [Documentation]    Login to the vm instance using ssh in the network.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
@@ -526,7 +528,7 @@ Test Operations From Vm Instance
     : FOR    ${dest_ip}    IN    @{dest_ips}
     \    ${string_empty} =    BuiltIn.Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    BuiltIn.Run Keyword If    ${string_empty}    Continue For Loop
-    \    BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}
+    \    BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}    ping_tries=${ping_tries}
     \    ...    ELSE    OpenStackOperations.Check No Ping    ${dest_ip}    ttl=${ttl}
     ${ethertype} =    String.Get Regexp Matches    ${src_ip}    ${IP_REGEX}
     BuiltIn.Run Keyword If    ${rcode} and "${check_metadata}" and ${ethertype} == "True"    OpenStackOperations.Check Metadata Access
