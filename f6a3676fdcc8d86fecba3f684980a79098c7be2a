@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed4bdfe7_0c2d8442",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-04T19:31:59Z",
+      "side": 0,
+      "message": "was the problem here? maybe if you try that DETAILED_LINUX_PROMPT variable instead?",
+      "range": {
+        "startLine": 466,
+        "startChar": 105,
+        "endLine": 466,
+        "endChar": 121
+      },
+      "revId": "f6a3676fdcc8d86fecba3f684980a79098c7be2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
