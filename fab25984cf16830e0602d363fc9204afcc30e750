@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cad4a843_ff409c57",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "329d5a5e_4aabe887",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66bffe85_9f73ef74",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "what is this GENIUS_DATA ? can u give some meaningful name? and what is this trying to do?",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db4392ca_5147310c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "seems to be a combination of dpn ids and node ips but not used anywhere will remove it",
+      "parentUuid": "66bffe85_9f73ef74",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "29478abb_d2c87629",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Will not be needed for any future refrences?",
+      "parentUuid": "d19005a1_acf08502",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef79b586_18ced4e3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -64,6 +118,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "why is there a change in response code?",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3356defa_871ff892",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "This put request returns 201 and not 204",
+      "parentUuid": "ef79b586_18ced4e3",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0c56750a_ee9f13a0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44119533_0110ad2d",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35df6e05_56864e90",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -98,6 +188,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "This keyword builds the list of DPN ids after configuring OVS bridges on each of the TOOLS_SYSTEM_IPs.",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ef18edf_290dc837",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35df6e05_56864e90",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3f099165_0b2d7a2b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88f3fb17_47371244",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60e7cec7_ffc48500",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -132,6 +258,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "Stop suite for ITM Direct Tunnels",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "800033e1_d7cfcaf1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60e7cec7_ffc48500",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "10124ff8_d3233443",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71872ebe_5cee0c3d",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9024a3e0_6efdf6bc",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -166,6 +328,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "i think we don\u0027t need a VLAN list like this. we are using either vlan-id\u003d0 or 100, so you can just declare two variables NO_VLAN and VLAN",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07536d97_56534aa3",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9024a3e0_6efdf6bc",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "32a8bddd_24b2080b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a81d9987_0ce5afee",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88562b3d_4a90a80e",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -200,6 +398,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "do we need this show here? it is anyways captured in teardown",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c3088e9_fbc054ac",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "yes good to have one in start suite also",
+      "parentUuid": "88562b3d_4a90a80e",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "dc31624d_de973fa8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c62cc5_21ea2c9d",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91c1d836_f2e981c7",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "ea18e59a_e31ef73b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c1d836_f2e981c7",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "350b01ad_159a665a",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 122
@@ -251,6 +503,24 @@
       "writtenOn": "2018-11-28T09:48:54Z",
       "side": 1,
       "message": "rename tun",
+      "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83be4405_f44ac716",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 122
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "350b01ad_159a665a",
       "revId": "fab25984cf16830e0602d363fc9204afcc30e750",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
