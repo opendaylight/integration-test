@@ -22,6 +22,30 @@
       "revId": "f6a3676fdcc8d86fecba3f684980a79098c7be2a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1550710_783909ff",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-04T19:37:52Z",
+      "side": 0,
+      "message": "not sure why we would change the prompt and not use the existing one. In the last patch set though, I moved away from this method and used the execute command instead. That worked.",
+      "parentUuid": "ed4bdfe7_0c2d8442",
+      "range": {
+        "startLine": 466,
+        "startChar": 105,
+        "endLine": 466,
+        "endChar": 121
+      },
+      "revId": "f6a3676fdcc8d86fecba3f684980a79098c7be2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
