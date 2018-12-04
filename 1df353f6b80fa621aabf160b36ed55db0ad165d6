@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c2d972b_2443ee86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-04T17:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8de729a_47ab6824",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31f59cbe_2c2efd61",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 27
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-30T11:13:05Z",
       "side": 1,
       "message": "\"itm:transport-zones/transport-zone\" this has been used multiple time in the file.\nCan\u0027t we use a variable for this?",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 93
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df163145_bcfa3b1b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-04T17:30:24Z",
+      "side": 1,
+      "message": "variable has been added new suits",
+      "parentUuid": "31f59cbe_2c2efd61",
       "range": {
         "startLine": 75,
         "startChar": 59,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e8e100f9_5b6532a8",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-04T17:30:24Z",
+      "side": 1,
+      "message": "this are existing suites , cannot be changed",
+      "parentUuid": "36c8771e_051ce925",
+      "range": {
+        "startLine": 86,
+        "startChar": 47,
+        "endLine": 86,
+        "endChar": 76
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18e285a4_6e4c14b3",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 27
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-30T10:59:56Z",
       "side": 1,
       "message": "Test case to change local-ip is not present. It will test tep deletion with old local_ip and create new tep with updated local_ip. It is major test-case.\nOther few cases can also be added like:\n- only tep-deletion\n- no default-TZ if def-tz-enabled flag is false in genius-itm-config.xml\n- change br-name in external_ids to have tunnels on other bridge instead of br-int\n\nComment can be taken separately in new patch if other reviewers also agree.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "1df353f6b80fa621aabf160b36ed55db0ad165d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45008533_4e3afe7f",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-04T17:30:24Z",
+      "side": 1,
+      "message": "1.tep-deletion will be added in next patch with reboot scenario\n2.previous suites are tested without def-tz enabled\n3.changing local ip test case not added yet as controller connectivity will go down , br-int mapped ip and manager ip are same we dont have separate br interface for data in this setup.",
+      "parentUuid": "18e285a4_6e4c14b3",
       "range": {
         "startLine": 38,
         "startChar": 0,
