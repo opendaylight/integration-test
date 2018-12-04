@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "58aed93a_ebf967b8",
+        "filename": "csit/libraries/ToolsSystem.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "not necessarily,just to see IPs of all nodes we can have it.",
+      "parentUuid": "9d533b69_6aa3a87c",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27bbaa43_86fb5362",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 123
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "why is this changed? There will be other people who are using this keyword, i think let us not touch such keywords and leave them as is. Else make sure it is changed everywhere else. have to check even in netvirt csit..so better to be safe, by leaving this untouched",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "378222d7_969b40ed",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Will better revert the change",
+      "parentUuid": "27bbaa43_86fb5362",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a1728948_4b298380",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5677e2b8_bf59943a",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef50030d_369d9832",
         "filename": "csit/suites/genius/BFD_monitoring.robot",
         "patchSetId": 123
@@ -64,6 +118,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "same with gateway ip as above",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f02d15a2_e49738d7",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef50030d_369d9832",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5ae95ddd_379c0e8e",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fb9406_b7e2a7bd",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d912d5be_7adcfd19",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -98,6 +188,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "can we use variables defined in Genius.robot?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a28ffc4_5e87f35a",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d912d5be_7adcfd19",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7422ac12_516a97f9",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6e9bd9c_d6191a8e",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd0f42ca_e59e919c",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -132,6 +258,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "remove the log",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb12a288_f5ad8daf",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd0f42ca_e59e919c",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "81788444_320b727a",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "119f82df_22ae3ffa",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30150001_dd9947d1",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "b792ec13_43899622",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30150001_dd9947d1",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1682c98d_c11ba19f",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -200,6 +380,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "what is respjson used for? if not used, delete",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af609d1b_46b4062f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "we will better log json body of all API which will help us in debugging.",
+      "parentUuid": "1682c98d_c11ba19f",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -240,6 +438,24 @@
     },
     {
       "key": {
+        "uuid": "6659ef7d_6436c214",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "We use both ${node} and ${i} as loop variables.\n${node} will loop over elements.\n${i} will loop over numbers.\nThis is the only way we can form a nested for loop in robot.",
+      "parentUuid": "b6a0c816_40fd9250",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8908371_8c652eac",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -251,6 +467,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "remove",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bb56735_aa9ab7a6",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8908371_8c652eac",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -274,6 +508,24 @@
     },
     {
       "key": {
+        "uuid": "665918fe_c17f2e3f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05febf70_8d858b66",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4754da5f_dd6d82fd",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 123
@@ -285,6 +537,24 @@
       "writtenOn": "2018-11-28T10:03:58Z",
       "side": 1,
       "message": "$i and $node..some confusion",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8b77e4e_e3079a8b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4754da5f_dd6d82fd",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -342,6 +612,24 @@
     },
     {
       "key": {
+        "uuid": "9f6d7760_5eacceba",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df1faf30_0563c02c",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29e0e90e_138652dd",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 123
@@ -353,6 +641,24 @@
       "writtenOn": "2018-11-28T10:09:07Z",
       "side": 1,
       "message": "use variables in Genius.robot?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e537f49_c0276e7a",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29e0e90e_138652dd",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -393,6 +699,24 @@
     },
     {
       "key": {
+        "uuid": "b5e331b1_96429a63",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d40595_0558278b",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4f96acc_101d4bce",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 123
@@ -404,6 +728,24 @@
       "writtenOn": "2018-11-28T10:09:07Z",
       "side": 1,
       "message": "do we need respjson?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "349f55ee_e169a524",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Good to have if we need to see the output of each API",
+      "parentUuid": "e4f96acc_101d4bce",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -427,6 +769,24 @@
     },
     {
       "key": {
+        "uuid": "6d8b1de2_2a09e94c",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7111196b_d3239dd2",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51cccc11_53ec25b7",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 123
@@ -438,6 +798,24 @@
       "writtenOn": "2018-11-28T10:09:07Z",
       "side": 1,
       "message": "remove log",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "661009d8_6dc2deed",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51cccc11_53ec25b7",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -472,6 +850,24 @@
       "writtenOn": "2018-11-28T10:10:00Z",
       "side": 1,
       "message": "Feel there are several keywords duplicated between Configure_ITM, ITM_Direct_TUnnels and BFD suites. Could you please check?",
+      "revId": "13b529723fadb634c5c954298c27954644381fbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d0bd2cf_91b0372d",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-04T11:19:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed49a811_fcb1fc24",
       "revId": "13b529723fadb634c5c954298c27954644381fbd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
