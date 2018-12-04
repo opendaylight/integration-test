@@ -46,6 +46,30 @@
       "revId": "f6a3676fdcc8d86fecba3f684980a79098c7be2a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e646185_5da1dddd",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-04T19:43:11Z",
+      "side": 0,
+      "message": "I was just wondering if maybe the new method to do the ping\nwas throwing back the more general prompt in the middle\nof some output, which puts our pattern matching logic in a\nbad state. So, trying with DEFAULT_LINUX_PROMPT_STRICT might\nsolve that with this existing keyword.\n\nbut, I have ZERO problem using the SSHLib kw. if it works,\nit works. that must be matching on the same prompt anyway.\nI dunno. ?",
+      "parentUuid": "d1550710_783909ff",
+      "range": {
+        "startLine": 466,
+        "startChar": 105,
+        "endLine": 466,
+        "endChar": 121
+      },
+      "revId": "f6a3676fdcc8d86fecba3f684980a79098c7be2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
