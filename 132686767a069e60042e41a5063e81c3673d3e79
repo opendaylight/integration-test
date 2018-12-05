@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e9569b4_299f9402",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-05T18:36:18Z",
+      "side": 1,
+      "message": "I think as long as you have a \u0027$\u0027 in this cmd, we will have trouble doing this with the base cirros image. It\u0027s using a single \u0027$\u0027 as it\u0027s prompt, so there is not even any extra characters to match on to make a stricter check.\n\ntwo ideas:\n\n1) we change the cirros instance prompts as soon as we boot them. That shouldn\u0027t be more than a single line of robot code. if/when it fails because we can\u0027t log in to the instance, it will be because of a legit problem like it didn\u0027t get it\u0027s IP or other connectivity bug\n\n2) figure out how to change \u0027$\u0027 to some other character for referencing variables. That might cause other issues, and I don\u0027t even know how to do it.\n\n3) Maybe this prompt would work \"^$\". If it\u0027s using regexp to match on the prompt that would be the beginning of the line directly followed by $. wait, if it\u0027s regexp then $ means end of the line. that probably doesn\u0027t work.\n\n4) find a new way to loop where we don\u0027t need variables in the command",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 186
+      },
+      "revId": "132686767a069e60042e41a5063e81c3673d3e79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
