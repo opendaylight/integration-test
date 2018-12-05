@@ -22,6 +22,30 @@
       "revId": "132686767a069e60042e41a5063e81c3673d3e79",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd03bb55_d98e42f2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5089
+      },
+      "writtenOn": "2018-12-05T19:00:53Z",
+      "side": 1,
+      "message": "or 5) just keep the old code and add the ping_tries argument.",
+      "parentUuid": "9e9569b4_299f9402",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 186
+      },
+      "revId": "132686767a069e60042e41a5063e81c3673d3e79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
