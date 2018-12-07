@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f7c3910_0b37a5c2",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T19:47:45Z",
+      "side": 1,
+      "message": "can we do some polling here, instead of a sleep? we are waiting for something to clear out right? can we add a WUKS for \"up to\" 10s that will do some show command every 1s and if the output is as expected we will move on.\n\nsleeps are not usually accepted in our test repo",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 232,
+        "endChar": 118
+      },
+      "revId": "9612359f1100c06f90359f8bdc9aea790ec6e63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165f81d9_d99fd136",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T19:47:45Z",
+      "side": 1,
+      "message": "one general observation I see is that almost every check involves some extended polling (60s). That ends up adding\nsome noise to the code which makes it harder to read. If\npossible, remove those WUKS if there is no need for them.\n\nOne idea is to see if you can find one main check to make\nto know the environment should be in a proper state (e.g.,\nthat something on the dataplane (routes, etc)) exists which\nmeans that our controller has processed things. Then make\nyour other specific checks (which are great, btw) without\nthe WUKs.",
+      "revId": "9612359f1100c06f90359f8bdc9aea790ec6e63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "569c8e17_8b8af0a6",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T19:47:45Z",
+      "side": 1,
+      "message": "there is no reason to have the test case name and docstring\nbe a copy/paste of each other. use a clear concise test case\nname that gets the idea across in general, then go in to any\nextra details with the [Documentation] block.\n\napplies below as well",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 82
+      },
+      "revId": "9612359f1100c06f90359f8bdc9aea790ec6e63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
