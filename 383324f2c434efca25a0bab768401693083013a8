@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e43915f_ab4f0c2f",
+        "filename": "csit/suites/bgpcep/bgpfunct/100_bgp_functional_graceful_restart.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T00:30:08Z",
+      "side": 1,
+      "message": "this is pretty meaningless, and makes the resulting\n\"human readable\" html report a little less useful.\n\nyou should find something concise and descriptive for\nwhat the test case is doing.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 4
+      },
+      "revId": "383324f2c434efca25a0bab768401693083013a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f834df54_eda4f100",
+        "filename": "csit/suites/bgpcep/bgpfunct/100_bgp_functional_graceful_restart.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T00:30:08Z",
+      "side": 1,
+      "message": "what is this sleep for?",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "383324f2c434efca25a0bab768401693083013a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14edf4b8_a3313994",
+        "filename": "csit/suites/bgpcep/bgpfunct/100_bgp_functional_graceful_restart.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-07T00:30:08Z",
+      "side": 1,
+      "message": "this is right in the middle of some work with the SSHLib. I\u0027d move it before or after for clarity.",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 114
+      },
+      "revId": "383324f2c434efca25a0bab768401693083013a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
