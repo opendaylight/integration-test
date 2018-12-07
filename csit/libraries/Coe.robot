@@ -82,13 +82,13 @@ Modifying templates in playbook
     ${template} =    String.Replace String    ${template}    minion_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}
     @{minions}    Create List    coe-minion
     ${hosts}    Set Variable    coe-master:
-    : FOR    ${i}    INRANGE    1    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
     \    Append To List    ${minions}    coe-minion${i}
     \    ${hosts} =    Catenate    ${hosts}    coe-minion${i}:
     ${hosts} =    Replace String Using Regexp    ${hosts}    :$    ${EMPTY}
     ${hosts} =    Remove Space on String    ${hosts}
     ${minion hosts} =    Replace String Using Regexp    ${hosts}    ^[\\w-]+:    ${EMPTY}
-    : FOR    ${i}    INRANGE    1    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
     \    ${j} =    Evaluate    ${i}+1
     \    ${template} =    String.Replace String    ${template}    ${minions[${i}-1]}    ${minions[${i}]}
     \    ${template} =    String.Replace String    ${template}    ${TOOLS_SYSTEM_ALL_IPS[${i}-1]}    ${TOOLS_SYSTEM_ALL_IPS[${i}]}
