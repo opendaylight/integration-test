@@ -42,11 +42,11 @@ Isolation Of SXP Service Follower Listener Test
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
     Check Connections    ${cluster_owner}    listener
     Add Bindings To Node    ${CLUSTER_NODE_ID}    ClusterManagement__session_${cluster_owner}
-    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     Isolate SXP Controller    ${cluster_owner}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
     Check Connections    ${NEW_OWNER}    listener
-    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     [Teardown]    Clean Custom SXP Cluster
 
 Isolation Of SXP Service Follower Speaker Test
@@ -56,11 +56,11 @@ Isolation Of SXP Service Follower Speaker Test
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${cluster_owner}
     Check Connections    ${cluster_owner}    speaker
     Add Bindings To Node    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
-    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${cluster_owner}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${cluster_owner}
     Isolate SXP Controller    ${cluster_owner}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${NEW_OWNER}
     Check Connections    ${NEW_OWNER}    speaker
-    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${NEW_OWNER}
+    BuiltIn.Wait Until Keyword Succeeds    240    1    Check Bindings    ${CLUSTER_NODE_ID}    ClusterManagement__session_${NEW_OWNER}
     [Teardown]    Clean Custom SXP Cluster
 
 *** Keywords ***
