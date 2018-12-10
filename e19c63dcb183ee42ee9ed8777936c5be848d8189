@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05db3b88_95cb97a7",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-10T12:35:04Z",
+      "side": 1,
+      "message": "just curious, what was the problem when using the \"/\" directly instead of %2f?",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0314b0b2_94c756cf",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-10T12:35:04Z",
+      "side": 1,
+      "message": "Can we also replace the variable name subnet and port_name also in CAPS?,",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
