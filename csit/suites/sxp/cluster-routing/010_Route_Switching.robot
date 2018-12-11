@@ -22,15 +22,6 @@ Route Definition Test
     Put Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${owner_controller}
     BuiltIn.Wait Until Keyword Succeeds    240    1    SxpClusterLib.Ip Addres Should Be Routed To Follower    ${MAC_ADDRESS_TABLE}    ${VIRTUAL_IP}    ${owner_controller}
 
-Isolation of SXP service follower Test
-    [Documentation]    Test Route update mechanism during Cluster isolation,
-    ...    after each isolation virtual IP should be pre-routed to new leader
-    SxpClusterLib.Check Shards Status
-    ${any_controller} =    SxpClusterLib.Get Any Controller
-    Add Route Definition To Cluster    ${VIRTUAL_IP}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${any_controller}
-    ${controller_index} =    SxpClusterLib.Get Owner Controller
-    Isolate SXP Controller    ${controller_index}
-
 *** Keywords ***
 Put Route Definition To Cluster
     [Arguments]    ${virtual_ip}    ${VIRTUAL_IP_MASK}    ${VIRTUAL_INTERFACE}    ${follower}
