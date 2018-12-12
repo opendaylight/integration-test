@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "078e2035_a3a75854",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-12T19:39:43Z",
+      "side": 1,
+      "message": "add S here to make it more clear that this is a list of\nmultiple values",
+      "revId": "ca8e3c425bd0d13269d7c2860569d03ce437766b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
