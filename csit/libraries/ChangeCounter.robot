@@ -35,7 +35,8 @@ Get_Change_Count
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # CompareStream.Set_Variable_If_At_Least_Else cannot be used direcly, because ${response.text}["data-change-counter"]["count"] would be
     # evaluated before the stream comparison and it causes failures
-    ${count} =    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    BuiltIn.Log    ${response.text}
+    ${count} =    BuiltIn.Evaluate    json.loads('${response.text}')["data-change-counter"]["counter"][0]["count"]    modules=json
     [Return]    ${count}
 
 Reconfigure_Topology_Name
