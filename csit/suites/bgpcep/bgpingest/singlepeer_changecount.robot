@@ -99,7 +99,7 @@ Reconfigure_Data_Change_Counter
 
 Verify_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5s    1s    ChangeCounter.Get_Change_Count
+    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    5x    1s    ChangeCounter.Get_Change_Count
 
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
