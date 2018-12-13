@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44d76d84_6eabb54b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-12-13T20:09:09Z",
+      "side": 1,
+      "message": "looks like we don\u0027t need this. it is already captured, just buried somewhere. this change seems to be broken:\n\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/jamo-vthapar-netvirt-csit-1node-0cmb-1ctl-2cmp-apex-queens-gate-snat-conntrack-oxygen/4/robot-plugin/log_01_l2.html#s1-k1-k13-k2-k1-k8",
+      "revId": "7c00d1c259acdb54b418318c986bb52f5ac3d13b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
