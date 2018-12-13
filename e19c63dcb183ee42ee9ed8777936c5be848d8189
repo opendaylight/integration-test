@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f0a4ffcf_a0b86e26",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-13T09:29:03Z",
+      "side": 1,
+      "message": "Okay, I referred to other places where this \"%2F\" has been done. It looks like requests library need to be debugged.",
+      "parentUuid": "0d8c03e5_eca3d3da",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0314b0b2_94c756cf",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 30
@@ -66,6 +84,58 @@
       "side": 1,
       "message": "changing port name variable will impact other existing suites as it is part of Genius library and subnet is a local variable and it varies with other testcase.",
       "parentUuid": "0314b0b2_94c756cf",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b41433b_affa10de",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-13T09:29:03Z",
+      "side": 1,
+      "message": "Maybe create a seperate patch later to distinguish them.",
+      "parentUuid": "c5981c20_74635d04",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d617c0b_3f0022d8",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-13T09:29:03Z",
+      "side": 1,
+      "message": "Is version any compatibility requirement? or just checking for what TOOLS_SYSTEM vm is providing?",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6c9d3eb_3c416f74",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-12-13T09:29:03Z",
+      "side": 1,
+      "message": "Can we replace IP1 and IP2 with something like LOCAL_IP_COMPUTE1 or something?",
       "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
