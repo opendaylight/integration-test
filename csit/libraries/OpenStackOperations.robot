@@ -372,6 +372,8 @@ Get VM IPs
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
     \    ${vm_console_output} =    BuiltIn.Run Keyword If    "${status}" == "FAIL"    OpenStack CLI    openstack console log show ${vm}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
+    \    $[output} =    OpenStack CLI    openstack console log show ${vm}
+    \    BuiltIn.Log    ${output}
     OpenStackOperations.Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
