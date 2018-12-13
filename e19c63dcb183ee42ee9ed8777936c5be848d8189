@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "8d50cdfd_578a2b62",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-12-13T10:08:40Z",
+      "side": 1,
+      "message": "this feature works only for OVS \u003e\u003d2.5",
+      "parentUuid": "9d617c0b_3f0022d8",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6c9d3eb_3c416f74",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 30
