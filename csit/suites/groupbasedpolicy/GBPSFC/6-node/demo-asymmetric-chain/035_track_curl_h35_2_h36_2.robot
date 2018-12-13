@@ -11,7 +11,7 @@ Resource          ../Connections.robot
 
 *** Variables ***
 
-*** Testcases ***
+*** Test Cases ***
 Start HTTP on h36_2 on Port 80
     [Documentation]    Starting HTTP service on docker container.
     Set Test Variables    client_name=h35_2    client_ip=10.0.35.2    server_name=h36_2    server_ip=10.0.36.2    service_port=80    ether_type=0x0800

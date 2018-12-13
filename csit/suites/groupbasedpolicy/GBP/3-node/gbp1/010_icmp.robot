@@ -14,7 +14,7 @@ Resource          ../Variables.robot
 *** Variables ***
 ${timeout}        10s
 
-*** Testcases ***
+*** Test Cases ***
 Same switch, ping once from h35_2 to h36_4
     [Documentation]    Ping between endpoints located on the same switch "sw1".
     ConnUtils.Connect and Login    ${CLIENT_SWITCH_IP}    timeout=${timeout}

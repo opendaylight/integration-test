@@ -9,7 +9,7 @@ Resource          ../Connections.robot
 
 *** Variables ***
 
-*** Testcases ***
+*** Test Cases ***
 Show GBPSFC1 Status
     [Documentation]    Shows flows and configuration of a switch for easier debugging.
     Start Connections

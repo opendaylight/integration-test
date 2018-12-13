@@ -28,7 +28,7 @@ ${cbench_executable}    /usr/local/bin/cbench
 ${throughput_results_file}    throughput.csv
 ${latency_results_file}    latency.csv
 
-*** Testcases ***
+*** Test Cases ***
 Cbench Latency Test
     [Documentation]    cbench executed in default latency mode. Test parameters have defaults, but can be overridden
     ...    on the pybot command line

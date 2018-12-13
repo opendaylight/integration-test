@@ -8,7 +8,7 @@ Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
 Resource          ../Variables.robot
 Resource          ../Connections.robot
 
-*** Testcases ***
+*** Test Cases ***
 Wait For Manager Connected on GBPSFC2
     Switch Connection    GPSFC2_CONNECTION
     Wait Until Keyword Succeeds    2 min    3s    Manager is Connected

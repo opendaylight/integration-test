@@ -12,7 +12,7 @@ Resource          ../Variables.robot
 *** Variables ***
 ${timeout}        10s
 
-*** Testcases ***
+*** Test Cases ***
 Setting Variables For Tenant 1
     [Documentation]    Setting variables for tenant 1 related test cases.
     Set Test Variables    client_switch_ip=${GBP1}    client_docker=h35_2    client_ip=10.0.35.2    client_mac=00:00:00:00:35:02    same_webserver_docker=h36_3    same_webserver_ip=10.0.36.3

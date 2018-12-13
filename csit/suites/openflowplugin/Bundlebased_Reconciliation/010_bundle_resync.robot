@@ -21,7 +21,7 @@ ${FLAG_MSG}       "bundle-based-reconciliation-enabled configuration property wa
 ${STATIC_FLOW}    table=91
 @{DATA_MODELS}    config/opendaylight-inventory:nodes    operational/opendaylight-inventory:nodes
 
-*** Testcases ***
+*** Test Cases ***
 TC01_Reconciliation check after switch restart
     [Documentation]    Verify the Bundle based reconciliation with switch(OVS) restart scenario
     Push Static Flow    ${TOOLS_SYSTEM_IP}

@@ -12,7 +12,7 @@ Resource          ../Variables.robot
 *** Variables ***
 ${timeout}        10s
 
-*** Testcases ***
+*** Test Cases ***
 Setting Variables for Tenant 1
     [Documentation]    Setting variables for test cases related to tenant 1.
     # Same subnet tests are not supported by current topology configuration;

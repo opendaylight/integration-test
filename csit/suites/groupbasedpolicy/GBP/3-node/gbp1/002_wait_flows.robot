@@ -10,7 +10,7 @@ Resource          ../Variables.robot
 *** Variables ***
 ${timeout}        10s
 
-*** Testcases ***
+*** Test Cases ***
 Wait For Flows
     Sleep    30s
     ${passed} =    Run Keyword And Return Status    OpenFlowUtils.Wait For Flows On Switch    ${GBP1}    sw1

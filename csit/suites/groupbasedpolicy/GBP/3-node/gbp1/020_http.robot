@@ -14,7 +14,7 @@ Resource          ../Variables.robot
 *** Variables ***
 ${timeout}        10s
 
-*** Testcases ***
+*** Test Cases ***
 Same switch, start SimpleHttpServer on h36_4
     [Documentation]    Same Switch (sw1)
     # Same subnet tests are not supported by current topology configuration;

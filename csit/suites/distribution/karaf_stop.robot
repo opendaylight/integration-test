@@ -22,7 +22,7 @@ Resource          ${CURDIR}/../../variables/Variables.robot
 *** Variables ***
 ${STOP_TIMEOUT}    180s
 
-*** Testcases ***
+*** Test Cases ***
 Stop_Karaf_Within_Timeout
     [Documentation]    Try to stop karaf using delivered ./bin/stop script.
     ClusterManagement.Stop_Members_From_List_Or_All    timeout=${STOP_TIMEOUT}

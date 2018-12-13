@@ -11,7 +11,7 @@ Variables         ../../../../../variables/Variables.py
 Resource          ../Variables.robot
 Resource          ../Connections.robot
 
-*** Testcases ***
+*** Test Cases ***
 Wait For Flows on GBPSFC1
     [Documentation]    Waiting for flows to appear on OVS switch.
     Switch Connection    GPSFC1_CONNECTION

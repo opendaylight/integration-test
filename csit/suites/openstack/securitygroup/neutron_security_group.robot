@@ -39,7 +39,7 @@ ${PORT_RANGE_ERROR}    argument --dst-port: Invalid range, 25 is not less than 2
 ${INVALID_MIN_PORT}    argument --dst-port: expected one argument
 ${INVALID_MAX_PORT}    argument --dst-port: Invalid range, 20 is not less than -1
 
-*** Testcases ***
+*** Test Cases ***
 TC01_Update Security Group description and Name
     [Documentation]    This test case validates the security group creation with optional parameter description, Update Security Group description and name
     [Tags]    Regression

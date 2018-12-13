@@ -24,7 +24,7 @@ Library           SSHLibrary
 ${FEATURES_LIST_NAME}    odl-integration-compatible-with-all
 ${FEATURE_INSTALL_TIMEOUT}    10m
 
-*** Testcases ***
+*** Test Cases ***
 Install_Features_One_By_One
     [Documentation]    Try to install current list of features and check whether Karaf hangs on it or not (bug 4462).
     SSHKeywords.Open_Connection_To_ODL_System

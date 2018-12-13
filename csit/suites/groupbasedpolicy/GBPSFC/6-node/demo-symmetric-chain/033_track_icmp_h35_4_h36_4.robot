@@ -10,7 +10,7 @@ Resource          ../Connections.robot
 
 *** Variables ***
 
-*** Testcases ***
+*** Test Cases ***
 Ping from h36_4 to h35_4
     [Documentation]    Test icmp request.
     Set Test Variables    client_name=h36_4    client_ip=10.0.36.4    server_name=h35_4    server_ip=10.0.35.4    ether_type=0x0800    proto=1
