@@ -22,6 +22,30 @@
       "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1339be0f_b6cc12b2",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-12-14T10:09:34Z",
+      "side": 1,
+      "message": "In the previous testcase, \"Run Command On Remote System\" keyword is used which closes the connection for ${OS_CNTL_CONN_ID}.\n\nSo, using \"OpenStackOperations . Get ControlNode Connection\" to open the connection for ${OS_CNTL_CONN_ID}.",
+      "parentUuid": "0c8234f0_974d343e",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 50
+      },
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
