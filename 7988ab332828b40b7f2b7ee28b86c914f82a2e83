@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a88ac15_8bc67641",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-17T19:11:05Z",
+      "side": 1,
+      "message": "better change the name of this to reflect the change",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "910156c1_30792023",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-17T19:11:05Z",
+      "side": 1,
+      "message": "put this at the end to keep the alpha ordering.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d084adc0_d4e99891",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-17T19:11:05Z",
+      "side": 1,
+      "message": "this is a really long time. are you sure we might have to\nreasonably wait 3m for this?",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
