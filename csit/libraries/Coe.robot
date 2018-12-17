@@ -73,12 +73,13 @@ Configuration Playbook
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
-    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT}' == 'coe'    ${GERRIT_REFSPEC}    HEAD
+    ${default_ref_spec} =    BuiltIn.Catenate    SEPARATOR=    refs/heads/    ${GERRIT_BRANCH}
+    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT}' == 'coe'    ${GERRIT_REFSPEC}    ${default_ref_spec}
     Run Coe Playbook    ${gerrit_ref_spec}
 
 Run Coe Playbook
     [Arguments]    ${gerrit_ref_spec}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"FETCH_HEAD","gerrit_refspec":"${gerrit_ref_spec}"}'
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"${GERRIT_BRANCH}","gerrit_refspec":"${gerrit_ref_spec}"}'
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
