@@ -1,0 +1,29 @@
+<neighbor xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+    <neighbor-address>$IP</neighbor-address>
+    <config>
+        <peer-type>EXTERNAL</peer-type>
+        <peer-as>$AS_NUMBER</peer-as>
+    </config>
+    <transport>
+        <config>
+            <remote-port>$PEER_PORT</remote-port>
+            <passive-mode>true</passive-mode>
+        </config>
+    </transport>
+    <afi-safis>
+        <afi-safi>
+            <afi-safi-name xmlns:x="http://openconfig.net/yang/bgp-types">x:IPV4-UNICAST</afi-safi-name>
+        </afi-safi>
+        <afi-safi>
+            <afi-safi-name>LINKSTATE</afi-safi-name>
+        </afi-safi>
+        <afi-safi>
+            <afi-safi-name>IPV4-MCAST-VPN</afi-safi-name>
+        </afi-safi>
+    </afi-safis>
+    <error-handling>
+        <config>
+            <treat-as-withdraw>true</treat-as-withdraw>
+        </config>
+    </error-handling>
+</neighbor>
