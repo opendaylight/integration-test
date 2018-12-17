@@ -78,7 +78,7 @@ Configuration Playbook
 
 Run Coe Playbook
     [Arguments]    ${gerrit_ref_spec}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"FETCH_HEAD","gerrit_refspec":"${gerrit_ref_spec}"}'
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"${GERRIT_BRANCH}","gerrit_refspec":"${gerrit_ref_spec}"}'
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
