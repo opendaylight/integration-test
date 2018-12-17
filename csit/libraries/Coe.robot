@@ -73,7 +73,8 @@ Configuration Playbook
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
-    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT}' == 'coe'    ${GERRIT_REFSPEC}    HEAD
+    ${default_ref_spec} =    BuiltIn.Catenate    refs/heads/    ${GERRIT_BRANCH}
+    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT}' == 'coe'    ${GERRIT_REFSPEC}    ${default_ref_spec}
     Run Coe Playbook    ${gerrit_ref_spec}
 
 Run Coe Playbook
