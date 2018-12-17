@@ -73,10 +73,6 @@ Rejoin_Isolated_Member
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
     BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
-Verify_New_Owner_Remained_After_Rejoin
-    [Documentation]    Verify no owner change happened after rejoin.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    15s    2s    Verify_Owner_Elected    ${False}    ${brt_owner}    ${brt_owner}
-
 Rpc_After_Rejoin_On_New_Owner
     [Documentation]    Run rpc on the new service owner node.
     Run_Rpc    ${brt_owner}
@@ -104,13 +100,6 @@ Run_Rpc
     ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
     Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${HEADERS_XML}    ${ACCEPT_XML}    session=${session}
-
-Verify_Owner_Elected
-    [Arguments]    ${new_elected}    ${old_owner}    ${node_to_ask}
-    [Documentation]    Verify new owner was elected or remained the same.
-    ${owner}    ${successors}=    Get_Present_Brt_Owner_And_Successors    ${node_to_ask}
-    BuiltIn.Run_Keyword_If    ${new_elected}    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_owner}    ${owner}
-    BuiltIn.Run_Keyword_Unless    ${new_elected}    BuiltIn.Should_Be_Equal_As_numbers    ${old_owner}    ${owner}
 
 Get_Present_Brt_Owner_And_Successors
     [Arguments]    ${node_to_ask}    ${store}=${False}
