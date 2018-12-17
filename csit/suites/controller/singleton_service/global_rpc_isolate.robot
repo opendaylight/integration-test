@@ -73,10 +73,6 @@ Rejoin_Isolated_Member
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
     BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
-Verify_New_Owner_Remained_After_Rejoin
-    [Documentation]    Verify no owner change happened after rejoin.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    15s    2s    Verify_Owner_Elected    ${False}    ${brt_owner}    ${brt_owner}
-
 Rpc_After_Rejoin_On_New_Owner
     [Documentation]    Run rpc on the new service owner node.
     Run_Rpc    ${brt_owner}
