@@ -1,0 +1,7 @@
+{
+    "afi": "bgp-types:ipv4-address-family",
+    "safi": "bgp-mvpn:mcast-vpn-subsequent-address-family",
+    "attributes": {
+        "uptodate": false
+    }
+}
