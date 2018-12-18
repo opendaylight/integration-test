@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "6132b4f5_9a5865d8",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-18T08:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b41433b_affa10de",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d617c0b_3f0022d8",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 30
@@ -154,6 +172,24 @@
       "writtenOn": "2018-12-13T09:29:03Z",
       "side": 1,
       "message": "Can we replace IP1 and IP2 with something like LOCAL_IP_COMPUTE1 or something?",
+      "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e1f1ba6_5eb11c98",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-18T08:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6c9d3eb_3c416f74",
       "revId": "e19c63dcb183ee42ee9ed8777936c5be848d8189",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
