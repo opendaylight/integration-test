@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0b428703_9fed36eb",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-18T00:17:55Z",
+      "side": 1,
+      "message": "your test cases are missing [Documentation] blocks.\n\nuse those to explain in more details what/how you are\ntesting. Use shorter names for the test cases.",
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c8234f0_974d343e",
         "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
         "patchSetId": 10
@@ -37,6 +54,30 @@
       "side": 1,
       "message": "In the previous testcase, \"Run Command On Remote System\" keyword is used which closes the connection for ${OS_CNTL_CONN_ID}.\n\nSo, using \"OpenStackOperations . Get ControlNode Connection\" to open the connection for ${OS_CNTL_CONN_ID}.",
       "parentUuid": "0c8234f0_974d343e",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 50
+      },
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d07a2998_f527601e",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-18T00:17:55Z",
+      "side": 1,
+      "message": "I don\u0027t understand why you need to open it though? Where\nis it needed in this test case?",
+      "parentUuid": "1339be0f_b6cc12b2",
       "range": {
         "startLine": 80,
         "startChar": 4,
