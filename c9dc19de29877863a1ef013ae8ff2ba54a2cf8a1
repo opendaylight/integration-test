@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a73319db_62932dd5",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-12-18T08:36:20Z",
+      "side": 1,
+      "message": "Is Greater Than Or Equal To",
+      "revId": "c9dc19de29877863a1ef013ae8ff2ba54a2cf8a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
