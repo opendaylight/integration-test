@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f19b8005_e044e92e",
+        "filename": "csit/suites/bgpcep/bgpfunct/100_bgp_functional_graceful_restart.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-18T00:27:28Z",
+      "side": 1,
+      "message": "I understand the logic here for needing the sleep, but\nsince the Verify_Routes keyword already has the\nfunctionality, can you delete this sleep and change the \nbelow line to be:\n\n    Verify_Routes    dir\u003dipv4_1    5    1\n\nThat\u0027ll effectively give you 5s for it to be right anyway\nand we don\u0027t have a sleep in our int/test repo which we\ntry to avoid so others don\u0027t find them as examples to use\nin new code.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "d0befd7965e05d6b467eaf84309ceb4904108974",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
