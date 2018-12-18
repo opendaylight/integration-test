@@ -37,6 +37,7 @@ Coe Suite Setup
     ${current suite}    ${suite names updated}    Extract current suite name
     ${first_suite} =    Set Variable    ${suite names updated[0]}
     ${status} =    BuiltIn.Evaluate    '${first_suite}' == '${current suite}'
+    Coe.Derive Coe Data Models
     Run Keyword If    '${status}' == 'True'    Coe.Start Suite
 
 Start Suite
@@ -48,7 +49,6 @@ Start Suite
     Coe.Label Nodes
     BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
     BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status as UP    default-transport-zone
-    Coe.Derive Coe Data Models
 
 Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .
