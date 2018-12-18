@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afd07856_6f171fe7",
+        "filename": "csit/suites/netvirt/multibgpvpn/multi_vpn_bgp.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-18T23:51:33Z",
+      "side": 1,
+      "message": "question about these two lines. these look like clean up\nlines and not really part of this test case. If these\nlines don\u0027t execute will that mess up test cases coming\nup? If so, you should move these to the [Teardown] section\nof this test case. that will ensure they get run, even\nif a step above fails. Robot will stop executing normal\nsteps if a keyword fails, except that it will always try\nto run the teardown steps.\n\nyou can use the Run Keywords trick to run multiple\nkeywords in your [Teardown] so that you can do both\nof these AND your Post Test Cleanup kw.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "fd9a91a1408ccf948921b9ccf66e086765692955",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
