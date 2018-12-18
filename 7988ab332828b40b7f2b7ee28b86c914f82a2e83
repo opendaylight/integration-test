@@ -188,6 +188,30 @@
       "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af254ef8_40e0aa1f",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-18T21:05:19Z",
+      "side": 1,
+      "message": "sure, but even 2m is a long time. Is it really reasonable for this work to take up to 2m to move to the default zone\nand be UP (if i understand the flow) after deleting\nthe TZ?",
+      "parentUuid": "ad9b73bb_3548cb5e",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
