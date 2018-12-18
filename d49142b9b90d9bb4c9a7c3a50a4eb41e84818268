@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4aa96e83_4069b54c",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-12-18T10:28:12Z",
+      "side": 1,
+      "message": "would be good if we move it to line 37 so all initial steps needed for both suites is done after which we extract the current suite name",
+      "revId": "d49142b9b90d9bb4c9a7c3a50a4eb41e84818268",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
