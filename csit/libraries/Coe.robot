@@ -239,7 +239,7 @@ Log Statements
     @{log statement} =    Create List
     ${i} =    Set Variable    0
     : FOR    ${pod_ip}    IN    @{pod ips}
-    \    ${ping statement}    Set Variable    Ping ${pod_name} and ${pod names[${i}]} : ${pod ip}
+    \    ${ping statement}    Set Variable    Ping from ${pod_name} to ${pod names[${i}]} (${pod ip})
     \    Append To List    ${log statement}    ${ping statement}
     \    ${i} =    Evaluate    ${i}+1
     [Return]    @{log statement}
