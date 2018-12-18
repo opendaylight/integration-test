@@ -34,6 +34,7 @@ Coe Suite Setup
     [Documentation]    COE project requires start suite to be executed only for the first test suite.This keyword find the current suite,compares it with the stored first suite value and executes Coe.Start suite only if the cuurent suite is equal to the first suite.
     ToolsSystem.Get Tools System Nodes Data
     Coe.Set Connection ids and Bridge
+    Coe.Derive Coe Data Models
     ${current suite}    ${suite names updated}    Extract current suite name
     ${first_suite} =    Set Variable    ${suite names updated[0]}
     ${status} =    BuiltIn.Evaluate    '${first_suite}' == '${current suite}'
@@ -48,7 +49,6 @@ Start Suite
     Coe.Label Nodes
     BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
     BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status as UP    default-transport-zone
-    Coe.Derive Coe Data Models
 
 Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .
