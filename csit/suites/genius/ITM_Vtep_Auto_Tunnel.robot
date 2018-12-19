@@ -81,7 +81,7 @@ Delete transport zone on OVS and check ovsdb update to controller
     \    Utils.Run Command On Remote System    ${node}    ${DELETE_TRANSPORT_ZONE}
     ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Contain    ${tep_show_output}    ${DEFAULT_TRANSPORT_ZONE}
-    BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Genius.Verify Tunnel Status as UP    ${DEFAULT_TRANSPORT_ZONE}
+    BuiltIn.Wait Until Keyword Succeeds    4x    10 sec    Genius.Verify Tunnel Status as UP    ${DEFAULT_TRANSPORT_ZONE}
     VpnOperations.ITM Delete Tunnel    ${TRANSPORT_ZONE}
 
 *** Keywords ***
