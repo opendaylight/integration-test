@@ -212,6 +212,30 @@
       "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49d3ca45_c0e521a0",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-12-19T07:07:07Z",
+      "side": 1,
+      "message": "it should not take 2m, just added to ensure script failure doesn\u0027t occur due to timing issue.its changed to 30 sec now.",
+      "parentUuid": "af254ef8_40e0aa1f",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 48
+      },
+      "revId": "7988ab332828b40b7f2b7ee28b86c914f82a2e83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
