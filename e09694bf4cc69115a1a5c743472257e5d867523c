@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1f4f4ee_7f179c51",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T00:41:55Z",
+      "side": 1,
+      "message": "I don\u0027t see ${MASK}[0] used anywhere, so probably just\nmake this:\n\n${MASK}    255.255.255.0\n\nand use appropriately below.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 37
+      },
+      "revId": "e09694bf4cc69115a1a5c743472257e5d867523c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b588c2e2_233aeb2d",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T00:41:55Z",
+      "side": 1,
+      "message": "refrain from these extra Log lines when possible. You\ncan move the explanations or reasons you want these here\nto the [Documentation] block. Hopefully the robot code\nis clear and clean enough to understand what is going\non in the few lines. The extra log lines typically just\nadd noise.",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 94
+      },
+      "revId": "e09694bf4cc69115a1a5c743472257e5d867523c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab89574_82983933",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T00:41:55Z",
+      "side": 1,
+      "message": "clean up extraneous white-space.",
+      "range": {
+        "startLine": 59,
+        "startChar": 92,
+        "endLine": 59,
+        "endChar": 96
+      },
+      "revId": "e09694bf4cc69115a1a5c743472257e5d867523c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fbfc8f8_c86347c9",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T00:41:55Z",
+      "side": 1,
+      "message": "is there a corresponding \"stop\" for the quagga stuff in\nthe suite teardown? If/When this suite runs in a job\nthat does not need it, we\u0027ll want to make sure it\u0027s\nnot extra overhead running in the environment.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 69
+      },
+      "revId": "e09694bf4cc69115a1a5c743472257e5d867523c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
