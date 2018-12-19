@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1539c06d_cce11e35",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T17:30:51Z",
+      "side": 1,
+      "message": "isn\u0027t this the exact same kw as the \u0027Stop BGP Processes On ODL\" above?\n\nif so, forget the ODL vs DCGW and just use \"Node\" and pass\nin the ip of the ${node} you want to do the work on. no\nneed for duplicate code",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 96
+      },
+      "revId": "2795242e195135c3d629009a83fab2d339b4631d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
