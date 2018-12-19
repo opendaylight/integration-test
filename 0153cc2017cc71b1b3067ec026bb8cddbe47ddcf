@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c14088c7_a69edcf1",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-12-19T17:38:44Z",
+      "side": 1,
+      "message": "I missed that this was here, so I can\u0027t remove the keyword\nbelow, just the test case",
+      "range": {
+        "startLine": 55,
+        "startChar": 56,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "0153cc2017cc71b1b3067ec026bb8cddbe47ddcf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
