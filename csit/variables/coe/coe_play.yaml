@@ -28,6 +28,7 @@
       args:
         creates: "{{ gopath }}/bin/dep"
     - name: Show gerrit details
+      run_once: true
       debug:
         msg:
           - "Fetch COE git repository https://git.opendaylight.org/gerrit/p/coe.git"
@@ -40,9 +41,19 @@
         refspec: "{{ gerrit_refspec }}"
         dest: "{{ coe_path }}"
     - name: List COE git repository recent patches
+      run_once: true
       shell: "git --no-pager log --pretty=format:'%h %<(30)%ad %<(30)%cd %<(20,trunc)%an%d %s' -n10"
       args:
         chdir: "{{ coe_path }}"
+        register: git_log_output
+    - name: git log header
+      run_once: true
+      debug:
+        msg="Hash    Author Date                    Commit Date                    Author               Subject"
+    - name: git log output
+      run_once: true
+      debug:
+        var=git_log_output.stdout_lines
     - name: Fetch odl-cni dependencies with dep
       shell: dep ensure -vendor-only
       args:
