@@ -63,7 +63,7 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
     : FOR    ${node}    IN    @{COMPUTE-NODE-LIST}
     \    ${output} =    Utils.Run Command On Remote System    ${node}    ${GET_EXTERNAL_IDS}
     \    BuiltIn.Should Contain    ${output}    ${TRANSPORT_ZONE}
-    ${get_hosted_data} =    BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
+    ${get_hosted_data} =    BuiltIn.Wait Until Keyword Succeeds    4x    10 sec    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_hosted_data}    ${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_hosted_data}    ${DPN1}
     BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Genius.Verify Tunnel Status as UP    ${TRANSPORT_ZONE}
