@@ -45,7 +45,7 @@
       shell: "git --no-pager log --pretty=format:'%h %<(30)%ad %<(30)%cd %<(20,trunc)%an%d %s' -n10"
       args:
         chdir: "{{ coe_path }}"
-        register: git_log_output
+      register: git_log_output
     - name: git log header
       run_once: true
       debug:
