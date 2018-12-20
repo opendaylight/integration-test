@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "46202607_68ef358e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-20T17:09:44Z",
+      "side": 1,
+      "message": "fixed it with ${KARAF_HOME}",
+      "parentUuid": "498659cf_00007b55",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f80ed2ed_e3139361",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -262,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "11ace36a_774ee2ec",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-20T17:09:44Z",
+      "side": 1,
+      "message": "just resetting back to original values.",
+      "parentUuid": "dc7665db_8a538611",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69c369bc_e85bee7e",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 14
@@ -321,6 +369,30 @@
       "side": 1,
       "message": "yeah, I just don\u0027t see why this is being done.\n\nwhat is the original value of these timeouts, like what\nis there out of the box? that is what you probably want\nto do in every test teardown, and *FOR SURE* in the\nsuite teardown. I say for sure in the suite teardown\nbecause we don\u0027t want this kind of config to adversely\naffect any other suite that might run after this one\nin our jobs.",
       "parentUuid": "22bfdaf0_6d9a3e21",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 73
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03b8b4d0_32118196",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-20T17:09:44Z",
+      "side": 1,
+      "message": "here reverting back to original values",
+      "parentUuid": "e280a340_16fa02ee",
       "range": {
         "startLine": 87,
         "startChar": 4,
@@ -698,6 +770,30 @@
       "side": 1,
       "message": "ok, so CONTROLLER-186 is marked resolved, but even so if you\nwant to use the bin/stop method you can try this keyword:\n\nClusterManagement.Stop_Members_From_List_Or_All\n\nthat uses the bin/stop option.\n\nOR,you can enhance/add to the KarafKeywords lib\nto handle both methods, defaulting to the existing\nshutdown method.\n\nusing the ClusterManagement option is probably best as\nyou\u0027ll get free stuff (like checking that it\u0027s truly\nstopped or not) There is a \"Start_Members_From_List_Or_All\"\ntoo.",
       "parentUuid": "a3082a4d_12fc1164",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 52
+      },
+      "revId": "e066503b43c8c964b821fbd0a2902195ef24b8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb7053e4_9df36dc3",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-20T17:09:44Z",
+      "side": 1,
+      "message": "now restart karaf using Stop_Members_From_List_Or_All and Start_Members_From_List_Or_All keywords and its working fine :-)",
+      "parentUuid": "d54146e6_d3996a6a",
       "range": {
         "startLine": 204,
         "startChar": 0,
