@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18032d1b_f4a233aa",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-12-20T16:10:17Z",
+      "side": 1,
+      "message": "isn\u0027t this the same as before..? this !\u003d and previous \u003d\u003d :)",
+      "revId": "34bf30677f796e58340cedf078c47079753df911",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
