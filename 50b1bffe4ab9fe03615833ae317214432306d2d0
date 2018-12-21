@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "36c6f58f_ba139434",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-21T05:54:24Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "354da8b4_74e68526",
+      "revId": "50b1bffe4ab9fe03615833ae317214432306d2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92b8c6d2_c1b8019a",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 16
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "77b80b40_cc6da7e1",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-21T05:54:24Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "92b8c6d2_c1b8019a",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 59
+      },
+      "revId": "50b1bffe4ab9fe03615833ae317214432306d2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8169dea_a0405366",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 16
@@ -53,6 +95,30 @@
       "writtenOn": "2018-12-20T23:01:46Z",
       "side": 1,
       "message": "call this just Suite Setup",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "50b1bffe4ab9fe03615833ae317214432306d2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d994e37_b9191e42",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-12-21T05:54:24Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "b8169dea_a0405366",
       "range": {
         "startLine": 93,
         "startChar": 0,
