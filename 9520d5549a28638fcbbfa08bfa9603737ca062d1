@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63a097c9_d1ffadc7",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T14:29:32Z",
+      "side": 1,
+      "message": "Any reason the NET_N_VMS vars can\u0027t be used? These look to be exact duplicates. Better to remove these. This also keeps it consistent with other tests.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "9520d5549a28638fcbbfa08bfa9603737ca062d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76957bb1_d3f1e319",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T14:29:32Z",
+      "side": 1,
+      "message": "add OpenStackOperations.Show Debugs    @{REQ_VM_INSTANCES_NET1}    @{REQ_VM_INSTANCES_NET2}    @{REQ_VM_INSTANCES_NET3}",
+      "revId": "9520d5549a28638fcbbfa08bfa9603737ca062d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
