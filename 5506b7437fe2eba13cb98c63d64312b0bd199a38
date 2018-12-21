@@ -87,6 +87,81 @@
       "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e351473_15801ec4",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T16:24:00Z",
+      "side": 1,
+      "message": "As Jamo mentions it is not needed in this case. OpenStack CLI calls the real openstack cli which will open it\u0027s own connection.\n\nOther comment is to recognize that Run Commands On Remote System does a similar operation - it opens a new connection to the node, ssh\u0027s the command and then closes that connection. The OS_CNTL_CONN_ID connection is still open in the background.\n\nProbably should reduce using Run Commands On Remote System, and use Write Commands Until Expected Prompt - doing the Get Controlnode Connection first so that it uses that existing connection. This keyword does not close the connection.\n\nSomewhere down the road we should probably add a keyword just to collect the flows since it looks like we use that a lot. The ofp suites have a keyword, not sure why we don\u0027t. A variant could take a regexp since that is what we do often - dump flows and then look for something in them.",
+      "parentUuid": "d07a2998_f527601e",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 50
+      },
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "358d641c_a9438683",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T16:24:00Z",
+      "side": 1,
+      "message": "add space,\" \u003d    Utils\"",
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5bf1f91_f052b7cd",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T16:24:00Z",
+      "side": 1,
+      "message": "yeah, same operation couple times, as well as the negative. Maybe make this an OpenStackOperations keyword.",
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edeb122b_0901e412",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-12-21T16:24:00Z",
+      "side": 1,
+      "message": "are these keywords we would expect other suites to use? Maybe add these to a lib also.",
+      "revId": "5506b7437fe2eba13cb98c63d64312b0bd199a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
