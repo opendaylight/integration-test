@@ -74,7 +74,7 @@ Configuration Playbook
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
     OperatingSystem.Copy File    ${PLAYBOOK_FILE}    ${USER_HOME}
     ${branch_ref_spec} =    BuiltIn.Catenate    SEPARATOR=    refs/heads/    ${GERRIT_BRANCH}
-    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT_ROOT}' != 'coe'    ${branch_ref_spec}    ${GERRIT_REFSPEC}
+    ${gerrit_ref_spec} =    BuiltIn.Set Variable If    '${GERRIT_PROJECT}' != 'coe'    ${branch_ref_spec}    ${GERRIT_REFSPEC}
     Run Coe Playbook    ${gerrit_ref_spec}
 
 Run Coe Playbook
