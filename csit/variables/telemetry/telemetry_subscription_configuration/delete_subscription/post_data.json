@@ -1,0 +1,11 @@
+{
+    input:
+    {
+		telemetry-node:[{
+                                node-id:$NODE1,
+                                telemetry-node-subscription:[{
+                                      subscription-name:$SUBSCRIPTION2
+                                }]
+                            }]
+	}
+}
