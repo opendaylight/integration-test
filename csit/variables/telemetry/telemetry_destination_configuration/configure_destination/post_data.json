@@ -1,0 +1,19 @@
+{
+    input:
+    {
+           telemetry-destination-group:[{
+                                              destination-group-id:$DESTINATION1,
+                                              destination-profile:[{
+                                                                       destination-address:$ADDRESS1,
+                                                                       destination-port:$PORT
+                                                                  }]
+                                        },
+                                        {
+                                              destination-group-id:$DESTINATION2,
+                                              destination-profile:[{
+                                                                       destination-address:$ADDRESS2,
+                                                                       destination-port:$PORT
+                                                                  }]
+                                        }]
+	}
+}
