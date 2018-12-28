@@ -1,0 +1,23 @@
+{
+  "output": {
+    "telemetry-node":[{
+                                "node-id":"node1",
+                                "telemetry-subscription":[{
+                                                            "subscription-name":"subscription1",
+                                                            "protocol-type":"STREAM_GRPC",
+                                                            "encoding-type":"ENC_PROTO3",
+                                                            "local-source-address":"127.0.0.1",
+                                                            "originated-qos-marking":"3",
+                                                            "telemetry-sensor":[{
+                                                                                  "sensor-group-id":"sensor1",
+                                                                                  "sample-interval":"100",
+                                                                                  "heartbeat-interval":"30",
+                                                                                  "suppress-redundant":"false"
+                                                                                }],
+                                                            "telemetry-destination":[{
+                                                                                      "destination-group-id":"destination1"
+                                                                                     }]
+                                                       }]
+                           }]
+  }
+}

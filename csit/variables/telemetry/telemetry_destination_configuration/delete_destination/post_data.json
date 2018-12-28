@@ -1,0 +1,8 @@
+{
+    input:
+    {
+		telemetry-destination-group:[{
+                                        destination-group-id:$DESTINATION2
+                                     }]
+	}
+}
