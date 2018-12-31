@@ -987,16 +987,16 @@ Create SFC Port Chain
     BuiltIn.Should Contain    ${output}    ${name}
     [Return]    ${output}
 
-Update SFC Port Chain With A New Flow Classifier
-    [Arguments]    ${name}    ${fc}
+Set SFC Port Chain
+    [Arguments]    ${name}    ${args}=${EMPTY}
     [Documentation]    Adds a Flow Classifier to a Port Chain
-    ${output} =    OpenStack CLI    openstack sfc port chain set ${name} --flow-classifier ${fc}
+    ${output} =    OpenStack CLI    openstack sfc port chain set ${name} ${args}
     [Return]    ${output}
 
-Update SFC Port Chain Removing A Flow Classifier
-    [Arguments]    ${name}    ${fc}
+Unset SFC Port Chain
+    [Arguments]    ${name}    ${args}=${EMPTY}
     [Documentation]    Adds a Flow Classifier to a Port Chain
-    ${output} =    OpenStack CLI    openstack sfc port chain unset ${name} --flow-classifier ${fc}
+    ${output} =    OpenStack CLI    openstack sfc port chain unset ${name} ${args}
     [Return]    ${output}
 
 Delete SFC Port Chain
