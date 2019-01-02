@@ -54,10 +54,6 @@ Rejoin_Isolated_node
     [Documentation]    Rejoin isolated node.
     CsCommon.Rejoin_Node_And_Verify_Rejoined
 
-Verify_Stability_After_Rejoin
-    [Documentation]    Verify that the rejoining of the isolated node does not change the singleton owner.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_REJOINED}    3s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${cs_owner}
-
 Unregister_Singleton_Constant_On_Each_Node
     [Documentation]    Unregister the application on every node.
     CsCommon.Unregister_Singleton_Constant_On_Nodes    ${cs_all_indices}
