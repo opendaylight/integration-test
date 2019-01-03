@@ -24,10 +24,12 @@ ${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111
 ${VPN_NAME}       mc_vpn1
 ${LOOPBACK_IP}    5.5.5.2
 ${L3VPN_RD}       2200:2
+${NEW_EXTRA_NW_SUBNET}    10.1.0.110
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
 ${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
 ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
+${RPING_MIP_IP3}    sudo arping -I eth0:1 -c 5 -b -s ${NEW_EXTRA_NW_SUBNET} ${NEW_EXTRA_NW_SUBNET}
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 @{INTERFACE_STATE}    up    down
 @{NETWORKS}       mc_net_1    mc_net_2    mc_net_3
@@ -69,13 +71,62 @@ Verify Enterprise Hosts Reachability After VM Reboot
 Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When DC-GW Is Restarted
     [Documentation]    Restart dcgw and check enterprise hosts reachability
     BgpOperations.Restart BGP Processes On DCGW    ${DCGW_SYSTEM_IP}
-    Create BGP Config On DCGW
+    BgpOperations.Setup BGP Peering On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${ODL_SYSTEM_IP}    ${VPN_NAME}    ${L3VPN_RD}    ${LOOPBACK_IP}
     Verify Ping between Inter Intra And Enterprise host
 
 Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When Qbgp Is Restarted
     [Documentation]    Restart qbgp and check enterprise hosts reachability
     BgpOperations.Restart BGP Processes On ODL    ${ODL_SYSTEM_IP}
     Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When Vswitch Hosting Subnet Route Is Restarted On Single Vswitch Topology
+    [Documentation]    Restart single OVS node on which subnet route is configured and verify the same
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When The Network Is Removed From The Vpn
+    [Documentation]    Dissociate vpn from the network and verify the subnet route
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    ${vm_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements Not At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted On Single Multiple Vswitch Topology
+    [Documentation]    Restart the OVS node on both compute nodes and verify the subnet route
+    #OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
+    #OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For One Subnet On Single Vswitch
+    [Documentation]    Verify the subnet route for one subnet on a single VSwitch
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
+    [Documentation]    Configure one more IP on sub interface and verify the subnet route for multiple subnets on multi VSwitch topology
+    BuiltIn.Log    Bring up enterprise host in another vswitch
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ...    ${MASK}
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
+    BuiltIn.Should Contain    ${output}    broadcast
+    BuiltIn.Should Contain    ${output}    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
 
 *** Keywords ***
 Start Suite
@@ -153,8 +204,8 @@ Create Setup
     : FOR    ${network}    IN    @{NETWORKS}
     \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
     \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
-    Create BGP Config On ODL
-    Create BGP Config On DCGW
+    BgpOperations.Setup BGP Peering On ODL    ${ODL_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}
+    BgpOperations.Setup BGP Peering On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${ODL_SYSTEM_IP}    ${VPN_NAME}    ${L3VPN_RD}    ${LOOPBACK_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
     BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
@@ -181,22 +232,6 @@ Create L3VPN
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=["${L3VPN_RD}"]    exportrt=["${L3VPN_RD}"]    importrt=["${L3VPN_RD}"]    tenantid=${tenant_id}
     VpnOperations.Verify L3VPN On ODL    ${VPN_INSTANCE_ID}
-
-Create BGP Config On ODL
-    [Documentation]    Configure BGP Config on ODL
-    KarafKeywords.Issue Command On Karaf Console    ${BGP_CONFIG_SERVER_CMD}
-    BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
-    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
-    ${output} =    BgpOperations.Get BGP Configuration On ODL    session
-    BuiltIn.Should Contain    ${output}    ${DCGW_SYSTEM_IP}
-
-Create BGP Config On DCGW
-    [Documentation]    Configure BGP on DCGW
-    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAME}    ${L3VPN_RD}
-    ...    ${LOOPBACK_IP}
-    ${output} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    ${RUN_CONFIG}
-    BuiltIn.Should Contain    ${output}    ${ODL_SYSTEM_IP}
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    180s    10s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
 
 Configure_IP_On_Sub_Interface
     [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${sub_interface_state}=${EMPTY}    ${interface}=eth0
