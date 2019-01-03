@@ -24,10 +24,12 @@ ${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111
 ${VPN_NAME}       mc_vpn1
 ${LOOPBACK_IP}    5.5.5.2
 ${L3VPN_RD}       2200:2
+${NEW_EXTRA_NW_SUBNET}    10.1.0.110
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
 ${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
 ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
+${RPING_MIP_IP3}    sudo arping -I eth0:1 -c 5 -b -s ${NEW_EXTRA_NW_SUBNET} ${NEW_EXTRA_NW_SUBNET}
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 @{INTERFACE_STATE}    up    down
 @{NETWORKS}       mc_net_1    mc_net_2    mc_net_3
@@ -76,6 +78,55 @@ Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When Qbgp
     [Documentation]    Restart qbgp and check enterprise hosts reachability
     BgpOperations.Restart BGP Processes On ODL    ${ODL_SYSTEM_IP}
     Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When Vswitch Hosting Subnet Route Is Restarted On Single Vswitch Topology
+    [Documentation]    Restart single OVS node on which subnet route is configured and verify the same
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Get Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When The Network Is Removed From The Vpn
+    [Documentation]    Dissociate vpn from the network and verify the subnet route
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    ${vm_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements Not At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted On Single Multiple Vswitch Topology
+    [Documentation]    Restart the OVS node on both compute nodes and verify the subnet route
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Get Ovsdb State    ${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Get Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For One Subnet On Single Vswitch
+    [Documentation]    Verify the subnet route for one subnet on a single VSwitch
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
+    [Documentation]    Configure one more IP on sub interface and verify the subnet route for multiple subnets on multi VSwitch topology
+    BuiltIn.Log    Bring up enterprise host in another vswitch
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ...    ${MASK}
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
+    BuiltIn.Should Contain    ${output}    broadcast
+    BuiltIn.Should Contain    ${output}    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    240s    180s    Verify Ping between Inter Intra And Enterprise host
 
 *** Keywords ***
 Start Suite
