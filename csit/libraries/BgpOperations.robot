@@ -21,6 +21,7 @@ ${NEW_AS_PATH}    ${EMPTY}
 &{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
 ${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
 ${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
+${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -159,6 +160,27 @@ Verify BGP Neighbor Status On Quagga
     ${output} =    Execute Show Command On quagga    ${dcgw_ip}    show bgp neighbors ${neighbor_ip}
     Log    ${output}
     Should Contain    ${output}    BGP state = Established
+
+Setup BGP Peering On ODL
+    [Arguments]    ${odl_ip}    ${as_id}    ${nbr_ip}
+    [Documentation]    Setup BGP peering between ODL and given neighbor IP.
+    ...    Configuring and starting BGP on ODL node with given AS number
+    ...    Adding and verifying BGP neighbor
+    KarafKeywords.Issue Command On Karaf Console    ${BGP_CONFIG_SERVER_CMD}
+    BgpOperations.Create BGP Configuration On ODL    localas=${as_id}    routerid=${odl_ip}
+    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${as_id}    neighborAddr=${nbr_ip}
+    ${output} =    BgpOperations.Get BGP Configuration On ODL    session
+    BuiltIn.Should Contain    ${output}    ${nbr_ip}
+
+Setup BGP Peering On DCGW
+    [Arguments]    ${dcgw_ip}    ${as_id}    ${nbr_ip}    ${vrf_name}    ${rd}
+    ...    ${loopback_ip}
+    [Documentation]    Setup BGP peering between DCGW and given neighbor IP.
+    ...    Configuring,adding neighbor on DCGW node and verifying BGP neighbor.
+    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${dcgw_ip}    ${as_id}    ${dcgw_ip}    ${nbr_ip}    ${vrf_name}    ${rd}
+    ...    ${loopback_ip}
+    ${output} =    BgpOperations.Execute Show Command On Quagga    ${dcgw_ip}    ${RUN_CONFIG}
+    BuiltIn.Should Contain    ${output}    ${nbr_ip}
 
 Verify Routes On Quagga
     [Arguments]    ${dcgw_ip}    ${rd}    ${ip_list}
