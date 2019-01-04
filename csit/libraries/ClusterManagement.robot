@@ -432,7 +432,7 @@ Stop_Single_Member
     [Return]    ${updated_index_list}
 
 Stop_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=120s
+    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=240s
     [Documentation]    If the list is empty, stops all ODL instances. Otherwise stop members based on \${stop_index_list}
     ...    If \${confirm} is True, verify stopped instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
