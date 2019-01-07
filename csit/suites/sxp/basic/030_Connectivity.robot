@@ -16,7 +16,6 @@ Version 1
     [Tags]    SXP    Connectivity
     Test Nodes    version1    none    version1
     Log    OK without passwords
-    Clean Nodes
     Test Nodes    version1    default    version1
     Log    OK with passwords
 
@@ -25,24 +24,24 @@ Version 2
     [Tags]    SXP    Connectivity
     Test Nodes    version2    none    version2
     Log    OK without passwords
-    Clean Nodes
     Test Nodes    version2    default    version2
+    Log    OK with passwords
 
 Version 3
     [Documentation]    Test if Version3 <=> Version3 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version3    none    version3
     Log    OK without passwords
-    Clean Nodes
     Test Nodes    version3    default    version3
+    Log    OK with passwords
 
 Version 4
     [Documentation]    Test if Version4 <=> Version4 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version4    none    version4
     Log    OK without passwords
-    Clean Nodes
     Test Nodes    version4    default    version4
+    Log    OK with passwords
 
 Mixed Versions
     [Documentation]    Test of version negotiation proces during connecting
