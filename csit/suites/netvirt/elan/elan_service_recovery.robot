@@ -95,8 +95,8 @@ Create Nova VMs
     \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + 2}]    @{NET_2_VMS}[${index}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-    BuiltIn.Should Not Contain    @{NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    @{NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
 
