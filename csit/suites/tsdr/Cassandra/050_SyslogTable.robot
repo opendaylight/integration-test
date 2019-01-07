@@ -32,6 +32,6 @@ Verifying TSDR Data Store For Syslog Entries
     : FOR    ${key}    IN ZIP    &{syslog_facility}
     \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
     \    ${f_value}=    Evaluate    ${value} * 8
-    \    Should Contain    @{syslogs}[${iterator}]    ${MESSAGE}
-    \    Should Contain    @{syslogs}[${iterator}]    <${f_value}>
+    \    Should Contain    ${syslogs}[${iterator}]    ${MESSAGE}
+    \    Should Contain    ${syslogs}[${iterator}]    <${f_value}>
     \    ${iterator}=    Evaluate    ${iterator} + 1

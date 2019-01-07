@@ -222,9 +222,9 @@ Create Nova VMs
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_3_VM_IPS}
-    BuiltIn.Should Not Contain    @{NET_1_VM_IPS}    None
-    BuiltIn.Should Not Contain    @{NET_2_VM_IPS}    None
-    BuiltIn.Should Not Contain    @{NET_3_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_3_DHCP_IP}    None

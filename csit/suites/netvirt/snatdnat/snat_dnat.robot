@@ -102,5 +102,5 @@ Create Nova VMs
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_1_VMS}[3]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-    BuiltIn.Should Not Contain    @{NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None

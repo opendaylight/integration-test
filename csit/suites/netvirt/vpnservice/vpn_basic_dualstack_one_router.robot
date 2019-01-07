@@ -365,9 +365,9 @@ Suite Setup
     ${NET_2_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
     ${LOOP_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_1_VM_IPV6}[${index}]    None
+    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_1_VM_IPV6}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VM_INSTANCES}[${index}]    30s
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{NET_2_VM_IPV6}[${index}]    None
+    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_2_VM_IPV6}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VM_INSTANCES}[${index}]    30s
     BuiltIn.Set Suite Variable    ${NET_1_VM_IPV4}
     BuiltIn.Set Suite Variable    ${NET_2_VM_IPV4}

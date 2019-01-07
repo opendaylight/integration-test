@@ -256,7 +256,7 @@ Suite Setup
     ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
     ${LOOP_COUNT}    BuiltIn.Get Length    ${NET_1_VMS}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{VM_IPS}[${index}]    None
+    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VM_INSTANCES}[${index}]    30s
     OpenStackOperations.Copy DHCP Files From Control Node
     BuiltIn.Set Suite Variable    ${VM_IP_NET10}
