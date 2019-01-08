@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "374156d7_c2807240",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "probably need four spaces here",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58d746c0_b475f465",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "let\u0027s settle on hypens or underscores for variable\nnames. I think underscores is the most common, but\nswitching back and forth is distracting.",
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdcd7b9e_1fb0f4ff",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "alphabetize this section please",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5bd5713_50a860a8",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "for variable assignment, please add a space and \u0027\u003d\u0027 so it\nwould look like this:\n\n${dpn_id_1} \u003d    Genius...\n\napplies everywhere.\n\nalso, all_lower_case for local vars.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 15
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f655c0ba_303a2841",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "Utils.Check For Elements At URI can replace this whole\nblock",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dcbee6a_d55a941c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "do we need WUKS even down here? seems like a lot of WUKS\nin this test case. If the first one passes, shouldn\u0027t\nthat mean the entire environment should be right and if\nnot then something is broken. if we don\u0027t need a WUKS it\u0027s\ncleaner to read and maintain if they are not there.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a278e96_49cc8e8c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "no underscore",
+      "range": {
+        "startLine": 62,
+        "startChar": 3,
+        "endLine": 62,
+        "endChar": 4
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d01b9a3_cb346e54",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "replace with Utils.Check For Elements At URI",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5593fdf6_b506f819",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "what\u0027s this line for?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c265ecc5_aac394ab",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "status would be a better var name.",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 12
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e5358ab_cf3e38e0",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "remove this line",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ffc1c8a_8f9aa871",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "better name, and what will be the result if the above status is False?",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 9
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc004f03_8e562ccf",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T19:02:17Z",
+      "side": 1,
+      "message": "will OVSDB.Get Port Number work instead of writing something new? If it doesn\u0027t work as-is, is there a way to enhance it so that it does work but doesn\u0027t break it?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 27
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
