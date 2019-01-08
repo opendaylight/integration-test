@@ -151,10 +151,10 @@ Ovs Interface Verification
     \    Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Get ITM
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${switch_data}=${SWITCH_DATA}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}
-    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${SWITCH_DATA}
+    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${switch_data}
     Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Check Tunnel Delete On OVS
