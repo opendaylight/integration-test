@@ -117,6 +117,7 @@ Check For Elements At URI
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Contain    ${resp.content}    ${i}
+    [Return]    ${resp}
 
 Check For Elements Not At URI
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False    ${check_for_null}=False
