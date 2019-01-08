@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f27c1dba_d52fb7a8",
+        "filename": "csit/suites/telemetry/basic/010_TelemetryIntergrationTest.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T01:04:49Z",
+      "side": 1,
+      "message": "put a space here",
+      "revId": "406c7607afe888dd17fb9cd1a5d914d17e656e3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
