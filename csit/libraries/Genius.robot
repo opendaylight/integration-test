@@ -74,25 +74,44 @@ Check Port Status Is ESTABLISHED
     [Return]    ${check_establishment}
 
 Create Vteps
-    [Arguments]    ${vlan_id}    ${gateway_ip}
+    [Arguments]    ${vlan_id}    ${gateway_ip}    ${tools_ips}=${TOOLS_SYSTEM_ALL_IPS}
     [Documentation]    This keyword creates VTEPs between OVS
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${body} =    Genius.Set Json    ${vlan_id}    ${gateway_ip}    ${SUBNET}    @{TOOLS_SYSTEM_ALL_IPS}
+    ${body} =    Genius.Set Json    ${vlan_id}    ${gateway_ip}    ${SUBNET}    @{tools_ips}
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Set Json
     [Arguments]    ${vlan}    ${gateway_ip}    ${subnet}    @{tools_ips}
     [Documentation]    Sets Json with the values passed for it.
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${body}    Replace String    ${body}    1.1.1.1    ${subnet}
+    ${vteps_json} =    BuiltIn.Create List
     : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${body}    Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
-    \    ${body}    Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
-    ${body}    Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
-    ${body}    Replace String    ${body}    "gateway_ip": "0.0.0.0"    "gateway_ip": "${gateway_ip}"
-    Log    ${body}
-    [Return]    ${body}    # returns complete json that has been updated
+    \    Continue For Loop If    '@{tools_ips}[${tool_system_index}]'=='${EMPTY}'
+    \    ${vtep_json} =    BuiltIn.Create Dictionary
+    \    ${dpn_id} =    BuiltIn.Evaluate    long(@{DPN_ID_LIST}[${tool_system_index}])
+    \    Set To Dictionary    ${vtep_json}    dpn-id=${dpn_id}
+    \    Set To Dictionary    ${vtep_json}    ip-address=@{tools_ips}[${tool_system_index}]
+    \    Set To Dictionary    ${vtep_json}    portname=${port_name}
+    \    Collections.Append To List    ${vteps_json}    ${vtep_json}
+    ${subnets_json} =    BuiltIn.Create List
+    ${subnet_json} =    BuiltIn.Create Dictionary
+    Comment    Set To Dictionary    ${subnet_json}    gateway-ip=${gateway_ip}
+    Set To Dictionary    ${subnet_json}    gateway-ip=0.0.0.0
+    Set To Dictionary    ${subnet_json}    prefix=${subnet}/16
+    ${vlan} =    BuiltIn.Convert To Integer    ${vlan}
+    Set To Dictionary    ${subnet_json}    vlan-id=${vlan}
+    Set To Dictionary    ${subnet_json}    vteps=${vteps_json}
+    Collections.Append To List    ${subnets_json}    ${subnet_json}
+    ${transport_zones_json} =    BuiltIn.Create List
+    ${transport_zone_json} =    BuiltIn.Create Dictionary
+    Set To Dictionary    ${transport_zone_json}    subnets=${subnets_json}
+    Set To Dictionary    ${transport_zone_json}    tunnel-type=odl-interface:tunnel-type-vxlan
+    Set To Dictionary    ${transport_zone_json}    zone-name=TZA
+    Collections.Append To List    ${transport_zones_json}    ${transport_zone_json}
+    ${root_json} =    BuiltIn.Create Dictionary
+    Set To Dictionary    ${root_json}    transport-zone=${transport_zones_json}
+    ${ret} =    BuiltIn.Evaluate    json.dumps(${root_json}, indent=4)    json
+    BuiltIn.Log    ${ret}
+    [Return]    ${ret}
 
 Build Dpn List
     [Documentation]    This keyword builds the list of DPN ids after configuring OVS bridges on each of the TOOLS_SYSTEM_IPs.
@@ -130,6 +149,16 @@ Genius Suite Debugs
     [Arguments]    ${data_models}
     Genius Test Teardown    ${data_models}    test_name=${SUITE_NAME}    fail=False
 
+OF Tunnels Start Suite
+    : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
+    ITM Direct Tunnels Start Suite
+
+OF Tunnels Stop Suite
+    : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
+    ITM Direct Tunnels Stop Suite
+
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
@@ -151,10 +180,10 @@ Ovs Interface Verification
     \    Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Get ITM
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${extra_data}=${SWITCH_DATA}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}
-    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${SWITCH_DATA}
+    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${extra_data}
     Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Check Tunnel Delete On OVS
@@ -299,26 +328,23 @@ Verify Deleted Tunnels On OVS
     \    BuiltIn.Should Not Contain    ${resp_data}    ${tunnel}
 
 Verify Response Code Of Dpn End Point Config API
+    [Arguments]    ${dpn_ids}=${DPN_ID_LIST}
     [Documentation]    This keyword will verify response code from itm-state: dpn endpoints config api for each dpn
-    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
+    : FOR    ${dpn}    IN    @{dpn_ids}
     \    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
 
 Get Tunnel Between DPNs
-    [Arguments]    ${tunnel_type}    ${config_api_type}    ${dpn_id_index}    @{DPN_ID_UPDATED_LIST}
+    [Arguments]    ${tunnel_type}    ${config_api_type}    ${src_dpn_id}    @{dst_dpn_ids}
     [Documentation]    This keyword will Get All the Tunnels available on DPN's
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM} -1
-    \    ${tunnel}    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${DPN_ID_LIST[${dpn_id_index}]}
-    \    ...    ${DPN_ID_UPDATED_LIST[${tool_system_index}]}    ${tunnel_type}    ${config_api_type}
-    ${dpn_id_index} =    BuiltIn.Evaluate    ${dpn_id_index}+1
-    [Return]    ${dpn_id_index}
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_ids}
+    \    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}
+    \    ...    ${dst_dpn_id}    ${tunnel_type}    ${config_api_type}
 
 Update Dpn id List And Get Tunnels
-    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}
+    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}    ${dpn_ids}=${DPN_ID_LIST}
     [Documentation]    Update the exisisting dpn id list to form different combination of dpn ids such that tunnel formation between all dpns is verified.
-    ${dpn_id_index_1} =    BuiltIn.Set Variable    0
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${dpn_id_index_2} =    BuiltIn.Set Variable    ${dpn_id_index_1}
-    \    @{DPN_ID_UPDATED_LIST} =    BuiltIn.Create List    @{DPN_ID_LIST}
-    \    Collections.Remove Values From List    ${DPN_ID_UPDATED_LIST}    ${DPN_ID_LIST[${tool_system_index}]}
-    \    BuiltIn.Log Many    ${DPN_ID_UPDATED_LIST}
-    \    ${dpn_id_index_1} =    Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id_index_2}    @{DPN_ID_UPDATED_LIST}
+    : FOR    ${dpn_id}    IN    @{dpn_ids}
+    \    @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
+    \    Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
+    \    BuiltIn.Log Many    ${dpn_ids_updated}
+    \    Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
