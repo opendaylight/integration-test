@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to test connectivity problems
-Suite Setup       Setup SXP Environment    5
-Suite Teardown    Clean SXP Environment    5
+Suite Setup       SxpLib.Setup SXP Environment    5
+Suite Teardown    SxpLib.Clean SXP Environment    5
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -15,47 +15,47 @@ Version 1
     [Documentation]    Test if Version1 <=> Version1 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version1    none    version1
-    Log    OK without passwords
+    BuiltIn.Log    OK without passwords
     Test Nodes    version1    default    version1
-    Log    OK with passwords
+    BuiltIn.Log    OK with passwords
 
 Version 2
     [Documentation]    Test if Version2 <=> Version2 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version2    none    version2
-    Log    OK without passwords
+    BuiltIn.Log    OK without passwords
     Test Nodes    version2    default    version2
-    Log    OK with passwords
+    BuiltIn.Log    OK with passwords
 
 Version 3
     [Documentation]    Test if Version3 <=> Version3 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version3    none    version3
-    Log    OK without passwords
+    BuiltIn.Log    OK without passwords
     Test Nodes    version3    default    version3
-    Log    OK with passwords
+    BuiltIn.Log    OK with passwords
 
 Version 4
     [Documentation]    Test if Version4 <=> Version4 can be connected
     [Tags]    SXP    Connectivity
     Test Nodes    version4    none    version4
-    Log    OK without passwords
+    BuiltIn.Log    OK without passwords
     Test Nodes    version4    default    version4
-    Log    OK with passwords
+    BuiltIn.Log    OK with passwords
 
 Mixed Versions
     [Documentation]    Test of version negotiation proces during connecting
     [Tags]    SXP    Connectivity
-    @{list} =    Create List    version2    version3    version4
+    @{list} =    BuiltIn.Create List    version2    version3    version4
     Test Nodes    version1    none    @{list}
     Test Nodes    version1    default    @{list}
-    @{list} =    Create List    version1    version3    version4
+    @{list} =    BuiltIn.Create List    version1    version3    version4
     Test Nodes    version2    none    @{list}
     Test Nodes    version2    default    @{list}
-    @{list} =    Create List    version1    version2    version4
+    @{list} =    BuiltIn.Create List    version1    version2    version4
     Test Nodes    version3    none    @{list}
     Test Nodes    version3    default    @{list}
-    @{list} =    Create List    version1    version2    version3
+    @{list} =    BuiltIn.Create List    version1    version2    version3
     Test Nodes    version4    none    @{list}
     Test Nodes    version4    default    @{list}
 
@@ -65,41 +65,41 @@ Test Nodes
     [Documentation]    Setup connection Speaker => Listener / Listener => Speaker / Both <=> Both for specific versions
     : FOR    ${r_version}    IN    @{versions}
     \    ${cmp_version}    Lower Version    ${r_version}    ${version}
-    \    Log    ${r_version}
-    \    Add Connection    ${r_version}    listener    127.0.0.2    64999    127.0.0.1
+    \    BuiltIn.Log    ${r_version}
+    \    SxpLib.Add Connection    ${r_version}    listener    127.0.0.2    64999    127.0.0.1
     \    ...    ${PASSWORD}
-    \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
+    \    SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    listener
+    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.1
-    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    speaker
+    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.1    64999    127.0.0.2
-    \    Log    OK ${r_version}:listener ${version}:speaker
-    \    Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
+    \    BuiltIn.Log    OK ${r_version}:listener ${version}:speaker
+    \    SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
     \    ...    ${PASSWORD}
-    \    Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
+    \    SxpLib.Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    listener
+    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.3
-    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    speaker
+    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.3    64999    127.0.0.2
-    \    Log    OK ${version}:listener ${r_version}:speaker
-    \    Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
+    \    BuiltIn.Log    OK ${version}:listener ${r_version}:speaker
+    \    BuiltIn.Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
     \    Clean Nodes
 
 Test Both
     [Arguments]    ${version}    ${r_version}    ${PASSWORD}
     [Documentation]    Setup Both <=> Both connection
-    ${cmp_version}    Lower Version    ${r_version}    ${version}
-    Add Connection    ${r_version}    both    127.0.0.3    64999    127.0.0.1    ${PASSWORD}
-    Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.3    ${PASSWORD}
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    both    127.0.0.3
+    ${cmp_version}    Sxp.Lower Version    ${r_version}    ${version}
+    SxpLib.Add Connection    ${r_version}    both    127.0.0.3    64999    127.0.0.1    ${PASSWORD}
+    SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.3    ${PASSWORD}
+    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.3
     ...    64999    127.0.0.1
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    both    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.1
     ...    64999    127.0.0.3
-    Log    OK ${r_version}:both ${version}:both
+    BuiltIn.Log    OK ${r_version}:both ${version}:both
 
 Clean Nodes
-    Clean Connections    127.0.0.1
-    Clean Connections    127.0.0.2
-    Clean Connections    127.0.0.3
+    SxpLib.Clean Connections    127.0.0.1
+    SxpLib.Clean Connections    127.0.0.2
+    SxpLib.Clean Connections    127.0.0.3
