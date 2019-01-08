@@ -98,6 +98,7 @@ check establishment
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ...    ${option-of-tunnel}=default false
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
@@ -107,7 +108,7 @@ Create Vteps
     ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
     ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
-    ...    ${gateway-ip}    ${subnet}
+    ...    ${gateway-ip}    ${subnet}    option-of-tunnel=${option-of-tunnel}
     ${vtep_body}    Set Variable    ${body}
     Set Global Variable    ${vtep_body}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
@@ -116,7 +117,7 @@ Create Vteps
 
 Set Json
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    ...    ${subnet}
+    ...    ${subnet}    ${option-of-tunnel}=default false
     [Documentation]    Sets Json with the values passed for it.
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${body}    replace string    ${body}    1.1.1.1    ${subnet}
@@ -126,6 +127,7 @@ Set Json
     ${body}    replace string    ${body}    "ip-address": "3.3.3.3"    "ip-address": "${TOOLS_SYSTEM_2_IP}"
     ${body}    replace string    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
     ${body}    replace string    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway-ip}"
+    ${body}    replace string    ${body}    "option-of-tunnel": "false"    "option-of-tunnel": "${option-of-tunnel}"
     Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
 
@@ -207,7 +209,8 @@ Ovs Verification For 2 Dpn
     Switch Connection    ${connection_id}
     ${check}    Execute Command    sudo ovs-vsctl show
     Log    ${check}
-    Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}    ${tunnel-type}
+    Run Keyword If    ${remote-1}=='flow'    Should Contain    ${check}    local_ip="${local}"    remote_ip=flow    ${tunnel}    ${tunnel-type}
+    ELSE Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}    ${tunnel-type}
     [Return]    ${check}
 
 Get ITM
