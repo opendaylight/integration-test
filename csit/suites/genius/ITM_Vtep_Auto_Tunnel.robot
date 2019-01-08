@@ -21,14 +21,11 @@ Variables         ../../variables/genius/Modules.py
 
 *** Variables ***
 ${CHANGE_TRANSPORT_ZONE}    sudo ovs-vsctl set O . external_ids:transport-zone
-${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
 ${TZA_JSON}       ${GENIUS_VAR_DIR}/Itm_Auto_Tunnel_Create.json
-${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
 ${DELETE_TRANSPORT_ZONE}    sudo ovs-vsctl remove O . external_ids transport-zone
 ${GET_EXTERNAL_IDS}    sudo ovsdb-client dump -f list Open_vSwitch | grep external_ids
 ${GET_NETWORK_TOPOLOGY_URL}    ${OPERATIONAL_API}/network-topology:network-topology/topology/ovsdb:1/
 ${OVS_VERSION}    2.5
-${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
 ${SHOW_OTHER_CONFIG}    sudo ovsdb-client dump -f list Open_vSwitch | grep other_config
 ${STATUS_CHECK}    DOWN
 ${TRANSPORT_ZONE}    TZA
