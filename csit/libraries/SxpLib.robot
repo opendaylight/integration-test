@@ -319,8 +319,7 @@ Setup SXP Environment
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${node} =    Sxp.Get Ip From Number    ${num}
-    \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 10)    modules=random
-    \    Add Node    ${node}    retry_open_timer=${rnd_retry_time}
+    \    Add Node    ${node}    retry_open_timer=${num}
     \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${node}    system=${ODL_SYSTEM_IP}
 
 Check Node Started
