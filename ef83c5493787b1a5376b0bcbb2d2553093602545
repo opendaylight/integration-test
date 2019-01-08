@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3cb8802_8eea99fb",
+        "filename": "csit/suites/telemetry/basic/010_TelemetryIntergrationTest.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T00:34:56Z",
+      "side": 1,
+      "message": "we\u0027ve found it easier to review and maintain to use\nthe syntax of a space and \u003d when assigning variables.\nI\u0027d recommend using that, but not required.\n\nlike this:\n\n${mapping} \u003d    Create Dictionary ...\n\nit just reads more clearly, essentially.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "ef83c5493787b1a5376b0bcbb2d2553093602545",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82abda89_b5f84983",
+        "filename": "csit/variables/telemetry/telemetry_destination_configuration/configure_destination/post_data.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T00:34:56Z",
+      "side": 1,
+      "message": "replace tabs with spaces. applies elsewhere",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "ef83c5493787b1a5376b0bcbb2d2553093602545",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fecd9625_2f897662",
+        "filename": "csit/variables/telemetry/telemetry_destination_configuration/query_destination/post_data.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T00:34:56Z",
+      "side": 1,
+      "message": "extra whitespace to remove",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "ef83c5493787b1a5376b0bcbb2d2553093602545",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
