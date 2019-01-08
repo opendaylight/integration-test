@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b95f547c_79e8488c",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-08T00:57:38Z",
+      "side": 1,
+      "message": "need to put ${loopback_ip} on the same line. that\u0027s the\nreason for the jenkins verify -1",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 25
+      },
+      "revId": "7740372a638cca816d2f2a2e6ad162838bca6266",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
