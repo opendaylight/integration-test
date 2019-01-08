@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4bd3ed30_199419be",
+        "filename": "csit/suites/telemetry/basic/010_TelemetryIntergrationTest.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2019-01-08T01:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f27c1dba_d52fb7a8",
+      "revId": "406c7607afe888dd17fb9cd1a5d914d17e656e3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "768b76a3_9ae62498",
         "filename": "csit/suites/telemetry/basic/010_TelemetryIntergrationTest.robot",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2019-01-08T01:05:55Z",
       "side": 1,
       "message": "and these vars too. anywhere you are assigning a variable,\nit helps to make it stand out.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "406c7607afe888dd17fb9cd1a5d914d17e656e3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e2ce1fc_9d8998c1",
+        "filename": "csit/suites/telemetry/basic/010_TelemetryIntergrationTest.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2019-01-08T01:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "768b76a3_9ae62498",
       "range": {
         "startLine": 40,
         "startChar": 4,
