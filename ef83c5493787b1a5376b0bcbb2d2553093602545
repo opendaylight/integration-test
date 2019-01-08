@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "23bb9160_f6c87d6a",
+        "filename": "csit/variables/telemetry/telemetry_destination_configuration/configure_destination/post_data.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2019-01-08T01:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97cb8445_ef10ccf1",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "ef83c5493787b1a5376b0bcbb2d2553093602545",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fecd9625_2f897662",
         "filename": "csit/variables/telemetry/telemetry_destination_configuration/query_destination/post_data.json",
         "patchSetId": 11
