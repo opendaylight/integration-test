@@ -81,18 +81,39 @@ Create Vteps
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
+Get DPN-ID from IP
+    [Arguments]    ${tools_ip}
+    ${ret} =    Collections.Get Index From List    ${TOOLS_SYSTEM_ALL_IPS}    ${tools_ip}
+    [Return]    @{DPN_ID_LIST}[${ret}]
+
 Set Json
     [Arguments]    ${vlan}    ${gateway_ip}    ${subnet}    @{tools_ips}
     [Documentation]    Sets Json with the values passed for it.
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${body}    Replace String    ${body}    1.1.1.1    ${subnet}
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${body}    Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
-    \    ${body}    Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
-    ${body}    Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
-    ${body}    Replace String    ${body}    "gateway_ip": "0.0.0.0"    "gateway_ip": "${gateway_ip}"
-    Log    ${body}
-    [Return]    ${body}    # returns complete json that has been updated
+    ${vteps_json} =    BuiltIn.Create List
+    : FOR    ${tools_ip}    IN    @{tools_ips}
+    \    ${vtep_json} =    BuiltIn.Create Dictionary
+    \    ${dpn_id} =    Get DPN-ID from IP    ${tools_ip}
+    \    Set To Dictionary    ${vtep_json}    dpn-id=${dpn_id}
+    \    Set To Dictionary    ${vtep_json}    ip-address=${tools_ip}
+    \    Set To Dictionary    ${vtep_json}    portname=br-int-eth1
+    \    Collections.Append To List    ${vteps_json}    ${vtep_json}
+    ${subnets_json} =    BuiltIn.Create List
+    ${subnet_json} =    BuiltIn.Create Dictionary
+    Set To Dictionary    ${subnet_json}    gateway-ip=${gateway_ip}
+    Set To Dictionary    ${subnet_json}    prefix=${subnet}/16
+    Set To Dictionary    ${subnet_json}    vlan-id=${vlan}
+    Set To Dictionary    ${subnet_json}    vteps=${vteps_json}
+    Collections.Append To List    ${subnets_json}    ${subnet_json}
+    ${transport_zones_json} =    BuiltIn.Create List
+    ${transport_zone_json} =    BuiltIn.Create Dictionary
+    Set To Dictionary    ${transport_zone_json}    subnets=${subnets_json}
+    Set To Dictionary    ${transport_zone_json}    tunnel-type=odl-interface:tunnel-type-vxlan
+    Set To Dictionary    ${transport_zone_json}    zone-name=TZA
+    Collections.Append To List    ${transport_zones_json}    ${transport_zone_json}
+    ${root_json} =    BuiltIn.Create Dictionary
+    Set To Dictionary    ${root_json}    transport-zone=${transport_zones_json}
+    ${ret} =    BuiltIn.Evaluate    json.dumps(${root_json})    json
+    [Return]    ${ret}
 
 Build Dpn List
     [Documentation]    This keyword builds the list of DPN ids after configuring OVS bridges on each of the TOOLS_SYSTEM_IPs.
@@ -130,6 +151,16 @@ Genius Suite Debugs
     [Arguments]    ${data_models}
     Genius Test Teardown    ${data_models}    test_name=${SUITE_NAME}    fail=False
 
+OF Tunnels Start Suite
+    : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
+    ITM Direct Tunnels Start Suite
+
+OF Tunnels Stop Suite
+    : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
+    ITM Direct Tunnels Stop Suite
+
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
@@ -155,6 +186,12 @@ Ovs Interface Verification
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
+Ovs OFT Interface Verification
+    [Documentation]    Checks whether the created OF based tunnel Interface is seen on OVS or not.
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+    \    ${ovs_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-vsctl show
+    \    BuiltIn.Should Contain X Times    ${ovs_output}    local_ip="${tools_ip}", remote_ip=flow    1
+
 Get ITM
     [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
@@ -169,13 +206,22 @@ Check Tunnel Delete On OVS
     \    ${output} =    Utils.Run Command On Remote System    ${tools_ip}    sudo ovs-vsctl show
     \    Genius.Verify Deleted Tunnels on OVS    ${tunnel_list}    ${output}
 
+Check Table0 Entry For OFT Source
+    [Arguments]    ${check}    ${tools_ip}
+    @{tun_src_list} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}
+    Collections.Remove Values From List    ${tun_src_list}    ${tools_ip}
+    ${num_tun_src} =    BuiltIn.Get Length    ${tun_src_list}
+    : FOR    ${num}    IN RANGE    ${num_tun_src}
+    \    BuiltIn.Should Contain    ${check}    tun_src=@{tun_src_list}[${num}]
+
 Check Table0 Entry In a Dpn
-    [Arguments]    ${tools_ip}    ${bridgename}    ${port_numbers}
+    [Arguments]    ${tools_ip}    ${bridgename}    ${port_numbers}    ${oft_enabled}=default false
     [Documentation]    Checks the Table 0 entry in the OVS when flows are dumped.
-    ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${bridgename}
+    ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${bridgename} table=0
     ${num_ports} =    BuiltIn.Get Length    ${port_numbers}
     : FOR    ${port_index}    IN RANGE    ${num_ports}
     \    BuiltIn.Should Contain    ${check}    in_port=@{port_numbers}[${port_index}]
+    Run Keyword If    '${oft_enabled}'=='true'    Check Table0 Entry For OFT Source    ${check}    ${tools_ip}
 
 Verify Tunnel Status As Up
     [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
@@ -286,10 +332,11 @@ Get Tunnels List
 
 Verify Table0 Entry After fetching Port Number
     [Documentation]    This keyword will get the port number and checks the table0 entry for each dpn
+    [Arguments]    ${oft_enabled}=default false
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -O OpenFlow13 show ${Bridge}
     \    ${port_numbers} =    String.Get Regexp Matches    ${check}    (\\d+).tun.*    1
-    \    Genius.Check Table0 Entry In a Dpn    ${tools_ip}    ${Bridge}    ${port_numbers}
+    \    Genius.Check Table0 Entry In a Dpn    ${tools_ip}    ${Bridge}    ${port_numbers}    ${oft_enabled}
 
 Verify Deleted Tunnels On OVS
     [Arguments]    ${tunnel_list}    ${resp_data}
