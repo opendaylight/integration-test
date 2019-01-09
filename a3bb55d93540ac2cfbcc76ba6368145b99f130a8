@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9de42914_521d09f4",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-01-09T20:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d757de13_8e50f45f",
+      "range": {
+        "startLine": 212,
+        "startChar": 125,
+        "endLine": 212,
+        "endChar": 143
+      },
+      "revId": "a3bb55d93540ac2cfbcc76ba6368145b99f130a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8989bf86_c9db1e48",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-09T16:17:46Z",
       "side": 1,
       "message": "Variables",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "a3bb55d93540ac2cfbcc76ba6368145b99f130a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "733a8c1a_00e08228",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-01-09T20:42:11Z",
+      "side": 1,
+      "message": "I am not quite sure what you intended. I assumed it\u0027s about lexicographical order. Otherwise, is a Variable table (.robot) file a valid Variables file? I thought it should be a python, java or yaml file only.",
+      "parentUuid": "8989bf86_c9db1e48",
       "range": {
         "startLine": 23,
         "startChar": 0,
