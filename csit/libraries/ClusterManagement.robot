@@ -448,7 +448,7 @@ Stop_Members_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Start_Single_Member
-    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${msg}=${EMPTY}    ${check_system_status}=False    ${service_list}=@{EMPTY}
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${msg}=${EMPTY}    ${check_system_status}=False    @{service_list}
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
     ${member_ip} =    Return_Member_IP    ${member}
@@ -458,7 +458,7 @@ Start_Single_Member
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
-    ...    ${check_system_status}=False    ${service_list}=@{EMPTY}    ${verify_restconf}=True
+    ...    ${check_system_status}=False    ${verify_restconf}=True    @{service_list}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
@@ -481,7 +481,9 @@ Verify_Members_Are_Ready
     ...    If ${verify_system_status}, verifies the system services are OPERATIONAL.
     BuiltIn.Run_Keyword_If    ${verify_cluster_sync}    Check_Cluster_Is_In_Sync    ${member_index_list}
     BuiltIn.Run_Keyword_If    ${verify_restconf}    Verify_Restconf_Is_Available    ${member_index_list}
-    BuiltIn.Run_Keyword_If    ${verify_system_status}    CompareStream.Run_Keyword_If_At_Least_Oxygen    ClusterManagement.Check Status Of Services Is OPERATIONAL    ${service_list}
+    # for backward compatibility, some consumers might not be passing @{service_list}, but since we can't set a list to a default
+    # value, we need to check here if it's empty in order to skip the check which would throw an error
+    BuiltIn.Run_Keyword_If    ${verify_system_status} and ("${service_list}" != "[[]]")    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{service_list}
 
 Verify_Restconf_Is_Available
     [Arguments]    ${member_index_list}
