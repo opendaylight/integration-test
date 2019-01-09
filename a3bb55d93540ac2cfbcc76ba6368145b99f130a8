@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d757de13_8e50f45f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-09T16:17:46Z",
+      "side": 1,
+      "message": "need to put this var on a newline to make robot.tidy happy.\nthat\u0027s why you got the -1 from jenkins.\n\nhere\u0027s the output from the job\u0027s console log:\n\n23:18:29 -    Run Keyword If    ${remote-1}\u003d\u003d\u0027flow\u0027    Should Contain    ${check}    local_ip\u003d\"${local}\"    remote_ip\u003dflow    ${tunnel}    ${tunnel-type}\n23:18:29 +    Run Keyword If    ${remote-1}\u003d\u003d\u0027flow\u0027    Should Contain    ${check}    local_ip\u003d\"${local}\"    remote_ip\u003dflow    ${tunnel}\n23:18:29 +    ...    ${tunnel-type}",
+      "range": {
+        "startLine": 212,
+        "startChar": 125,
+        "endLine": 212,
+        "endChar": 143
+      },
+      "revId": "a3bb55d93540ac2cfbcc76ba6368145b99f130a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8989bf86_c9db1e48",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-09T16:17:46Z",
+      "side": 1,
+      "message": "Variables",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "a3bb55d93540ac2cfbcc76ba6368145b99f130a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
