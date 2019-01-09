@@ -366,6 +366,30 @@
     },
     {
       "key": {
+        "uuid": "cc4a2335_988e041d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-09T16:17:46Z",
+      "side": 1,
+      "message": "go add a [Return] to the Utils kw then. that sounds like\na good addition to that keyword.",
+      "parentUuid": "0d68a4b2_8f74c9b1",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5593fdf6_b506f819",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 3
@@ -401,6 +425,30 @@
       "side": 1,
       "message": "I think it runs the code is python to parse the content and return the json formatted dictionary that is processed in line #73.",
       "parentUuid": "5593fdf6_b506f819",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "0e5a4c647bc08350307cba838da08e07ced49f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a326fde7_432f4a95",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-09T16:17:46Z",
+      "side": 1,
+      "message": "got it. I missed that on line #73",
+      "parentUuid": "91e45951_12a0edeb",
       "range": {
         "startLine": 70,
         "startChar": 0,
