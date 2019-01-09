@@ -458,7 +458,7 @@ Start_Single_Member
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
-    ...    ${check_system_status}=False    ${service_list}=@{EMPTY}    ${verify_restconf}=True
+    ...    ${check_system_status}=False    @{service_list}=@{EMPTY}    ${verify_restconf}=True
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
@@ -470,18 +470,18 @@ Start_Members_From_List_Or_All
     ${gc_options} =    BuiltIn.Set_Variable_If    "docker" not in """${node_start_command}"""    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}    ${EMPTY}
     Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Verify_Members_Are_Ready    ${member_index_list}    ${wait_for_sync}    ${verify_restconf}
-    ...    ${check_system_status}    ${service_list}
+    ...    ${check_system_status}    @{service_list}
     [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
 
 Verify_Members_Are_Ready
-    [Arguments]    ${member_index_list}    ${verify_cluster_sync}    ${verify_restconf}    ${verify_system_status}    ${service_list}
+    [Arguments]    ${member_index_list}    ${verify_cluster_sync}    ${verify_restconf}    ${verify_system_status}    @{service_list}
     [Documentation]    Verifies the specified readiness conditions for the given listed members after startup.
     ...    If ${verify_cluster_sync}, verifies the datastores have synced with the rest of the cluster.
     ...    If ${verify_restconf}, verifies RESTCONF is available.
     ...    If ${verify_system_status}, verifies the system services are OPERATIONAL.
     BuiltIn.Run_Keyword_If    ${verify_cluster_sync}    Check_Cluster_Is_In_Sync    ${member_index_list}
     BuiltIn.Run_Keyword_If    ${verify_restconf}    Verify_Restconf_Is_Available    ${member_index_list}
-    BuiltIn.Run_Keyword_If    ${verify_system_status}    CompareStream.Run_Keyword_If_At_Least_Oxygen    ClusterManagement.Check Status Of Services Is OPERATIONAL    ${service_list}
+    BuiltIn.Run_Keyword_If    ${verify_system_status}    CompareStream.Run_Keyword_If_At_Least_Oxygen    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{service_list}
 
 Verify_Restconf_Is_Available
     [Arguments]    ${member_index_list}
