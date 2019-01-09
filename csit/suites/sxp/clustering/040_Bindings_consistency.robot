@@ -67,6 +67,7 @@ Isolate SXP Controller
     [Arguments]    ${controller_index}    ${node}    ${session}=ClusterManagement__session_${controller_index}
     [Documentation]    Isolate one of cluster nodes and perform check that device is connected
     @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10    10    ClusterManagement.Verify_Members_Are_Ready    member_index_list=${running_members}
     ${running_member} =    Collections.Get From List    ${running_members}    0
     BuiltIn.Set Test Variable    ${RUNNING_MEMBER}    ${running_member}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
@@ -76,7 +77,7 @@ UnIsolate SXP Controller
     [Arguments]    ${controller_index}
     [Documentation]    Un-Isolate one of cluster nodes and perform check that device is connected
     ClusterManagement.Flush_Iptables_From_List_Or_All
-    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Check_Cluster_Is_In_Sync
+    BuiltIn.Wait_Until_Keyword_Succeeds    10    10    ClusterManagement.Verify_Members_Are_Ready
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Check Bindings

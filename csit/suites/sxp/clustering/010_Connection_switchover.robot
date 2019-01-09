@@ -24,9 +24,10 @@ Isolation of SXP noservice follower Test
 Isolate SXP Controller
     [Arguments]    ${controller_index}
     [Documentation]    Isolate one of cluster nodes and perform check that Device is still connected afterwards reverts isolation
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    ${running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10    10    ClusterManagement.Verify_Members_Are_Ready    member_index_list=${running_members}
     BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Sync_Status_Should_Be_False    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     ClusterManagement.Flush_Iptables_From_List_Or_All
-    BuiltIn.Wait Until Keyword Succeeds    240    1    ClusterManagement.Check_Cluster_Is_In_Sync
+    BuiltIn.Wait_Until_Keyword_Succeeds    10    10    ClusterManagement.Verify_Members_Are_Ready
     BuiltIn.Wait Until Keyword Succeeds    60    1    SxpClusterLib.Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}

@@ -484,7 +484,7 @@ Verify_Members_Are_Ready
     BuiltIn.Run_Keyword_If    ${verify_system_status}    CompareStream.Run_Keyword_If_At_Least_Oxygen    ClusterManagement.Check Status Of Services Is OPERATIONAL    ${service_list}
 
 Verify_Restconf_Is_Available
-    [Arguments]    ${member_index_list}
+    [Arguments]    ${member_index_list}=${EMPTY}
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
