@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96718e4f_8c11c5f2",
+        "filename": "csit/suites/sxp/clustering/010_Connection_switchover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-09T14:49:28Z",
+      "side": 1,
+      "message": "there is a new kw ClusterManagement.Verify_Members_Are_Ready which might interest you.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 89
+      },
+      "revId": "1542071958c8e5b7db74fccd785f718083f009c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
