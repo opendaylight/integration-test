@@ -889,4 +889,4 @@ Check Status Of Services Is OPERATIONAL
     [Arguments]    @{service_list}
     [Documentation]    This keyword will verify whether all the services are operational in all the ODL nodes
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    ${service_list}
+    \    ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
