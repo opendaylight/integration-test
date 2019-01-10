@@ -140,7 +140,7 @@ Get Dpn Ids
     log    ${Dpn_id}
     [Return]    ${Dpn_id}
 
-BFD Suite Stop
+BFD Suite Teardown
     [Documentation]    Run at end of BFD suite
     Delete All Vteps
     Stop Suite
