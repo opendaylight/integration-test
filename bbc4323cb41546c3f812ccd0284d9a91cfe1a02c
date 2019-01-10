@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9887bea0_307c85c8",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-10T16:19:06Z",
+      "side": 1,
+      "message": "does this work as expected?\n\nI was learning a lot about how default values work \nrecently, and learned that you can\u0027t give a default\nvalue to a list argument. So, I changed this\nVerify_Members_Are_Ready kw to account for that.\n\nthis patch:\nhttps://git.opendaylight.org/gerrit/#/c/79385/3/csit/libraries/ClusterManagement.robot\n\nif your code works though, it\u0027s fine. it shouldn\u0027t\nmatter. I just wanted to check. But, if you wanted to\nnot give any argument here for service_list, it will\nwork like you want as well.\n\nI\u0027m ready to merge this, just wanted to double check.",
+      "range": {
+        "startLine": 74,
+        "startChar": 37,
+        "endLine": 74,
+        "endChar": 62
+      },
+      "revId": "bbc4323cb41546c3f812ccd0284d9a91cfe1a02c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
