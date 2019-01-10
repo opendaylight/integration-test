@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f78e3bc_94ff7543",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "what is this change for?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00d011d1_29885f9a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "why is TOOL_SYSTEM_1_IP hardcoded here?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4003e3cb_9e6a1239",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "can you give a more meaningful name to this keyword? Do it in all suites if applicable",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40f1412a_a1e48686",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "what is this command used for? it is not verified anywhere else.",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ffd01b5_924b6f1f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "what is this \"tun\" parameter?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ba0f42e_f33ec001",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "is this log needed?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0934d977_a12b8421",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "meaningful name?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12eab489_7e722ee8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "remove the log?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a766047_ce0381f7",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "remove log",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "063ac5fd_23311ebb",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "remove log?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4600e7b1_d0af50d1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "In Dpn",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5926308f_071ae55e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "is it possible to pass the portnumber specific to the tunnel?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8673781_d974ac5f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T10:56:32Z",
+      "side": 1,
+      "message": "remove log and rename check as table0_flow",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
