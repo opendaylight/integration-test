@@ -135,6 +135,176 @@
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd3262c5_2d5732c5",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "remove the log",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2a7c05_bb7f0efa",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "redo this for all computes as we discussed?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "940f9c73_d7c3ef75",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "some good keyword names?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8251966_c86bc398",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "log is needed?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "556c2827_0b37364a",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "log not needed",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e1dcf29_982db455",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "log not needed",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50e62124_e30bee00",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "same comment in all logs below",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dd39e0e_b3e5c016",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "remove log",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "076bd5b6_2cc2c306",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "remove the logs 139 and 140",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "008b1d64_f956ec6d",
+        "filename": "csit/variables/genius/l2vlan.json",
+        "patchSetId": 155
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:27:01Z",
+      "side": 1,
+      "message": "what is this change needed for?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
