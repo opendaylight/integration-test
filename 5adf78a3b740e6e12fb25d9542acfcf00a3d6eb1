@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d2bc597_15e4d7ed",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_bgp_bfd.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-10T17:20:37Z",
+      "side": 1,
+      "message": "whitespace to remove. applies below too.",
+      "range": {
+        "startLine": 2,
+        "startChar": 83,
+        "endLine": 2,
+        "endChar": 84
+      },
+      "revId": "5adf78a3b740e6e12fb25d9542acfcf00a3d6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86127968_5fb6b330",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_bgp_bfd.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-10T17:20:37Z",
+      "side": 1,
+      "message": "alphabetize please",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "5adf78a3b740e6e12fb25d9542acfcf00a3d6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f550baf_82ea7719",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_bgp_bfd.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-10T17:20:37Z",
+      "side": 1,
+      "message": "need four spaces here",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "5adf78a3b740e6e12fb25d9542acfcf00a3d6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4e60e86_2f058239",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_bgp_bfd.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-10T17:20:37Z",
+      "side": 1,
+      "message": "add newlines between keywords. don\u0027t just repeat the kw\nname in the [documentation] block. add the details of\nthe kw if needed. If it\u0027s really just a simple few lines\nkeyword and the kw name is enough to fully explain it then\ndon\u0027t use [documentation]",
+      "revId": "5adf78a3b740e6e12fb25d9542acfcf00a3d6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
