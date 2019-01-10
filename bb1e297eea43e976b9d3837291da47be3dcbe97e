@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9616e35_28872edb",
+        "filename": "csit/libraries/ToolsSystem.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ea3541c_5fdbeb60",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "do we really need lines 76, 77, 79, 80. 84, 85",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b94f7792_47342f71",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "lines 33 to 36 can be removed",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aed6860_ebee34e5",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "what is the diff between line 48 and 49?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00b96e47_5371a8fd",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "remove the log?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22ee7fc2_c9915f4d",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "meaningful name for variable",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fda6670e_692b5be8",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "remove 103 - 106",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0be3a54_5051001c",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-10T17:22:07Z",
+      "side": 1,
+      "message": "remove 138-140",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
