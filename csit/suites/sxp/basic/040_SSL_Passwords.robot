@@ -161,6 +161,7 @@ Verify Topology Bindings
     [Documentation]    Create session to Controller
     ${resp}    SxpLib.Get Bindings    127.0.0.5
     : FOR    ${node}    IN RANGE    1    ${node_range}+1
+    \    SxpLib.Should Contain Binding    ${resp}    ${node}00    1.1.1.${node}/32
     \    SxpLib.Should Contain Binding    ${resp}    ${node}00    2.2.2.${node}/32
 
 Clean Nodes
