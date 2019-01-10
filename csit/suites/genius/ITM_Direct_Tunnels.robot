@@ -66,7 +66,7 @@ Verify VTEP After Restarting Controller
     Genius.Verify Tunnel Status as UP    TZA
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
-    Wait Until Keyword Succeeds    60    3    ClusterManagement.Check Status Of Services Is OPERATIONAL
+    Wait Until Keyword Succeeds    60    3    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Disabling BFD
