@@ -22,6 +22,30 @@
       "revId": "bbc4323cb41546c3f812ccd0284d9a91cfe1a02c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff219d1b_94f88fb2",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2019-01-11T12:49:11Z",
+      "side": 1,
+      "message": "Yes, it works as expected because verify_system_status is set to False (with True I was not able to make checking to work).\nBut I prepare another patch which improves this one: https://git.opendaylight.org/gerrit/#/c/79460/",
+      "parentUuid": "9887bea0_307c85c8",
+      "range": {
+        "startLine": 74,
+        "startChar": 37,
+        "endLine": 74,
+        "endChar": 62
+      },
+      "revId": "bbc4323cb41546c3f812ccd0284d9a91cfe1a02c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
