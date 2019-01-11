@@ -67,6 +67,7 @@ ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems 
 ${DEFAULT_TIMEOUT_HTTP}    5    # Used for HTTP connections
 ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
+@{EMPTY_LIST}     # Empty list for KWs with list parameters, see: https://github.com/robotframework/robotframework/issues/2243
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.
 ${ESCAPE_CHARACTER}    \x1b    # A more readable alias to the special escape character.
 ${FAIL_ON_EXCEPTIONS}    False    # global flag (can/should be tweak on pybot command line) which suites can use if they are validating exceptions to pass/fail tests on
