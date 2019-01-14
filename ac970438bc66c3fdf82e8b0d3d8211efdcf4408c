@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e61136b_a3739dd1",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-01-14T17:35:29Z",
+      "side": 1,
+      "message": "Looks like this change broke the OFP cluster test: https://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-3node-clustering-only-fluorine/",
+      "revId": "ac970438bc66c3fdf82e8b0d3d8211efdcf4408c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
