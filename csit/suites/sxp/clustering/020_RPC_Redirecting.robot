@@ -97,4 +97,4 @@ Add Node And Check It Is Started
 Delete Node And Check It Is Stopped
     [Documentation]    Send delete-node RPC to the first cluster member and check if node has been stopped.
     SxpLib.Delete Node    ${INADDR_ANY}    session=ClusterManagement__session_1
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpClusterLib.Check Cluster Node stopped    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpClusterLib.Check Cluster Node stopped    ${INADDR_ANY}    ip=${EMPTY}
