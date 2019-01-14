@@ -350,6 +350,7 @@ Clean SXP Environment
     : FOR    ${num}    IN RANGE    1    ${node_range}+1
     \    ${ip} =    Sxp.Get Ip From Number    ${num}
     \    Delete Node    ${ip}
+    \    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Node Stopped    ${ip}
     RequestsLibrary.Delete All Sessions
 
 Get Routing Configuration From Controller
