@@ -21,25 +21,25 @@ SSL ConectivityCase 1
     [Tags]    SXP    SSL
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    security_mode=TLS
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    security_mode=TLS
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.1
     ...    64999    127.0.0.2
     SxpLib.Clean Connections    127.0.0.1
     SxpLib.Clean Connections    127.0.0.2
     SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    security_mode=TLS
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    security_mode=TLS
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
     ...    64999    127.0.0.2
     SxpLib.Clean Connections    127.0.0.1
     SxpLib.Clean Connections    127.0.0.2
     SxpLib.Add Connection    ${version}    both    127.0.0.2    64999    127.0.0.1    security_mode=TLS
     SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.2    security_mode=TLS
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    both    127.0.0.2
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    both    127.0.0.2
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    both    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    both    127.0.0.1
     ...    64999    127.0.0.2
 
 SSL ConectivityCase 2
@@ -101,29 +101,29 @@ SSL ConectivityCase 4
     [Tags]    SXP    SSL
     SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    security_mode=TLS
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    security_mode=TLS
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
     ...    64999    127.0.0.2
     SxpLib.Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1    paswd
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3    paswd
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.3
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.3
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
     ...    64999    127.0.0.3
     SxpLib.Add Connection    ${version}    listener    127.0.0.4    64999    127.0.0.1
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.4
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.4
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.4
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.1
     ...    64999    127.0.0.4
     SxpLib.Add Connection    ${version}    speaker    127.0.0.5    64999    127.0.0.1    security_mode=TLS
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.5    security_mode=TLS
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.5
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    speaker    127.0.0.5
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${version}    listener    127.0.0.1
     ...    64999    127.0.0.5
-    BuiltIn.Wait Until Keyword Succeeds    60    1    Verify Topology Bindings    5
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    Verify Topology Bindings    5
 
 *** Keywords ***
 Setup SXP Environment Local
@@ -153,6 +153,7 @@ Setup SXP Environment Local
     \    ${SSL}    BuiltIn.Create Dictionary    truststore=${ssl_stores}/csit-truststore-${node}    keystore=${ssl_stores}/csit-keystore-${node}    password=${password}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 5)    modules=random
     \    SxpLib.Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}    retry_open_timer=${rnd_retry_time}
+    \    BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node started    127.0.0.${node}
     \    SxpLib.Add Bindings    ${node}00    1.1.1.${node}/32    127.0.0.${node}
     \    SxpLib.Add Bindings    ${node}00    2.2.2.${node}/32    127.0.0.${node}
 
