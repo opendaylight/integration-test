@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "d9813d98_6b27688c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "that is subnet it derived and it works fine after changing /32 to /16",
+      "parentUuid": "00d011d1_29885f9a",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4003e3cb_9e6a1239",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 154
@@ -47,6 +65,24 @@
       "writtenOn": "2019-01-10T10:56:32Z",
       "side": 1,
       "message": "can you give a more meaningful name to this keyword? Do it in all suites if applicable",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e217ca_52e4b52a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "this will increase the change in number of lines do we need to do it in this patch",
+      "parentUuid": "4003e3cb_9e6a1239",
       "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "4d29190f_2cb8582f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "40f1412a_a1e48686",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ffd01b5_924b6f1f",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 154
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "992b66b0_d0256335",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "since every tunnel name will be prefixed with tun we check for any string starting with \"tun\" in tep show state output",
+      "parentUuid": "0ffd01b5_924b6f1f",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ba0f42e_f33ec001",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 154
@@ -98,6 +170,24 @@
       "writtenOn": "2019-01-10T10:56:32Z",
       "side": 1,
       "message": "is this log needed?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a679f219_9c9e9aff",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "3ba0f42e_f33ec001",
       "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -138,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "ba36334e_854d7c20",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12eab489_7e722ee8",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a766047_ce0381f7",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 154
@@ -155,6 +263,24 @@
     },
     {
       "key": {
+        "uuid": "0051f370_51e32f94",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a766047_ce0381f7",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "063ac5fd_23311ebb",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 154
@@ -166,6 +292,24 @@
       "writtenOn": "2019-01-10T10:56:32Z",
       "side": 1,
       "message": "remove log?",
+      "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ae46019_e44c90b0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 154
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "063ac5fd_23311ebb",
       "revId": "f9417d4bb419ce99ca627dfdf65c66efb58b1926",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
