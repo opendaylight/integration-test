@@ -22,6 +22,30 @@
       "revId": "cd527355f587346ba8f9d217e7dbf94b77cef3f3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64098808_08e1fa64",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-01-14T03:46:23Z",
+      "side": 1,
+      "message": "Actually the ITM Direct Tunnels test suite also contains a similar method. Putting it in Genius library would make it redundant for that test suite. Should I make changes in that test suite as well or leave it as it is for now?",
+      "parentUuid": "c3756014_52784575",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "cd527355f587346ba8f9d217e7dbf94b77cef3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
