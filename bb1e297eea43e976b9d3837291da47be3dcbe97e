@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "924511d2_f3a362c5",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "if needed let is check in teardown removed everything",
+      "parentUuid": "7ea3541c_5fdbeb60",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b94f7792_47342f71",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 155
@@ -87,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "e7280f31_210a15a1",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00b96e47_5371a8fd",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22ee7fc2_c9915f4d",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 155
@@ -98,6 +134,24 @@
       "writtenOn": "2019-01-10T17:22:07Z",
       "side": 1,
       "message": "meaningful name for variable",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aec71a0d_e92014a3",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "not used anywhere removed",
+      "parentUuid": "22ee7fc2_c9915f4d",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +175,24 @@
     },
     {
       "key": {
+        "uuid": "85b826d3_abc95338",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fda6670e_692b5be8",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0be3a54_5051001c",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 155
@@ -132,6 +204,24 @@
       "writtenOn": "2019-01-10T17:22:07Z",
       "side": 1,
       "message": "remove 138-140",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3285d109_a7e43674",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0be3a54_5051001c",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +245,24 @@
     },
     {
       "key": {
+        "uuid": "bb243228_69d763ef",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "will this not be needed to check failures?",
+      "parentUuid": "dd3262c5_2d5732c5",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce2a7c05_bb7f0efa",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 155
@@ -166,6 +274,24 @@
       "writtenOn": "2019-01-10T17:27:01Z",
       "side": 1,
       "message": "redo this for all computes as we discussed?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63a5db05_06400fe6",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "shall we wait for the fix to come in?",
+      "parentUuid": "ce2a7c05_bb7f0efa",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -206,6 +332,24 @@
     },
     {
       "key": {
+        "uuid": "5e686f49_90164d4b",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8251966_c86bc398",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "556c2827_0b37364a",
         "filename": "csit/suites/genius/Interface_manager.robot",
         "patchSetId": 155
@@ -217,6 +361,24 @@
       "writtenOn": "2019-01-10T17:27:01Z",
       "side": 1,
       "message": "log not needed",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd47b5f5_ec1c8d2a",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "556c2827_0b37364a",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -240,6 +402,24 @@
     },
     {
       "key": {
+        "uuid": "afbb3a39_18388582",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e1dcf29_982db455",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50e62124_e30bee00",
         "filename": "csit/suites/genius/Interface_manager.robot",
         "patchSetId": 155
@@ -251,6 +431,24 @@
       "writtenOn": "2019-01-10T17:27:01Z",
       "side": 1,
       "message": "same comment in all logs below",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8fd5e4c_887e9689",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 155
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e62124_e30bee00",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -302,6 +500,24 @@
       "writtenOn": "2019-01-10T17:27:01Z",
       "side": 1,
       "message": "what is this change needed for?",
+      "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3665d222_cba906b4",
+        "filename": "csit/variables/genius/l2vlan.json",
+        "patchSetId": 155
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-14T14:22:25Z",
+      "side": 1,
+      "message": "not sure we have to discuss",
+      "parentUuid": "008b1d64_f956ec6d",
       "revId": "bb1e297eea43e976b9d3837291da47be3dcbe97e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
