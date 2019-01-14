@@ -70,18 +70,18 @@ Test Nodes
     \    ...    ${PASSWORD}
     \    SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    listener
+    \    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.1
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    speaker
+    \    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.1    64999    127.0.0.2
     \    BuiltIn.Log    OK ${r_version}:listener ${version}:speaker
     \    SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
     \    ...    ${PASSWORD}
     \    SxpLib.Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    listener
+    \    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.3
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    speaker
+    \    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.3    64999    127.0.0.2
     \    BuiltIn.Log    OK ${version}:listener ${r_version}:speaker
     \    BuiltIn.Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
@@ -93,9 +93,9 @@ Test Both
     ${cmp_version}    Sxp.Lower Version    ${r_version}    ${version}
     SxpLib.Add Connection    ${r_version}    both    127.0.0.3    64999    127.0.0.1    ${PASSWORD}
     SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.3    ${PASSWORD}
-    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.3
+    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.3
     ...    64999    127.0.0.1
-    BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.1
+    BuiltIn.Wait Until Keyword Succeeds    60    1    SxpLib.Verify Connection    ${cmp_version}    both    127.0.0.1
     ...    64999    127.0.0.3
     BuiltIn.Log    OK ${r_version}:both ${version}:both
 

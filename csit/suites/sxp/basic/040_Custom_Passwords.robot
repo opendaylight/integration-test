@@ -54,21 +54,21 @@ Test Mode
     [Documentation]    Setup connection Speaker => Listener / Listener => Speaker / Both <=> Both for specific versions
     Add Connection    ${version}    ${mode_local}    127.0.0.3    64999    127.0.0.1    CUSTOM
     Add Connection    ${version}    ${mode_remote}    127.0.0.1    64999    127.0.0.3    ${EMPTY}
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_local}    127.0.0.3
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_local}    127.0.0.3
     ...    64999    127.0.0.1
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.1
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.1
     ...    64999    127.0.0.3
     Add Connection    ${version}    ${mode_local}    127.0.0.2    64999    127.0.0.1    ${EMPTY}
     Add Connection    ${version}    ${mode_remote}    127.0.0.1    64999    127.0.0.2    ${EMPTY}
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_local}    127.0.0.2
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_local}    127.0.0.2
     ...    64999    127.0.0.1
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.1
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.1
     ...    64999    127.0.0.2
     Add Connection    ${version}    ${mode_local}    127.0.0.3    64999    127.0.0.2    CUSTOM_2
     Add Connection    ${version}    ${mode_remote}    127.0.0.2    64999    127.0.0.3    CUSTOM_2
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_local}    127.0.0.3
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_local}    127.0.0.3
     ...    64999    127.0.0.2
-    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.2
+    Wait Until Keyword Succeeds    60    1    Verify Connection    ${version}    ${mode_remote}    127.0.0.2
     ...    64999    127.0.0.3
 
 Clean Nodes
