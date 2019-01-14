@@ -52,22 +52,22 @@ Setup SXP Cluster
     [Arguments]    ${peer_mode}=listener
     [Documentation]    Setup and connect SXP cluster topology
     SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    node=${DEVICE_NODE_ID}
     \    ...    session=${DEVICE_SESSION}
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    20x    10s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
     SxpLib.Add Connection    version4    ${cluster_mode}    ${DEVICE_NODE_ID}    64999    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    48x    10s    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    240x    1s    Check Device is Connected    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
 
 Clean SXP Cluster
     [Documentation]    Disconnect SXP cluster topology
     SxpLib.Delete Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpLib.Check Node Stopped    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    3x    10s    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
-    BuiltIn.Wait Until Keyword Succeeds    12x    10s    SxpClusterLib.Check Cluster Node Stopped    ${INADDR_ANY}    ip=${EMPTY}
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Check Node Stopped    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    60x    1s    SxpLib.Delete Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
+    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpClusterLib.Check Cluster Node Stopped    ${INADDR_ANY}    ip=${EMPTY}
 
 Check Cluster Node Started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
@@ -113,7 +113,7 @@ Check Cluster is Connected
 Get Owner Controller
     [Arguments]    ${running_member}=1
     [Documentation]    Find cluster controller that is marked as cluster owner by requesting ownership data from ${running_member} node of the cluster
-    ${owner}    ${candidates} =    BuiltIn.Wait Until Keyword Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
+    ${owner}    ${candidates} =    BuiltIn.Wait Until Keyword Succeeds    30x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    org.opendaylight.sxp.controller.boot.SxpControllerInstance
     ...    Sxp    ${running_member}
     [Return]    ${owner}
 
