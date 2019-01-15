@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a856ca6_7f05f96e",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2019-01-15T13:06:44Z",
+      "side": 1,
+      "message": "Here is reverting back to INFO.",
+      "revId": "e1a13161121e575f8ced1853185b67fceab7cae7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
