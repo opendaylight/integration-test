@@ -11,7 +11,6 @@ Resource          ./SxpLib.robot
 @{SXP_PACKAGE}    org.opendaylight.sxp
 ${DEVICE_SESSION}    device_1
 ${CONTROLLER_SESSION}    ClusterManagement__session_1
-${SXP_LOG_LEVEL}    INFO
 ${VIRTUAL_IP}     ${TOOLS_SYSTEM_2_IP}
 ${VIRTUAL_IP_MASK}    255.255.255.0
 ${VIRTUAL_INTERFACE}    dummy0
@@ -25,7 +24,7 @@ Setup SXP Cluster Session
     [Documentation]    Create sessions asociated with SXP cluster setup
     ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${SXP_LOG_LEVEL}    ${SXP_PACKAGE}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    DEBUG    ${SXP_PACKAGE}
 
 Setup Device Session
     [Documentation]    Create session on the SXP device
