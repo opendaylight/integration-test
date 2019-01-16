@@ -38,6 +38,8 @@ Setup SXP Cluster Session With Device
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
     ClusterManagement.Flush_Iptables_From_List_Or_All
+    BuiltIn.Wait_Until_Keyword_Succeeds    60    1    ClusterManagement.Verify_Members_Are_Ready    member_index_list=${EMPTY}    verify_cluster_sync=True    verify_restconf=True
+    ...    verify_system_status=False    service_list=@{EMPTY
     RequestsLibrary.Delete All Sessions
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${SXP_PACKAGE}
 
