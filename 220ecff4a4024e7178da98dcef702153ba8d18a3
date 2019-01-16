@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0bf6165_1ceccac8",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-16T16:41:49Z",
+      "side": 1,
+      "message": "missing closing brace",
+      "revId": "220ecff4a4024e7178da98dcef702153ba8d18a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
