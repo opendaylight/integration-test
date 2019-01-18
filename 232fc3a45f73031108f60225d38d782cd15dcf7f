@@ -22,6 +22,30 @@
       "revId": "232fc3a45f73031108f60225d38d782cd15dcf7f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51b0585a_c9637bd3",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-01-18T05:14:22Z",
+      "side": 1,
+      "message": "1) openflow punt path protection feature says:\nThe old behavior of modules that punt the packet via\ntheir flow tables is to continue punting the packets to\nthe controller until controller processes the packet and\ninstalls certain flows that prevent further punting of \nsuch packets. same packets need not be punted again \nsince it puts unnecessary load on the controller as it does\nthe same processing which it did for the first packet...\nfollow below link about this feature in more details:\n\nhttps://docs.opendaylight.org/projects/netvirt/en/latest/specs/fluorine/controller-punt-protection.html\n\n2) yeah, ping will send total 5 packets but as per feature\ndefinition only first packet will hit default flows and\npacket packet count will get increase by 1 and controller\nwill install one new flows to drop next 4 packets to avoid\nunnecessary load on the controller.so i have put packet\ncount check to ensure default flows and learnt flows\nworking fine before and after sending subnet route traffic.\n\nwill update doc string in more detail in next patch for\nall the TCs",
+      "parentUuid": "8736442d_cff939f3",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 148
+      },
+      "revId": "232fc3a45f73031108f60225d38d782cd15dcf7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
