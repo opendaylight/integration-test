@@ -13,7 +13,8 @@ ${RUNNING_MEMBER}    ${EMPTY}
 *** Test Cases ***
 Isolation of SXP service follower Test Speaker Part
     [Documentation]    Test SXP binding propagation from device to cluster after cluster owner is isolated
-    [Setup]    Setup Custom SXP Cluster    speaker
+    SxpClusterLib.Check Shards Status
+    Setup Custom SXP Cluster    speaker
     ${controller_index} =    SxpClusterLib.Get Owner Controller
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    Check Bindings    ${INADDR_ANY}    ClusterManagement__session_${controller_index}
     Isolate SXP Controller    ${controller_index}    ${INADDR_ANY}
@@ -24,7 +25,8 @@ Isolation of SXP service follower Test Speaker Part
 
 Isolation of SXP noservice follower Test Speaker Part
     [Documentation]    Test SXP binding propagation from device to cluster after cluster (not owner) node is isolated
-    [Setup]    Setup Custom SXP Cluster    speaker
+    SxpClusterLib.Check Shards Status
+    Setup Custom SXP Cluster    speaker
     ${controller_index} =    SxpClusterLib.Get Not Owner Controller
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    Check Bindings    ${INADDR_ANY}    ClusterManagement__session_${controller_index}
     Isolate SXP Controller    ${controller_index}    ${INADDR_ANY}
@@ -35,7 +37,8 @@ Isolation of SXP noservice follower Test Speaker Part
 
 Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation from cluster to device after cluster owner is isolated
-    [Setup]    Setup Custom SXP Cluster    listener    ${INADDR_ANY}    ${CONTROLLER_SESSION}
+    SxpClusterLib.Check Shards Status
+    Setup Custom SXP Cluster    listener    ${INADDR_ANY}    ${CONTROLLER_SESSION}
     ${controller_index} =    SxpClusterLib.Get Owner Controller
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     Isolate SXP Controller    ${controller_index}    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
@@ -46,7 +49,8 @@ Isolation of SXP service follower Test Listener Part
 
 Isolation of SXP noservice follower Test Listener Part
     [Documentation]    Test SXP binding propagation from cluster to device after cluster (not owner) node is isolated
-    [Setup]    Setup Custom SXP Cluster    listener    ${INADDR_ANY}    ${CONTROLLER_SESSION}
+    SxpClusterLib.Check Shards Status
+    Setup Custom SXP Cluster    listener    ${INADDR_ANY}    ${CONTROLLER_SESSION}
     ${controller_index} =    SxpClusterLib.Get Not Owner Controller
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    Check Bindings    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
     Isolate SXP Controller    ${controller_index}    ${DEVICE_NODE_ID}    ${DEVICE_SESSION}
