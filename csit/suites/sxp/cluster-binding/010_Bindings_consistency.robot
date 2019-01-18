@@ -59,6 +59,8 @@ Isolation of SXP noservice follower Test Listener Part
 Setup Custom SXP Cluster
     [Arguments]    ${mode}    ${node}=${DEVICE_NODE_ID}    ${session}=${DEVICE_SESSION}
     [Documentation]    Setup custom SXP cluster topology with ${NUM_ODL_SYSTEM} nodes and one device
+    BuiltIn.Sleep    5m
+    SxpClusterLib.Check Shards Status
     SxpClusterLib.Setup SXP Cluster    ${mode}
     : FOR    ${i}    IN RANGE    1    25
     \    SxpLib.Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
