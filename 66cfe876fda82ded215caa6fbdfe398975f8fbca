@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "bcd1817e_bbdcc170",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "unsure of how to pass list to run command on remote system",
+      "parentUuid": "c2c68e0c_81c08502",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -111,6 +135,30 @@
     },
     {
       "key": {
+        "uuid": "a2afa91a_320fa0ef",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ae05e8c_e85ba962",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60f8526e_0a732279",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -134,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "09dc781b_dc860450",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "the for loop is not neede,made changes.\nVTEP BODY is agin used in delete test case where it cannot be passed  hence  suite variable",
+      "parentUuid": "60f8526e_0a732279",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02a80071_ae4879a7",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -145,6 +217,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "i know this is not your creation, but \"Set Json\" is\nway too generic for what this kw is doing. it\u0027s dealing\nwith a very specific kind of json that has dpn and ip\naddress stuff in it. maybe a new patch afterward to clear\nthis up would be helpful for the future.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 8
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "908fb859_99cdee8d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "surely will rename in new patch",
+      "parentUuid": "02a80071_ae4879a7",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -197,6 +293,30 @@
     },
     {
       "key": {
+        "uuid": "c4582d63_09e2c74c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "But this variable is used in many test cases,Wouldn\u0027t be like building the dpn id list then and there if we return the keyword?",
+      "parentUuid": "5b152d5d_2993ea18",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d2d634e_bf8bbe0f",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -208,6 +328,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "${no_of_tunnels} \u003d",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 20
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "667972ca_b76f22d6",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d2d634e_bf8bbe0f",
       "range": {
         "startLine": 187,
         "startChar": 4,
@@ -243,6 +387,30 @@
     },
     {
       "key": {
+        "uuid": "4de87ffb_ff759f3c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "have renamed the keyword,given proper description.\nMoving it to OVSDB can be done after further dicussion",
+      "parentUuid": "7356dafc_efbb2808",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 68
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c2d2b9d_eda4b338",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -254,6 +422,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "we have a var for this in Variables.robot I think.",
+      "range": {
+        "startLine": 266,
+        "startChar": 100,
+        "endLine": 266,
+        "endChar": 104
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "786c785d_54f9d8a9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c2d2b9d_eda4b338",
       "range": {
         "startLine": 266,
         "startChar": 100,
@@ -312,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "ba87b0ca_1ad23d78",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "9aa2fff5_51bb67e0",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 103
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3642f92b_435b2c6b",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -323,6 +539,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "there is no data getting verified here. the only check\nthat happens is that the Utils kw will make sure a happy\nresponse code is returned.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 156
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2ef3d85_f058d066",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3642f92b_435b2c6b",
       "range": {
         "startLine": 309,
         "startChar": 0,
@@ -358,6 +598,30 @@
     },
     {
       "key": {
+        "uuid": "2dd4afeb_11649146",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f3c6598_bd2bc65c",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 23
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1ad2ba_b667eed0",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -369,6 +633,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "return it instead of a suite variable. if you MUST\nhave a suite variable, standard is to USE_ALL_CAPS",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 321,
+        "endChar": 49
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75fbb7e9_acad0f19",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1ad2ba_b667eed0",
       "range": {
         "startLine": 321,
         "startChar": 4,
@@ -404,6 +692,30 @@
     },
     {
       "key": {
+        "uuid": "3921faac_2d075ced",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "But they have made this suite variable because they want the changes to get reflected.Both dpn id index corresponds to the same variable being used.As i went through,basically it looks like a nested for loop.",
+      "parentUuid": "d7538442_a9bae1c0",
+      "range": {
+        "startLine": 327,
+        "startChar": 4,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eacafe8b_370d9104",
         "filename": "csit/suites/genius/BFD_monitoring.robot",
         "patchSetId": 9
@@ -415,6 +727,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "is this the syntax you want? with a . and space?\n\nalso, add the space and \u003d",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "529d3e2d_d148b391",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacafe8b_370d9104",
       "range": {
         "startLine": 125,
         "startChar": 6,
@@ -450,6 +786,30 @@
     },
     {
       "key": {
+        "uuid": "3a3a9510_d5e7702e",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "961b2a74_60576341",
+      "range": {
+        "startLine": 33,
+        "startChar": 59,
+        "endLine": 33,
+        "endChar": 107
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f767b7ec_19198bce",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -461,6 +821,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "do this in a suite setup section. looks like you are building a list of v6 addresses that will not change\n*ever* in the suite and will be used across multiple\ntest cases.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 59
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe028d16_da26930f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "but this list is used in only few testcases moving it to setup will build the list unnecessarily for all suites hense moved to a separate keyword.",
+      "parentUuid": "f767b7ec_19198bce",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -496,6 +880,30 @@
     },
     {
       "key": {
+        "uuid": "28bf2461_f3867b97",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4d2ff0_fcd657ac",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "211f2d03_38370cca",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -507,6 +915,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "${output} \u003d",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45371f53_b1689a5f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "211f2d03_38370cca",
       "range": {
         "startLine": 81,
         "startChar": 4,
@@ -542,6 +974,30 @@
     },
     {
       "key": {
+        "uuid": "cc995f79_6ffe974e",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "not used anywhere removed",
+      "parentUuid": "3b141e93_5d15b2f3",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 9
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c1c6d73_cfec9169",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -553,6 +1009,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "cam you use ${REGEX_IPV4} from Variables.robot?\n\nif so, add a ${REGEX_IPV6} to be what you have below and\nuse that variable there",
+      "range": {
+        "startLine": 119,
+        "startChar": 72,
+        "endLine": 119,
+        "endChar": 111
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45e19baf_b32bbbab",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c1c6d73_cfec9169",
       "range": {
         "startLine": 119,
         "startChar": 72,
@@ -611,6 +1091,30 @@
     },
     {
       "key": {
+        "uuid": "291a6ec8_b7e10015",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b98426_af096ee8",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 68
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0434ca24_f8232473",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 9
@@ -622,6 +1126,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "why are you doing this? just for debugging?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2a2668b_a4442b6a",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-18T15:25:29Z",
+      "side": 1,
+      "message": "yes removed if needed will add while debugging",
+      "parentUuid": "0434ca24_f8232473",
       "range": {
         "startLine": 35,
         "startChar": 0,
