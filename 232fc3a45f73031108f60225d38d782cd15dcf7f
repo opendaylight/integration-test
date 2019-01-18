@@ -46,6 +46,30 @@
       "revId": "232fc3a45f73031108f60225d38d782cd15dcf7f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f88bf7_0c781c79",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T16:56:11Z",
+      "side": 1,
+      "message": "Awesome, I totally understand the test case now. Not that\nyou need ALL of this info, but some of these details should be given in the [Documentation] block and/or the test case\nname. Somebody down the road is going to have to look at\nthis test case and it will really help them to have that\ninfo here (not in a gerrit comment, but in the code itself).\nThe robot code is a little cryptic to read for this case.\nsometimes robot code is clean enough not to need the extra\nhelp.",
+      "parentUuid": "51b0585a_c9637bd3",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 148
+      },
+      "revId": "232fc3a45f73031108f60225d38d782cd15dcf7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
