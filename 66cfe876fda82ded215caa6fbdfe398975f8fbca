@@ -42,6 +42,121 @@
     },
     {
       "key": {
+        "uuid": "c2c68e0c_81c08502",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "I would change this to \"Check Port Status Is ESTABLISHED\"\nand also pass in the list of IPs you want to loop over to\ncheck",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aac0cffc_b02b81c3",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "${body} \u003d",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ae05e8c_e85ba962",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "ALLCAPS since you are making it a suite variable. but first,\nmake sure you really need this as a suite variable in scope",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60f8526e_0a732279",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "what\u0027s going on here? you want the final ${body} in the for\nloop to end up as a suite variable?\n\nbtw, instead of suite variables, it\u0027s safer to just return\nthe variable you are interested in and use it from the\ncaller accordingly.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02a80071_ae4879a7",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "i know this is not your creation, but \"Set Json\" is\nway too generic for what this kw is doing. it\u0027s dealing\nwith a very specific kind of json that has dpn and ip\naddress stuff in it. maybe a new patch afterward to clear\nthis up would be helpful for the future.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 8
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e1955a7_60c4a7f8",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -53,6 +168,466 @@
       "writtenOn": "2019-01-17T14:02:47Z",
       "side": 1,
       "message": "note for later patch to qualify these to String.",
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b152d5d_2993ea18",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "instead of a Suite Variable, why not just return the list\nand have the caller do what it wants with the list.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d2d634e_bf8bbe0f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "${no_of_tunnels} \u003d",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 20
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7356dafc_efbb2808",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "somehow between the combination of the keyword name\nand the [Documentation] we should be able to figure\nout more of what\u0027s going on here. looks like it\u0027s\ndoing some tap stuff, setting controller, adding a bridge,\netc.\n\nbtw, this keyword belongs in the OVSDB lib, imho.\n\nalso, there may already be some keywords in that lib that\ndo similar stuff. maybe a few of those can be used here\nwhich will reduce the LOC.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 68
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c2d2b9d_eda4b338",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "we have a var for this in Variables.robot I think.",
+      "range": {
+        "startLine": 266,
+        "startChar": 100,
+        "endLine": 266,
+        "endChar": 104
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffa62871_da76bb65",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "this seems magical. why these specific values?",
+      "range": {
+        "startLine": 268,
+        "startChar": 96,
+        "endLine": 268,
+        "endChar": 106
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa2fff5_51bb67e0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "why do you have this line repeated below?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 103
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3642f92b_435b2c6b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "there is no data getting verified here. the only check\nthat happens is that the Utils kw will make sure a happy\nresponse code is returned.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 156
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f3c6598_bd2bc65c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "Standard Is To Capitalize Every Word",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 23
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1ad2ba_b667eed0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "return it instead of a suite variable. if you MUST\nhave a suite variable, standard is to USE_ALL_CAPS",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 321,
+        "endChar": 49
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7538442_a9bae1c0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "perfect example of why suite variables are dangerous.\nif you call this keyword in the same suite as the\nabove keyword your suite variable, which you thought\nwas static will be getting changed.",
+      "range": {
+        "startLine": 327,
+        "startChar": 4,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eacafe8b_370d9104",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "is this the syntax you want? with a . and space?\n\nalso, add the space and \u003d",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "961b2a74_60576341",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "${OPERATIONAL_NODES_API}",
+      "range": {
+        "startLine": 33,
+        "startChar": 59,
+        "endLine": 33,
+        "endChar": 107
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f767b7ec_19198bce",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "do this in a suite setup section. looks like you are building a list of v6 addresses that will not change\n*ever* in the suite and will be used across multiple\ntest cases.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 59
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b4d2ff0_fcd657ac",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "${type} \u003d",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 11
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "211f2d03_38370cca",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "${output} \u003d",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b141e93_5d15b2f3",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "better var name.",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 9
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c1c6d73_cfec9169",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "cam you use ${REGEX_IPV4} from Variables.robot?\n\nif so, add a ${REGEX_IPV6} to be what you have below and\nuse that variable there",
+      "range": {
+        "startLine": 119,
+        "startChar": 72,
+        "endLine": 119,
+        "endChar": 111
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81edc284_1003f515",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "use space \u003d syntax. applies elsewhere here too",
+      "range": {
+        "startLine": 181,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 28
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b98426_af096ee8",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "use Check For Elements At URI and pass in True for the\npretty print arg to replace these lines.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 68
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0434ca24_f8232473",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-18T01:15:31Z",
+      "side": 1,
+      "message": "why are you doing this? just for debugging?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
       "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
