@@ -87,6 +87,7 @@ Setup Virtual IP
 Setup Nodes And Connections
     [Arguments]    ${peer_mode}
     [Documentation]    Setup and connect SXP cluster topology and one device
+    SxpClusterLib.Check Shards Status
     SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}    retry_open_timer=2
     BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     SxpLib.Add Connection    version4    ${peer_mode}    ${VIRTUAL_IP}    64999    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
