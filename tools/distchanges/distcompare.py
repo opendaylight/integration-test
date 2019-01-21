@@ -25,13 +25,13 @@ class DistCompare(object):
 
         return projects
         """
-        # this hard coded list of projects was taken from a Carbon dependencies.log - late January 2017
-        return ['eman', 'integration/distribution', 'snbi', 'mdsal', 'alto', 'sfc', 'sdninterfaceapp', 'topoprocessing',
-                'usc', 'ovsdb', 'lispflowmapping', 'groupbasedpolicy', 'usecplugin', 'snmp4sdn', 'capwap', 'aaa',
-                'honeycomb/vbd', 'atrium', 'next', 'nic', 'vtn', 'lacp', 'openflowplugin', 'faas', 'ttp', 'of-config',
-                'packetcable', 'genius', 'yangtools', 'natapp', 'didm', 'infrautils', 'netide', 'netvirt', 'neutron',
-                'cardinal', 'snmp', 'bgpcep', 'nemo', 'netconf', 'yang-push', 'iotdm', 'tsdr', 'sxp', 'centinel',
-                'odlparent', 'l2switch', 'unimgr', 'openflowjava', 'ocpplugin', 'dlux', 'controller']
+        # this hard coded list of projects was taken from Oxygen dependencies.log - late January 2018
+        return ['integration/distribution', 'mdsal', 'alto', 'sfc', 'bier', 'serviceutils',
+                'usc', 'ovsdb', 'lispflowmapping', 'groupbasedpolicy', 'snmp4sdn', 'aaa',
+                'honeycomb/vbd', 'openflowplugin', 'of-config', 'daexim', 'dluxapps', 'coe',
+                'packetcable', 'genius', 'yangtools', 'infrautils', 'netvirt', 'neutron',
+                'snmp', 'bgpcep', 'nemo', 'netconf', 'tsdr', 'sxp', 'jsonrpc', 'p4plugin',
+                'odlparent', 'l2switch', 'dlux', 'controller']
 
     def run_cmd(self):
         query_limit = 100
