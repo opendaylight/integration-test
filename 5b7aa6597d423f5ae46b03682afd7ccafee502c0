@@ -16,6 +16,24 @@
       "revId": "5b7aa6597d423f5ae46b03682afd7ccafee502c0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "156821b7_fb884795",
+        "filename": "csit/variables/coe/Modules.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-21T04:33:24Z",
+      "side": 1,
+      "message": "Thanks Jamo!",
+      "parentUuid": "19ed96ee_1fbcbb43",
+      "revId": "5b7aa6597d423f5ae46b03682afd7ccafee502c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
