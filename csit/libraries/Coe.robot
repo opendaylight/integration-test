@@ -172,6 +172,9 @@ Delete Pods
     \    ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-\\w+
     \    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl delete pods ${pod_name}
     BuiltIn.Wait Until Keyword Succeeds    60s    3s    Coe.Check If Pods Are Terminated
+    : FOR    ${minion_index}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
+    \    ${switch output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_${minion_index}_IP}    sudo ovs-vsctl show
+    \    BuiltIn.Should Not Contain    ${switch output}    veth
 
 Check If Pods Are Terminated
     [Documentation]    Checks if the pods created have been terminated.The keyword is repeated until the pods are deleted
