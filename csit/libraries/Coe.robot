@@ -172,6 +172,7 @@ Delete Pods
     \    ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-\\w+
     \    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl delete pods ${pod_name}
     BuiltIn.Wait Until Keyword Succeeds    60s    3s    Coe.Check If Pods Are Terminated
+    Coe.Check For Stale veth Ports
 
 Check If Pods Are Terminated
     [Documentation]    Checks if the pods created have been terminated.The keyword is repeated until the pods are deleted
@@ -274,3 +275,9 @@ Extract current suite name
     ${suite line}    ${current_suite} =    BuiltIn.Run Keyword If    ${num_suites} > ${1}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
     ...    ELSE    BuiltIn.Set Variable    @{suite_names_updated}[0]    @{suite_names_updated}[0]
     [Return]    ${current_suite}    ${suite_names_updated}
+
+Check For Stale veth Ports
+    [Documentation]    Check on switches(except master) where pods were created and deleted to ensure there are no stale veth ports left behind.
+    : FOR    ${minion_index}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
+    \    ${switch output} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_${minion_index}_IP}    sudo ovs-vsctl show
+    \    BuiltIn.Should Not Contain    ${switch output}    veth
