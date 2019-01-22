@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c92048_9ceba2f1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "double checking that you don\u0027t want a space here? maybe\nit was a typo. I don\u0027t care which way, just noticed it.",
+      "range": {
+        "startLine": 303,
+        "startChar": 28,
+        "endLine": 303,
+        "endChar": 42
+      },
+      "revId": "94e53284999524c48cef4b3186c411df917fa6a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72cd94fe_665a5fc4",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "move these two lines outside of the FOR loop",
+      "range": {
+        "startLine": 325,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 61
+      },
+      "revId": "94e53284999524c48cef4b3186c411df917fa6a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
