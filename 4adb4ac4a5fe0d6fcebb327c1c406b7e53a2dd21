@@ -22,6 +22,30 @@
       "revId": "4adb4ac4a5fe0d6fcebb327c1c406b7e53a2dd21",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf22a61e_04722830",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-22T04:34:13Z",
+      "side": 1,
+      "message": "As i have mentioned in documentation check has to be done only for minions where we create pods. 1 is assigned master role where we donot create any pods hence no chance of getting stale port over there.",
+      "parentUuid": "2b4b6c85_188aa6b5",
+      "range": {
+        "startLine": 281,
+        "startChar": 44,
+        "endLine": 281,
+        "endChar": 45
+      },
+      "revId": "4adb4ac4a5fe0d6fcebb327c1c406b7e53a2dd21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
