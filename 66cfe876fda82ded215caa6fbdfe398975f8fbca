@@ -89,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "682b8568_2aefc47e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "check the clustermanagement lib. I know that is\nusing lists as arguments.",
+      "parentUuid": "bcd1817e_bbdcc170",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -206,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "31b8faae_23c6cf75",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "the problem is that Create Vteps seems like something you\ncould be using throughout the suite. so SUBNET and VTEP_BODY\ncould be changing and you could lose track. If this is really just happening in the suite setup and never again,\nit will probably be fine. it\u0027s just not the best practice.\n\nyou could probably make a \"Get ...\" keyword to figure\nout your VTEP_BODY and use that in the delete test case\nif it was important enough to change.",
+      "parentUuid": "09dc781b_dc860450",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02a80071_ae4879a7",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -305,6 +353,30 @@
       "side": 1,
       "message": "But this variable is used in many test cases,Wouldn\u0027t be like building the dpn id list then and there if we return the keyword?",
       "parentUuid": "5b152d5d_2993ea18",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6b969f0_1b37e48a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "yeah, if this is only done once at the beginning of the\nsuite it will be safe. Again, using lots of suite/global\nvars is an easy way to get in to trouble and usually that\ntrouble falls on the person that notices some failure/odditiy in a result and it takes a lot of cycles\nto figure out that a widely scoped variable was getting\nre-written by some other keyword at a bad time.",
+      "parentUuid": "c4582d63_09e2c74c",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -469,6 +541,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "this seems magical. why these specific values?",
+      "range": {
+        "startLine": 268,
+        "startChar": 96,
+        "endLine": 268,
+        "endChar": 106
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf83b68_c6e2f92f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "?",
+      "parentUuid": "ffa62871_da76bb65",
       "range": {
         "startLine": 268,
         "startChar": 96,
@@ -787,6 +883,30 @@
     },
     {
       "key": {
+        "uuid": "1e41a0fe_2f28e5db",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "since I guess you\u0027ll be doing another update, I think you\nwant underscores instead of spaces right? to stay consistent?",
+      "parentUuid": "529d3e2d_d148b391",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "961b2a74_60576341",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -869,6 +989,30 @@
       "side": 1,
       "message": "but this list is used in only few testcases moving it to setup will build the list unnecessarily for all suites hense moved to a separate keyword.",
       "parentUuid": "f767b7ec_19198bce",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 59
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5da4d4f6_bd4815f9",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "sure. works for me",
+      "parentUuid": "fe028d16_da26930f",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -1069,6 +1213,30 @@
     },
     {
       "key": {
+        "uuid": "a77455c7_3c0a7d41",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "what about the ipv6 part?",
+      "parentUuid": "45e19baf_b32bbbab",
+      "range": {
+        "startLine": 119,
+        "startChar": 72,
+        "endLine": 119,
+        "endChar": 111
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81edc284_1003f515",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -1080,6 +1248,30 @@
       "writtenOn": "2019-01-18T01:15:31Z",
       "side": 1,
       "message": "use space \u003d syntax. applies elsewhere here too",
+      "range": {
+        "startLine": 181,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 28
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08b34c9e_850d7e4d",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-22T18:55:48Z",
+      "side": 1,
+      "message": "missed this one",
+      "parentUuid": "81edc284_1003f515",
       "range": {
         "startLine": 181,
         "startChar": 4,
