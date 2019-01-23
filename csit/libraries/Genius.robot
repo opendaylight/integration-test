@@ -324,3 +324,8 @@ SRM Stop Suite
     Delete All Vteps
     Genius Suite Debugs    ${data_models}
     Genius Suite Teardown
+
+Verify Tunnel Monitoring Status
+    [Arguments]    ${tunnel_monitor_status}
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Should Contain    ${output}    ${tunnel_monitor_status}
