@@ -345,9 +345,10 @@ Check If Instance Is Ready For Ssh Login Using PublicKey
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Check If Instance Is Ready For Ssh Login Using Password
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${console}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
-    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    console=${console}
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    ${user}    ${password}
+    ...    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
