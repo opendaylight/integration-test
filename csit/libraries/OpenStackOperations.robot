@@ -211,10 +211,22 @@ Add New Image From Url
     BuiltIn.Should Be True    '${rc}' == '0'
     ${output} =    OpenStack CLI    openstack image create ${image_name} --file /tmp/new_image.qcow2 --disk-format qcow2 --container-format bare --public
 
+Delete Image
+    [Arguments]    ${image_name}
+    [Documentation]    To Delete existing Image with the given name
+    ${output} =    OpenStack CLI    openstack image delete ${image_name}
+    [Return]    ${output}
+
 Create Flavor
     [Arguments]    ${flavor_name}    ${ram_in_mb}    ${disk_in_gb}    ${ncpu}=1
     [Documentation]    To create new flavors for instance deployment and testing
     ${output} =    OpenStack CLI    openstack flavor create ${flavor_name} --ram ${ram_in_mb} --disk ${disk_in_gb} --vcpus ${ncpu}
+
+Delete Flavor
+    [Arguments]    ${flavor_name}
+    [Documentation]    To Delete existing flavors with the given name
+    ${output} =    OpenStack CLI    openstack flavor delete ${flavor_name}
+    [Return]    ${output}
 
 Create Keypair
     [Arguments]    ${keyname}    ${public_key_file}
@@ -345,9 +357,10 @@ Check If Instance Is Ready For Ssh Login Using PublicKey
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Check If Instance Is Ready For Ssh Login Using Password
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${console}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${OS_SYSTEM_PROMPT}=$    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
-    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    console=${console}
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    ${user}    ${password}
+    ...    ${OS_SYSTEM_PROMPT}    ${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
@@ -447,15 +460,15 @@ Close Vm Instance
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    exit
 
 Check If Console Is VmInstance
-    [Arguments]    ${console}=cirros
+    [Arguments]    ${console}=cirros    ${OS_SYSTEM_PROMPT}=$
     [Documentation]    Check if the session has been able to login to the VM instance
     ${output} =    Utils.Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
     BuiltIn.Should Contain    ${output}    ${console}
 
 Exit From Vm Console
-    [Arguments]    ${console}=cirros
+    [Arguments]    ${console}=cirros    ${OS_SYSTEM_PROMPT}=$
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
-    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}    ${OS_SYSTEM_PROMPT}
     BuiltIn.Run Keyword If    ${rcode}    DevstackUtils.Write Commands Until Prompt    exit
 
 Check Ping
@@ -480,16 +493,16 @@ Check Metadata Access
     BuiltIn.Should Contain    ${output}    200
 
 Execute Command on VM Instance
-    [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)    ${cmd_timeout}=30s
-    ...    ${console}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)    ${OS_SYSTEM_PROMPT}=$
+    ...    ${console}=cirros    ${cmd_timeout}=30s
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=password    password:
     ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
-    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}    ${OS_SYSTEM_PROMPT}
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}    timeout=${cmd_timeout}
-    [Teardown]    Exit From Vm Console    ${console}
+    [Teardown]    Exit From Vm Console    ${console}    ${OS_SYSTEM_PROMPT}
     [Return]    ${output}
 
 Execute Command on VM Instance With PublicKey Auth
