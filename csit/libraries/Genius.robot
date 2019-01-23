@@ -201,6 +201,11 @@ Verify Tunnel Monitoring is on
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
 
+Verify Tunnel Monitoring Is Off
+    [Documentation]    This keyword will get tep:show output and verify tunnel monitoring status
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
+
 Ovs Verification For 2 Dpn
     [Arguments]    ${connection_id}    ${local}    ${remote-1}    ${tunnel}    ${tunnel-type}
     [Documentation]    Checks whether the created Interface is seen on OVS or not.
