@@ -211,10 +211,22 @@ Add New Image From Url
     BuiltIn.Should Be True    '${rc}' == '0'
     ${output} =    OpenStack CLI    openstack image create ${image_name} --file /tmp/new_image.qcow2 --disk-format qcow2 --container-format bare --public
 
+Delete Image
+    [Arguments]    ${image_name}
+    [Documentation]    To Delete existing Image with the given name
+    ${output} =    OpenStack CLI    openstack image delete ${image_name}
+    [Return]    ${output}
+
 Create Flavor
     [Arguments]    ${flavor_name}    ${ram_in_mb}    ${disk_in_gb}    ${ncpu}=1
     [Documentation]    To create new flavors for instance deployment and testing
     ${output} =    OpenStack CLI    openstack flavor create ${flavor_name} --ram ${ram_in_mb} --disk ${disk_in_gb} --vcpus ${ncpu}
+
+Delete Flavor
+    [Arguments]    ${flavor_name}
+    [Documentation]    To Delete existing flavors with the given name
+    ${output} =    OpenStack CLI    openstack flavor delete ${flavor_name}
+    [Return]    ${output}
 
 Create Keypair
     [Arguments]    ${keyname}    ${public_key_file}
@@ -345,9 +357,10 @@ Check If Instance Is Ready For Ssh Login Using PublicKey
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Check If Instance Is Ready For Ssh Login Using Password
-    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${console}=cirros
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${OS_SYSTEM_PROMPT}=$    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
-    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    console=${console}
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    ${user}    ${password}
+    ...    ${OS_SYSTEM_PROMPT}    ${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
