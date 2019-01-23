@@ -28,7 +28,6 @@ ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
 ${INTERVAL_5000}    {"tunnel-monitor-interval":{"interval":5000}}
-${OK_201}         201
 ${ENABLE_MONITORING}    {"tunnel-monitor-params":{"enabled":true,"monitor-protocol":"odl-interface:tunnel-monitoring-type-bfd"}}
 ${DISABLE_MONITORING}    {"tunnel-monitor-params":{"enabled":"false","monitor-protocol":"odl-interface:tunnel-monitoring-type-bfd"}}
 ${TUNNEL_MONI_PARAMS_TRUE}    true
@@ -40,8 +39,8 @@ ${INTERFACE_DS_MONI_INT_5000}    "odl-interface:monitor-interval": 5000
 ${TUNNEL_MONI_PROTO}    tunnel-monitoring-type-bfd
 
 *** Test Cases ***
-BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
-    [Documentation]    Create ITM between DPNs Verify_BFD_Enablement
+BFD_TC00 Create ITM between DPNs
+    [Documentation]    Create ITM between DPNs
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${vlan}=    Set Variable    0
@@ -49,12 +48,20 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status as UP    TZA
 
-BFD_TC01 Verify by default BFD monitoring is enabled on Controller
-    [Documentation]    Verify by default BFD monitoring is enabled on Controller
+BFD_TC01 Verify by default BFD monitoring is disabled on Controller
+    [Documentation]    Verify by default BFD monitoring is disabled on Controller
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is Off
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+
+BFD_TC02 Enable BFD Monitoring And Verify On Controller
+    [Documentation]    Enable BFD monitoring and verify that BFD is enabled in the controller.
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
+    Should Be Equal As Strings    ${resp.status_code}    201
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
-BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
+BFD_TC03 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
     [Documentation]    This will verify BFD tunnel monitoring default interval
     ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
     ${tunnel_monitoring} =    Get Lines Containing String    ${output}    Tunnel Monitoring Interval
@@ -101,20 +108,15 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP    TZA
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
-BFD_TC07 Verify that BFD monitoring is disabled on Controller
-    [Documentation]    Verify that BFD monitoring is disabled on Controller
+BFD_TC07 Disable BFD monitoring And Verify On Controller
+    [Documentation]    Disable BFD monitoring(setting it to default value) and verify that BFD is disabled on the controller.
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${DISABLE_MONITORING}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_FALSE}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP    TZA
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 *** Keywords ***
 Verify Config Ietf Interface Output
