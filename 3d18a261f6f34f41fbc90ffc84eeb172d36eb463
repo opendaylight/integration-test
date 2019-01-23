@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64552e25_61fc7f85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-23T16:39:56Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29d0f70a_ff9e6ab8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-23T16:39:56Z",
+      "side": 1,
+      "message": "isn\u0027t this going to be done in newer releases, while the\ndefault will remain enabled in existing releases? if so,\ndo you need to account for that in the changes?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb20f31f_5dab4367",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-23T16:39:56Z",
+      "side": 1,
+      "message": "${OK_201} ?",
+      "range": {
+        "startLine": 59,
+        "startChar": 57,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
