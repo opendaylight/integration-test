@@ -29,11 +29,9 @@ ${HTTP_FAILURE}    connect() timed out!
 ${WEBSERVER_80}    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server80" | sudo nc -l -p 80 ; done
 ${WEBSERVER_81}    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server81" | sudo nc -l -p 81 ; done
 ${WEBSERVER_82}    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server82" | sudo nc -l -p 82 ; done
-${CLOUD_IMAGE}    "https://cloud-images.ubuntu.com/releases/18.04/release/ubuntu-18.04-server-cloudimg-amd64.img"
-${CLOUD_IMAGE_NAME}    ubuntu
-${CLOUD_FLAVOR_NAME}    ubuntu
-${CLOUD_USER_NAME}    ubuntu
-${VXLAN_TOOL_URL}    "https://git.opendaylight.org/gerrit/gitweb?p=sfc.git;a=blob_plain;f=sfc-test/nsh-tools/vxlan_tool.py;h=1445292405bc17516d03e4a448ac2e0f65d38e79;hb=HEAD"
+${CLOUD_IMAGE}    "https://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
+${CLOUD_IMAGE_NAME}    sfc_nsh_fraser
+${CLOUD_FLAVOR_NAME}    sfc_nsh_fraser
 @{NETVIRT_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN
 
 *** Test Cases ***
@@ -67,17 +65,17 @@ Create Port Chain For Src->Dest Port 80
 
 Test Communication From Vm Instance1 In net_1 Port 80 via SF
     [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for curl to be higher.
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_SUCCESS}
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off --block 80
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off --block 80
     BuiltIn.Comment    Port 80 communication should fail as the SF blocks the same
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_FAILURE}
     BuiltIn.Comment    Test to confirm Port 81 is not blocked
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off --block 81
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off --block 81
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_SUCCESS}
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
@@ -93,19 +91,19 @@ Update Port Chain To Use Flow Classifier For Port 81
 Test Communication From Vm Instance1 In net_1 Port 81 via SF
     [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for curl to be higher.
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_SUCCESS}
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_SUCCESS}
     ...    cmd_timeout=60s
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off --block 81
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off --block 81
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_SUCCESS}
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_FAILURE}
     ...    cmd_timeout=60s
     BuiltIn.Comment    Port 81 communication should fail as the SF blocks the same
     BuiltIn.Comment    Test to confirm Port 80 does not continue to get routed through SF
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off --block 80
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off --block 80
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]    ${HTTP_SUCCESS}
     Wait Until Keyword Succeeds    3x    10s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} http://@{NET1_VM_IPS}[1]:81    ${HTTP_SUCCESS}
     ...    cmd_timeout=60s
@@ -122,26 +120,26 @@ Delete And Recreate Port Chain And Flow Classifiers For Symmetric Test
 Test Communication From Vm Instance1 For Symmetric Chain
     [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for curl to be higher.
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens3 --output ens2 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth1 --output eth0 --verbose off
     Wait Until Keyword Succeeds    8x    20s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} --local-port 2000 -m 60 http://@{NET1_VM_IPS}[1]:82    ${HTTP_SUCCESS}
     ...    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm the SRC->DEST Port 82 is routed through SF
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off --block 82
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens3 --output ens2 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off --block 82
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth1 --output eth0 --verbose off
     Wait Until Keyword Succeeds    8x    20s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} --local-port 2000 -m 60 http://@{NET1_VM_IPS}[1]:82    ${HTTP_FAILURE}
     ...    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm DEST->SRC Port 2000 path SFC traversal
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens3 --output ens2 --verbose off --block 2000
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth1 --output eth0 --verbose off --block 2000
     Wait Until Keyword Succeeds    8x    20s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} --local-port 2000 -m 60 http://@{NET1_VM_IPS}[1]:82    ${HTTP_FAILURE}
     ...    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm the Normalcy restored
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens2 --output ens3 --verbose off
-    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ens3 --output ens2 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth0 --output eth1 --verbose off
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface eth1 --output eth0 --verbose off
     Wait Until Keyword Succeeds    8x    20s    Access Http And Check Status    @{NETWORKS}[0]    ${CURL_COMMAND} --local-port 2000 -m 60 http://@{NET1_VM_IPS}[1]:82    ${HTTP_SUCCESS}
     ...    cmd_timeout=80s
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
@@ -169,6 +167,8 @@ Delete Configurations
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Delete Network    ${network}
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Delete Flavor    ${CLOUD_FLAVOR_NAME}
+    OpenStackOperations.Delete Image    ${CLOUD_IMAGE_NAME}
 
 *** Keywords ***
 Suite Setup
@@ -203,12 +203,10 @@ Create Ports For Testing
 
 Create Instances For Testing
     ${SF_COMP_HOST} =    BuiltIn.Set Variable If    2 < ${NUM_OS_SYSTEM}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}
-    BuiltIn.Comment    Create one ubuntu instance and two cirros instances
     OpenStackOperations.Add New Image From Url    ${CLOUD_IMAGE}    ${CLOUD_IMAGE_NAME}
     OpenStackOperations.Create Flavor    ${CLOUD_FLAVOR_NAME}    2048    4
-    OpenStackOperations.Generate And Add Keypair    sfctest    odlsfctest
-    OpenStackOperations.Create Vm Instance With Ports And Key On Compute Node    p1in    p1out    sf1    ${SF_COMP_HOST}    image=${CLOUD_IMAGE_NAME}    flavor=${CLOUD_FLAVOR_NAME}
-    ...    sg=${SECURITY_GROUP}    keyname=sfctest
+    OpenStackOperations.Create Vm Instance With Ports On Compute Node    p1in    p1out    sf1    ${SF_COMP_HOST}    image=${CLOUD_IMAGE_NAME}    flavor=${CLOUD_FLAVOR_NAME}
+    ...    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    source_vm_port    sourcevm    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}    flavor=cirros256
     OpenStackOperations.Create Vm Instance With Port On Compute Node    dest_vm_port    destvm    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}    flavor=cirros256
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
@@ -231,8 +229,7 @@ Check Vm Instances Have Ip Address And Ready For Test
     ${NET1_VM_IPS}    BuiltIn.Create List    ${src_ip}    ${dest_ip}
     BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
     BuiltIn.Set Suite Variable    ${SF1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using PublicKey    @{NETWORKS}[0]    ${SF1_IP}    user=ubuntu
-    ...    idfile=/tmp/odlsfctest    console=ubuntu
+    BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    ${SF1_IP}    user=root    password=opnfv    OS_SYSTEM_PROMPT=#    console=root
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]
     BuiltIn.Wait Until Keyword Succeeds    300s    60s    OpenStackOperations.Check If Instance Is Ready For Ssh Login Using Password    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
@@ -243,22 +240,16 @@ Start Applications on VM Instances For Test
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_80} &
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_81} &
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_82} &
-    BuiltIn.Comment    Get vxlan_tool script
-    Utils.Download File On Openstack Node    ${OS_CNTL_CONN_ID}    vxlan_tool.py    ${VXLAN_TOOL_URL}
-    BuiltIn.Comment    Copy vxlan_tool script to SFC VM
-    OpenStackOperations.Copy File To VM Instance With PublicKey Auth    @{NETWORKS}[0]    ${SF1_IP}    /tmp/vxlan_tool.py    user=${CLOUD_USER_NAME}    idfile=/tmp/odlsfctest
-    BuiltIn.Comment    Bring up the second Interface for egress
-    Execute Command on VM Instance with PublicKey Auth    @{NETWORKS}[0]    ${SF1_IP}    sudo ifconfig ens3 up    user=${CLOUD_USER_NAME}    idfile=/tmp/odlsfctest    console=ubuntu
 
 Start Vxlan Tool in SF
     [Arguments]    ${network}    ${sf_vm_ip}    ${args}=${EMPTY}
     [Documentation]    Starts the tool in the SF VM's
-    Execute Command on VM Instance with PublicKey Auth    ${network}    ${sf_vm_ip}    nohup sudo python3 /tmp/vxlan_tool.py ${args} &    user=ubuntu    idfile=/tmp/odlsfctest    console=ubuntu
+    Execute Command on VM Instance    ${network}    ${sf_vm_ip}    nohup python vxlan_tool.py ${args} &    user=root    password=opnfv    OS_SYSTEM_PROMPT=#    console=root
 
 Stop Vxlan Tool in SF
     [Arguments]    ${network}    ${sf_vm_ip}
     [Documentation]    Starts the tool in the SF VM's
-    Execute Command on VM Instance With PublicKey Auth    ${network}    ${sf_vm_ip}    sudo pkill python3    user=ubuntu    idfile=/tmp/odlsfctest    console=ubuntu
+    Execute Command on VM Instance    ${network}    ${sf_vm_ip}    pkill python    user=root    password=opnfv    OS_SYSTEM_PROMPT=#    console=root
 
 Access Http And Check Status
     [Arguments]    ${vm_ip}    ${curl_command}    ${ret_code}    ${cmd_timeout}=30s
