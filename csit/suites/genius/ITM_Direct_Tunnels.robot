@@ -69,22 +69,10 @@ Verify VTEP After Restarting Controller
     Wait Until Keyword Succeeds    60    3    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
-Verify Tunnels By Disabling BFD
-    [Documentation]    This test case will verify tunnels after disabling BFD and verifies tunnel status as unknown after stopping OVS.
-    ${result} =    Run Keyword And Return Status    Verify Tunnel Monitoring is on
-    Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
-    ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${conn_id_1}
-    OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
-    Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
-    OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
-
-Verify Tunnels By Enabling BFD
-    [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
-    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
-    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
+Verify Tunnels By Enabling/Disabling BFD
+    [Documentation]    Verify tunnel creation by enabling and disabling BFD one after another with respect to the branch.
+    CompareStream.Run_Keyword_If_At_Least_Neon    BuiltIn.Run Keywords    Verify Tunnels By Enabling BFD    Verify Tunnels By Disabling BFD
+    CompareStream.Run_Keyword_If_Less_Than_Neon    BuiltIn.Run Keywords    Verify Tunnels By Disabling BFD    Verify Tunnels By Enabling BFD
 
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
@@ -157,3 +145,20 @@ Get Port Number
 Disable_Tunnel_Monitoring
     [Documentation]    In this we will disable tunnel monitoring by tep:enable command running in karaf console
     ${output}    Issue_Command_On_Karaf_Console    tep:enable-tunnel-monitor false
+
+Verify Tunnels By Enabling BFD
+    [Documentation]    Verify tunnel creation by enabling BFD monitoring.
+    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
+
+Verify Tunnels By Disabling BFD
+    [Documentation]    Verify tunnel creation by disabling BFD monitoring.
+    ${result} =    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
+    ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${conn_id_1}
+    OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
+    Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
+    OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
