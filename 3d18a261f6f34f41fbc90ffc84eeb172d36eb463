@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "bdb4d50b_d0572626",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-24T04:52:43Z",
+      "side": 1,
+      "message": "Jamo, this was discussed before, and all the projects are okay to make this change. Have taken a go from sfc and in fact netvirt is the one who requested for the change. We would like to get this in for Neon itself. But, we do have a corresponding patch in genius, and both have to be merged together.",
+      "parentUuid": "29d0f70a_ff9e6ab8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb20f31f_5dab4367",
         "filename": "csit/suites/genius/BFD_monitoring.robot",
         "patchSetId": 4
