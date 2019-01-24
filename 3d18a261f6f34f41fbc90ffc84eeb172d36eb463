@@ -188,6 +188,30 @@
       "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4ac969c_5835012b",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-01-24T16:33:07Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "8b956aa8_961c6d36",
+      "range": {
+        "startLine": 59,
+        "startChar": 57,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
