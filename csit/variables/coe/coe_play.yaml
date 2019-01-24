@@ -176,5 +176,81 @@
         mode: 0700
       become: true
     - name: Join cluster
-      shell: /tmp/join-k8s.sh
+      shell: /tmp/join-k8s.sh && touch /tmp/k8s-joined
       become: true
+      args:
+          creates: /tmp/k8s-joined
+
+- hosts: coe-hosts
+  vars:
+      gopath: "{{ ansible_env.HOME}}/go"
+      coe_path: "{{ gopath }}/src/git.opendaylight.org/gerrit/p/coe.git"
+      watcher_path: "{{ coe_path }}/watcher"
+  tasks:
+      - name: Get hostname
+        shell: "hostname"
+        register: node_hostname_cmd
+      - name: Set hostname variable
+        set_fact:
+            node_hostname="{{node_hostname_cmd.stdout_lines[0]}}"
+      - name: Generate UID
+        shell: "echo {{ node_hostname }} | sha256sum | awk '{print $1}' | xargs ./generate-uid.sh"
+        args:
+            chdir: "{{ watcher_path }}"
+        register: node_uid_cmd
+      - name: Set UID variable
+        set_fact:
+            node_uid={{node_uid_cmd.stdout_lines[0]}}
+            veth_interface_id={{node_uid_cmd.stdout_lines[1]}}
+      - name: Generate pod request
+        template:
+            src: "{{ pod_json_path }}"
+            dest: /tmp/odl-pod.json
+      - name: PUT to ODL
+        shell: "curl -v -X PUT -u admin:admin -H \"Content-Type: application/json\" -d @/tmp/odl-pod.json http://{{controller_ip}}:{{restconf_port}}/restconf/config/pod:coe/pods/{{node_uid}} && touch /tmp/odl-pod-sent"
+        args:
+            creates: "/tmp/odl-pod-sent"
+      - name: Create OVS port
+        shell: "ovs-vsctl add-port br-int veth{{ veth_interface_id }} -- set Interface veth{{ veth_interface_id }} type=internal && touch /tmp/ovs-port-added"
+        become: true
+        args:
+            creates: "/tmp/ovs-port-added"
+      - name: Get interface mac address
+        shell: "ifconfig veth{{ veth_interface_id }} | grep ether | awk '{print $2}'"
+        register: mac_address_cmd
+      - name: Register mac address variable
+        set_fact:
+            mac_address: "{{mac_address_cmd.stdout_lines[0]}}"
+      - name: Configure veth port
+        shell: "ovs-vsctl set Interface veth{{ veth_interface_id }} external-ids:iface-id='00000000-0000-0000-0000-000000000001:{{ node_hostname }}-services' external-ids:attached-mac=\"{{ mac_address }}\" external-ids:is-service-gateway=true && touch /tmp/ovs-interface-configured"
+        args:
+            creates: /tmp/ovs-interface-configured
+        become: true
+      - name: "Disable br-int linux interface"
+        shell: "ip link set br-int down"
+        become: true
+      - name: Set veth ip
+        shell: "ip addr add {{ services_ip_address }}/24 dev veth{{ veth_interface_id }} && touch /tmp/set-veth-ip"
+        become: true
+        args:
+            creates: /tmp/set-veth-ip
+      - name: Set veth state up
+        shell: "ip link set dev veth{{ veth_interface_id }} up && touch /tmp/set-veth-up"
+        become: true
+        args:
+            creates: /tmp/set-veth-up
+      - name: Add services route
+        shell: "ip route add 10.96.0.0/12 via {{ services_ip_address }} && touch /tmp/set-service-route"
+        become: true
+        args:
+            creates: /tmp/set-service-route
+      - name: Add default ovs flow
+        shell: "ovs-ofctl -OOpenflow13 add-flow br-int table=21,priority=0,actions=resubmit\\(,17\\) && touch /tmp/ovs-default-flow-created"
+        become: true
+        args:
+            creates: /tmp/ovs-default-flow-created
+      - name: Add ip route
+        shell: "ip route add 10.11.0.0/16 via {{ gateway }} && touch /tmp/pod-network-gateway-created"
+        become: true
+        args:
+            creates: /tmp/pod-network-gateway-created
