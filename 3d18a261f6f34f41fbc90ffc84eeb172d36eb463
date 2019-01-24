@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa76e420_01d398a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T15:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64552e25_61fc7f85",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29d0f70a_ff9e6ab8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -107,6 +131,30 @@
       "writtenOn": "2019-01-23T16:39:56Z",
       "side": 1,
       "message": "${OK_201} ?",
+      "range": {
+        "startLine": 59,
+        "startChar": 57,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b956aa8_961c6d36",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T15:17:50Z",
+      "side": 1,
+      "message": "the variable was declared but not used any where and every other suite has 201 hardcoded hence following the same",
+      "parentUuid": "fb20f31f_5dab4367",
       "range": {
         "startLine": 59,
         "startChar": 57,
