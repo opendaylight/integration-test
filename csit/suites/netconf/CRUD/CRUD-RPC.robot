@@ -68,7 +68,8 @@ Wait_For_Device_To_Become_Connected
 
 Check_Device_Data_Is_Empty
     [Documentation]    Get the device data and make sure it is empty.
-    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    Run_Keyword_If_Less_Than_Neon    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    Run_Keyword_If_At_Least_Neon    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"/></data>
 
 Create_Device_Data_Label_Via_Xml
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
@@ -200,7 +201,8 @@ Delete_Device_Data
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
-    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    Run_Keyword_If_Less_Than_Neon    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    Run_Keyword_If_At_Least_Neon    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"/></data>
 
 Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
