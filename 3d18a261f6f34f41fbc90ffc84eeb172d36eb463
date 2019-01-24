@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5dfcbf9d_15ec0930",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-01-24T04:53:50Z",
+      "side": 1,
+      "message": "But yes, BFD will be diabled only from Neon, and hence we need to make some script changes so that the older default runs for previous releases.",
+      "parentUuid": "bdb4d50b_d0572626",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "3d18a261f6f34f41fbc90ffc84eeb172d36eb463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb20f31f_5dab4367",
         "filename": "csit/suites/genius/BFD_monitoring.robot",
         "patchSetId": 4
