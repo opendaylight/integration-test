@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "e8c934a9_1ba771b0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "Checked Jamo,but im able to find only run bash cmd on list or karaf command will this suite the above scenario",
+      "parentUuid": "682b8568_2aefc47e",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -254,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "2f69ad02_4c99934c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "yes Jamo just now understood clearly as of why it is a problem agree,but unable to find an alternate way so just changed the logic in delete testcase but curious to know a way for these scenarios",
+      "parentUuid": "31b8faae_23c6cf75",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02a80071_ae4879a7",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
@@ -377,6 +425,30 @@
       "side": 1,
       "message": "yeah, if this is only done once at the beginning of the\nsuite it will be safe. Again, using lots of suite/global\nvars is an easy way to get in to trouble and usually that\ntrouble falls on the person that notices some failure/odditiy in a result and it takes a lot of cycles\nto figure out that a widely scoped variable was getting\nre-written by some other keyword at a bad time.",
       "parentUuid": "c4582d63_09e2c74c",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04f4f06e_b6c0220e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "yes understood Jamo but since this is done only once in start suite it is safe we dont change the values anywhere as in ${VTEP_BODY}",
+      "parentUuid": "d6b969f0_1b37e48a",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -565,6 +637,30 @@
       "side": 1,
       "message": "?",
       "parentUuid": "ffa62871_da76bb65",
+      "range": {
+        "startLine": 268,
+        "startChar": 96,
+        "endLine": 268,
+        "endChar": 106
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5203f723_e12a9ee8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "we create tap port on each switch as we donot have openstack to create the port randomly",
+      "parentUuid": "3cf83b68_c6e2f92f",
       "range": {
         "startLine": 268,
         "startChar": 96,
@@ -907,6 +1003,30 @@
     },
     {
       "key": {
+        "uuid": "1c4f5a06_cb5f886f",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "yes sure",
+      "parentUuid": "1e41a0fe_2f28e5db",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 19
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "961b2a74_60576341",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -1237,6 +1357,30 @@
     },
     {
       "key": {
+        "uuid": "6ed3c377_79de76de",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "not needed this works fine",
+      "parentUuid": "a77455c7_3c0a7d41",
+      "range": {
+        "startLine": 119,
+        "startChar": 72,
+        "endLine": 119,
+        "endChar": 111
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81edc284_1003f515",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 9
@@ -1272,6 +1416,30 @@
       "side": 1,
       "message": "missed this one",
       "parentUuid": "81edc284_1003f515",
+      "range": {
+        "startLine": 181,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 28
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ddeae1d_fde6da6c",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-24T16:19:48Z",
+      "side": 1,
+      "message": "yes this comment applies in lots of places i have mentioned in the mail along with qualifying keywords I will fix this one also in a separate patch",
+      "parentUuid": "08b34c9e_850d7e4d",
       "range": {
         "startLine": 181,
         "startChar": 4,
