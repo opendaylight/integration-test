@@ -14,10 +14,10 @@
     "ipam": {
         "type": "host-local",
         "subnet": "{{ subnet }}",
-        "routes": [{
-            "dst": "0.0.0.0/0"
-        }],
-        "gateway": "{{ gateway }}"
+        "routes": [
+            {"dst": "0.0.0.0/0"},
+            { "dst": "10.11.0.0/16", "gw": "{{ gateway }}" }
+        ],
+        "gateway": "{{ services_ip_address }}"
     }
 }
-
