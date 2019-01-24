@@ -31,6 +31,7 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
@@ -115,7 +116,8 @@ Setup_Everything
 Check_Data_Present
     ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node2
-    BuiltIn.Should_Be_Equal_As_Strings    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${empty_data}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

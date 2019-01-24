@@ -36,6 +36,7 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -49,7 +50,6 @@ ${NODE_CHECKER}    node3
 ${DEVICE_CHECK_TIMEOUT}    10s
 ${DEVICE_NAME}    netconf-test-device
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
-${empty_data}     <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 ${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
 ${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 ${SCHEMA_DIRECTORY}    /tmp/schema
@@ -185,6 +185,8 @@ Setup_Everything
     RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     ${index_list} =    ClusterManagement.List_All_Indices
     ClusterManagement.Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${index_list}    Populate_Schema_Directory_Over_Active_Connection
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Set_Suite_Variable    ${empty_data}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

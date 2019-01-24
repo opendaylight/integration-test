@@ -20,6 +20,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -118,8 +119,8 @@ Read_Python_Tool_Operation_Result
     ${ellapsed}=    Collections.Get_From_List    ${test}    3
     BuiltIn.Log    DATA REQUEST RESULT: Device=${number} StartTime=${start} StopTime=${stop} EllapsedTime=${ellapsed}
     ${data}=    Collections.Get_From_List    ${test}    4
-    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
-    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${empty_data}
 
 Deconfigure_Device
     [Arguments]    ${current_name}

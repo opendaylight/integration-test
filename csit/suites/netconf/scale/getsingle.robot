@@ -17,6 +17,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -84,7 +85,8 @@ Check_Device_Data
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
     ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/node/${current_name}/yang-ext:mount    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
-    BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Should_Be_Equal    ${data}    ${empty_data}
 
 Deconfigure_Device
     [Arguments]    ${current_name}

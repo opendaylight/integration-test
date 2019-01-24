@@ -40,6 +40,7 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
@@ -178,7 +179,8 @@ Setup_Everything
     BuiltIn.Set_Suite_Variable    ${node3_session}
     # Constants that are not meant to be overriden by the users
     BuiltIn.Set_Suite_Variable    ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
-    BuiltIn.Set_Suite_Variable    ${empty_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Set_Suite_Variable    ${empty_data}
     ${cont}=    BuiltIn.Set_Variable    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>
     ${contend}=    BuiltIn.Set_Variable    </l></cont></data>
     BuiltIn.Set_Suite_Variable    ${original_data}    ${cont}Content${contend}

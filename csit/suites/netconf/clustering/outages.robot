@@ -29,6 +29,7 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
@@ -189,7 +190,8 @@ Setup_Everything
     RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     BuiltIn.Set_Suite_Variable    ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
-    BuiltIn.Set_Suite_Variable    ${empty_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Set_Suite_Variable    ${empty_data}
     BuiltIn.Set_Suite_Variable    ${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
     BuiltIn.Set_Suite_Variable    ${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
     ${url}=    Builtin.Set_Variable    /network-topology:network-topology/topology/topology-netconf

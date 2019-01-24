@@ -40,6 +40,7 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -54,7 +55,6 @@ ${NODE_CHECKER}    node3
 ${DEVICE_CHECK_TIMEOUT}    10s
 ${DEVICE_NAME}    netconf-test-device
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
-${empty_data}     <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 ${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
 ${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
@@ -196,6 +196,8 @@ Setup_Everything
     RequestsLibrary.Create_Session    node1    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    ${empty_data}=   CompareStream.Set_Variable_If_At_Least_Neon    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    BuiltIn.Set_Suite_Variable    ${empty_data}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
