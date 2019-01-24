@@ -19,9 +19,10 @@ ${BUSY_BOX}       ${CURDIR}/../variables/coe/busy-box.yaml
 ${CNI_BINARY_FILE}    /opt/cni/bin/odlovs-cni
 ${CONFIG_FILE}    /etc/cni/net.d/odlovs-cni.conf
 ${CONFIG_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/odlovs-cni.conf.j2
+${SERVICE_GATEWAY_POD_JSON}    ${CURDIR}/../variables/coe/odl-pod.json.j2
 ${HOST_INVENTORY}    ${CURDIR}/../variables/coe/hosts.yaml
 ${K8s_MASTER_IP}    ${TOOLS_SYSTEM_1_IP}
-${HOSTS_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/minions_template.yaml
+${MINION_INVENTORY_TEMPLATE}    ${CURDIR}/../variables/coe/minions_template.yaml
 ${NODE_READY_STATUS}    \\sReady    # The check using this variable should not mess up with NotReady
 ${PLAYBOOK_FILE}    ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
@@ -79,12 +80,12 @@ Configuration Playbook
 
 Run Coe Playbook
     [Arguments]    ${gerrit_ref_spec}
-    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"FETCH_HEAD","gerrit_refspec":"${gerrit_ref_spec}"}'
+    ${play_output} =    OperatingSystem.Run    ansible-playbook -v ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml --extra-vars '{"gerrit_branch":"FETCH_HEAD","gerrit_refspec":"${gerrit_ref_spec}","controller_ip":"${ODL_SYSTEM_1_IP}","restconf_port":"${RESTCONFPORT}"}'
     BuiltIn.Log    ${play_output}
 
 Modifying templates in playbook
     ${inventory} =    OperatingSystem.Get File    ${HOST_INVENTORY}
-    ${template} =    OperatingSystem.Get File    ${HOSTS_FILE_TEMPLATE}
+    ${template} =    OperatingSystem.Get File    ${MINION_INVENTORY_TEMPLATE}
     ${template} =    String.Replace String    ${template}    minion_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}
     @{minions}    Create List    coe-minion
     ${hosts}    Set Variable    coe-master:
@@ -101,6 +102,7 @@ Modifying templates in playbook
     \    ${template} =    String.Replace String    ${template}    192.168.50.1${i}    192.168.50.1${j}
     \    ${template} =    String.Replace String    ${template}    10.11.${i}.0/24    10.11.${j}.0/24
     \    ${template} =    String.Replace String    ${template}    10.11.${i}.1    10.11.${j}.1
+    \    ${template} =    String.Replace String    ${template}    10.11.${i}.254    10.11.${j}.254
     \    Append To File    ${HOST_INVENTORY}    ${template}
     ${host file} =    OperatingSystem.Get File    ${HOST_INVENTORY}
     ${host file} =    String.Replace String    ${host file}    master_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}
@@ -109,6 +111,7 @@ Modifying templates in playbook
     ${host file} =    String.Replace String    ${host file}    cport    ${ODL_OF_PORT_6653}
     ${host file} =    String.Replace String    ${host file}    filepath    ${CONFIG_FILE_TEMPLATE}
     ${host file} =    String.Replace String    ${host file}    yamlpath    ${USER_HOME}/coe.yaml
+    ${host file} =    String.Replace String    ${host file}    service_gateway_pod_json_path    ${SERVICE_GATEWAY_POD_JSON}
     log    ${host file}
     [Return]    ${minion hosts}    ${hosts}    ${host file}
 
@@ -280,4 +283,4 @@ Check For Stale veth Ports
     [Documentation]    Check on switches(except master) where pods were created and deleted to ensure there are no stale veth ports left behind.
     : FOR    ${minion_index}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
     \    ${switch output} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_${minion_index}_IP}    sudo ovs-vsctl show
-    \    BuiltIn.Should Not Contain    ${switch output}    veth
+    \    BuiltIn.Should Contain X Times    ${switch output}    veth    2

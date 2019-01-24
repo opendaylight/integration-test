@@ -14,10 +14,9 @@
     "ipam": {
         "type": "host-local",
         "subnet": "{{ subnet }}",
-        "routes": [{
-            "dst": "0.0.0.0/0"
-        }],
+        "routes": [
+            {"dst": "0.0.0.0/0"}
+        ],
         "gateway": "{{ gateway }}"
     }
 }
-
