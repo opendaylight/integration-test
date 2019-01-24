@@ -13,5 +13,7 @@ coe-master:
     controller_port: cport
     go_version: \1.10.2\
     conf_path: filepath
+    service_gateway_pod_json: pod_json_path
+    services_ip_address: 10.11.1.254
     k8s_advertise_address: master_ip
     watcher_path: yamlpath

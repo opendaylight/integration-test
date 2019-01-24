@@ -1,0 +1,20 @@
+{
+  "pods": [
+    {
+      "host-ip-address": "10.0.2.15",
+      "interface": [
+        {
+          "ip-address": "{{ services_ip_address }}",
+          "network-id": "00000000-0000-0000-0000-000000000000",
+          "network-type": "VXLAN",
+          "uid": "{{ node_uid }}"
+        }
+      ],
+      "cluster-id": "00000000-0000-0000-0000-000000000001",
+      "name": "{{ node_hostname }}-services",
+      "network-NS": "default",
+      "port-mac-address": "",
+      "uid": "{{ node_uid }}"
+    }
+  ]
+}
