@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "372012e6_2bc9f364",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:14:32Z",
+      "side": 1,
+      "message": "Not necessary for ODL testing.",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1fca611_37d670f3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:14:32Z",
+      "side": 1,
+      "message": "Not Necessary for ODL testing",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d014caa2_f46111df",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:14:32Z",
+      "side": 1,
+      "message": "Method used by many other tests, Please avoid modifying arguments, We need to test other jobs as well for any failures. Instead can we try seeting the variable OS_SYSTEM_PROMPT from the test suite and check if that works?",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d559f567_1061cefe",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:14:32Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "262d54dd_a602878f",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:14:32Z",
+      "side": 1,
+      "message": "Unnecessar tests. We can skip these two operations. Does not test anything related to Opendaylight functionaity",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
