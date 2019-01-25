@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ca9785bf_a79855d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-25T12:15:04Z",
+      "side": 1,
+      "message": "Please follow this rule for git commit message\nhttps://chris.beams.io/posts/git-commit/",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "372012e6_2bc9f364",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
