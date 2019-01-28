@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "79dbca97_a03a86d1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "990b7865_3536273a",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1fca611_37d670f3",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
@@ -65,6 +83,24 @@
       "writtenOn": "2019-01-25T12:14:32Z",
       "side": 1,
       "message": "Not Necessary for ODL testing",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ae8b593_68ed9e18",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1fca611_37d670f3",
       "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "cf70ec76_0f9cfe88",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d014caa2_f46111df",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d559f567_1061cefe",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
@@ -99,6 +153,24 @@
       "writtenOn": "2019-01-25T12:14:32Z",
       "side": 1,
       "message": "Same comment as above.",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71b94d2c_8391b3c3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d559f567_1061cefe",
       "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -122,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5e911a1d_93e7c97f",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "262d54dd_a602878f",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0167c286_f6991f7f",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 4
@@ -133,6 +223,24 @@
       "writtenOn": "2019-01-28T09:35:55Z",
       "side": 1,
       "message": "Do we need 2 GB RAM and 4 CPU\u0027s for alping image that is introduced in this patch? Can we go with 512 MB and 1 CPU?",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473df5bd_63be94dc",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0167c286_f6991f7f",
       "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
