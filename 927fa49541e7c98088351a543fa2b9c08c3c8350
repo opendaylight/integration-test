@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "990b7865_3536273a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T09:57:35Z",
+      "side": 1,
+      "message": "Although Delete Image and Delete Flavor Keywords are not testing any ODL functionality, But without them, the image and flavor remains in the test system and needs to be manually deleted. So they were created for cleanup purpose. Please confirm if this code should be deleted.",
+      "parentUuid": "372012e6_2bc9f364",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1fca611_37d670f3",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
