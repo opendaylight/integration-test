@@ -94,6 +94,30 @@
       "revId": "ef62e7e9fc3e6be8730a4bb2b879722d8c55e032",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2c44439_7b4b438c",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-28T05:24:30Z",
+      "side": 1,
+      "message": "That is because Run Keyword If Atleast Neon Is expecting mandatory arguments.But Enable BFD and Verify doesnot expect any arguments for which I passed ${EMPTY} resulting in the following error",
+      "parentUuid": "9c59be8a_1e7226bb",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 155
+      },
+      "revId": "ef62e7e9fc3e6be8730a4bb2b879722d8c55e032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
