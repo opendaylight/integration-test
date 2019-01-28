@@ -16,6 +16,24 @@
       "revId": "07614325c6729e9961144125f02672ca0b4163f6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5dd0e16_5ec923e8",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-01-28T13:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "364a91cf_3a366333",
+      "revId": "07614325c6729e9961144125f02672ca0b4163f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
