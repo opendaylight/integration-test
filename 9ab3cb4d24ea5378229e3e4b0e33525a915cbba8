@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f69c1d98_bc7e5b76",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-28T10:20:17Z",
+      "side": 1,
+      "message": "this logic doesnot look correct refer CSIT logs",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 22
+      },
+      "revId": "9ab3cb4d24ea5378229e3e4b0e33525a915cbba8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f75aad5d_bf554228",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-28T10:20:17Z",
+      "side": 1,
+      "message": "why do you want a dict and list under the same name",
+      "revId": "9ab3cb4d24ea5378229e3e4b0e33525a915cbba8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc5444b8_8da9fff1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-28T10:20:17Z",
+      "side": 1,
+      "message": "Set dpn id of the switches",
+      "revId": "9ab3cb4d24ea5378229e3e4b0e33525a915cbba8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb417fd6_0ccfa089",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-01-28T10:20:17Z",
+      "side": 1,
+      "message": "Logic is failing because of dpdid not set properly newly added keyword doesnt serve the purpose.make relevant changes and push new one",
+      "revId": "9ab3cb4d24ea5378229e3e4b0e33525a915cbba8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
