@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "364a91cf_3a366333",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-28T12:23:49Z",
+      "side": 1,
+      "message": "Can you move these new test cases to a new patch. Let us have this patch about the slave image url only. We can add a seperate patch to include more test scenarios",
+      "revId": "07614325c6729e9961144125f02672ca0b4163f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
