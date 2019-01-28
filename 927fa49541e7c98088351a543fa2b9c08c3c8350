@@ -101,6 +101,23 @@
       "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0167c286_f6991f7f",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-01-28T09:35:55Z",
+      "side": 1,
+      "message": "Do we need 2 GB RAM and 4 CPU\u0027s for alping image that is introduced in this patch? Can we go with 512 MB and 1 CPU?",
+      "revId": "927fa49541e7c98088351a543fa2b9c08c3c8350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
