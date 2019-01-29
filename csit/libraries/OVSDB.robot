@@ -393,6 +393,12 @@ Delete OVS Manager
     ${del_mgr} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-vsctl del-manager
     BuiltIn.Log    ${del_mgr}
 
+Set OVS Manager
+    [Arguments]    ${ovs_ip}    ${controller_ip}    ${ovs_mgr_port}=6640
+    [Documentation]    Add manager from OVS
+    ${set_mgr} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-vsctl set-manager tcp:${controller_ip}:${ovs_mgr_port}
+    BuiltIn.Log    ${set_mgr}
+
 Delete Groups On Bridge
     [Arguments]    ${ovs_ip}    ${br}=${INTEGRATION_BRIDGE}
     [Documentation]    Delete OVS groups from ${br}

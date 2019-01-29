@@ -151,6 +151,107 @@ Verify learnt flow for TCP in SNAT flow table
     ${controller_packet_count} =    OvsManager.Get Packet Count From Table    ${compute_ip}    ${INTEGRATION_BRIDGE}    table=${SNAT_PUNT_TABLE}    |grep "table=46.*n_packets=[\0-9+].*tcp.*nw_src=@{VM_IPS}[4].*actions=set_field:${EXT_SUBNETS_FIXED_IP}.*goto_table:47"
     BuiltIn.Should be true    ${controller_packet_count} > 1
 
+Verify learnt flow for ARP request in ARP tables
+    [Documentation]    Get default ARP table packet count before sending traffic to unkwon destination.
+    ...    Send ARP request traffic using arping.
+    ...    Punt the first packet to controller and add new rule to stop pipeline processing.
+    ...    Check packet count before and after traffic for both(defualt and learnt tables).
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_PUNT_TABLE}    @{VALID_TIMEOUTS}[0]
+    ${count_before_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    ${count_before_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${ARP_REG}.0xffff"
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{VM_IPS}[3]    sudo arping -c 5 -I eth0 22.1.1.101
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    arp_tpa=22.1.1.101,arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_LEARN_TABLE}    True    ${EMPTY}    arp_spa=22.1.1.101,arp_op=1
+    ${count_after_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    BuiltIn.Should be true    ${count_after_traffic} > ${count_before_traffic}
+    ${learnt_packet_count} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "table=${ARP_PUNT_TABLE}.*n_packets=[\0-9+].*arp_tpa=22.1.1.101,arp_op=1.*actions=load:0x1"
+    BuiltIn.Should be true    ${learnt_packet_count} > 0
+    ${count_after_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${ARP_REG}.0xffff"
+    BuiltIn.Should be true    ${count_after_traffic_arp} > ${count_before_traffic_arp}
+
+Verify learnt flow for ARP reply in ARP tables
+    [Documentation]    Get default ARP table packet count before sending traffic to unkwon destination.
+    ...    Send ARP reply traffic using arping.
+    ...    Punt the first packet to controller and add new rule to stop pipeline processing.
+    ...    Check packet count before and after traffic for both(defualt and learnt tables).
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_PUNT_TABLE}    @{VALID_TIMEOUTS}[0]
+    ${count_before_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    ${count_before_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${ARP_REG}.0xffff"
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[1]    sudo arping -A -c 5 -I eth0 -s @{VM_IPS}[1] 11.1.1.101
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    arp_tpa=11.1.1.101,arp_op=2
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_LEARN_TABLE}    True    ${EMPTY}    arp_spa=11.1.1.101,arp_op=2
+    ${count_after_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    BuiltIn.Should be true    ${count_after_traffic} > ${count_before_traffic}
+    ${learnt_packet_count} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "table=${ARP_PUNT_TABLE}.*n_packets=[\0-9+].*arp_tpa=11.1.1.101,arp_op=2.*actions=load:0x1"
+    BuiltIn.Should be true    ${learnt_packet_count} > 0
+    ${count_after_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${ARP_REG}.0xffff"
+    BuiltIn.Should be true    ${count_after_traffic_arp} > ${count_before_traffic_arp}
+
+Verify learnt flow for GARP (Gratuitous ARP) in ARP tables
+    [Documentation]    Get default ARP table packet count before sending traffic to unkwon destination.
+    ...    Send GARP traffic using arping.
+    ...    Punt the first packet to controller and add new rule to stop pipeline processing.
+    ...    Check packet count before and after traffic for both(defualt and learnt tables).
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    @{VALID_TIMEOUTS}[0]
+    ${count_before_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    ${count_before_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${GARP_REG}.0xffff"
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo arping -U -c 5 -I eth0 @{VM_IPS}[0] &
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    arp_tpa=@{VM_IPS}[0],arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    True    ${EMPTY}    arp_spa=@{VM_IPS}[0],arp_op=1
+    ${count_after_traffic} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp actions=CONTROLLER:65535,learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]"
+    BuiltIn.Should be true    ${count_after_traffic} > ${count_before_traffic}
+    ${learnt_packet_count} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${ARP_PUNT_TABLE}    |grep "arp_tpa=@{VM_IPS}[0],arp_op=1"
+    BuiltIn.Should be true    ${learnt_packet_count} > 0
+    ${count_after_traffic_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${ELAN_BASETABLE}    |grep "table=${ELAN_BASETABLE}.*n_packets=[\0-9+].*reg4=${GARP_REG}.0xffff"
+    BuiltIn.Should be true    ${count_after_traffic_arp} > ${count_before_traffic_arp}
+
+Verify resync subnet route, SNAT and ARP route flow tables after disconnect and reconnecting OVS control path
+    [Documentation]    Verify learnt subnet route, SNAT and ARP flows.
+    ...    Delete OVS manager and controller and verify learnt flows for subnet, SNAT and ARP.
+    ...    Set OVS manager and controoler again and verify learnt flows for subnet, SNAT and ARP.
+    ...    Verify subnet, SNAT and ARP default flows
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo ping -c 5 @{EXTRA_NW_IP}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True    ${EMPTY}    nw_dst=11.1.1.255 actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True    ${EMPTY}    nw_dst=@{EXTRA_NW_IP}[1] actions=drop
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[4]    traceroute @{EXTRA_NW_IP}[2] -w 1 -q 1 -m 4
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    ${EMPTY}    tp_dst=${UDP_PORT} actions=drop
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[4]    wget -qc http://@{EXTRA_NW_IP}[2]/ &
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    ${EMPTY}    tp_dst=${TCP_PORT} actions=drop
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo arping -c 2 @{VM_IPS}[1]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    arp_tpa=@{VM_IPS}[1],arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    True    ${EMPTY}    arp_spa=@{VM_IPS}[1],arp_op=1
+    OVSDB.Delete OVS Manager    ${OS_CMP1_IP}
+    OVSDB.Delete OVS Controller    ${OS_CMP1_IP}
+    OVSDB.Delete OVS Manager    ${snat_napt_switch_ip}
+    OVSDB.Delete OVS Controller    ${snat_napt_switch_ip}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    False    ${EMPTY}    nw_dst=11.1.1.255 actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    False    ${EMPTY}    nw_dst=@{EXTRA_NW_IP}[1] actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    False    ${EMPTY}    nw_dst=11.1.1.255 actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    False    ${EMPTY}    tp_dst=${TCP_PORT} actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    False    ${EMPTY}    arp_tpa=@{VM_IPS}[1],arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    False    ${EMPTY}    arp_spa=@{VM_IPS}[1],arp_op=1
+    OVSDB.Set Controller In OVS Bridge    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    tcp:${ODL_SYSTEM_IP}:6653
+    OVSDB.Set Controller In OVS Bridge    ${snat_napt_switch_ip}    ${INTEGRATION_BRIDGE}    tcp:${ODL_SYSTEM_IP}:6653
+    Set OVS Manager    ${OS_CMP1_IP}    ${ODL_SYSTEM_IP}
+    Set OVS Manager    ${snat_napt_switch_ip}    ${ODL_SYSTEM_IP}
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True
+    ...    ${EMPTY}    nw_dst=11.1.1.255 actions=drop
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    False
+    ...    ${EMPTY}    tp_dst=${UDP_PORT} actions=drop
+    BuiltIn.Wait Until Keyword Succeeds    190s    40s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    False
+    ...    ${EMPTY}    tp_dst=${TCP_PORT} actions=drop
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    False
+    ...    ${EMPTY}    arp_tpa=@{EXTRA_NW_IP}[1],arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    False
+    ...    ${EMPTY}    arp_spa=@{EXTRA_NW_IP}[1],arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True    ${EMPTY}    learn(table=${L3_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    ${EMPTY}    learn(table=${SNAT_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Create common setup related to openflow punt path protection
