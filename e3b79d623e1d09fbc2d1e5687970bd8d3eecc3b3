@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b93efce_770aa9f5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-01-31T17:42:44Z",
+      "side": 1,
+      "message": "Is there a need to change this? The count is set to 1 since the command is retried via the loop. It is better to increase the retry count.",
+      "revId": "e3b79d623e1d09fbc2d1e5687970bd8d3eecc3b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc41996d_2fdb0c24",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-01-31T17:42:44Z",
+      "side": 1,
+      "message": "leave the space",
+      "revId": "e3b79d623e1d09fbc2d1e5687970bd8d3eecc3b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "076e0d3f_bb36b835",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-01-31T17:42:44Z",
+      "side": 1,
+      "message": "we should do the same loop as above to have this match.",
+      "revId": "e3b79d623e1d09fbc2d1e5687970bd8d3eecc3b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9851336c_20014607",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-01-31T17:42:44Z",
+      "side": 1,
+      "message": "can you just use: sudo iptables --line-numbers -nvL? We use that in the builder scripts and it grabs all the iptables. So something like: sudo iptables --line-numbers -nvL -t nat",
+      "revId": "e3b79d623e1d09fbc2d1e5687970bd8d3eecc3b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f672d9a7_da378390",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-01-31T17:42:44Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "e3b79d623e1d09fbc2d1e5687970bd8d3eecc3b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
