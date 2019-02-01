@@ -137,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "d7eaec98_72c4208f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-02-01T18:56:28Z",
+      "side": 1,
+      "message": "check out the kw OpenStackOperations.Create And Associate Floating IPs",
+      "parentUuid": "e8c934a9_1ba771b0",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
