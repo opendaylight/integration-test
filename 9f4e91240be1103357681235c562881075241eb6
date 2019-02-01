@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e1e9a11_325caf65",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T09:52:42Z",
+      "side": 1,
+      "message": "Can we fix the original set-manager method \"Add Multiple Managers to OVS\"? I understand it is more mininet based, Can we fix to make it more generic instead of a new method? because it supports adding more managers",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "759b02a4_78f0da6f",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T09:52:42Z",
+      "side": 1,
+      "message": "In the 3 Verify test cases, I see a similar pattern\na. Collect Packet Count \nb. Perform some Operation\nc. Collect Packet Count afterwards\n\nIs there a way to create a Keyword in this robot file and reuse in all the three tests?",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7968bcb1_529def0e",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T09:52:42Z",
+      "side": 1,
+      "message": "Can we skip table\u003d from the grep string? The library method greps for table_no, needs to be fixed as table\u003dtable_no. I feel it improves usability",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef7faab8_8c0daf69",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T09:52:42Z",
+      "side": 1,
+      "message": "The test case seems to be 3 scenarios, Can we add them as 3 cases? Maybe easier to debug problems if logs are collected after every scenario",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
