@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d72b8d47_b462ef6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:07:25Z",
+      "side": 1,
+      "message": "Please get rid of the \":\" Also, during amend, Please ensure the commit message",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c5101cd_9e137582",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 11
