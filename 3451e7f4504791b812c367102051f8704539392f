@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5101cd_9e137582",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "The local method \"Execute Command On VM Instance\" uses named arguments. I think the invocation is wrong here",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b1c8ee3_60acda6a",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "Rename this method as Check Network Reachability and use arguments like ip,port and construct the \"nc\" command in the method. Makes the test code more simple. Also, not limited to http",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17a84dca_178f0189",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "We can reuse the one in OpenStackOperations.robot. If OS_SYSTEM_PROMPT is the only reason for rewriting here, Please consider setting the value to \"$\" using  Set global Variable  and try if the variable is overwritten (http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Global%20Variable)\n\nIn my idea, We can Set this global variable at the start suite, so that this is retained across this entire suite. I am not sure if that can present any other problem",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e583489_de403a60",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "this has no effect I think it needs to be passed as console\u003droot  OS_SYSTEM_PROMPT\u003d#",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b9587c_21f7b7fb",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "Same comment, No values effectively passed",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c057c1a_f116a59e",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "Same Comment as above",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c086c868_53513fca",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-01T07:06:30Z",
+      "side": 1,
+      "message": "Same Comment as above",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
