@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8e57a711_2330fbd7",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-01T15:16:20Z",
+      "side": 1,
+      "message": "OK, I\u0027ll fix it and reuse existing keyword \"Add Multiple Mangers to OVS\"",
+      "parentUuid": "4e1e9a11_325caf65",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "759b02a4_78f0da6f",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-01T09:52:42Z",
       "side": 1,
       "message": "In the 3 Verify test cases, I see a similar pattern\na. Collect Packet Count \nb. Perform some Operation\nc. Collect Packet Count afterwards\n\nIs there a way to create a Keyword in this robot file and reuse in all the three tests?",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "084ddec0_ef00daf3",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-01T15:16:20Z",
+      "side": 1,
+      "message": "Using existing method \"OvsManager.Get Packet Count From\nTable\" with additional arguments to match only packet\ncount from specific table flows. every testcase require\ndifferent match criteria also.\nyeah, Its difficult to move everything in rebot method\nbecause its needed to many parameters.",
+      "parentUuid": "759b02a4_78f0da6f",
       "revId": "9f4e91240be1103357681235c562881075241eb6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "17e70fc5_bf71c126",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-01T15:16:20Z",
+      "side": 1,
+      "message": "Method \"OvsManager.Get Packet Count From Table\"\nsome people might be using it to get all flows for a given table number. and this method has one additional argument with empty value. this testcase require only single line and specific flows entry for given flow\ntable to retrieve packet count that\u0027s why using grep string to get that.",
+      "parentUuid": "7968bcb1_529def0e",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef7faab8_8c0daf69",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-01T09:52:42Z",
       "side": 1,
       "message": "The test case seems to be 3 scenarios, Can we add them as 3 cases? Maybe easier to debug problems if logs are collected after every scenario",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5f56ea3_a439ec24",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-01T15:16:20Z",
+      "side": 1,
+      "message": "\"OVSDB.Verify Dump Flows For Specific Table\" this method print enough\nflows output information. easily debugging can be done with this output.",
+      "parentUuid": "ef7faab8_8c0daf69",
       "revId": "9f4e91240be1103357681235c562881075241eb6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
