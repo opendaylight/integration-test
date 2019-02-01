@@ -51,13 +51,13 @@ Start Suite
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br ${Bridge}
     Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT_6653}
     Execute Command    sudo ifconfig ${Bridge} up
     Execute Command    sudo ovs-vsctl add-port ${Bridge} tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_1}    Execute Command    sudo ovs-vsctl show
     Log    ${output_1}
-    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6633
+    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    ${ODL_OF_PORT_6653}
     log    ${check}
     ${check_2}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6640
     log    ${check_2}
@@ -68,7 +68,7 @@ Start Suite
     Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl add-br ${Bridge}
     Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT_6653}
     Execute Command    sudo ifconfig ${Bridge} up
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
