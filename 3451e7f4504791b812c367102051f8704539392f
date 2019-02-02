@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "31f0f228_834ce738",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-02T13:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d72b8d47_b462ef6e",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c5101cd_9e137582",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 11
