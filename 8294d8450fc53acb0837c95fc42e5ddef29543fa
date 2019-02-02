@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6e14fa9_7128a27b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-02T06:56:12Z",
+      "side": 1,
+      "message": "REGEX_IPV4 matches the whole IP. Previous logic required a Class C gateway ending with 1. That means ${substr} needs to match only till the last \u0027.\u0027 in TOOLS_SYSTEM_IP according to the logic.\n\neg. Consider TOOLS_SYSTEM_IP as 10.30.170.45\nExpected Gateway IP: 10.30.170.1\nCurrent Gateway IP: 10.30.170.451\n\nIn your current patch 23\u0027s line 93 of \u0027Set Json\u0027 keyword in csit/libraries/Genius.robot:\n\n... Replace String    ${body}    \"gateway_ip\": \"0.0.0.0\"    \"gateway_ip\": \"${gateway_ip}\"\n\nThe label for Gateway IP is wrong. So it uses the default \"0.0.0.0\" from the file which is syntactically correct but logically wrong. It doesn\u0027t reflect in your patch\u0027s results because currently, Gateway IP is not checked by the CSIT. \n\nThe correct label according to the ITM YANG model is \"gateway-ip\" as I pointed out in the last comment.\n\nYou can verify from here:\n\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dgenius.git;a\u003dblob;f\u003ditm/itm-api/src/main/yang/itm.yang;h\u003d91cdd32857301324e9193abd66ddc3ae97720d9c;hb\u003drefs/heads/master#l49\n\nBoth these changes compliment each other in your patch and that\u0027s why your patch is not breaking. Please make the necessary changes and revert to original logic.\n\nMy patch currently uses your patch as the parent and refactors \u0027Set Json\u0027 keyword for per VTEP configuration. Upon setting the correct label, some test cases are failing for me:\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/genius-csit-verify-1node-verify/462/robot-plugin/log.html#s1-s3-t7-k3",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 53
+      },
+      "revId": "8294d8450fc53acb0837c95fc42e5ddef29543fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
