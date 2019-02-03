@@ -18,7 +18,6 @@ Check No Switches In Inventory
     [Documentation]    Check no switch is in inventory
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    "openflow:${switch}"
 
