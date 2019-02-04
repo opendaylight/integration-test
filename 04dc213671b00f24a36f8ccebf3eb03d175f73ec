@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6d1e530_c87d6bd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "Change it to format how others are using",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5051b834_baabdd75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "Add some 2 lines briefly give the link to design spec",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94b81a8a_ca97a672",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "what difference will this change make any way  @{TOOLS_SYSTEM_ALL_IPS} is accessible from anywhere",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e98402_f640b4f2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "the output doesnot look like proper json format is there a way fo printing it in json",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a95fcdf9_61bbc3d2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "the logic here doesnt seem to work.\nyou cannot set a flag like this without stopping the controller.\nrefer itm direct tunnels start suite.\nbut since in case of OFT there are two flags that needs to be enabled what i would suggest is stop controller enable both flags in one go start controller then call genius suite setup",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "346428d3_030de820",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "add apt documentation for all newly added keywords",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b1f50c6_7b8e4962",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "cant this directly be used i dont think this assignment is needed",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05864dd2_f344c044",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "i dont think this command will work this way either grep it or leave as it is i would prefer the latter would reduce lines of changes",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7321927_d614558d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "i dont get this logic may be explain offline",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b89a1a9_5404648c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "same as above why cant we use @{TOOLS_..} directly",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c962a68d_f75ba456",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T12:08:35Z",
+      "side": 1,
+      "message": "??",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
