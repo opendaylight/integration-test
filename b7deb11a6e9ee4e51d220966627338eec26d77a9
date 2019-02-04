@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb9e70f9_95899ef1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T07:37:57Z",
+      "side": 1,
+      "message": "Do we need number_of_networks? Can you please consider getting the array length in name_of_networks and iterate?\n\nAlso network_names and subnet_names sounds better for an array of network/subnet names.",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6c9c8a_d1e5afd4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T07:37:57Z",
+      "side": 1,
+      "message": "\"Get All VM IP Addressess\" is a better Keyword name here",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5a15791_6b1e3a29",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T07:37:57Z",
+      "side": 1,
+      "message": "Instead of multiple grep, Can you please look at a combined regular expression\n\neg: Add\n ${ARP_SHA}   arp_sha \nin Variables section and this invocation changed as below\n${get_pkt_count_before_arp} \u003d    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table\u003d@{DEFAULT_FLOW_TABLES}[15]    ${VM1_METADATA}.*${ARP_SHA}\n\nNote to Self: The library keyword to be modified to use named paramaters to make it more understandable.",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45110fdc_ea341836",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T07:37:57Z",
+      "side": 1,
+      "message": "The same comment as above for all Get Packet Count invocations",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43b506e1_6c036d89",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T07:37:57Z",
+      "side": 1,
+      "message": "Note to Self: The original Keyword \"Create Vm Instance With Ports\" was created for just two ports. I think it should take an array of ports. I will get to that later this week",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
