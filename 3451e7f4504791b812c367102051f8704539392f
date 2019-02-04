@@ -106,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "21b9bb0c_824ada66",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-04T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17a84dca_178f0189",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e583489_de403a60",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 11
@@ -159,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "b030bab5_483ee079",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-04T16:30:15Z",
+      "side": 1,
+      "message": "This local function has been removed as part of previous comment.",
+      "parentUuid": "3d11ea1a_2b77094c",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b9587c_21f7b7fb",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 11
@@ -176,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "e5085063_9ca5a883",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-04T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b9587c_21f7b7fb",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c057c1a_f116a59e",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 11
@@ -187,6 +241,24 @@
       "writtenOn": "2019-02-01T07:06:30Z",
       "side": 1,
       "message": "Same Comment as above",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d29d8201_767df1ef",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-04T16:30:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c057c1a_f116a59e",
       "revId": "3451e7f4504791b812c367102051f8704539392f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
