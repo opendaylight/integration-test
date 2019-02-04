@@ -161,6 +161,30 @@
     },
     {
       "key": {
+        "uuid": "aa96fd46_a9644182",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-04T10:46:20Z",
+      "side": 1,
+      "message": "Jamo do you want me to pass ${tools_ip} as an argument and assign it to @{TOOLS_SYSTEM_IP}.If so why do we do that?",
+      "parentUuid": "d7eaec98_72c4208f",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
