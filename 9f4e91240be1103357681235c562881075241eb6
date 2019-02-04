@@ -148,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "3d8fbfd2_59f57eb4",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T09:47:05Z",
+      "side": 1,
+      "message": "Sorry for making the comment clear.\nPlease look at the command executed in this log\n[link] - https://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/builder-copy-sandbox-logs/629/ofpunt-netvirt-csit-1node-0cmb-1ctl-2cmp-openstack-queens-gate-tdd-wip-neon/6/robot-plugin/log_01_openflow_punt_path_protection.html.gz#s1-t8-k12-k1-k2\n\nCommand:\nsudo ovs-ofctl dump-flows -O Openflow13 br-int | grep table\u003d48 |grep \"table\u003d48.*n_packets\u003d[0-9+].*reg4\u003d0x1.0xffff\"\n\nThe pattern table\u003d48 is matched twice, hence I suggested using | grep n_packets\u003d[\\0-9+].*reg4\u003d${ARP_REG}.0xffff\"\nand just removing table. The search string is redundant.",
+      "parentUuid": "edc00002_e77c44cc",
+      "range": {
+        "startLine": 169,
+        "startChar": 120,
+        "endLine": 169,
+        "endChar": 143
+      },
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef7faab8_8c0daf69",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 3
