@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "7197e106_ee0d4aa9",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T08:08:11Z",
+      "side": 1,
+      "message": "The line above should be\n${get_pkt_count_before_arp} \u003d    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table\u003d@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}",
+      "parentUuid": "e5a15791_6b1e3a29",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45110fdc_ea341836",
         "filename": "csit/suites/openstack/securitygroup/acl.robot",
         "patchSetId": 29
