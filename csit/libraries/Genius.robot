@@ -29,6 +29,7 @@ ${port_name}      br-int-eth1
 *** Keywords ***
 Genius Suite Setup
     [Documentation]    Create Rest Session to http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    Collect varlogs
     Start Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
 
@@ -329,3 +330,10 @@ Verify Tunnel Monitoring Status
     [Arguments]    ${tunnel_monitor_status}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Should Contain    ${output}    ${tunnel_monitor_status}
+
+Collect varlogs
+    OperatingSystem.List Directory    /etc/apt/apt.conf.d/
+    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_1_IP}    cat /etc/apt/apt.conf.d/20auto-upgrades
+    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_2_IP}    cat /etc/apt/apt.conf.d/20auto-upgrades
+    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_1_IP}    cat /etc/apt/apt.conf.d/02periodic
+    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_2_IP}    cat /etc/apt/apt.conf.d/02periodic
