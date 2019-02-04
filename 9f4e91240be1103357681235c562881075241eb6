@@ -125,6 +125,29 @@
     },
     {
       "key": {
+        "uuid": "edc00002_e77c44cc",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-04T09:17:24Z",
+      "side": 1,
+      "message": "table\u003d${ELAN_BASETABLE} parameter will grep only given\ntable number flows and there could be multiple flows\nentries for the same given table.\nfor example(this entry can be repeated for multiple ARP)\ncookie\u003d0x8500000, duration\u003d503.472s, table\u003d48, n_packets\u003d0, n_bytes\u003d0, priority\u003d100,arp,reg4\u003d0x101/0xffff actions\u003dload:0-\u003eNXM_NX_REG4[],CONTROLLER:65535,resubmit(,49),resubmit(,50)\n\nusing additional parameter matching specific string\n\"table\u003d48, n_packets\u003d0, n_bytes\u003d0, priority\u003d100,arp,reg4\u003d0x101/0xffff\" \nto just ensure there would be always one line output with\npacket count string. passing table num and other string as a variables.",
+      "range": {
+        "startLine": 169,
+        "startChar": 120,
+        "endLine": 169,
+        "endChar": 143
+      },
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef7faab8_8c0daf69",
         "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
         "patchSetId": 3
@@ -172,6 +195,24 @@
       "side": 1,
       "message": "In our earlier debugging with netvirt, We always required more information for debugging and not just flow entries, the model data will also be needed to quickly fix. Anyways it is fine. We can take it up later.",
       "parentUuid": "e5f56ea3_a439ec24",
+      "revId": "9f4e91240be1103357681235c562881075241eb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81f3ea7e_e314f537",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2019-02-04T09:17:24Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "4b5d9e18_2844a740",
       "revId": "9f4e91240be1103357681235c562881075241eb6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
