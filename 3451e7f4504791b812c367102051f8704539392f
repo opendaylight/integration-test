@@ -141,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "3d11ea1a_2b77094c",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-04T00:18:28Z",
+      "side": 1,
+      "message": "thats strange, but the keyword can take any argument. Please get rid of the local keyword and use the one in OpenstackKEywords.",
+      "parentUuid": "b687ff07_4f88db3a",
+      "revId": "3451e7f4504791b812c367102051f8704539392f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b9587c_21f7b7fb",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 11
