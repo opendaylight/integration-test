@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "f8b86d4f_536e4c96",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "Some of the keywords can be altered and reused for test cases in OFT that involve single Vteps creation and deletion without failing logic for other test cases. In single vteps, initially, even though NUM_TOOLS_SYSTEMS maybe 3, but only 2 are processed.\n\nHere, the size of @{tools_ips} is always 3. Why? I am using sparse lists. The tools system that is unused will be left as ${EMPTY} value in the list and will be excluded from processing as required by single vteps. How is that a reason for not using TOOLS_SYSTEM_ALL_IPS or why is there a need for sparse lists? Certain test cases (from Configure ITM suite) pass IPv6 address list as argument to this keyword. That list is not the same as TOOLS_SYSTEM_ALL_IPS which is IPv4 only and also that is not cached by Genius library. Instead it uses the tools_system_index to map the IP to its correct DPN in Set Json keyword. In order to avoid disrupting that logic, I have used sparse lists. It maintains the indices for the tools systems. Hopefully that\u0027ll explain changes in some other keywords as well.",
+      "parentUuid": "94b81a8a_ca97a672",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e98402_f640b4f2",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 29
@@ -64,6 +82,24 @@
       "writtenOn": "2019-02-04T12:08:35Z",
       "side": 1,
       "message": "the output doesnot look like proper json format is there a way fo printing it in json",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cab584c_758c3801",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "I think you mean pretty print. By default json.dumps(dictionary) outputs minified json string converted from dictionary. Doing json.dumps(dictionary, indent\u003d4) will give the pretty printed json string. In either case, it works at the REST endpoint.",
+      "parentUuid": "23e98402_f640b4f2",
       "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "7a70de02_84b3ebbe",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "\u0027ITM Direct Tunnels Start Suite\u0027 does like this:\n1. SSH into Remote Linux Tools Systems and Stop ODL Controllers and preserve the SSH Connection indices.\n2. SSH into Remote Linux Tools Systems and run the \u0027sed\u0027 command to change the flag in the file.\n3. SSH into Remote Linux Tools Systems and Start ODL Controllers.\n4. Authenticate and create REST sessions with ODL Controllers.\n5. Run Tests\n6. SSH into Remote Linux Tools Systems and run the \u0027sed\u0027 command to revert the flag in the file.\n7. Delete all REST sessions with ODL Controllers.\n8. Stop all SSH connections using preserved connection indices.\n... The controller keeps running. That\u0027s where \u0027OF Tunnel Start Suite\u0027 steps in.\n\nI checked the flow by looking into ClusterManagement.robot, Genius.robot and SSHKeywords.robot. Please verify.\n\nI am kind of new to how ODL runtime works but can you explain how changing the flag in the file affect the ODL controller when it\u0027s already running? I think it shouldn\u0027t. Or why Step 2 needs to be executed only after Step 1? In either case, since the controller will anyway be restarted on Step 3, the flag will automatically be loaded back as required by the current test suite. That\u0027s what the automation does here right?\n\nPreviously the keyword worked. I think something else is causing it to fail.\n\nBefore: https://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/genius-csit-verify-1node-verify/463/robot-plugin/log.html#s1-s7-k1-k2-k5-k1-k7\n\nAfter: https://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/genius-csit-verify-1node-verify/465/robot-plugin/log.html#s1-s7-k1-k2-k5-k1-k7",
+      "parentUuid": "a95fcdf9_61bbc3d2",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "346428d3_030de820",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 29
@@ -98,6 +152,24 @@
       "writtenOn": "2019-02-04T12:08:35Z",
       "side": 1,
       "message": "add apt documentation for all newly added keywords",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0954add8_dcce72a9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "346428d3_030de820",
       "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "8ece77cf_51515a4f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "tun_src_list contains tools_ip. Can Table0 for a tools system contain an entry in the flow table that points to itself through \u0027tun_src\u0027? Perhaps I should only pass list of tools systems other than that? I can do that. Will make change to \u0027Verify Table0 Entry After fetching Port Number\u0027 as well for that in next patchset.\n\nNote that there are some keywords which are processing sparse lists despite not required. My next patchset will fix that.",
+      "parentUuid": "1b1f50c6_7b8e4962",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05864dd2_f344c044",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 29
@@ -132,6 +222,24 @@
       "writtenOn": "2019-02-04T12:08:35Z",
       "side": 1,
       "message": "i dont think this command will work this way either grep it or leave as it is i would prefer the latter would reduce lines of changes",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e240e24_7efe7144",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "The syntax for the command is:\n\novs-ofctl dump-flows switch [flows]\n\nwhere syntax of [flows] can be table\u003dnumber. (Flows Syntax, http://www.openvswitch.org/support/dist-docs/ovs-ofctl.8.txt)\n\nI believe since this keyword is only checking for Table0 entries, it\u0027s better to keep it that way. I can\u0027t use this keyword for other tables like 95 (egress for OFT, TODO) for instance but ${check} will definitely include entries from table 95 as well if not done so. If someone can confirm that table 95 will not affect the logic of this keyword, then I can revert it back. Till now this keyword hasn\u0027t failed for any test.\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/genius-csit-verify-1node-verify/462/robot-plugin/log.html#s1-s6-t1-k11-k1-k3-k1-k3-k1-k2",
+      "parentUuid": "05864dd2_f344c044",
       "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +263,24 @@
     },
     {
       "key": {
+        "uuid": "947e8284_cb1cdc36",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "I thought I could extend the keyword by including an optional parameter \u0027oft_enabled\u0027. \n\nPurpose:\n1. only 1 call will be made to the remote tools linux system to fetch the ovs flows.\n2. To reduce code redundancy. Port checking will be done in this case as well. Or not? If not, then I perhaps would require a separate keyword. Please confirm.",
+      "parentUuid": "b7321927_d614558d",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b89a1a9_5404648c",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 29
@@ -172,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "40edf46b_7f365768",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "Read the previous comments. In this case, say Vteps are created on only TOOLS_SYSTEM 1 and 2. Then checking for Table0 entry on TOOL_SYSTEM 3 will always fail. So only selected TOOLS_SYSTEMS should run the command.",
+      "parentUuid": "6b89a1a9_5404648c",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c962a68d_f75ba456",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 29
@@ -183,6 +327,24 @@
       "writtenOn": "2019-02-04T12:08:35Z",
       "side": 1,
       "message": "??",
+      "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "080254bb_15a9ff51",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-04T15:52:26Z",
+      "side": 1,
+      "message": "Currently passing sparse list here. Perhaps that is not required. Will fix in next patchset.",
+      "parentUuid": "c962a68d_f75ba456",
       "revId": "04dc213671b00f24a36f8ccebf3eb03d175f73ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
