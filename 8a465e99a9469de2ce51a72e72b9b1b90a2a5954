@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "14567f3d_93c558b3",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-05T12:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66afc82e_89b79da9",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2366c322_92be4cfe",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-05T05:46:21Z",
       "side": 1,
       "message": "Can we add a comment to indicate why we use the cmd_timeout parameter in some tests?",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24ac059b_217bbd82",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-05T12:43:56Z",
+      "side": 1,
+      "message": "In Documentation section it is mentioned as \"If the SF handles the traffic, there will be delay causing the time for nc to be higher.\"",
+      "parentUuid": "2366c322_92be4cfe",
       "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2f9460d3_b4b38fd3",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-05T12:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1d7179f_a08ca58a",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d554924_4513a67c",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 14
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-05T05:46:21Z",
       "side": 1,
       "message": "I think user,password and console can be made as local variables, need  not be suite variables. Also use CLOUD_IMAGE_USER, CLOUD_IMAGE_PASS and CLOULD_IMAGE_CONSOLE and use the variables in this file",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb7eda43_a832637c",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-05T12:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d554924_4513a67c",
       "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
