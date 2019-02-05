@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66afc82e_89b79da9",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-05T05:46:21Z",
+      "side": 1,
+      "message": "Can we add eth0 and eth1 as Variables ETH_IN and ETH_OUT and use the variable names instead? It looks like they will change for every image. We can simply modify the variables in the future.",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2366c322_92be4cfe",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-05T05:46:21Z",
+      "side": 1,
+      "message": "Can we add a comment to indicate why we use the cmd_timeout parameter in some tests?",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1d7179f_a08ca58a",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-05T05:46:21Z",
+      "side": 1,
+      "message": "I think this comment should be moved up by 2 lines..i.e before the Check",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d554924_4513a67c",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-05T05:46:21Z",
+      "side": 1,
+      "message": "I think user,password and console can be made as local variables, need  not be suite variables. Also use CLOUD_IMAGE_USER, CLOUD_IMAGE_PASS and CLOULD_IMAGE_CONSOLE and use the variables in this file",
+      "revId": "8a465e99a9469de2ce51a72e72b9b1b90a2a5954",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
