@@ -185,6 +185,30 @@
     },
     {
       "key": {
+        "uuid": "58945cc3_15f9d837",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-05T07:01:29Z",
+      "side": 1,
+      "message": "Hi,\n\nI think Jamo wants to pass the array of TOOLS_IP as argument to this Check Establishment Keyword. This way You need not use suite variable in a library. It is better to access suite variables from test robot files than library. Hence, some references to keywords that take list as arguments were provided.",
+      "parentUuid": "aa96fd46_a9644182",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "66cfe876fda82ded215caa6fbdfe398975f8fbca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac0cffc_b02b81c3",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 9
