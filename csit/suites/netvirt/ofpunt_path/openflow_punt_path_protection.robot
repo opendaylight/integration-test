@@ -252,6 +252,111 @@ Verify resync subnet route, SNAT and ARP route flow tables after disconnect and 
     OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    ${EMPTY}    learn(table=${SNAT_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
     OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True    ${EMPTY}    learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
 
+Verify the subnet route punt path rate limiting is off, by bring up the destination IP host and by deleting the destination IP host brought in previous case
+    [Documentation]    Subnet route punt path rate limiting is on to the unknow destination IP
+    ...    Subnet route punt path rate limiting is off, by bring up the destination IP host
+    ...    By deleting the destination IP host subnet route punt path rate limiting is back on.
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    : FOR    ${index}    IN RANGE    0    3
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{VALID_TIMEOUTS}[0]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo ping -c 5 @{EXTRA_NW_IP}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True
+    ...    ${EMPTY}    nw_dst=@{EXTRA_NW_IP}[1] actions=drop
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    True
+    ...    ${EMPTY}    actions=CONTROLLER:65535,learn(table=${L3_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[0]
+    ${pkt_count_before}    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${L3_PUNT_TABLE}    |grep "nw_dst=@{EXTRA_NW_IP}[1] actions=drop"
+    Log    ${pkt_count_before}
+    BuiltIn.Should Be True    ${pkt_count_before} == 4
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{EXTRA_PORTS}[1]    @{EXTRA_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo ping -c 5 @{EXTRA_NW_IP}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${L3_PUNT_TABLE}    False
+    ...    ${EMPTY}    nw_dst=@{EXTRA_NW_IP}[1] actions=drop
+    OpenStackOperations.Delete Vm Instance    @{EXTRA_VMS}[1]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo ping -c 5 @{EXTRA_NW_IP}[1]
+    ${pkt_count}    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${L3_PUNT_TABLE}    |grep "nw_dst=@{EXTRA_NW_IP}[1] actions=drop"
+    Log    ${pkt_count}
+    Run Keyword And Ignore Error    BuiltIn.Should Be True    ${pkt_count} == 9
+    [Teardown]    Run Keyword And Ignore Error    OpenStackOperations.Delete Vm Instance    @{EXTRA_VMS}[1]
+
+Verify the ARP request punt path for same destination from different source
+    [Documentation]    Verify the ARP request punt path for same destination from different source
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    : FOR    ${index}    IN RANGE    0    3
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{VALID_TIMEOUTS}[0]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo arping -c 2 @{EXTRA_NW_IP}[0]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True
+    ...    ${EMPTY}    arp_tpa=@{EXTRA_NW_IP}[0],arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    True
+    ...    ${EMPTY}    arp_spa=@{EXTRA_NW_IP}[0],arp_op=1
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[1]    sudo arping -c 2 @{EXTRA_NW_IP}[0]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_PUNT_TABLE}    True
+    ...    ${EMPTY}    arp_tpa=@{EXTRA_NW_IP}[0],arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ARP_LEARN_TABLE}    True
+    ...    ${EMPTY}    arp_spa=@{EXTRA_NW_IP}[0],arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP2_IP}    ${ELAN_BASETABLE}    True
+    ...    ${EMPTY}    arp,reg4=0x1/0xffff
+
+Verify the ARP punt path for ARP Request from the VM should be punted to CSC and the reply from the subnet gateway shouldn’t be punted
+    [Documentation]    Verify the ARP punt path for ARP Request from the VM should be punted to CSC and the reply from the subnet gateway shouldn’t be punted
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    : FOR    ${index}    IN RANGE    0    3
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{VALID_TIMEOUTS}[0]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IPS}[0]    sudo arping -c 2 -I eth0 -s @{VM_IPS}[0] 11.1.1.1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    True
+    ...    ${EMPTY}    arp_tpa=11.1.1.1,arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_PUNT_TABLE}    False
+    ...    ${EMPTY}    arp_tpa=@{VM_IPS}[0],arp_op=1
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    True
+    ...    ${EMPTY}    arp_spa=11.1.1.1,arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_LEARN_TABLE}    False    ${EMPTY}    arp_spa=@{VM_IPS}[0],arp_op=1
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_BASETABLE}    True    ${EMPTY}    arp,reg4=0x101/0xffff
+
+Verify the SNAT punt path from same source IP to different destination
+    [Documentation]    Verify the SNAT punt path from same source IP to different destination
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    : FOR    ${index}    IN RANGE    0    3
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{VALID_TIMEOUTS}[0]
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[5]    telnet @{EXTRA_NW_IP}[2] &
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True
+    ...    |grep nw_dst=@{EXTRA_NW_IP}[2]    tp_dst=${TELNET_PORT} actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    |grep nw_src=@{VM_IPS}[5]    actions=set_field:${EXT_SUBNETS_FIXED_IP}->ip_src
+    ${pkt_count_before}    OvsManager.Get Packet Count From Table    ${snat_napt_switch_ip}    ${INTEGRATION_BRIDGE}    ${SNAT_PUNT_TABLE}    |grep nw_src=@{VM_IPS}[5],tp_src=
+    Log    ${pkt_count_before}
+    BuiltIn.Should Be True    ${pkt_count_before} > 0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[5]    telnet @{EXTRA_NW_IP}[3] &
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True
+    ...    |grep nw_dst=@{EXTRA_NW_IP}[3]    tp_dst=${TELNET_PORT} actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    |grep nw_src=@{VM_IPS}[5]    actions=set_field:${EXT_SUBNETS_FIXED_IP}->ip_src
+
+Verify the punt path with traffic for same destination from different source IP
+    [Documentation]    Verify the punt path with traffic for same destination from different source IP
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+    : FOR    ${index}    IN RANGE    0    3
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{VALID_TIMEOUTS}[0]
+    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[4]    telnet @{EXTRA_NW_IP}[2] &
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True
+    ...    |grep nw_dst=@{EXTRA_NW_IP}[2]    tp_dst=${TELNET_PORT} actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    |grep nw_src=@{VM_IPS}[4]    actions=set_field:${EXT_SUBNETS_FIXED_IP}->ip_src
+    ${pkt_count_before}    OvsManager.Get Packet Count From Table    ${snat_napt_switch_ip}    ${INTEGRATION_BRIDGE}    ${SNAT_PUNT_TABLE}    |grep nw_src=@{VM_IPS}[5],tp_src=
+    Log    ${pkt_count_before}
+    BuiltIn.Should Be True    ${pkt_count_before} > 0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IPS}[5]    telnet @{EXTRA_NW_IP}[2] &
+    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True
+    ...    |grep nw_dst=@{EXTRA_NW_IP}[2]    tp_dst=${TELNET_PORT} actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}    True    |grep nw_src=@{VM_IPS}[5]    actions=set_field:${EXT_SUBNETS_FIXED_IP}->ip_src
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Create common setup related to openflow punt path protection
