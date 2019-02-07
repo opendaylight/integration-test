@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "600b336a_e48d241d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddbb5c53_122cb0e4",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf5c060f_5c38ca0a",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 35
@@ -36,6 +60,24 @@
       "writtenOn": "2019-02-06T07:24:06Z",
       "side": 1,
       "message": "remove",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac4c55e1_60e49f76",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf5c060f_5c38ca0a",
       "revId": "900b682a18576bc7c0566a19122e059d3125361e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8616e54c_d1d5b93b",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56dd1546_eb7eb391",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e23479d5_9f902196",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 35
@@ -70,6 +130,24 @@
       "writtenOn": "2019-02-06T07:24:06Z",
       "side": 1,
       "message": "use genius.check ITM and pass additional arguments you need to check for OFT as separate list(with default value as empty) and append it",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8655751f_0eab42e5",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e23479d5_9f902196",
       "revId": "900b682a18576bc7c0566a19122e059d3125361e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "0b0eb218_a1d01bee",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "@Edwin suggested that there should be just as many tunnels per switch as listed on ODL. Only OF Port exposed should be 1. Please clarify.",
+      "parentUuid": "0bf72450_ce7d7113",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21e477f1_6ec3a32f",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 35
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "26a0f333_54d2b6d1",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "See previous comment.",
+      "parentUuid": "21e477f1_6ec3a32f",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9a4db5b_f565cd1a",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 35
@@ -121,6 +235,24 @@
       "writtenOn": "2019-02-06T07:24:06Z",
       "side": 1,
       "message": "Regexp*",
+      "revId": "900b682a18576bc7c0566a19122e059d3125361e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f191566_e4f2e00f",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-07T09:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a4db5b_f565cd1a",
       "revId": "900b682a18576bc7c0566a19122e059d3125361e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
