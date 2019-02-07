@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "940a4338_a99b68a3",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-02-07T16:00:15Z",
+      "side": 1,
+      "message": "iirc, if 2 of the 3 ping packets fail, this check will\nstill pass. not sure if that matters to you or not.",
+      "range": {
+        "startLine": 255,
+        "startChar": 9,
+        "endLine": 255,
+        "endChar": 54
+      },
+      "revId": "41e0d9d05fd678d4d44690d53d7cac9d585695f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
