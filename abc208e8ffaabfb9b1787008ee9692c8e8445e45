@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bd61501_e3afdde1",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T12:01:04Z",
+      "side": 1,
+      "message": "Run command and remote system and log?",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 501,
+        "endChar": 28
+      },
+      "revId": "abc208e8ffaabfb9b1787008ee9692c8e8445e45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
