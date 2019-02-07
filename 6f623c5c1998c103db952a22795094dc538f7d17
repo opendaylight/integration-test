@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5618237_97a8f4e5",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T11:54:52Z",
+      "side": 1,
+      "message": "wont it be enough if we disconnect and connect only one switch and do this check?",
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1dcd3d1_abab2548",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T11:54:52Z",
+      "side": 1,
+      "message": "you have already enabled BFD in last test case just do a check over here neednot enable again",
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c14ee4ce_1d857367",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T11:54:52Z",
+      "side": 1,
+      "message": "should probably go out once auto tunnels is done",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 25
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b917904_83d6e67f",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T11:54:52Z",
+      "side": 1,
+      "message": "check and see if this can be done in the following keyword itself",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 30
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "399524c5_6f963d74",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T11:54:52Z",
+      "side": 1,
+      "message": "we have a lot of keywords to check if tunnels are present in various places such as switch,datastore etc\nSee if we can reuse any of the keywords by passing your requirement as argument",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
