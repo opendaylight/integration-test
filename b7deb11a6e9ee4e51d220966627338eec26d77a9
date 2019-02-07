@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2f1d7a6c_4b3fac63",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T12:23:51Z",
+      "side": 1,
+      "message": "regexp can be made into an appropraite variable and use it over here",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb9e70f9_95899ef1",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 29
@@ -13,6 +30,40 @@
       "writtenOn": "2019-02-04T07:37:57Z",
       "side": 1,
       "message": "Do we need number_of_networks? Can you please consider getting the array length in name_of_networks and iterate?\n\nAlso network_names and subnet_names sounds better for an array of network/subnet names.",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0761ada2_31d433ba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T12:23:51Z",
+      "side": 1,
+      "message": "0 neednot be mentioned IN RANGE will automatically iterate from 0 to \u003c ${number_of_networks}",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e42ba1e_1b8b3f61",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T12:23:51Z",
+      "side": 1,
+      "message": "same as above",
       "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -99,6 +150,29 @@
       "writtenOn": "2019-02-04T07:37:57Z",
       "side": 1,
       "message": "Note to Self: The original Keyword \"Create Vm Instance With Ports\" was created for just two ports. I think it should take an array of ports. I will get to that later this week",
+      "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57f7c4ab_7af6371b",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-07T12:23:51Z",
+      "side": 1,
+      "message": "Cant this be made into a list and loop over?",
+      "range": {
+        "startLine": 120,
+        "startChar": 47,
+        "endLine": 124,
+        "endChar": 58
+      },
       "revId": "b7deb11a6e9ee4e51d220966627338eec26d77a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
