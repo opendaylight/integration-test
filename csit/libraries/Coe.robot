@@ -252,7 +252,7 @@ Ping Pods
     : FOR    ${ping info}    IN    @{logs}
     \    ${ping} =    Write Commands Until Expected Prompt    kubectl exec -it ${pod_name} -- ping -c 3 ${pod ips[${i}]}    ${DEFAULT_LINUX_PROMPT_STRICT}
     \    BuiltIn.log    ${ping}
-    \    Builtin.Should Match Regexp    ${ping}    ${PING_REGEXP}
+    \    BuiltIn.Should Contain    ${ping}    64 bytes
     \    ${i}    Evaluate    ${i}+1
 
 Coe Suite Teardown
