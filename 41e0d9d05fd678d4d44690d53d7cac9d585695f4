@@ -22,6 +22,30 @@
       "revId": "41e0d9d05fd678d4d44690d53d7cac9d585695f4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a94900cf_6bec902b",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-08T04:06:17Z",
+      "side": 1,
+      "message": "Yes Jamo,we sre still ok with it but if Sam\u0027s comment is impelemented hope it will take care of this also",
+      "parentUuid": "940a4338_a99b68a3",
+      "range": {
+        "startLine": 255,
+        "startChar": 9,
+        "endLine": 255,
+        "endChar": 54
+      },
+      "revId": "41e0d9d05fd678d4d44690d53d7cac9d585695f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
