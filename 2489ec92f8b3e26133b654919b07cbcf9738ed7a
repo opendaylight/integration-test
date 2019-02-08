@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9175f7e0_8e68822a",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7937
+      },
+      "writtenOn": "2019-02-08T05:46:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we remove carbon/nitrogen and oxygen releases now ?",
+      "revId": "2489ec92f8b3e26133b654919b07cbcf9738ed7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
