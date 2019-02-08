@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7676283e_966f958b",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-08T06:32:43Z",
+      "side": 1,
+      "message": "Instad of hardcoding 3, Can we iterate for the size of the array OF_PUNT_TABLES?",
+      "revId": "04f7495c078ce37e9b65857172573d516c7b358c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6f0e51f_bf4db44d",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-08T06:32:43Z",
+      "side": 1,
+      "message": "Sorry for missing this comment when I merged the last patch. Can you make a local keywords that constructs this search string and use the Keywords which will help understand the test better. \n\n\nfor eg, you can have a local Keyword like \nConstruct Flow Entry Match For Learn \n(takes argumens table,number and timeout) and return the above string. The test becomes more readable. Same comment for all the string constructed for matching the flow entry output",
+      "range": {
+        "startLine": 263,
+        "startChar": 36,
+        "endLine": 263,
+        "endChar": 109
+      },
+      "revId": "04f7495c078ce37e9b65857172573d516c7b358c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f431dda9_0075cfbe",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-08T06:32:43Z",
+      "side": 1,
+      "message": "Same comment as above, We can have a local keyword construct the string with nw_dst and actions.",
+      "range": {
+        "startLine": 269,
+        "startChar": 144,
+        "endLine": 269,
+        "endChar": 181
+      },
+      "revId": "04f7495c078ce37e9b65857172573d516c7b358c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eaab6671_156aa6d7",
+        "filename": "csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-08T06:32:43Z",
+      "side": 1,
+      "message": "will this work? I think it needs a \u0027,\u0027 between nw_dst and tp_dst",
+      "range": {
+        "startLine": 330,
+        "startChar": 12,
+        "endLine": 330,
+        "endChar": 79
+      },
+      "revId": "04f7495c078ce37e9b65857172573d516c7b358c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
