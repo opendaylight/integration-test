@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7cdde38_e0eb1bc9",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-08T11:36:30Z",
+      "side": 1,
+      "message": "Is 180s (3 minutes) wait a random time or specific to some operational delay?",
+      "revId": "7baf488733eba8c7baebe9e36affabb10c3e0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
