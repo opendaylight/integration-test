@@ -29,6 +29,14 @@ ${RES_FAILURE}    Operation timed out
 ${WEBSERVER_80}    python -m SimpleHTTPServer 80 > /dev/null 2>&1 &
 ${WEBSERVER_81}    python -m SimpleHTTPServer 81 > /dev/null 2>&1 &
 ${WEBSERVER_82}    python -m SimpleHTTPServer 82 > /dev/null 2>&1 &
+${WEBSERVER_83}    python -m SimpleHTTPServer 83 > /dev/null 2>&1 &
+${WEBSERVER_84}    python -m SimpleHTTPServer 84 > /dev/null 2>&1 &
+${WEBSERVER_85}    python -m SimpleHTTPServer 85 > /dev/null 2>&1 &
+${WEBSERVER_100}    python -m SimpleHTTPServer 100 > /dev/null 2>&1 &
+${WEBSERVER_101}    python -m SimpleHTTPServer 101 > /dev/null 2>&1 &
+${WEBSERVER_102}    python -m SimpleHTTPServer 102 > /dev/null 2>&1 &
+@{WEBSERVER_CMDS}    ${WEBSERVER_80}    ${WEBSERVER_81}    ${WEBSERVER_82}    ${WEBSERVER_83}    ${WEBSERVER_84}    ${WEBSERVER_85}    ${WEBSERVER_100}
+...               ${WEBSERVER_101}    ${WEBSERVER_102}
 ${CLOUD_IMAGE}    "https://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
 ${CLOUD_IMAGE_NAME}    sfc_nsh_fraser
 ${CLOUD_FLAVOR_NAME}    sfc_nsh_fraser
@@ -44,6 +52,8 @@ Create Flow Classifiers For Basic Test
     [Documentation]    Create SFC Flow Classifier for TCP traffic between source VM and destination VM
     OpenStackOperations.Create SFC Flow Classifier    FC_80    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    source_vm_port    args=--destination-port 80:80
     OpenStackOperations.Create SFC Flow Classifier    FC_81    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    source_vm_port    args=--destination-port 81:81
+    OpenStackOperations.Create SFC Flow Classifier    FC_83_85    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    source_vm_port    args=--destination-port 83:85
+    OpenStackOperations.Create SFC Flow Classifier    FC_100_102    @{NET1_VM_IPS}[1]    @{NET1_VM_IPS}[0]    tcp    dest_vm_port    args=--source-port 100:102
 
 Create Port Pair
     [Documentation]    Create SFC Port Pairs
@@ -73,24 +83,24 @@ Create Port Chain For Src->Dest Port 80
 Test Communication From Vm Instance1 In net_1 Port 80 via SF
     [Documentation]    Login to the source VM instance, and send a nc req to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for nc to be higher.
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_SUCCESS}
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 80
     BuiltIn.Comment    Port 80 communication should fail as the SF blocks the same
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_FAILURE}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_FAILURE}
     BuiltIn.Comment    Test to confirm Port 81 is not blocked
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 81
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_SUCCESS}
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_SUCCESS}
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
     ...    AND    OpenStackOperations.Get Test Teardown Debugs For SFC
@@ -105,28 +115,125 @@ Test Communication From Vm Instance1 In net_1 Port 81 via SF
     [Documentation]    Login to the source VM instance, and send a nc req to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for nc to be higher.
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_SUCCESS}
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_SUCCESS}    cmd_timeout=60s
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_SUCCESS}    cmd_timeout=60s
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 81
     BuiltIn.Comment    Port 81 communication should fail as the SF blocks the same
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_SUCCESS}
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_FAILURE}    cmd_timeout=60s
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_FAILURE}    cmd_timeout=60s
     BuiltIn.Comment    Test to confirm Port 80 does not continue to get routed through SF
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 80
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    80    ${RES_SUCCESS}
-    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND}
-    ...    81    ${RES_SUCCESS}    cmd_timeout=60s
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    81    ${RES_SUCCESS}    cmd_timeout=60s
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
     ...    AND    OpenStackOperations.Get Test Teardown Debugs For SFC
     ...    AND    OpenStackOperations.Exit From Vm Console
+
+Update Port Chain To Use Flow Classifier For Port Range 83-85
+    [Documentation]    Update Port Chain to use FC_83_85
+    OpenStackOperations.Update SFC Port Chain With A New Flow Classifier    SFPC1    FC_83_85
+
+Test Communication From Vm Instance1 In net_1 Port 84 And 85 via SF
+    [Documentation]    Login to the source VM instance, and send a nc req to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for nc to be higher.
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    83    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    84    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    85    ${RES_SUCCESS}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 83
+    BuiltIn.Comment    Port 83 communication should fail as the SF blocks the same
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    83    ${RES_FAILURE}    cmd_timeout=60s
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    84    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    85    ${RES_SUCCESS}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 84
+    BuiltIn.Comment    Port 84 communication should fail as the SF blocks the same
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    84    ${RES_FAILURE}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    83    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    85    ${RES_SUCCESS}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 85
+    BuiltIn.Comment    Port 85 communication should fail as the SF blocks the same
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    83    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    84    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    85    ${RES_FAILURE}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 80
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    83    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    84    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    85    ${RES_SUCCESS}    cmd_timeout=60s
+
+Update Port Chain To Use Flow Classifier For Input Port Range 100-102
+    [Documentation]    Update Port Chain to use FC_100_102
+    OpenStackOperations.Update SFC Port Chain With A New Flow Classifier    SFPC1    FC_100_102
+
+Test Communication From Vm Instance1 In net_1 Port 100 And 102 via SF
+    [Documentation]    Login to the source VM instance, and send a nc req to the destination VM instance, If the SF handles the traffic, there will be delay causing the time for nc to be higher.
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    100    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    101    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    102    ${RES_SUCCESS}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 101
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    100    ${RES_SUCCESS}    cmd_timeout=60s
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    101    ${RES_FAILURE}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    102    ${RES_SUCCESS}    cmd_timeout=60s
+    Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
+    Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 80
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    80    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    100    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    101    ${RES_SUCCESS}
+    Wait Until Keyword Succeeds    3x    10s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND}    102    ${RES_SUCCESS}    cmd_timeout=60s
 
 Delete And Recreate Port Chain And Flow Classifiers For Symmetric Test
     OpenStackOperations.Create SFC Flow Classifier    FC_SYM    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    source_vm_port    args=--destination-port 82:82 --source-port 2000 --logical-destination-port dest_vm_port
@@ -138,26 +245,26 @@ Test Communication From Vm Instance1 For Symmetric Chain
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_OUT} --output ${ETH_IN} --verbose off
-    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND} -p 2000
-    ...    82    ${RES_SUCCESS}    cmd_timeout=80s
+    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND} -p 2000    82    ${RES_SUCCESS}    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm the SRC->DEST Port 82 is routed through SF
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off --block 82
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_OUT} --output ${ETH_IN} --verbose off
-    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND} -p 2000
-    ...    82    ${RES_FAILURE}    cmd_timeout=80s
+    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND} -p 2000    82    ${RES_FAILURE}    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm DEST->SRC Port 2000 path SFC traversal
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_OUT} --output ${ETH_IN} --verbose off --block 2000
-    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND} -p 2000
-    ...    82    ${RES_FAILURE}    cmd_timeout=80s
+    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND} -p 2000    82    ${RES_FAILURE}    cmd_timeout=80s
     BuiltIn.Comment    Test to confirm the Normalcy restored
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_IN} --output ${ETH_OUT} --verbose off
     Start Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}    args=--do forward --interface ${ETH_OUT} --output ${ETH_IN} --verbose off
-    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${NC_COMMAND} -p 2000
-    ...    82    ${RES_SUCCESS}    cmd_timeout=80s
+    Wait Until Keyword Succeeds    8x    20s    Check Network Reachability    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]
+    ...    ${NC_COMMAND} -p 2000    82    ${RES_SUCCESS}    cmd_timeout=80s
     Stop Vxlan Tool in SF    @{NETWORKS}[0]    ${SF1_IP}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
     ...    AND    OpenStackOperations.Get Test Teardown Debugs For SFC
@@ -176,6 +283,8 @@ Delete Configurations
     OpenStackOperations.Delete SFC Port Pair    SFPP1
     OpenStackOperations.Delete SFC Flow Classifier    FC_80
     OpenStackOperations.Delete SFC Flow Classifier    FC_81
+    OpenStackOperations.Delete SFC Flow Classifier    FC_83_85
+    OpenStackOperations.Delete SFC Flow Classifier    FC_100_102
     OpenStackOperations.Delete SFC Flow Classifier    FC_SYM
     : FOR    ${port}    IN    @{PORTS}
     \    OpenStackOperations.Delete Port    ${port}
@@ -255,9 +364,22 @@ Check Vm Instances Have Ip Address And Ready For Test
 
 Start Applications on VM Instances For Test
     BuiltIn.Comment    Run Web server Scripts on destination vm listening to 80,81 and 82 ports
-    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_80}    user=${CLOUD_IMAGE_USER}    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
-    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_81}    user=${CLOUD_IMAGE_USER}    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
-    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    ${WEBSERVER_82}    user=${CLOUD_IMAGE_USER}    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
+    Execute Commands on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    @{WEBSERVER_CMDS}    user=${CLOUD_IMAGE_USER}    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
+
+Execute Commands on VM Instance
+    [Arguments]    ${net_name}    ${vm_ip}    @{cmds}    ${user}=root    ${password}=opnfv    ${cmd_timeout}=30s
+    ...    ${console}=root
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    OpenStackOperations.Get ControlNode Connection
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=password    password:
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    ${console}
+    : FOR    ${cmd}    IN    @{cmds}
+    \    ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    \    ...    timeout=${cmd_timeout}
+    [Teardown]    Exit From Vm Console    ${console}
+    [Return]    ${output}
 
 Start Vxlan Tool in SF
     [Arguments]    ${network}    ${sf_vm_ip}    ${args}=${EMPTY}
@@ -270,7 +392,8 @@ Stop Vxlan Tool in SF
     OpenStackOperations.Execute Command on VM Instance    ${network}    ${sf_vm_ip}    pkill python    user=${CLOUD_IMAGE_USER}    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
 
 Check Network Reachability
-    [Arguments]    ${net_name}    ${vm_ip}    ${command}    ${port}    ${ret_code}    ${cmd_timeout}=30s
-    ${nc_resp}    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${vm_ip}    ${command} @{NET1_VM_IPS}[1] ${port}    cmd_timeout=${cmd_timeout}    user=${CLOUD_IMAGE_USER}
+    [Arguments]    ${net_name}    ${source_vm_ip}    ${dest_vm_ip}    ${command}    ${port}    ${ret_code}
+    ...    ${cmd_timeout}=30s
+    ${nc_resp}    OpenStackOperations.Execute Command on VM Instance    ${net_name}    ${source_vm_ip}    ${command} ${dest_vm_ip} ${port}    cmd_timeout=${cmd_timeout}    user=${CLOUD_IMAGE_USER}
     ...    password=${CLOUD_IMAGE_PASS}    console=${CLOULD_IMAGE_CONSOLE}
     BuiltIn.Should Contain    ${nc_resp}    ${ret_code}
