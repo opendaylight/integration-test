@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7af25368_e1d0164f",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-12T11:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5618237_97a8f4e5",
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1dcd3d1_abab2548",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 38
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "50a72f94_0831c10a",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-12T11:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1dcd3d1_abab2548",
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c14ee4ce_1d857367",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 38
@@ -47,6 +83,30 @@
       "writtenOn": "2019-02-07T11:54:52Z",
       "side": 1,
       "message": "should probably go out once auto tunnels is done",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 25
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4640bc0d_3082eaa8",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-12T11:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c14ee4ce_1d857367",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "b9c33d5a_cf592f0c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-12T11:15:09Z",
+      "side": 1,
+      "message": "This keyword extracts the tunnel names as seen on OVS. The same tunnel names (per tools ip in below keyword) are further used for verification at the time of deletion of tunnels and in BFD as well wherever OVS is involved.",
+      "parentUuid": "5b917904_83d6e67f",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 30
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "399524c5_6f963d74",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 38
@@ -93,6 +177,30 @@
       "writtenOn": "2019-02-07T11:54:52Z",
       "side": 1,
       "message": "we have a lot of keywords to check if tunnels are present in various places such as switch,datastore etc\nSee if we can reuse any of the keywords by passing your requirement as argument",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 39
+      },
+      "revId": "6f623c5c1998c103db952a22795094dc538f7d17",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47305534_2016447d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-12T11:15:09Z",
+      "side": 1,
+      "message": "Not sure if they\u0027ll be just as sophisticated if not worse. Maybe will remove extraction of tunnels from OVS in future for OF-Tunnels. Needs further review.",
+      "parentUuid": "399524c5_6f963d74",
       "range": {
         "startLine": 202,
         "startChar": 0,
