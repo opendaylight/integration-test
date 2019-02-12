@@ -27,6 +27,8 @@ Start Mininet Single Controller
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options} --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
+    SSHLibrary.Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
+    SSHLibrary.Read Until    mininet>
     Log    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
     SSHLibrary.Read Until    mininet>
