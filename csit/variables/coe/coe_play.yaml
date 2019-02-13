@@ -23,10 +23,6 @@
       file:
         path: "{{ ansible_env.HOME }}/go/bin"
         state: directory
-    - name: Install dep
-      shell: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-      args:
-        creates: "{{ gopath }}/bin/dep"
     - name: Show gerrit details
       run_once: true
       debug:
@@ -54,13 +50,8 @@
       run_once: true
       debug:
         var=git_log_output.stdout_lines
-    - name: Fetch odl-cni dependencies with dep
-      shell: dep ensure -vendor-only
-      args:
-        chdir: "{{ coe_path }}/odlCNIPlugin/odlovs-cni"
-        creates: "{{ coe_path }}/odlCNIPlugin/odlovs-cni/vendor"
     - name: Build odlovs-cni
-      shell: go build
+      shell: GO111MODULE=on go build
       args:
         chdir: "{{ coe_path }}/odlCNIPlugin/odlovs-cni"
         creates: "{{ coe_path }}/odlCNIPlugin/odlovs-cni/odlovs-cni"
@@ -81,13 +72,8 @@
     GOPATH: "{{ gopath }}"
     GOROOT: /usr/local/go
   tasks:
-    - name: Fetch watcher dependencies with dep
-      shell: dep ensure -vendor-only
-      args:
-        chdir: "{{ coe_path }}/watcher"
-        creates: "{{ coe_path }}/watcher/vendor"
     - name: Build watcher
-      shell: go build
+      shell: GO111MODULE=on go build
       args:
         chdir: "{{ coe_path }}/watcher"
         creates: "{{ coe_path }}/watcher/watcher"
