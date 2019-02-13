@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "42404854_6ca7ef65",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2ec15f5_6c36a667",
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c73eda57_bbc6ab28",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 40
@@ -30,6 +48,30 @@
       "writtenOn": "2019-02-12T13:54:10Z",
       "side": 1,
       "message": "these variables are already present,reuse",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d005f2c5_5a32e26f",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c73eda57_bbc6ab28",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9930c8c5_e7670ca2",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bf86c44_e397d970",
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91820028_68694c74",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 40
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "81bc1c88_c0c8abee",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "No need. Removed.",
+      "parentUuid": "91820028_68694c74",
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaaa0ce9_7d837866",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 40
@@ -87,6 +165,30 @@
       "writtenOn": "2019-02-12T13:54:10Z",
       "side": 1,
       "message": "not necessary to check all these check only what is needed",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 48
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fa1536a_85147dc2",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaaa0ce9_7d837866",
       "range": {
         "startLine": 131,
         "startChar": 0,
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "d1cf7685_e70c9edd",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "To check if teps are visible at tep:show after setting of-tunnels flag and local ip for auto-tunnels on OVS.",
+      "parentUuid": "11c70347_b67d5ea5",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 68
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8947b63_183acc7f",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 40
@@ -133,6 +259,30 @@
       "writtenOn": "2019-02-12T13:54:10Z",
       "side": 1,
       "message": "would be good if both keywords can be optimized to a single keyword and pass needed arguments",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 97
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b143c124_74a3445c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8947b63_183acc7f",
       "range": {
         "startLine": 141,
         "startChar": 0,
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "3194f917_a0d89736",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d416bb8e_dfddf1a4",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 109
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32fbdc4e_9be1fb51",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 40
@@ -179,6 +353,30 @@
       "writtenOn": "2019-02-12T13:54:10Z",
       "side": 1,
       "message": "same as above would be good if we have a single dynamic keyword for such purposes",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 39
+      },
+      "revId": "25fec4680e964719c48fbd166bfd431f6a0481b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23dfce08_1838f284",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-13T13:38:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32fbdc4e_9be1fb51",
       "range": {
         "startLine": 162,
         "startChar": 0,
