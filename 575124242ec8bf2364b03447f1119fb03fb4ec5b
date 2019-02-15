@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c9efd6_c7902237",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-15T09:50:41Z",
+      "side": 1,
+      "message": "Can you invoke as BuiltIn.Wait Until Keyword Succeeds?",
+      "revId": "575124242ec8bf2364b03447f1119fb03fb4ec5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd016538_e23802ab",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-15T09:50:41Z",
+      "side": 1,
+      "message": "BuiltIn.Comment",
+      "revId": "575124242ec8bf2364b03447f1119fb03fb4ec5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
