@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe0a52ae_0437a587",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-16T17:18:03Z",
+      "side": 1,
+      "message": "The output is logged in Openstack CLI Keyword. This Log may not be necessary",
+      "revId": "e3e7938f4841cea89365807f5e658bb64c428e8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feeb173f_28238724",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-16T17:18:03Z",
+      "side": 1,
+      "message": "Not needed to Log here, I think Run Process will log the cmd",
+      "revId": "e3e7938f4841cea89365807f5e658bb64c428e8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
