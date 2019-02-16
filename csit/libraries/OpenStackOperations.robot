@@ -1100,9 +1100,11 @@ OpenStack List All
 OpenStack CLI Get List
     [Arguments]    ${cmd}
     [Documentation]    Return a json list from the output of an OpenStack command.
-    @{list} =    BuiltIn.Create List
     ${json} =    OpenStack CLI    ${cmd}
-    @{list} =    RequestsLibrary.To Json    ${json}
+    BuiltIn.Log    ${json}
+    ${json_length} =    Get Length    ${json}
+    @{list} =    BuiltIn.Run Keyword If    ${json_length} > 2    RequestsLibrary.To Json    ${json}
+    ...    ELSE    BuiltIn.Create List
     BuiltIn.Log    ${list}
     [Return]    @{list}
 
