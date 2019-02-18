@@ -16,6 +16,23 @@
       "revId": "f268c3c2d84d394a333f5bd8eb459ec50c6e8f68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3de650a_d95f2a37",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-02-18T15:12:55Z",
+      "side": 1,
+      "message": "this seems fragile to look for 2. Can you give more details on why the decoding fails?",
+      "revId": "f268c3c2d84d394a333f5bd8eb459ec50c6e8f68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
