@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "39a321e3_cb678012",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:57:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf4bb5c_e5d59325",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca173c49_bcc07298",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2019-02-12T12:04:08Z",
       "side": 1,
       "message": "why is FC_81 being removed? Is multiple flow classifiers not supported?, If so please add some comment here to indicate the same.",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feb790ef_bb743557",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:57:30Z",
+      "side": 1,
+      "message": "Multiple flow classifier are supported. So updated the code as per the given comment.",
+      "parentUuid": "ca173c49_bcc07298",
       "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "64a8abd1_ac56fcfc",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:57:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6fca104_48af3f26",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67eb45e1_3da3cfb1",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 3
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "ffb6692f_4749d8bd",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:57:30Z",
+      "side": 1,
+      "message": "Testing of Source Port range has been added as part of addressing previous comment.",
+      "parentUuid": "67eb45e1_3da3cfb1",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61a5d929_81da247a",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 3
@@ -98,6 +170,24 @@
       "writtenOn": "2019-02-12T12:04:08Z",
       "side": 1,
       "message": "Can we look at constructing all the commands as one string and executing in one shot like\npython -m SimpleHTTPServer 80 \u003e /dev/null 2\u003e\u00261 \u0026;python -m SimpleHTTPServer 81 \u003e /dev/null 2\u003e\u00261 \n\nThat will save multiple ssh connections needing to be created for this operation",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd029343_c04adaf1",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:57:30Z",
+      "side": 1,
+      "message": "The code has been modified so that all commands are executed inside single ssh connection.",
+      "parentUuid": "61a5d929_81da247a",
       "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
