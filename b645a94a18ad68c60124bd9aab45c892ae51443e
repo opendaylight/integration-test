@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f99e218_57752eb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-18T11:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16679ae4_80d157e0",
+      "revId": "b645a94a18ad68c60124bd9aab45c892ae51443e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdf4bb5c_e5d59325",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 3
