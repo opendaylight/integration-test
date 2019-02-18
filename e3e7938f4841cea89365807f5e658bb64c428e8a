@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d02619c4_7f6e3844",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 8310
+      },
+      "writtenOn": "2019-02-18T00:26:58Z",
+      "side": 1,
+      "message": "Log ${json} here is just for tracing the exceptional case, that will result in termination and can\u0027y arrive BuiltIn.Log    ${list}. Actually, ${json} is different from ${list}. I show you a case here:\n\n${json} \u003d     catenate    SEPARATOR\u003d\n    ...     [\n    ...      {\n    ...        \"Status\": \"ACTIVE\",\n    ...        \"Name\": \"l3_router1\",\n    ...        \"Distributed\": false,\n    ...        \"Project\": \"0a1a07a723d84e2694e5bac626544c98\",\n    ...        \"State\": \"UP\",\n    ...        \"HA\": false,\n    ...        \"ID\": \"6dc59531-a646-4e72-b1ca-562ec153711e\"\n    ...      },\n    ...      {\n    ...        \"Status\": \"ACTIVE\",\n    ...        \"Name\": \"l3_router2\",\n    ...        \"Distributed\": false,\n    ...        \"Project\": \"0a1a07a723d84e2694e5bac626544c98\",\n    ...        \"State\": \"UP\",\n    ...        \"HA\": false,\n    ...        \"ID\": \"d6055edb-566f-4b09-ab5f-3eb355bc4959\"\n    ...      }\n    ...     ]\n\n${list} is here:\n\nlist \u003d [{u\u0027Status\u0027: u\u0027ACTIVE\u0027, u\u0027Name\u0027: u\u0027l3_router1\u0027, u\u0027Distributed\u0027: False, u\u0027Project\u0027: u\u00270a1a07a723d84e2694e5bac626544c98\u0027, u\u0027State\u0027: u\u0027UP\u0027, u\u0027HA\u0027: False, u\u0027ID\u0027: u\u00276dc59531-a646-4e72-b1ca-562ec153711e\u0027}, {u\u0027Status\u0027: u\u0027ACTIVE\u0027, u\u0027Name\u0027: u\u0027l3_router2\u0027, u\u0027Distributed\u0027: False, u\u0027Project\u0027: u\u00270a1a07a723d84e2694e5bac626544c98\u0027, u\u0027State\u0027: u\u0027UP\u0027, u\u0027HA\u0027: False, u\u0027ID\u0027: u\u0027d6055edb-566f-4b09-ab5f-3eb355bc4959\u0027}]\n\nSo I prefer it is kept here, it is very helpful for exceptional case.",
+      "parentUuid": "fe0a52ae_0437a587",
+      "revId": "e3e7938f4841cea89365807f5e658bb64c428e8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feeb173f_28238724",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-16T17:18:03Z",
       "side": 1,
       "message": "Not needed to Log here, I think Run Process will log the cmd",
+      "revId": "e3e7938f4841cea89365807f5e658bb64c428e8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4678bfcf_1327f681",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 8310
+      },
+      "writtenOn": "2019-02-18T00:26:58Z",
+      "side": 1,
+      "message": "Yeah, Run Process did log it. I\u0027ll remove it in update. Can you tell me detailed steps about how to run job in sandbox to verify this commit?",
+      "parentUuid": "feeb173f_28238724",
       "revId": "e3e7938f4841cea89365807f5e658bb64c428e8a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
