@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for elan interface and service recovery
 Suite Setup       Start Suite
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           Collections
@@ -133,3 +133,14 @@ Recover Elan Flows
     [Documentation]    Recover ELAN flows for the given interfaces
     ${recover_msg} =    KarafKeywords.Issue Command On Karaf Console    ${INTERFACE-STATUS-CLI} ${interface}
     BuiltIn.Should Contain    ${recover_msg}    RPC call to recover was successful
+
+Suite Local Teardown
+    : FOR    ${vm}    IN    @{NET_1_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${vm}    IN    @{NET_2_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{PORT_LIST}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${network}    IN    @{REQ_NETWORK}
+    \    OpenStackOperations.Delete Network   ${network}
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}

@@ -3,7 +3,7 @@ Documentation     Test suite to validate elan service functionality in ODL envir
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -192,3 +192,20 @@ Verify Flows Are Removed For ELAN Service On All compute Nodes
     [Arguments]    ${smacs}
     : FOR    ${ip}    IN    @{OS_CMP_IPS}
     \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${ip}    ${smacs}
+
+Suite Local Teardown
+    : FOR    ${vm}    IN    @{NET_1_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${vm}    IN    @{NET_2_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${vm}    IN    @{NET_3_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{NET_1_PORTS}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${port}    IN    @{NET_2_PORTS}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${port}    IN    @{NET_3_PORTS}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    OpenStackOperations.Delete Network   ${network}
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}

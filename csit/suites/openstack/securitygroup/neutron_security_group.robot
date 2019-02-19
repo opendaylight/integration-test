@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -116,3 +116,10 @@ Neutron Rule Creation With Invalid Parameters
     ${rc}    ${output} =    Run And Return Rc And Output    openstack security group rule create ${additional_args} ${sg_name}
     BuiltIn.Log    ${output}
     BuiltIn.Should Contain    ${output}    ${expected_error}
+
+Suite Local Teardown
+    : FOR    ${port}    IN    @{PORTS}
+    \    OpenStackOperations.Delete Port     ${port} 
+    OpenStackOperations.Delete Network     ${NETWORKS[0]} 
+    : FOR    ${sg}    IN    @{SGS}
+    \    OpenStackOperations.Delete Security Group     ${sg} 

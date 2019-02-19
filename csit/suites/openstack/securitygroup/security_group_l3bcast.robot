@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for Network and Subnet Broadcast with security group
 Suite Setup       Start Suite
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           String
@@ -164,3 +164,15 @@ Verify L3Broadcast With Antispoofing Table
     ${get_pkt_count_after_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    additional_args=| grep ${vm_submeta}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${pkt_check}
+
+Suite Local Teardown
+    @{vms} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
+    @{ports} =    BuiltIn.Create List    @{NET_1_PORTS}[0]    @{NET_1_PORTS}[1]    @{NET_1_PORTS}[2]    @{NET_2_PORTS}[0]    @{NET_2_PORTS}[1]
+    : FOR    ${port}    ${vm}    ${node}    IN ZIP    ${ports}    ${vms}
+    \    OpenStackOperations.Delete Vm Instance     ${vm}
+    \    OpenStackOperations.Delete Port    ${vm}
+    OpenStackOperations.Cleanup Router    ${ROUTER}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    OpenStackOperations.Delete Network    ${network}
+    : FOR    ${sg}    IN    @{SECURITY_GROUP}
+    \    OpenStackOperations.Delete Security Group    ${sg}
