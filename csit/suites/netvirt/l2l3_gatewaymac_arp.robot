@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for Gateway mac based L2L3 seggragation
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           Collections
@@ -209,3 +209,13 @@ Verify Flows Are Present For ARP
     BuiltIn.Should Contain    ${flow_output}    arp,arp_op=1 actions=group:${group_id[0]}
     ${flow_output} =    Utils.Run Command On Remote System    ${OS_CMP1_IP}    ${GROUP_FLOWS} | grep group_id=${group_id[0]}
     BuiltIn.Should Contain    ${flow_output}    bucket=actions=resubmit(,81)
+
+Suite Local Teardown
+    OpenStackOperations.Cleanup Router    ${REQ_ROUTER}
+    : FOR    ${vm}    IN    @{VM_NAMES}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{PORT_LIST}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${network}    IN    @{REQ_NETWORKS}
+    \    OpenStackOperations.Delete Network   ${network}
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to validate ARP functionality for ACL_Enhancement feature.
 Suite Setup       Start Suite
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -129,3 +129,13 @@ Create Setup
     ${VM1_PORT} =    Get VMs OVS Port Number    ${OS_COMPUTE_1_IP}    @{PORTS}[0]
     ${VM1_METADATA} =    OVSDB.Get Port Metadata    ${OS_COMPUTE_1_IP}    ${VM1_PORT}
     BuiltIn.Set Suite Variable    ${VM1_METADATA}
+
+Suite Local Teardown
+    : FOR    ${vm}    IN    @{VM_NAMES}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{PORTS}
+    \    OpenStackOperations.Delete Port     ${port}
+    : FOR    ${network}    IN    @{REQ_NETWORKS}
+    \    OpenStackOperations.Delete Network    ${network}
+    : FOR    ${sg}    IN    @{SECURITY_GROUP}
+    \    OpenStackOperations.Delete Security Group    ${sg}

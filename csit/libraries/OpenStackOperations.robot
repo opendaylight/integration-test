@@ -1163,8 +1163,8 @@ OpenStack Suite Setup
     @{loggers} =    BuiltIn.Create List    org.apache.karaf.shell.support.ShellUtil    org.apache.sshd.server.session.ServerSessionImpl
     Setuputils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    OFF    ${loggers}
     DevstackUtils.Devstack Suite Setup
-    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
-    BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
+    #@{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
+    #BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
     Validate Deployment
@@ -1177,8 +1177,8 @@ OpenStack Suite Teardown
     # TODO: followup patch will add the list of vms to pass to Show Debugs
     # OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
-    OpenStack Cleanup All
-    OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
+    #OpenStack Cleanup All
+    #OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    KarafKeywords.Issue Command On Karaf Console    threads --list | wc -l    ${ODL_SYSTEM_${i+1}_IP}
