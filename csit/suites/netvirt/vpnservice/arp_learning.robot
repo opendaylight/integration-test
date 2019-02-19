@@ -193,7 +193,18 @@ Suite Teardown
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.Dissociate L3VPN From Networks    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.Dissociate VPN to Router    routerid=${ROUTER_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    OpenStackOperations.OpenStack Suite Teardown
+    OpenStackOperations.Cleanup Router    ${ROUTER}
+    : FOR    ${vm}    IN    @{NET_1_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${vm}    IN    @{NET_2_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${vm}    IN    @{NET_3_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{PORTS}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    OpenStackOperations.Delete Network   ${network}
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}
 
 Associate L3VPN To ROUTER
     VpnOperations.Associate L3VPN To Network    networkid=${NET_ID}    vpnid=@{VPN_INSTANCE_IDS}[0]

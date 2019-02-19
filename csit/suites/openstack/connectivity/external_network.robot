@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Force Tags        skip_if_${ODL_SNAT_MODE}
@@ -217,3 +217,16 @@ Suite Setup
     \    Should Contain    ${data}    ${router}
     OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
     OpenStackOperations.Get Suite Debugs
+
+Suite Local Teardown
+    OpenStackOperations.Delete Vm Instance      @{NET1_FIP_VMS}[2]
+    OpenStackOperations.Delete Vm Instance      @{NET1_FIP_VMS}[1]
+    OpenStackOperations.Delete Vm Instance      @{NET1_FIP_VMS}[0]
+    OpenStackOperations.Delete Vm Instance      @{NET1_SNAT_VMS}[1]
+    OpenStackOperations.Delete Vm Instance      @{NET1_SNAT_VMS}[0]
+    : FOR    ${ip}    IN    @{VM_FLOATING_IPS}
+    \    OpenStackOperations.Delete Floating IP     ${ip} 
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Cleanup Router    ${router}
+    OpenStackOperations.Delete Network     @{NETWORKS}[0]
+    OpenStackOperations.Delete Network     ${EXTERNAL_NET_NAME}

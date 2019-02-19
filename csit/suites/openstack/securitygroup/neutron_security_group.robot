@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -30,6 +30,7 @@ ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --por
 @{PORTS}          sgs_port_1    sgs_port_2
 ${SECURITY_GROUPS}    --security-group
 @{SGS}            sgs_sg_1    sgs_sg_2    sgs_sg_3    sgs_sg_4
+@{SGSDEL}            sgs_sg_2    sgs_sg_3    sgs_sg_4
 ${SG_UPDATED}     SSH_UPDATED
 ${ADD_ARG_SSH5}    --ingress --ethertype IPv4 --dst-port 25:20 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
@@ -116,3 +117,10 @@ Neutron Rule Creation With Invalid Parameters
     ${rc}    ${output} =    Run And Return Rc And Output    openstack security group rule create ${additional_args} ${sg_name}
     BuiltIn.Log    ${output}
     BuiltIn.Should Contain    ${output}    ${expected_error}
+
+Suite Local Teardown
+    : FOR    ${port}    IN    @{PORTS}
+    \    OpenStackOperations.Delete Port     ${port} 
+    OpenStackOperations.Delete Network     ${NETWORKS[0]} 
+    : FOR    ${sg}    IN    @{SGSDEL}
+    \    OpenStackOperations.Delete Security Group     ${sg} 
