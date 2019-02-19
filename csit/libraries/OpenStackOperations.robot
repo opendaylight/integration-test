@@ -1177,7 +1177,7 @@ OpenStack Suite Teardown
     # TODO: followup patch will add the list of vms to pass to Show Debugs
     # OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
-    OpenStack Cleanup All
+    #OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}

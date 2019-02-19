@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -109,3 +109,14 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
+
+Suite Local Teardown
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[2]
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[1]
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[0]
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[2]
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[1]
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[0]
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}
+    OpenStackOperations.Delete Network     @{NETWORKS}[1]
+    OpenStackOperations.Delete Network     @{NETWORKS}[0]
