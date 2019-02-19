@@ -87,4 +87,10 @@ Suite Setup
 
 Suite Teardown
     BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
-    OpenStackOperations.OpenStack Suite Teardown
+    : FOR    ${vm}    IN    @{VNI_NET_1_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{VNI_NET_1_PORTS}
+    \    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${network}    IN    @{VNI_NETWORKS}
+    \    OpenStackOperations.Delete Network   ${network}
+    OpenStackOperations.Delete Security Group    ${VNI_SECURITY_GROUP}
