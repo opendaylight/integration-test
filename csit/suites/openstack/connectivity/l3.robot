@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -207,3 +207,17 @@ Suite Setup
     \    OpenStackOperations.Add Router Interface    @{ROUTER}[0]    ${interface}
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     OpenStackOperations.Get Suite Debugs
+
+Suite Local Teardown
+    OpenStackOperations.Delete Vm Instance      @{NET_4_VMS}[0] 
+    OpenStackOperations.Delete Vm Instance      @{NET_5_VMS}[0] 
+    OpenStackOperations.Cleanup Router     @{ROUTER}[0] 
+    OpenStackOperations.Delete Router     @{ROUTER}[0] 
+    OpenStackOperations.Cleanup Router     @{ROUTER}[1] 
+    OpenStackOperations.Delete Router     @{ROUTER}[1] 
+    OpenStackOperations.Delete Network     @{NETWORKS}[4]
+    OpenStackOperations.Delete Network     @{NETWORKS}[3]
+    OpenStackOperations.Delete Network     @{NETWORKS}[2]
+    OpenStackOperations.Delete Network     @{NETWORKS}[1]
+    OpenStackOperations.Delete Network     @{NETWORKS}[0]
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}

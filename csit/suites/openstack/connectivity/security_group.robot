@@ -4,7 +4,7 @@ Documentation     Test suite to verify security groups basic and advanced functi
 ...               "skip_if_transparent" to allow any underlying keywords to return with a PASS without risking
 ...               a false failure. The real value of this suite will be in stateful mode.
 Suite Setup       Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Teardown    Suite Local Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Force Tags        skip_if_${SECURITY_GROUP_MODE}
@@ -218,3 +218,11 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
+
+Suite Local Teardown
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[0]
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[1]
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[0]
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}
+    OpenStackOperations.Delete Network     @{NETWORKS}[1]
+    OpenStackOperations.Delete Network     @{NETWORKS}[0]
