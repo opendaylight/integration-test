@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "268a5f76_e306bccd",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-19T06:30:37Z",
+      "side": 1,
+      "message": "why do we need a different cmd_timeout for this test alone? All the 3 tests to ports 83,84 and 85 are processe by vxlan_tool right?",
+      "revId": "f5c9a2721a82474b21dde3f4c1f3751e490ce742",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe67b536_167a4504",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-19T06:30:37Z",
+      "side": 1,
+      "message": "Same question as above, why a few lines need cmd_timeout?",
+      "revId": "f5c9a2721a82474b21dde3f4c1f3751e490ce742",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
