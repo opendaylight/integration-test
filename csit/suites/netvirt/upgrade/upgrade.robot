@@ -27,7 +27,7 @@ ${ROUTER}         upgrade_router_1
 ${TYPE}           tun
 ${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
 @{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
-${UPDATE_FLAG_PATH}    /restconf/config/genius-mdsalutil:config
+${UPDATE_FLAG_PATH}    /restconf/config/odl-serviceutils-upgrade:upgrade-config
 
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
