@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd351a59_e372dd6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-19T12:30:26Z",
+      "side": 1,
+      "message": "Better title?\nThis signifies as if a new suite is being added",
+      "revId": "864e42c2838032fba36ef929dd1ca0fca7563bee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58f383c3_ad894846",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-19T12:30:26Z",
+      "side": 1,
+      "message": "what is this change for?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 159
+      },
+      "revId": "864e42c2838032fba36ef929dd1ca0fca7563bee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
