@@ -109,3 +109,14 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
+
+Suite Local Teardown
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[2] 
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[1] 
+    OpenStackOperations.Delete Vm Instance      @{NET_2_VMS}[0] 
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[2] 
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[1] 
+    OpenStackOperations.Delete Vm Instance      @{NET_1_VMS}[0] 
+    OpenStackOperations.Delete Security Group    ${SECURITY_GROUP}
+    OpenStackOperations.Delete Network     @{NETWORKS}[1]
+    OpenStackOperations.Delete Network     @{NETWORKS}[0]
