@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e6c70e9_ffdc2c88",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-20T06:50:02Z",
+      "side": 1,
+      "message": "Instead of having the ssh login here, I think the Execute Command can be reused. You can construct the command to be a large string like ${WEBSERVER_80};${WEBSERVER_81};${WEBSERVER_82} and so on. I think that will be better. ssh can have some changes later, We may need to fix in many places. better to leave it at OpenstackOperations.robot",
+      "revId": "e11aff18ee84a0bc95ad29478b5e396023f6a452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
