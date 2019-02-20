@@ -16,6 +16,24 @@
       "revId": "e11aff18ee84a0bc95ad29478b5e396023f6a452",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89f9f906_f28912af",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 8343
+      },
+      "writtenOn": "2019-02-20T09:13:40Z",
+      "side": 1,
+      "message": "I have tried to reuse \"OpenStackOperations.Execute Command on VM Instance\" and pass concatenated string [e.g.  ${WEBSERVER_80};${WEBSERVER_81};${WEBSERVER_82}] to it earlier. But that did not work. Internally \"OpenStackOperations.Execute Command on VM Instance\" invokes \"Utils.Write Commands Until Expected Prompt\". And the later function (Keyword in robot term) comes out before executing all of the commands, because it is the same prompt[#] that is expected after executing each ${WEBSERVER_XX} successfully. So I created this new function \"Execute Commands on VM Instance\" to execute multiple commands inside single session.",
+      "parentUuid": "7e6c70e9_ffdc2c88",
+      "revId": "e11aff18ee84a0bc95ad29478b5e396023f6a452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
