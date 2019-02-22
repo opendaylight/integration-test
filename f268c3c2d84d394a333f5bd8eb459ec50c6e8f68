@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fb503e0_531eb463",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 8310
+      },
+      "writtenOn": "2019-02-22T09:00:56Z",
+      "side": 1,
+      "message": "${list} won\u0027t be output if RequestsLibrary.To Json    ${json} has exception, that is why I want to add it here. It is used to catch exceptional cases and log precise Openstack CLI output. ${list} is different from ${json} in some cases, the case Venkat reverted last commit is just such special case.",
+      "parentUuid": "0d5c11ac_2ba48c70",
+      "revId": "f268c3c2d84d394a333f5bd8eb459ec50c6e8f68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3de650a_d95f2a37",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-18T15:12:55Z",
       "side": 1,
       "message": "this seems fragile to look for 2. Can you give more details on why the decoding fails?",
+      "revId": "f268c3c2d84d394a333f5bd8eb459ec50c6e8f68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "010faf25_625105a7",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 8310
+      },
+      "writtenOn": "2019-02-22T09:00:56Z",
+      "side": 1,
+      "message": "OpenStack CLI Get List\u0027s input $cmd must output json format, otherwise it will result in exception in RequestsLibrary.To Json    ${json}, for such case, we need to trace why. robotframework doesn\u0027t provide strong enough exception catch way, so we don\u0027t have a good way to catch exception from RequestsLibrary.To Json    ${json}. For my local test,OpenStack Suite Setup failed, DevstackUtils.Devstack Suite Setup failed, but I can\u0027t find any valuable debug info for this, finally I positioned here, because \"openstack hypervisor list -f json\" doesn\u0027t have any output except stderr output (openstack can\u0027t work in cperf conainer without exporting those openstack environment variables), this is the reason I want to submit this fix, you can\u0027t assume everything works normally, everything works in opendaylight.org, we need to run csit test suites in our environment.",
+      "parentUuid": "f3de650a_d95f2a37",
       "revId": "f268c3c2d84d394a333f5bd8eb459ec50c6e8f68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
