@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd0e5fa0_22079560",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "move above",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7de28fac_289099f5",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "have all these in alphabetical order so the script looks neat\nCant we use NO_VLAN directly?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9f9d701_858f696e",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "already done in genius.robot and set as suite variable donot duplicate",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8e2eec0_55cd4672",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "can you refer and say if there is any existing keywords to do the same?",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83900088_5c0fb746",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "it should contain only once right?\nBuiltIn.Should contain should satisfy",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd1bdd9e_01c4e74c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "more meaningful name?",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 56
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c711b3c_16866fc6",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "doesnot make sense",
+      "range": {
+        "startLine": 168,
+        "startChar": 77,
+        "endLine": 168,
+        "endChar": 110
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c64c18b_c3280d24",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "i think we have this wrapped it in a variable try to use that",
+      "range": {
+        "startLine": 169,
+        "startChar": 79,
+        "endLine": 169,
+        "endChar": 118
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b2d970a_3c846740",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "lets rename",
+      "range": {
+        "startLine": 172,
+        "startChar": 9,
+        "endLine": 172,
+        "endChar": 19
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d82ec89_eed2b89c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "what is the difference between the previous keyword and this any chances of making it a single keyword",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b762224b_9a19f060",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-02-22T10:26:30Z",
+      "side": 1,
+      "message": "dont we have a single keyword from genius.robot?",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 111
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
