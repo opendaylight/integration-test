@@ -40,15 +40,15 @@ ${TUNNEL_MONI_PROTO}    tunnel-monitoring-type-bfd
 BFD_TC00 Create ITM between DPNs
     [Documentation]    Create ITM between DPNs
     Genius.Create Vteps    ${NO_VLAN}    ${gateway_ip}
-    Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status As Up
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status As Up
 
 BFD_TC01 Verify default BFD monitoring status on Controller
     [Documentation]    Verify the default value of BFD monitoring \ on the Controller
-    CompareStream.Run_Keyword_If_At_Least_Neon    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_OFF}
-    CompareStream.Run_Keyword_If_Less_Than_Neon    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
-    CompareStream.Run_Keyword_If_At_Least_Neon    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_1000}
+    CompareStream.Run_Keyword_If_At_Least_Neon    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_OFF}
+    CompareStream.Run_Keyword_If_Less_Than_Neon    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
+    CompareStream.Run_Keyword_If_At_Least_Neon    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_1000}
     ...    ${TUNNEL_MONI_PROTO}
-    CompareStream.Run_Keyword_If_Less_Than_Neon    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}
+    CompareStream.Run_Keyword_If_Less_Than_Neon    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}
     ...    ${TUNNEL_MONI_PROTO}
 
 BFD_TC02 Enable BFD Monitoring And Verify On Controller
@@ -58,23 +58,23 @@ BFD_TC02 Enable BFD Monitoring And Verify On Controller
 
 BFD_TC03 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
     [Documentation]    This will verify BFD tunnel monitoring default interval
-    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
-    ${tunnel_monitoring} =    Get Lines Containing String    ${output}    Tunnel Monitoring Interval
-    Should Be Equal    ${tunnel_monitoring}    ${DEFAULT_MONITORING_INTERVAL}
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
+    ${tunnel_monitoring} =    String.Get Lines Containing String    ${output}    Tunnel Monitoring Interval
+    BuiltIn.Should Be Equal    ${tunnel_monitoring}    ${DEFAULT_MONITORING_INTERVAL}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     [Documentation]    Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
-    ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
-    ${Bfd_updated_value}=    Create List    5000
-    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
-    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
+    ${oper_int} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
+    ${Bfd_updated_value}=    BuiltIn.Create List    5000
+    Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
+    Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
     \    ${tun_names}    Genius.Get Tunnels On OVS    ${TOOLS_SYSTEM_ALL_CONN_IDS[${tool_system_index}]}
@@ -83,11 +83,11 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     ToolsSystem.Run Command On All Tools Systems    sudo ovs-vsctl del-controller ${Bridge}
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UNKNOWN
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    VpnOperations.Verify Tunnel Status as UNKNOWN
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     ToolsSystem.Run Command On All Tools Systems    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC07 Set BFD monitoring To Default Value
     [Documentation]    Disable BFD monitoring(setting it to default value) and verify that BFD is disabled on the controller.
@@ -98,45 +98,45 @@ BFD_TC07 Set BFD monitoring To Default Value
 Verify Config Ietf Interface Output
     [Arguments]    ${state}    ${interval}    ${proto}
     [Documentation]    This keyword will get request from config ietf interface and verifies state, interval and proto are present
-    ${int_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
-    ${respjson}    RequestsLibrary.To Json    ${int_resp.content}    pretty_print=True
-    Should Contain    ${respjson}    ${state}
-    Should Contain    ${respjson}    ${interval}
-    Should Contain    ${respjson}    ${proto}
+    ${int_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
+    ${respjson} =    RequestsLibrary.To Json    ${int_resp.content}    pretty_print=True
+    BuiltIn.Should Contain    ${respjson}    ${state}
+    BuiltIn.Should Contain    ${respjson}    ${interval}
+    BuiltIn.Should Contain    ${respjson}    ${proto}
 
 Ovs Tunnel Get
     [Arguments]    ${tools_ip}
     [Documentation]    This keyword will return the tunnel name on OVS
-    ${list_interface}    Utils.Run Command On Remote System    ${tools_ip}    sudo ovs-vsctl list interface
-    ${tun_line}    ${tun_name}    Should Match Regexp    ${list_interface}    name\\s+: "(tun.*)"
-    log    ${tun_name}
-    Should Not Be Empty    ${tun_name}
+    ${list_interface} =    Utils.Run Command On Remote System    ${tools_ip}    sudo ovs-vsctl list interface
+    ${tun_line} =    ${tun_name}    BuiltIn.Should Match Regexp    ${list_interface}    name\\s+: "(tun.*)"
+    BuiltIn.Log    ${tun_name}
+    BuiltIn.Should Not Be Empty    ${tun_name}
     [Return]    ${tun_name}
 
 Verify Tunnel Monitoring Params
     [Arguments]    ${flag}
     [Documentation]    This keyword will verify the tunnel monitoring is true or false
-    @{checklist}    create list    ${flag}
-    Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/    ${checklist}
+    @{checklist}    BuiltIn.Create List    ${flag}
+    Utils.Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/    ${checklist}
 
 Enable BFD And Verify
     [Arguments]    ${interface_ds_moni_int}
     [Documentation]    Enable BFD Monitoring And Verify On Controller.
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
-    Should Be Equal As Strings    ${resp.status_code}    201
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${interface_ds_moni_int}    ${TUNNEL_MONI_PROTO}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
+    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    201
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${interface_ds_moni_int}    ${TUNNEL_MONI_PROTO}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
 
 Disable BFD And Verify
     [Documentation]    Disable BFD Monitoring And Verify On Controller.
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${DISABLE_MONITORING}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_FALSE}
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_OFF}
-    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
+    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${DISABLE_MONITORING}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_FALSE}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_OFF}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
 
 Verify ovs-vsctl Output For Each Tunnel
     [Arguments]    ${tun_names}    ${tool_system_index}
