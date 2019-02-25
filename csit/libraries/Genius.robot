@@ -31,24 +31,24 @@ ${NO_VLAN}        0
 *** Keywords ***
 Genius Suite Setup
     [Documentation]    Create Rest Session to http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
-    Start Suite
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
+    Genius.Start Suite
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
 
 Genius Suite Teardown
     [Documentation]    Delete all sessions
-    Delete All Sessions
-    Stop Suite
+    RequestsLibrary.Delete All Sessions
+    Genius.Stop Suite
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
     Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     KarafKeywords.Setup_Karaf_Keywords
     ToolsSystem.Get Tools System Nodes Data
-    ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
+    ${karaf_debug_enabled} =    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
     Genius.Set Switch Configuration
-    ${check} =    Wait Until Keyword Succeeds    30    10    Check Port Status Is ESTABLISHED    ${ODL_OF_PORT_6653}    @{TOOLS_SYSTEM_ALL_IPS}
-    ${check} =    Wait Until Keyword Succeeds    30    10    Check Port Status Is ESTABLISHED    ${OVSDBPORT}    @{TOOLS_SYSTEM_ALL_IPS}
+    ${check} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Check Port Status Is ESTABLISHED    ${ODL_OF_PORT_6653}    @{TOOLS_SYSTEM_ALL_IPS}
+    ${check} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Check Port Status Is ESTABLISHED    ${OVSDBPORT}    @{TOOLS_SYSTEM_ALL_IPS}
     Genius.Build Dpn List
     @{SWITCH_DATA} =    Collections.Combine Lists    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
     BuiltIn.Set Suite Variable    @{SWITCH_DATA}
@@ -59,11 +59,11 @@ Start Suite
 Stop Suite
     [Documentation]    stops all connections and deletes all the bridges available on OVS
     : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
-    \    Execute Command    sudo ovs-vsctl del-br ${Bridge}
-    \    Execute Command    sudo ovs-vsctl del-manager
-    \    Write    exit
-    \    Close Connection
+    \    SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-br ${Bridge}
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-manager
+    \    SSHLibrary.Write    exit
+    \    SSHLibrary.Close Connection
 
 Check Port Status Is ESTABLISHED
     [Arguments]    ${port}    @{tools_ips}
@@ -76,7 +76,7 @@ Check Port Status Is ESTABLISHED
 Create Vteps
     [Arguments]    ${vlan_id}    ${gateway_ip}
     [Documentation]    This keyword creates VTEPs between OVS
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
+    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${body} =    Genius.Set Json    ${vlan_id}    ${gateway_ip}    ${SUBNET}    @{TOOLS_SYSTEM_ALL_IPS}
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -84,19 +84,19 @@ Create Vteps
 Set Json
     [Arguments]    ${vlan}    ${gateway_ip}    ${subnet}    @{tools_ips}
     [Documentation]    Sets Json with the values passed for it.
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${body}    Replace String    ${body}    1.1.1.1    ${subnet}
+    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
+    ${body} =    String.Replace String    ${body}    1.1.1.1    ${subnet}
     : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${body}    Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
-    \    ${body}    Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
-    ${body}    Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
-    ${body}    Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway_ip}"
-    Log    ${body}
+    \    ${body}    String.Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
+    \    ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
+    ${body} =    String.Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
+    ${body} =    String.Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway_ip}"
+    BuiltIn.Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
 
 Build Dpn List
     [Documentation]    This keyword builds the list of DPN ids after configuring OVS bridges on each of the TOOLS_SYSTEM_IPs.
-    @{DPN_ID_LIST}    BuiltIn.Create List
+    @{DPN_ID_LIST} =    BuiltIn.Create List
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    ${output}    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl show -O Openflow13 ${Bridge} | head -1 | awk -F "dpid:" '{ print $2 }'
     \    ${dpn_id}    Utils.Run Command On Remote System And Log    ${tools_ip}    echo \$\(\(16\#${output}\)\)
@@ -105,14 +105,14 @@ Build Dpn List
 
 BFD Suite Teardown
     [Documentation]    Run at end of BFD suite
-    Delete All Vteps
-    Stop Suite
+    Genius.Delete All Vteps
+    Genius.Stop Suite
 
 Delete All Vteps
     [Documentation]    This will delete vtep.
     ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    BuiltIn.Wait Until Keyword Succeeds    30    5    Verify Tunnel Delete on DS    tun
+    BuiltIn.Wait Until Keyword Succeeds    30    5    Genius.Verify Tunnel Delete on DS    tun
 
 Genius Test Setup
     [Documentation]    Genius test case setup
@@ -128,34 +128,34 @@ Genius Test Teardown
 
 Genius Suite Debugs
     [Arguments]    ${data_models}
-    Genius Test Teardown    ${data_models}    test_name=${SUITE_NAME}    fail=False
+    Genius.Genius Test Teardown    ${data_models}    test_name=${SUITE_NAME}    fail=False
 
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
     : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     ClusterManagement.Start_Members_From_List_Or_All
-    Genius Suite Setup
+    Genius.Genius Suite Setup
 
 ITM Direct Tunnels Stop Suite
     [Documentation]    Stop suite for ITM Direct Tunnels.
     : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
-    Genius Suite Teardown
+    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Genius.Genius Suite Teardown
 
 Ovs Interface Verification
     [Documentation]    Checks whether the created Interface is seen on OVS or not.
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
+    \    Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Get ITM
     [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
-    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}
-    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${SWITCH_DATA}
-    Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+    @{Itm-no-vlan} =    BuiltIn.Create List    ${itm_created[0]}    ${subnet}    ${vlan}
+    @{Itm-no-vlan} =    Collections.Combine Lists    ${Itm-no-vlan}    ${SWITCH_DATA}
+    Utils.Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Check Tunnel Delete On OVS
     [Arguments]    ${tunnel_list}
@@ -175,11 +175,11 @@ Check Table0 Entry In a Dpn
 Verify Tunnel Status As Up
     [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
     [Documentation]    Verify that the number of tunnels are UP
-    ${no_of_tunnels} =    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    ${no_of_tunnels} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
     ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
     ${expected_tunnel_count} =    BuiltIn.Evaluate    ${no_of_switches}*(${no_of_switches}-1)
-    Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
+    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
 
 Verify Tunnel Status
     [Arguments]    ${tunnel_status}    ${tunnel_names}
@@ -239,18 +239,18 @@ SRM Start Suite
     Genius Suite Setup
     Genius.Create Vteps    ${NO_VLAN}    ${gateway_ip}
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status As Up
-    Genius Suite Debugs    ${data_models}
+    Genius.Genius Suite Debugs    ${data_models}
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
-    Delete All Vteps
-    Genius Suite Debugs    ${data_models}
-    Genius Suite Teardown
+    Genius.Delete All Vteps
+    Genius.Genius Suite Debugs    ${data_models}
+    Genius.Genius Suite Teardown
 
 Verify Tunnel Monitoring Status
     [Arguments]    ${tunnel_monitor_status}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Should Contain    ${output}    ${tunnel_monitor_status}
+    ${output}=    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Should Contain    ${output}    ${tunnel_monitor_status}
 
 Set Switch Configuration
     [Documentation]    This keyword will set manager,controller,tap port,bridge on each OVS
@@ -321,4 +321,4 @@ Update Dpn id List And Get Tunnels
     \    @{DPN_ID_UPDATED_LIST} =    BuiltIn.Create List    @{DPN_ID_LIST}
     \    Collections.Remove Values From List    ${DPN_ID_UPDATED_LIST}    ${DPN_ID_LIST[${tool_system_index}]}
     \    BuiltIn.Log Many    ${DPN_ID_UPDATED_LIST}
-    \    ${dpn_id_index_1} =    Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id_index_2}    @{DPN_ID_UPDATED_LIST}
+    \    ${dpn_id_index_1} =    Genius.Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id_index_2}    @{DPN_ID_UPDATED_LIST}
