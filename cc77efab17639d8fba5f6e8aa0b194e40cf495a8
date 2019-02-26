@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "592f688f_76ddb320",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd0e5fa0_22079560",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7de28fac_289099f5",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -30,6 +48,30 @@
       "writtenOn": "2019-02-22T10:26:30Z",
       "side": 1,
       "message": "have all these in alphabetical order so the script looks neat\nCant we use NO_VLAN directly?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4be1e8b_ce39621b",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7de28fac_289099f5",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "41ae2573_e80852c5",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "this local variable used here, $switch_data is different from suite variable, $SWITCH_DATA from genius.robot. The keyword \"Get ITM\" takes that as an additional parameter in this patchset\u0027s context, thereby maintaining code sanity.",
+      "parentUuid": "e9f9d701_858f696e",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8e2eec0_55cd4672",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -70,6 +130,24 @@
       "writtenOn": "2019-02-22T10:26:30Z",
       "side": 1,
       "message": "can you refer and say if there is any existing keywords to do the same?",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5a1a7b3_2aca8cec",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "There is an existing keyword in genius.robot: Verify Tunnel Monitoring Status. However, the keyword has an ambiguous name besides taking only a single element as input.",
+      "parentUuid": "c8e2eec0_55cd4672",
       "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "60509be9_d894f212",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "I believe this is a more strict check and also validates the case in question.",
+      "parentUuid": "83900088_5c0fb746",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd1bdd9e_01c4e74c",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -104,6 +200,30 @@
       "writtenOn": "2019-02-22T10:26:30Z",
       "side": 1,
       "message": "more meaningful name?",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 56
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac191a8b_5caefa71",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd1bdd9e_01c4e74c",
       "range": {
         "startLine": 167,
         "startChar": 33,
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "cf16b216_35c814a0",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c711b3c_16866fc6",
+      "range": {
+        "startLine": 168,
+        "startChar": 77,
+        "endLine": 168,
+        "endChar": 110
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c64c18b_c3280d24",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -150,6 +294,30 @@
       "writtenOn": "2019-02-22T10:26:30Z",
       "side": 1,
       "message": "i think we have this wrapped it in a variable try to use that",
+      "range": {
+        "startLine": 169,
+        "startChar": 79,
+        "endLine": 169,
+        "endChar": 118
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67ee57c2_af065e4b",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Can you give me a reference to it? I couldn\u0027t find it anywhere in any of the resources or libraries used in the suite and in current patchset\u0027s context.",
+      "parentUuid": "6c64c18b_c3280d24",
       "range": {
         "startLine": 169,
         "startChar": 79,
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "0122259e_83be811a",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Done. It was redundant. So removed.",
+      "parentUuid": "6b2d970a_3c846740",
+      "range": {
+        "startLine": 172,
+        "startChar": 9,
+        "endLine": 172,
+        "endChar": 19
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d82ec89_eed2b89c",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -202,6 +394,24 @@
     },
     {
       "key": {
+        "uuid": "e98232b0_4544a0c5",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "Hopefully keywords count has now been reduced as per suggested.",
+      "parentUuid": "2d82ec89_eed2b89c",
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b762224b_9a19f060",
         "filename": "csit/suites/genius/OF_Tunnels.robot",
         "patchSetId": 47
@@ -213,6 +423,30 @@
       "writtenOn": "2019-02-22T10:26:30Z",
       "side": 1,
       "message": "dont we have a single keyword from genius.robot?",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 111
+      },
+      "revId": "cc77efab17639d8fba5f6e8aa0b194e40cf495a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa4b4566_93cf4c6c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8100
+      },
+      "writtenOn": "2019-02-26T07:47:42Z",
+      "side": 1,
+      "message": "There are similar keywords but with different I/O than what\u0027s expected from this suite.",
+      "parentUuid": "b762224b_9a19f060",
       "range": {
         "startLine": 191,
         "startChar": 0,
