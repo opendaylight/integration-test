@@ -72,5 +72,5 @@ netvirt_sfc_data_models = [
     'config/service-function-type:service-function-types',
     'config/service-function:service-functions',
     'config/sfc-of-renderer:sfc-of-renderer-config',
-    'operational/rendered-service-path:rendered-service-path'
+    'operational/rendered-service-path:rendered-service-paths/'
 ]
