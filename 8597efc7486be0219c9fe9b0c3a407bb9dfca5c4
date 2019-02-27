@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f8dc533_65a66690",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-02-27T07:43:47Z",
+      "side": 1,
+      "message": "I think directly invoking this keyword is not necessary, The robot command in the job will pass OPENSTACK_TOPO and just using the Openstack Suite Setup should directly setup according to topo. Please check this upgrade job if OPENSTACK_TOPO is passed in the robot command",
+      "revId": "8597efc7486be0219c9fe9b0c3a407bb9dfca5c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
