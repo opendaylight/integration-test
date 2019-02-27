@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c62f3b2d_5181eed7",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-02-27T07:07:37Z",
+      "side": 0,
+      "message": "this keyword has been renamed to \"Set Node Data For Control And Two Compute Node Setup\" in some older gerrit. https://git.opendaylight.org/gerrit/#/c/74421/",
+      "revId": "8a55948e119ffb705f9d408b95031a842cb43b7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
