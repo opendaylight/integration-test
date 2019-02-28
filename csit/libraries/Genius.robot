@@ -27,6 +27,9 @@ ${gateway_ip}     0.0.0.0
 ${port_name}      br-int-eth1
 ${VLAN}           100
 ${NO_VLAN}        0
+${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
+${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
+${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
 
 *** Keywords ***
 Genius Suite Setup
@@ -151,10 +154,10 @@ Ovs Interface Verification
     \    Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Get ITM
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${switch_data}=${SWITCH_DATA}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}
-    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${SWITCH_DATA}
+    @{Itm-no-vlan}    Collections.Combine Lists    ${Itm-no-vlan}    ${switch_data}
     Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Check Tunnel Delete On OVS
@@ -299,26 +302,23 @@ Verify Deleted Tunnels On OVS
     \    BuiltIn.Should Not Contain    ${resp_data}    ${tunnel}
 
 Verify Response Code Of Dpn End Point Config API
+    [Arguments]    ${dpn_list}=${DPN_ID_LIST}
     [Documentation]    This keyword will verify response code from itm-state: dpn endpoints config api for each dpn
-    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
+    : FOR    ${dpn}    IN    @{dpn_list}
     \    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
 
 Get Tunnel Between DPNs
-    [Arguments]    ${tunnel_type}    ${config_api_type}    ${dpn_id_index}    @{DPN_ID_UPDATED_LIST}
+    [Arguments]    ${tunnel_type}    ${config_api_type}    ${src_dpn_id}    @{dst_dpn_ids}
     [Documentation]    This keyword will Get All the Tunnels available on DPN's
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM} -1
-    \    ${tunnel}    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${DPN_ID_LIST[${dpn_id_index}]}
-    \    ...    ${DPN_ID_UPDATED_LIST[${tool_system_index}]}    ${tunnel_type}    ${config_api_type}
-    ${dpn_id_index} =    BuiltIn.Evaluate    ${dpn_id_index}+1
-    [Return]    ${dpn_id_index}
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_ids}
+    \    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}
+    \    ...    ${dst_dpn_id}    ${tunnel_type}    ${config_api_type}
 
 Update Dpn id List And Get Tunnels
-    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}
+    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}    ${dpn_ids}=${DPN_ID_LIST}
     [Documentation]    Update the exisisting dpn id list to form different combination of dpn ids such that tunnel formation between all dpns is verified.
-    ${dpn_id_index_1} =    BuiltIn.Set Variable    0
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${dpn_id_index_2} =    BuiltIn.Set Variable    ${dpn_id_index_1}
-    \    @{DPN_ID_UPDATED_LIST} =    BuiltIn.Create List    @{DPN_ID_LIST}
-    \    Collections.Remove Values From List    ${DPN_ID_UPDATED_LIST}    ${DPN_ID_LIST[${tool_system_index}]}
-    \    BuiltIn.Log Many    ${DPN_ID_UPDATED_LIST}
-    \    ${dpn_id_index_1} =    Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id_index_2}    @{DPN_ID_UPDATED_LIST}
+    : FOR    ${dpn_id}    IN    @{dpn_ids}
+    \    @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
+    \    Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
+    \    BuiltIn.Log Many    ${dpn_ids_updated}
+    \    Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
