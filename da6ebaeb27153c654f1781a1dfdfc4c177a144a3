@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "465ae531_4e3a8bfc",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "is this logic working properly?",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 107
+      },
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0404cc93_de95a7de",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "this is tunnel of type VXLAN.\ndoes it have something to do with OFT?",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cdc2c9_8cd3b562",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "..... and verify",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00ef9e25_058305ed",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "Dimple,we are doing the same check in previous keyword also do we need it over here?",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a59c3a4f_eea74e13",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "rename num and len",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5fb2e6e_23f3fc47",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "rename num and len everywhere",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16f35416_034bd95c",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-01T13:06:52Z",
+      "side": 1,
+      "message": "what for do we need this?",
+      "revId": "da6ebaeb27153c654f1781a1dfdfc4c177a144a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
