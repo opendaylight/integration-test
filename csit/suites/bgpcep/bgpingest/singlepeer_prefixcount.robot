@@ -32,6 +32,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
+Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KillPythonTool.robot
@@ -60,7 +61,7 @@ ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
 ${REPETITIONS_PREFIX_COUNT_SINGLE}    ${REPETITIONS_PREFIX_COUNT}
 ${RESULTS_FILE_NAME}    bgp.csv
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 ${UPDATE}         single
@@ -104,6 +105,7 @@ Kill_Talking_BGP_Speaker
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
+    BGPcliKeywords.Store_File_To_Workspace    play.py.out    play.py.out_firstlog.log
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
