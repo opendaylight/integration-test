@@ -168,7 +168,7 @@ Virtual_Env_Create
     [Arguments]    ${upgrade_pip}=True
     [Documentation]    Creates virtual env. If not to use the default name, use Virtual_Env_Set_Path kw. Returns stdout.
     Execute_Command_At_Cwd_Should_Pass    virtualenv ${SSHKeywords__current_venv_path}
-    BuiltIn.Run_Keyword_And_Return_If    ${upgrade_pip}    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip
+    BuiltIn.Run_Keyword_And_Return_If    ${upgrade_pip}    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip    stderr_must_be_empty=False
 
 Virtual_Env_Delete
     [Documentation]    Deletes a directory with virtual env.
@@ -187,11 +187,11 @@ Virtual_Env_Install_Package
 Virtual_Env_Uninstall_Package
     [Arguments]    ${package}
     [Documentation]    Uninstalls python package from virtual env and returns stdout.
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip uninstall -y ${package}
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip uninstall -y ${package}    stderr_must_be_empty=False
 
 Virtual_Env_Freeze
     [Documentation]    Shows installed packages within the returned stdout.
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze --all
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze --all    stderr_must_be_empty=False
 
 Virtual_Env_Activate_On_Current_Session
     [Arguments]    ${log_output}=${False}
