@@ -328,7 +328,7 @@ Restart_Bundle
     [Arguments]    ${bundle_id}
     [Documentation]    Restarts bundle passed as argument. Note this operation is only for testing and not production environments
     # TODO: prepare this for cluster environment and multiple controllers
-    Execute_Controller_Karaf_Command_With_Retry_On_Background    bundle:restart -f $(bundle:id '${bundle_id}')
+    Execute_Controller_Karaf_Command_With_Retry_On_Background    bundle:restart $(bundle:id '${bundle_id}')
 
 Restart_Karaf
     [Documentation]    Restarts Karaf and polls log to detect when Karaf is up and running again
@@ -341,6 +341,6 @@ Restart_Jetty
     [Documentation]    Restarts jetty bundle (to reload certificates or key/truststore information)
     Execute_Controller_Karaf_Command_With_Retry_On_Background    log:clear
     Restart_Bundle    OPS4J Pax Web - Jetty
-    Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.restconf.RestconfApplication
-    Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.netconf.sal.rest.impl.RestconfApplication
-    Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.aaa.idm.IdmLightApplication
+    #Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.restconf.RestconfApplication
+    #Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.netconf.sal.rest.impl.RestconfApplication
+    #Wait_For_Karaf_Log    Instantiated the Application class org.opendaylight.aaa.idm.IdmLightApplication
