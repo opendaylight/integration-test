@@ -163,7 +163,7 @@ Generate Server Self-Signed Certificate
     # Import Certifcate into keystore
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -importkeystore -deststorepass 123456 -destkeypass myPass -destkeystore ${KEYSTORE_PATH} -srckeystore server.p12 -srcstoretype PKCS12 -srcstorepass myPass -alias odl
     Log Certificates in Keystore
-    Restart Jetty
+    Restart Karaf
 
 Generate Client Self-Signed Certificate
     [Documentation]    Generates a client self-signed certificate, stores it into the keystore (as trusted cert) and
@@ -179,7 +179,7 @@ Generate Client Self-Signed Certificate
     Copy File To Odl System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file clientcert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
     Log Certificates in Keystore
-    Restart Jetty
+    Restart Karaf
 
 Generate Server CA Signed Certificate
     [Documentation]    Generates a server certificate and signs it with own root CA
@@ -200,7 +200,7 @@ Generate Server CA Signed Certificate
     Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -importkeystore -deststorepass 123456 -destkeypass myPass -destkeystore ${KEYSTORE_PATH} -srckeystore ${USER_HOME}/server.p12 -srcstoretype PKCS12 -srcstorepass myPass -alias odl
     Log Certificates in Keystore
-    Restart Jetty
+    Restart Karaf
 
 Generate Client CA Signed Certificate
     [Documentation]    Generates a client certificate and signs it with own root CA
@@ -219,7 +219,7 @@ Generate Client CA Signed Certificate
     Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file rootCA_for_clients-cert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
     Log Certificates in Keystore
-    Restart Jetty
+    Restart Karaf
 
 Disable TLS in ODL
     [Documentation]    Remove TLS configuration in custom.properties
