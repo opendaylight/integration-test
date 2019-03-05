@@ -328,7 +328,7 @@ Restart_Bundle
     [Arguments]    ${bundle_id}
     [Documentation]    Restarts bundle passed as argument. Note this operation is only for testing and not production environments
     # TODO: prepare this for cluster environment and multiple controllers
-    Execute_Controller_Karaf_Command_With_Retry_On_Background    bundle:restart -f $(bundle:id '${bundle_id}')
+    Execute_Controller_Karaf_Command_With_Retry_On_Background    bundle:restart $(bundle:id '${bundle_id}')
 
 Restart_Karaf
     [Documentation]    Restarts Karaf and polls log to detect when Karaf is up and running again
