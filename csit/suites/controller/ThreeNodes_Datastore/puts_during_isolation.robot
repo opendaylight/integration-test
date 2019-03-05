@@ -130,7 +130,7 @@ Get_Cars_Count
     [Arguments]    ${session}
     [Documentation]    Count car items in config ds.
     ${resp}=    RequestsLibrary.Get_Request    ${session}    ${CARURL}
-    ${count} =    BuiltIn.Evaluate    len(${resp.json()}["cars"]["car-entry"])
+    ${count} =    BuiltIn.Evaluate    len(${resp.json()}[cars][car-entry])
     BuiltIn.Return_From_Keyword    ${count}
 
 Ensure_Cars_Being_Configured
