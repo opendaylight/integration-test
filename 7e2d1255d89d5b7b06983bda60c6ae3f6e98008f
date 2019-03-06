@@ -22,6 +22,30 @@
       "revId": "7e2d1255d89d5b7b06983bda60c6ae3f6e98008f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d786613_d60b2794",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-03-06T22:57:17Z",
+      "side": 1,
+      "message": "These lines do not show anymore in karaf.log, let me add something instead",
+      "parentUuid": "db84da53_4b61c3d2",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 106
+      },
+      "revId": "7e2d1255d89d5b7b06983bda60c6ae3f6e98008f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
