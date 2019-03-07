@@ -66,6 +66,7 @@ Get DevStack Hostnames
 Set Node Data For AllinOne Setup
     [Documentation]    Assign global variables for DevStack nodes where the Control Node enables Compute service also.
     BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_CNTL_IP}
+    BuiltIn.Set Suite Variable    ${OS_COMPUTE_1_IP}    ${OS_CNTL_IP}
     BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_CNTL_IP}
     BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}
     BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CNTL_IP}
