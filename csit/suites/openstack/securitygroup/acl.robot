@@ -42,10 +42,10 @@ Verify ARP request Valid MAC and Valid IP for the VM Egress Table
     [Documentation]    Verifying ARP resquest resolved for Valid MAC and Valid IP at the VM Egress Table
     OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{VM_IP_DPN1}[0]    ${DHCP_CMD}
     OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{VM_IP_DPN2}[0]    ${DHCP_CMD}
-    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -I eth0 -c ${PACKET_COUNT} \ ${RANDOM_IP}
     OpenStackOperations.Execute Command on VM Instance    ${REQ_NETWORKS[1]}    @{VM_IP_DPN1}[1]    ${arping_cli}
-    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
 
@@ -53,12 +53,12 @@ Verify ARP request generated from Spoofed IP for the VM
     [Documentation]    Verifying ARP resquest generated for Spoofed IP with Valid MAC and Validate the packet drop at the VM Egress Table
     ${arp_int_up_cli} =    BuiltIn.Set Variable    sudo ifconfig eth0:1 ${SPOOF_IP} netmask ${NETMASK} up
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arp_int_up_cli}
-    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -s ${SPOOF_IP} -c ${PACKET_COUNT} \ ${RANDOM_IP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arping_cli}
-    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${pkt_diff_arp_drop} =    BuiltIn.Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT_ZERO}
@@ -70,12 +70,12 @@ Verify ARP request generated from Spoofed MAC for the VM
     : FOR    ${index}    IN RANGE    0    ${count}
     \    ${cmd} =    String.Get Line    ${ARP_CONFIG}    ${index}
     \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${cmd}
-    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -I eth0 -c ${PACKET_COUNT} \ ${RANDOM_IP}
     OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arping_cli}
-    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_after}    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
     ${pkt_diff_arp_drop} =    BuiltIn.Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT_ZERO}
@@ -83,12 +83,12 @@ Verify ARP request generated from Spoofed MAC for the VM
 
 Verify ARP request generated from Spoofed IP and spoofed MAC for the VM
     [Documentation]    Verifying ARP resquest generated for Spoofed MAC with Spoofed IP and Validate the ARP packet drop at the VM Egress Table
-    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -s ${SPOOF_IP} -c ${PACKET_COUNT} \ ${RANDOM_IP}
     OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${arping_cli}
-    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
-    ${get_arp_drop_pkt_after} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
+    ${get_pkt_count_after_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
+    ${get_arp_drop_pkt_after} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${pkt_diff} =    BuiltIn.Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
     ${pkt_diff_arp_drop} =    BuiltIn.Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
     BuiltIn.Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT_ZERO}
@@ -126,6 +126,6 @@ Create Setup
     \    BuiltIn.Should Not Contain    ${ip}    None
     : FOR    ${ip}    IN    @{VM_IP_DPN2}
     \    BuiltIn.Should Not Contain    ${ip}    None
-    ${VM1_PORT} =    Get VMs OVS Port Number    ${OS_COMPUTE_1_IP}    @{PORTS}[0]
-    ${VM1_METADATA} =    OVSDB.Get Port Metadata    ${OS_COMPUTE_1_IP}    ${VM1_PORT}
+    ${VM1_PORT} =    Get VMs OVS Port Number    ${OS_CMP1_IP}    @{PORTS}[0]
+    ${VM1_METADATA} =    OVSDB.Get Port Metadata    ${OS_CMP1_IP}    ${VM1_PORT}
     BuiltIn.Set Suite Variable    ${VM1_METADATA}
