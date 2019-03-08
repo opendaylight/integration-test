@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "910d3a07_6dc05ead",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-08T09:07:13Z",
+      "side": 1,
+      "message": "lets make separate keywords for ingress and egress flows.\nfor ingress flows previous keyword was good enough.\ncreate a new keyword for egress alone",
+      "revId": "684c99e2176827efa2e7d54a70a92e5f7a61c86f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f33c685a_e06132a8",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-03-08T09:07:13Z",
+      "side": 1,
+      "message": "checking in the whole dump doesnot make sense we need to check it table specific",
+      "revId": "684c99e2176827efa2e7d54a70a92e5f7a61c86f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
