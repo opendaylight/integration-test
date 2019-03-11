@@ -22,6 +22,7 @@ ${NEW_AS_PATH}    ${EMPTY}
 ${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
 ${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
+${DISPLAY_VPN4_ALL}    show-bgp --cmd "ip bgp ${VPNV4_ADDR_FAMILY} all"
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -410,3 +411,11 @@ Sum_Hex_Message_Arguments_To_Integer
     [Documentation]    Converts hex message arguments to integers and sums them up and returns the sum.
     ${final_sum} =    BuiltIn.Evaluate    sum(map(lambda x: int(x, 16), re.compile('[a-f\d]{2}').findall('${hex_string}'[32:])))    modules=re
     [Return]    ${final_sum}
+
+Check BGP VPNv4 Nbr On ODL
+    [Arguments]    ${dcgw_count}    ${flag}=True    ${start}=${START_VALUE}
+    [Documentation]    Check all BGP VPNv4 neighbor on ODL
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${DISPLAY_VPN4_ALL}
+    : FOR    ${index}    IN RANGE    ${start}    ${dcgw_count}
+    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${output}    ${DCGW_IP_LIST[${index}]}
+    \    ...    ELSE    BuiltIn.Should Not Contain    ${output}    ${DCGW_IP_LIST[${index}]}
