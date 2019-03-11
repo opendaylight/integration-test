@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c62284e4_c6981349",
+        "filename": "csit/suites/sfc/Full_Deploy/012__sfc_service_paths_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-03-11T16:22:33Z",
+      "side": 1,
+      "message": "Looking at the test, this is the KW that fails. Controller returns 400 instead of expected 500.",
+      "revId": "9f6e2e9830f7f0b6197d8d3bd3fc6057fdc84fff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
