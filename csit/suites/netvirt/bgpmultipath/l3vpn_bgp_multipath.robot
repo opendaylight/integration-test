@@ -63,7 +63,7 @@ Verify CSC supports REST API/CLI for max path configuration
     : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
     \    Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
     \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
 
 Verify max-path error message with invalid inputs
     [Documentation]    Verify max path error message while configuring maxpath with invalid range
@@ -75,7 +75,7 @@ Verify max-path error message with invalid inputs
     : FOR    ${invalid}    IN    @{MAX_PATH_INVALID_LIST}
     \    Configure Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
     \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
 
 Verify ODL supports dynamic configuration changes for max path value
     [Documentation]    Verify ODL supports dynamic configuration changes for max path value
@@ -89,7 +89,7 @@ Verify ODL supports dynamic configuration changes for max path value
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
     : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
     \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     : FOR    ${index}    IN RANGE    0    3
@@ -111,7 +111,7 @@ Verify that ECMP path gets withdrawn by QBGP after disabling multipath
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
     : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
     \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     Configure Maxpath    @{MAX_PATH_LIST}[0]    @{DCGW_RD_IRT_ERT}[0]
@@ -202,14 +202,6 @@ Verify Maxpath
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${BGP_CACHE}
     BuiltIn.Run Keyword If    0 < ${maxpath} < 65    BuiltIn.Should Match Regexp    ${output}    ${rd}\\s*${maxpath}
     ...    ELSE    BuiltIn.Should Not Match Regexp    ${output}    ${rd}\\s*${maxpath}
-
-Check BGP VPNv4 Nbr On ODL
-    [Arguments]    ${dcgw_count}    ${flag}=True    ${start}=${START_VALUE}
-    [Documentation]    Check BGP VPNv4 neighbor all on ODL
-    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${DISPLAY_VPN4_ALL}
-    : FOR    ${index}    IN RANGE    ${start}    ${dcgw_count}
-    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${output}    ${DCGW_IP_LIST[${index}]}
-    \    ...    ELSE    BuiltIn.Should Not Contain    ${output}    ${DCGW_IP_LIST[${index}]}
 
 Verify Routing Entry On ODL
     [Arguments]    ${rd}    ${prefix}    ${no_of_times}
