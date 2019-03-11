@@ -43,7 +43,7 @@ Add Service Function Path where SFC types size and hop sizes differ
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Should Be Equal As Strings    ${resp.status_code}    400
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
 
@@ -56,7 +56,7 @@ Add Service Function Path where SFC types size and types for SFs in hops differ
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Should Be Equal As Strings    ${resp.status_code}    400
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
 
