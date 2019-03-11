@@ -16,7 +16,7 @@ Resource          ../../../libraries/TemplatedRequests.robot
 *** Test Cases ***
 Add Service Function Path referencing a non-existing SF
     [Documentation]    Add Service Function Paths from JSON file
-    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
+    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
@@ -26,7 +26,7 @@ Add Service Function Path referencing a non-existing SF
 Add Service Function Path referencing a non-existing SFC
     [Documentation]    Add Service Function Paths from JSON file
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
+    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
@@ -38,7 +38,7 @@ Add Service Function Path where SFC types size and hop sizes differ
     [Documentation]    Add Service Function Paths from JSON file
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
+    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
@@ -51,7 +51,7 @@ Add Service Function Path where SFC types size and types for SFs in hops differ
     [Documentation]    Add Service Function Paths from JSON file
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_THREE_HOPS_FILE}
+    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_THREE_HOPS_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
