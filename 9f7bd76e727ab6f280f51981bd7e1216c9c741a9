@@ -16,6 +16,24 @@
       "revId": "9f7bd76e727ab6f280f51981bd7e1216c9c741a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fbe976e_69bb3311",
+        "filename": "csit/suites/sfc/Full_Deploy/012__sfc_service_paths_validation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-03-11T20:55:13Z",
+      "side": 1,
+      "message": "Same comment for the 4 modified KWs.",
+      "parentUuid": "126462aa_7fdb7211",
+      "revId": "9f7bd76e727ab6f280f51981bd7e1216c9c741a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
