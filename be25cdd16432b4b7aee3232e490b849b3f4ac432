@@ -16,6 +16,47 @@
       "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3318d19_22e9531e",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-03-12T21:34:11Z",
+      "side": 1,
+      "message": "I think it\u0027s coming from it\u0027s relation to the actual CLI\ncommand that is being used here, which is:\n\n    show-bgp --cmd \"ip bgp ${VPNV4_ADDR_FAMILY} all\n\nin that sense, it\u0027s ok, but it is confusing to read if you\ndon\u0027t know that.",
+      "parentUuid": "99a76af6_78fa4cde",
+      "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d4a7c69_644b6b73",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-03-12T21:34:11Z",
+      "side": 1,
+      "message": "you want to put this in a common lib now that you are trying to call it from a different file that this one alone",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
