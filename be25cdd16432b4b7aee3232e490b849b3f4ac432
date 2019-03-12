@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99a76af6_78fa4cde",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-12T06:35:16Z",
+      "side": 1,
+      "message": "what does \"all on ODL\" mean here? should we rephrase?",
+      "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
