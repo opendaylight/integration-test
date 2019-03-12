@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15faf13c_402ac924",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-12T00:50:41Z",
+      "side": 1,
+      "message": "probably more readable to just add set this piece per branch if everything is the same, i.e. hb\u003d\"refs/...\". then after the if/else you have the four lines with ...;hb\u003d${hb};f. But this patch is fine also as is.",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "30137c8ae196176b4f98287d978eb66baf58e3ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
