@@ -19,6 +19,7 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
+Library           String
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/ExaBgpLib.robot
@@ -40,6 +41,7 @@ ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${HOLDTIME}       180
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${RIB_INSTANCE}    example-bgp-rib
+${MSG_STATE_OFFSET}    24
 
 *** Test Cases ***
 Configure_App_Peer
@@ -165,4 +167,11 @@ Verify_Cli_Output_Count
     BuiltIn.Log    ${output}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=│    RCV_COUNT=${receive_count}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli    file_name=update.txt    mapping=${mapping}
-    BuiltIn.Should_Contain    ${output}    ${expstate}
+    String.Get Line Count    ${output}
+    BuiltIn.Log    ${expstate}
+    ${expected_line_count}    String.Get Line Count    ${expstate}
+    : FOR    ${expected_line_pos}    IN RANGE    0    ${expected_line_count-1}
+    \    ${expected_line_offset}    BuiltIn.Evaluate    ${MSG_STATE_OFFSET} + ${expected_line_pos}
+    \    ${output_line}    String.Get Line    ${output}    ${expected_line_offset}
+    \    ${expected_line}    String.Get Line    ${expstate}    ${expected_line_pos}
+    \    BuiltIn.Should Match    ${output_line}    ${expected_line}
