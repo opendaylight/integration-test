@@ -34,7 +34,7 @@ Verify_Feature_Is_Installed
     [Return]    ${output}
 
 Issue_Command_On_Karaf_Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=10    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=60    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${controller}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     SSHLibrary.Open_Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
@@ -47,7 +47,7 @@ Issue_Command_On_Karaf_Console
     [Return]    ${output}
 
 Safe_Issue_Command_On_Karaf_Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=10    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=60    ${loglevel}=INFO
     [Documentation]    Run Issue_Command_On_Karaf_Console but restore previous connection afterwards.
     BuiltIn.Run_Keyword_And_Return    SSHKeywords.Run_Keyword_Preserve_Connection    Issue_Command_On_Karaf_Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
     ...    ${loglevel}
