@@ -22,6 +22,30 @@
       "revId": "30137c8ae196176b4f98287d978eb66baf58e3ef",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e97b95b_a8510338",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2019-03-14T12:11:56Z",
+      "side": 1,
+      "message": "The problem is that it\u0027s not just the branch name that changes, for Neon we need tags instead of branches, and then some files in mdsal have been renamed between releases, so it\u0027s not just the branch changing, that\u0027s why it is this ugly.",
+      "parentUuid": "15faf13c_402ac924",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "30137c8ae196176b4f98287d978eb66baf58e3ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
