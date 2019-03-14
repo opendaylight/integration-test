@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9e1ff33_06229158",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-03-14T03:35:41Z",
+      "side": 1,
+      "message": "use lower case for local variables vs upper case for global.",
+      "revId": "1a85c68f94b094733711978d61427ad8f17aa098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52df9469_3627acdb",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-03-14T03:35:41Z",
+      "side": 1,
+      "message": "same comment here",
+      "revId": "1a85c68f94b094733711978d61427ad8f17aa098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
