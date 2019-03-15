@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d0b21b1b_48625f2f",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-03-15T08:28:41Z",
+      "side": 1,
+      "message": "Yes, u are right Jamo, still I ll rephrase it",
+      "parentUuid": "d3318d19_22e9531e",
+      "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d4a7c69_644b6b73",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 2
@@ -48,6 +66,30 @@
       "writtenOn": "2019-03-12T21:34:11Z",
       "side": 1,
       "message": "you want to put this in a common lib now that you are trying to call it from a different file that this one alone",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 71
+      },
+      "revId": "be25cdd16432b4b7aee3232e490b849b3f4ac432",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eeec8f_6f758dd9",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-03-15T08:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d4a7c69_644b6b73",
       "range": {
         "startLine": 36,
         "startChar": 0,
