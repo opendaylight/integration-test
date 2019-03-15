@@ -690,6 +690,25 @@ Get Test Teardown Debugs
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    BuiltIn.Run Keyword And Ignore Error    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
 
+Check If Stale Flows are present
+    [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
+    ODLTools.Get All    node_ip=${HA_PROXY_IP}    test_name=${test_name}
+    OpenStackOperations.Get OvsDebugInfo
+    KarafKeywords.Fail If Staleflows Found During Test    ${test_name}    fail=${fail}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    BuiltIn.Run Keyword And Ignore Error    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
+
+OpenStack Check For Stale Flows After Cleanup
+    [Arguments]    ${ovs_ip}
+    [Documentation]    Verify if Default Table Entries are programmed on specific Node
+    ${flow_dump} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13
+    BuiltIn.Log    ${flow_dump}
+    ${failed_table_list} =    BuiltIn.Create List
+    : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
+    \    ${rc} =    Builtin.Run Keyword And Return Status    Builtin.Should Not Match Regexp    ${flow_dump}    .*table=${table}.*
+    \    BuiltIn.Run Keyword If    ${rc}    Collections.Append To List    ${failed_table_list}    ${table}
+    [Return]    ${failed_table_list}
+
 Get Suite Debugs
     Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
 
@@ -1178,6 +1197,7 @@ OpenStack Suite Teardown
     # OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     OpenStackOperations.Get Suite Debugs
     OpenStack Cleanup All
+    OpenStack Check For Stale Flows After Cleanup
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
