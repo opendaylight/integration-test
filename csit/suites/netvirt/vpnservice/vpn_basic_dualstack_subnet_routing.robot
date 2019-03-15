@@ -160,6 +160,20 @@ Delete L3VPN
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
 
+ReCreate L3VPN and associate L3VPN To Routers and verify traffic
+    [Documentation]    Create L3VPN
+    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]    name=@{VPN_NAME}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]
+    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_ID}[0]
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_ID}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]
+    BuiltIn.Should Contain    ${resp}    ${router_id}
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data Traffic
+    BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data Traffic
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Create basic setup for feature.Create two network,subnet,four ports and four VMs
