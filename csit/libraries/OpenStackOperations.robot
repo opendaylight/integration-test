@@ -1332,3 +1332,19 @@ Set Instance Quota For Project
     [Documentation]    Set quota for the created instances using the specific project id.
     ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
     [Return]    ${output}
+
+Create Bgpvpn
+    [Arguments]    ${vpnname}    ${additional_args}=${EMPTY}
+    [Documentation]    Create Bgpvpn with neutron request.
+    ${output} =    OpenStack CLI    openstack bgpvpn create --name ${vpnname} ${additional_args}
+
+Get BgpVpn Id
+    [Arguments]    ${vpnName}
+    [Documentation]    Retrieve the bgpvpn id for the given bgpvpn name
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    openstack bgpvpn show ${vpnName} | grep " ID" | awk '{print $4}'
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    ${splitted_output}=    String.Split String    ${output}    ${EMPTY}
+    ${vpn_id}=    Collections.Get from List    ${splitted_output}    0
+    BuiltIn.Log    ${vpn_id}
+    [Return]    ${vpn_id} 
