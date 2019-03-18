@@ -28,7 +28,6 @@ ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
 ${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
 ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
-${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 @{INTERFACE_STATE}    up    down
 @{NETWORKS}       mc_net_1    mc_net_2    mc_net_3
 @{NET_1_VMS}      mc_net_1_vm_1    mc_net_1_vm_2    mc_net_1_vm_3    mc_net_1_vm_4
