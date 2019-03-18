@@ -26,7 +26,6 @@ ${SNAT_ENABLED}    "enable_snat": true
 ${SNAT_DISABLED}    "enable_snat": false
 ${ROUTER}         nat_router
 ${AS_ID}          100
-${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${LOOPBACK_IP}    5.5.5.2
 ${DCGW_RD}        100:1
