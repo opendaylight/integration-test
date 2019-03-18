@@ -1,11 +1,11 @@
 {
-    "tables": [
-        {
-            "afi": "bgp-types:ipv4-address-family",
-            "safi": "bgp-types:mpls-labeled-vpn-subsequent-address-family",
-            "attributes": {
-                "uptodate": "*"
-            }
-        }
-    ]
+ "errors": {
+  "error": [
+   {
+    "error-message": "Request could not be completed because the relevant data model content does not exist",
+    "error-tag": "data-missing",
+    "error-type": "application"
+   }
+  ]
+ }
 }
