@@ -125,6 +125,7 @@ Resource          ${CURDIR}/../variables/Variables.robot
 @{INTERNAL_SERVER_ERROR}    ${500}    # Only for testing severely negative scenarios where ODL cannot recover.
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 @{NO_STATUS_CODES}
+${NEON_EMPTY_DATA_RETURN_CODE}    ${404}
 @{UNAUTHORIZED_STATUS_CODES}    ${401}    # List of integers, not strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
 
 *** Keywords ***
@@ -360,7 +361,8 @@ Get_From_Uri
     BuiltIn.Log    ${accept}
     ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
     ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
-    Check_Status_Code    ${response}
+    ${empty_code} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEON_EMPTY_DATA_RETURN_CODE}    ${NO_STATUS_CODES}
+    Check_Status_Code    ${response}    additional_allowed_status_codes=${empty_code}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}    keys_with_volatiles=${keys_with_volatiles}
     [Return]    ${text_normalized}
