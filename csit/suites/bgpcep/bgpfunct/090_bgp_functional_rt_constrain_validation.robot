@@ -67,7 +67,7 @@ Start_Bgp_Peers
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     : FOR    ${i}    ${as_number}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_AS_NUMBERS}
     \    BuiltIn.Log_Many    IP: ${ODL_${i}_IP}    as_number: ${as_number}
-    \    Start_Bgp_Peer    ${ODL_${i}_IP}    ${as_number}    800${i}    play.py.090.${i}
+    \    Start_Bgp_Peer    ${ODL_${i}_IP}    ${as_number}    800${i}    play.py.090${i}
 
 Play_To_Odl_ext_l3vpn_rt_arg
     [Documentation]    This TC sends route-target route containing route-target argument from node 1 to odl
