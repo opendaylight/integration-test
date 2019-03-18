@@ -31,7 +31,6 @@ Resource          ../../../variables/Variables.robot
 @{ROUTERS}        multipath_router_1    multipath_router_2    multipath_router_3
 ${AS_ID}          100
 ${BGP_CACHE}      bgp-cache
-${BGP_CONNECT}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${DIPSLAY_FIB}    fib-show
 ${ENABLE}         enable
 ${DISABLE}        disable
@@ -146,7 +145,7 @@ Create Setup
     : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
     \    BgpOperations.Start Quagga Processes On DCGW    ${dcgw}
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
-    KarafKeywords.Issue Command On Karaf Console    ${BGP_CONNECT}
+    KarafKeywords.Issue Command On Karaf Console    ${BGP_CONFIG_SERVER_CMD}
     BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
     : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
     \    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${dcgw}

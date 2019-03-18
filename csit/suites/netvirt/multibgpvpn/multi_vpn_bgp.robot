@@ -25,7 +25,6 @@ ${NUM_OF_VMS_PER_HOST}    3
 ${NUM_OF_L3VPN}    3
 ${AS_ID}          100
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
-${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${NET}            mvpn_net_new
 ${ROUTER}         mvpn_router
 ${LOOPBACK_IP}    5.5.5.2/32
