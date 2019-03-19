@@ -161,7 +161,7 @@ Delete L3VPN
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
 
 ReCreate L3VPN and associate L3VPN To Routers and verify traffic
-    [Documentation]    ReCreate L3VPN and associate L3VPN To Routers and verify ipv4/ipv6 traffic 
+    [Documentation]    Recreate L3VPN and associate L3VPN To Routers and verify ipv4/ipv6 traffic
     ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_ID}[0]    name=@{VPN_NAME}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
