@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abb7c27b_a284e572",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-03-20T18:26:12Z",
+      "side": 1,
+      "message": "when I was looking at the additions above in this file, I was having a hard time understanding what is going on, so\nI looked here. This is sort of a clunky keyword and\nhas nothing to do with \"acl\" stuff and probably should\nhave been something coming from our ovs lib.\n\nI didn\u0027t look at what we already have in a common lib,\nbut a keyword like:\n\nVerify OVS Flow Table Should Contain\n    [Arguments]    ${conn_id}    ${bridge}    ${table_id}    ${elements}\n\n    SSHLibrary.Switch Connection    ${conn_id}\n\n    ${output} \u003d    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${bridge} -OOpenFlow13 | grep table\u003d${table_id}    ${DEFAULT_LINUX_PROMPT_STRICT}\n\n    Should Contain    ${output}    table\u003d${table_id}\n    : FOR    ${element}    IN    @{elements}\n    \\    Should Contain    ${output}    ${element}\n\n\n\nThat allows you to pass in any number of strings to check for in the output\nof all flows in that given table.\n\njust an idea for a future refactor. Actually, this might already be\navailable in a common lib.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 60
+      },
+      "revId": "266ceef882e367e842ed2e9a257af52fffd1e4c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
