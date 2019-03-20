@@ -38,6 +38,7 @@ ${TEST_LOG_LEVEL}    trace
 *** Test Cases ***
 ACL Service Recovery CLI
     [Documentation]    This test case covers ACL service recovery.
+    Verify ACL Flows Should Contain    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
     ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
     ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/flow-node-inventory:table/${INGRESS_ACL_REMOTE_ACL_TABLE}
@@ -49,6 +50,7 @@ ACL Service Recovery CLI
 
 ACL Instance Recovery CLI
     [Documentation]    This test case covers ACL instance recovery.
+    Verify ACL Flows Should Contain    ${OS_CMP1_CONN_ID}    ${EGRESS_LEARN_ACL_FILTER_TABLE}    icmp
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${EGRESS_LEARN_ACL_FILTER_TABLE}
     ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
     Write Commands Until Expected Prompt    sudo ovs-ofctl del-flows br-int -OOpenflow13 "table=${EGRESS_LEARN_ACL_FILTER_TABLE},icmp"    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -63,6 +65,7 @@ ACL Instance Recovery CLI
 
 ACL Interface Recovery CLI
     [Documentation]    This test case covers ACL interface recovery.
+    Verify ACL Flows Should Contain    ${OS_CMP1_CONN_ID}    ${EGRESS_ACL_TABLE}    ${port_mac}
     ${output} =    OpenStack CLI    openstack port show ${acl_sr_net_1_ports[0]} |awk '/ mac_address / {print$4}'
     @{list} =    Split String    ${output}
     ${port_mac}    Set Variable    ${list[0]}
