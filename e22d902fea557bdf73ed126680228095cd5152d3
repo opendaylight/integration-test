@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa16ead9_5257c436",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "i think this is not needed, as the previous step in the previous tc is doing the same thing",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5196f104_3c16e634",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "this is not needed as it is done at line 45 already",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b58195d1_19e14259",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "we should be checking remote_ip\u003dflow and local_ip\u003d${tools_ip}",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0187f1b5_a7f8b0ce",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "shouldn\u0027t we grep for table\u003d0? this current command will not work",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c71ae949_9250b4da",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "we need to match on port number as well",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2863160_3b19fd80",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "grep table\u003d95",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e491b632_ef506674",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "we need to match on tun_dst as well. The flow will look like below:\ncookie\u003d0x8000000, duration\u003d5896.618s, table\u003d95, n_packets\u003d175, n_bytes\u003d7350, priority\u003d5,reg6\u003d0x200 actions\u003dload:0xc0a83866-\u003eNXM_NX_TUN_IPV4_DST[],output:1",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b989cdb_f48d985b",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "this line should be removed. we should just remove local-ip",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f251943_55c2d67d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "grep table\u003d0, would be good to add this as a variable and use it across",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26a6d595_463ed27d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "grep table\u003d95, add this as a variable",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b39d98fc_17fb4eed",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-03-21T10:20:57Z",
+      "side": 1,
+      "message": "Need to restart cluster once the variables are reset",
+      "revId": "e22d902fea557bdf73ed126680228095cd5152d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
