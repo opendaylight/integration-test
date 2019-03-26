@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "407ad889_e8ff308c",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T16:30:03Z",
+      "side": 1,
+      "message": "this causes an error in the csit run because VPNV4_ADDR_FAMILY is defined in the test robot file. This variable should also be moved here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 48,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "a735c6ab080b16db82f58d867431474a029a4727",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
