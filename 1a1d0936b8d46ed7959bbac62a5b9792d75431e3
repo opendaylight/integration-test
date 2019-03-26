@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80655372_32a83283",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "add space, BuiltIn.",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42ba2178_fffccdba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "BuiltIn",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14a2c64e_f6b26c2f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "BuiltIn",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b302713_f28944cb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "add space, String.",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67613e12_81559a36",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "same comment",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40bdb4a8_c50f3912",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "BuiltIn",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b93531f_d81c64cd",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "BuiltIn. Do you even want this log? It doesn\u0027t add much value.",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c78c53d5_474b8fa4",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "\u003d, Builtin.",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55464673_e462cf45",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ae05ec_2b0ad1b8",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:22:30Z",
+      "side": 1,
+      "message": "name it Suite Setup. Go back in a different patch and cleanup the other suites where they started using Start Suite.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 11
+      },
+      "revId": "1a1d0936b8d46ed7959bbac62a5b9792d75431e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
