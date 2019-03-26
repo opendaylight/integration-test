@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b057733b_d842dce3",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "Suite Setup and Suite Teardown.",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 29
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b589535a_00267bd4",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "move up to keep alpha order",
+      "range": {
+        "startLine": 13,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbd54835_c3d56dcf",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "move up to the other libraries",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 56
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "310493c0_943bf3b2",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "change prefix from mc (multicast) to si (scalein). Do the same for all the vars in here.",
+      "range": {
+        "startLine": 20,
+        "startChar": 21,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d317d3b_18173025",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "similar here, but find a subnet that hasn\u0027t been used already.",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fac309b3_1782e6ed",
+        "filename": "csit/suites/netvirt/scalein/scalein_subnet_routing.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2019-03-26T19:27:45Z",
+      "side": 1,
+      "message": "make lowercase since these are not needed outside this keyword",
+      "range": {
+        "startLine": 114,
+        "startChar": 25,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "b2833dbe536e8d466d1f58959300cc2e9f2a90f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
