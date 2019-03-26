@@ -23,6 +23,7 @@ ${NEW_IPV4_ROUTES_LINE}    ${EMPTY}
 ${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${DISPLAY_VPN4_ALL}    show-bgp --cmd "ip bgp ${VPNV4_ADDR_FAMILY} all"
+${VPNV4_ADDR_FAMILY}    vpnv4
 
 *** Keywords ***
 Start Quagga Processes On ODL

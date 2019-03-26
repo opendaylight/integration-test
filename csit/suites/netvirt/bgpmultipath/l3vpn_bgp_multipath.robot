@@ -30,7 +30,6 @@ Resource          ../../../variables/Variables.robot
 @{SUBNET_CIDR}    22.1.1.0/24    33.1.1.0/24    44.1.1.0/24
 @{ROUTERS}        multipath_router_1    multipath_router_2    multipath_router_3
 ${AS_ID}          100
-${VPNV4_ADDR_FAMILY}    vpnv4
 ${BGP_CACHE}      bgp-cache
 ${BGP_CONNECT}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${DIPSLAY_FIB}    fib-show
