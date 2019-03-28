@@ -17,71 +17,70 @@ Set_Variable_If_At_Least
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_${branch}
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least ${branch},
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    ${branch}    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most
     [Arguments]    ${upper_bound}    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most ${upper_bound},
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${value_if_true}    ${value_if_false}
 
-Set_Variable_If_At_Least_Carbon
+Set_Variable_If_At_Most_${branch}
     [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least carbon,
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most ${branch},
     ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    carbon    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    ${branch}    ${value_if_true}    ${value_if_false}
 
-Set_Variable_If_At_Least_Nitrogen
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least nitrogen,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    nitrogen    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_At_Least
+    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Least_Oxygen
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least oxygen,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    oxygen    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_At_Least_${branch}
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${branch},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    ${branch}    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Least_Fluorine
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least fluorine,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    fluorine    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_At_Most
+    [Arguments]    ${upper_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at most ${upper_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Least_Neon
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least neon,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    neon    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_At_Most_${branch}
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and in case ${ODL_STREAM} is at most ${branch},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    ${branch}    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Most_Carbon
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    carbon    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_More_Than
+    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is more than ${lower_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] > &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Most_Nitrogen
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most nitrogen,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    nitrogen    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_More_Than_${branch}
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and in case ${ODL_STREAM} is more than ${branch},run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    ${branch}    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Most_Oxygen
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most oxygen,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    oxygen    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_Less_Than
+    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is less than ${lower_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] < &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
-Set_Variable_If_At_Most_Fluorine
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most fluorine,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    fluorine    ${value_if_true}    ${value_if_false}
-
-Set_Variable_If_At_Most_Neon
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most neon,
-    ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    neon    ${value_if_true}    ${value_if_false}
+Run_Keyword_If_Less_Than_${branch}
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${branch} to ${ODL_STREAM} and in case ${ODL_STREAM} is less than ${branch},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    ${branch}    ${kw_name}    @{varargs}    &{kwargs}
 
 CompareStream__Convert_Input
     [Arguments]    @{arguments}
@@ -104,12 +103,6 @@ CompareStream__Convert_Input
     \    ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
     BuiltIn.Return_From_Keyword    ${args}    ${kwargs}
 
-Run_Keyword_If_At_Least
-    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_At_Least_Else
     [Arguments]    ${lower_bound}    @{varargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
@@ -123,12 +116,6 @@ Run_Keyword_If_At_Least_Else
     ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
     ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
-
-Run_Keyword_If_At_Most
-    [Arguments]    ${upper_bound}    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at most ${upper_bound},
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Most_Else
     [Arguments]    ${upper_bound}    @{varargs}
@@ -144,140 +131,8 @@ Run_Keyword_If_At_Most_Else
     ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
-Run_Keyword_If_More_Than
-    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is more than ${lower_bound},
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] > &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_Equals
     [Arguments]    ${stream}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${stream} to ${ODL_STREAM} and in case ${ODL_STREAM} equals ${stream},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] == &{Stream_dict}[${stream}]    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than
-    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is less than ${lower_bound},
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] < &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Carbon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Nitrogen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is at least nitrogen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    nitrogen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Oxygen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and in case ${ODL_STREAM} is at least oxygen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    oxygen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Fluorine
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is at least fluorine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    fluorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Neon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    neon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Carbon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Nitrogen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is at most nitrogen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    nitrogen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Oxygen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and in case ${ODL_STREAM} is at most oxygen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    oxygen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Fluorine
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is at most fluroine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    fluorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Neon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    neon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_More_Than_Carbon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_More_Than_Nitrogen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is more than nitrogen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    nitrogen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_More_Than_Oxygen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and in case ${ODL_STREAM} is more than oxygen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    oxygen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_More_Than_Fluorine
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is more than fluorine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    fluorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_More_Than_Neon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is more than neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    neon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Carbon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Nitrogen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is less than nitrogen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    nitrogen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Oxygen
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare oxygen to ${ODL_STREAM} and in case ${ODL_STREAM} is less than oxygen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    oxygen    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Fluorine
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is less than fluorine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    fluorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Neon
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is less than neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    neon    ${kw_name}    @{varargs}    &{kwargs}
