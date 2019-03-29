@@ -2,7 +2,7 @@
 Documentation     Test suite to validate subnet routing and multicast functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -77,7 +77,7 @@ Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When Qbgp
     Verify Ping between Inter Intra And Enterprise host
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
     VpnOperations.Basic Suite Setup
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}

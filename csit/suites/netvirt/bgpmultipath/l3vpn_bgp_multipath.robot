@@ -3,7 +3,7 @@ Documentation     The objective of this testsuite is to test QBGP and ODL for mu
 ...               QBGP should be capable to receive multiple ECMP paths from different DC-GWs and
 ...               to export the ECMP paths to ODL instead of best path selection.
 ...               ODL should be capable to receive ECMP paths and it should program the FIB with ECMP paths.
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Test Cleanup
@@ -119,7 +119,7 @@ Verify that ECMP path gets withdrawn by QBGP after disabling multipath
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Setup start suite
     VpnOperations.Basic Suite Setup
     Create Setup

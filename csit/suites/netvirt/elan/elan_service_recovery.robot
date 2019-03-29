@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Suite for elan interface and service recovery
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -72,7 +72,7 @@ To Verify Elan Interface recovery
     OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ELAN_SMAC_TABLE}    True    ${EMPTY}    dl_src=@{PORT_MAC_ADDR}[0]    actions=goto_table:${ELAN_DMACTABLE}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Test Suite for Elan interface and service recovery
     OpenStackOperations.OpenStack Suite Setup
     Create Setup

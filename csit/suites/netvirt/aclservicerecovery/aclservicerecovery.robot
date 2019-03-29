@@ -4,7 +4,7 @@ Documentation     Test Suite for ACL Service Recovery:
 ...               common interface to recover services in ODL.
 ...               This feature will register ACL service for recovery
 ...               and implement the mechanism to recover ACL service.
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    Run Keywords    OpenStackOperations.OpenStack Suite Teardown
 ...               AND    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${TEST_LOG_COMPONENTS}
 Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -101,7 +101,7 @@ Verify ACL Flows Should Contain
     BuiltIn.Run Keyword If    '${acl_var}'=='None'    Should Contain    ${output}    table=${table_id}
     ...    ELSE    Should Contain    ${output}    ${acl_var}
 
-Start Suite
+Suite Setup
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
     OpenStackOperations.OpenStack Suite Setup
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}

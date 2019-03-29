@@ -2,7 +2,7 @@
 Documentation     Test suite to validate network address translation(snat/dnat) functionality in openstack integrated environment.
 ...               All the testcases were written to do flow validation since dc gateway is unavailable in csit environment.
 ...               This suite assumes proper integration bridges and vxlan tunnels are configured in the environment.
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -101,7 +101,7 @@ Verify Floating Ip Re-provision And Reachability From External Network Via Neutr
     BuiltIn.Should Contain    ${output}    ${FIP}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
     VpnOperations.Basic Suite Setup
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}

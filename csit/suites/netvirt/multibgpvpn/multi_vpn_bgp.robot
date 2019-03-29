@@ -2,7 +2,7 @@
 Documentation     Test suite to validate multiple vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Start Suite
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -155,7 +155,7 @@ Verification Of Route Download With Three Vpns In SE And Qbgp With Many-Many Exp
     VpnOperations.Verify Flows Are Present For L3VPN    ${OS_CMP1_IP}    ${NET_2_VM_IPS}
 
 *** Keywords ***
-Start Suite
+Suite Setup
     [Documentation]    Basic setup.
     VpnOperations.Basic Suite Setup
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
