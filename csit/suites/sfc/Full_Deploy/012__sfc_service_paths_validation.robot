@@ -17,7 +17,7 @@ Resource          ../../../variables/sfc/Variables.robot
 *** Test Cases ***
 Add Service Function Path referencing a non-existing SF
     [Documentation]    Add Service Function Paths from JSON file
-    CompareStream.Run_Keyword_If_At_Least_Else    neon    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
+    CompareStream.Run_Keyword_If_Equals_Else    neon    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ...    ELSE    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
@@ -28,7 +28,7 @@ Add Service Function Path referencing a non-existing SF
 Add Service Function Path referencing a non-existing SFC
     [Documentation]    Add Service Function Paths from JSON file
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    CompareStream.Run_Keyword_If_At_Least_Else    neon    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
+    CompareStream.Run_Keyword_If_Equals_Else    neon    Add Elements To URI From File And Check Validation Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ...    ELSE    Add Elements To URI From File And Check Server Error    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
