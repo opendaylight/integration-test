@@ -109,7 +109,6 @@ Suite Setup
     OpenStackOperations.OpenStack Suite Setup
     Create Single Elan
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Single Elan
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}

@@ -60,4 +60,3 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}
-    OpenStackOperations.Get Suite Debugs

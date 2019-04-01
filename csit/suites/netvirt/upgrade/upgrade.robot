@@ -87,7 +87,6 @@ Suite Setup
     OpenStackOperations.OpenStack Suite Setup
     Create Resources
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Resources
     [Documentation]    Create 2 VXLAN networks, subnets with 2 VMs each and a router. Ping all 4 VMs.

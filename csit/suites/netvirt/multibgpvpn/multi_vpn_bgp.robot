@@ -162,7 +162,6 @@ Suite Setup
     BgpOperations.Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
     Create Setup
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Setup
     [Documentation]    Create basic topology

@@ -206,4 +206,3 @@ Suite Setup
     : FOR    ${interface}    IN    @{SUBNETS_1}
     \    OpenStackOperations.Add Router Interface    @{ROUTER}[0]    ${interface}
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
-    OpenStackOperations.Get Suite Debugs

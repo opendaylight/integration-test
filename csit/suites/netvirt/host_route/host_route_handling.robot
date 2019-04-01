@@ -55,7 +55,6 @@ Verify creation of host route via openstack subnet create option
     BuiltIn.Set Suite Variable    @{GATEWAY_VM_IPS}
     #TODO: Verifiy the routes in VM.
     OpenStackOperations.Show Debugs    ${NETWORK_1_VMS}    @{GATEWAY_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Verify creation of host route via openstack subnet update option
     [Documentation]    Creating host route using subnet update option and setting nexthop ip to subnet gateway ip. Verifying in controller and openstack.
@@ -116,7 +115,6 @@ Suite Setup
     @{NETWORK_4_VM_IPS}    ${NETWORK_4_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NETWORK_4_VMS}
     BuiltIn.Set Suite Variable    @{NETWORK_4_VM_IPS}
     OpenStackOperations.Show Debugs    @{NETWORK_2_VMS}    @{NETWORK_3_VMS}    @(NETWORK_4_VMS)
-    OpenStackOperations.Get Suite Debugs
 
 Verify Hostroutes In Subnet
     [Arguments]    ${subnet_name}    @{elements}

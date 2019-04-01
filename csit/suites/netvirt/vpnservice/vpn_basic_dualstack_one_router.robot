@@ -376,7 +376,6 @@ Suite Setup
     ${VM_IPS} =    BuiltIn.Create List    @{NET_1_VM_IPV4}    @{NET_2_VM_IPV4}    @{NET_1_VM_IPV6}    @{NET_2_VM_IPV6}
     BuiltIn.Set Suite Variable    ${VM_IPS}
     OpenStackOperations.Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
     [Documentation]    Delete the setup

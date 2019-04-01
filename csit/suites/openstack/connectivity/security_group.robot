@@ -217,4 +217,3 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs

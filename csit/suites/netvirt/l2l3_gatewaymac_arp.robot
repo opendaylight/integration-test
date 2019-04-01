@@ -131,7 +131,6 @@ Suite Setup
     VpnOperations.Basic Suite Setup
     Create Setup
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Neutron Networks
     [Arguments]    ${NUM_OF_NETWORK}

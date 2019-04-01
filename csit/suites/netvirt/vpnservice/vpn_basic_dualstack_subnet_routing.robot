@@ -245,7 +245,6 @@ Suite Setup
     BuiltIn.Set Suite Variable    ${net_1_vm_ipv6}
     BuiltIn.Set Suite Variable    ${net_2_vm_ipv6}
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Verify Ipv4 Data Traffic
     [Documentation]    Check Ipv4 data path verification within and across network

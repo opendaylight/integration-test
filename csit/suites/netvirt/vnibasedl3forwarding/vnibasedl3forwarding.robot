@@ -185,7 +185,6 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_0_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     OpenStackOperations.Show Debugs    @{VNI_NET_0_VMS}    @{VNI_NET_1_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
     BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"

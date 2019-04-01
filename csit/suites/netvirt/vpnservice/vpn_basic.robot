@@ -326,7 +326,6 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
     [Documentation]    Delete the setup

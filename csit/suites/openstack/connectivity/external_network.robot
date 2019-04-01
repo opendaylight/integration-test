@@ -216,4 +216,3 @@ Suite Setup
     : FOR    ${router}    IN    @{ROUTERS}
     \    Should Contain    ${data}    ${router}
     OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
-    OpenStackOperations.Get Suite Debugs

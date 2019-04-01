@@ -295,7 +295,6 @@ Suite Setup
     VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_ID}[1]
     OpenStackOperations.Add Router Gateway    @{ROUTERS}[1]    ${EXT_NETWORKS}    additional_args=--fixed-ip subnet=${EXT_SUBNETS},ip-address=${EXT_SUBNETS_FIXED_IP} --enable-snat
     Create Dictionary For DPN ID And Compute IP Mapping For All DPNS
-    OpenStackOperations.Get Suite Debugs
 
 Set Original TimeOut In Xml
     [Arguments]    ${hard_timeout}

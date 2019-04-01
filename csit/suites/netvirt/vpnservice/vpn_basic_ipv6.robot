@@ -264,7 +264,6 @@ Suite Setup
     BuiltIn.Should Not Contain    ${VM_IP_NET10}    None
     BuiltIn.Should Not Contain    ${VM_IP_NET20}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
     [Documentation]    Delete the setup

@@ -186,7 +186,6 @@ Suite Setup
     BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
     Associate L3VPN To ROUTER
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Suite Teardown
     [Documentation]    Delete the setup

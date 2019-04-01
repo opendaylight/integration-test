@@ -77,7 +77,6 @@ Suite Setup
     OpenStackOperations.OpenStack Suite Setup
     Create Setup
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets

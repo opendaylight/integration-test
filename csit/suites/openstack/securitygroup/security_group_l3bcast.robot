@@ -77,7 +77,6 @@ Start Suite
     OpenStackOperations.OpenStack Suite Setup
     Create Setup
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
-    OpenStackOperations.Get Suite Debugs
 
 Create Setup
     : FOR    ${network}    IN    @{NETWORKS}
