@@ -59,6 +59,8 @@ OFT Create Vteps using Auto Tunnels
     [Arguments]    @{tools_ip_list}
     [Documentation]    Create VTEPs for selected tools systems in ODL using Auto Tunnels.
     : FOR    ${tools_ip}    IN    @{tools_ip_list}
+    \    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-vsctl set O . external_ids:of-tunnel=true
+    : FOR    ${tools_ip}    IN    @{tools_ip_list}
     \    Utils.Run Command On Remote System And Log    ${tools_ip}    ${SET_LOCAL_IP}${tools_ip}
 
 OFT Verify Vteps Created
@@ -120,7 +122,7 @@ OFT Delete Vteps using Auto Tunnels
 OFT Verify Vteps Deleted
     [Arguments]    ${dpn_id_list}    ${tools_ip_list}
     [Documentation]    Verify if OFT Vteps are created successfully or not for given Tools IPs and DPN-IDs.
-    ${tools_system_len} =    BuiltIn.Set Variable    ${dpn_id_list}
+    ${tools_system_len} =    BuiltIn.Get Length   ${dpn_id_list}
     ${tep_show_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     ${tep_show_state_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     ${tunnel_state_resp_data} =    BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.Get Data From URI    session    ${OPERATIONAL_API}/itm-state:tunnels_state
@@ -163,7 +165,6 @@ OF Tunnels Start Suite
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
     : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
     ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
@@ -171,7 +172,6 @@ OF Tunnels Start Suite
 OF Tunnels Stop Suite
     [Documentation]    Stop suite for OF Tunnels.
     : FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
     \    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
