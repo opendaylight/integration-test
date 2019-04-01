@@ -89,7 +89,6 @@ Verify Tunnel State with BFD Enabled and Interface State Down
     Collections.Remove From List    ${tools_ip_list}    0
     : FOR    ${tools_ip}    IN    @{tools_ip_list}
     \    OVSDB.Stop OVS    ${tools_ip}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    0
 
 Verify Tunnel State with BFD Enabled and Interface State Up
     [Documentation]    Verify Tunnel state with BFD Enabled and Interface state as Up.
@@ -98,7 +97,6 @@ Verify Tunnel State with BFD Enabled and Interface State Up
     Collections.Remove From List    ${tools_ip_list}    0
     : FOR    ${tools_ip}    IN    @{tools_ip_list}
     \    OVSDB.Start OVS    ${tools_ip}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
 
 Delete and Verify OFT TEPs with Non-Zero Reference Count
     [Documentation]    Verify that OFT TEPs can be deleted even if the Reference Count is Non-Zero.
@@ -149,10 +147,8 @@ Verify Interface State with BFD Disabled
     \    ...    0
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    OVSDB.Stop OVS    ${tools_ip}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
     : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
     \    OVSDB.Start OVS    ${tools_ip}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
 
 *** Keywords ***
 OFT Create Vteps using Auto Tunnels
@@ -172,7 +168,6 @@ OFT Verify Vteps Created
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Update Dpn id List And Get Tunnels    odl-interface:tunnel-type-vxlan    dpn-teps-state    ${dpn_id_list}
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Response Code Of Dpn End Point Config API    ${dpn_id_list}
     ${num_switches} =    BuiltIn.Get Length    ${dpn_id_list}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${num_switches}
     BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{tools_ip_list}
     ${tools_system_len} =    BuiltIn.Get Length    ${tools_ip_list}
     : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
@@ -222,11 +217,9 @@ OFT Verify Vteps Deleted
     [Documentation]    Verify if OFT Vteps are created successfully or not for given Tools IPs and DPN-IDs.
     ${tools_system_len} =    BuiltIn.Get Length    ${dpn_id_list}
     ${tep_show_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
-    ${tep_show_state_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     ${tunnel_state_resp_data} =    BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.Get Data From URI    session    ${OPERATIONAL_API}/itm-state:tunnels_state
     : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
     \    BuiltIn.Should Not Contain    ${tep_show_output}    @{tools_ip_list}[${tools_system_index}]
-    \    BuiltIn.Should Not Contain    ${tep_show_state_output}    @{tools_ip_list}[${tools_system_index}]
     \    BuiltIn.Should Not Contain    ${tunnel_state_resp_data}    @{tools_ip_list}[${tools_system_index}]
     \    BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/@{dpn_id_list}[${tools_system_index}]/
     \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
