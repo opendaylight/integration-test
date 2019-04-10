@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562933b8_5e4b3783",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "replace this with just one line:\n\nOpenStack CLI    openstack bgpvpn show ${vpnName} | grep \" ID\" | awk \u0027{print $4}\u0027",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1346,
+        "endChar": 44
+      },
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c2bb074_2758a83b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "no need for this, but not a big deal. The OpenStack CLI\nkeyword will log the output of it\u0027s command so anyone\nthat was digging through robot logs can get this info\nfrom there.",
+      "range": {
+        "startLine": 1349,
+        "startChar": 0,
+        "endLine": 1349,
+        "endChar": 28
+      },
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10369b8b_5b1e8b7c",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "unless you like to keep this style, since your \"Suite Setup\" keyword below is only a single line, you can just add that single line here and remove the local keyword below entirely.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85578b8b_f5d83bce",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "lower case for Additional_Args, but you could also just remove this line entirely and add that string \"--route-distinguisher 100:10\" to the line below",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9fd6f70_80f5c95c",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "space",
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77e64385_4139f082",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-04-10T15:53:48Z",
+      "side": 1,
+      "message": "space",
+      "revId": "62770c38d4152997393479da9068675d3fe7efc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
