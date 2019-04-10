@@ -1,0 +1,6 @@
+---
+- repo: git://github.com/guykisel/pre-commit-robotframework-tidy
+  rev: 'master'
+  hooks:
+  - id: robotframework-tidy-wrapper
+
