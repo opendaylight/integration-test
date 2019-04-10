@@ -1,6 +1,11 @@
 ---
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v1.2.3
+  hooks:
+    - id: flake8
+      args: [--max-line-length=120]
+
 - repo: git://github.com/guykisel/pre-commit-robotframework-tidy
   rev: 'master'
   hooks:
   - id: robotframework-tidy-wrapper
-
