@@ -1345,3 +1345,15 @@ Get BgpVpn Id
     ${splitted_output}=    String.Split String    ${output}    ${EMPTY}
     ${vpn_id}=    Collections.Get from List    ${splitted_output}    0
     [Return]    ${vpn_id}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${sub_interface_state}=${EMPTY}    ${interface}=eth0
+    ...    ${sub_interface_number}=1
+    [Documentation]    Keyword for configuring specified IP on specified interface and the corresponding specified sub interface
+    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number} ${ip} netmask ${mask} ${sub_interface_state}
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${interface}=eth0    ${sub_interface_number}=1
+    [Documentation]    Keyword for verifying specified IP on specified interface and the corresponding specified sub interface
+    ${resp} =    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number}
+    BuiltIn.Should Contain    ${resp}    ${ip}

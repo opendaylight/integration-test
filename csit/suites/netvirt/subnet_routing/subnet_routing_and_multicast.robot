@@ -44,13 +44,13 @@ ${MASK}           255.255.255.0
 *** Test Cases ***
 Verify The Subnet Route When Neutron Port Hosting Subnet Route Is Down/up On Single VSwitch Topology
     [Documentation]    Verify the subnet route when enterprise host is down and up.
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[1]
     ${allowed_ip_list} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${allowed_ip_list}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${allowed_ip_list}
     Verify Ping between Inter Intra And Enterprise host
 
@@ -60,9 +60,9 @@ Verify Enterprise Hosts Reachability After VM Reboot
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     OpenStackOperations.Reboot Nova VM    @{NET_1_VMS}[0]
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     Verify Ping between Inter Intra And Enterprise host
 
 Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When DC-GW Is Restarted
@@ -91,6 +91,31 @@ Stop Suite
     BgpOperations.Stop BGP Processes On Node    ${ODL_SYSTEM_IP}
     BgpOperations.Stop BGP Processes On Node    ${DCGW_SYSTEM_IP}
     OpenStackOperations.OpenStack Suite Teardown
+
+Create Setup
+    [Documentation]    Create basic topology
+    OpenStackOperations.OpenStack Suite Setup
+    ${id} =    OpenStackOperations.Get Project Id    ${ODL_RESTCONF_USER}
+    OpenStackOperations.Set Instance Quota For Project    ${NUM_OF_INSTANCES}    ${id}
+    Create Neutron Networks
+    Create Neutron Subnets    ${3}
+    OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP}
+    Create Neutron Ports
+    Create Nova VMs
+    Create Sub Interfaces And Verify
+    Create L3VPN
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    Create BGP Config On ODL
+    Create BGP Config On DCGW
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
+    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${RPING_MIP_IP1}
+    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[0]    ${RPING_MIP_IP2}
+    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
 
 Create Neutron Networks
     [Documentation]    Create required number of networks
@@ -137,42 +162,17 @@ Create Nova VMs
     BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
 
-Create Setup
-    [Documentation]    Create basic topology
-    OpenStackOperations.OpenStack Suite Setup
-    ${id} =    OpenStackOperations.Get Project Id    ${ODL_RESTCONF_USER}
-    OpenStackOperations.Set Instance Quota For Project    ${NUM_OF_INSTANCES}    ${id}
-    Create Neutron Networks
-    Create Neutron Subnets    ${3}
-    OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP}
-    Create Neutron Ports
-    Create Nova VMs
-    Create Sub Interfaces And Verify
-    Create L3VPN
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
-    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
-    Create BGP Config On ODL
-    Create BGP Config On DCGW
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
-    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${RPING_MIP_IP1}
-    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[0]    ${RPING_MIP_IP2}
-    BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
-
 Create Sub Interfaces And Verify
     [Documentation]    Create Sub Interface and verify for all VMs
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Configure_IP_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
     ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
 
 Create L3VPN
     [Documentation]    Create L3VPN and verify the same
@@ -196,18 +196,6 @@ Create BGP Config On DCGW
     ${output} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    ${RUN_CONFIG}
     BuiltIn.Should Contain    ${output}    ${ODL_SYSTEM_IP}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    180s    10s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
-
-Configure_IP_On_Sub_Interface
-    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${sub_interface_state}=${EMPTY}    ${interface}=eth0
-    ...    ${sub_interface_number}=1
-    [Documentation]    Keyword for configuring specified IP on specified interface and the corresponding specified sub interface
-    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number} ${ip} netmask ${mask} ${sub_interface_state}
-
-Verify_IP_Configured_On_Sub_Interface
-    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${interface}=eth0    ${sub_interface_number}=1
-    [Documentation]    Keyword for verifying specified IP on specified interface and the corresponding specified sub interface
-    ${resp} =    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number}
-    BuiltIn.Should Contain    ${resp}    ${ip}
 
 Verify Ping between Inter Intra And Enterprise host
     [Documentation]    Ping Enterprise Host for Intra, Inter from different and same network
