@@ -1332,3 +1332,15 @@ Set Instance Quota For Project
     [Documentation]    Set quota for the created instances using the specific project id.
     ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
     [Return]    ${output}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${sub_interface_state}=${EMPTY}    ${interface}=eth0
+    ...    ${sub_interface_number}=1
+    [Documentation]    Keyword for configuring specified IP on specified interface and the corresponding specified sub interface
+    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number} ${ip} netmask ${mask} ${sub_interface_state}
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${interface}=eth0    ${sub_interface_number}=1
+    [Documentation]    Keyword for verifying specified IP on specified interface and the corresponding specified sub interface
+    ${resp} =    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number}
+    BuiltIn.Should Contain    ${resp}    ${ip}
