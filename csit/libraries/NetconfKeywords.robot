@@ -159,7 +159,7 @@ Install_And_Start_Testtool
     ...    for the additional schemas is deleted on the remote machine and
     ...    the additional schemas argument is left out.
     # Install test tool on the machine.
-    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    explicit_url=https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/netconf/netconf-testtool/1.5.2/netconf-testtool-1.5.2-executable.jar
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
     ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
