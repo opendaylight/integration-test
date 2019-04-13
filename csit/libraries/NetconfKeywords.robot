@@ -152,7 +152,7 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_BOOT_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
+    [Arguments]    ${device-count}=10    ${debug}=false    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
     [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
     ...    When the ${schemas} argument is set to 'none', it signifies that
     ...    there are no additional schemas to be deployed, so the directory
