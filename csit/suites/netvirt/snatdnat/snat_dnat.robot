@@ -31,7 +31,7 @@ ${LOOPBACK_IP}    5.5.5.2
 ${DCGW_RD}        100:1
 ${VPN_NAME}       vpn_1
 ${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261442
-${FIP}            100.100.100.24
+${ExtIP}          100.100.100.2
 @{NETWORKS}       nat_net_1    nat_net_2
 @{EXTERNAL_NETWORKS}    nat_ext_11    nat_ext_22
 @{EXTERNAL_SUB_NETWORKS}    nat_ext_sub_net_1    nat_ext_sub_net_2
@@ -75,10 +75,10 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${FIP}
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Contain    ${output}    ${FIP}
+    BuiltIn.Should Contain    ${output}    ${ExtIP}
 
 Verify Floating Ip De-provision And Reachability From External Network Via Neutron Router Through L3vpn
     [Documentation]    Check floating IP should not be present in dump flows after deleting the floating IP
@@ -89,16 +89,16 @@ Verify Floating Ip De-provision And Reachability From External Network Via Neutr
     OpenStackOperations.Delete Floating IP    ${floating_id}
     OpenStackOperations.Remove Gateway    ${ROUTER}
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Not Contain    ${output}    ${FIP}
+    BuiltIn.Should Not Contain    ${output}    ${ExtIP}
 
 Verify Floating Ip Re-provision And Reachability From External Network Via Neutron Router Through L3vpn
     [Documentation]    Check floating IP should be present in dump flows after creating the floating IP again wnd associating it to external network
     ...    which is associated to L3VPN
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${FIP}
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Contain    ${output}    ${FIP}
+    BuiltIn.Should Contain    ${output}    ${ExtIP}
 
 *** Keywords ***
 Suite Setup
