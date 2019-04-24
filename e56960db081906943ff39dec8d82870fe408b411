@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0344101d_95d753da",
+        "filename": "csit/suites/netvirt/multibgpvpn/bgpvpn.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-04-24T04:11:46Z",
+      "side": 1,
+      "message": "Verify ODL",
+      "revId": "e56960db081906943ff39dec8d82870fe408b411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
