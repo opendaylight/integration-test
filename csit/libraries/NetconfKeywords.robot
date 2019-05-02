@@ -19,7 +19,7 @@ Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
 
 *** Variables ***
-${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
