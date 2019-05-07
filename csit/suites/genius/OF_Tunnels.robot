@@ -54,6 +54,106 @@ Delete and Verify single OFT TEPs
     ${deleted_dpn_id_list} =    BuiltIn.CreateList    @{DPN_ID_LIST}[0]
     OFT Verify Vteps Deleted    ${deleted_dpn_id_list}    ${deleted_tools_ip_list}
 
+Verify OFT supports only Selective BFD
+    [Documentation]    Verify that only Selective BFD monitoring can be enabled for OF based Tunnels.
+    ${status} =    BuiltIn.Run Keyword And Return Status    Utils.Add Elements To URI And Verify    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
+    BuiltIn.Should Be True    ${status} == ${False}
+
+Verify Reference Count with Selective BFD
+    [Documentation]    Verify if Reference Count is increased accordingly for Selective BFD monitoring.
+    OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{TOOLS_SYSTEM_ALL_IPS}[0]
+    ${tools_system_len} =    BuiltIn.Get Length    ${DPN_ID_LIST}
+    : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
+    \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Set BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Reference Count per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    1
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify P2P per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+
+Verify Tunnel State with BFD Enabled and Interface State Down
+    [Documentation]    Verify Tunnel state with BFD Enabled and Interface state as Down.
+    OFT OVS Verify Tunnels Created    @{TOOLS_SYSTEM_ALL_IPS}
+    ${tools_system_len} =    BuiltIn.Get Length    ${DPN_ID_LIST}
+    : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
+    \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+    ${tools_ip_list} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}
+    Collections.Remove From List    ${tools_ip_list}    0
+    : FOR    ${tools_ip}    IN    @{tools_ip_list}
+    \    OVSDB.Stop OVS    ${tools_ip}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    0
+
+Verify Tunnel State with BFD Enabled and Interface State Up
+    [Documentation]    Verify Tunnel state with BFD Enabled and Interface state as Up.
+    BuiltIn.Comment    Preconditions are unclear.
+    ${tools_ip_list} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}
+    Collections.Remove From List    ${tools_ip_list}    0
+    : FOR    ${tools_ip}    IN    @{tools_ip_list}
+    \    OVSDB.Start OVS    ${tools_ip}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
+
+Delete and Verify OFT TEPs with Non-Zero Reference Count
+    [Documentation]    Verify that OFT TEPs can be deleted even if the Reference Count is Non-Zero.
+    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{TOOLS_SYSTEM_ALL_IPS}
+    ${tools_system_len} =    BuiltIn.Get Length    ${DPN_ID_LIST}
+    : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
+    \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Reference Count per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    0    \>
+    ${deleted_tools_ip_list} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}[0]
+    OFT Delete Vteps using Auto Tunnels    @{deleted_tools_ip_list}
+    ${deleted_dpn_id_list} =    BuiltIn.CreateList    @{DPN_ID_LIST}[0]
+    OFT Verify Vteps Deleted    ${deleted_dpn_id_list}    ${deleted_tools_ip_list}
+    : FOR    ${src_dpn_id}    IN    @{deleted_dpn_id_list}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify P2P per Switch    ${src_dpn_id}    ${DPN_ID_LIST}
+    \    ...    ${False}
+
+Verify Reference Count with BFD disable RPC
+    [Documentation]    Verify that Reference Count decreases accordingly when BFD disable RPC is called.
+    OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{TOOLS_SYSTEM_ALL_IPS}[0]
+    ${tools_system_len} =    BuiltIn.Get Length    ${DPN_ID_LIST}
+    : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
+    \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${True}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Set BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${False}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${False}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Reference Count per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    0
+
+Verify Interface State with BFD Disabled
+    [Documentation]    Verify that Tunnel State remains same even after toggling of interface state once BFD is Disabled.
+    OFT OVS Verify Tunnels Created    @{TOOLS_SYSTEM_ALL_IPS}
+    ${tools_system_len} =    BuiltIn.Get Length    ${DPN_ID_LIST}
+    : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
+    \    ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
+    \    Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify BFD State per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    ${False}
+    \    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Reference Count per Switch    @{DPN_ID_LIST}[${tools_system_index}]    ${dst_dpn_id_list}
+    \    ...    0
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+    \    OVSDB.Stop OVS    ${tools_ip}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+    \    OVSDB.Start OVS    ${tools_ip}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${NUM_TOOLS_SYSTEM}
+
 *** Keywords ***
 OFT Create Vteps using Auto Tunnels
     [Arguments]    @{tools_ip_list}
@@ -157,6 +257,51 @@ OFT OVS Verify Egress Flows Deleted per Switch
     [Documentation]    Verify if Egress flow rules are deleted in OVS for a given switch.
     ${flows_table95_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE95}
     BuiltIn.Should Not Contain    ${flows_table95_output}    output:
+
+OFT Verify BFD State per Switch
+    [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}    ${is_enabled}
+    [Documentation]    Verify BFD State in ODL for all src-dst dpn pair for a given switch.
+    ${is_enabled} =    BuiltIn.Evaluate    str(${is_enabled}).lower()
+    ${elements} =    BuiltIn.Create List    <monitoring-enabled>${is_enabled}</monitoring-enabled>
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
+    \    Utils.Check For Elements At URI    ${CONFIG_API}/itm-state:dpn-teps-state/dpns-teps/${src_dpn_id}/remote-dpns/${dst_dpn_id}    ${elements}
+
+OFT Set BFD State per Switch
+    [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}    ${enable}
+    [Documentation]    Set BFD State in ODL for all src-dst dpn pair for a given switch.
+    ${input} =    BuiltIn.Create Dictionary
+    Collections.Set To Dictionary    ${input}    monitoring-enabled=${enable}
+    ${body} =    BuiltIn.Create Dictionary
+    Collections.Set To Dictionary    ${body}    input=${input}
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
+    \    Collections.Set To Dictionary    ${input}    source-node=${src_dpn_id}
+    \    Collections.Set To Dictionary    ${input}    destination-node=${dst_dpn_id}
+    \    ${data} =    BuiltIn.Evaluate    json.dumps(${body}, indent=4)    json
+    \    Utils.Post Elements To URI    ${OPERATIONS_API}/itm-rpc:set-bfd-param-on-tunnel    data=${data}
+
+OFT Verify Reference Count per Switch
+    [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}    ${value}    ${condition}=\=\=
+    [Documentation]    Verify Reference Count in ODL for all src-dst dpn pair for a given switch.
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
+    \    ${resp_data} =    Utils.Get Data From URI    session    ${OPERATIONAL_API}/odl-itm-meta:monitoring-ref-count/monitored-tunnels/${src_dpn_id}/${dst_dpn_id}
+    \    ${matches} =    String.Get Regexp Matches    ${resp_data}    <reference-count>(\\d+)</reference-count>    1
+    \    BuiltIn.Log    ${matches}
+    \    BuiltIn.Length Should Be    ${matches}    1
+    \    ${result} =    BuiltIn.Evaluate    ${count}${condition}${value}
+    \    BuiltIn.Should Be Equal    ${result}    ${True}
+
+OFT Verify P2P per Switch
+    [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}    ${is_created}
+    [Documentation]    Verify that P2P is created or deleted in ODL for all src-dst dpn pair for a given switch.
+    ${input} =    BuiltIn.Create Dictionary
+    ${body} =    BuiltIn.Create Dictionary
+    Collections.Set To Dictionary    ${body}    input=${input}
+    : FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
+    \    Collections.Set To Dictionary    ${input}    source-node=${src_dpn_id}
+    \    Collections.Set To Dictionary    ${input}    destination-node=${dst_dpn_id}
+    \    ${data} =    BuiltIn.Evaluate    json.dumps(${body}, indent=4)    json
+    \    ${status} =    BuiltIn.Run Keyword And Return Status    Utils.Post Elements To URI    ${OPERATIONS_API}/itm-rpc:get-watch-port-for-tunnel    data=${data}
+    \    BuiltIn.Should Be True    ${status} == ${is_created}
 
 OF Tunnels Start Suite
     [Documentation]    Start suite for OF Tunnels.
