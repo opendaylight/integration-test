@@ -26,7 +26,6 @@ ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
 ${INTERVAL_5000}    {"tunnel-monitor-interval":{"interval":5000}}
-${ENABLE_MONITORING}    {"tunnel-monitor-params":{"enabled":true,"monitor-protocol":"odl-interface:tunnel-monitoring-type-bfd"}}
 ${DISABLE_MONITORING}    {"tunnel-monitor-params":{"enabled":"false","monitor-protocol":"odl-interface:tunnel-monitoring-type-bfd"}}
 ${TUNNEL_MONI_PARAMS_TRUE}    true
 ${TUNNEL_MONI_PARAMS_FALSE}    false
