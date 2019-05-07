@@ -31,6 +31,7 @@ ${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
 ${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
 ${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
 ${odl_stream_check }    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]
+${ENABLE_MONITORING}    {"tunnel-monitor-params":{"enabled":true,"monitor-protocol":"odl-interface:tunnel-monitoring-type-bfd"}}
 
 *** Keywords ***
 Genius Suite Setup
