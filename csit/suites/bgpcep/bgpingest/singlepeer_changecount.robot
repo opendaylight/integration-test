@@ -135,62 +135,6 @@ Store_Results_For_Talking_BGP_Speaker
     Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    changecount-talking-totals-${RESULTS_FILE_NAME}
     Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    changecount-talking-performance-${RESULTS_FILE_NAME}
 
-Wait_For_Stable_Ipv4_Topology_After_Talking
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
-
-Check_For_Empty_Ipv4_Topology_After_Talking
-    [Documentation]    Example-ipv4-topology should be empty now.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty
-
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
-
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    Store_Change_Count
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
-
-Wait_For_Stable_Listening_Ipv4_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
-
-Check_Listening_Ipv4_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT_SINGLE}
-
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_Change_Count
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-
-Store_Results_For_Listening_BGP_Speaker
-    [Documentation]    Store results for plotting
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    changecount-listening-totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    changecount-listening-performance-${RESULTS_FILE_NAME}
-
-Wait_For_Stable_Ipv4_Topology_After_Listening
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
-
-Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
