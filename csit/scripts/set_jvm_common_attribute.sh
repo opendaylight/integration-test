@@ -55,6 +55,8 @@ EOF
     echo "Setup ODL_SYSTEM_IP specific config files for ${!CONTROLLERIP} "
 
     cat ${WORKSPACE}/org.apache.karaf.decanter.appender.elasticsearch.cfg
+    cat ${WORKSPACE}/org.apache.karaf.decanter.collector.jmx-local.cfg
+    cat ${WORKSPACE}/org.apache.karaf.decanter.collector.jmx-others.cfg
     cat ${WORKSPACE}/elasticsearch.yml
 
 
