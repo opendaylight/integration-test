@@ -33,6 +33,8 @@ ${BASE_PORT}      17830
 ${NUM_WORKERS}    10
 ${TIMEOUT_FACTOR}    5
 ${DEVICES_RESULT_FILE}    devices.csv
+${INSTALL_TESTTOOL}    True
+${TESTTOOL_EXECUTABLE}    ${EMPTY}
 
 *** Test Cases ***
 Find Max Netconf Devices
@@ -47,7 +49,8 @@ Find Max Netconf Devices
     : FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
     \    ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
     \    Log To Console    Starting Iteration with ${devices} devices
-    \    NetconfKeywords.Install_And_Start_Testtool    device-count=${devices}
+    \    Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    device-count=${devices}
+    \    ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    device-count=${devices}
     \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
