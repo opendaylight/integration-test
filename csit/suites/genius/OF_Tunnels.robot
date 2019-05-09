@@ -78,7 +78,7 @@ OFT Verify Vteps Created
     : FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
     \    ${tun_ip_list} =    BuiltIn.CreateList    @{tools_ip_list}
     \    Collections.Remove From List    ${tun_ip_list}    ${tools_system_index}
-    \    ${ports_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
+    \    ${ports_output} =    Utils.Run Command On Remote System And Log    @{tools_ip_list}[${tools_system_index}]    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
     \    ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).tun.*    ${1}
     \    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    @{tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
     \    ...    ${port_numbers}
