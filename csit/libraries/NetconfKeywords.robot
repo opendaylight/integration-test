@@ -153,15 +153,18 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
 
 Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
-    [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
-    ...    When the ${schemas} argument is set to 'none', it signifies that
-    ...    there are no additional schemas to be deployed, so the directory
-    ...    for the additional schemas is deleted on the remote machine and
-    ...    the additional schemas argument is left out.
-    # Install test tool on the machine.
+    [Documentation]    Install and run testtool.
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+    Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${tool_options}    ${java_options}    ${mdsal}
+
+Start_Testtool
+    [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
+    [Documentation]    Arrange to collect tool's output into a log file.
+    ...    Will use specific ${schemas} unless argument resolves to 'none',
+    ...    which signifies that there are no additional schemas to be deployed.
+    ...    If so the directory for the additional schemas is deleted on the
+    ...    remote machine and the additional schemas argument is left out.
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
-    # Start the testtool
     ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
     BuiltIn.Log    Running testtool: ${command}
     ${logfile}=    Utils.Get_Log_File_Name    testtool
