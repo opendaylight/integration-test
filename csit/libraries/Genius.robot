@@ -79,7 +79,6 @@ Check Port Status Is ESTABLISHED
 Create Vteps
     [Arguments]    ${vlan_id}    ${gateway_ip}
     [Documentation]    This keyword creates VTEPs between OVS
-    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${body} =    Genius.Set Json    ${vlan_id}    ${gateway_ip}    ${SUBNET}    @{TOOLS_SYSTEM_ALL_IPS}
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -87,13 +86,17 @@ Create Vteps
 Set Json
     [Arguments]    ${vlan}    ${gateway_ip}    ${subnet}    @{tools_ips}
     [Documentation]    Sets Json with the values passed for it.
-    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${body} =    String.Replace String    ${body}    1.1.1.1    ${subnet}
+    ${body} =    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan_below_sodium.json
+    ...    ELSE    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan_sodium_and_above.json
+    ${body} =    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    String.Replace String    ${body}    1.1.1.1    ${subnet}
+    ...    ELSE    BuiltIn.Set Variable    ${body}
+    ${body} =    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    String.Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
+    ...    ELSE    BuiltIn.Set Variable    ${body}
+    ${body} =    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    String.Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway_ip}"
+    ...    ELSE    BuiltIn.Set Variable    ${body}
     : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
     \    ${body}    String.Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
     \    ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
-    ${body} =    String.Replace String    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
-    ${body} =    String.Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway_ip}"
     BuiltIn.Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
 
@@ -154,11 +157,10 @@ Ovs Interface Verification
     \    Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Get ITM
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${switch_data}=${SWITCH_DATA}
+    [Arguments]    ${itm_created[0]}    ${switch_data}=${SWITCH_DATA}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
-    @{Itm-no-vlan} =    BuiltIn.Create List    ${itm_created[0]}    ${subnet}    ${vlan}
-    @{Itm-no-vlan} =    Collections.Combine Lists    ${Itm-no-vlan}    ${switch_data}
-    Utils.Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+    Collections.Append To List    ${switch_data}    ${itm_created[0]}
+    Utils.Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${switch_data}
 
 Check Tunnel Delete On OVS
     [Arguments]    ${tunnel_list}
