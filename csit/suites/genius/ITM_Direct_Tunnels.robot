@@ -26,7 +26,7 @@ Variables         ../../variables/genius/Modules.py
 Create and Verify VTEP
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs
     Genius.Create Vteps    ${NO_VLAN}    ${gateway_ip}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${SUBNET}    ${NO_VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}    dpn-teps-state
     Genius.Verify Response Code Of Dpn Endpointconfig API
@@ -60,7 +60,8 @@ Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${tunnel_list} =    Genius.Get Tunnels List
     : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    ...    ELSE    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
