@@ -25,7 +25,7 @@ ${gateway_regex_IPV6}    [0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9
 Create and Verify VTEP -No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
     Genius.Create Vteps    ${NO_VLAN}    ${gateway_ip}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${SUBNET}    ${NO_VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     Genius.Verify Response Code Of Dpn Endpointconfig API
@@ -43,7 +43,8 @@ Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${tunnel_list} =    Genius.Get Tunnels List
     : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    CompareStream.Run_Keyword_If_Less_Than_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    CompareStream.Run_Keyword_If_At_Least_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -57,7 +58,7 @@ Create and Verify VTEP IPv6 - No Vlan
     ${gateway_ip} =    BuiltIn.Set Variable    ::
     Build Tools System IPV6 List
     Create Vteps IPv6    ${NO_VLAN}    ${gateway_ip}    ${TOOLS_SYSTEM_IPV6_LIST}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Get ITM IPV6    ${itm_created[0]}    ${SUBNET_IPV6}    ${NO_VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Get ITM IPV6    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     : FOR    ${dpn}    IN    @{DPN_ID_LIST}
@@ -76,8 +77,9 @@ Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn}/${port_name}
+    : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
+    \    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn_id}/${port_name}
+    \    ...    ELSE    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     BuiltIn.Run Keyword And Ignore Error    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -89,7 +91,7 @@ Delete and Verify VTEP IPv6 -No Vlan
 Create and Verify VTEP-Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and without Gateway configured in Json.
     Genius.Create Vteps    ${VLAN}    ${gateway_ip}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${SUBNET}    ${VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     Genius.Verify Response Code Of Dpn Endpointconfig API
@@ -103,7 +105,8 @@ Delete and Verify VTEP -Vlan
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
     : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    ...    ELSE    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -117,7 +120,7 @@ Create VTEP - Vlan and Gateway
     ${substr} =    BuiltIn.Should Match Regexp    ${TOOLS_SYSTEM_IP}    ${gateway_regex_IPV4}
     ${gateway_ip} =    BuiltIn.Catenate    ${substr}1
     Genius.Create Vteps    ${VLAN}    ${gateway_ip}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${SUBNET}    ${VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     ${tunnel-type} =    BuiltIn.Set Variable    type: vxlan
@@ -133,7 +136,8 @@ Delete VTEP -Vlan and gateway
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
     : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    BuiltIn.Run Keyword If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    \    ...    ELSE    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -146,7 +150,6 @@ Delete VTEP -Vlan and gateway
 Create Vteps IPv6
     [Arguments]    ${vlan}    ${gateway_ip}    ${tools_ips}
     [Documentation]    This keyword creates VTEPs between IPV6 ip's
-    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${substr} =    BuiltIn.Should Match Regexp    @{tools_ips}[0]    ${gateway_regex_IPV6}
     ${SUBNET_IPV6} =    BuiltIn.Catenate    ${substr}0
     BuiltIn.Set Suite Variable    ${SUBNET_IPV6}
@@ -159,11 +162,10 @@ Get Network Topology with Tunnel
     Utils.Check For Elements At URI    ${url}    ${network_topology_list}
 
 Get ITM IPV6
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
+    [Arguments]    ${itm_created[0]}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
-    @{Itm-no-vlan} =    BuiltIn.Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Bridge}
-    @{Itm-no-vlan} =    Collections.Combine Lists    ${Itm-no-vlan}    ${TOOLS_SYSTEM_IPV6_LIST}    ${DPN_ID_LIST}
-    BuiltIn.Log Many    @{Itm-no-vlan}
+    @{Itm-no-vlan} =    Collections.Combine Lists    ${TOOLS_SYSTEM_IPV6_LIST}    ${DPN_ID_LIST}
+    Collections.Append To List    ${Itm-no-vlan}    ${itm_created[0]}
     Utils.Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 OVS Verification Between IPV6
