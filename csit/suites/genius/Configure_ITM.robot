@@ -25,7 +25,7 @@ ${gateway_regex_IPV6}    [0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9
 Create and Verify VTEP -No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
     Genius.Create Vteps    ${NO_VLAN}    ${gateway_ip}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${SUBNET}    ${NO_VLAN}
+    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     Genius.Verify Response Code Of Dpn Endpointconfig API
