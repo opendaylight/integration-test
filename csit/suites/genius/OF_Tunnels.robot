@@ -65,8 +65,7 @@ OFT Verify Vteps Created
     [Arguments]    ${dpn_id_list}    ${tools_ip_list}
     [Documentation]    Verify if OFT VTEPs are created successfully or not for given Tools IPs and DPN-IDs.
     ${switch_data} =    BuiltIn.Create List    @{dpn_id_list}    @{tools_ip_list}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Get ITM    ${DEFAULT_TRANSPORT_ZONE}    255.255.255.255/32    ${NO_VLAN}
-    ...    ${switch_data}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Get ITM    ${DEFAULT_TRANSPORT_ZONE}    ${switch_data}
     ${tep_show_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Contain Any    ${tep_show_output}    ${DEFAULT_TRANSPORT_ZONE}    VXLAN    @{switch_data}
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Update Dpn id List And Get Tunnels    odl-interface:tunnel-type-vxlan    dpn-teps-state    ${dpn_id_list}
