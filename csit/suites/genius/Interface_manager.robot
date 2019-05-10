@@ -47,8 +47,7 @@ Create l2vlan Trunk member interface
     ${body} =    OperatingSystem.Get File    ${genius_config_dir}/l2vlan_member.json
     ${post_resp} =    RequestsLibrary.Post Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    data=${body}
     BuiltIn.Should Be Equal As Strings    ${post_resp.status_code}    204
-    @{l2vlan} =    create list    l2vlan-trunk1    l2vlan    trunk-member    1000    l2vlan-trunk
-    ...    true
+    @{l2vlan} =    create list    l2vlan-trunk1    l2vlan    trunk-member    l2vlan-trunk    true
     Utils.Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     BuiltIn.Wait Until Keyword Succeeds    10    5    get operational interface    ${l2vlan[0]}
     BuiltIn.Wait Until Keyword Succeeds    40    10    ovs check for member interface creation    ${TOOLS_SYSTEM_1_IP}
