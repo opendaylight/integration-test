@@ -1,4 +1,0 @@
-[reStructuredText]
-bears = RSTcheckBear
-files = **.rst
-ignore = .**
