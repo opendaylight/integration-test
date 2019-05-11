@@ -1,8 +1,3 @@
-[reStructuredText]
-bears = RSTcheckBear
-files = **.rst
-ignore = .**
-
 [Python]
 bears = PEP8Bear
 files = **/*.py
