@@ -1,11 +1,3 @@
-[GitCommit]
-bears = GitCommitBear
-ignore_length_regex = Signed-off-by,
-    Also-by,
-    Co-authored-by,
-    http://,
-    https://
-
 [reStructuredText]
 bears = RSTcheckBear
 files = **.rst
