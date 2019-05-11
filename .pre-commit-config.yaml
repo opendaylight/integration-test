@@ -9,3 +9,12 @@
   rev: v0.11.0
   hooks:
   - id: gitlint
+
+- repo: local
+  hooks:
+    - id: rstcheck
+      name: rstcheck
+      entry: rstcheck
+      files: '\.rst'
+      language: python
+      additional_dependencies: [rstcheck, sphinx]
