@@ -11,7 +11,7 @@
             call
                     foo.get_jvm_memory(conn), foo.get_jvm_classloading(conn),
                     foo.get_jvm_threadingconn(),
-                    foo.get_jvm_garbageCollector(conn),
+                    foo.get_jvm_garbagecollector(conn),
                     foo.get_jvm_operatingsystem(conn)
             returns
                     the latest resource usage statistics dictionary object
