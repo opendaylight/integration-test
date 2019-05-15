@@ -70,6 +70,7 @@ Recreate The Deleted Vm Instance and check ping & connectivity.
 *** Keywords ***
 Suite Setup
     OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Set Instance Quota For Project    10    admin
     OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
     OpenStackOperations.Create Network    @{NETWORKS}[1]

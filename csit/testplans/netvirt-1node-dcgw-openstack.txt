@@ -1,0 +1,4 @@
+# Suites listed here are intended to be using dcgw.
+integration/test/csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot
+integration/test/csit/suites/integration/Create_JVM_Plots.robot
+
