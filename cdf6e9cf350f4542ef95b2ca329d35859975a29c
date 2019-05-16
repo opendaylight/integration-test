@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a031751_b5ff00df",
+        "filename": "csit/suites/openstack/connectivity/l2.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-16T04:17:35Z",
+      "side": 1,
+      "message": "is this coming from debugging the rocky failures?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "cdf6e9cf350f4542ef95b2ca329d35859975a29c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
