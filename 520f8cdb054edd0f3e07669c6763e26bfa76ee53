@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e807d83_39402a2b",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-17T18:06:31Z",
+      "side": 1,
+      "message": "can you put this up with the rest of the _At_Least_Sodium kws\n\nalso, can you add all of the combos for Sodium as well?",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 112
+      },
+      "revId": "520f8cdb054edd0f3e07669c6763e26bfa76ee53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e663bace_1137e8df",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-17T18:06:31Z",
+      "side": 1,
+      "message": "why aren\u0027t you used the Run_Keyword_If_Less_Than_Sodium instead?",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 92
+      },
+      "revId": "520f8cdb054edd0f3e07669c6763e26bfa76ee53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
