@@ -45,6 +45,30 @@
       "revId": "520f8cdb054edd0f3e07669c6763e26bfa76ee53",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c658cab4_36f07710",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-05-20T06:19:24Z",
+      "side": 1,
+      "message": "Not sure Jamo why this is not working,\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/Karthikagenius-csit-1node-gate-only-neon/2/robot-plugin/log.html#s1-t2-k3-k1",
+      "parentUuid": "e663bace_1137e8df",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 92
+      },
+      "revId": "520f8cdb054edd0f3e07669c6763e26bfa76ee53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
