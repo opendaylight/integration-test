@@ -13,6 +13,7 @@ Variables         ../variables/Variables.py
 ${config_table_0}    ${CONFIG_NODES_API}/node/openflow:1/table/0
 ${operational_table_0}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0
 ${operational_port_1}    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1
+${operational_port_2}    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:3
 
 *** Keywords ***
 Get InventoryConfig Shard Status
@@ -126,6 +127,7 @@ Take OpenFlow Device Link Down and Verify
     ${dictionary}=    Create Dictionary    "link-down":true=1
     ${ouput}=    MininetKeywords.Send Mininet Command    ${mininet_conn_id}    link s1 s2 down
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_port_1}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_port_2}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=16    openflow:2=14    openflow:3=19
     Wait Until Keyword Succeeds    20s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
