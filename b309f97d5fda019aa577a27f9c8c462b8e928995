@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "137ba60b_6644477b",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-20T15:39:30Z",
+      "side": 1,
+      "message": "sodium\n\nI saw it above as neon too.",
+      "range": {
+        "startLine": 259,
+        "startChar": 31,
+        "endLine": 259,
+        "endChar": 35
+      },
+      "revId": "b309f97d5fda019aa577a27f9c8c462b8e928995",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88161e06_2c796a69",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-20T15:39:30Z",
+      "side": 1,
+      "message": "is this the problem? why are you calling two keywords here?",
+      "range": {
+        "startLine": 46,
+        "startChar": 227,
+        "endLine": 46,
+        "endChar": 270
+      },
+      "revId": "b309f97d5fda019aa577a27f9c8c462b8e928995",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
