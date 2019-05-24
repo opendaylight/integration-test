@@ -153,7 +153,7 @@ Verify_Odl_Operational_State_Count
     [Arguments]    ${notification_count}    ${update_count}    ${receive_count}
     [Documentation]    Check notification and update count gained from operatial neighbor state
     ...    On versions oxygen and above, it verifies these counts also against cli output.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    RCV_COUNT=${receive_count}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    SEND_COUNT=${update_count}    RECV_COUNT=${receive_count}
     ${ret}=    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_state    mapping=${mapping}
     ...    session=${CONFIG_SESSION}    verify=True
     BuiltIn.Log    ${ret}
@@ -165,7 +165,7 @@ Verify_Cli_Output_Count
     ...    odl-bgpcep-bgp-cli is only avaiable on versions oxygen and above.
     ${output}    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     BuiltIn.Log    ${output}
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=│    RCV_COUNT=${receive_count}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    SEND_COUNT=${update_count}    DIVIDER=│    RECV_COUNT=${receive_count}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli    file_name=update.txt    mapping=${mapping}
     String.Get Line Count    ${output}
     BuiltIn.Log    ${expstate}
