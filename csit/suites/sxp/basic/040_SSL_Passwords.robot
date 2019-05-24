@@ -132,9 +132,10 @@ Setup SXP Environment Local
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
     SSHKeywords.Open_Connection_To_ODL_System
     ${ODL_SYSTEM_JAVA_HOME}    SSHLibrary.Execute_Command    java -XshowSettings:properties -version 2>&1 | grep java.home | sed 's/.*= //'
-    : FOR    ${node}    IN RANGE    1    ${node_range}+1
-    \    SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -genkeypair -alias odl-sxp-${node} -keyalg RSA -storepass ${password} -keypass ${password} -dname "CN=www.opendaylight.org, OU=csit, O=ODL, L=N/A, S=N/A, C=N/A" -keystore csit-keystore-${node}
-    \    SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -exportcert -keystore csit-keystore-${node} -alias odl-sxp-${node} -storepass ${password} -file odl-sxp-${node}.cer
+    FOR    ${node}    IN RANGE    1    ${node_range}+1
+        SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -genkeypair -alias odl-sxp-${node} -keyalg RSA -storepass ${password} -keypass ${password} -dname "CN=www.opendaylight.org, OU=csit, O=ODL, L=N/A, S=N/A, C=N/A" -keystore csit-keystore-${node}
+        SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -exportcert -keystore csit-keystore-${node} -alias odl-sxp-${node} -storepass ${password} -file odl-sxp-${node}.cer
+    END
     # Node-1 TRUSTS Node-2, Node-5
     SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -importcert -keystore csit-truststore-1 -alias odl-sxp-2 -storepass ${password} -keypass ${password} -file odl-sxp-2.cer -noprompt
     SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -importcert -keystore csit-truststore-1 -alias odl-sxp-5 -storepass ${password} -keypass ${password} -file odl-sxp-5.cer -noprompt
@@ -149,21 +150,23 @@ Setup SXP Environment Local
     SSHKeywords.Execute_Command_Should_Pass    mv ./csit-keystore-* ${ssl_stores}
     SSHKeywords.Execute_Command_Should_Pass    mv ./csit-truststore-* ${ssl_stores}
     SSHLibrary.Close Connection
-    : FOR    ${node}    IN RANGE    1    ${node_range}+1
-    \    ${SSL}    BuiltIn.Create Dictionary    truststore=${ssl_stores}/csit-truststore-${node}    keystore=${ssl_stores}/csit-keystore-${node}    password=${password}
-    \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 5)    modules=random
-    \    SxpLib.Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}    retry_open_timer=${rnd_retry_time}
-    \    BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node started    127.0.0.${node}    system=${ODL_SYSTEM_IP}
-    \    SxpLib.Add Bindings    ${node}00    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}00    2.2.2.${node}/32    127.0.0.${node}
+    FOR    ${node}    IN RANGE    1    ${node_range}+1
+        ${SSL}    BuiltIn.Create Dictionary    truststore=${ssl_stores}/csit-truststore-${node}    keystore=${ssl_stores}/csit-keystore-${node}    password=${password}
+        ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 5)    modules=random
+        SxpLib.Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}    retry_open_timer=${rnd_retry_time}
+        BuiltIn.Wait Until Keyword Succeeds    20x    10s    SxpLib.Check Node started    127.0.0.${node}    system=${ODL_SYSTEM_IP}
+        SxpLib.Add Bindings    ${node}00    1.1.1.${node}/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}00    2.2.2.${node}/32    127.0.0.${node}
+    END
 
 Verify Topology Bindings
     [Arguments]    ${node_range}
     [Documentation]    Create session to Controller
     ${resp}    SxpLib.Get Bindings    127.0.0.5
-    : FOR    ${node}    IN RANGE    1    ${node_range}+1
-    \    SxpLib.Should Contain Binding    ${resp}    ${node}00    1.1.1.${node}/32
-    \    SxpLib.Should Contain Binding    ${resp}    ${node}00    2.2.2.${node}/32
+    FOR    ${node}    IN RANGE    1    ${node_range}+1
+        SxpLib.Should Contain Binding    ${resp}    ${node}00    1.1.1.${node}/32
+        SxpLib.Should Contain Binding    ${resp}    ${node}00    2.2.2.${node}/32
+    END
 
 Clean Nodes
     [Documentation]    Cleanup of resources alocated by test suite

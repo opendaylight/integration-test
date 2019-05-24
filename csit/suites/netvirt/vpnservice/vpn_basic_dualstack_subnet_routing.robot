@@ -77,10 +77,12 @@ Configure Extra IPv4/IPv6 Addresss On Interface For Subnet Routing
     [Documentation]    Extra IPv4/IPv6 Address configuration on Interfaces
     ${VM_IPV6} =    BuiltIn.Create List    @{net_1_vm_ipv6}[0]    @{net_1_vm_ipv6}[1]    @{net_2_vm_ipv6}[0]    @{net_2_vm_ipv6}[1]
     ${VM_IPV4} =    BuiltIn.Create List    @{net_1_vm_ipv4}[0]    @{net_1_vm_ipv4}[1]    @{net_2_vm_ipv4}[0]    @{net_2_vm_ipv4}[1]
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[${index}]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[${index}] netmask 255.255.255.0 up; ip a
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[${index}]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    END
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[${index}] netmask 255.255.255.0 up; ip a
+    END
     BuiltIn.Set Suite Variable    ${VM_IPV6}
     BuiltIn.Set Suite Variable    ${VM_IPV4}
     BuiltIn.Should Not Contain    ${VM_IPV6}    None
@@ -111,46 +113,56 @@ Associate L3VPN Again To Routers and verify traffic
 
 Delete the configured extra IPv4/IPv6 Addresss and verify traffic
     [Documentation]    Delete IPv4/IPv6 Address configuration on Interfaces and verify traffic
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[${index}]/64 dev eth0
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 down
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr del @{EXTRA_NW_IPV6}[${index}]/64 dev eth0
+    END
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 down
+    END
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data No Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    40s    Verify Table 21 for No VPN Routes
 
 Configure Again Extra IPv4/IPv6 Addresss On Interface For Subnet Routing
     [Documentation]    Extra IPv4/IPv6 Address configuration on Interfaces
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[${index}]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[${index}] netmask 255.255.255.0 up; ip a
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV6}[${index}]    sudo ip -6 addr add @{EXTRA_NW_IPV6}[${index}]/64 dev eth0; sudo ifconfig eth0 allmulti; ip -6 a
+    END
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Execute Command on VM Instance    @{network_list}[${index}]    @{VM_IPV4}[${index}]    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[${index}] netmask 255.255.255.0 up; ip a
+    END
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv6 Data Traffic
 
 Remove Interface From Router And Verify Traffic
     [Documentation]    Remove subnet from router and check data path verification
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS4}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    FOR    ${interface}    IN    @{SUBNETS4}
+        OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS6}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    FOR    ${interface}    IN    @{SUBNETS6}
+        OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS4}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
-    : FOR    ${interface}    IN    @{SUBNETS6}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    FOR    ${interface}    IN    @{SUBNETS4}
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+        BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    END
+    FOR    ${interface}    IN    @{SUBNETS6}
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+        BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    END
     BuiltIn.Wait Until Keyword Succeeds    10x    30s    Verify Ipv4 Data No Traffic
 
 Add Interface To Router And Verify Traffic
     [Documentation]    Add interface router to again and check data path verification
-    : FOR    ${interface}    IN    @{SUBNETS4}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
-    : FOR    ${interface}    IN    @{SUBNETS6}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS4}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
+    FOR    ${interface}    IN    @{SUBNETS6}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
     BuiltIn.Wait Until Keyword Succeeds    10x    60s    Verify Ipv4 Data Traffic
     BuiltIn.Wait Until Keyword Succeeds    10x    60s    Verify Ipv6 Data Traffic
 
@@ -196,18 +208,21 @@ Suite Setup
     OpenStackOperations.Create Router    ${ROUTER}
     @{router_list} =    BuiltIn.Create List    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${ROUTER_URL}    ${router_list}
-    : FOR    ${port}    IN    @{SUBNETS4}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${port}
+    FOR    ${port}    IN    @{SUBNETS4}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${port}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${port}    IN    @{SUBNETS6}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${port}
+    FOR    ${port}    IN    @{SUBNETS6}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${port}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     Create Allow All SecurityGroup    ${SECURITY_GROUP}    IPv4    True
     ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[1]
     ${network_list} =    BuiltIn.Create List    @{NETWORKS}[0]    @{NETWORKS}[0]    @{NETWORKS}[1]    @{NETWORKS}[1]
     BuiltIn.Set Suite Variable    ${network_list}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OpenStackOperations.Create Port    @{network_list}[${index}]    @{PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OpenStackOperations.Create Port    @{network_list}[${index}]    @{PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
     OpenStackOperations.Update Port    @{PORTS}[0]    additional_args=--name ${UPDATE_PORT}
     ${output} =    Show Port    ${UPDATE_PORT}
@@ -235,11 +250,12 @@ Suite Setup
     ${net_1_vm_ipv6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_1_VMS}    @{NETWORKS}[0]    ${prefix_net10}
     ${net_2_vm_ipv6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_2_VMS}    @{NETWORKS}[1]    ${prefix_net20}
     ${loop_count}    Get Length    ${NET_1_VMS}
-    : FOR    ${index}    IN RANGE    0    ${loop_count}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${net_1_vm_ipv6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VMS}[${index}]    30s
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${net_2_vm_ipv6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VMS}[${index}]    30s
+    FOR    ${index}    IN RANGE    0    ${loop_count}
+        ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${net_1_vm_ipv6}[${index}]    None
+        Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VMS}[${index}]    30s
+        ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${net_2_vm_ipv6}[${index}]    None
+        Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VMS}[${index}]    30s
+    END
     BuiltIn.Set Suite Variable    ${net_1_vm_ipv4}
     BuiltIn.Set Suite Variable    ${net_2_vm_ipv4}
     BuiltIn.Set Suite Variable    ${net_1_vm_ipv6}
@@ -340,16 +356,20 @@ Verify Ipv6 Data No Traffic
     BuiltIn.Should Contain    ${output}    ${NO_PING_REGEXP}
 
 Verify Table 21 for VPN Routes
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[${index}]
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV4}[${index}]
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[${index}]
+    END
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    True    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV4}[${index}]
+    END
 
 Verify Table 21 for No VPN Routes
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[${index}]
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV4}[${index}]
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV6}[${index}]
+    END
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_21}    False    ${EMPTY}    ipv6_dst=@{EXTRA_NW_IPV4}[${index}]
+    END
 
 Suite Teardown
     [Documentation]    Delete the setup

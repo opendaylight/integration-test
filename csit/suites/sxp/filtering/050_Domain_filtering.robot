@@ -31,13 +31,15 @@ Update Messages Test
     Wait Until Keyword Succeeds    15    1    Check Initialized
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
-    : FOR    ${node}    IN RANGE    2    5
-    \    Delete Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Delete Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    5
+        Delete Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+        Delete Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    END
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing After Update
-    : FOR    ${node}    IN RANGE    2    5
-    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    5
+        Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+        Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    END
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
 
 Local Binding Non Transitivity Test
@@ -82,14 +84,16 @@ Binding Replacement Test
 Setup Nodes Local
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data will be shared by filter.
     Setup SXP Environment    9
-    : FOR    ${node}    IN RANGE    2    5
-    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.${node}0/32    127.0.0.${node}
-    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
-    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
-    \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
-    : FOR    ${node}    IN RANGE    5    10
-    \    Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    5
+        Add Bindings    ${node}0    ${node}0.${node}0.${node}0.${node}0/32    127.0.0.${node}
+        Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+        Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+        Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+        Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
+    END
+    FOR    ${node}    IN RANGE    5    10
+        Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.${node}
+    END
     Add Domain    ${DOMAIN_1}
     Add Domain    ${DOMAIN_2}
     Add Domain    ${DOMAIN_3}
@@ -200,20 +204,21 @@ Check Initialized
     Should Contain Binding    ${resp}    40    40.40.40.0/24
     Should Contain Binding    ${resp}    40    40.40.0.0/16
     Should Contain Binding    ${resp}    40    40.0.0.0/8
-    : FOR    ${node}    IN RANGE    8    10
-    \    ${resp}    Get Bindings    127.0.0.${node}
-    \    Should Not Contain Binding    ${resp}    20    20.20.20.20/32
-    \    Should Not Contain Binding    ${resp}    20    20.20.20.0/24
-    \    Should Not Contain Binding    ${resp}    20    20.20.0.0/16
-    \    Should Not Contain Binding    ${resp}    20    20.0.0.0/8
-    \    Should Not Contain Binding    ${resp}    30    30.30.30.30/32
-    \    Should Not Contain Binding    ${resp}    30    30.30.30.0/24
-    \    Should Not Contain Binding    ${resp}    30    30.30.0.0/16
-    \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8
-    \    Should Not Contain Binding    ${resp}    40    40.40.40.40/32
-    \    Should Not Contain Binding    ${resp}    40    40.40.40.0/24
-    \    Should Not Contain Binding    ${resp}    40    40.40.0.0/16
-    \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    FOR    ${node}    IN RANGE    8    10
+        ${resp}    Get Bindings    127.0.0.${node}
+        Should Not Contain Binding    ${resp}    20    20.20.20.20/32
+        Should Not Contain Binding    ${resp}    20    20.20.20.0/24
+        Should Not Contain Binding    ${resp}    20    20.20.0.0/16
+        Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+        Should Not Contain Binding    ${resp}    30    30.30.30.30/32
+        Should Not Contain Binding    ${resp}    30    30.30.30.0/24
+        Should Not Contain Binding    ${resp}    30    30.30.0.0/16
+        Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+        Should Not Contain Binding    ${resp}    40    40.40.40.40/32
+        Should Not Contain Binding    ${resp}    40    40.40.40.0/24
+        Should Not Contain Binding    ${resp}    40    40.40.0.0/16
+        Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    END
 
 Check Initialized Local
     [Documentation]    Checks that Local Bindings are not shared between domains
@@ -238,14 +243,15 @@ Check Initialized Local
     Should Not Contain Binding    ${resp}    30    30.30.5.5/32
     Should Contain Binding    ${resp}    40    40.40.40.5/32
     Should Contain Binding    ${resp}    40    40.40.5.5/32
-    : FOR    ${node}    IN RANGE    8    10
-    \    ${resp}    Get Bindings    127.0.0.${node}
-    \    Should Not Contain Binding    ${resp}    20    20.20.20.5/32
-    \    Should Not Contain Binding    ${resp}    20    20.20.5.5/32
-    \    Should Not Contain Binding    ${resp}    30    30.30.30.5/32
-    \    Should Not Contain Binding    ${resp}    30    30.30.5.5/32
-    \    Should Not Contain Binding    ${resp}    40    40.40.40.5/32
-    \    Should Not Contain Binding    ${resp}    40    40.40.5.5/32
+    FOR    ${node}    IN RANGE    8    10
+        ${resp}    Get Bindings    127.0.0.${node}
+        Should Not Contain Binding    ${resp}    20    20.20.20.5/32
+        Should Not Contain Binding    ${resp}    20    20.20.5.5/32
+        Should Not Contain Binding    ${resp}    30    30.30.30.5/32
+        Should Not Contain Binding    ${resp}    30    30.30.5.5/32
+        Should Not Contain Binding    ${resp}    40    40.40.40.5/32
+        Should Not Contain Binding    ${resp}    40    40.40.5.5/32
+    END
 
 Check Initialized After Update
     [Documentation]    Checks that Local Bindings are not shared between domains

@@ -34,16 +34,18 @@ Unification Node Update
     Basic Request Put    ${node}    network-topology:network-topology/topology/network-topo:1/node/bgp:1
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=7    supporting-node_count=10
     ...    tp_count=11    tp-ref_count=11
-    : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    1    11
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:2    bgp:1
     #Update a unified node, expecting creation of a new overlay node
     ${node}    Create Isis Node    bgp:3    router-id-ipv4=192.168.3.1
     Basic Request Put    ${node}    network-topology:network-topology/topology/network-topo:1/node/bgp:3
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=8    supporting-node_count=10
     ...    tp_count=9    tp-ref_count=9
-    : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    1    11
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
 
 Unification Node Inventory
     [Documentation]    Test processing of updates using unification operation on Inventory model
@@ -59,16 +61,18 @@ Unification Node Inventory
     Basic Request Put    ${node}    opendaylight-inventory:nodes/node/openflow:2
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=6    supporting-node_count=10
     ...    tp_count=12    tp-ref_count=12
-    : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    1    11
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
     Check Aggregated Node in Topology    ${model}    ${resp.content}    5    of-node:2    of-node:6    of-node:1
     #Update a unified node, expecting creation of a new overlay node
     ${node}    Create Openflow Node    openflow:4    192.168.3.1
     Basic Request Put    ${node}    opendaylight-inventory:nodes/node/openflow:4
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=7    supporting-node_count=10
     ...    tp_count=12    tp-ref_count=12
-    : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    1    11
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
 
 Filtration Range Number Node Update Network Topology Model
     ${model}    Set Variable    network-topology-model
@@ -82,8 +86,9 @@ Filtration Range Number Node Update Network Topology Model
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:2/node/bgp:7
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
     ...    node-ref_count=3    tp_count=3    tp-ref_count=3
-    : FOR    ${index}    IN RANGE    8    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    8    11
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
     Should Not Contain    ${resp.content}    <node-ref>bgp:7</node-ref>
     ${topology_id}    Set Variable    network-topo:2
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:8    tp:8:1    tp:8:1
@@ -97,8 +102,9 @@ Filtration Range Number Node Update Network Topology Model
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4
     ...    node-ref_count=4    tp_count=4    tp-ref_count=4
-    : FOR    ${index}    IN RANGE    7    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    7    11
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:7    tp:7:1    tp:7:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:8    tp:8:1    tp:8:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:9    tp:9:1    tp:9:1
@@ -116,15 +122,17 @@ Filtration Range Number Node Update Inventory Model
     Basic Request Put    ${request}    opendaylight-inventory:nodes/node/openflow:7
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4
     ...    node-ref_count=4    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    7    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    7    11
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
     #Update a Node so it is filtered out
     ${request}    Create Openflow Node    openflow:7    192.168.2.3    17
     Basic Request Put    ${request}    opendaylight-inventory:nodes/node/openflow:7
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
     ...    node-ref_count=3    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    8    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    8    11
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
     Should Not Contain    ${resp.content}    <node-ref>of-node:7</node-ref>
 
 Filtration Range Number Termination Point Update NT
@@ -227,15 +235,17 @@ Unification Filtration Node Update Inside Network Topology model
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:4/node/bgp:17
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4
     ...    node-ref_count=4    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    17    21
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    17    21
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:18    bgp:17    bgp:20
     ${request}    Create Isis Node    bgp:17    10    192.168.1.2
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:4/node/bgp:17
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3
     ...    node-ref_count=3    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    18    21
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    18    21
+        Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    END
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:18    bgp:20
 
 Unification Filtration Node Update Inside Inventory model
@@ -251,8 +261,9 @@ Unification Filtration Node Update Inside Inventory model
     Basic Request Put    ${request}    opendaylight-inventory:nodes/node/openflow:17
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3
     ...    node-ref_count=3    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    18    21
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    18    21
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:19']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
@@ -263,8 +274,9 @@ Unification Filtration Node Update Inside Inventory model
     Basic Request Put    ${request}    opendaylight-inventory:nodes/node/openflow:17
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4
     ...    node-ref_count=4    tp_count=0    tp-ref_count=0
-    : FOR    ${index}    IN RANGE    17    21
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    FOR    ${index}    IN RANGE    17    21
+        Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    END
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:17    of-node:19    of-node:20
 
 Link Computation Aggregation Inside Update NT

@@ -63,12 +63,14 @@ Create Router
 
 Add Router Ports
     [Documentation]    Add created subnets to router.
-    : FOR    ${PORT}    IN    @{SUBNETS4}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${PORT}
+    FOR    ${PORT}    IN    @{SUBNETS4}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${PORT}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     ${GW1_MAC_ADDRS}    ${GW_IPV4_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${ROUTER}
-    : FOR    ${PORT}    IN    @{SUBNETS6}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${PORT}
+    FOR    ${PORT}    IN    @{SUBNETS6}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${PORT}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     ${GW2_MAC_ADDRS}    ${GW_IPV6_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${ROUTER}    ${IP6_REGEX}
     ${GW_MAC_ADDRS} =    BuiltIn.Create List    @{GW1_MAC_ADDRS}    @{GW2_MAC_ADDRS}
@@ -84,8 +86,9 @@ Check L3_Datapath Traffic Across Networks With Router
     @{tcpdump_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn_ds    ${EMPTY}    @{OS_ALL_IPS}
     ${vm_instances} =    BuiltIn.Create List    @{NET_1_VM_IPV4}    @{NET_2_VM_IPV4}    @{NET_1_VM_IPV6}    @{NET_2_VM_IPV6}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
-    : FOR    ${VM}    IN    ${vm_instances}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_CMP1_IP}    ${VM}
+    FOR    ${VM}    IN    ${vm_instances}
+        BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_CMP1_IP}    ${VM}
+    END
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify GWMAC Entry On ODL    ${GW_MAC_ADDRS}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    L3 Datapath test across the networks using router
@@ -102,21 +105,23 @@ Check L3_Datapath Traffic Across Networks With Router
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation.
     BuiltIn.Log    Add extraroutes to VM
-    : FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV4}
-    \    ${cmd} =    BuiltIn.Catenate    sudo ip addr add ${extra_ip}/24 dev eth0
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${cmd}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ip a
-    \    BuiltIn.Should Contain    ${output}    ${extra_ip}/24
+    FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV4}
+        ${cmd} =    BuiltIn.Catenate    sudo ip addr add ${extra_ip}/24 dev eth0
+        OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${cmd}
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ip a
+        BuiltIn.Should Contain    ${output}    ${extra_ip}/24
+    END
     ${ext_rt1} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV4}[0],gateway=@{NET_1_VM_IPV4}[0]
     ${ext_rt2} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV4}[1],gateway=@{NET_1_VM_IPV4}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}
-    : FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV6}
-    \    ${cmd} =    BuiltIn.Catenate    sudo ip -6 addr add ${extra_ip}/64 dev eth0
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${cmd}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ip -6 a
-    \    BuiltIn.Should Contain    ${output}    ${extra_ip}/64
+    FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV6}
+        ${cmd} =    BuiltIn.Catenate    sudo ip -6 addr add ${extra_ip}/64 dev eth0
+        OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${cmd}
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ip -6 a
+        BuiltIn.Should Contain    ${output}    ${extra_ip}/64
+    END
     ${ext_rt3} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV6}[0],gateway=@{NET_1_VM_IPV6}[0]
     ${ext_rt4} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET_IPV6}[1],gateway=@{NET_1_VM_IPV6}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt3}    ${RT_OPTIONS}    ${ext_rt4}
@@ -125,20 +130,22 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     BuiltIn.Log    Verify FIB table
     ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET_IPV4}    @{EXTRA_NW_SUBNET_IPV6}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
-    : FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV4}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[1]}    ping -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
-    : FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV6}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[1]}    ping6 -c 3 ${extra_ip}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
+    FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV4}
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[1]}    ping -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+    END
+    FOR    ${extra_ip}    IN    @{EXTRA_NW_IPV6}
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[1]}    ping6 -c 3 ${extra_ip}
+        BuiltIn.Should Contain    ${output}    64 bytes
+    END
 
 Delete And Recreate Extra Route
     [Documentation]    Delete IPv4 and IPv6 extra routes and recreate it.
@@ -212,8 +219,9 @@ Delete IPv6 Subnet And Check IPv4 datapath
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
     OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Log    Delete IPv6 subnet
-    : FOR    ${PORT}    IN    @{SUBNETS6}
-    \    Remove Interface    ${ROUTER}    ${PORT}
+    FOR    ${PORT}    IN    @{SUBNETS6}
+        Remove Interface    ${ROUTER}    ${PORT}
+    END
     BuiltIn.Log    Test L2 datapath
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ping -I ${NET_1_VM_IPV4[0]} -c 3 ${NET_1_VM_IPV4[1]}
     BuiltIn.Should Contain    ${output}    64 bytes
@@ -240,11 +248,12 @@ Delete Router And Router Interfaces With L3VPN
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     BuiltIn.Should Contain    ${resp}    ${router_id}
     # Delete Interface
-    : FOR    ${iface}    IN    @{SUBNETS4}
-    \    Remove Interface    ${ROUTER}    ${iface}
-    \    ${subnet_id} =    Get Subnet Id    ${iface}
-    \    ${rt_port_list} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    \    BuiltIn.Should Not Contain    ${rt_port_list}    ${subnet_id}
+    FOR    ${iface}    IN    @{SUBNETS4}
+        Remove Interface    ${ROUTER}    ${iface}
+        ${subnet_id} =    Get Subnet Id    ${iface}
+        ${rt_port_list} =    OpenStackOperations.Show Router Interface    ${ROUTER}
+        BuiltIn.Should Not Contain    ${rt_port_list}    ${subnet_id}
+    END
     # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTER}
     ${router_output} =    OpenStackOperations.List Routers
@@ -364,11 +373,12 @@ Suite Setup
     ${NET_1_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_1_VM_INSTANCES}    @{NETWORKS}[0]    ${prefix_net10}
     ${NET_2_VM_IPV6} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${NET_2_VM_INSTANCES}    @{NETWORKS}[1]    ${prefix_net20}
     ${LOOP_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_1_VM_IPV6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VM_INSTANCES}[${index}]    30s
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_2_VM_IPV6}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VM_INSTANCES}[${index}]    30s
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_1_VM_IPV6}[${index}]    None
+        Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_1_VM_INSTANCES}[${index}]    30s
+        ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${NET_2_VM_IPV6}[${index}]    None
+        Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{NET_2_VM_INSTANCES}[${index}]    30s
+    END
     BuiltIn.Set Suite Variable    ${NET_1_VM_IPV4}
     BuiltIn.Set Suite Variable    ${NET_2_VM_IPV4}
     BuiltIn.Set Suite Variable    ${NET_1_VM_IPV6}
@@ -397,8 +407,9 @@ Verify GWMAC Flow Entry On Flow Table
     BuiltIn.Should Contain    ${flow_output}    table=${GWMAC_TABLE}
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
     # Verify GWMAC address present in table ${L3_TABLE}
-    : FOR    ${macAdd}    IN    @{GW_MAC_ADDRS}
-    \    BuiltIn.Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    FOR    ${macAdd}    IN    @{GW_MAC_ADDRS}
+        BuiltIn.Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    END
     # Verify Miss entry
     BuiltIn.Should Contain    ${gwmac_table}    actions=resubmit(,17)
     # Verify ARP_CHECK_TABLE - ${ARP_CHECK_TABLE}
@@ -409,14 +420,16 @@ Verify GWMAC Flow Entry On Flow Table
     BuiltIn.Should Contain    ${flow_output}    table=${IPV6_TABLE}
     ${icmp_ipv6_flows} =    Get Lines Containing String    ${flow_output}    icmp_type=${ICMP_TYPE}
     # Verify IPv6 icmp_type=135
-    : FOR    ${ip_addr}    IN    @{GW_IPV6_ADDRS}
-    \    ${rule} =    BuiltIn.Set Variable    icmp_type=${ICMP_TYPE},icmp_code=0,nd_target=${ip_addr} actions=CONTROLLER:65535
-    \    BuiltIn.Should Match Regexp    ${icmp_ipv6_flows}    ${rule}
+    FOR    ${ip_addr}    IN    @{GW_IPV6_ADDRS}
+        ${rule} =    BuiltIn.Set Variable    icmp_type=${ICMP_TYPE},icmp_code=0,nd_target=${ip_addr} actions=CONTROLLER:65535
+        BuiltIn.Should Match Regexp    ${icmp_ipv6_flows}    ${rule}
+    END
     VpnOperations.Verify ARP REQUEST in groupTable    ${group_output}    ${groupID[1]}
     # Verify ARP_RESPONSE_TABLE - ${ARP_RESPONSE_TABLE}
     BuiltIn.Should Contain    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     BuiltIn.Should Contain    ${arpResponder_table}    priority=0 actions=drop
-    : FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GW1_MAC_ADDRS}    ${GW_IPV4_ADDRS}
-    \    ${ARP_RESPONSE_IP_MAC_REGEX} =    BuiltIn.Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
-    \    BuiltIn.Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
+    FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GW1_MAC_ADDRS}    ${GW_IPV4_ADDRS}
+        ${ARP_RESPONSE_IP_MAC_REGEX} =    BuiltIn.Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
+        BuiltIn.Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
+    END

@@ -62,12 +62,13 @@ Current Term Comparison Before And After Addition Of Flow
 
 Delete and Add ten percent of the flows for 5 iterations
     [Documentation]    Performeing 5 iterations for Delete and Add ten Percentage of the flows
-    : FOR    ${index}    IN RANGE    1    6
-    \    Log    ${index}
-    \    BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
-    \    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del_ten_percent}    ${Inventory_Leader_List}
-    \    BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
-    \    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
+    FOR    ${index}    IN RANGE    1    6
+        Log    ${index}
+        BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
+        BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del_ten_percent}    ${Inventory_Leader_List}
+        BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
+        BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
+    END
 
 Current Term Verification After Continuous Deletion and Addition Of Flows for 5 iterations
     [Documentation]    Verifying current term for Leader Node after continuous deletion and addition of ten percent of the flows

@@ -20,8 +20,9 @@ Verify the FlowMeter Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowMeterStats attributes exist on Karaf Console
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWMETERSTATS}    ByteInCount
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWMETERSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    : FOR    ${list}    IN    @{FLOWMETER_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWMETER_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 Verification of FlowMeterStats-ByteInCount on Karaf Console
     [Documentation]    Verify the FlowMeterStats has been updated thru tsdr:list command on karaf console
@@ -30,14 +31,16 @@ Verification of FlowMeterStats-ByteInCount on Karaf Console
     Should Contain    ${output}    ByteInCount
     Should Contain    ${output}    FLOWMETERSTATS
     Should not Contain    ${output}    null
-    : FOR    ${list}    IN    @{FLOWMETER_HEADER}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWMETER_HEADER}
+        Should Contain    ${output}    ${list}
+    END
 
 Verify FlowMeterStats-Attributes on H2 Datastore using JDBC Client
     [Documentation]    Verify the FlowMeterStats,attributes on H2 Datastore using JDBC Client
-    : FOR    ${list}    IN    @{FLOWMETER_METRICS}
-    \    ${output}=    Query Metrics on H2 Datastore    FLOWMETERSTATS    ${list}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWMETER_METRICS}
+        ${output}=    Query Metrics on H2 Datastore    FLOWMETERSTATS    ${list}
+        Should Contain    ${output}    ${list}
+    END
 
 Uninstall all TSDR H2 Feature
     [Documentation]    UnInstall all TSDR H2 Features

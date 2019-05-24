@@ -16,15 +16,16 @@ Resource          ../../../../libraries/UscUtils.robot
 *** Test Cases ***
 Add Channel
     [Documentation]    Add multiple USC TLS channels
-    : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-    \    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true    remote=false
-    \    ${channel}    Create Dictionary    channel=${content}
-    \    ${input}    Create Dictionary    input=${channel}
-    \    ${data}    json.dumps    ${input}
-    \    ${resp}    Post Request    session    ${REST_ADD_CHANNEL}    data=${data}
-    \    Log    ${resp.content}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    Succeed to connect
+    FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
+        ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true    remote=false
+        ${channel}    Create Dictionary    channel=${content}
+        ${input}    Create Dictionary    input=${channel}
+        ${data}    json.dumps    ${input}
+        ${resp}    Post Request    session    ${REST_ADD_CHANNEL}    data=${data}
+        Log    ${resp.content}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    Succeed to connect
+    END
 
 Check added Channel
     [Documentation]    Check if the channels are correct
@@ -41,11 +42,12 @@ Check added Channel
 
 Send Messages
     [Documentation]    Send test messages multiple times
-    : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-    \    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true    content=${TEST_MESSAGE}
-    \    ${channel}    Create Dictionary    channel=${content}
-    \    ${input}    Create Dictionary    input=${channel}
-    \    Send Now    ${input}
+    FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
+        ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true    content=${TEST_MESSAGE}
+        ${channel}    Create Dictionary    channel=${content}
+        ${input}    Create Dictionary    input=${channel}
+        Send Now    ${input}
+    END
 
 View Bytes In and Bytes Out
     [Documentation]    Check if the number of Bytes In and Bytes Out are correct
@@ -64,15 +66,16 @@ View Bytes In and Bytes Out
 
 Remove Sessions
     [Documentation]    Remove the channels
-    : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-    \    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true
-    \    ${channel}    Create Dictionary    channel=${content}
-    \    ${input}    Create Dictionary    input=${channel}
-    \    ${data}    json.dumps    ${input}
-    \    ${resp}    Post Request    session    ${REST_REMOVE_SESSION}    data=${data}
-    \    Log    ${resp.content}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    Succeed to remove
+    FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
+        ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true
+        ${channel}    Create Dictionary    channel=${content}
+        ${input}    Create Dictionary    input=${channel}
+        ${data}    json.dumps    ${input}
+        ${resp}    Post Request    session    ${REST_REMOVE_SESSION}    data=${data}
+        Log    ${resp.content}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    Succeed to remove
+    END
 
 Remove Channel
     [Documentation]    Remove the channels
@@ -98,8 +101,9 @@ Check Channel
 *** Keywords ***
 Send Now
     [Arguments]    ${body}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}
-    \    ${data}    json.dumps    ${body}
-    \    ${resp}    Post Request    session    ${REST_SEND_MESSAGE}    data=${data}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    Succeed to send request
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}
+        ${data}    json.dumps    ${body}
+        ${resp}    Post Request    session    ${REST_SEND_MESSAGE}    data=${data}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    Succeed to send request
+    END

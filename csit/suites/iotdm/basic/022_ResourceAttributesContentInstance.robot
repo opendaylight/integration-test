@@ -214,8 +214,9 @@ Delete the ContenInstance 2.33
     ${attr} =    Set Variable    "mni":1,"rn":"Container3"
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
-    : FOR    ${INDEX}    IN RANGE    1    100
-    \    Latest Con Test    ${container}
+    FOR    ${INDEX}    IN RANGE    1    100
+        Latest Con Test    ${container}
+    END
 
 Delete the test Container1
     [Documentation]    Delete the test Container1

@@ -131,12 +131,13 @@ Get OVSDB UUID
     BuiltIn.Log    ${node_list}
     # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data,
     # we need to use "Run Keyword And Ignore Error" below.
-    : FOR    ${node}    IN    @{node_list}
-    \    ${node_id} =    Collections.Get From Dictionary    ${node}    node-id
-    \    ${node_uuid} =    String.Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
-    \    ${status}    ${connection_info} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get From Dictionary    ${node}    ovsdb:connection-info
-    \    ${status}    ${remote_ip} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get From Dictionary    ${connection_info}    remote-ip
-    \    ${uuid} =    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
+    FOR    ${node}    IN    @{node_list}
+        ${node_id} =    Collections.Get From Dictionary    ${node}    node-id
+        ${node_uuid} =    String.Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
+        ${status}    ${connection_info} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get From Dictionary    ${node}    ovsdb:connection-info
+        ${status}    ${remote_ip} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get From Dictionary    ${connection_info}    remote-ip
+        ${uuid} =    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
+    END
     [Return]    ${uuid}
 
 Collect OVSDB Debugs
@@ -183,9 +184,10 @@ Add Multiple Managers to OVS
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Utils.Clean Mininet System    ${tools_system}
     ${ovs_opt} =    BuiltIn.Set Variable
-    : FOR    ${index}    IN    @{index_list}
-    \    ${ovs_opt} =    BuiltIn.Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
-    \    BuiltIn.Log    ${ovs_opt}
+    FOR    ${index}    IN    @{index_list}
+        ${ovs_opt} =    BuiltIn.Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+        BuiltIn.Log    ${ovs_opt}
+    END
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
     BuiltIn.Log    ${output}
@@ -324,8 +326,9 @@ Add OVS Logging
     SSHLibrary.Switch Connection    ${conn_id}
     @{modules} =    BuiltIn.Create List    bridge:file:dbg    connmgr:file:dbg    inband:file:dbg    ofp_actions:file:dbg    ofp_errors:file:dbg
     ...    ofp_msgs:file:dbg    ovsdb_error:file:dbg    rconn:file:dbg    tunnel:file:dbg    vconn:file:dbg
-    : FOR    ${module}    IN    @{modules}
-    \    Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    FOR    ${module}    IN    @{modules}
+        Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    END
     Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/list    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Reset OVS Logging
@@ -344,8 +347,9 @@ Suite Teardown
     [Arguments]    ${uris}=@{EMPTY}
     [Documentation]    Cleans up test environment, close existing sessions.
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    : FOR    ${uri}    IN    @{uris}
-    \    RequestsLibrary.Delete Request    session    ${uri}
+    FOR    ${uri}    IN    @{uris}
+        RequestsLibrary.Delete Request    session    ${uri}
+    END
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions
@@ -410,9 +414,10 @@ Delete Ports On Bridge By Type
     [Arguments]    ${ovs_ip}    ${br}    ${type}
     [Documentation]    List all ports of ${br} and delete ${type} ports
     ${ports_present} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
-    : FOR    ${port}    IN    @{ports_present}
-    \    ${del-ports} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-vsctl del-port ${br} ${port}
-    \    BuiltIn.Log    ${del-ports}
+    FOR    ${port}    IN    @{ports_present}
+        ${del-ports} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-vsctl del-port ${br} ${port}
+        BuiltIn.Log    ${del-ports}
+    END
     ${ports_present_after_delete} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
     BuiltIn.Log    ${ports_present_after_delete}
 
@@ -442,9 +447,10 @@ Verify Dump Flows For Specific Table
     [Documentation]    To Verify flows are present for the corresponding table Number
     ${flow_output} =    Utils.Run Command On Remote System    ${compute_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}|grep table=${table_num} ${additional_args}
     Log    ${flow_output}
-    : FOR    ${matching_str}    IN    @{matching_paras}
-    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
-    \    ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
+    FOR    ${matching_str}    IN    @{matching_paras}
+        BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
+        ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
+    END
 
 Verify Vni Segmentation Id and Tunnel Id
     [Arguments]    ${port1}    ${port2}    ${net1}    ${net2}    ${vm1_ip}    ${vm2_ip}

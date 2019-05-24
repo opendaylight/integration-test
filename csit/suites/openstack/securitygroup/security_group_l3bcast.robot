@@ -80,24 +80,30 @@ Start Suite
     OpenStackOperations.Get Suite Debugs
 
 Create Setup
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
-    : FOR    ${i}    IN RANGE    len(${NETWORKS})
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
+    FOR    ${i}    IN RANGE    len(${NETWORKS})
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
+    END
     OpenStackOperations.Create Allow All SecurityGroup    @{SECURITY_GROUP}[0]
     OpenStackOperations.Create Router    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
-    : FOR    ${port_net1}    IN    @{NET_1_PORTS}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port_net1}    sg=@{SECURITY_GROUP}[0]
-    : FOR    ${port_net2}    IN    @{NET_2_PORTS}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[1]    ${port_net2}    sg=@{SECURITY_GROUP}[0]
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
+    FOR    ${port_net1}    IN    @{NET_1_PORTS}
+        OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port_net1}    sg=@{SECURITY_GROUP}[0]
+    END
+    FOR    ${port_net2}    IN    @{NET_2_PORTS}
+        OpenStackOperations.Create Port    @{NETWORKS}[1]    ${port_net2}    sg=@{SECURITY_GROUP}[0]
+    END
     @{ports} =    BuiltIn.Create List    @{NET_1_PORTS}[0]    @{NET_1_PORTS}[1]    @{NET_1_PORTS}[2]    @{NET_2_PORTS}[0]    @{NET_2_PORTS}[1]
     @{vms} =    BuiltIn.Create List    @{NET_1_VMS}[0]    @{NET_1_VMS}[1]    @{NET_1_VMS}[2]    @{NET_2_VMS}[0]    @{NET_2_VMS}[1]
     @{nodes} =    BuiltIn.Create List    ${OS_CMP1_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}
-    : FOR    ${port}    ${vm}    ${node}    IN ZIP    ${ports}    ${vms}
+    FOR    ${port}    ${vm}    ${node}    IN ZIP    ${ports}    ${vms}
     ...    ${nodes}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}    sg=@{SECURITY_GROUP}[0]
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}    sg=@{SECURITY_GROUP}[0]
+    END
     @{vms} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
     @{VM_IPS} =    OpenStackOperations.Get VM IPs    @{vms}
     BuiltIn.Should Not Contain    ${VM_IPS}    None
@@ -148,9 +154,10 @@ Get Submetadata
     ${cmd2} =    Utils.Run Command On Remote System And Log    ${OS_CMP2_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
     ${output2} =    String.Get Regexp Matches    ${cmd2}    reg6=(\\w+)    1
     ${metalist} =    Collections.Combine Lists    ${output1}    ${output2}
-    : FOR    ${meta}    IN    @{metalist}
-    \    ${metadata_check_status} =    Run Keyword And Return Status    should contain    ${vm_metadata}    ${meta}
-    \    Return From Keyword if    ${metadata_check_status} == True    ${meta}
+    FOR    ${meta}    IN    @{metalist}
+        ${metadata_check_status} =    Run Keyword And Return Status    should contain    ${vm_metadata}    ${meta}
+        Return From Keyword if    ${metadata_check_status} == True    ${meta}
+    END
 
 Verify L3Broadcast With Antispoofing Table
     [Arguments]    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    ${vm_ip}    ${subnet_var}    ${ping_response}='pingsuccess'

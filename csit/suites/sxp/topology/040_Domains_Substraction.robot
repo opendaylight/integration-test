@@ -30,19 +30,22 @@ Export Separation Node 7 Test
 Export Separation Node 8-9 Test
     [Documentation]    Test if Nodes 8,9 contains consistent data during its update
     [Tags]    SXP    Domains
-    : FOR    ${node}    IN RANGE    8    10
-    \    Check Binding Range Negative    20    0    300    127.0.0.${node}
-    \    Check Binding Range    40    0    300    127.0.0.${node}
-    \    Check Binding Range Negative    60    0    300    127.0.0.${node}
-    \    Check Binding Range Negative    120    0    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    8    10
+        Check Binding Range Negative    20    0    300    127.0.0.${node}
+        Check Binding Range    40    0    300    127.0.0.${node}
+        Check Binding Range Negative    60    0    300    127.0.0.${node}
+        Check Binding Range Negative    120    0    300    127.0.0.${node}
+    END
     Delete Bindings Range    60    0    300    127.0.0.6
-    : FOR    ${node}    IN RANGE    8    10
-    \    Wait Until Keyword Succeeds    15    1    Check Binding Range    40    0
-    \    ...    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    8    10
+        Wait Until Keyword Succeeds    15    1    Check Binding Range    40    0
+        ...    300    127.0.0.${node}
+    END
     Delete Bindings Range    40    0    300    127.0.0.4
-    : FOR    ${node}    IN RANGE    8    10
-    \    Wait Until Keyword Succeeds    15    1    Check Binding Range Negative    40    0
-    \    ...    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    8    10
+        Wait Until Keyword Succeeds    15    1    Check Binding Range Negative    40    0
+        ...    300    127.0.0.${node}
+    END
 
 Export Separation Node 10 Test
     [Documentation]    Test if Node 10 contains consistent data during its update
@@ -61,31 +64,37 @@ Export Separation Node 10 Test
 Export Separation Node 11-14 Test
     [Documentation]    Test if Nodes 11-14 contains consistent data during its update
     [Tags]    SXP    Domains
-    : FOR    ${node}    IN RANGE    11    15
-    \    Check Binding Range Negative    20    0    300    127.0.0.${node}
-    \    Check Binding Range Negative    40    0    300    127.0.0.${node}
-    \    Check Binding Range Negative    60    0    300    127.0.0.${node}
-    \    Check Binding Range    120    0    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    11    15
+        Check Binding Range Negative    20    0    300    127.0.0.${node}
+        Check Binding Range Negative    40    0    300    127.0.0.${node}
+        Check Binding Range Negative    60    0    300    127.0.0.${node}
+        Check Binding Range    120    0    300    127.0.0.${node}
+    END
     Delete Bindings Range    60    0    300    127.0.0.6
-    : FOR    ${node}    IN RANGE    11    15
-    \    Wait Until Keyword Succeeds    15    1    Check Binding Range    120    0
-    \    ...    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    11    15
+        Wait Until Keyword Succeeds    15    1    Check Binding Range    120    0
+        ...    300    127.0.0.${node}
+    END
     Delete Bindings Range    120    0    300    127.0.0.12
-    : FOR    ${node}    IN RANGE    11    15
-    \    Wait Until Keyword Succeeds    15    1    Check Binding Range Negative    120    0
-    \    ...    300    127.0.0.${node}
+    FOR    ${node}    IN RANGE    11    15
+        Wait Until Keyword Succeeds    15    1    Check Binding Range Negative    120    0
+        ...    300    127.0.0.${node}
+    END
 
 *** Keywords ***
 Setup Nodes Local
     [Arguments]    ${version}=version4
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data between domains must remain separated.
     Setup SXP Environment    14
-    : FOR    ${node}    IN RANGE    2    7
-    \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
-    : FOR    ${node}    IN RANGE    7    11
-    \    Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.${node}
-    : FOR    ${node}    IN RANGE    11    15
-    \    Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    7
+        Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
+    END
+    FOR    ${node}    IN RANGE    7    11
+        Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.${node}
+    END
+    FOR    ${node}    IN RANGE    11    15
+        Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
+    END
     Add Domain    ${DOMAIN_1}
     Add Domain    ${DOMAIN_2}
     Add Domain    ${DOMAIN_3}
@@ -122,7 +131,8 @@ Setup Nodes Local
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.10
     ...    domain=${DOMAIN_2}
     # DOMAIN 3
-    : FOR    ${node}    IN RANGE    11    15
-    \    Add Connection    ${version}    both    127.0.0.${node}    64999    domain=${DOMAIN_3}
-    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
-    \    ...    127.0.0.${node}    domain=${DOMAIN_3}
+    FOR    ${node}    IN RANGE    11    15
+        Add Connection    ${version}    both    127.0.0.${node}    64999    domain=${DOMAIN_3}
+        Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
+        ...    127.0.0.${node}    domain=${DOMAIN_3}
+    END

@@ -199,10 +199,11 @@ Fetch Status Information From Netconf Endpoint
 Verify Status Information
     [Arguments]    ${endpoint}    ${host_index}    ${itr}=50
     [Documentation]    Verify if a netconf endpoint status is connected by running in a loop
-    : FOR    ${i}    IN RANGE    ${itr}
-    \    ${sts}    ${op}    Fetch Status Information From Netconf Endpoint    ${endpoint}    ${host_index}
-    \    Builtin.Log    ${i}
-    \    Builtin.Exit For Loop If    "${sts}" == "${NTCF_OPR_STATUS}"
+    FOR    ${i}    IN RANGE    ${itr}
+        ${sts}    ${op}    Fetch Status Information From Netconf Endpoint    ${endpoint}    ${host_index}
+        Builtin.Log    ${i}
+        Builtin.Exit For Loop If    "${sts}" == "${NTCF_OPR_STATUS}"
+    END
     [Return]    ${sts}    ${op}
 
 Verify Netconf Mount
@@ -233,5 +234,6 @@ Cleanup Cluster Export Files
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    This keyword cleansup export files of a cluster
     ${index_list} =    List Indices Or All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    DaeximKeywords.Cleanup The Export Files    ${index}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        DaeximKeywords.Cleanup The Export Files    ${index}
+    END

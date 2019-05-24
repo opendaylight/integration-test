@@ -33,9 +33,10 @@ Check Device IP
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${dev_ip}' == '${line}'    Get From Dictionary    ${node_data}    ${dev_ip}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${dev_ip}' == '${line}'    Get From Dictionary    ${node_data}    ${dev_ip}
+    END
     [Return]    ${dev_ip}
 
 Find Device Type
@@ -46,9 +47,10 @@ Find Device Type
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${device_type}' == '${line}'    Get From Dictionary    ${node_data}    ${device_type}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${device_type}' == '${line}'    Get From Dictionary    ${node_data}    ${device_type}
+    END
     [Return]    ${device_type}
 
 Find Device Hardware
@@ -57,9 +59,10 @@ Find Device Hardware
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${device_hw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_hw}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${device_hw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_hw}
+    END
     [Return]    ${device_hw}
 
 Find Device Software
@@ -68,9 +71,10 @@ Find Device Software
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${device_sw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_sw}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${device_sw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_sw}
+    END
     [Return]    ${device_sw}
 
 Find Device Manufacturer
@@ -79,9 +83,10 @@ Find Device Manufacturer
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${manufacture}' == '${line}'    Get From Dictionary    ${node_data}    ${manufacture}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${manufacture}' == '${line}'    Get From Dictionary    ${node_data}    ${manufacture}
+    END
     [Return]    ${manufacture}
 
 Find Serial Number
@@ -90,9 +95,10 @@ Find Serial Number
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${serial_number}' == '${line}'    Get From Dictionary    ${node_data}    ${serial_number}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${serial_number}' == '${line}'    Get From Dictionary    ${node_data}    ${serial_number}
+    END
     [Return]    ${serial_number}
 
 Find Device Description
@@ -101,7 +107,8 @@ Find Device Description
     ${device_keys}=    Get Dictionary Keys    ${node_data}
     Log    ${device_keys}
     ${length}=    Get Length    ${device_keys}
-    : FOR    ${index}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${device_keys}    ${index}
-    \    Run Keyword And Return If    '${description}' == '${line}'    Get From Dictionary    ${node_data}    ${description}
+    FOR    ${index}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${device_keys}    ${index}
+        Run Keyword And Return If    '${description}' == '${line}'    Get From Dictionary    ${node_data}    ${description}
+    END
     [Return]    ${description}

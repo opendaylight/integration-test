@@ -124,16 +124,18 @@ Create Setup
 
 Create Neutron Networks
     [Documentation]    Create required number of networks
-    : FOR    ${NET}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${NET}
+    FOR    ${NET}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${NET}
+    END
     OpenStackOperations.Create Network    @{EXTERNAL_NETWORKS}[0]    --external --provider-network-type ${NETWORK_TYPE}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
 
 Create Neutron Subnets
     [Documentation]    Create required number of subnets for previously created networks
     ${num_of_networks} =    BuiltIn.Get Length    ${NETWORKS}
-    : FOR    ${index}    IN RANGE    0    ${num_of_networks}
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+    FOR    ${index}    IN RANGE    0    ${num_of_networks}
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
 Create Neutron Ports

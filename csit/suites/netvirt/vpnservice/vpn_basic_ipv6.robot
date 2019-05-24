@@ -138,12 +138,14 @@ Delete Router And Router Interfaces With L3VPN
     VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    FOR    ${INTERFACE}    IN    @{SUBNETS}
+        OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    FOR    ${INTERFACE}    IN    @{SUBNETS}
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+        BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+    END
     OpenStackOperations.Delete Router    ${ROUTER}
     ${router_output} =    OpenStackOperations.List Routers
     BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
@@ -216,12 +218,14 @@ Suite Setup
     OpenStackOperations.Create Router    ${ROUTER}
     ${router_list} =    BuiltIn.Create List    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${ROUTER_URL}    ${router_list}
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${interface}
-    \    BuiltIn.Should Contain    ${interface_output}    ${subnet_id}
+    FOR    ${interface}    IN    @{SUBNETS}
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${interface}
+        BuiltIn.Should Contain    ${interface_output}    ${subnet_id}
+    END
     ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${ROUTER}    ${IP6_REGEX}
     BuiltIn.Set Suite Variable    ${GWMAC_ADDRS}
     BuiltIn.Set Suite Variable    ${GWIP_ADDRS}
@@ -241,8 +245,9 @@ Suite Setup
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     ${vms}=    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}
-    : FOR    ${vm}    IN    @{vms}
-    \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
+    FOR    ${vm}    IN    @{vms}
+        OpenStackOperations.Poll VM Is ACTIVE    ${vm}
+    END
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
     ${prefix_net10} =    Replace String    @{SUBNET_CIDRS}[0]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
@@ -255,9 +260,10 @@ Suite Setup
     ${VM_INSTANCES} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
     ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
     ${LOOP_COUNT}    BuiltIn.Get Length    ${NET_1_VMS}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VM_INSTANCES}[${index}]    30s
+    FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+        ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IPS}[${index}]    None
+        Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VM_INSTANCES}[${index}]    30s
+    END
     OpenStackOperations.Copy DHCP Files From Control Node
     BuiltIn.Set Suite Variable    ${VM_IP_NET10}
     BuiltIn.Set Suite Variable    ${VM_IP_NET20}

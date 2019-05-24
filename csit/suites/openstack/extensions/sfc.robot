@@ -276,18 +276,21 @@ Delete Configurations
     ...    of the Suite Teardown, all steps will be attempted. This prevents robot framework from bailing
     ...    on the rest of a test case if one step intermittently has trouble and fails. The goal is to attempt
     ...    to leave the test environment as clean as possible upon completion of this suite.
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
     OpenStackOperations.Delete SFC Port Chain    SFPSYM
     OpenStackOperations.Delete SFC Port Pair Group    SFPPG1
     OpenStackOperations.Delete SFC Port Pair    SFPP1
     OpenStackOperations.Delete SFC Flow Classifier    FC_101_103
     OpenStackOperations.Delete SFC Flow Classifier    FC_SYM
-    : FOR    ${port}    IN    @{PORTS}
-    \    OpenStackOperations.Delete Port    ${port}
+    FOR    ${port}    IN    @{PORTS}
+        OpenStackOperations.Delete Port    ${port}
+    END
     OpenStackOperations.Delete SubNet    l2_subnet_1
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Delete Network    ${network}
+    END
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
 
 *** Keywords ***
@@ -309,8 +312,9 @@ Create Basic Networks
     OpenStackOperations.Get Suite Debugs
 
 Create Ports For Testing
-    : FOR    ${port}    IN    @{PORTS}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port}    sg=${SECURITY_GROUP}
+    FOR    ${port}    IN    @{PORTS}
+        OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port}    sg=${SECURITY_GROUP}
+    END
     OpenStackOperations.Update Port    p1in    additional_args=--no-security-group
     OpenStackOperations.Update Port    p1in    additional_args=--disable-port-security
     OpenStackOperations.Update Port    p1out    additional_args=--no-security-group

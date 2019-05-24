@@ -5,11 +5,12 @@ Resource          ../SxpLib.robot
 *** Keywords ***
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
-    : FOR    ${node}    IN RANGE    1    5
-    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    1    5
+        SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    both    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.2
@@ -43,21 +44,22 @@ Check One Group 4-5
     ...    deny ACL 10.10.0.0 0.0.255.0
     ...    permit ACL 10.0.0.0 0.255.255.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    : FOR    ${node}    IN RANGE    4    6
-    \    ${resp} =    SxpLib.Get Bindings    127.0.0.${node}
-    \    BuiltIn.Log    ${resp}
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.0.0/16
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
-    \    SxpLib.Should Contain Binding    ${resp}    20    10.10.10.20/32
-    \    SxpLib.Should Not Contain Binding    ${resp}    20    10.10.20.0/24
-    \    SxpLib.Should Contain Binding    ${resp}    20    10.20.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    20    20.0.0.0/8
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.30.0/24
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    FOR    ${node}    IN RANGE    4    6
+        ${resp} =    SxpLib.Get Bindings    127.0.0.${node}
+        BuiltIn.Log    ${resp}
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.0.0/16
+        SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
+        SxpLib.Should Contain Binding    ${resp}    20    10.10.10.20/32
+        SxpLib.Should Not Contain Binding    ${resp}    20    10.10.20.0/24
+        SxpLib.Should Contain Binding    ${resp}    20    10.20.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
+        SxpLib.Should Not Contain Binding    ${resp}    30    10.10.30.0/24
+        SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    END
     ${resp} =    SxpLib.Get Bindings    127.0.0.2
     BuiltIn.Log    ${resp}
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
@@ -79,21 +81,22 @@ Check Two Group 4-5
     ...    permit ACL 10.20.0.0 0.0.255.255
     ...    permit ACL 10.10.0.0 0.0.255.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    : FOR    ${node}    IN RANGE    4    6
-    \    ${resp} =    SxpLib.Get Bindings    127.0.0.${node}
-    \    BuiltIn.Log    ${resp}
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
-    \    SxpLib.Should Not Contain Binding    ${resp}    20    10.10.10.20/32
-    \    SxpLib.Should Contain Binding    ${resp}    20    10.10.20.0/24
-    \    SxpLib.Should Contain Binding    ${resp}    20    10.20.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    20    20.0.0.0/8
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    10.10.10.30/32
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    FOR    ${node}    IN RANGE    4    6
+        ${resp} =    SxpLib.Get Bindings    127.0.0.${node}
+        BuiltIn.Log    ${resp}
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+        SxpLib.Should Not Contain Binding    ${resp}    20    10.10.10.20/32
+        SxpLib.Should Contain Binding    ${resp}    20    10.10.20.0/24
+        SxpLib.Should Contain Binding    ${resp}    20    10.20.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    20    20.0.0.0/8
+        SxpLib.Should Not Contain Binding    ${resp}    30    10.10.10.30/32
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+    END
     ${resp} =    SxpLib.Get Bindings    127.0.0.2
     BuiltIn.Log    ${resp}
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
@@ -117,21 +120,22 @@ Check One Group 2-5
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     @{list}    Create List    127.0.0.2    127.0.0.5
-    : FOR    ${node}    IN    @{list}
-    \    ${resp} =    SxpLib.Get Bindings    ${node}
-    \    BuiltIn.Log    ${resp}
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
-    \    SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
-    \    SxpLib.Should Not Contain Binding    ${resp}    40    10.10.10.40/32
-    \    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    40    10.40.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    FOR    ${node}    IN    @{list}
+        ${resp} =    SxpLib.Get Bindings    ${node}
+        BuiltIn.Log    ${resp}
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
+        SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+        SxpLib.Should Not Contain Binding    ${resp}    40    10.10.10.40/32
+        SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    40    10.40.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    END
     ${resp} =    SxpLib.Get Bindings    127.0.0.4
     BuiltIn.Log    ${resp}
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32
@@ -153,21 +157,22 @@ Check Two Group 2-5
     ...    permit SGT 20,40 ACL 10.10.0.0 0.0.255.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     @{list} =    Create List    127.0.0.2    127.0.0.5
-    : FOR    ${node}    IN    @{list}
-    \    ${resp} =    SxpLib.Get Bindings    ${node}
-    \    BuiltIn.Log    ${resp}
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.10.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
-    \    SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
-    \    SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32
-    \    SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    40    10.40.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    FOR    ${node}    IN    @{list}
+        ${resp} =    SxpLib.Get Bindings    ${node}
+        BuiltIn.Log    ${resp}
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.10/32
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.10.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.10.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    10    10.0.0.0/8
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.10.30/32
+        SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    30    10.30.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    30    30.0.0.0/8
+        SxpLib.Should Contain Binding    ${resp}    40    10.10.10.40/32
+        SxpLib.Should Contain Binding    ${resp}    40    10.10.40.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    40    10.40.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    40    40.0.0.0/8
+    END
     ${resp} =    SxpLib.Get Bindings    127.0.0.4
     BuiltIn.Log    ${resp}
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.10/32

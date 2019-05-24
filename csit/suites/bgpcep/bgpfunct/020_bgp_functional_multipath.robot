@@ -103,13 +103,14 @@ Upload_Config_Files
     SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${DEFAUTL_RPC_CFG}    .
     SSHLibrary.Put_File    ${EXARPCSCRIPT}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/enable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/${addpath}/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/enable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/${addpath}/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END
 
 Configure_Path_Selection_And_App_Peer_And_Connect_Peer
     [Arguments]    ${odl_path_sel_mode}    ${exa_add_path_value}
@@ -178,9 +179,10 @@ Configure_App_Peer_With_Routes
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    IP=${ODL_SYSTEM_IP}
     ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
-    : FOR    ${pathid}    IN    @{PATH_ID_LIST}
-    \    &{route_mapping}    BuiltIn.Create_Dictionary    NEXTHOP=${NEXT_HOP_PREF}${pathid}    LOCALPREF=${pathid}00    PATHID=${pathid}    APP_RIB=${app_rib}
-    \    TemplatedRequests.Post_As_Xml_Templated    ${MULT_VAR_FOLDER}/route    mapping=${route_mapping}    session=${CONFIG_SESSION}
+    FOR    ${pathid}    IN    @{PATH_ID_LIST}
+        &{route_mapping}    BuiltIn.Create_Dictionary    NEXTHOP=${NEXT_HOP_PREF}${pathid}    LOCALPREF=${pathid}00    PATHID=${pathid}    APP_RIB=${app_rib}
+        TemplatedRequests.Post_As_Xml_Templated    ${MULT_VAR_FOLDER}/route    mapping=${route_mapping}    session=${CONFIG_SESSION}
+    END
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer

@@ -25,10 +25,11 @@ Get EOS
 Get Cluster Info
     [Arguments]    ${port}=${RESTCONFPORT}
     [Documentation]    Get ODL Cluster related information like transaction counts, commit rates, etc.
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${cmd} =    BuiltIn.Set Variable    odltools netvirt show cluster-info -i ${ODL_SYSTEM_${i+1}_IP} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD}
-    \    ${output} =    OperatingSystem.Run    ${cmd}
-    \    BuiltIn.Log    output: ${output}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ${cmd} =    BuiltIn.Set Variable    odltools netvirt show cluster-info -i ${ODL_SYSTEM_${i+1}_IP} -t ${port} -u ${ODL_RESTCONF_USER} -w ${ODL_RESTCONF_PASSWORD}
+        ${output} =    OperatingSystem.Run    ${cmd}
+        BuiltIn.Log    output: ${output}
+    END
 
 Analyze Tunnels
     [Arguments]    ${node_ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${test_name}=${SUITE_NAME}.${TEST_NAME}

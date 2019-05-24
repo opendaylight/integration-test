@@ -76,21 +76,23 @@ ${rt_contentInstance}    4
     ...    rcn=1, 2, 3, 0 is legal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
     ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
-    : FOR    ${rcn}    IN    \    1    2    3
+    FOR    ${rcn}    IN    \    1    2    3
     ...    0
-    \    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=${rcn}
-    \    ...    ${attr},"rn":"AeName${rcn}"
+        ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=${rcn}
+        ...    ${attr},"rn":"AeName${rcn}"
+    END
 
 1.10.2 REQ: Create: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Create REQ with Result Content parameter set to illegal values.
     ...    rcn=4, 5, 6, 7 is illegal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
     ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
-    : FOR    ${rcn}    IN    4    5    6    7
-    \    ${error} =    Run Keyword And Expect Error    *    Create Resource With Command    ${iserver}    InCSE1
-    \    ...    ${rt_ae}    rcn=${rcn}    ${attr}
-    \    Should Start with    ${error}    Cannot create this resource [400]
-    \    Should Contain    ${error}    rcn
+    FOR    ${rcn}    IN    4    5    6    7
+        ${error} =    Run Keyword And Expect Error    *    Create Resource With Command    ${iserver}    InCSE1
+        ...    ${rt_ae}    rcn=${rcn}    ${attr}
+        Should Start with    ${error}    Cannot create this resource [400]
+        Should Contain    ${error}    rcn
+    END
 
 1.11 REQ: Create: With Event Category parameter
     [Documentation]    Tests Create REQ with Event Category parameter
@@ -176,20 +178,22 @@ ${rt_contentInstance}    4
     [Documentation]    Tests Retrieve REQ with Result Content parameter set to legal values.
     ...    rcn=1, 4, 5, 6 null is legal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
-    : FOR    ${rcn}    IN    \    1    4    5
+    FOR    ${rcn}    IN    \    1    4    5
     ...    6
-    \    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=${rcn}
+        ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=${rcn}
+    END
     # when rcn=7 can be retrieved
 
 2.10.2 REQ: Retrieve: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Retrieve REQ with Result Content parameter set to illegal values.
     ...    rcn=0, 2, 3 is illegal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
-    : FOR    ${rcn}    IN    0    2    3
-    \    ${error} =    Run Keyword And Expect Error    *    Retrieve Resource With Command    ${iserver}    InCSE1/AE1
-    \    ...    rcn=${rcn}
-    \    Should Start with    ${error}    Cannot retrieve this resource [400]
-    \    Should Contain    ${error}    rcn
+    FOR    ${rcn}    IN    0    2    3
+        ${error} =    Run Keyword And Expect Error    *    Retrieve Resource With Command    ${iserver}    InCSE1/AE1
+        ...    rcn=${rcn}
+        Should Start with    ${error}    Cannot retrieve this resource [400]
+        Should Contain    ${error}    rcn
+    END
 
 2.11 REQ: Retrieve: With Event Category parameter
     [Documentation]    Tests Retrieve REQ with Event Category parameter
@@ -472,21 +476,23 @@ ${rt_contentInstance}    4
     ...    rcn=1, 0/ null is legal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
     ${attr} =    Set Variable    "or":"http://hey/you"
-    : FOR    ${rcn}    IN    \    0    1    5
+    FOR    ${rcn}    IN    \    0    1    5
     ...    6
-    \    ${r} =    Update Resource With Command    ${iserver}    InCSE1/AE1    ${rt_ae}    rcn=${rcn}
-    \    ...    ${attr}
+        ${r} =    Update Resource With Command    ${iserver}    InCSE1/AE1    ${rt_ae}    rcn=${rcn}
+        ...    ${attr}
+    END
 
 3.10.2 REQ: Update: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Update REQ with Result Content parameter set to illegal values.
     ...    rcn=2, 3, 7 is illegal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
     ${attr} =    Set Variable    "or":"http://hey/you"
-    : FOR    ${rcn}    IN    2    3    4    7
-    \    ${error} =    Run Keyword And Expect Error    *    Update Resource With Command    ${iserver}    InCSE1/AE1
-    \    ...    ${rt_ae}    rcn=${rcn}    ${attr}
-    \    Should Start with    ${error}    Cannot update this resource [400]
-    \    Should Contain    ${error}    rcn
+    FOR    ${rcn}    IN    2    3    4    7
+        ${error} =    Run Keyword And Expect Error    *    Update Resource With Command    ${iserver}    InCSE1/AE1
+        ...    ${rt_ae}    rcn=${rcn}    ${attr}
+        Should Start with    ${error}    Cannot update this resource [400]
+        Should Contain    ${error}    rcn
+    END
 
 3.11 REQ: Update: With Event Category parameter
     [Documentation]    Tests Update REQ with Event Category parameter
@@ -703,11 +709,12 @@ ${rt_contentInstance}    4
     ...    rcn=2, 3, 4, 5, 6, 7 is illegal
     # TODO: check with TS-0004: 7.5.2 Elements contained in the Content primitive parameter
     ${attr} =    Set Variable    "or":"http://hey/you"
-    : FOR    ${rcn}    IN    2    3    4    7
-    \    ${error} =    Run Keyword And Expect Error    *    Delete Resource With Command    ${iserver}    InCSE1/AE1
-    \    ...    rcn=${rcn}
-    \    Should Start with    ${error}    Cannot delete this resource [400]
-    \    Should Contain    ${error}    rcn
+    FOR    ${rcn}    IN    2    3    4    7
+        ${error} =    Run Keyword And Expect Error    *    Delete Resource With Command    ${iserver}    InCSE1/AE1
+        ...    rcn=${rcn}
+        Should Start with    ${error}    Cannot delete this resource [400]
+        Should Contain    ${error}    rcn
+    END
 
 4.10.2 REQ: Delete: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Delete REQ with Result Content parameter set to illegal values.

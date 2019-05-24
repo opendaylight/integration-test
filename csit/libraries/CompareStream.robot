@@ -93,15 +93,16 @@ CompareStream__Convert_Input
     ...    are not supported.
     ${args}    BuiltIn.Create_List
     ${kwargs}    BuiltIn.Create_Dictionary
-    : FOR    ${arg}    IN    @{arguments}
-    \    ${arg}    BuiltIn.Convert_To_String    ${arg}
-    \    ${removed}    String.Remove_String    ${arg}    \n    ${Space}    \t
-    \    ...    \r
-    \    ${splitted}    BuiltIn.Run_Keyword_If    "${removed[0]}" == "<"    BuiltIn.Create List    ${arg}
-    \    ...    ELSE    String.Split_String    ${arg}    separator==    max_split=1
-    \    ${len}    BuiltIn.Get_Length    ${splitted}
-    \    Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    @{splitted}[0]
-    \    ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
+    FOR    ${arg}    IN    @{arguments}
+        ${arg}    BuiltIn.Convert_To_String    ${arg}
+        ${removed}    String.Remove_String    ${arg}    \n    ${Space}    \t
+        ...    \r
+        ${splitted}    BuiltIn.Run_Keyword_If    "${removed[0]}" == "<"    BuiltIn.Create List    ${arg}
+        ...    ELSE    String.Split_String    ${arg}    separator==    max_split=1
+        ${len}    BuiltIn.Get_Length    ${splitted}
+        Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    @{splitted}[0]
+        ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
+    END
     BuiltIn.Return_From_Keyword    ${args}    ${kwargs}
 
 Run_Keyword_If_At_Least

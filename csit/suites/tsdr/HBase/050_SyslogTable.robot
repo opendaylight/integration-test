@@ -18,13 +18,15 @@ Verification of TSDR HBase Feature Installation
 Sending syslog to ODL Syslog collector using Logger command
     [Documentation]    Verifying if syslogs is collected and getting stored.
     Query the Data from HBaseClient    truncate 'SYSLOG'
-    : FOR    ${key}    IN ZIP    &{syslog_facility}
-    \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
-    \    ${f_value}=    Evaluate    ${value} * 8
-    \    Generate Syslog    ${f_value}
+    FOR    ${key}    IN ZIP    &{syslog_facility}
+        ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
+        ${f_value}=    Evaluate    ${value} * 8
+        Generate Syslog    ${f_value}
+    END
     ${output}=    Query the Data from HBaseClient    scan 'SYSLOG'
     Should Contain X Times    ${output}    ${MESSAGE_PATTERN}    1
-    : FOR    ${key}    IN ZIP    &{syslog_facility}
-    \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
-    \    ${f_value}=    Evaluate    ${value} * 8
-    \    Should Match    ${output}    *${f_value}>*
+    FOR    ${key}    IN ZIP    &{syslog_facility}
+        ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
+        ${f_value}=    Evaluate    ${value} * 8
+        Should Match    ${output}    *${f_value}>*
+    END

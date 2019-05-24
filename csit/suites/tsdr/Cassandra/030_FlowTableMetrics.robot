@@ -81,12 +81,15 @@ Verification of FlowStats-Attributes on Cassandra Data Store
 
 Comparing Flow Table Metrics
     [Documentation]    Comparing Flow table values between Cassandra and openflow plugin.
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_packetlookup}    ${tsdr_pl}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_activeflows}    ${tsdr_af}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_packetmatched}    ${tsdr_pm}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_packetlookup}    ${tsdr_pl}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_activeflows}    ${tsdr_af}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_packetmatched}    ${tsdr_pm}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
+    END
 
 *** Keywords ***
 Initialize the Tsdr Suite

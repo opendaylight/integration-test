@@ -19,11 +19,13 @@ Verification of TSDR FlowTableStats
     [Documentation]    Verify the TSDR FlowiTableStats
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}| grep ActiveFlow    FLOWTABLESTATS
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}| grep openflow:1 | head    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    180
-    : FOR    ${list}    IN    @{FLOWTABLE_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWTABLE_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 Verify FlowTableStats-Attributes on H2 Datastore using JDBC Client
     [Documentation]    Verify the PortStats,attributes on H2 Datastore using JDBC Client
-    : FOR    ${list}    IN    @{FLOWTABLE_METRICS}
-    \    ${output}=    Query Metrics on H2 Datastore    FLOWTABLESTATS    ${list}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWTABLE_METRICS}
+        ${output}=    Query Metrics on H2 Datastore    FLOWTABLESTATS    ${list}
+        Should Contain    ${output}    ${list}
+    END

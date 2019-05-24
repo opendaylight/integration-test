@@ -48,8 +48,9 @@ Test Add/Delete Peer Group
     SxpLib.Add PeerGroup    GROUP    peers=${EMPTY}    node=${INADDR_ANY}    session=ClusterManagement__session_1
     ${resp} =    SxpLib.Get Peer Groups    ${INADDR_ANY}    session=ClusterManagement__session_2
     @{groups} =    Sxp.Parse Peer Groups    ${resp}
-    : FOR    ${group}    IN    @{groups}
-    \    SxpLib.Delete Peer Group    ${group['name']}    node=${INADDR_ANY}    session=ClusterManagement__session_3
+    FOR    ${group}    IN    @{groups}
+        SxpLib.Delete Peer Group    ${group['name']}    node=${INADDR_ANY}    session=ClusterManagement__session_3
+    END
     [Teardown]    Delete Node And Check It Is Stopped
 
 Test Add/Delete Domain Filter

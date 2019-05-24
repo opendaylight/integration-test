@@ -30,26 +30,30 @@ Get Controller Modules
     Should Contain    ${resp.content}    ietf-restconf
 
 Verify REST Command Add, Update and Remove
-    : FOR    ${intent}    IN    @{all_intents_bad}
-    \    ${intent_id}=    REST Add Intent    @{intent}
-    \    Append To List    ${all_intents_ids}    ${intent_id}
+    FOR    ${intent}    IN    @{all_intents_bad}
+        ${intent_id}=    REST Add Intent    @{intent}
+        Append To List    ${all_intents_ids}    ${intent_id}
+    END
     ${resp}=    REST Get List of Intents
-    : FOR    ${intent_id}    IN    @{all_intents_ids}
-    \    Should Contain    ${resp}    ${intent_id}
+    FOR    ${intent_id}    IN    @{all_intents_ids}
+        Should Contain    ${resp}    ${intent_id}
+    END
     ${size}=    Get Length    ${all_intents_correct}
-    : FOR    ${index}    IN RANGE    ${size}
-    \    ${intent}=    Get From List    ${all_intents_correct}    ${index}
-    \    ${intent_id}=    Get From List    ${all_intents_ids}    ${index}
-    \    REST Update Intent By Id    ${intent_id}    @{intent}
-    \    ${intent_from}=    Get From List    ${intent}    0
-    \    ${intent_to}=    Get From List    ${intent}    1
-    \    ${intent_permission}=    Get From List    ${intent}    2
-    \    ${resp}=    REST Get Intent From Id    ${intent_id}
-    \    Should Contain    ${resp}    ${intent_from}
-    \    Should Contain    ${resp}    ${intent_to}
-    \    Should Contain    ${resp}    ${intent_permission}
-    : FOR    ${id}    IN    @{all_intents_ids}
-    \    REST Delete Intent By Id    ${id}
+    FOR    ${index}    IN RANGE    ${size}
+        ${intent}=    Get From List    ${all_intents_correct}    ${index}
+        ${intent_id}=    Get From List    ${all_intents_ids}    ${index}
+        REST Update Intent By Id    ${intent_id}    @{intent}
+        ${intent_from}=    Get From List    ${intent}    0
+        ${intent_to}=    Get From List    ${intent}    1
+        ${intent_permission}=    Get From List    ${intent}    2
+        ${resp}=    REST Get Intent From Id    ${intent_id}
+        Should Contain    ${resp}    ${intent_from}
+        Should Contain    ${resp}    ${intent_to}
+        Should Contain    ${resp}    ${intent_permission}
+    END
+    FOR    ${id}    IN    @{all_intents_ids}
+        REST Delete Intent By Id    ${id}
+    END
 
 *** Keywords ***
 REST Get List of Intents

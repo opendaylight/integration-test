@@ -40,11 +40,12 @@ Stop ODL
 
 Disconnect OVS
     [Documentation]    Delete OVS manager, controller and groups and tun ports
-    : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    OVSDB.Delete OVS Manager    ${node}
-    \    OVSDB.Delete OVS Controller    ${node}
-    \    OVSDB.Delete Groups On Bridge    ${node}    ${INTEGRATION_BRIDGE}
-    \    OVSDB.Delete Ports On Bridge By Type    ${node}    ${INTEGRATION_BRIDGE}    ${TYPE}
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        OVSDB.Delete OVS Manager    ${node}
+        OVSDB.Delete OVS Controller    ${node}
+        OVSDB.Delete Groups On Bridge    ${node}    ${INTEGRATION_BRIDGE}
+        OVSDB.Delete Ports On Bridge By Type    ${node}    ${INTEGRATION_BRIDGE}    ${TYPE}
+    END
 
 Wipe Local Data
     [Documentation]    Delete data/, journal/, snapshots/
@@ -68,8 +69,9 @@ Set Upgrade Flag
 
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
-    : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+    END
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
 UnSet Upgrade Flag
@@ -91,19 +93,23 @@ Suite Setup
 
 Create Resources
     [Documentation]    Create 2 VXLAN networks, subnets with 2 VMs each and a router. Ping all 4 VMs.
-    : FOR    ${net}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${net}
+    FOR    ${net}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${net}
+    END
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNETS_RANGE}[0]
     OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNETS_RANGE}[1]
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Nano Flavor
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    ${vm}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    ${vm}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    ${vm}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
+    FOR    ${vm}    IN    @{NET_2_VMS}
+        OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    ${vm}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     OpenStackOperations.Create Router    ${ROUTER}
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
     @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET2_VM_IPS}    ${NET2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
@@ -124,8 +130,9 @@ Check Resource Connectivity
 
 Check OVS Nodes Have Egress Flows
     [Documentation]    Loop over all openstack nodes to ensure they have the proper flows installed.
-    : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    Does OVS Have Multiple Egress Flows    ${node}
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        Does OVS Have Multiple Egress Flows    ${node}
+    END
 
 Does OVS Have Multiple Egress Flows
     [Arguments]    ${ip}
@@ -144,12 +151,13 @@ Dump Debug With Annotations
     [Arguments]    ${tag}
     [Documentation]    Dump tons of debug logs for each OS node but also emit tags to make parsing easier
     Builtin.Log    Start dumping at phase ${tag}
-    : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    ${conn_id} =    DevstackUtils.Open Connection    ${node}_CONNECTION_NAME    ${node}
-    \    Builtin.Log    Start dumping for ${node} at phase ${tag}
-    \    OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
-    \    Builtin.Log    End dumping for ${node} at phase ${tag}
-    \    SSHLibrary.Close Connection
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        ${conn_id} =    DevstackUtils.Open Connection    ${node}_CONNECTION_NAME    ${node}
+        Builtin.Log    Start dumping for ${node} at phase ${tag}
+        OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
+        Builtin.Log    End dumping for ${node} at phase ${tag}
+        SSHLibrary.Close Connection
+    END
     Builtin.Log    End dumping at phase ${tag}
 
 Canary Network Should Exist

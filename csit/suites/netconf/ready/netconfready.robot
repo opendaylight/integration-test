@@ -155,8 +155,9 @@ Set_Netconf_Connector
 
 Check_Netconf_Topology_Ready
     [Documentation]    Verifies the netconf readiness for every odl node.
-    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
-    \    Verify_Netconf_Topology_Ready_For_Node    ${idx}
+    FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+        Verify_Netconf_Topology_Ready_For_Node    ${idx}
+    END
 
 Verify_Netconf_Topology_Ready_For_Node
     [Arguments]    ${node_index}
@@ -166,10 +167,11 @@ Verify_Netconf_Topology_Ready_For_Node
     Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
     Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
-    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
-    \    ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}netconf-state    mapping=${mapping}
-    \    ...    session=${mod_session}
+    FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+        ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
+        BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}netconf-state    mapping=${mapping}
+        ...    session=${mod_session}
+    END
     [Teardown]    Remove_Netconf_Device    ${DEVICE_NAME}    ${session}
 
 Configure_Netconf_Device

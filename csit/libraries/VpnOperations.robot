@@ -31,8 +31,9 @@ Basic Suite Setup
 
 Basic Vpnservice Suite Cleanup
     [Arguments]    ${vpn_instance_ids}=@{EMPTY}    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
-    : FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
-    \    BuiltIn.Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${vpn_instance_id}
+    FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
+        BuiltIn.Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${vpn_instance_id}
+    END
     OpenStackOperations.Neutron Cleanup    ${vms}    ${networks}    ${subnets}    ${ports}    ${sgs}
 
 VPN Create L3VPN
@@ -64,9 +65,10 @@ VPN Get L3VPN ID
 Verify L3VPN On ODL
     [Arguments]    @{vpns}
     [Documentation]    To verify L3VPN on ODL for given vpn ids
-    : FOR    ${vpn}    IN    @{vpns}
-    \    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpn}
-    \    BuiltIn.Should Contain    ${resp}    ${vpn}
+    FOR    ${vpn}    IN    @{vpns}
+        ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpn}
+        BuiltIn.Should Contain    ${resp}    ${vpn}
+    END
 
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
@@ -76,11 +78,12 @@ Associate L3VPN To Network
 Associate L3VPNs To Networks
     [Arguments]    ${vpnid_list}    ${network_list}
     [Documentation]    Associates multiple networks to L3VPN and verify the same
-    : FOR    ${network}    ${vpnid}    IN ZIP    ${network_list}    ${vpnid_list}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
-    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${vpnid}
-    \    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpnid}
-    \    BuiltIn.Should Contain    ${resp}    ${network_id}
+    FOR    ${network}    ${vpnid}    IN ZIP    ${network_list}    ${vpnid_list}
+        ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+        VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${vpnid}
+        ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpnid}
+        BuiltIn.Should Contain    ${resp}    ${network_id}
+    END
 
 Dissociate L3VPN From Networks
     [Arguments]    &{Kwargs}
@@ -133,14 +136,16 @@ Verify Flows Are Present For L3VPN
     Should Contain    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
     ${l3vpn_table} =    Get Lines Containing String    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN},
     Log    ${l3vpn_table}
-    : FOR    ${i}    IN    @{vm_ips}
-    \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
+    FOR    ${i}    IN    @{vm_ips}
+        ${resp}=    Should Contain    ${l3vpn_table}    ${i}
+    END
 
 Verify Flows Are Present For L3VPN On All Compute Nodes
     [Arguments]    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN On All Compute Nodes
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
+    END
 
 Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
@@ -148,8 +153,9 @@ Verify GWMAC Entry On ODL
     ${resp} =    RequestsLibrary.Get Request    session    ${VPN_PORT_DATA_URL}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-    \    Should Contain    ${resp.content}    ${macAdd}
+    FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+        Should Contain    ${resp.content}    ${macAdd}
+    END
 
 Verify GWMAC Flow Entry Removed From Flow Table
     [Arguments]    ${cnIp}
@@ -159,13 +165,15 @@ Verify GWMAC Flow Entry Removed From Flow Table
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
     Log    ${gwmac_table}
     #Verify GWMAC address present in table 19
-    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-    \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+        Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    END
 
 Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${ip}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${ip}
+    END
 
 Verify ARP REQUEST in groupTable
     [Arguments]    ${group_output}    ${Group-ID}
@@ -236,17 +244,19 @@ Verify IPv4 GWMAC Flow Entry On Flow Table
     Should Contain    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     Should Contain    ${arpResponder_table}    priority=0 actions=drop
-    : FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GWMAC_ADDRS}    ${GWIP_ADDRS}
-    \    ${ARP_RESPONSE_IP_MAC_REGEX} =    Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
-    \    Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
+    FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GWMAC_ADDRS}    ${GWIP_ADDRS}
+        ${ARP_RESPONSE_IP_MAC_REGEX} =    Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
+        Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
+    END
 
 Verify IPv6 GWMAC Flow Entry On Flow Table
     [Arguments]    ${flow_output}
     Should Contain    ${flow_output}    table=${IPV6_TABLE}
     ${icmp_ipv6_flows} =    Get Lines Containing String    ${flow_output}    icmp_type=135
-    : FOR    ${ip_addr}    IN    @{GWIP_ADDRS}
-    \    ${rule} =    Set Variable    icmp_type=135,icmp_code=0,nd_target=${ip_addr} actions=CONTROLLER:65535
-    \    Should Match Regexp    ${icmp_ipv6_flows}    ${rule}
+    FOR    ${ip_addr}    IN    @{GWIP_ADDRS}
+        ${rule} =    Set Variable    icmp_type=135,icmp_code=0,nd_target=${ip_addr} actions=CONTROLLER:65535
+        Should Match Regexp    ${icmp_ipv6_flows}    ${rule}
+    END
 
 Verify GWMAC Flow Entry On Flow Table
     [Arguments]    ${cnIp}    ${ipv}=ipv4
@@ -260,8 +270,9 @@ Verify GWMAC Flow Entry On Flow Table
     Should Contain    ${flow_output}    table=${GWMAC_TABLE}
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
     #Verify GWMAC address present in table 19
-    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-    \    Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+        Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    END
     #verify Miss entry
     Should Contain    ${gwmac_table}    actions=resubmit(,17)
     #Verify ARP_CHECK_TABLE - 43
@@ -279,14 +290,16 @@ Verify GWMAC Flow Entry On Flow Table
 Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     [Arguments]    ${ipv}=ipv4
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${ip}    ${ipv}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${ip}    ${ipv}
+    END
 
 Delete Multiple L3VPNs
     [Arguments]    @{vpns}
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
-    : FOR    ${vpn}    IN    @{vpns}
-    \    VPN Delete L3VPN    vpnid=${vpn}
+    FOR    ${vpn}    IN    @{vpns}
+        VPN Delete L3VPN    vpnid=${vpn}
+    END
 
 VNI Test Setup
     BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"

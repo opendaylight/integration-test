@@ -37,9 +37,10 @@ Verify creation of host route via openstack subnet create option
     [Documentation]    Creating subnet host route via openstack cli and verifying in controller and openstack.
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDR}[0]${PREFIX24}    --host-route destination=@{SUBNET_CIDR}[2]${PREFIX24},gateway=${NON_NEUTRON_NEXTHOP}
     ${SUBNET_GW_IP}    BuiltIn.Create List
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    ${ip} =    OpenStackOperations.Get Subnet Gateway Ip    ${subnet}
-    \    Collections.Append To List    ${SUBNET_GW_IP}    ${ip}
+    FOR    ${subnet}    IN    @{SUBNETS}
+        ${ip} =    OpenStackOperations.Get Subnet Gateway Ip    ${subnet}
+        Collections.Append To List    ${SUBNET_GW_IP}    ${ip}
+    END
     BuiltIn.Set Suite Variable    ${SUBNET_GW_IP}
     ${elements} =    BuiltIn.Create List    "destination":"@{SUBNET_CIDR}[2]${PREFIX24}","nexthop":"${NON_NEUTRON_NEXTHOP}"
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
@@ -99,16 +100,18 @@ Suite Setup
     [Documentation]    Creates initial setup.
     VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
-    : FOR    ${i}    IN RANGE    1    4
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDR}[${i}]${PREFIX24}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{PORTS}[${i}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[${i}]    @{NETWORK_${i+1}_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{PORTS}[${i+3}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[${i+3}]    @{NETWORK_${i+1}_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{GATEWAY_PORTS}[${i}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{GATEWAY_PORTS}[${i+3}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
+    FOR    ${i}    IN RANGE    1    4
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDR}[${i}]${PREFIX24}
+        OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{PORTS}[${i}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[${i}]    @{NETWORK_${i+1}_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{PORTS}[${i+3}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[${i+3}]    @{NETWORK_${i+1}_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{GATEWAY_PORTS}[${i}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
+        OpenStackOperations.Create Port    @{NETWORKS}[${i}]    @{GATEWAY_PORTS}[${i+3}]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
+    END
     @{NETWORK_2_VM_IPS}    ${NETWORK_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NETWORK_2_VMS}
     BuiltIn.Set Suite Variable    @{NETWORK_2_VM_IPS}
     @{NETWORK_3_VM_IPS}    ${NETWORK_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NETWORK_3_VMS}
@@ -122,12 +125,14 @@ Verify Hostroutes In Subnet
     [Arguments]    ${subnet_name}    @{elements}
     [Documentation]    Show subnet with openstack request and verifies given hostroute in subnet.
     ${output} =    OpenStackOperations.Show SubNet    ${subnet_name}
-    : FOR    ${element}    IN    @{elements}
-    \    BuiltIn.Should Match Regexp    ${output}    ${element}
+    FOR    ${element}    IN    @{elements}
+        BuiltIn.Should Match Regexp    ${output}    ${element}
+    END
 
 Verify No Hostroutes In Subnet
     [Arguments]    ${subnet_name}    @{elements}
     [Documentation]    Show subnet with openstack request and verifies no given hostroute in subnet.
     ${output} =    OpenStackOperations.Show SubNet    ${subnet_name}
-    : FOR    ${element}    IN    @{elements}
-    \    BuiltIn.Should Not Match Regexp    ${output}    ${element}
+    FOR    ${element}    IN    @{elements}
+        BuiltIn.Should Not Match Regexp    ${output}    ${element}
+    END

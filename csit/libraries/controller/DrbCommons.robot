@@ -84,26 +84,30 @@ Unregister_Action_And_Update_Possible_Constants
 Register_Rpc_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Register global rpc on given nodes of the cluster.
-    : FOR    ${index}    IN    @{index_list}
-    \    Register_Rpc_And_Update_Possible_Constants    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Register_Rpc_And_Update_Possible_Constants    ${index}
+    END
 
 Unregister_Rpc_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Unregister global rpc on given nodes of the cluster.
-    : FOR    ${index}    IN    @{index_list}
-    \    Unregister_Rpc_And_Update_Possible_Constants    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Unregister_Rpc_And_Update_Possible_Constants    ${index}
+    END
 
 Register_Action_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Register global rpc on given nodes of the cluster.
-    : FOR    ${index}    IN    @{index_list}
-    \    Register_Action_And_Update_Possible_Constants    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Register_Action_And_Update_Possible_Constants    ${index}
+    END
 
 Unregister_Action_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Unregister global rpc on given nodes of the cluster.
-    : FOR    ${index}    IN    @{index_list}
-    \    Unregister_Action_And_Update_Possible_Constants    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Unregister_Action_And_Update_Possible_Constants    ${index}
+    END
 
 Verify_Constant_On_Registered_Node
     [Arguments]    ${member_index}
@@ -138,20 +142,23 @@ Verify_Contexted_Constant_On_Unregistered_Node
 Verify_Constant_On_Registered_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
-    : FOR    ${index}    IN    @{index_list}
-    \    Verify_Constant_On_Registered_Node    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Verify_Constant_On_Registered_Node    ${index}
+    END
 
 Verify_Contexted_Constant_On_Registered_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
-    : FOR    ${index}    IN    @{index_list}
-    \    Verify_Contexted_Constant_On_Registered_Node    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Verify_Contexted_Constant_On_Registered_Node    ${index}
+    END
 
 Verify_Constant_On_Unregistered_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Verify that the rpc response comes from the remote node for every node in the list.
-    : FOR    ${index}    IN    @{index_list}
-    \    Verify_Constant_On_Unregistered_Node    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Verify_Constant_On_Unregistered_Node    ${index}
+    END
 
 Verify_Constant_On_Active_Nodes
     [Arguments]    ${tolerance}=${BUG_8430_TOLERANCE}
@@ -159,9 +166,10 @@ Verify_Constant_On_Active_Nodes
     ...    As a workaround for Bug 8430, \${tolerance} can be set as duration (number of seconds) for WUKS.
     # TODO: Rename most Verify_* keywords to Check_* and use the Verify prefix for the WUKS versions.
     BuiltIn.Run_Keyword_And_Return_If    ${tolerance}    BuiltIn.Wait_Until_Keyword_Succeeds    ${tolerance}    1s    Verify_Constant_On_Active_Nodes    tolerance=0
-    : FOR    ${index}    IN    @{active_indices}
-    \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Constant_On_Registered_Node    ${index}
-    \    ...    ELSE    Verify_Constant_On_Unregistered_Node    ${index}
+    FOR    ${index}    IN    @{active_indices}
+        BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Constant_On_Registered_Node    ${index}
+        ...    ELSE    Verify_Constant_On_Unregistered_Node    ${index}
+    END
 
 Verify_Contexted_Constant_On_Active_Nodes
     [Arguments]    ${tolerance}=${BUG_8430_TOLERANCE}
@@ -169,16 +177,18 @@ Verify_Contexted_Constant_On_Active_Nodes
     ...    As a workaround for Bug 8430, \${tolerance} can be set as duration (number of seconds) for WUKS.
     # TODO: Rename most Verify_* keywords to Check_* and use the Verify prefix for the WUKS versions.
     BuiltIn.Run_Keyword_And_Return_If    ${tolerance}    BuiltIn.Wait_Until_Keyword_Succeeds    ${tolerance}    1s    Verify_Contexted_Constant_On_Active_Nodes    tolerance=0
-    : FOR    ${index}    IN    @{active_indices}
-    \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Contexted_Constant_On_Registered_Node    ${index}
-    \    ...    ELSE    Verify_Contexted_Constant_On_Unregistered_Node    ${index}
+    FOR    ${index}    IN    @{active_indices}
+        BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Contexted_Constant_On_Registered_Node    ${index}
+        ...    ELSE    Verify_Contexted_Constant_On_Unregistered_Node    ${index}
+    END
 
 Verify_Expected_Constant_On_Nodes
     [Arguments]    ${index_list}    ${exp_constant}
     [Documentation]    Verify that the rpc response comes only from one node only for every node in the list.
-    : FOR    ${index}    IN    @{index_list}
-    \    ${const_index} =    Get_Constant_Index_From_Node    ${index}
-    \    BuiltIn.Should_Be_Equal_As_Strings    ${exp_constant}    ${CONSTANT_PREFIX}${const_index}
+    FOR    ${index}    IN    @{index_list}
+        ${const_index} =    Get_Constant_Index_From_Node    ${index}
+        BuiltIn.Should_Be_Equal_As_Strings    ${exp_constant}    ${CONSTANT_PREFIX}${const_index}
+    END
 
 Get_Constant_Index_From_Node
     [Arguments]    ${member_index}

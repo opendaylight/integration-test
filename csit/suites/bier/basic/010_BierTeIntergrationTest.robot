@@ -90,13 +90,14 @@ TC3_Query Subdomain
 
 TC4_Configure Node
     [Documentation]    Configure the bier params of nodes in the bier network topology.
-    : FOR    ${i}    IN RANGE    len(${NODE_ID_LIST})
-    \    ${domain-bfr-id}    Get From List    ${BFR_ID_LIST}    ${i}
-    \    ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
-    \    ${mapping1}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    DOMAINID=${DOMAIN_ID_LIST[0]}    DOMAINBFRID=${domain-bfr-id}
-    \    ...    SUBDOMAINBFRID=${domain-bfr-id}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
-    \    ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_node    ${mapping1}    session
-    \    Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    FOR    ${i}    IN RANGE    len(${NODE_ID_LIST})
+        ${domain-bfr-id}    Get From List    ${BFR_ID_LIST}    ${i}
+        ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
+        ${mapping1}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    DOMAINID=${DOMAIN_ID_LIST[0]}    DOMAINBFRID=${domain-bfr-id}
+        ...    SUBDOMAINBFRID=${domain-bfr-id}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
+        ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_node    ${mapping1}    session
+        Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    END
     ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/query_node    {}    session
     Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_node    config_node_response
 
@@ -121,20 +122,22 @@ TC4_Query Subdomain Link
 
 TC5_Configure Te Label
     [Documentation]    Configure the BIER-TE label base and label range size for all nodes in the bier topology.
-    : FOR    ${i}    IN RANGE    len(${NODE_ID_LIST})
-    \    ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
-    \    ${label-base}    Get From List    ${TE_LABEL_BASE_LIST}    ${i}
-    \    ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    LABELBASE=${label-base}    LABELRANGESIZE=${TE_LABEL_RANGE_SIZE}
-    \    ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_te_label    ${mapping}    session
-    \    Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    FOR    ${i}    IN RANGE    len(${NODE_ID_LIST})
+        ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
+        ${label-base}    Get From List    ${TE_LABEL_BASE_LIST}    ${i}
+        ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    LABELBASE=${label-base}    LABELRANGESIZE=${TE_LABEL_RANGE_SIZE}
+        ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_te_label    ${mapping}    session
+        Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    END
 
 TC5_Configure Te Node
     [Documentation]    Configure the BIER-TE params of nodes in the bier network topology.
-    : FOR    ${i}    IN RANGE    4
-    \    ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
-    \    ${tp-id-list}    Get From Dictionary    ${NODE_TO_TP_ID_LIST}    ${node-id}
-    \    ${bp-list}    Get From Dictionary    ${NODE_TO_BP_LIST}    ${node-id}
-    \    Second Layer Loop    ${node-id}    ${tp-id-list}    ${bp-list}    len(${bp-list})
+    FOR    ${i}    IN RANGE    4
+        ${node-id}    Get From List    ${NODE_ID_LIST}    ${i}
+        ${tp-id-list}    Get From Dictionary    ${NODE_TO_TP_ID_LIST}    ${node-id}
+        ${bp-list}    Get From Dictionary    ${NODE_TO_BP_LIST}    ${node-id}
+        Second Layer Loop    ${node-id}    ${tp-id-list}    ${bp-list}    len(${bp-list})
+    END
 
 TC5_Query Te Subdomain Link
     [Documentation]    Query the bier links in the te-domain 1 and te-subdomain 1.
@@ -179,14 +182,15 @@ TC5_Delete Te Label
 
 TC6_Add Channel
     [Documentation]    Add three channels to the datastore defined by bier-network-channel.
-    : FOR    ${i}    IN RANGE    len(${CHANNEL_NAME_LIST})
-    \    ${channel-name}    Get From List    ${CHANNEL_NAME_LIST}    ${i}
-    \    ${src-ip}    Get From List    ${SRC_IP_LIST}    ${i}
-    \    ${dst-group}    Get From List    ${DST_GROUP_LIST}    ${i}
-    \    ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    CHANNELNAME=${channel-name}    SRCIP=${src-ip}    DSTGROUP=${dst-group}
-    \    ...    DOMAINID=${DOMAIN_ID_LIST[0]}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
-    \    ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_channel_configuration/add_channel    ${mapping}    session
-    \    Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/bier_channel_configuration    success_response
+    FOR    ${i}    IN RANGE    len(${CHANNEL_NAME_LIST})
+        ${channel-name}    Get From List    ${CHANNEL_NAME_LIST}    ${i}
+        ${src-ip}    Get From List    ${SRC_IP_LIST}    ${i}
+        ${dst-group}    Get From List    ${DST_GROUP_LIST}    ${i}
+        ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    CHANNELNAME=${channel-name}    SRCIP=${src-ip}    DSTGROUP=${dst-group}
+        ...    DOMAINID=${DOMAIN_ID_LIST[0]}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
+        ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_channel_configuration/add_channel    ${mapping}    session
+        Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/bier_channel_configuration    success_response
+    END
 
 TC6_Get Channel
     [Documentation]    Query the channels put into the datastore.

@@ -18,8 +18,9 @@ Check No Switches In Inventory
     [Documentation]    Check no switch is in inventory
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        Should Not Contain    ${resp.content}    "openflow:${switch}"
+    END
 
 Check No Switches In Topology
     [Arguments]    ${switches}
@@ -27,17 +28,19 @@ Check No Switches In Topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Not Contain    ${resp.content}    openflow:${switch}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        Should Not Contain    ${resp.content}    openflow:${switch}
+    END
 
 Check Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check all switches and stats in operational inventory
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
-    \    Should Contain    ${resp.content}    flow-table-statistics
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    flow-capable-node-connector-statistics
+        Should Contain    ${resp.content}    flow-table-statistics
+    END
 
 Check Switches In Topology
     [Arguments]    ${switches}
@@ -63,16 +66,17 @@ Check Linear Topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
-    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
-    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
-    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
-    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
-    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+        Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+        ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
+    END
 
 Check Flows Operational Datastore
     [Arguments]    ${flow_count}    ${controller_ip}=${ODL_SYSTEM_IP}
@@ -126,15 +130,17 @@ Add Table Miss Flows
     [Documentation]    Add table miss flows to switches.
     ${switches}=    Convert To Integer    ${switches}
     ${data}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/table_miss_flow.json
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Put As Json To Uri    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/default    ${data}    session
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Put As Json To Uri    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/default    ${data}    session
+    END
 
 Check Table Miss Flows
     [Arguments]    ${switches}
     [Documentation]    Check table miss flows in switches.
     ${switches}=    Convert To Integer    ${switches}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Get As Json From Uri    ${OPERATIONAL_NODES_API}/node/openflow:${switch}/table/0/flow/default    session
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Get As Json From Uri    ${OPERATIONAL_NODES_API}/node/openflow:${switch}/table/0/flow/default    session
+    END
 
 Create Inventory Flow
     [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
@@ -292,8 +298,9 @@ Verify Flow On Mininet Switch
     Sleep    1
     Write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
-    : FOR    ${flowElement}    IN    @{flow_elements}
-    \    Should Contain    ${switchoutput}    ${flowElement}
+    FOR    ${flowElement}    IN    @{flow_elements}
+        Should Contain    ${switchoutput}    ${flowElement}
+    END
 
 Remove Group From Controller And Verify
     [Arguments]    ${node_id}    ${group_id}
@@ -323,8 +330,9 @@ Verify Flow Does Not Exist On Mininet Switch
     Sleep    1
     Write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
-    : FOR    ${flowElement}    IN    @{flow_elements}
-    \    Should Not Contain    ${switchoutput}    ${flowElement}
+    FOR    ${flowElement}    IN    @{flow_elements}
+        Should Not Contain    ${switchoutput}    ${flowElement}
+    END
 
 Remove Default Flows
     [Arguments]    ${node_id}

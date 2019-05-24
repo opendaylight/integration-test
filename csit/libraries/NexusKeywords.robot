@@ -277,8 +277,9 @@ Get_ODL_Versions_From_Nexus
     BuiltIn.Log    ${latest}
     @{elements}=    XML.Get_Elements    ${root}    .//version
     ${versions}=    BuiltIn.Create_List
-    : FOR    ${element}    IN    @{elements}
-    \    Collections.Append_To_List    ${versions}    ${element.text}
+    FOR    ${element}    IN    @{elements}
+        Collections.Append_To_List    ${versions}    ${element.text}
+    END
     Collections.Sort_List    ${versions}
     BuiltIn.Log_Many    @{versions}
     [Return]    ${latest}    @{versions}
@@ -294,8 +295,9 @@ Get_Latest_ODL_Stream_Release
     ${latest}    @{versions}=    Get_ODL_Versions_From_Nexus
     BuiltIn.Return_From_Keyword_If    '${stream}'=='latest'    ${latest}
     ${latest_version}=    BuiltIn.Set_Variable    xxx
-    : FOR    ${version}    IN    @{versions}
-    \    ${latest_version}=    BuiltIn.Set_Variable_If    '${stream}'.title() in '${version}'    ${version}    ${latest_version}
+    FOR    ${version}    IN    @{versions}
+        ${latest_version}=    BuiltIn.Set_Variable_If    '${stream}'.title() in '${version}'    ${version}    ${latest_version}
+    END
     BuiltIn.Run_Keyword_If    '${latest_version}'=='xxx'    BuiltIn.Fail    Could not find latest release for stream ${stream}
     BuiltIn.Log    ${latest_version}
     [Return]    ${latest_version}
@@ -315,9 +317,10 @@ Get_Latest_ODL_Previous_Stream_Release
     ...    So in this case, latest release version is return.
     ${latest}    @{versions}=    Get_ODL_Versions_From_Nexus
     ${latest_version}=    BuiltIn.Set_Variable    xxx
-    : FOR    ${version}    IN    @{versions}
-    \    BuiltIn.Exit_For_Loop_If    '${stream}'.title() in '${version}'
-    \    ${latest_version}=    BuiltIn.Set_Variable    ${version}
+    FOR    ${version}    IN    @{versions}
+        BuiltIn.Exit_For_Loop_If    '${stream}'.title() in '${version}'
+        ${latest_version}=    BuiltIn.Set_Variable    ${version}
+    END
     BuiltIn.Run_Keyword_If    '${latest_version}'=='xxx'    BuiltIn.Fail    Could not find latest previous release for stream ${stream}
     BuiltIn.Log    ${latest_version}
     [Return]    ${latest_version}

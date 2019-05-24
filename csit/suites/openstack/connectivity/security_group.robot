@@ -71,8 +71,9 @@ Create Router
     OpenStackOperations.Create Router    ${ROUTER}
 
 Add Interfaces To Router
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    END
 
 Ping From Vm Instance1 To Vm Instance3
     [Documentation]    Login to the vm instance and test some operations
@@ -95,8 +96,9 @@ Add Additional Security Group To VMs
     #TODO Remove this after the Newton jobs are removed, Openstack CLI with Newton lacks support to configure rule with remote_ip_prefix
     OpenStackOperations.Neutron Security Group Rule Create    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET_1_DHCP_IP}/32
     OpenStackOperations.Neutron Security Group Show    additional-sg
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Add Security Group To VM    ${vm}    additional-sg
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Add Security Group To VM    ${vm}    additional-sg
+    END
 
 Ping From DHCP To Vm Instance1
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
@@ -161,8 +163,9 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With Additional SG Removed From Vm
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
 
 Remove Router Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Remove Interface    ${ROUTER}    ${interface}
+    END
 
 Delete Router
     OpenStackOperations.Delete Router    ${ROUTER}
@@ -178,8 +181,9 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With Router Removed
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
 
 Delete Vm Instances In net_2
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_2_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With net_2 VM Deleted
     [Documentation]    Login to the vm instance and test some operations

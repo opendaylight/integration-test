@@ -64,11 +64,12 @@ Teardown_Ise_Mock_Server
 Teardown_Ssh_Tooling
     [Arguments]    ${session_list}=@{EMPTY}
     [Documentation]    Deactivate virtualenv and close ssh session on tools system
-    : FOR    ${ssh_session}    IN    @{session_list}
-    \    BuiltIn.Log    ${ssh_session}
-    \    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
-    \    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session
-    \    SSHKeywords.Virtual_Env_Delete
+    FOR    ${ssh_session}    IN    @{session_list}
+        BuiltIn.Log    ${ssh_session}
+        SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
+        SSHKeywords.Virtual_Env_Deactivate_On_Current_Session
+        SSHKeywords.Virtual_Env_Delete
+    END
     # fallback to single session
     ${session_list_size}    get length    ${session_list}
     BuiltIn.Log    ${session_list_size}

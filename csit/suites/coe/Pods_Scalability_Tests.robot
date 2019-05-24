@@ -24,10 +24,12 @@ Verify Connectivity Between Pods
 *** Keywords ***
 Apply label and Create pods
     [Arguments]    ${label}
-    : FOR    ${i}    IN RANGE    1    ${NO_OF_PODS_PER_VM}+1
-    \    Coe.Create Pods    ${label}    ${label}-busybox${i}.yaml    ${label}-busybox${i}
+    FOR    ${i}    IN RANGE    1    ${NO_OF_PODS_PER_VM}+1
+        Coe.Create Pods    ${label}    ${label}-busybox${i}.yaml    ${label}-busybox${i}
+    END
 
 Assign Labels
-    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
-    \    ${label} =    BuiltIn.Set Variable    ss${i}
-    \    Apply label and Create pods    ${label}
+    FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
+        ${label} =    BuiltIn.Set Variable    ss${i}
+        Apply label and Create pods    ${label}
+    END

@@ -34,21 +34,24 @@ Verification TSDR Command is exist in Help
     ${output}=    Issue Command On Karaf Console    tsdr\t
     Should Contain    ${output}    tsdr:list
     ${output}=    Issue Command On Karaf Console    tsdr:list\t\t
-    : FOR    ${list}    IN    @{CATEGORY}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{CATEGORY}
+        Should Contain    ${output}    ${list}
+    END
     Wait Until Keyword Succeeds    620s    1s    Verify the Metric is Collected?    ${TSDR_PORTSTATS}    openflow
 
 Verification of TSDR PortStats
     [Documentation]    Verify the TSDR InterfaceMetrics
-    : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{INTERFACE_METRICS}
+        ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
+        ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+        Should Contain    ${output}    ${list}
+    END
 
 Verification of InterfaceMetrics-Attributes on HBase Client
     [Documentation]    Verify the InterfaceMetrics has been updated on HBase Datastore
-    : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    Verify the Metrics Attributes on Hbase Client    ${list}    ${node_connector}    ${portstats}
+    FOR    ${list}    IN    @{INTERFACE_METRICS}
+        Verify the Metrics Attributes on Hbase Client    ${list}    ${node_connector}    ${portstats}
+    END
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
