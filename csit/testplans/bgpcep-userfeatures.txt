@@ -19,5 +19,9 @@ integration/test/csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot
 integration/test/csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot
 integration/test/csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot
 integration/test/csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot
+integration/test/csit/suites/bgpcep/bgpfunct/060_bgp_functional_mvpn.robot
+integration/test/csit/suites/bgpcep/bgpfunct/070_bgp_functional_l3vpn_mcast.robot
+integration/test/csit/suites/bgpcep/bgpfunct/080_bgp_functional_rt_constrain.robot
+integration/test/csit/suites/bgpcep/bgpfunct/090_bgp_functional_rt_constrain_validation.robot
 integration/test/csit/suites/bgpcep/bgpfunct/bgp_policies_default.robot
 integration/test/csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot
