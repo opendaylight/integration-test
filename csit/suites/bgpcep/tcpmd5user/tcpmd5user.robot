@@ -115,8 +115,7 @@ Topology_Intercondition_2
 Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NAME=${pcc_name}
-    ${template_dir} =    CompareStream.Set_Variable_If_At_Least_Neon    update_delegated_neon    update_delegated
-    ${response}=    TemplatedRequests.Post_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}${template_dir}    ${mapping}    ${CONFIG_SESSION}    verify=True
+    ${response}=    TemplatedRequests.Post_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}update_delegated    ${mapping}    ${CONFIG_SESSION}    verify=True
     Log    ${response}
 
 Topology_Updated
