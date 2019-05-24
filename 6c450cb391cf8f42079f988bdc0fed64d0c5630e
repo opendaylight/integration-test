@@ -16,6 +16,24 @@
       "revId": "6c450cb391cf8f42079f988bdc0fed64d0c5630e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbb12667_b6d6206a",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-24T16:36:28Z",
+      "side": 1,
+      "message": "yeah. the idea is that if INSTALL_TESTTOOL\u003dFalse, when this line gets\ncalled, the user is going to have to also set the TESTTOOL_EXECUTABLE to something valid.",
+      "parentUuid": "f6a3de88_439d4efa",
+      "revId": "6c450cb391cf8f42079f988bdc0fed64d0c5630e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
