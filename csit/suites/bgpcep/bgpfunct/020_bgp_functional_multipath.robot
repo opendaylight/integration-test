@@ -40,7 +40,6 @@ ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${N_PATHS_VALUE}    2
 &{DEFAULT_MAPPING}    ODLIP=${ODL_SYSTEM_IP}    EXAIP=${TOOLS_SYSTEM_IP}    NPATHS=${N_PATHS_VALUE}
 @{PATH_ID_LIST}    1    2    3
-${PATH_ID_LIST_LEN}    3
 ${NEXT_HOP_PREF}    100.100.100.
 ${RIB_URI}        /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-bgp-rib-impl-cfg:rib-impl/example-bgp-rib
 ${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
@@ -62,7 +61,9 @@ Odl Allpaths Exa SendReceived
     [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
-    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${PATH_ID_LIST_LEN}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    3    4
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Odl Npaths Exa SendReceived
@@ -70,7 +71,9 @@ Odl Npaths Exa SendReceived
     [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
-    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${N_PATHS_VALUE}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
