@@ -57,7 +57,6 @@ Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
     [Tags]    critical
     ${text}=    Update_Xml_Lsp_Return_Json    ${update_delegated_xml}
-    Pcep_Json_Is_Success    ${text}
 
 Topology_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel.
@@ -79,7 +78,6 @@ Add_Instantiated
     [Documentation]    Perform add-lsp to create new tunnel, check that response is success.
     [Tags]    critical
     ${text}=    Add_Xml_Lsp_Return_Json    ${add_instantiated_xml}
-    Pcep_Json_Is_Success    ${text}
 
 Topology_Second_Default
     [Documentation]    Compare pcep-topology to default_json, which includes the updated delegated and default instantiated tunnel.
@@ -90,7 +88,6 @@ Update_Instantiated
     [Documentation]    Perform update-lsp on the newly instantiated tunnel, check that response is success.
     [Tags]    critical
     ${text}=    Update_Xml_Lsp_Return_Json    ${update_instantiated_xml}
-    Pcep_Json_Is_Success    ${text}
 
 Topology_Second_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated delegated and updated instantiated tunnel.
@@ -101,7 +98,6 @@ Remove_Instantiated
     [Documentation]    Perform remove-lsp on the instantiated tunnel, check that response is success.
     [Tags]    critical
     ${text}=    Remove_Xml_Lsp_Return_Json    ${remove_instantiated_xml}
-    Pcep_Json_Is_Success    ${text}
 
 Topology_Again_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel, to verify that instantiated tunnel was removed.
