@@ -103,7 +103,8 @@ Play_To_Odl_rt_constrain_type_1
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${RT_CONSTRAIN_DIR}/rt_constrain_type_1/rib    mapping=${effective_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
     ${update} =    BgpRpcClient4.play_get
-    BuiltIn.Should_Be_Equal    ${update}    ${Empty}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    CompareStream.Run_Keyword_If_At_Most_Fluorine    BuiltIn.Should_Be_Equal    ${update}    ${Empty}
 
 Play_To_Odl_remove_rt
     [Documentation]    Removes RT from odl and then checks that second node withdrew l3vpn route and third node did not receive any message.
@@ -112,6 +113,8 @@ Play_To_Odl_remove_rt
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Empty_Reported_Data
     ${update} =    BgpRpcClient4.play_get
     BuiltIn.Should_Be_Equal    ${update}    ${Empty}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    CompareStream.Run_Keyword_If_At_Most_Fluorine    BuiltIn.Should_Be_Equal    ${update}    ${Empty}
 
 Play_To_Odl_remove_routes
     [Documentation]    Removes rt arguments from odl.

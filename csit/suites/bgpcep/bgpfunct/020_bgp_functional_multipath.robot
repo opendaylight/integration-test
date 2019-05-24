@@ -62,7 +62,9 @@ Odl Allpaths Exa SendReceived
     [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
-    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${PATH_ID_LIST_LEN}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    3    4
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Odl Npaths Exa SendReceived
@@ -70,7 +72,9 @@ Odl Npaths Exa SendReceived
     [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
-    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${N_PATHS_VALUE}
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration

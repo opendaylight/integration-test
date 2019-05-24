@@ -62,6 +62,8 @@ Exa_To_Send_Route_Refresh
     [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${nr_configured_routes}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=0    update_count=${nr_configured_routes}    receive_count=4
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
@@ -126,7 +128,8 @@ Configure_Routes_And_Start_ExaBgp
     : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
     \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Set_Suite_Variable    ${nr_configured_routes}    2
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${nr_configured_routes}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    4
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
 
