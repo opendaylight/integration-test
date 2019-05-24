@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6a3de88_439d4efa",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-05-24T13:55:14Z",
+      "side": 1,
+      "message": "The TESTTOOL_EXE is EMPTY? Is it intended?",
+      "revId": "6c450cb391cf8f42079f988bdc0fed64d0c5630e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
