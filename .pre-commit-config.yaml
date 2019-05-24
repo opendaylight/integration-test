@@ -3,4 +3,4 @@
   rev: 'master'
   hooks:
   - id: robotframework-tidy-wrapper
-
+    additional_dependencies: ['robotframework==3.1.1']  # Pin due to tidy warning in 3.1.2
