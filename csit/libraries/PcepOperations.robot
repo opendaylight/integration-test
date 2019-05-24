@@ -54,7 +54,7 @@ Operate_Xml_Lsp_Return_Json
     [Documentation]    Post XML data to given pcep-operations URI, check status_code is 200 and return response text (JSON).
     ${response}=    RequestsLibrary.Post Request    pcep_session    ${uri_part}    data=${xml_data}
     Log    ${xml_data}
-    Should_Be_Equal_As_Strings    ${response.status_code}    200
+    Should_Be_Equal_As_Strings    ${response.status_code}    ${ALLOWED_STATUS_CODES}
     [Return]    ${response.text}
 
 Pcep_Json_Is_Success

@@ -253,7 +253,9 @@ TC3_BGP_Peer1_Check_Log_For_No_Updates
     [Documentation]    Check for no updates received by iBGP peer No. 1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    total_received_update_message_counter: 0    2
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    0    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    total_received_update_message_counter: ${update_messages}    2
 
 TC3_Disconnect_BGP_Peer1
     [Documentation]    Stop BGP peer & store logs
@@ -267,7 +269,9 @@ TC3_BGP_Peer2_Check_Log_For_No_Updates
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     ${log_check_timeout}=    DateTime.Convert_Time    ${DEFAULT_LOG_CHECK_TIMEOUT}    result_format=number
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${log_check_timeout*2}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    total_received_update_message_counter: 0    4
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    0    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${log_check_timeout*2}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    total_received_update_message_counter: ${update_messages}    4
 
 TC3_Disconnect_BGP_Peer2
     [Documentation]    Stop BGP peer & store logs
