@@ -62,20 +62,24 @@ Exa_To_Send_Route_Refresh
     [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=0    update_count=${nr_configured_routes}    receive_count=4
+    Comment    From neon onwards there are extra BGP End-Of-RIB message
+    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${update_count}
+    Comment    From neon onwards there are extra BGP End-Of-RIB message
+    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    4    7
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=0    update_count=${update_count}    receive_count=2
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
 Odl_To_Send_Route_Refresh
-    [Documentation]    Sends route refresh request and checks if exabgp receives it
+    [Documentation]    Sends route refresh request and checks if exabgp receives it.
     [Tags]    critical
     [Setup]    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${BGP_CFG_NAME}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     BgpRpcClient.exa_clean_received_route_refresh_count
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/route_refresh    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Route_Refresh    1
-    ${receive_count} =    CompareStream.Set_Variable_If_At_Least_Neon    6    4
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=1    update_count=4    receive_count=${receive_count}
+    ${update_count} =    CompareStream.Set_Variable_If_At_Most_Fluorine    4    9
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Operational_State_Count    notification_count=1    update_count=${update_count}    receive_count=4
     [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
@@ -126,9 +130,10 @@ Configure_Routes_And_Start_ExaBgp
     : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
     \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Set_Suite_Variable    ${nr_configured_routes}    2
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
+    Comment    From neon onwards there are extra BGP End-Of-RIB message per address family
+    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    4
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${update_count}
 
 Deconfigure_Routes_And_Stop_ExaBgp
     [Documentation]    Teardown keyword for exa to odl test case
@@ -153,7 +158,7 @@ Verify_Odl_Operational_State_Count
     [Arguments]    ${notification_count}    ${update_count}    ${receive_count}
     [Documentation]    Check notification and update count gained from operatial neighbor state
     ...    On versions oxygen and above, it verifies these counts also against cli output.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    RCV_COUNT=${receive_count}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    NOT_COUNT=${notification_count}    SEND_COUNT=${update_count}    RECV_COUNT=${receive_count}
     ${ret}=    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_state    mapping=${mapping}
     ...    session=${CONFIG_SESSION}    verify=True
     BuiltIn.Log    ${ret}
@@ -165,7 +170,7 @@ Verify_Cli_Output_Count
     ...    odl-bgpcep-bgp-cli is only avaiable on versions oxygen and above.
     ${output}    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     BuiltIn.Log    ${output}
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=│    RCV_COUNT=${receive_count}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    SEND_COUNT=${update_count}    DIVIDER=│    RECV_COUNT=${receive_count}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli    file_name=update.txt    mapping=${mapping}
     String.Get Line Count    ${output}
     BuiltIn.Log    ${expstate}
