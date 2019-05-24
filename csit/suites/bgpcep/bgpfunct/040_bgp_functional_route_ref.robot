@@ -126,7 +126,9 @@ Configure_Routes_And_Start_ExaBgp
     : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
     \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Set_Suite_Variable    ${nr_configured_routes}    2
+    Comment    From neon onwards there is extra BGP End-Of-RIB message
+    ${nr_configured_routes}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    BuiltIn.Set_Suite_Variable    ${nr_configured_routes}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
 
