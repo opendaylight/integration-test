@@ -127,17 +127,18 @@ Prefix List Sgt Filtering Legacy
 *** Keywords ***
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
-    : FOR    ${node}    IN RANGE    2    5
-    \    SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
-    \    ...    ${password}
-    \    SxpLib.Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
-    \    ...    ${password}
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
-    \    ...    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    5
+        SxpLib.Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
+        ...    ${password}
+        SxpLib.Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
+        ...    ${password}
+        BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
+        ...    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    both    127.0.0.5    64999    127.0.0.3    ${password}
     SxpLib.Add Connection    ${version}    both    127.0.0.3    64999    127.0.0.5    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.5
@@ -153,11 +154,12 @@ Setup Nodes
 
 Setup Nodes Legacy Par One
     [Arguments]    ${version}=version3    ${password}=none
-    : FOR    ${node}    IN RANGE    1    6
-    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    1    6
+        SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.2
@@ -174,11 +176,12 @@ Setup Nodes Legacy Par One
 
 Setup Nodes Legacy Par Two
     [Arguments]    ${version}=version3    ${password}=none
-    : FOR    ${node}    IN RANGE    1    6
-    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    1    6
+        SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.2

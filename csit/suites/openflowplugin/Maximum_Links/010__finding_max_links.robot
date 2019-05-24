@@ -19,11 +19,12 @@ Find Max Links
     ${error_message}=    Set Variable    Fail initializing suite
     ${maximum_links}=    Set Variable    ${0}
     ${discover_time}=    Set Variable    0
-    : FOR    ${switches}    IN    @{SWITCH_LIST}
-    \    ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${maximum_links}=    Evaluate    ${switches} * ${switches-1}
-    \    ${discover_time}=    Set Variable    ${topology_discover_time}
+    FOR    ${switches}    IN    @{SWITCH_LIST}
+        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${maximum_links}=    Evaluate    ${switches} * ${switches-1}
+        ${discover_time}=    Set Variable    ${topology_discover_time}
+    END
     Log to console    ${\n}
     Log To Console    Execution stopped because: ${error_message}
     Log To Console    Max Links: ${maximum_links}

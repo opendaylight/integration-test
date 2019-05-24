@@ -41,26 +41,31 @@ Verify NIC Command Add and Remove
     ...    until the intent:add command is available for the test case to be run.
     [Tags]    NIC
     Wait Until Keyword Succeeds    1 min    5 sec    Verify Intent:Add Command is Available
-    : FOR    ${intent}    IN    @{all_intents}
-    \    ${id}=    Add Intent    @{intent}
-    \    Append To List    ${all_intents_ids}    ${id}
+    FOR    ${intent}    IN    @{all_intents}
+        ${id}=    Add Intent    @{intent}
+        Append To List    ${all_intents_ids}    ${id}
+    END
     ${size}=    Get Length    ${all_intents}
-    : FOR    ${index}    IN RANGE    ${size}
-    \    ${intent}=    Get From List    ${all_intents}    ${index}
-    \    ${intent_id}=    Get From List    ${all_intents_ids}    ${index}
-    \    Verify Intent Added    ${intent_id}    ${intent}
+    FOR    ${index}    IN RANGE    ${size}
+        ${intent}=    Get From List    ${all_intents}    ${index}
+        ${intent_id}=    Get From List    ${all_intents_ids}    ${index}
+        Verify Intent Added    ${intent_id}    ${intent}
+    END
     ${output}=    Issue Command On Karaf Console    intent:compile
     ${size}=    Get Length    ${all_intent_validations}
-    : FOR    ${index}    IN RANGE    ${size}
-    \    ${compiled_intent_validation}=    Get From List    ${all_intent_validations}    ${index}
-    \    ${intent_validation_line}=    Get Lines Containing String    ${output}    ${compiled_intent_validation}
-    \    ${policy}=    Get From List    ${all_intent_validations_policies}    ${index}
-    \    Should Contain    ${intent_validation_line}    ${policy}
-    : FOR    ${intent_id}    IN    @{all_intents_ids}
-    \    Remove Intent    ${intent_id}
+    FOR    ${index}    IN RANGE    ${size}
+        ${compiled_intent_validation}=    Get From List    ${all_intent_validations}    ${index}
+        ${intent_validation_line}=    Get Lines Containing String    ${output}    ${compiled_intent_validation}
+        ${policy}=    Get From List    ${all_intent_validations_policies}    ${index}
+        Should Contain    ${intent_validation_line}    ${policy}
+    END
+    FOR    ${intent_id}    IN    @{all_intents_ids}
+        Remove Intent    ${intent_id}
+    END
     ${output}=    Issue Command On Karaf Console    intent:list -c
-    : FOR    ${intent_id}    IN    @{all_intents_ids}
-    \    Should Not Contain    ${output}    ${id}
+    FOR    ${intent_id}    IN    @{all_intents_ids}
+        Should Not Contain    ${output}    ${id}
+    END
 
 *** Keywords ***
 Setup NIC Console Environment

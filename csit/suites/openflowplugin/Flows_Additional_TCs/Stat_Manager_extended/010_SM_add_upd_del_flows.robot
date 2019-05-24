@@ -33,10 +33,11 @@ ${switch_name}    s${switch_idx}
 Test Add Flows Group 0
     [Documentation]    Add all flows and waits for SM to collect data
     [Template]    NONE
-    : FOR    ${flowfile}    IN    @{flowlist0}
-    \    Log    ${flowfile}
-    \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
-    \    Run Keyword And Continue On Failure    Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
+    FOR    ${flowfile}    IN    @{flowlist0}
+        Log    ${flowfile}
+        Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
+        Run Keyword And Continue On Failure    Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
+    END
     # Lets wait for ofp to collect stats
     ${flows}=    Get Length    ${flowlist0}
     Wait Until Keyword Succeeds    30s    2s    FlowLib.Check Flow Stats Are Available    openflow:1    ${flows}
@@ -218,10 +219,11 @@ Test Is Flow 550 Added
 Test Update Flows Group 0
     [Documentation]    Update all flows and waits for SM to collect data
     [Template]    NONE
-    : FOR    ${flowfile}    IN    @{flowlist0}
-    \    Log    ${flowfile}
-    \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
-    \    Run Keyword And Continue On Failure    Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${upddata}
+    FOR    ${flowfile}    IN    @{flowlist0}
+        Log    ${flowfile}
+        Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
+        Run Keyword And Continue On Failure    Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${upddata}
+    END
     # Lets wait for ofp to collect stats
     Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)
@@ -402,10 +404,11 @@ Test Is Flow 550 Updated
 Test Delete Flows Group 0
     [Documentation]    Delete all flows and waits for SM to collect data
     [Template]    NONE
-    : FOR    ${flowfile}    IN    @{flowlist0}
-    \    Log    ${flowfile}
-    \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
-    \    Run Keyword And Continue On Failure    Delete Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}
+    FOR    ${flowfile}    IN    @{flowlist0}
+        Log    ${flowfile}
+        Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
+        Run Keyword And Continue On Failure    Delete Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}
+    END
     # Lets wait for ofp to collect stats
     Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)

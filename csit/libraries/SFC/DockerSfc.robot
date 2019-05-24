@@ -57,9 +57,10 @@ Multiple Docker Exec
     [Arguments]    ${docker_name_list}    ${command}    ${return_contains}=${EMPTY}    ${result_code}=0
     [Documentation]    Execute a command in a list of dockers and return all the outputs in a list
     @{list_output}=    Create List
-    : FOR    ${docker_id}    IN    @{docker_name_list}
-    \    ${exec_output}=    Docker Exec    ${docker_id}    ${command}    ${return_contains}    ${result_code}
-    \    Append To List    ${list_output}    ${exec_output}
+    FOR    ${docker_id}    IN    @{docker_name_list}
+        ${exec_output}=    Docker Exec    ${docker_id}    ${command}    ${return_contains}    ${result_code}
+        Append To List    ${list_output}    ${exec_output}
+    END
     [Return]    ${list_output}
 
 Get Flows In Docker Containers

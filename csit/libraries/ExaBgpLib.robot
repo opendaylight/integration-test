@@ -53,12 +53,13 @@ Start_ExaBgp_And_Verify_Connected
     [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}
     [Documentation]    Starts the ExaBgp and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
-    : FOR    ${idx}    IN RANGE    ${connection_retries}
-    \    Start_ExaBgp    ${cfg_file}
-    \    ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
-    \    ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}
-    \    BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    Stop_ExaBgp
-    \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
+    FOR    ${idx}    IN RANGE    ${connection_retries}
+        Start_ExaBgp    ${cfg_file}
+        ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
+        ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}
+        BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    Stop_ExaBgp
+        BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
+    END
     BuiltIn.Fail    Unable to connect ExaBgp to ODL
 
 Verify_ExaBgps_Connection
@@ -74,12 +75,13 @@ Upload_ExaBgp_Cluster_Config_Files
     [Documentation]    Uploads exabgp config files.
     SSHLibrary.Put_File    ${bgp_var_folder}/${cfg_file}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP1/${ODL_SYSTEM_1_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP2/${ODL_SYSTEM_2_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP3/${ODL_SYSTEM_3_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP1/${ODL_SYSTEM_1_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP2/${ODL_SYSTEM_2_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP3/${ODL_SYSTEM_3_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END

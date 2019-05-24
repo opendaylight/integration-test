@@ -30,8 +30,9 @@ Verify VPN instance
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    : FOR    ${value}    IN    @{vpn_inst_values}
-    \    Should Contain    ${resp.content}    ${value}
+    FOR    ${value}    IN    @{vpn_inst_values}
+        Should Contain    ${resp.content}    ${value}
+    END
 
 Create ietf vm interface
     [Documentation]    Creates ietf interface through the restconf
@@ -46,8 +47,9 @@ Verify ietf vm interface
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    : FOR    ${value}    IN    @{vm_int_values}
-    \    Should Contain    ${resp.content}    ${value}
+    FOR    ${value}    IN    @{vm_int_values}
+        Should Contain    ${resp.content}    ${value}
+    END
 
 Create VPN interface
     [Documentation]    Creates vpn interface for the corresponding ietf interface
@@ -62,8 +64,9 @@ Verify VPN interface
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    : FOR    ${value}    IN    @{vm_vpnint_values}
-    \    Should Contain    ${resp.content}    ${value}
+    FOR    ${value}    IN    @{vm_vpnint_values}
+        Should Contain    ${resp.content}    ${value}
+    END
 
 Verify FIB entry after create
     [Documentation]    Verifies the fib entry for the corresponding vpn interface

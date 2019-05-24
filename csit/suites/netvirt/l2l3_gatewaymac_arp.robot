@@ -136,33 +136,38 @@ Suite Setup
 Create Neutron Networks
     [Arguments]    ${NUM_OF_NETWORK}
     [Documentation]    Create required number of networks
-    : FOR    ${NET}    IN    @{REQ_NETWORKS}
-    \    OpenStackOperations.Create Network    ${NET}
+    FOR    ${NET}    IN    @{REQ_NETWORKS}
+        OpenStackOperations.Create Network    ${NET}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${REQ_NETWORKS}
 
 Create Neutron Subnets
     [Arguments]    ${NUM_OF_NETWORK}
     [Documentation]    Create required number of subnets for previously created networks
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_NETWORK}
-    \    OpenStackOperations.Create SubNet    ${REQ_NETWORKS[${index}]}    ${REQ_SUBNETS[${index}]}    ${REQ_SUBNET_CIDR[${index}]}
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_NETWORK}
+        OpenStackOperations.Create SubNet    ${REQ_NETWORKS[${index}]}    ${REQ_SUBNETS[${index}]}    ${REQ_SUBNET_CIDR[${index}]}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${REQ_SUBNETS}
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
-    \    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
+        OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORT_LIST}
 
 Create Nova VMs
     [Arguments]    ${NUM_OF_VMS_PER_DPN}
     [Documentation]    Create Vm instances on compute nodes
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_DPN}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_LIST[${index}]}    ${VM_NAMES[${index}]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_DPN}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_LIST[${index}]}    ${VM_NAMES[${index}]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     ${start} =    Evaluate    ${index}+1
     ${NUM_OF_VMS_PER_DPN} =    Evaluate    ${start}+${NUM_OF_VMS_PER_DPN}
-    : FOR    ${index}    IN RANGE    ${start}    ${NUM_OF_VMS_PER_DPN}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_LIST[${index}]}    ${VM_NAMES[${index}]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    ${start}    ${NUM_OF_VMS_PER_DPN}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_LIST[${index}]}    ${VM_NAMES[${index}]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
@@ -190,12 +195,14 @@ Create Setup
 
 Add Interfaces To Routers
     [Documentation]    Add Multiple Interfaces to Router and Verify
-    : FOR    ${INTERFACE}    IN    @{REQ_SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${REQ_ROUTER}    ${INTERFACE}
+    FOR    ${INTERFACE}    IN    @{REQ_SUBNETS}
+        OpenStackOperations.Add Router Interface    ${REQ_ROUTER}    ${INTERFACE}
+    END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${REQ_ROUTER}
-    : FOR    ${INTERFACE}    IN    @{REQ_SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
-    \    BuiltIn.Should Contain    ${interface_output}    ${subnet_id}
+    FOR    ${INTERFACE}    IN    @{REQ_SUBNETS}
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
+        BuiltIn.Should Contain    ${interface_output}    ${subnet_id}
+    END
 
 Verify Flows Are Present For ARP
     [Arguments]    ${arp_op_code}    ${additional_args}=${EMPTY}

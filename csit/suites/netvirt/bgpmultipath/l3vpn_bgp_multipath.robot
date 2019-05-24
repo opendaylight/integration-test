@@ -51,27 +51,32 @@ Verify ODL supports REST API/CLI for multipath configuration (enable/disable mul
 
 Verify CSC supports REST API/CLI for max path configuration
     [Documentation]    Verify CSC supports REST API/CLI for max path configuration
-    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
-    \    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${idx}]    vpnid=@{VPN_ID}[${idx}]    rd=@{L3VPN_RD_IRT_ERT}[${idx}]    exportrt=@{L3VPN_RD_IRT_ERT}[${idx}]    importrt=@{L3VPN_RD_IRT_ERT}[${idx}]
+    FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+        VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${idx}]    vpnid=@{VPN_ID}[${idx}]    rd=@{L3VPN_RD_IRT_ERT}[${idx}]    exportrt=@{L3VPN_RD_IRT_ERT}[${idx}]    importrt=@{L3VPN_RD_IRT_ERT}[${idx}]
+    END
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
-    \    Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+        BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    END
+    FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+        Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
+        BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[${idx}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
 
 Verify max-path error message with invalid inputs
     [Documentation]    Verify max path error message while configuring maxpath with invalid range
     VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    : FOR    ${invalid}    IN    @{MAX_PATH_INVALID_LIST}
-    \    Configure Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+        BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    END
+    FOR    ${invalid}    IN    @{MAX_PATH_INVALID_LIST}
+        Configure Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
+        BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    ${invalid}    @{DCGW_RD_IRT_ERT}[0]
+    END
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}    False
 
 Verify ODL supports dynamic configuration changes for max path value
@@ -79,35 +84,40 @@ Verify ODL supports dynamic configuration changes for max path value
     VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
     VpnOperations.Associate VPN to Router    routerid=@{router_id_list}[0]    vpnid=@{VPN_ID}[0]
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+        BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    END
     Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
-    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
-    \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
+    FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+        BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
-    : FOR    ${index}    IN RANGE    0    3
-    \    Configure Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
-    \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
-    \    ...    @{NUM_OF_ROUTES}[2]
-    \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[${index}]
+    FOR    ${index}    IN RANGE    0    3
+        Configure Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
+        BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[${index}]    @{DCGW_RD_IRT_ERT}[0]
+        BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
+        ...    @{NUM_OF_ROUTES}[2]
+        BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[${index}]
+    END
 
 Verify that ECMP path gets withdrawn by QBGP after disabling multipath
     [Documentation]    Verify that ECMP path gets withdrawn by QBGP after disabling multipath
     VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
     VpnOperations.Associate VPN to Router    routerid=@{router_id_list}[0]    vpnid=@{VPN_ID}[0]
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
-    \    BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.Create L3VPN on DCGW    ${dcgw}    ${AS_ID}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+        BgpOperations.Verify L3VPN On DCGW    ${dcgw}    @{VPN_NAME}[0]    @{DCGW_RD_IRT_ERT}[0]
+    END
     Configure Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Maxpath    @{MAX_PATH_LIST}[2]    @{DCGW_RD_IRT_ERT}[0]
-    : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
-    \    BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
+    FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
+        BgpOperations.Add Routes On DCGW    @{DCGW_IP_LIST}[${idx}]    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{LABEL}[${idx}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    BgpOperations.Check BGP VPNv4 Nbr On ODL    ${NUM_OF_DCGW}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Routing Entry On ODL    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[2]
@@ -131,46 +141,55 @@ Stop Suite
 
 Test Cleanup
     [Documentation]    Posttest case cleanup
-    : FOR    ${l3vpn_rd}    IN    @{DCGW_RD_IRT_ERT}
-    \    Configure Maxpath    @{MAX_PATH_LIST}[0]    ${l3vpn_rd}
-    : FOR    ${vpn}    IN    @{VPN_ID}
-    \    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=${vpn}
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BuiltIn.Run Keyword And Ignore Error    BgpOperations.Delete L3VPN on DCGW    ${dcgw}    ${AS_ID}    ${VPN_NAME}
+    FOR    ${l3vpn_rd}    IN    @{DCGW_RD_IRT_ERT}
+        Configure Maxpath    @{MAX_PATH_LIST}[0]    ${l3vpn_rd}
+    END
+    FOR    ${vpn}    IN    @{VPN_ID}
+        BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=${vpn}
+    END
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BuiltIn.Run Keyword And Ignore Error    BgpOperations.Delete L3VPN on DCGW    ${dcgw}    ${AS_ID}    ${VPN_NAME}
+    END
 
 Create Setup
     [Documentation]    Starting BGP process on each DCGW and ODL
     ...    Verifying BGP neighbor session status
     ...    Creating 3 networks, 3 subnets, one router
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.Start Quagga Processes On DCGW    ${dcgw}
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.Start Quagga Processes On DCGW    ${dcgw}
+    END
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
     KarafKeywords.Issue Command On Karaf Console    ${BGP_CONFIG_SERVER_CMD}
     BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
-    : FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
-    \    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${dcgw}
-    \    ${output} =    BgpOperations.Get BGP Configuration On ODL    session
-    \    BuiltIn.Should Contain    ${output}    ${dcgw}
-    \    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${dcgw}    ${AS_ID}    ${dcgw}    ${ODL_SYSTEM_IP}    @{VPN_NAME}[0]
-    \    ...    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
-    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${dcgw}    ${ODL_SYSTEM_IP}
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
+    FOR    ${dcgw}    IN    @{DCGW_IP_LIST}
+        BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${dcgw}
+        ${output} =    BgpOperations.Get BGP Configuration On ODL    session
+        BuiltIn.Should Contain    ${output}    ${dcgw}
+        BgpOperations.Configure BGP And Add Neighbor On DCGW    ${dcgw}    ${AS_ID}    ${dcgw}    ${ODL_SYSTEM_IP}    @{VPN_NAME}[0]
+        ...    @{DCGW_RD_IRT_ERT}[0]    @{NETWORK_IP}[0]
+        BuiltIn.Wait Until Keyword Succeeds    120s    20s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${dcgw}    ${ODL_SYSTEM_IP}
+    END
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    : FOR    ${index}    IN RANGE    0    3
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDR}[${index}]
+    FOR    ${index}    IN RANGE    0    3
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDR}[${index}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
     ${router_id_list}    BuiltIn.Create List    @{EMPTY}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-    \    ${router_id} =    OpenStackOperations.Get Router Id    ${router}
-    \    Collections.Append To List    ${router_id_list}    ${router_id}
+    FOR    ${router}    IN    @{ROUTERS}
+        OpenStackOperations.Create Router    ${router}
+        ${router_id} =    OpenStackOperations.Get Router Id    ${router}
+        Collections.Append To List    ${router_id_list}    ${router_id}
+    END
     BuiltIn.Set Suite Variable    ${router_id_list}
-    : FOR    ${index}    IN RANGE    0    3
-    \    OpenStackOperations.Add Router Interface    @{ROUTERS}[${index}]    @{SUBNETS}[${index}]
-    \    ${output} =    OpenStackOperations.Show Router Interface    @{ROUTERS}[${index}]
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    @{SUBNETS}[${index}]
-    \    BuiltIn.Should Contain    ${output}    ${subnet_id}
+    FOR    ${index}    IN RANGE    0    3
+        OpenStackOperations.Add Router Interface    @{ROUTERS}[${index}]    @{SUBNETS}[${index}]
+        ${output} =    OpenStackOperations.Show Router Interface    @{ROUTERS}[${index}]
+        ${subnet_id} =    OpenStackOperations.Get Subnet Id    @{SUBNETS}[${index}]
+        BuiltIn.Should Contain    ${output}    ${subnet_id}
+    END
 
 Configure Multipath On ODL
     [Arguments]    ${setting}

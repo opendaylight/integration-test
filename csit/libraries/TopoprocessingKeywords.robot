@@ -136,19 +136,21 @@ Insert Underlay Topologies
     [Documentation]    Insert underlay topologies used by following tests
     Log    Inserting underlay topologies
     # Network underlay topologies
-    : FOR    ${index}    IN RANGE    1    7
-    \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
-    \    Log    ${resp.content}
-    \    Should Match    "${resp.status_code}"    "20?"
+    FOR    ${index}    IN RANGE    1    7
+        ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
+        Log    ${resp.content}
+        Should Match    "${resp.status_code}"    "20?"
+    END
     # Openflow underlay nodes
     ${resp}    Put Request    session    ${CONFIG_API}/opendaylight-inventory:nodes    data=${OPENFLOW_UNDERLAY_NODES}
     Log    ${resp.content}
     Should Match    "${resp.status_code}"    "20?"
     # Openflow underlay topologies
-    : FOR    ${index}    IN RANGE    1    7
-    \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
-    \    Log    ${resp.content}
-    \    Should Match    "${resp.status_code}"    "20?"
+    FOR    ${index}    IN RANGE    1    7
+        ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
+        Log    ${resp.content}
+        Should Match    "${resp.status_code}"    "20?"
+    END
     Issue Command On Karaf Console    log:clear
     Log    ${resp.content}
 
@@ -409,8 +411,9 @@ Check Aggregated Node in Topology
     Should Contain X Times    ${aggregated_node}    <supporting-node>    ${supp_node_count}
     Should Contain X Times    ${aggregated_node}    <termination-point>    ${tp_count}
     Should Contain X Times    ${aggregated_node}    <tp-ref>    ${tp_count}
-    : FOR    ${supp_node_id}    IN    @{supp_node_ids}
-    \    Element Text Should Be    ${aggregated_node}    ${supp_node_id}    xpath=.//supporting-node[node-ref='${supp_node_id}']/node-ref
+    FOR    ${supp_node_id}    IN    @{supp_node_ids}
+        Element Text Should Be    ${aggregated_node}    ${supp_node_id}    xpath=.//supporting-node[node-ref='${supp_node_id}']/node-ref
+    END
     ${overlay_node_id}    Get Element Text    ${aggregated_node}    xpath=./node-id
     [Return]    ${overlay_node_id}
 
@@ -421,14 +424,16 @@ Check Aggregated Termination Point in Node
     ${tp}    Extract Termination Point from Topology    ${model}    ${topology}    ${topology_id}    ${node_id}    ${tp_id}
     ${supp_tp_count}    Get Length    ${supp_tp_ids}
     Should Contain X Times    ${tp}    <tp-ref>    ${supp_tp_count}
-    : FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
-    \    Should Contain X Times    ${tp}    ${supp_tp_id}</tp-ref>    1
+    FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
+        Should Contain X Times    ${tp}    ${supp_tp_id}</tp-ref>    1
+    END
 
 Check Filtered Nodes in Topology
     [Arguments]    ${topology}    ${tp_count}    @{node_ids}
     [Documentation]    Checks nodes in filtered topology
-    : FOR    ${node_id}    IN    @{node_ids}
-    \    Element Text Should Be    ${topology}    ${node_id}    xpath=.//node/supporting-node[node-ref='${node_id}']/node-ref
+    FOR    ${node_id}    IN    @{node_ids}
+        Element Text Should Be    ${topology}    ${node_id}    xpath=.//node/supporting-node[node-ref='${node_id}']/node-ref
+    END
 
 Check Filtered Termination Points in Node
     [Arguments]    ${topology}    ${supp_node_id}    @{supp_tp_ids}
@@ -438,14 +443,16 @@ Check Filtered Termination Points in Node
     Should Contain X Times    ${node}    <supporting-node>    1
     Should Contain X Times    ${node}    <termination-point>    ${supp_tp_count}
     Should Contain X Times    ${node}    <tp-ref>    ${supp_tp_count}
-    : FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
-    \    Should Contain X Times    ${node}    ${supp_tp_id}    1
+    FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
+        Should Contain X Times    ${node}    ${supp_tp_id}    1
+    END
 
 Check Filtered Links In Topology
     [Arguments]    ${topology}    @{supp_link_ids}
     [Documentation]    Checks links in filtered topology
-    : FOR    ${supp_link_id}    IN    @{supp_link_ids}
-    \    Should Contain X Times    ${topology}    ${supp_link_id}</link-ref>    1
+    FOR    ${supp_link_id}    IN    @{supp_link_ids}
+        Should Contain X Times    ${topology}    ${supp_link_id}</link-ref>    1
+    END
 
 Check Overlay Link Source And Destination
     [Arguments]    ${model}    ${topology}    ${topo_id}    ${link_id}    ${expected_source}    ${expected_destination}

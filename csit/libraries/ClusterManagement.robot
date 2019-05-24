@@ -86,10 +86,11 @@ Check_Cluster_Is_In_Sync
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Fail if no-sync is detected on a member from list (or any).
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    ${status} =    Get_Sync_Status_Of_Member    member_index=${index}
-    \    BuiltIn.Continue_For_Loop_If    'True' == '${status}'
-    \    BuiltIn.Fail    Index ${index} has incorrect status: ${status}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        ${status} =    Get_Sync_Status_Of_Member    member_index=${index}
+        BuiltIn.Continue_For_Loop_If    'True' == '${status}'
+        BuiltIn.Fail    Index ${index} has incorrect status: ${status}
+    END
 
 Get_Sync_Status_Of_Member
     [Arguments]    ${member_index}
@@ -106,8 +107,9 @@ Verify_Leader_Exists_For_Each_Shard
     [Arguments]    ${shard_name_list}    ${shard_type}=operational    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
     [Documentation]    For each shard name, call Get_Leader_And_Followers_For_Shard.
     ...    Not much logic there, but single Keyword is useful when using BuiltIn.Wait_Until_Keyword_Succeeds.
-    : FOR    ${shard_name}    IN    @{shard_name_list}
-    \    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
+    FOR    ${shard_name}    IN    @{shard_name_list}
+        Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
+    END
 
 Get_Leader_And_Followers_For_Shard
     [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=${EMPTY}
@@ -134,12 +136,13 @@ Get_State_Info_For_Shard
     ${ds_type} =    BuiltIn.Set_Variable_If    '${shard_type}' != 'config'    operational    config
     ${leader_list} =    BuiltIn.Create_List
     ${follower_list} =    BuiltIn.Create_List
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    ${raft_state} =    Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}    verify_restconf=${verify_restconf}
-    \    ...    http_timeout=${http_timeout}
-    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
-    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
-    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        ${raft_state} =    Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}    verify_restconf=${verify_restconf}
+        ...    http_timeout=${http_timeout}
+        BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
+        ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
+        ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    END
     [Return]    ${leader_list}    ${follower_list}
 
 Get_Raft_State_Of_Shard_At_Member
@@ -238,10 +241,11 @@ Get_Owner_And_Candidates_For_Device_Old
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
     ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
     ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
-    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-    \    ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
-    \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
-    \    Collections.Append_To_List    ${candidate_list}    ${candidate}
+    FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+        ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+        ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
+        Collections.Append_To_List    ${candidate_list}    ${candidate}
+    END
     Collections.Sort_List    ${candidate_list}
     [Return]    ${owner}    ${candidate_list}
 
@@ -357,10 +361,11 @@ Get_Owner_And_Candidates_For_Type_And_Id
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
     ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
     ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
-    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-    \    ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
-    \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
-    \    Collections.Append_To_List    ${candidate_list}    ${candidate}
+    FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+        ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+        ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
+        Collections.Append_To_List    ${candidate_list}    ${candidate}
+    END
     Collections.Sort_List    ${candidate_list}
     BuiltIn.Comment    TODO: Separate check lines into Verify_Owner_And_Candidates_For_Type_And_Id
     BuiltIn.Run_Keyword_If    """${require_candidate_list}"""    BuiltIn.Should_Be_Equal    ${require_candidate_list}    ${candidate_list}    Candidate list does not match: ${candidate_list} is not ${require_candidate_list}
@@ -415,8 +420,9 @@ Kill_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
     # TODO: Convert to WUKS with configurable timeout if it turns out 1 second is not enough.
     BuiltIn.Sleep    1s    Kill -9 closes open files, which may take longer than ssh overhead, but not long enough to warrant WUKS.
-    : FOR    ${index}    IN    @{kill_index_list}
-    \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    FOR    ${index}    IN    @{kill_index_list}
+        Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    END
     Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
     [Return]    ${updated_index_list}
 
@@ -442,8 +448,9 @@ Stop_Members_From_List_Or_All
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    @{stop_index_list}
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
-    : FOR    ${index}    IN    @{stop_index_list}
-    \    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    FOR    ${index}    IN    @{stop_index_list}
+        BuiltIn.Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    END
     Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
     [Return]    ${updated_index_list}
 
@@ -489,9 +496,10 @@ Verify_Members_Are_Ready
 Verify_Restconf_Is_Available
     [Arguments]    ${member_index_list}
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
-    \    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    FOR    ${index}    IN    @{index_list}
+        ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
+        TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    END
 
 Freeze_Single_Member
     [Arguments]    ${member}
@@ -520,8 +528,9 @@ Clean_Journals_Data_And_Snapshots_On_List_Or_All
     ...    See https://bugs.opendaylight.org/show_bug.cgi?id=8138
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots" "${karaf_home}/data"
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        Run_Bash_Command_On_Member    command=${command}    member_index=${index}
+    END
 
 Verify_Karaf_Is_Not_Running_On_Member
     [Arguments]    ${member_index}
@@ -549,10 +558,11 @@ Isolate_Member_From_List_Or_All
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
     ${dport} =    BuiltIn.Set_Variable_If    '${port}' != '${EMPTY}'    --dport ${port}    ${EMPTY}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
-    \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    FOR    ${index}    IN    @{index_list}
+        ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
+        ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
+        BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    END
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     BuiltIn.Log    ${output}
@@ -566,10 +576,11 @@ Rejoin_Member_From_List_Or_All
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${rejoin_member_index}
     ${dport} =    BuiltIn.Set_Variable_If    '${port}' != '${EMPTY}'    --dport ${port}    ${EMPTY}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
-    \    BuiltIn.Run_Keyword_If    "${index}" != "${rejoin_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
+    FOR    ${index}    IN    @{index_list}
+        ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
+        ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
+        BuiltIn.Run_Keyword_If    "${index}" != "${rejoin_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
+    END
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
     BuiltIn.Log    ${output}
@@ -585,9 +596,10 @@ Check_Bash_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
     [Documentation]    Cycle through indices (or all), run bash command on each, using temporary SSH session and restoring the previously active one.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    Check_Bash_Command_On_Member    command=${command}    member_index=${index}    return_success_only=${return_success_only}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}
-    \    ...    stderr_must_be_empty=${stderr_must_be_empty}
+    FOR    ${index}    IN    @{index_list}
+        Check_Bash_Command_On_Member    command=${command}    member_index=${index}    return_success_only=${return_success_only}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}
+        ...    stderr_must_be_empty=${stderr_must_be_empty}
+    END
 
 Check_Bash_Command_On_Member
     [Arguments]    ${command}    ${member_index}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
@@ -607,8 +619,9 @@ Run_Bash_Command_On_List_Or_All
     [Documentation]    Cycle through indices (or all), run command on each.
     # TODO: Migrate callers to Check_Bash_Command_*
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
+    FOR    ${index}    IN    @{index_list}
+        Run_Bash_Command_On_Member    command=${command}    member_index=${index}
+    END
 
 Run_Bash_Command_On_Member
     [Arguments]    ${command}    ${member_index}
@@ -623,9 +636,10 @@ Run_Karaf_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${timeout}=10s
     [Documentation]    Cycle through indices (or all), run karaf command on each.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
-    \    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    ${command}    ${member_ip}    timeout=${timeout}
+    FOR    ${index}    IN    @{index_list}
+        ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
+        KarafKeywords.Safe_Issue_Command_On_Karaf_Console    ${command}    ${member_ip}    timeout=${timeout}
+    END
 
 Run_Karaf_Command_On_Member
     [Arguments]    ${command}    ${member_index}    ${timeout}=10s
@@ -640,13 +654,15 @@ Install_Feature_On_List_Or_All
     [Documentation]    Attempt installation on each member from list (or all). Then look for failures.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${status_list} =    BuiltIn.Create_List
-    : FOR    ${index}    IN    @{index_list}
-    \    ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Install_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
-    \    ...    timeout=${timeout}
-    \    BuiltIn.Log    ${text}
-    \    Collections.Append_To_List    ${status_list}    ${status}
-    : FOR    ${status}    IN    @{status_list}
-    \    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    ${feature_name} installation failed, see log.
+    FOR    ${index}    IN    @{index_list}
+        ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Install_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
+        ...    timeout=${timeout}
+        BuiltIn.Log    ${text}
+        Collections.Append_To_List    ${status_list}    ${status}
+    END
+    FOR    ${status}    IN    @{status_list}
+        BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    ${feature_name} installation failed, see log.
+    END
 
 Install_Feature_On_Member
     [Arguments]    ${feature_name}    ${member_index}    ${timeout}=60s
@@ -664,9 +680,10 @@ With_Ssh_To_List_Or_All_Run_Keyword
     # TODO: For_Index_From_List_Or_All_Run_Keyword applied to With_Ssh_To_Member_Run_Keyword?
     # TODO: Imagine another keyword, using ScalarClosures and adding member index as first argument for each call. Worth it?
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${member_index}    IN    @{index_list}
-    \    ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
-    \    SSHKeywords.Run_Unsafely_Keyword_Over_Temporary_Odl_Session    ${member_ip}    ${keyword_name}    @{args}    &{kwargs}
+    FOR    ${member_index}    IN    @{index_list}
+        ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
+        SSHKeywords.Run_Unsafely_Keyword_Over_Temporary_Odl_Session    ${member_ip}    ${keyword_name}    @{args}    &{kwargs}
+    END
 
 Safe_With_Ssh_To_List_Or_All_Run_Keyword
     [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
@@ -696,8 +713,9 @@ Restore_Karaf_Log_On_List_Or_All
 ClusterManagement__Clean_Directories
     [Arguments]    ${relative_path_list}    ${karaf_home}
     [Documentation]    For each relative path, remove files with respect to ${karaf_home}. Return None.
-    : FOR    ${relative_path}    IN    @{relative_path_list}
-    \    SSHLibrary.Execute_Command    rm -rf ${karaf_home}${/}${relative_path}
+    FOR    ${relative_path}    IN    @{relative_path_list}
+        SSHLibrary.Execute_Command    rm -rf ${karaf_home}${/}${relative_path}
+    END
 
 Put_As_Json_And_Check_Member_List_Or_All
     [Arguments]    ${uri}    ${data}    ${member_index}    ${member_index_list}=${EMPTY}
@@ -741,27 +759,30 @@ Check_Json_Member_List_Or_All
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check received data is = ${expected data}.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
-    \    TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_data}    ${data}
+    FOR    ${index}    IN    @{index_list}
+        ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
+        TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_data}    ${data}
+    END
 
 Check_Item_Occurrence_Member_List_Or_All
     [Arguments]    ${uri}    ${dictionary}    ${member_index_list}=${EMPTY}
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check received for occurrences of items expressed in a dictionary ${dictionary}.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
-    \    Utils.Check Item Occurrence    ${data}    ${dictionary}
+    FOR    ${index}    IN    @{index_list}
+        ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
+        Utils.Check Item Occurrence    ${data}    ${dictionary}
+    END
 
 Check_No_Content_Member_List_Or_All
     [Arguments]    ${uri}    ${member_index_list}=${EMPTY}
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check there is no content.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
-    \    Utils.No_Content_From_URI    ${session}    ${uri}
+    FOR    ${index}    IN    @{index_list}
+        ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
+        Utils.No_Content_From_URI    ${session}    ${uri}
+    END
 
 Get_From_Member
     [Arguments]    ${uri}    ${member_index}    ${access}=${ACCEPT_EMPTY}
@@ -780,9 +801,10 @@ Resolve_IP_Address_For_Members
     [Arguments]    ${member_index_list}
     [Documentation]    Return a list of IP address of given indexes.
     ${member_ip_list} =    BuiltIn.Create_List
-    : FOR    ${index}    IN    @{member_index_list}
-    \    ${ip_address} =    Collections.Get From Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
-    \    Collections.Append_To_List    ${member_ip_list}    ${ip_address}
+    FOR    ${index}    IN    @{member_index_list}
+        ${ip_address} =    Collections.Get From Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
+        Collections.Append_To_List    ${member_ip_list}    ${ip_address}
+    END
     [Return]    ${member_ip_list}
 
 Resolve_Http_Session_For_Member
@@ -840,9 +862,10 @@ ClusterManagement__Compute_Derived_Variables
     @{member_index_list} =    BuiltIn.Create_List
     @{session_list} =    BuiltIn.Create_List
     &{index_to_ip_mapping} =    BuiltIn.Create_Dictionary
-    : FOR    ${index}    IN RANGE    1    ${int_of_members+1}
-    \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    http_timeout=${http_timeout}
-    \    ...    http_retries=${http_retries}
+    FOR    ${index}    IN RANGE    1    ${int_of_members+1}
+        ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    http_timeout=${http_timeout}
+        ...    http_retries=${http_retries}
+    END
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__member_index_list}    ${member_index_list}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__index_to_ip_mapping}    ${index_to_ip_mapping}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
@@ -885,11 +908,13 @@ Check Service Status
     ${service_status_output} =    BuiltIn.Run Keyword If    ${NUM_ODL_SYSTEM} > 1    KarafKeywords.Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
     ...    ELSE    KarafKeywords.Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
     BuiltIn.Should Contain    ${service_status_output}    ${system_ready_state}
-    : FOR    ${service}    IN    @{service_list}
-    \    BuiltIn.Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
+    FOR    ${service}    IN    @{service_list}
+        BuiltIn.Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
+    END
 
 Check Status Of Services Is OPERATIONAL
     [Arguments]    @{service_list}
     [Documentation]    This keyword will verify whether all the services are operational in all the ODL nodes
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
+    END

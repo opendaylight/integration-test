@@ -137,8 +137,9 @@ Create_Prefix_Shard
     [Documentation]    Create prefix based shard. ${replicas} is a list of cluster node indexes, taken e.g. from ClusterManagement.List_Indices_Or_All.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${replicas_str}    BuiltIn.Set_Variable    ${EMPTY}
-    : FOR    ${replica}    IN    @{replicas}
-    \    ${replicas_str}    BuiltIn.Set_Variable    ${replicas_str}<replicas>member-${replica}</replicas>
+    FOR    ${replica}    IN    @{replicas}
+        ${replicas_str}    BuiltIn.Set_Variable    ${replicas_str}<replicas>member-${replica}</replicas>
+    END
     &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    REPLICAS=${replicas_str}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${CREATE_PREFIX_SHARD_DIR}    mapping=${mapping}    session=${session}
 

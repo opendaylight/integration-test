@@ -52,9 +52,10 @@ Start Suite
 
 Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .
-    : FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
-    \    SSHLibrary.Switch Connection    ${conn_id}
-    \    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
+        SSHLibrary.Switch Connection    ${conn_id}
+        SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    END
     ${file} =    OperatingSystem.Get File    ${CONFIG_FILE_TEMPLATE}
     ${ovs bridge output}    ${bridge} =    BuiltIn.Should Match Regexp    ${file}    "ovsBridge": "(\\w.*)"
     BuiltIn.Set Suite Variable    ${bridge}
@@ -88,20 +89,22 @@ Modifying templates in playbook
     ${template} =    String.Replace String    ${template}    minion_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}
     @{minions}    Create List    coe-minion
     ${hosts}    Set Variable    coe-master:
-    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
-    \    Append To List    ${minions}    coe-minion${i}
-    \    ${hosts} =    Catenate    ${hosts}    coe-minion${i}:
+    FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
+        Append To List    ${minions}    coe-minion${i}
+        ${hosts} =    Catenate    ${hosts}    coe-minion${i}:
+    END
     ${hosts} =    Replace String Using Regexp    ${hosts}    :$    ${EMPTY}
     ${hosts} =    Remove Space on String    ${hosts}
     ${minion hosts} =    Replace String Using Regexp    ${hosts}    ^[\\w-]+:    ${EMPTY}
-    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
-    \    ${j} =    Evaluate    ${i}+1
-    \    ${template} =    String.Replace String    ${template}    ${minions[${i}-1]}    ${minions[${i}]}
-    \    ${template} =    String.Replace String    ${template}    ${TOOLS_SYSTEM_ALL_IPS[${i}-1]}    ${TOOLS_SYSTEM_ALL_IPS[${i}]}
-    \    ${template} =    String.Replace String    ${template}    192.168.50.1${i}    192.168.50.1${j}
-    \    ${template} =    String.Replace String    ${template}    10.11.${i}.0/24    10.11.${j}.0/24
-    \    ${template} =    String.Replace String    ${template}    10.11.${i}.1    10.11.${j}.1
-    \    Append To File    ${HOST_INVENTORY}    ${template}
+    FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}
+        ${j} =    Evaluate    ${i}+1
+        ${template} =    String.Replace String    ${template}    ${minions[${i}-1]}    ${minions[${i}]}
+        ${template} =    String.Replace String    ${template}    ${TOOLS_SYSTEM_ALL_IPS[${i}-1]}    ${TOOLS_SYSTEM_ALL_IPS[${i}]}
+        ${template} =    String.Replace String    ${template}    192.168.50.1${i}    192.168.50.1${j}
+        ${template} =    String.Replace String    ${template}    10.11.${i}.0/24    10.11.${j}.0/24
+        ${template} =    String.Replace String    ${template}    10.11.${i}.1    10.11.${j}.1
+        Append To File    ${HOST_INVENTORY}    ${template}
+    END
     ${host file} =    OperatingSystem.Get File    ${HOST_INVENTORY}
     ${host file} =    String.Replace String    ${host file}    master_ip    ${TOOLS_SYSTEM_ALL_IPS[0]}
     ${host file} =    String.Replace String    ${host file}    odl_ip    ${ODL_SYSTEM_IP}
@@ -114,10 +117,12 @@ Modifying templates in playbook
 
 Verify Config Files
     [Documentation]    Checks if the configuration files are present in all nodes
-    : FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Utils.Verify File Exists On Remote System    ${nodes}    ${CONFIG_FILE}
-    : FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Utils.Verify File Exists On Remote System    ${nodes}    ${CNI_BINARY_FILE}
+    FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Utils.Verify File Exists On Remote System    ${nodes}    ${CONFIG_FILE}
+    END
+    FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Utils.Verify File Exists On Remote System    ${nodes}    ${CNI_BINARY_FILE}
+    END
 
 Verify Watcher Is Running
     [Documentation]    Checks if watcher is running in the background
@@ -136,28 +141,32 @@ Label Nodes
     ${i} =    BuiltIn.Set Variable    1
     ${get nodes} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes
     @{get nodes} =    String.Split To Lines    ${get nodes}    2
-    : FOR    ${status}    IN    @{get nodes}
-    \    ${minion} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-.*-\\d+
-    \    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion} disktype=ss${i}
-    \    ${i} =    BuiltIn.Evaluate    ${i}+1
+    FOR    ${status}    IN    @{get nodes}
+        ${minion} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-.*-\\d+
+        Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion} disktype=ss${i}
+        ${i} =    BuiltIn.Evaluate    ${i}+1
+    END
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes --show-labels
 
 Derive Coe Data Models
     [Documentation]    Data models is created by integrating netvirt and coe data models which is given as input to get the model dumps
-    : FOR    ${models}    IN    @{netvirt_data_models}
-    \    Collections.Append To List    ${coe_data_models}    ${models}
+    FOR    ${models}    IN    @{netvirt_data_models}
+        Collections.Append To List    ${coe_data_models}    ${models}
+    END
 
 Check Pod Status Is Running
     [Documentation]    Checks the status of pods.This keyword is repeated until the status of all pods is Running
     ${pods} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get pods -o wide    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{cluster} =    String.Split To Lines    ${pods}    1
-    : FOR    ${pod}    IN    @{cluster}
-    \    BuiltIn.Should Match Regexp    ${pod}    ${POD_RUNNING_STATUS}
+    FOR    ${pod}    IN    @{cluster}
+        BuiltIn.Should Match Regexp    ${pod}    ${POD_RUNNING_STATUS}
+    END
 
 Tear Down
     [Documentation]    Test teardown to get dumpflows,ovsconfig,model dump,node status,pod status and to dump config files \ and delete pods.
-    : FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
-    \    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id}    ${bridge}
+    FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
+        OVSDB.Get DumpFlows And Ovsconfig    ${conn_id}    ${bridge}
+    END
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${coe_data_models}
     Coe.DumpConfig File
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -168,9 +177,10 @@ Delete Pods
     [Documentation]    Waits till the keyword delete status succeeds implying that all pods created have been deleted
     ${get pods} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide
     @{get pods} =    String.Split To Lines    ${get pods}    1
-    : FOR    ${status}    IN    @{get pods}
-    \    ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-\\w+
-    \    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl delete pods ${pod_name}
+    FOR    ${status}    IN    @{get pods}
+        ${pod_name} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-\\w+
+        Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl delete pods ${pod_name}
+    END
     BuiltIn.Wait Until Keyword Succeeds    60s    3s    Coe.Check If Pods Are Terminated
     Coe.Check For Stale veth Ports
 
@@ -182,8 +192,9 @@ Check If Pods Are Terminated
 
 Dump Config File
     [Documentation]    Logs the configuration files present in all nodes
-    : FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Utils.Run Command On Remote System And Log    ${nodes}    cat ${CONFIG_FILE}
+    FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Utils.Run Command On Remote System And Log    ${nodes}    cat ${CONFIG_FILE}
+    END
 
 Stop Suite
     [Documentation]    Suite teardown keyword
@@ -212,9 +223,10 @@ Stop Watcher
 
 Kube reset
     [Documentation]    Reset K8s to clear up all stale entries
-    : FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    ${kube} =    Utils.Run Command On Remote System And Log    ${nodes}    sudo kubeadm reset
-    \    BuiltIn.Should Contain    ${kube}    Stopping the kubelet service.
+    FOR    ${nodes}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        ${kube} =    Utils.Run Command On Remote System And Log    ${nodes}    sudo kubeadm reset
+        BuiltIn.Should Contain    ${kube}    Stopping the kubelet service.
+    END
 
 Create Pods
     [Arguments]    ${label}    ${yaml}    ${name}
@@ -232,28 +244,31 @@ Collect Pod Names and Ping
     ${get pods} =    Write Commands Until Expected Prompt    kubectl get pods -o wide    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{pod ips} =    String.Get Regexp Matches    ${get pods}    \\d+\\.\\d+\\.\\d+\\.\\d+
     @{pod names} =    String.Get Regexp Matches    ${get pods}    ss\\w+-\\w+
-    : FOR    ${pod_name}    IN    @{pod names}
-    \    ${logs} =    Log Statements    ${pod ips}    ${pod names}    ${pod_name}
-    \    Ping Pods    ${pod_name}    ${pod ips}    ${logs}
+    FOR    ${pod_name}    IN    @{pod names}
+        ${logs} =    Log Statements    ${pod ips}    ${pod names}    ${pod_name}
+        Ping Pods    ${pod_name}    ${pod ips}    ${logs}
+    END
 
 Log Statements
     [Arguments]    ${pod ips}    ${pod names}    ${pod_name}
     @{log statement} =    Create List
     ${i} =    Set Variable    0
-    : FOR    ${pod_ip}    IN    @{pod ips}
-    \    ${ping statement}    Set Variable    Ping from ${pod_name} to ${pod names[${i}]} (${pod ip})
-    \    Append To List    ${log statement}    ${ping statement}
-    \    ${i} =    Evaluate    ${i}+1
+    FOR    ${pod_ip}    IN    @{pod ips}
+        ${ping statement}    Set Variable    Ping from ${pod_name} to ${pod names[${i}]} (${pod ip})
+        Append To List    ${log statement}    ${ping statement}
+        ${i} =    Evaluate    ${i}+1
+    END
     [Return]    @{log statement}
 
 Ping Pods
     [Arguments]    ${pod_name}    ${pod ips}    ${logs}
     ${i} =    Set Variable    0
-    : FOR    ${ping info}    IN    @{logs}
-    \    ${ping} =    Write Commands Until Expected Prompt    kubectl exec -it ${pod_name} -- ping -c 3 ${pod ips[${i}]}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    \    BuiltIn.log    ${ping}
-    \    BuiltIn.Should Contain    ${ping}    64 bytes
-    \    ${i}    Evaluate    ${i}+1
+    FOR    ${ping info}    IN    @{logs}
+        ${ping} =    Write Commands Until Expected Prompt    kubectl exec -it ${pod_name} -- ping -c 3 ${pod ips[${i}]}    ${DEFAULT_LINUX_PROMPT_STRICT}
+        BuiltIn.log    ${ping}
+        BuiltIn.Should Contain    ${ping}    64 bytes
+        ${i}    Evaluate    ${i}+1
+    END
 
 Coe Suite Teardown
     [Documentation]    COE project requires stop suite to be executed only for the last test suite.This keyword find the current suite,compares it with the stored last suite value and executes Coe.Stop suite only if the cuurent suite is equal to the last suite.
@@ -268,9 +283,10 @@ Extract current suite name
     BuiltIn.Log    SUITES: ${SUITES}
     @{suite_names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
     @{suite_names_updated}    Create List
-    : FOR    ${suite}    IN    @{suite_names}
-    \    ${suite}    Replace String    ${suite}    _    ${SPACE}
-    \    Append To List    ${suite_names_updated}    ${suite}
+    FOR    ${suite}    IN    @{suite_names}
+        ${suite}    Replace String    ${suite}    _    ${SPACE}
+        Append To List    ${suite_names_updated}    ${suite}
+    END
     ${num_suites} =    BuiltIn.Get Length    ${suite_names_updated}
     ${suite line}    ${current_suite} =    BuiltIn.Run Keyword If    ${num_suites} > ${1}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
     ...    ELSE    BuiltIn.Set Variable    @{suite_names_updated}[0]    @{suite_names_updated}[0]
@@ -278,6 +294,7 @@ Extract current suite name
 
 Check For Stale veth Ports
     [Documentation]    Check on switches(except master) where pods were created and deleted to ensure there are no stale veth ports left behind.
-    : FOR    ${minion_index}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
-    \    ${switch output} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_${minion_index}_IP}    sudo ovs-vsctl show
-    \    BuiltIn.Should Not Contain    ${switch output}    veth
+    FOR    ${minion_index}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
+        ${switch output} =    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_${minion_index}_IP}    sudo ovs-vsctl show
+        BuiltIn.Should Not Contain    ${switch output}    veth
+    END

@@ -48,19 +48,21 @@ Configure_App_Peer
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
     ...    Configures 6 different peers, two internal, two external and two route-reflectors.
-    : FOR    ${index}    ${peer_type}    IN ZIP    ${NUMBERS}    ${PEER_TYPES}
-    \    &{mapping}    Create Dictionary    IP=127.0.0.${index}    HOLDTIME=${HOLDTIME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
-    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    \    TemplatedRequests.Put_As_Xml_Templated    ${POLICIES_VAR}${/}${peer_type}    mapping=${mapping}    session=${CONFIG_SESSION}
+    FOR    ${index}    ${peer_type}    IN ZIP    ${NUMBERS}    ${PEER_TYPES}
+        &{mapping}    Create Dictionary    IP=127.0.0.${index}    HOLDTIME=${HOLDTIME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
+        ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+        TemplatedRequests.Put_As_Xml_Templated    ${POLICIES_VAR}${/}${peer_type}    mapping=${mapping}    session=${CONFIG_SESSION}
+    END
 
 Start_Exabgps
     [Documentation]    Start 6 exabgps as processes in background, each with it's own configuration.
     SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    : FOR    ${index}    IN    @{NUMBERS}
-    \    ${start_cmd}    BuiltIn.Set_Variable    ${CMD} exabgp${index}.cfg > exa${index}.log &
-    \    BuiltIn.Log    ${start_cmd}
-    \    ${output}    SSHLibrary.Write    ${start_cmd}
-    \    BuiltIn.Log    ${output}
+    FOR    ${index}    IN    @{NUMBERS}
+        ${start_cmd}    BuiltIn.Set_Variable    ${CMD} exabgp${index}.cfg > exa${index}.log &
+        BuiltIn.Log    ${start_cmd}
+        ${output}    SSHLibrary.Write    ${start_cmd}
+        BuiltIn.Log    ${output}
+    END
 
 Verify_Rib_Filled
     [Documentation]    Verifies that sent routes are present in particular ribs.
@@ -70,15 +72,17 @@ Verify_Rib_Filled
 Stop_All_Peers
     [Documentation]    Send command to kill all exabgp processes running on controller
     ExaBgpLib.Stop_All_ExaBgps
-    : FOR    ${index}    IN    @{NUMBERS}
-    \    BGPcliKeywords.Store_File_To_Workspace    exa${index}.log    exa${index}.log
+    FOR    ${index}    IN    @{NUMBERS}
+        BGPcliKeywords.Store_File_To_Workspace    exa${index}.log    exa${index}.log
+    END
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    : FOR    ${index}    ${peer_type}    IN ZIP    ${NUMBERS}    ${PEER_TYPES}
-    \    &{mapping}    Create Dictionary    IP=127.0.0.${index}    HOLDTIME=${HOLDTIME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
-    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    \    TemplatedRequests.Delete_Templated    ${POLICIES_VAR}/${peer_type}    mapping=${mapping}    session=${CONFIG_SESSION}
+    FOR    ${index}    ${peer_type}    IN ZIP    ${NUMBERS}    ${PEER_TYPES}
+        &{mapping}    Create Dictionary    IP=127.0.0.${index}    HOLDTIME=${HOLDTIME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
+        ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+        TemplatedRequests.Delete_Templated    ${POLICIES_VAR}/${peer_type}    mapping=${mapping}    session=${CONFIG_SESSION}
+    END
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
@@ -113,10 +117,11 @@ Verify_Rib_Status
     ${output}    TemplatedRequests.Get_As_Json_Templated    ${POLICIES_VAR}/rib_state    session=${CONFIG_SESSION}
     BuiltIn.Log    ${output}
     ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    : FOR    ${index}    IN    @{NUMBERS}
-    \    &{mapping}    BuiltIn.Create_Dictionary    IP=127.0.0.${index}    AS_PATH=${AS_PATH}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Json_Templated    ${POLICIES_VAR}/effective_rib_in/peer_${index}    mapping=${mapping}
-    \    ...    session=${CONFIG_SESSION}    verify=True
+    FOR    ${index}    IN    @{NUMBERS}
+        &{mapping}    BuiltIn.Create_Dictionary    IP=127.0.0.${index}    AS_PATH=${AS_PATH}
+        BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Json_Templated    ${POLICIES_VAR}/effective_rib_in/peer_${index}    mapping=${mapping}
+        ...    session=${CONFIG_SESSION}    verify=True
+    END
     &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}    AS_PATH=${AS_PATH}
     # application peer verification
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Json_Templated    ${POLICIES_VAR}/app_peer_rib    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -129,12 +134,14 @@ Verify_Rib_Status_Empty
 Upload_Config_Files
     [Documentation]    Uploads exabgp config files and replaces variables within those
     ...    config files with desired values.
-    : FOR    ${index}    IN    @{NUMBERS}
-    \    SSHLibrary.Put_File    ${POLICIES_VAR}/exabgp_configs/exabgp${index}.cfg    .
+    FOR    ${index}    IN    @{NUMBERS}
+        SSHLibrary.Put_File    ${POLICIES_VAR}/exabgp_configs/exabgp${index}.cfg    .
+    END
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END

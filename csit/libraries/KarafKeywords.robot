@@ -23,8 +23,9 @@ Setup_Karaf_Keywords
     ClusterManagement.ClusterManagement_Setup    http_timeout=${http_timeout}
     ClusterManagement.Run_Bash_Command_On_List_Or_All    iptables -I INPUT -p tcp --dport ${KARAF_SHELL_PORT} -j ACCEPT; iptables-save
     BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
-    : FOR    ${index}    IN    @{ClusterManagement__member_index_list}
-    \    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3s    1s    Open_Controller_Karaf_Console_On_Background    member_index=${index}
+    FOR    ${index}    IN    @{ClusterManagement__member_index_list}
+        BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3s    1s    Open_Controller_Karaf_Console_On_Background    member_index=${index}
+    END
 
 Verify_Feature_Is_Installed
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}
@@ -57,8 +58,9 @@ Check For Elements On Karaf Command Output Message
     [Documentation]    Will execute the command using Issue Command On Karaf Console then check for the given elements
     ...    in the command output message
     ${output}    Issue_Command_On_Karaf_Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
-    : FOR    ${i}    IN    @{elements}
-    \    BuiltIn.Should_Contain    ${output}    ${i}
+    FOR    ${i}    IN    @{elements}
+        BuiltIn.Should_Contain    ${output}    ${i}
+    END
 
 Verify_Bundle_Is_Installed
     [Arguments]    ${bundle_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}
@@ -78,8 +80,9 @@ Check_Karaf_Log_Has_Messages
     [Arguments]    ${filter_string}    @{message_list}
     [Documentation]    Will succeed if the @{messages} are found in \ the output of "log:display"
     ${output} =    Issue_Command_On_Karaf_Console    log:display | grep ${filter_string}
-    : FOR    ${message}    IN    @{message_list}
-    \    BuiltIn.Should_Contain    ${output}    ${message}
+    FOR    ${message}    IN    @{message_list}
+        BuiltIn.Should_Contain    ${output}    ${message}
+    END
     [Return]    ${output}
 
 Check_Karaf_Log_Message_Count
@@ -162,10 +165,11 @@ Configure_Timeout_For_Karaf_Console
     [Documentation]    Configure a different timeout for each Karaf console.
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
     ${current_connection_object} =    SSHLibrary.Get_Connection
-    : FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3
-    \    ${karaf_connection_index} =    Collections.Get_From_Dictionary    ${connection_index_dict}    ${member_index}
-    \    SSHLibrary.Switch_Connection    ${karaf_connection_index}
-    \    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
+    FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3
+        ${karaf_connection_index} =    Collections.Get_From_Dictionary    ${connection_index_dict}    ${member_index}
+        SSHLibrary.Switch_Connection    ${karaf_connection_index}
+        SSHLibrary.Set_Client_Configuration    timeout=${timeout}
+    END
     [Teardown]    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_connection_object.index}
 
 Execute_Controller_Karaf_Command_On_Background
@@ -196,9 +200,10 @@ Log_Message_To_Controller_Karaf
     [Documentation]    Make sure this resource is initialized. Send a message into the controller's karaf log file on every node listed (or all).
     ...    By default, failure while processing a node is silently ignored, unless ${tolerate_failure} is False.
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
-    \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
+        BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
+    END
 
 Log_Test_Suite_Start_To_Controller_Karaf
     [Arguments]    ${member_index_list}=${EMPTY}
@@ -215,9 +220,10 @@ Set_Bgpcep_Log_Levels
     [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
     # FIXME: Move to appropriate Resource
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
-    \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
+        Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
+    END
 
 Get Karaf Log Lines From Test Start
     [Arguments]    ${ip}    ${test_name}    ${cmd}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
@@ -234,14 +240,15 @@ Fail If Exceptions Found During Test
     [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}    ${fail}=False
     [Documentation]    Create a failure if an Exception is found in the karaf.log that has not been whitelisted.
     ...    Will work for single controller jobs as well as 3node cluster jobs
-    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
-    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
-    \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
-    \    ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
-    \    Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
-    \    ${listlength} =    BuiltIn.Get Length    ${exlist}
-    \    BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
-    \    ...    ELSE    Collections.Log List    ${matchlist}
+    FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+        ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
+        ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
+        ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
+        Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
+        ${listlength} =    BuiltIn.Get Length    ${exlist}
+        BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
+        ...    ELSE    Collections.Log List    ${matchlist}
+    END
 
 Log And Fail Exceptions
     [Arguments]    ${exlist}    ${listlength}
@@ -266,24 +273,27 @@ Get Karaf Log Types From Test Start
     ...    ${log_file}=${KARAF_LOG}
     [Documentation]    A wrapper keyword for "Get Karaf Log Type From Test Start" so that we can parse for multiple types
     ...    of log messages. For example, we can grab all messages of type WARN and ERROR
-    : FOR    ${type}    IN    @{types}
-    \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
-    \    ...    ${prompt}    ${log_file}
+    FOR    ${type}    IN    @{types}
+        Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+        ...    ${prompt}    ${log_file}
+    END
 
 Get Karaf Log Events From Test Start
     [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     [Documentation]    Wrapper for the wrapper "Get Karaf Log Types From Test Start" so that we can easily loop over
     ...    any number of controllers to analyze karaf.log for ERROR, WARN and Exception log messages
     ${log_types} =    Create List    ERROR    WARN    Exception
-    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
-    \    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${log_types}
+    FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+        Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${log_types}
+    END
 
 Fail If Exceptions Found During Test Deprecated
     [Arguments]    ${test_name}    ${exceptions_white_list}=${EMPTY}
     [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
     ...    as well as 3node cluster jobs
-    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
-    \    Verify Exception Logging In Controller    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${exceptions_white_list}
+    FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+        Verify Exception Logging In Controller    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${exceptions_white_list}
+    END
 
 Verify Exception Logging In Controller
     [Arguments]    ${controller_ip}    ${test_name}    ${exceptions_white_list}
@@ -293,8 +303,9 @@ Verify Exception Logging In Controller
     @{log_lines}=    Split String    ${exceptions}    ${\n}
     ${num_log_entries}    Get Length    ${log_lines}
     Return From Keyword If    ${num_log_entries} == ${0}    No Exceptions found.
-    : FOR    ${log_message}    IN    @{log_lines}
-    \    Check Against White List    ${log_message}    ${exceptions_white_list}
+    FOR    ${log_message}    IN    @{log_lines}
+        Check Against White List    ${log_message}    ${exceptions_white_list}
+    END
 
 Check Against White List
     [Arguments]    ${exception_line}    ${exceptions_white_list}
@@ -304,8 +315,9 @@ Check Against White List
     ...    empty line as that is what is returned when a grep on karaf.log has no match, so we can safely return
     ...    in that case as well.
     Return From Keyword If    "${exception_line}" == ""
-    : FOR    ${exception}    IN    @{exceptions_white_list}
-    \    Return From Keyword If    "${exception}" in "${exception_line}"    Exceptions found, but whitelisted: ${\n}${exception_line}${\n}
+    FOR    ${exception}    IN    @{exceptions_white_list}
+        Return From Keyword If    "${exception}" in "${exception_line}"    Exceptions found, but whitelisted: ${\n}${exception_line}${\n}
+    END
     Fail    Exceptions Found: ${\n}${exception_line}${\n}
 
 Wait_For_Karaf_Log

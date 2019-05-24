@@ -53,12 +53,13 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ...    and run it for each single yang file in the prepared set.
     ...    The version is either given by ${EXPLICIT_YANG_SYSTEM_TEST_URL},
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
-    : FOR    ${yang_file}    IN    @{yang_files_to_validate}
-    \    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
-    \    ...    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
-    \    BuiltIn.Set_Suite_Variable    \${logfile}
-    \    Wait_Until_Utility_Finishes
-    \    Check_Return_Code
+    FOR    ${yang_file}    IN    @{yang_files_to_validate}
+        ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
+        ...    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
+        BuiltIn.Set_Suite_Variable    \${logfile}
+        Wait_Until_Utility_Finishes
+        Check_Return_Code
+    END
 
 Collect_Files_To_Archive
     [Documentation]    Download created files so Releng scripts would archive it.
@@ -89,10 +90,11 @@ Get_Recursive_Dirs
     ...    This implementation returns absolute paths as that is easier.
     ${depth_1} =    SSHLibrary.List_Directories_In_Directory    path=${root}    absolute=True
     ${subtrees} =    BuiltIn.Create_List
-    : FOR    ${subdir}    IN    @{depth_1}
-    \    ${tree} =    Get_Recursive_Dirs    root=${subdir}
-    \    # Relative paths would require prepending ${subdir}${/} to each @{tree} element.
-    \    Collections.Append_To_List    ${subtrees}    ${tree}
+    FOR    ${subdir}    IN    @{depth_1}
+        ${tree} =    Get_Recursive_Dirs    root=${subdir}
+        # Relative paths would require prepending ${subdir}${/} to each @{tree} element.
+        Collections.Append_To_List    ${subtrees}    ${tree}
+    END
     ${flat_list} =    Collections.Combine_Lists    ${depth_1}    @{subtrees}
     [Return]    ${flat_list}
 
@@ -100,9 +102,10 @@ Get_Yang_Files_From_Dirs
     [Arguments]    ${dirs_to_process}
     [Documentation]    Return list of yang files from provided directories
     ${collected_yang_files} =    BuiltIn.Create_List
-    : FOR    ${dir}    IN    @{dirs_to_process}
-    \    ${yang_files_in_dir} =    SSHLibrary.List_Files_In_Directory    path=${dir}    pattern=*.yang    absolute=True
-    \    ${collected_yang_files} =    Collections.Combine_Lists    ${collected_yang_files}    ${yang_files_in_dir}
+    FOR    ${dir}    IN    @{dirs_to_process}
+        ${yang_files_in_dir} =    SSHLibrary.List_Files_In_Directory    path=${dir}    pattern=*.yang    absolute=True
+        ${collected_yang_files} =    Collections.Combine_Lists    ${collected_yang_files}    ${yang_files_in_dir}
+    END
     [Return]    ${collected_yang_files}
 
 Wait_Until_Utility_Finishes

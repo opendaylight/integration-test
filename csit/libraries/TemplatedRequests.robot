@@ -439,10 +439,11 @@ Resolve_Text_From_Template_Folder
     ${item_template} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${base_name}.item.${extension}    mapping=${mapping}
     ${items} =    BuiltIn.Create_List
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
-    : FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
-    \    BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
-    \    ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
-    \    Collections.Append_To_List    ${items}    ${item}
+    FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
+        BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
+        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
+        Collections.Append_To_List    ${items}    ${item}
+    END
     # TODO: The following makes ugly result for iterations=0. Should we fix that?
     ${final_text} =    BuiltIn.Catenate    SEPARATOR=    ${prolog}    ${endline}    @{items}    ${endline}
     ...    ${epilog}

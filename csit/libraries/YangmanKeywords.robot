@@ -311,19 +311,21 @@ Select Module Detail Config Tab
 Expand All Branches In Module Detail Content Active Tab
     [Documentation]    Expands all branches in module detail active operations or operational or config tab.
     Selenium2Library.Wait Until Element Is Visible    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
-    : FOR    ${i}    IN RANGE    1    1000
-    \    ${count}=    Selenium2Library.Get Matching Xpath Count    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
-    \    BuiltIn.Exit For Loop If    ${count}==0
-    \    BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    GUIKeywords.Focus And Click Element    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
+    FOR    ${i}    IN RANGE    1    1000
+        ${count}=    Selenium2Library.Get Matching Xpath Count    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
+        BuiltIn.Exit For Loop If    ${count}==0
+        BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    GUIKeywords.Focus And Click Element    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
+    END
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
 
 Collapse All Branches In Module Detail Content Active Tab
     [Documentation]    Collapses all branches in module detail active operations or operational or config tab.
     Selenium2Library.Wait Until Element Is Visible    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
-    : FOR    ${i}    IN RANGE    1    1000
-    \    ${count}=    Selenium2Library.Get Matching Xpath Count    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
-    \    BuiltIn.Exit For Loop If    ${count}==0
-    \    BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    GUIKeywords.Focus And Click Element    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
+    FOR    ${i}    IN RANGE    1    1000
+        ${count}=    Selenium2Library.Get Matching Xpath Count    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
+        BuiltIn.Exit For Loop If    ${count}==0
+        BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    GUIKeywords.Focus And Click Element    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
+    END
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULE_DETAIL_COLLAPSE_BRANCH_BUTTON}
 
 Return Module Detail Labelled Branch Xpath

@@ -17,8 +17,9 @@ ${iteration}      4
 *** Test Cases ***
 Add Delete Same Flow
     [Documentation]    Iterate on add and delete flow until alien ID is found in Operational Datastore.
-    : FOR    ${i}    IN RANGE    ${iteration}
-    \    Run Keyword And Continue On Failure    Add And Delete Flow    f21.xml
+    FOR    ${i}    IN RANGE    ${iteration}
+        Run Keyword And Continue On Failure    Add And Delete Flow    f21.xml
+    END
     [Teardown]    Report_Failure_Due_To_Bug    6917
 
 Add Multiple Flows

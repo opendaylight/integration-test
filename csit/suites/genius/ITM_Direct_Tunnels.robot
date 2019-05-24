@@ -59,8 +59,9 @@ Verify Tunnels By Enabling/Disabling BFD
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
+        Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -95,8 +96,9 @@ Verify Tunnels By Enabling BFD
     [Documentation]    Verify tunnel creation by enabling BFD monitoring.
     ${result} =    BuiltIn.Run Keyword And Return Status    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
     BuiltIn.Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Verify Tunnel State After OVS Restart    ${tools_ip}
+    FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Verify Tunnel State After OVS Restart    ${tools_ip}
+    END
 
 Verify Tunnels By Disabling BFD
     [Documentation]    Verify tunnel creation by disabling BFD monitoring.

@@ -30,16 +30,18 @@ Unregister Endpoints
 Unregister L2Endpoints
     [Arguments]    ${l2_eps}
     [Documentation]    Unregister Endpoints L2Endpoints from ODL
-    : FOR    ${endpoint}    IN    @{l2_eps}
-    \    ${l2_data} =    Create L2 Endpoint JSON Data    ${endpoint}
-    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l2_data}    ${HEADERS_YANG_JSON}
+    FOR    ${endpoint}    IN    @{l2_eps}
+        ${l2_data} =    Create L2 Endpoint JSON Data    ${endpoint}
+        Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l2_data}    ${HEADERS_YANG_JSON}
+    END
 
 Unregister L3Endpoints
     [Arguments]    ${l3_eps}
     [Documentation]    Unregister Endpoints L3Endpoints from ODL
-    : FOR    ${endpoint}    IN    @{l3_eps}
-    \    ${l3_data} =    Create L3 Endpoint JSON Data    ${endpoint}
-    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l3_data}    ${HEADERS_YANG_JSON}
+    FOR    ${endpoint}    IN    @{l3_eps}
+        ${l3_data} =    Create L3 Endpoint JSON Data    ${endpoint}
+        Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l3_data}    ${HEADERS_YANG_JSON}
+    END
 
 Create L2 Endpoint JSON Data
     [Arguments]    ${endpoint}

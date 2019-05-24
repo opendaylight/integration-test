@@ -19,10 +19,11 @@ Verification of TSDR HSQLDB Feature Installation
 
 Sending syslog to ODL Syslog collector using Logger command
     [Documentation]    Verifying if syslogs is getting generated.
-    : FOR    ${key}    IN ZIP    &{syslog_facility}
-    \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
-    \    ${f_value}=    Evaluate    ${value} * 8
-    \    Generate Syslog    ${f_value}
+    FOR    ${key}    IN ZIP    &{syslog_facility}
+        ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
+        ${f_value}=    Evaluate    ${value} * 8
+        Generate Syslog    ${f_value}
+    END
     Wait Until Keyword Succeeds    24x    10 sec    Check HSQLDB    1    SYSLOG | grep SYSLOG | wc -l
 
 Verifying TSDR Data Store For Syslog Entries

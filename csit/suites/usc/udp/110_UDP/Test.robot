@@ -40,11 +40,12 @@ Send Messages
     ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${ECHO_SERVER_PORT}    tcp=false    content=${TEST_MESSAGE}
     ${channel}    Create Dictionary    channel=${content}
     ${input}    Create Dictionary    input=${channel}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}
-    \    ${data}    json.dumps    ${input}
-    \    ${resp}    Post Request    session    ${REST_SEND_MESSAGE}    data=${data}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    Succeed to send request
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}
+        ${data}    json.dumps    ${input}
+        ${resp}    Post Request    session    ${REST_SEND_MESSAGE}    data=${data}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    Succeed to send request
+    END
 
 View Bytes In and Bytes Out
     [Documentation]    Check if the number of Bytes In and Bytes Out are correct

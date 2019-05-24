@@ -188,8 +188,9 @@ Verify Routes On Quagga
     [Documentation]    Verify routes on quagga
     ${output} =    Execute Show Command On quagga    ${dcgw_ip}    show ip bgp vrf ${rd}
     Log    ${output}
-    : FOR    ${ip}    IN    @{ip_list}
-    \    Should Contain    ${output}    ${ip}
+    FOR    ${ip}    IN    @{ip_list}
+        Should Contain    ${output}    ${ip}
+    END
 
 Delete BGP Config On Quagga
     [Arguments]    ${dcgw_ip}    ${bgp_id}    ${user}=bgpd    ${password}=sdncbgpc
@@ -220,8 +221,9 @@ Delete L3VPN on DCGW
     BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
     BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
     BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${as_id}
-    : FOR    ${vpn}    IN    @{vpns}
-    \    BgpOperations.Execute Command On Quagga Telnet Session    no vrf ${vpn}
+    FOR    ${vpn}    IN    @{vpns}
+        BgpOperations.Execute Command On Quagga Telnet Session    no vrf ${vpn}
+    END
     BgpOperations.Execute Command On Quagga Telnet Session    end
 
 Verify L3VPN On DCGW
@@ -417,6 +419,7 @@ Check BGP VPNv4 Nbr On ODL
     [Arguments]    ${dcgw_count}    ${flag}=True    ${start}=${START_VALUE}
     [Documentation]    Check all BGP VPNv4 neighbor on ODL
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${DISPLAY_VPN4_ALL}
-    : FOR    ${index}    IN RANGE    ${start}    ${dcgw_count}
-    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${output}    ${DCGW_IP_LIST[${index}]}
-    \    ...    ELSE    BuiltIn.Should Not Contain    ${output}    ${DCGW_IP_LIST[${index}]}
+    FOR    ${index}    IN RANGE    ${start}    ${dcgw_count}
+        BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${output}    ${DCGW_IP_LIST[${index}]}
+        ...    ELSE    BuiltIn.Should Not Contain    ${output}    ${DCGW_IP_LIST[${index}]}
+    END

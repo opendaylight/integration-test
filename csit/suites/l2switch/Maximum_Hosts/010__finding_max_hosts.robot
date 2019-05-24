@@ -23,11 +23,12 @@ Find Max Supported Hosts
     ${start}=    BuiltIn.Convert to Integer    ${MIN_HOSTS}
     ${stop}=    BuiltIn.Convert to Integer    ${MAX_HOSTS}
     ${step}=    BuiltIn.Convert to Integer    ${STEP_HOSTS}
-    : FOR    ${hosts}    IN RANGE    ${start}    ${stop+1}    ${step}
-    \    ${status}    ${error_message}    ${host_discover_time}    WorkflowsL2switch.Workflow Single Switch Multiple Hosts    ${hosts}
-    \    BuiltIn.Exit For Loop If    '${status}' == 'FAIL'
-    \    ${maximum_hosts}=    BuiltIn.Set variable    ${hosts}
-    \    ${discover_time}=    BuiltIn.Set Variable    ${host_discover_time}
+    FOR    ${hosts}    IN RANGE    ${start}    ${stop+1}    ${step}
+        ${status}    ${error_message}    ${host_discover_time}    WorkflowsL2switch.Workflow Single Switch Multiple Hosts    ${hosts}
+        BuiltIn.Exit For Loop If    '${status}' == 'FAIL'
+        ${maximum_hosts}=    BuiltIn.Set variable    ${hosts}
+        ${discover_time}=    BuiltIn.Set Variable    ${host_discover_time}
+    END
     BuiltIn.Log to console    ${\n}
     BuiltIn.Log To Console    Execution stopped because: ${error_message}
     BuiltIn.Log To Console    Max Hosts: ${maximum_hosts}

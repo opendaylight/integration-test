@@ -97,9 +97,10 @@ Add_Autorelease_Profile
     SSHLibrary.Get_File    settings.xml
     ${root} =    XML.Parse_Xml    settings.xml
     ${profiles} =    Xml.Get_Elements    ${root}    xpath=profiles/profile
-    : FOR    ${profile}    IN    @{profiles}
-    \    ${id} =    XML.Get_Element_Text    ${profile}    xpath=id
-    \    BuiltIn.Exit_For_Loop_If    "${id}" == "opendaylight-release"
+    FOR    ${profile}    IN    @{profiles}
+        ${id} =    XML.Get_Element_Text    ${profile}    xpath=id
+        BuiltIn.Exit_For_Loop_If    "${id}" == "opendaylight-release"
+    END
     BuiltIn.Should_Be_Equal_As_Strings    ${id}    opendaylight-release
     ${profile} =    Xml.Copy_Element    ${profile}
     XML.Set_Element_Text    ${profile}    opendaylight-autorelease    xpath=id

@@ -62,5 +62,6 @@ Setup_Keyword
 
 Get_Node_Idx_To_Unregister
     [Documentation]    Return the first non owner node from the stored candidate list.
-    : FOR    ${index}    IN    @{cs_candidates}
-    \    BuiltIn.Return_From_Keyword_If    "${index}" != "${cs_owner}"    ${index}
+    FOR    ${index}    IN    @{cs_candidates}
+        BuiltIn.Return_From_Keyword_If    "${index}" != "${cs_owner}"    ${index}
+    END

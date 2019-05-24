@@ -171,11 +171,12 @@ Create the Hbase table row
     [Arguments]    ${tsdr_line}    ${metrics}
     [Documentation]    Create the Hbase table row from tsdr:list
     @{words}=    Split String    ${tsdr_line}    |
-    : FOR    ${li}    IN    @{words}
-    \    ${key}=    Fetch From Left    ${li}    =
-    \    ${value}=    Fetch From Right    ${li}    =
-    \    ${each_value}=    Prepare HBase Filter    ${key}    ${value}    _
-    \    ${final}=    Concatenate the String    ${final}    ${each_value}
+    FOR    ${li}    IN    @{words}
+        ${key}=    Fetch From Left    ${li}    =
+        ${value}=    Fetch From Right    ${li}    =
+        ${each_value}=    Prepare HBase Filter    ${key}    ${value}    _
+        ${final}=    Concatenate the String    ${final}    ${each_value}
+    END
     ${query}=    Concatenate the String    ${metrics}    ${final}
     ${query}=    Remove Space on String    ${query}
     [Return]    ${query}
@@ -424,11 +425,12 @@ Verify the Metrics Syslog on Cassandra Client
 Iterating over metricpath
     [Documentation]    Used to traverse over metricpath file and traverse over metricpath file and get the keys
     @{mp_lines}=    Read File and Return Split Lines    ${CASSANDRA_DB_PATH}${metric_path}
-    : FOR    ${line}    IN    @{mp_lines}
-    \    @{split_line}=    Split String    ${line}    ${SPACE}
-    \    ${keya}=    Get From List    ${split_line}    1
-    \    ${keyb}=    Get From List    ${split_line}    2
-    \    Iterating over metricval    ${keya}    ${keyb}
+    FOR    ${line}    IN    @{mp_lines}
+        @{split_line}=    Split String    ${line}    ${SPACE}
+        ${keya}=    Get From List    ${split_line}    1
+        ${keyb}=    Get From List    ${split_line}    2
+        Iterating over metricval    ${keya}    ${keyb}
+    END
 
 Iterating over metricval
     [Arguments]    ${keya}    ${keyb}
@@ -564,14 +566,16 @@ Evaluate Datasets Length
 Evaluate Datasets Value
     [Arguments]    ${tsdr_lines}    ${query_output}    ${nbi_output}    ${TYPE}
     [Documentation]    Compare the outputs returned from all Data Stores
-    : FOR    ${q_item}    ${t_item}    ${n_item}    IN ZIP    ${query_output}    ${tsdr_lines}
+    FOR    ${q_item}    ${t_item}    ${n_item}    IN ZIP    ${query_output}    ${tsdr_lines}
     ...    ${nbi_output}
-    \    ${query_row}=    Extract Row Values from TSDR Query    ${q_item}    ${t_item}    ${n_item}    ${TYPE}
-    : FOR    ${found_line}    IN    @{matching_list}
-    \    @{split_line}=    Split String    ${found_line}    |
-    \    ${hex_name}=    Get From List    ${split_line}    2
-    \    ${if_desc}=    Decode Bytes To String    ${hex_name}    HEX
-    \    Append To List    ${ifdesc_list}    ${if_desc}
+        ${query_row}=    Extract Row Values from TSDR Query    ${q_item}    ${t_item}    ${n_item}    ${TYPE}
+    END
+    FOR    ${found_line}    IN    @{matching_list}
+        @{split_line}=    Split String    ${found_line}    |
+        ${hex_name}=    Get From List    ${split_line}    2
+        ${if_desc}=    Decode Bytes To String    ${hex_name}    HEX
+        Append To List    ${ifdesc_list}    ${if_desc}
+    END
     [Return]    @{ifdesc_list}
 
 Write SNMP config
@@ -604,56 +608,57 @@ Collect Data from SNMP Agent
     @{ifEntry}=    Get From Dictionary    ${dict1_val}    ifEntry
     @{SNMP_ENTRY}=    Create List
     @{SNMP_VALUES}=    Create List
-    : FOR    ${int}    IN    @{ifEntry}
-    \    ${ifindex}=    Get From Dictionary    ${int}    ifIndex
-    \    ${ifOutDiscards}=    Get From Dictionary    ${int}    ifOutDiscards
-    \    ${ifInDiscards}=    Get From Dictionary    ${int}    ifInDiscards
-    \    ${ifType}=    Get From Dictionary    ${int}    ifType
-    \    ${ifInOctets}=    Get From Dictionary    ${int}    ifInOctets
-    \    ${ifSpeed}=    Get From Dictionary    ${int}    ifSpeed
-    \    ${ifOutQLen}=    Get From Dictionary    ${int}    ifOutQLen
-    \    ${ifOutErrors}=    Get From Dictionary    ${int}    ifOutErrors
-    \    ${ifPhysAddress}=    Get From Dictionary    ${int}    ifPhysAddress
-    \    ${ifInUcastPkts}=    Get From Dictionary    ${int}    ifInUcastPkts
-    \    ${ifOutNUcastPkts}=    Get From Dictionary    ${int}    ifOutNUcastPkts
-    \    ${ifInErrors}=    Get From Dictionary    ${int}    ifInErrors
-    \    ${ifOutOctets}=    Get From Dictionary    ${int}    ifOutOctets
-    \    ${ifAdminStatus1}=    Get From Dictionary    ${int}    ifAdminStatus
-    \    ${ifAdminStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifAdminStatus1}
-    \    ${ifInUnknownProtos}=    Get From Dictionary    ${int}    ifInUnknownProtos
-    \    ${ifOutUcastPkts}=    Get From Dictionary    ${int}    ifOutUcastPkts
-    \    ${ifInNUcastPkts}=    Get From Dictionary    ${int}    ifInNUcastPkts
-    \    ${ifMtu}=    Get From Dictionary    ${int}    ifMtu
-    \    ${ifOperStatus1}=    Get From Dictionary    ${int}    ifOperStatus
-    \    ${ifOperStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifOperStatus1}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutDiscards
-    \    Append To List    ${SNMP_VALUES}    ${ifOutDiscards}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInDiscards
-    \    Append To List    ${SNMP_VALUES}    ${ifInDiscards}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInOctets
-    \    Append To List    ${SNMP_VALUES}    ${ifInOctets}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutQLen | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutQLen
-    \    Append To List    ${SNMP_VALUES}    ${ifOutQLen}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutErrors
-    \    Append To List    ${SNMP_VALUES}    ${ifOutErrors}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUcastPkts
-    \    Append To List    ${SNMP_VALUES}    ${ifInUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutNUcastPkts
-    \    Append To List    ${SNMP_VALUES}    ${ifOutNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInErrors
-    \    Append To List    ${SNMP_VALUES}    ${ifInErrors}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutOctets
-    \    Append To List    ${SNMP_VALUES}    ${ifOutOctets}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfAdminStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfAdminStatus
-    \    Append To List    ${SNMP_VALUES}    ${ifAdminStatus}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUnknownProtos | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUnknownProtos
-    \    Append To List    ${SNMP_VALUES}    ${ifInUnknownProtos}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutUcastPkts
-    \    Append To List    ${SNMP_VALUES}    ${ifOutUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInNUcastPkts
-    \    Append To List    ${SNMP_VALUES}    ${ifInNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOperStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus
-    \    Append To List    ${SNMP_VALUES}    ${ifOperStatus}
+    FOR    ${int}    IN    @{ifEntry}
+        ${ifindex}=    Get From Dictionary    ${int}    ifIndex
+        ${ifOutDiscards}=    Get From Dictionary    ${int}    ifOutDiscards
+        ${ifInDiscards}=    Get From Dictionary    ${int}    ifInDiscards
+        ${ifType}=    Get From Dictionary    ${int}    ifType
+        ${ifInOctets}=    Get From Dictionary    ${int}    ifInOctets
+        ${ifSpeed}=    Get From Dictionary    ${int}    ifSpeed
+        ${ifOutQLen}=    Get From Dictionary    ${int}    ifOutQLen
+        ${ifOutErrors}=    Get From Dictionary    ${int}    ifOutErrors
+        ${ifPhysAddress}=    Get From Dictionary    ${int}    ifPhysAddress
+        ${ifInUcastPkts}=    Get From Dictionary    ${int}    ifInUcastPkts
+        ${ifOutNUcastPkts}=    Get From Dictionary    ${int}    ifOutNUcastPkts
+        ${ifInErrors}=    Get From Dictionary    ${int}    ifInErrors
+        ${ifOutOctets}=    Get From Dictionary    ${int}    ifOutOctets
+        ${ifAdminStatus1}=    Get From Dictionary    ${int}    ifAdminStatus
+        ${ifAdminStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifAdminStatus1}
+        ${ifInUnknownProtos}=    Get From Dictionary    ${int}    ifInUnknownProtos
+        ${ifOutUcastPkts}=    Get From Dictionary    ${int}    ifOutUcastPkts
+        ${ifInNUcastPkts}=    Get From Dictionary    ${int}    ifInNUcastPkts
+        ${ifMtu}=    Get From Dictionary    ${int}    ifMtu
+        ${ifOperStatus1}=    Get From Dictionary    ${int}    ifOperStatus
+        ${ifOperStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifOperStatus1}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutDiscards
+        Append To List    ${SNMP_VALUES}    ${ifOutDiscards}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInDiscards
+        Append To List    ${SNMP_VALUES}    ${ifInDiscards}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInOctets
+        Append To List    ${SNMP_VALUES}    ${ifInOctets}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutQLen | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutQLen
+        Append To List    ${SNMP_VALUES}    ${ifOutQLen}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutErrors
+        Append To List    ${SNMP_VALUES}    ${ifOutErrors}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUcastPkts
+        Append To List    ${SNMP_VALUES}    ${ifInUcastPkts}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutNUcastPkts
+        Append To List    ${SNMP_VALUES}    ${ifOutNUcastPkts}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInErrors
+        Append To List    ${SNMP_VALUES}    ${ifInErrors}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutOctets
+        Append To List    ${SNMP_VALUES}    ${ifOutOctets}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfAdminStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfAdminStatus
+        Append To List    ${SNMP_VALUES}    ${ifAdminStatus}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUnknownProtos | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUnknownProtos
+        Append To List    ${SNMP_VALUES}    ${ifInUnknownProtos}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutUcastPkts
+        Append To List    ${SNMP_VALUES}    ${ifOutUcastPkts}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInNUcastPkts
+        Append To List    ${SNMP_VALUES}    ${ifInNUcastPkts}
+        Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOperStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus
+        Append To List    ${SNMP_VALUES}    ${ifOperStatus}
+    END
     [Return]    ${SNMP_ENTRY}    ${SNMP_VALUES}
 
 Retrieve Value From Elasticsearch

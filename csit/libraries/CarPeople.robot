@@ -21,16 +21,18 @@ Add_Several_People
     [Documentation]    Simple loop for issuing add-person RPCs to session, one by one.
     ...    People need to be added via RPC, otherwise buy-car routed RPC will not find registered path.
     ...    See javadocs in RpcProviderRegistry.java
-    : FOR    ${i}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-    \    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i": "${i}"}    session=${session}
+    FOR    ${i}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
+        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i": "${i}"}    session=${session}
+    END
 
 Buy_Several_Cars
     [Arguments]    ${session}    ${iterations}    ${iter_start}=1    ${registration_delay}=20s
     [Documentation]    Simple loop for issuing buy-car RPCs to session, one by one.
     ...    This needs to be a separate Keyword mostly just because nested FOR loops are not allowed.
     ...    Actual fact of buying one car is done by inner Keyword.
-    : FOR    ${iter}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-    \    Buy_Single_Car    session=${session}    iteration=${iter}    registration_delay=${registration_delay}
+    FOR    ${iter}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
+        Buy_Single_Car    session=${session}    iteration=${iter}    registration_delay=${registration_delay}
+    END
 
 Buy_Single_Car
     [Arguments]    ${session}    ${iteration}=1    ${registration_delay}=20s
@@ -54,9 +56,10 @@ Set_Variables_For_Shard
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
-    : FOR    ${follower_index}    IN    @{follower_list}
-    \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
-    \    Collections.Append_To_List    ${sessions}    ${follower_session}
+    FOR    ${follower_index}    IN    @{follower_list}
+        ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
+        Collections.Append_To_List    ${sessions}    ${follower_session}
+    END
     BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_sessions}    ${sessions}
     ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
     BuiltIn.Set_Suite_Variable    \${${shard_name}_first_follower_session}    ${first_follower_session}
@@ -77,9 +80,10 @@ Set_Tmp_Variables_For_Shard_For_Nodes
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${new_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
-    : FOR    ${follower_index}    IN    @{follower_list}
-    \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
-    \    Collections.Append_To_List    ${sessions}    ${follower_session}
+    FOR    ${follower_index}    IN    @{follower_list}
+        ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
+        Collections.Append_To_List    ${sessions}    ${follower_session}
+    END
     BuiltIn.Set_Suite_Variable    \${new_follower_sessions}    ${sessions}
     ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
     BuiltIn.Set_Suite_Variable    \${new_first_follower_session}    ${first_follower_session}

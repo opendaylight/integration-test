@@ -157,16 +157,17 @@ Check Linear Topology On Member
     ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
-    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
-    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
-    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
-    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
-    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
-    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+        Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+        ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+    END
 
 Check No Switches On Member
     [Arguments]    ${switches}    ${member_index}=1
@@ -175,8 +176,9 @@ Check No Switches On Member
     ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Not Contain    ${resp.content}    openflow:${switch}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        Should Not Contain    ${resp.content}    openflow:${switch}
+    END
 
 Check Number Of Flows On Member
     [Arguments]    ${flows}    ${member_index}=1

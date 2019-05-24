@@ -81,18 +81,20 @@ Suite Setup
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
-    \    OpenStackOperations.Create Port    ${REQ_NETWORK}    @{PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Port    ${REQ_NETWORK}    @{PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
+        OpenStackOperations.Create Port    ${REQ_NETWORK}    @{PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    ${REQ_NETWORK}    @{PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
+    END
     @{PORT_MAC_ADDR} =    OpenStackOperations.Get Ports MacAddr    ${PORT_LIST}
     BuiltIn.Set Suite Variable    @{PORT_MAC_ADDR}
 
 Create Nova VMs
     [Arguments]    ${num_of_vms_per_dpn}
     [Documentation]    Create Vm instances on compute nodes
-    : FOR    ${index}    IN RANGE    0    ${num_of_vms_per_dpn}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index}]    @{NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + 2}]    @{NET_2_VMS}[${index}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    ${num_of_vms_per_dpn}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index}]    @{NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + 2}]    @{NET_2_VMS}[${index}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None

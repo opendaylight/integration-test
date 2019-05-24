@@ -34,9 +34,10 @@ Start Mininet To All Nodes
     SSHLibrary.Read Until    mininet>
     ${cntls_list}    BuiltIn.Create List    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
     ${switch_list}    BuiltIn.Create List
-    : FOR    ${i}    IN RANGE    0    ${SWITCHES}
-    \    ${sid}=    BuiltIn.Evaluate    ${i}+1
-    \    Collections.Append To List    ${switch_list}    s${sid}
+    FOR    ${i}    IN RANGE    0    ${SWITCHES}
+        ${sid}=    BuiltIn.Evaluate    ${i}+1
+        Collections.Append To List    ${switch_list}    s${sid}
+    END
     BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
     BuiltIn.Wait Until Keyword Succeeds    15s    1s    ClusterOpenFlow.Verify Switch Connections Running On Member    ${SWITCHES}    1
@@ -72,11 +73,12 @@ End Suite
 Check All Switches Connected To All Cluster Nodes
     [Documentation]    Verifies all switches are connected to all cluster nodes
     OvsManager.Get Ovsdb Data
-    : FOR    ${i}    IN RANGE    0    ${SWITCHES}
-    \    ${sid}=    BuiltIn.Evaluate    ${i}+1
-    \    OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_1_IP}    update_data=${False}
-    \    OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_2_IP}    update_data=${False}
-    \    OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_3_IP}    update_data=${False}
+    FOR    ${i}    IN RANGE    0    ${SWITCHES}
+        ${sid}=    BuiltIn.Evaluate    ${i}+1
+        OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_1_IP}    update_data=${False}
+        OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_2_IP}    update_data=${False}
+        OvsManager.Should Be Connected    s${sid}    ${ODL_SYSTEM_3_IP}    update_data=${False}
+    END
 
 Isolating Node Scenario
     [Arguments]    ${switch_name}

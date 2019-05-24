@@ -162,8 +162,9 @@ Verify Strings In Command Output
     [Arguments]    ${conn_id}    ${command}    @{string_list}
     [Documentation]    Keyword to run the ${command} in ${conn_id} and verify if the output contains the list @{string_list}.
     ${output}=    Exec Command    ${conn_id}    ${command}
-    : FOR    ${item}    IN    @{string_list}
-    \    Should Contain    ${output}    ${item}
+    FOR    ${item}    IN    @{string_list}
+        Should Contain    ${output}    ${item}
+    END
 
 Verify Ping In Namespace Extra Timeout
     [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
@@ -224,8 +225,9 @@ Verify Vtep List
     [Arguments]    ${conn_id}    ${table_name}    @{list}
     [Documentation]    Keyword to run vtep-ctl list for the table ${table_name} and verify the list @{list} contents exists in output.
     ${output}=    Exec Command    ${conn_id}    ${VTEP LIST} ${table_name}
-    : FOR    ${item}    IN    @{list}
-    \    Should Contain    ${output}    ${item}
+    FOR    ${item}    IN    @{list}
+        Should Contain    ${output}    ${item}
+    END
 
 Get Vtep List
     [Arguments]    ${table_name}    ${conn_id}=${hwvtep_conn_id}
@@ -283,13 +285,15 @@ Verify Elan Flow Entries
     Should Contain    ${flow_output}    table=50
     ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=50
     Log    ${sMac_output}
-    : FOR    ${sMacAddr}    IN    @{srcMacAddrs}
-    \    ${resp}=    Should Contain    ${sMac_output}    dl_src=${sMacAddr}
+    FOR    ${sMacAddr}    IN    @{srcMacAddrs}
+        ${resp}=    Should Contain    ${sMac_output}    dl_src=${sMacAddr}
+    END
     Should Contain    ${flow_output}    table=51
     ${dMac_output} =    Get Lines Containing String    ${flow_output}    table=51
     Log    ${dMac_output}
-    : FOR    ${dMacAddr}    IN    @{destMacAddrs}
-    \    ${resp}=    Should Contain    ${dMac_output}    dl_dst=${dMacAddr}
+    FOR    ${dMacAddr}    IN    @{destMacAddrs}
+        ${resp}=    Should Contain    ${dMac_output}    dl_dst=${dMacAddr}
+    END
     Should Contain    ${flow_output}    table=52
     ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=52
     Log    ${sMac_output}

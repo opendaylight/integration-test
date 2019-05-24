@@ -156,8 +156,9 @@ Ensure Flows Are Present
     Should Contain X Times    ${output}    goto_table:21    2
     Should Contain X Times    ${output}    table=20    2
     Should Contain X Times    ${output}    table=21    4
-    : FOR    ${i}    IN    @{flow_elements}
-    \    Should Contain    ${output}    ${i}
+    FOR    ${i}    IN    @{flow_elements}
+        Should Contain    ${output}    ${i}
+    END
 
 Ensure Groups Are Present
     [Arguments]    ${conn_id}    ${group_elements}    ${gre_port_id}
@@ -167,8 +168,9 @@ Ensure Groups Are Present
     ${output}=    Read Until    mininet>
     Log    ${output}
     Should Contain X Times    ${output}    actions=output:${gre_port_id}    1
-    : FOR    ${i}    IN    @{group_elements}
-    \    Should Contain    ${output}    actions=pop_mpls:0x0800,set_field:${i}
+    FOR    ${i}    IN    @{group_elements}
+        Should Contain    ${output}    actions=pop_mpls:0x0800,set_field:${i}
+    END
 
 Ensure Flows Are Removed
     [Arguments]    ${conn_id}

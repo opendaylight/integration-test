@@ -37,9 +37,10 @@ Store_Karaf_Log_And_Clean_All
 
 Upload_Initial_Config_Files
     [Documentation]    Upload config files for non-replicated bgp_rib
-    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
-    \    ${idxl}=    BuiltIn.Create_List    ${idx}
-    \    ClusterManagement.Safe_With_Ssh_To_List_Or_All_Run_Keyword    member_index_list=${idxl}    keyword_name=Set_Config_Files_With_Nonreplicated_Rib    index_list=${idxl}
+    FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+        ${idxl}=    BuiltIn.Create_List    ${idx}
+        ClusterManagement.Safe_With_Ssh_To_List_Or_All_Run_Keyword    member_index_list=${idxl}    keyword_name=Set_Config_Files_With_Nonreplicated_Rib    index_list=${idxl}
+    END
 
 Start_All_And_Sync
     [Documentation]    Start each memberand wait for sync.

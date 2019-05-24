@@ -35,8 +35,9 @@ Migrate Instance And Verify Connectivity While Migration And After
     ${vm_host_before_migration} =    OpenStackOperations.Get Hypervisor Host Of Vm    @{NET_1_VMS}[0]
     OpenStackOperations.Server Live Migrate    @{NET_1_VMS}[0]
     ${vm_list} =    BuiltIn.Create List    @{NET_1_VMS}[0]
-    : FOR    ${vm}    IN    @{vm_list}
-    \    BuiltIn.Wait Until Keyword Succeeds    6x    20s    OpenStackOperations.Check If Migration Is Complete    ${vm}
+    FOR    ${vm}    IN    @{vm_list}
+        BuiltIn.Wait Until Keyword Succeeds    6x    20s    OpenStackOperations.Check If Migration Is Complete    ${vm}
+    END
     ${vm_host_after_migration} =    OpenStackOperations.Get Hypervisor Host Of Vm    @{NET_1_VMS}[0]
     BuiltIn.Run Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    BuiltIn.Should Match    ${vm_host_after_migration}    ${vm_host_before_migration}
     ...    ELSE    BuiltIn.Should Not Match    ${vm_host_after_migration}    ${vm_host_before_migration}

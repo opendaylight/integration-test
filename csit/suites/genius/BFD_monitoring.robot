@@ -76,9 +76,10 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    ${tun_names}    Genius.Get Tunnels On OVS    ${TOOLS_SYSTEM_ALL_CONN_IDS[${tool_system_index}]}
-    \    Verify ovs-vsctl Output For Each Tunnel    ${tun_names}    ${tool_system_index}
+    FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
+        ${tun_names}    Genius.Get Tunnels On OVS    ${TOOLS_SYSTEM_ALL_CONN_IDS[${tool_system_index}]}
+        Verify ovs-vsctl Output For Each Tunnel    ${tun_names}    ${tool_system_index}
+    END
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
@@ -141,7 +142,8 @@ Disable BFD And Verify
 Verify ovs-vsctl Output For Each Tunnel
     [Arguments]    ${tun_names}    ${tool_system_index}
     ${no of tunnels} =    BuiltIn.Get Length    ${tun_names}
-    : FOR    ${each_tun}    IN RANGE    ${no of tunnels}
-    \    ${tun}    Collections.Get From List    ${tun_names}    ${each_tun}
-    \    BuiltIn.Wait Until Keyword Succeeds    20    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun}    5000
-    \    ...    ovs_system=@{TOOLS_SYSTEM_ALL_IPS}[${tool_system_index}]
+    FOR    ${each_tun}    IN RANGE    ${no of tunnels}
+        ${tun}    Collections.Get From List    ${tun_names}    ${each_tun}
+        BuiltIn.Wait Until Keyword Succeeds    20    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun}    5000
+        ...    ovs_system=@{TOOLS_SYSTEM_ALL_IPS}[${tool_system_index}]
+    END

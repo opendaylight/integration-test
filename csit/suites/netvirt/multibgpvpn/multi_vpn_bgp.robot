@@ -70,8 +70,9 @@ Verify Route Update In Bgp For Routes With Default Route And Various Prefix Leng
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${SUBNET_CIDRS}
     OpenStackOperations.Create Network    ${NET}
     ${length} =    BuiltIn.Get Length    ${REQ_SUBNETS_PREFIX}
-    : FOR    ${idx}    IN RANGE    ${length}
-    \    OpenStackOperations.Create SubNet    ${NET}    @{REQ_SUBNETS_PREFIX}[${idx}]    @{REQ_PREFIXLENGTHS}[${idx}]
+    FOR    ${idx}    IN RANGE    ${length}
+        OpenStackOperations.Create SubNet    ${NET}    @{REQ_SUBNETS_PREFIX}[${idx}]    @{REQ_PREFIXLENGTHS}[${idx}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${REQ_SUBNETS_PREFIX}
     ${net_id} =    OpenStackOperations.Get Net Id    ${NET}
     VpnOperations.Associate L3VPN To Network    networkid=${net_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
@@ -84,9 +85,10 @@ Verify Route Update In Bgp For Routes With Default Route And Various Prefix Leng
 Verification Of Route Download With Three Vpns In SE And Qbgp With One-One Export Import Route Target
     [Documentation]    Check the datapath traffic with one-one export import route target with three vpns.
     Create Multiple L3VPN    @{NETWORKS}[0]    ${3}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
-    \    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
-    \    ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
+        BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
+        ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    END
     VpnOperations.Associate L3VPNs To Networks    ${VPN_INSTANCE_IDS}    ${NETWORKS}
     ${fib_values} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}    @{SUBNET_CIDRS}    @{LOOPBACK_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${fib_values}
@@ -111,11 +113,13 @@ Verification Of Route Download With Three Vpns In SE And Qbgp With One-One Expor
 Verification Of Route Download With Three Vpns In SE And Qbgp With One-Many Export Import Route Target
     [Documentation]    Check the datapath traffic with one-many export import route target with three vpns.
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=${CREATE_RT}    importrt=@{RDS}[0]
-    : FOR    ${index}    IN RANGE    1    ${NUM_OF_L3VPN}
-    \    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=@{RDS}[${index}]    importrt=${RT_LIST_${index}}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
-    \    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
-    \    ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    FOR    ${index}    IN RANGE    1    ${NUM_OF_L3VPN}
+        VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=@{RDS}[${index}]    importrt=${RT_LIST_${index}}
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
+        BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
+        ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    END
     ${networks} =    BuiltIn.Create List    @{NETWORKS}[0]    @{NETWORKS}[1]
     VpnOperations.Associate L3VPNs To Networks    ${VPN_INSTANCE_IDS}    ${networks}
     ${fib_values} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{SUBNET_CIDRS}[0]    @{SUBNET_CIDRS}[1]
@@ -127,11 +131,13 @@ Verification Of Route Download With Three Vpns In SE And Qbgp With One-Many Expo
 Verification Of Route Download With Three Vpns In SE And Qbgp With Many-One Export Import Route Target
     [Documentation]    Check the datapath traffic with many-one export import route target with three vpns.
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=${CREATE_RT}
-    : FOR    ${index}    IN RANGE    1    ${NUM_OF_L3VPN}
-    \    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=${RT_LIST_${index}}    importrt=@{RDS}[${index}]
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
-    \    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
-    \    ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    FOR    ${index}    IN RANGE    1    ${NUM_OF_L3VPN}
+        VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=${RT_LIST_${index}}    importrt=@{RDS}[${index}]
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
+        BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
+        ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    END
     ${networks} =    BuiltIn.Create List    @{NETWORKS}[0]    @{NETWORKS}[1]
     VpnOperations.Associate L3VPNs To Networks    ${VPN_INSTANCE_IDS}    ${networks}
     ${fib_values} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{SUBNET_CIDRS}[0]    @{SUBNET_CIDRS}[1]
@@ -142,11 +148,13 @@ Verification Of Route Download With Three Vpns In SE And Qbgp With Many-One Expo
 
 Verification Of Route Download With Three Vpns In SE And Qbgp With Many-Many Export Import Route Target
     [Documentation]    Check the datapath traffic with many-many export import route target with three vpns.
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
-    \    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=${CREATE_RT}    importrt=${CREATE_RT}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
-    \    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
-    \    ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
+        VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]    rd=@{RDS}[${index}]    exportrt=${CREATE_RT}    importrt=${CREATE_RT}
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_L3VPN}
+        BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[${index}]
+        ...    @{DCGW_RD}[${index}]    @{LOOPBACK_IPS}[${index}]
+    END
     ${networks} =    BuiltIn.Create List    @{NETWORKS}[0]    @{NETWORKS}[1]
     VpnOperations.Associate L3VPNs To Networks    ${VPN_INSTANCE_IDS}    ${networks}
     ${fib_values} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{SUBNET_CIDRS}[0]    @{SUBNET_CIDRS}[1]
@@ -174,32 +182,37 @@ Create Setup
     Create Nova VMs
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]
     VpnOperations.Verify L3VPN On ODL    @{VPN_INSTANCE_IDS}[0]
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
-    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    FOR    ${network}    IN    @{NETWORKS}
+        ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+        VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    END
     Create BGP Config On ODL
     Create BGP Config On DCGW
     Create External Tunnel Endpoint
 
 Create Neutron Networks
     [Documentation]    Create required number of networks
-    : FOR    ${NET}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${NET}
+    FOR    ${NET}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${NET}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
 
 Create Neutron Subnets
     [Documentation]    Create required number of subnets for previously created networks
     ${num_of_networks} =    BuiltIn.Get Length    ${NETWORKS}
-    : FOR    ${index}    IN RANGE    0    ${num_of_networks}
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+    FOR    ${index}    IN RANGE    0    ${num_of_networks}
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${index}]    @{PORTS_HOST1}[${index}]    sg=@{SECURITY_GROUP}[0]
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[${index}]    @{PORTS_HOST2}[${index}]    sg=@{SECURITY_GROUP}[0]
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
+        OpenStackOperations.Create Port    @{NETWORKS}[${index}]    @{PORTS_HOST1}[${index}]    sg=@{SECURITY_GROUP}[0]
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
+        OpenStackOperations.Create Port    @{NETWORKS}[${index}]    @{PORTS_HOST2}[${index}]    sg=@{SECURITY_GROUP}[0]
+    END
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS_HOST1}[3]    @{SECURITY_GROUP}[1]
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS_HOST1}[4]    @{SECURITY_GROUP}[1]
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS_HOST2}[3]    @{SECURITY_GROUP}[1]
@@ -208,10 +221,12 @@ Create Neutron Ports
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute nodes
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_HOST}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST1}[${index}]    @{VMS_HOST1}[${index}]    ${OS_CMP1_HOSTNAME}    sg=@{SECURITY_GROUP}[0]
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_HOST}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST2}[${index}]    @{VMS_HOST2}[${index}]    ${OS_CMP2_HOSTNAME}    sg=@{SECURITY_GROUP}[0]
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_HOST}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST1}[${index}]    @{VMS_HOST1}[${index}]    ${OS_CMP1_HOSTNAME}    sg=@{SECURITY_GROUP}[0]
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_VMS_PER_HOST}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST2}[${index}]    @{VMS_HOST2}[${index}]    ${OS_CMP2_HOSTNAME}    sg=@{SECURITY_GROUP}[0]
+    END
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST1}[3]    @{VMS_HOST1}[3]    ${OS_CMP1_HOSTNAME}    sg=@{SECURITY_GROUP}[1]
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST1}[4]    @{VMS_HOST1}[4]    ${OS_CMP1_HOSTNAME}    sg=@{SECURITY_GROUP}[1]
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS_HOST2}[3]    @{VMS_HOST2}[3]    ${OS_CMP2_HOSTNAME}    sg=@{SECURITY_GROUP}[1]
@@ -253,10 +268,11 @@ Create BGP Config On DCGW
 Create Multiple L3VPN
     [Arguments]    ${network}    ${num_of_l3vpns}
     [Documentation]    Creates multiple L3VPNs and then verify the same
-    : FOR    ${index}    IN RANGE    0    ${num_of_l3vpns}
-    \    BuiltIn.Wait Until Keyword Succeeds    40s    10s    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]
-    \    ...    rd=@{RDS}[${index}]    exportrt=@{RDS}[${index}]    importrt=@{RDS}[${index}]
-    \    VpnOperations.Verify L3VPN On ODL    @{VPN_INSTANCE_IDS}[${index}]
+    FOR    ${index}    IN RANGE    0    ${num_of_l3vpns}
+        BuiltIn.Wait Until Keyword Succeeds    40s    10s    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[${index}]    name=@{VPN_NAMES}[${index}]
+        ...    rd=@{RDS}[${index}]    exportrt=@{RDS}[${index}]    importrt=@{RDS}[${index}]
+        VpnOperations.Verify L3VPN On ODL    @{VPN_INSTANCE_IDS}[${index}]
+    END
 
 Security Group Rule with Remote SG
     [Arguments]    ${sec_grp}

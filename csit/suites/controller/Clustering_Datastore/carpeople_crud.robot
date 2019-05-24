@@ -42,8 +42,9 @@ See_Added_Cars_On_Leader
 
 See_Added_Cars_On_Followers
     [Documentation]    The same check on other members.
-    : FOR    ${session}    IN    @{car_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    FOR    ${session}    IN    @{car_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    END
 
 Add_People_To_First_Follower
     [Documentation]    Add ${CARPEOPLE_ITEMS} people to people first Follower, loop of add-person.
@@ -55,8 +56,9 @@ See_Added_People_On_Leader
 
 See_Added_People_On_Followers
     [Documentation]    The same check on other members.
-    : FOR    ${session}    IN    @{people_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    FOR    ${session}    IN    @{people_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    END
 
 Buy_Cars_On_Leader
     [Documentation]    Buy some cars on car-people Leader, loop of buy-car, ending segment of IDs.
@@ -67,9 +69,10 @@ Buy_Cars_On_Leader
 Buy_Cars_On_Followers
     [Documentation]    On each Follower buy corresponding ID segment of cars in buy-car loop.
     ${start_id} =    BuiltIn.Set_Variable    1
-    : FOR    ${session}    IN    @{car-people_follower_sessions}
-    \    CarPeople.Buy_Several_Cars    session=${session}    iterations=${items_per_follower}    iter_start=${start_id}
-    \    ${start_id} =    BuiltIn.Evaluate    ${start_id} + ${items_per_follower}
+    FOR    ${session}    IN    @{car-people_follower_sessions}
+        CarPeople.Buy_Several_Cars    session=${session}    iterations=${items_per_follower}    iter_start=${start_id}
+        ${start_id} =    BuiltIn.Evaluate    ${start_id} + ${items_per_follower}
+    END
 
 See_Added_CarPeople_On_Leader
     [Documentation]    GET car-person mappings from Leader to see all entries.
@@ -77,8 +80,9 @@ See_Added_CarPeople_On_Leader
 
 See_Added_CarPeople_On_Followers
     [Documentation]    The same check on other members.
-    : FOR    ${session}    IN    @{car-people_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    FOR    ${session}    IN    @{car-people_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
+    END
 
 Delete_All_CarPeople_On_Leader
     [Documentation]    DELETE car-people container. No verification beyond http status.

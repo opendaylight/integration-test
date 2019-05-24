@@ -130,7 +130,8 @@ Create Blacklist File
     ...    line will be created in the required ${BLACKLIST_FILE} location. This file is pushed to the OS_CONTROL_NODE
     ...    which is assumed to be the tempest executor.
     OperatingSystem.Create File    ${BLACKLIST_FILE}
-    : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_EXCLUSION_REGEXES}
-    \    OperatingSystem.Append To File    ${BLACKLIST_FILE}    ${exclusion}\n
+    FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_EXCLUSION_REGEXES}
+        OperatingSystem.Append To File    ${BLACKLIST_FILE}    ${exclusion}\n
+    END
     OperatingSystem.Log File    ${BLACKLIST_FILE}
     SSHKeywords.Copy File To Remote System    ${OS_CNTL_IP}    ${BLACKLIST_FILE}    ${BLACKLIST_FILE}

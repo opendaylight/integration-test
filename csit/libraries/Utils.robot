@@ -115,8 +115,9 @@ Check For Elements At URI
     BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
     ...    ELSE    BuiltIn.Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${i}    IN    @{elements}
-    \    Should Contain    ${resp.content}    ${i}
+    FOR    ${i}    IN    @{elements}
+        Should Contain    ${resp.content}    ${i}
+    END
 
 Check For Elements Not At URI
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False    ${check_for_null}=False
@@ -129,8 +130,9 @@ Check For Elements Not At URI
     ...    ELSE    BuiltIn.Log    ${resp.content}
     BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${i}    IN    @{elements}
-    \    Should Not Contain    ${resp.content}    ${i}
+    FOR    ${i}    IN    @{elements}
+        Should Not Contain    ${resp.content}    ${i}
+    END
 
 Clean Mininet System
     [Arguments]    ${system}=${TOOLS_SYSTEM_IP}
@@ -142,8 +144,9 @@ Clean Up Ovs
     [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
     ${output}=    Run Command On Mininet    ${system}    sudo ovs-vsctl list-br
     Log    ${output}
-    : FOR    ${i}    IN    ${output}
-    \    Run Command On Mininet    ${system}    sudo ovs-vsctl --if-exists del-br ${i}
+    FOR    ${i}    IN    ${output}
+        Run Command On Mininet    ${system}    sudo ovs-vsctl --if-exists del-br ${i}
+    END
     Run Command On Mininet    ${system}    sudo ovs-vsctl del-manager
 
 Extract Value From Content
@@ -411,16 +414,18 @@ Get Index From List Of Dictionaries
     [Documentation]    Extract index for the dictionary in a list that contains a key-value pair. Returns -1 if key-value is not found.
     ${length}=    Get Length    ${dictionary_list}
     ${index}=    Set Variable    -1
-    : FOR    ${i}    IN RANGE    ${length}
-    \    ${dictionary}=    Get From List    ${dictionary_list}    ${i}
-    \    Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
+    FOR    ${i}    IN RANGE    ${length}
+        ${dictionary}=    Get From List    ${dictionary_list}    ${i}
+        Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
+    END
     [Return]    ${index}
 
 Check Item Occurrence
     [Arguments]    ${string}    ${dictionary_item_occurrence}
     [Documentation]    Check string for occurrences of items expressed in a list of dictionaries {item=occurrences}. 0 occurences means item is not present.
-    : FOR    ${item}    IN    @{dictionary_item_occurrence}
-    \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
+    FOR    ${item}    IN    @{dictionary_item_occurrence}
+        Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
+    END
 
 Post Log Check
     [Arguments]    ${uri}    ${body}    ${status_code}=200    ${session}=session

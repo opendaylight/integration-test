@@ -42,8 +42,9 @@ Create and Verify VTEP -No Vlan
 Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
+        Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -60,14 +61,16 @@ Create and Verify VTEP IPv6 - No Vlan
     BuiltIn.Wait Until Keyword Succeeds    40    10    Get ITM IPV6    ${itm_created[0]}    ${SUBNET_IPV6}    ${NO_VLAN}
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
-    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
-    \    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
-    \    ...    headers=${ACCEPT_XML}
+    FOR    ${dpn}    IN    @{DPN_ID_LIST}
+        BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
+        ...    headers=${ACCEPT_XML}
+    END
     BuiltIn.Wait Until Keyword Succeeds    40    10    OVS Verification Between IPV6
     @{all_tunnels} =    BuiltIn.Create List
-    : FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
-    \    ${tun_names} =    Genius.Get Tunnels On OVS    ${conn_id}
-    \    Collections.Append To List    ${all_tunnels}    @{tun_names}
+    FOR    ${conn_id}    IN    @{TOOLS_SYSTEM_ALL_CONN_IDS}
+        ${tun_names} =    Genius.Get Tunnels On OVS    ${conn_id}
+        Collections.Append To List    ${all_tunnels}    @{tun_names}
+    END
     @{network_topology_list} =    BuiltIn.Create List    @{all_tunnels}
     @{network_topology_list} =    Collections.Append To List    ${network_topology_list}    ${Bridge}
     ${resp} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${OPERATIONAL_TOPO_API}    ${network_topology_list}
@@ -76,8 +79,9 @@ Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn}/${port_name}
+    FOR    ${dpn}    IN    @{DPN_ID_LIST}
+        Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn}/${port_name}
+    END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     BuiltIn.Run Keyword And Ignore Error    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -102,8 +106,9 @@ Delete and Verify VTEP -Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
+        Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -132,8 +137,9 @@ Delete VTEP -Vlan and gateway
     [Documentation]    This testcase deletes the ITM tunnel created between 2 dpns.
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
-    : FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-    \    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
+        Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+    END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
@@ -168,8 +174,9 @@ Get ITM IPV6
 
 OVS Verification Between IPV6
     [Documentation]    This keyword will verify tunnels available on ovs
-    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_IPV6_LIST}
+    FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_IPV6_LIST}
+    END
 
 Verify Network Topology
     [Documentation]    This keyword will verify whether all tunnels and bridges are populated in network topology
@@ -187,6 +194,7 @@ Verify Ietf Interface State
 Build Tools System IPV6 List
     [Documentation]    Create a list of tools system ips with IPV6.
     @{TOOLS_SYSTEM_IPV6_LIST} =    BuiltIn.Create List
-    : FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-    \    Collections.Append To List    ${TOOLS_SYSTEM_IPV6_LIST}    fd96:2a25:4ad3:3c7d:0:0:${tool_system_index}:1000
+    FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
+        Collections.Append To List    ${TOOLS_SYSTEM_IPV6_LIST}    fd96:2a25:4ad3:3c7d:0:0:${tool_system_index}:1000
+    END
     BuiltIn.Set Suite Variable    @{TOOLS_SYSTEM_IPV6_LIST}

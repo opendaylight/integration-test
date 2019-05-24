@@ -43,17 +43,19 @@ Should Contain Binding Origins
     [Arguments]    @{origins}
     [Documentation]    Test if data contain specified binding origins
     ${resp} =    SxpBindingOriginsLib.Get Binding Origins
-    : FOR    ${origin}    IN    @{origins}
-    \    ${out} =    Sxp.Find Binding Origin    ${resp.json()}    ${origin}
-    \    BuiltIn.Should Be True    ${out}    Missing origin: ${origin} in ${resp}
+    FOR    ${origin}    IN    @{origins}
+        ${out} =    Sxp.Find Binding Origin    ${resp.json()}    ${origin}
+        BuiltIn.Should Be True    ${out}    Missing origin: ${origin} in ${resp}
+    END
 
 Should Not Contain Binding Origins
     [Arguments]    @{origins}
     [Documentation]    Test if data DONT contain specified binding origins
     ${resp} =    SxpBindingOriginsLib.Get Binding Origins
-    : FOR    ${origin}    IN    @{origins}
-    \    ${out} =    Sxp.Find Binding Origin    ${resp.json()}    ${origin}
-    \    BuiltIn.Should Be Equal As Strings    False    ${out}    Not expected origin: ${origin} in ${resp}
+    FOR    ${origin}    IN    @{origins}
+        ${out} =    Sxp.Find Binding Origin    ${resp.json()}    ${origin}
+        BuiltIn.Should Be Equal As Strings    False    ${out}    Not expected origin: ${origin} in ${resp}
+    END
 
 Should Contain Binding Origin With Priority
     [Arguments]    ${origin}    ${priority}

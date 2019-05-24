@@ -57,8 +57,9 @@ Set Bridge Controllers
     ${output}=    SSHLibrary.Read_Until    ${lprompt}
     Log    ${output}
     ${cmd}=    BuiltIn.Set Variable    ${lcmd_prefix} ovs-vsctl set-controller ${bridge}
-    : FOR    ${cntl}    IN    @{controllers}
-    \    ${cmd}=    BuiltIn.Set Variable If    ${disconnected}==${False}    ${cmd} tcp:${cntl}:6653    ${cmd} tcp:${cntl}:6654
+    FOR    ${cntl}    IN    @{controllers}
+        ${cmd}=    BuiltIn.Set Variable If    ${disconnected}==${False}    ${cmd} tcp:${cntl}:6653    ${cmd} tcp:${cntl}:6654
+    END
     BuiltIn.Log    ${cmd}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read_Until    ${lprompt}
@@ -143,11 +144,12 @@ Get Master Node
     ${bridge}=    Collections.Get From Dictionary    ${ovs_switch_data}    ${switch}
     ${cntls_dict}=    Collections.Get From Dictionary    ${bridge}    controller
     ${cntls_items}=    Collections.Get Dictionary Items    ${cntls_dict}
-    : FOR    ${key}    ${value}    IN    @{cntls_items}
-    \    Log    ${key} : ${value}
-    \    ${role}=    Collections.Get From Dictionary    ${value}    role
-    \    Run Keyword If    "${role}"=="master"    BuiltIn.Should Be Equal    ${master}    ${None}
-    \    ${master}=    BuiltIn.Set Variable If    "${role}"=="master"    ${key}    ${master}
+    FOR    ${key}    ${value}    IN    @{cntls_items}
+        Log    ${key} : ${value}
+        ${role}=    Collections.Get From Dictionary    ${value}    role
+        Run Keyword If    "${role}"=="master"    BuiltIn.Should Be Equal    ${master}    ${None}
+        ${master}=    BuiltIn.Set Variable If    "${role}"=="master"    ${key}    ${master}
+    END
     BuiltIn.Should Not Be Equal    ${master}    ${None}
     Return From Keyword    ${master}
 
@@ -159,10 +161,11 @@ Get Slave Nodes
     ${bridge}=    Collections.Get From Dictionary    ${ovs_switch_data}    ${switch}
     ${cntls_dict}=    Collections.Get From Dictionary    ${bridge}    controller
     ${cntls_items}=    Collections.Get Dictionary Items    ${cntls_dict}
-    : FOR    ${key}    ${value}    IN    @{cntls_items}
-    \    Log    ${key} : ${value}
-    \    ${role}=    Collections.Get From Dictionary    ${value}    role
-    \    Run Keyword If    "${role}"=="slave"    Collections.Append To List    ${slaves}    ${key}
+    FOR    ${key}    ${value}    IN    @{cntls_items}
+        Log    ${key} : ${value}
+        ${role}=    Collections.Get From Dictionary    ${value}    role
+        Run Keyword If    "${role}"=="slave"    Collections.Append To List    ${slaves}    ${key}
+    END
     Return From Keyword    ${slaves}
 
 Setup Clustered Controller For Switches
@@ -170,13 +173,15 @@ Setup Clustered Controller For Switches
     [Documentation]    The idea of this keyword is to setup clustered controller and to be more or less sure that the role is filled correctly. The problem is when
     ...    more controllers are being set up at once, the role shown in Controller ovsdb table is not the same as we can see from wireshark traces.
     ...    Now we set disconnected controllers and we will connect them expecting that the first connected controller will be master.
-    : FOR    ${switch_name}    IN    @{switches}
-    \    Set Bridge Controllers    ${switch_name}    ${controller_ips}    disconnected=${True}
+    FOR    ${switch_name}    IN    @{switches}
+        Set Bridge Controllers    ${switch_name}    ${controller_ips}    disconnected=${True}
+    END
     # now we need to enable one node which will be master
     OvsManager.Get Ovsdb Data
-    : FOR    ${switch_name}    IN    @{switches}
-    \    ${own}=    Collections.Get From List    ${controller_ips}    0
-    \    Reconnect Switch To Controller And Verify Connected    ${switch_name}    ${own}    verify_connected=${False}
+    FOR    ${switch_name}    IN    @{switches}
+        ${own}=    Collections.Get From List    ${controller_ips}    0
+        Reconnect Switch To Controller And Verify Connected    ${switch_name}    ${own}    verify_connected=${False}
+    END
     # now we need to wait till master controllers are connected
     BuiltIn.Wait Until Keyword Succeeds    5x    2s    OvsManager__Verify_Masters_Connected    ${switches}    update_data=${True}
     # now we can enable slaves
@@ -186,15 +191,17 @@ OvsManager__Verify_Masters_Connected
     [Arguments]    ${switches}    ${update_data}=${False}
     [Documentation]    Private keyword, the existence of master means it is verified
     Run Keyword If    ${update_data}==${True}    Get Ovsdb Data
-    : FOR    ${switch_name}    IN    @{switches}
-    \    Get Master Node    ${switch_name}
+    FOR    ${switch_name}    IN    @{switches}
+        Get Master Node    ${switch_name}
+    END
 
 OvsManager__Enable_Slaves
     [Arguments]    ${switches}    ${update_data}=${False}    ${verify_connected}=${False}
     [Documentation]    This is a private keyword to enable diconnected controllers
     Run Keyword If    ${update_data}==${True}    Get Ovsdb Data
-    : FOR    ${switch_name}    IN    @{switches}
-    \    OvsManager__Enable_Slaves_For_Switch    ${switch_name}    verify_connected=${verify_connected}
+    FOR    ${switch_name}    IN    @{switches}
+        OvsManager__Enable_Slaves_For_Switch    ${switch_name}    verify_connected=${verify_connected}
+    END
 
 OvsManager__Enable_Slaves_For_Switch
     [Arguments]    ${switch}    ${update_data}=${False}    ${verify_connected}=${False}
@@ -203,11 +210,12 @@ OvsManager__Enable_Slaves_For_Switch
     ${bridge}=    Collections.Get From Dictionary    ${ovs_switch_data}    ${switch}
     ${cntls_dict}=    Collections.Get From Dictionary    ${bridge}    controller
     ${cntls_items}=    Collections.Get Dictionary Items    ${cntls_dict}
-    : FOR    ${cntl_id}    ${cntl_value}    IN    @{cntls_items}
-    \    Log    ${cntl_id} : ${cntl_value}
-    \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
-    \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
-    \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+    FOR    ${cntl_id}    ${cntl_value}    IN    @{cntls_items}
+        Log    ${cntl_id} : ${cntl_value}
+        ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
+        ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
+        Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+    END
 
 Get Dump Flows Count
     [Arguments]    ${conn_id}    ${acl_sr_table_id}    ${port_mac}=""
@@ -243,11 +251,12 @@ Get Packet Count In Table For IP
 Verify Ovs Version Greater Than Or Equal To
     [Arguments]    ${ovs_version}    @{nodes}
     [Documentation]    Get ovs version and verify greater than required version
-    : FOR    ${ip}    IN    @{nodes}
-    \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
-    \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
-    \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
-    \    BuiltIn.Should Be True    ${result} >= ${ovs_version}
+    FOR    ${ip}    IN    @{nodes}
+        ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
+        ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
+        ${result} =    BuiltIn.Convert To Number    ${version[0]}
+        BuiltIn.Should Be True    ${result} >= ${ovs_version}
+    END
 
 Get OVS Local Ip
     [Arguments]    ${ip}

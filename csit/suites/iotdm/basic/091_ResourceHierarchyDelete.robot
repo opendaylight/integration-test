@@ -222,15 +222,18 @@ ${rt_contentInstance}    4
     ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
     Response Is Correct    ${r}
@@ -362,15 +365,18 @@ ${rt_contentInstance}    4
     ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
-    : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
-    \    Response Is Correct    ${r}
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
+    FOR    ${conName}    IN    conIn1    conIn2    conIn3
+        ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
+        Response Is Correct    ${r}
+    END
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
     Response Is Correct    ${r}

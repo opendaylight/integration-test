@@ -55,19 +55,21 @@ ${NEW_AS_PATH}    ${EMPTY}
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    : FOR    ${i}    ${type}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_TYPES}
-    \    &{ODL_CONFIG}=    BuiltIn.Create_Dictionary    IP=${ODL_${i}_IP}    TYPE=${type}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    \    ...    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true
-    \    TemplatedRequests.Put_As_Xml_Templated    ${EBGP_DIR}    mapping=${ODL_CONFIG}    session=${CONFIG_SESSION}
+    FOR    ${i}    ${type}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_TYPES}
+        &{ODL_CONFIG}=    BuiltIn.Create_Dictionary    IP=${ODL_${i}_IP}    TYPE=${type}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+        ...    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true
+        TemplatedRequests.Put_As_Xml_Templated    ${EBGP_DIR}    mapping=${ODL_CONFIG}    session=${CONFIG_SESSION}
+    END
 
 Start_Bgp_Peers
     [Documentation]    Start Python speaker to connect to ODL. We give each speaker time until odl really starts to accept incoming
     ...    bgp connection. The failure happens if the incoming connection comes too quickly after configuring the peer.
     [Tags]    local_run
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    : FOR    ${i}    ${as_number}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_AS_NUMBERS}
-    \    BuiltIn.Log_Many    IP: ${ODL_${i}_IP}    as_number: ${as_number}
-    \    Start_Bgp_Peer    ${ODL_${i}_IP}    ${as_number}    800${i}    play.py.090.${i}
+    FOR    ${i}    ${as_number}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_AS_NUMBERS}
+        BuiltIn.Log_Many    IP: ${ODL_${i}_IP}    as_number: ${as_number}
+        Start_Bgp_Peer    ${ODL_${i}_IP}    ${as_number}    800${i}    play.py.090.${i}
+    END
 
 Play_To_Odl_ext_l3vpn_rt_arg
     [Documentation]    This TC sends route-target route containing route-target argument from node 1 to odl
@@ -129,10 +131,11 @@ Kill_Talking_BGP_Speakers
 Delete_Bgp_Peers_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    : FOR    ${i}    ${type}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_TYPES}
-    \    &{ODL_CONFIG} =    BuiltIn.Create_Dictionary    IP=${ODL_${i}_IP}    TYPE=${type}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    \    ...    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true
-    \    TemplatedRequests.Delete_Templated    ${EBGP_DIR}    mapping=${ODL_CONFIG}    session=${CONFIG_SESSION}
+    FOR    ${i}    ${type}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${BGP_PEER_TYPES}
+        &{ODL_CONFIG} =    BuiltIn.Create_Dictionary    IP=${ODL_${i}_IP}    TYPE=${type}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+        ...    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true
+        TemplatedRequests.Delete_Templated    ${EBGP_DIR}    mapping=${ODL_CONFIG}    session=${CONFIG_SESSION}
+    END
 
 *** Keywords ***
 Start_Suite
@@ -222,9 +225,10 @@ Get_Update_Message_And_Compare_With_Hex_BgpRpcClient4
 Check_For_L3VPN_Odl_Avertisement
     [Arguments]    ${announce_hex}
     [Documentation]    Checks that each node received or did not receive update message containing given hex message.
-    : FOR    ${i}    ${option}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${L3VPN_RT_CHECK}
-    \    ${keyword_name}=    BuiltIn.Set_Variable    Get_Update_Message_And_Compare_With_Hex_BgpRpcClient${i}
-    \    BuiltIn.Run_Keyword    ${keyword_name}    ${announce_hex}    ${option}
+    FOR    ${i}    ${option}    IN ZIP    ${ODL_IP_INDICES_ALL}    ${L3VPN_RT_CHECK}
+        ${keyword_name}=    BuiltIn.Set_Variable    Get_Update_Message_And_Compare_With_Hex_BgpRpcClient${i}
+        BuiltIn.Run_Keyword    ${keyword_name}    ${announce_hex}    ${option}
+    END
 
 Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}

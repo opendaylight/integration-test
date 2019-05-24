@@ -48,21 +48,24 @@ Start Mininet Multiple Controllers
     SSHLibrary.Read Until    mininet>
     Log    Create controller configuration
     ${controller_opt}=    Set Variable
-    : FOR    ${index}    IN    @{index_list}
-    \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
-    \    Log    ${controller_opt}
+    FOR    ${index}    IN    @{index_list}
+        ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
+        Log    ${controller_opt}
+    END
     Log    Open extra SSH connection to configure the OVS bridges
     SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     ${num_bridges}    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
     ${bridges}=    Create List
-    : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
-    \    ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-controller ${bridge} && sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
-    \    Collections.Append To List    ${bridges}    ${bridge}
+    FOR    ${i}    IN RANGE    1    ${num_bridges+1}
+        ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
+        SSHLibrary.Execute Command    sudo ovs-vsctl del-controller ${bridge} && sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
+        Collections.Append To List    ${bridges}    ${bridge}
+    END
     Log    Configure OVS controllers ${controller_opt} in all bridges
-    : FOR    ${bridge}    IN    @{bridges}
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    FOR    ${bridge}    IN    @{bridges}
+        SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    END
     Log    Check OVS configuratiom
     ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
     Log    ${output}
@@ -113,9 +116,10 @@ Send Mininet Command Multiple Sessions
     [Arguments]    ${mininet_conn_list}    ${cmd}=help
     [Documentation]    Sends Command ${cmd} to Mininet sessions in ${mininet_conn_list} and returns list of read buffer responses.
     ${output_list}=    Create List
-    : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
-    \    ${output}=    Utils.Send Mininet Command    ${mininet_conn}    ${cmd}
-    \    Collections.Append To List    ${output_list}    ${output}
+    FOR    ${mininet_conn}    IN    @{mininet_conn_list}
+        ${output}=    Utils.Send Mininet Command    ${mininet_conn}    ${cmd}
+        Collections.Append To List    ${output_list}    ${output}
+    END
     [Return]    ${output_list}
 
 Stop Mininet And Exit
@@ -129,21 +133,23 @@ Stop Mininet And Exit
 Stop Mininet And Exit Multiple Sessions
     [Arguments]    ${mininet_conn_list}
     [Documentation]    Stops Mininet and exits sessions in ${mininet_conn_list}.
-    : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
-    \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn}
+    FOR    ${mininet_conn}    IN    @{mininet_conn_list}
+        MininetKeywords.Stop Mininet And Exit    ${mininet_conn}
+    END
 
 Disconnect Cluster Mininet
     [Arguments]    ${action}=break    ${member_index_list}=${EMPTY}
     [Documentation]    Break and restore controller to mininet connection via iptables.
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${rule} =    BuiltIn.Set Variable    OUTPUT -p all --source ${ODL_SYSTEM_${index}_IP} --destination ${TOOLS_SYSTEM_IP} -j DROP
-    \    ${command} =    BuiltIn.Set Variable If    '${action}'=='restore'    sudo /sbin/iptables -D ${rule}    sudo /sbin/iptables -I ${rule}
-    \    Log To Console    ${ODL_SYSTEM_${index}_IP}
-    \    Utils.Run Command On Controller    ${ODL_SYSTEM_${index}_IP}    cmd=${command}
-    \    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
-    \    ${output} =    Utils.Run Command On Controller    cmd=${command}
-    \    BuiltIn.Log    ${output}
+    FOR    ${index}    IN    @{index_list}
+        ${rule} =    BuiltIn.Set Variable    OUTPUT -p all --source ${ODL_SYSTEM_${index}_IP} --destination ${TOOLS_SYSTEM_IP} -j DROP
+        ${command} =    BuiltIn.Set Variable If    '${action}'=='restore'    sudo /sbin/iptables -D ${rule}    sudo /sbin/iptables -I ${rule}
+        Log To Console    ${ODL_SYSTEM_${index}_IP}
+        Utils.Run Command On Controller    ${ODL_SYSTEM_${index}_IP}    cmd=${command}
+        ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
+        ${output} =    Utils.Run Command On Controller    cmd=${command}
+        BuiltIn.Log    ${output}
+    END
 
 Verify Aggregate Flow From Mininet Session
     [Arguments]    ${mininet_conn}=${EMPTY}    ${flow_count}=0    ${time_out}=0s
@@ -179,9 +185,10 @@ Ping All Hosts
     [Documentation]    Do one round of ping from one host to all other hosts in mininet.
     ...    Note that a single ping failure will exit the loop and return a non zero value.
     ${source}=    Get From List    ${host_list}    ${0}
-    : FOR    ${h}    IN    @{host_list}
-    \    ${status}=    Ping Two Hosts    ${source}    ${h}    1
-    \    Exit For Loop If    ${status}!=${0}
+    FOR    ${h}    IN    @{host_list}
+        ${status}=    Ping Two Hosts    ${source}    ${h}    1
+        Exit For Loop If    ${status}!=${0}
+    END
     [Return]    ${status}
 
 Ping Two Hosts
@@ -200,9 +207,10 @@ Get Mininet Hosts
     SSHLibrary.Write    nodes
     ${out}=    SSHLibrary.Read Until    mininet>
     @{words}=    String.Split String    ${out}    ${SPACE}
-    : FOR    ${item}    IN    @{words}
-    \    ${h}=    String.Get Lines Matching Regexp    ${item}    h[0-9]*
-    \    Run Keyword If    '${h}' != '${EMPTY}'    Collections.Append To List    ${host_list}    ${h}
+    FOR    ${item}    IN    @{words}
+        ${h}=    String.Get Lines Matching Regexp    ${item}    h[0-9]*
+        Run Keyword If    '${h}' != '${EMPTY}'    Collections.Append To List    ${host_list}    ${h}
+    END
     [Return]    ${host_list}
 
 Install Certificates In Mininet

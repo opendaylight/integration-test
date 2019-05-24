@@ -168,8 +168,9 @@ Stop PathSuiteVtnMaTest
 DataFlowsForBridge
     [Arguments]    ${resp}    @{BRIDGE_DATAFLOW}
     [Documentation]    Verify whether the required attributes exists.
-    : FOR    ${dataflowElement}    IN    @{BRIDGE_DATAFLOW}
-    \    should Contain    ${resp.content}    ${dataflowElement}
+    FOR    ${dataflowElement}    IN    @{BRIDGE_DATAFLOW}
+        should Contain    ${resp.content}    ${dataflowElement}
+    END
 
 Add a pathmap
     [Arguments]    ${pathmap_data}
@@ -180,8 +181,9 @@ Add a pathmap
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-map:global-path-maps
-    : FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
-    \    should Contain    ${resp.content}    ${pathElement}
+    FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
+        should Contain    ${resp.content}    ${pathElement}
+    END
 
 Add a pathpolicy
     [Arguments]    ${pathpolicy_data}
@@ -193,8 +195,9 @@ Get a pathpolicy
     [Arguments]    ${pathpolicy_id}
     [Documentation]    Get a pathpolicy for a vtn.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
-    : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
-    \    should Contain    ${resp.content}    ${pathpolicyElement}
+    FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
+        should Contain    ${resp.content}    ${pathpolicyElement}
+    END
 
 Delete a pathmap
     [Arguments]    ${tenant_path}
@@ -375,8 +378,9 @@ Verify Actions on Flow Entry
     [Documentation]    check flow action elements by giving dumpflows in mininet
     write    ${dumpflows}
     ${result}    Read Until    mininet>
-    : FOR    ${flowElement}    IN    @{flowfilter_actions}
-    \    should Contain    ${result}    ${flowElement}
+    FOR    ${flowElement}    IN    @{flowfilter_actions}
+        should Contain    ${result}    ${flowElement}
+    END
 
 Add a flowcondition
     [Arguments]    ${flowcond_name}    ${flowconditiondata}

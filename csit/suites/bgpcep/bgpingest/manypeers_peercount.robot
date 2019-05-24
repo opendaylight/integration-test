@@ -69,13 +69,14 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
-    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
-    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY_RRC}
-    \    ...    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true
-    \    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
-    \    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
+        ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+        ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+        &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY_RRC}
+        ...    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true
+        ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
+        TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    END
 
 Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
@@ -94,13 +95,14 @@ Check_Logs_For_Updates
     [Documentation]    Check BGP peer logs for received updates.
     [Tags]    critical
     ${timeout} =    BuiltIn.Set_Variable    ${bgp_filling_timeout}
-    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
-    \    ${bgp_peer_label} =    BuiltIn.Set_Variable    BGP-Dummy-${index}
-    \    ${expected_prefixcount} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT_MANY_RRC} - ${COUNT_PREFIX_COUNT_MANY_RRC} / ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
-    \    ${expected_string} =    BuiltIn.Set_Variable    total_received_nlri_prefix_counter: ${expected_prefixcount}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_File_For_Occurence    ${BGP_PEERS_LOG_FILE_NAME}    ${bgp_peer_label}
-    \    ...    ${expected_string}    2
-    \    ${timeout} =    BuiltIn.Set_Variable    20s
+    FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
+        ${bgp_peer_label} =    BuiltIn.Set_Variable    BGP-Dummy-${index}
+        ${expected_prefixcount} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT_MANY_RRC} - ${COUNT_PREFIX_COUNT_MANY_RRC} / ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
+        ${expected_string} =    BuiltIn.Set_Variable    total_received_nlri_prefix_counter: ${expected_prefixcount}
+        BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_File_For_Occurence    ${BGP_PEERS_LOG_FILE_NAME}    ${bgp_peer_label}
+        ...    ${expected_string}    2
+        ${timeout} =    BuiltIn.Set_Variable    20s
+    END
     # FIXME: Calculation of ${expected_prefixcount} correct just when the ${COUNT_PREFIX_COUNT_MANY_RRC} is a multiplication of ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
 
 Kill_Talking_BGP_Speakers
@@ -128,11 +130,12 @@ Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
-    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
-    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
+        ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+        ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+        &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+        TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    END
 
 *** Keywords ***
 Setup_Everything

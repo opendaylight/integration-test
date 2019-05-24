@@ -84,12 +84,15 @@ Verification of FlowStats-Attributes on Cassandra Data Store
 
 Comparing Queue Metrics
     [Documentation]    Comparing Queue metrics between Cassandra and OF plugin
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q0}    ${tsdr_q0}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q1}    ${tsdr_q1}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q2}    ${tsdr_q2}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q0}    ${tsdr_q0}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q1}    ${tsdr_q1}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_q2}    ${tsdr_q2}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
 
 *** Keyword ***
 Configuration of Queue on Switch

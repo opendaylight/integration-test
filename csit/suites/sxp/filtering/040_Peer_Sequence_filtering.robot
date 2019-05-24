@@ -42,41 +42,43 @@ Inbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
     [Tags]    SXP    Filtering
     @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
-    : FOR    ${scope}    IN    @{scopes}
-    \    SxpLib.Add PeerGroup    GROUP
-    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,1
-    \    ${entries} =    Common.Combine Strings    ${entry1}
-    \    SxpLib.Add Filter    GROUP    ${scope}    ${entries}
-    \    Setup Nodes Inbound Test
-    \    ${peers} =    Sxp.Add Peers    127.0.0.2
-    \    SxpLib.Add PeerGroup    GROUP2    ${peers}
-    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    pl=1.1.0.0/16
-    \    ${entries} =    Common.Combine Strings    ${entry1}
-    \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
-    \    BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound PL Combinations Filtering
-    \    Clean Nodes
+    FOR    ${scope}    IN    @{scopes}
+        SxpLib.Add PeerGroup    GROUP
+        ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,1
+        ${entries} =    Common.Combine Strings    ${entry1}
+        SxpLib.Add Filter    GROUP    ${scope}    ${entries}
+        Setup Nodes Inbound Test
+        ${peers} =    Sxp.Add Peers    127.0.0.2
+        SxpLib.Add PeerGroup    GROUP2    ${peers}
+        ${entry1} =    Sxp.Get Filter Entry    10    permit    pl=1.1.0.0/16
+        ${entries} =    Common.Combine Strings    ${entry1}
+        SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
+        BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound PL Combinations Filtering
+        Clean Nodes
+    END
 
 Inbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
     [Tags]    SXP    Filtering
     @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
-    : FOR    ${scope}    IN    @{scopes}
-    \    ${peers} =    Sxp.Add Peers    127.0.0.2
-    \    SxpLib.Add PeerGroup    GROUP2    ${peers}
-    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,2
-    \    ${entries}    Common.Combine Strings    ${entry1}
-    \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
-    \    Setup Nodes Inbound Test
-    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    acl=1.1.1.0,0.0.0.255
-    \    ${entries} =    Common.Combine Strings    ${entry1}
-    \    SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
-    \    ${peers} =    Sxp.Add Peers    127.0.0.5
-    \    SxpLib.Add PeerGroup    GROUP5    ${peers}
-    \    ${entry1} =    Sxp.Get Filter Entry    10    permit    sgt=40
-    \    ${entries} =    Common.Combine Strings    ${entry1}
-    \    SxpLib.Add Filter    GROUP5    ${scope}    ${entries}
-    \    BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound ACL Combinations Filtering
-    \    Clean Nodes
+    FOR    ${scope}    IN    @{scopes}
+        ${peers} =    Sxp.Add Peers    127.0.0.2
+        SxpLib.Add PeerGroup    GROUP2    ${peers}
+        ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,2
+        ${entries}    Common.Combine Strings    ${entry1}
+        SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
+        Setup Nodes Inbound Test
+        ${entry1} =    Sxp.Get Filter Entry    10    permit    acl=1.1.1.0,0.0.0.255
+        ${entries} =    Common.Combine Strings    ${entry1}
+        SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
+        ${peers} =    Sxp.Add Peers    127.0.0.5
+        SxpLib.Add PeerGroup    GROUP5    ${peers}
+        ${entry1} =    Sxp.Get Filter Entry    10    permit    sgt=40
+        ${entries} =    Common.Combine Strings    ${entry1}
+        SxpLib.Add Filter    GROUP5    ${scope}    ${entries}
+        BuiltIn.Wait Until Keyword Succeeds    4    2    Check Inbound ACL Combinations Filtering
+        Clean Nodes
+    END
 
 Outbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
@@ -117,11 +119,12 @@ Setup Nodes
     SxpLib.Add Bindings    10    10.10.10.0/24    127.0.0.1
     SxpLib.Add Bindings    10    10.10.0.0/16    127.0.0.1
     SxpLib.Add Bindings    10    10.0.0.0/8    127.0.0.1
-    : FOR    ${node}    IN RANGE    2    6
-    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    6
+        SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
@@ -140,11 +143,12 @@ Setup Nodes
 Setup Nodes Inbound Test
     [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for inbound PeerSequence and other filters tests
-    : FOR    ${node}    IN RANGE    2    6
-    \    SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    6
+        SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
@@ -171,11 +175,12 @@ Setup Nodes Outbound Test
     SxpLib.Add Bindings    10    1.1.1.0/24    127.0.0.1
     SxpLib.Add Bindings    10    1.1.0.0/16    127.0.0.1
     SxpLib.Add Bindings    10    1.0.0.0/8    127.0.0.1
-    : FOR    ${node}    IN RANGE    3    6
-    \    SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    3    6
+        SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
+        SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    END
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
@@ -197,11 +202,12 @@ Check PeerSequence One
     SxpLib.Should Contain Binding    ${resp}    10    10.10.10.0/24
     SxpLib.Should Contain Binding    ${resp}    10    10.10.0.0/16
     SxpLib.Should Contain Binding    ${resp}    10    10.0.0.0/8
-    : FOR    ${node}    IN RANGE    3    6
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.${node}0.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    ${node}0.0.0.0/8
+    FOR    ${node}    IN RANGE    3    6
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.${node}0.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    ${node}0.0.0.0/8
+    END
 
 Check PeerSequence Two
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 2
@@ -214,11 +220,12 @@ Check PeerSequence Two
     SxpLib.Should Contain Binding    ${resp}    30    10.10.30.0/24
     SxpLib.Should Contain Binding    ${resp}    30    10.30.0.0/16
     SxpLib.Should Contain Binding    ${resp}    30    30.0.0.0/8
-    : FOR    ${node}    IN RANGE    4    6
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.${node}0.0.0/16
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${node}0    ${node}0.0.0.0/8
+    FOR    ${node}    IN RANGE    4    6
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.10.${node}0/32
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.10.${node}0.0/24
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    10.${node}0.0.0/16
+        SxpLib.Should Not Contain Binding    ${resp}    ${node}0    ${node}0.0.0.0/8
+    END
 
 Check PeerSequence Three
     [Documentation]    Node 127.0.0.2 should contain only bindings with peer sequence lower or equals 3

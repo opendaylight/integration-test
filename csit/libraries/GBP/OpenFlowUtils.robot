@@ -113,12 +113,13 @@ Find Flow in DPCTL Output
     @{lines}    Split To Lines    ${output}
     ${match_result}    Set Variable
     ${action_result}    Set Variable
-    : FOR    ${line}    IN    @{lines}
-    \    ${match}    Get Matches Part    ${line}
-    \    ${action}    Get Actions Part    ${line}
-    \    ${match_result}    Check Match    ${match}    @{flow_match_criteria}
-    \    ${action_result}    Check Match    ${action}    @{flow_action_criteria}
-    \    Run Keyword If    "${match_result}" == "TRUE" and "${action_result}" == "TRUE"    Return From Keyword    ${line}
+    FOR    ${line}    IN    @{lines}
+        ${match}    Get Matches Part    ${line}
+        ${action}    Get Actions Part    ${line}
+        ${match_result}    Check Match    ${match}    @{flow_match_criteria}
+        ${action_result}    Check Match    ${action}    @{flow_action_criteria}
+        Run Keyword If    "${match_result}" == "TRUE" and "${action_result}" == "TRUE"    Return From Keyword    ${line}
+    END
     Log    ${flow_match_criteria}
     Log    ${flow_action_criteria}
     Fail    Flow not found!
@@ -140,12 +141,13 @@ Check Match
     [Arguments]    ${string}    @{match_criteria}
     [Documentation]    Applies 'grep' on the string argument for each criterion.
     ${conditions}    Set Variable
-    : FOR    ${criterio}    IN    @{match_criteria}
-    \    ${grep_criterio}    Catenate    | grep    ${criterio}
-    \    ${conditions}    Catenate    ${conditions}    ${grep_criterio}
-    \    ${debug_output}    OperatingSystem.Run    echo "${string}" ${conditions}
-    \    Log    ${debug_output}
-    \    Run Keyword If    "${debug_output}" == "${EMPTY}"    Log    ${criterio}
+    FOR    ${criterio}    IN    @{match_criteria}
+        ${grep_criterio}    Catenate    | grep    ${criterio}
+        ${conditions}    Catenate    ${conditions}    ${grep_criterio}
+        ${debug_output}    OperatingSystem.Run    echo "${string}" ${conditions}
+        Log    ${debug_output}
+        Run Keyword If    "${debug_output}" == "${EMPTY}"    Log    ${criterio}
+    END
     ${output}    OperatingSystem.Run    echo "${string}" ${conditions}
     Log    ${output}
     Run Keyword If    "${output}" == "${EMPTY}"    Return From Keyword    FALSE

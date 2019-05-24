@@ -113,8 +113,9 @@ Clean Custom SXP Cluster
 Add Bindings To Node
     [Arguments]    ${node}    ${session}
     [Documentation]    Setup initial bindings to SXP device/controller ${node} with ${session}
-    : FOR    ${i}    IN RANGE    1    ${BINDINGS}
-    \    SxpLib.Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    FOR    ${i}    IN RANGE    1    ${BINDINGS}
+        SxpLib.Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    END
 
 Isolate SXP Controller
     [Arguments]    ${controller_index}
@@ -145,5 +146,6 @@ Check Bindings
     [Arguments]    ${node}    ${session}
     [Documentation]    Check that bindings were propagated to the peer ${node}
     ${resp} =    SxpLib.Get Bindings    node=${node}    session=${session}
-    : FOR    ${i}    IN RANGE    1    ${BINDINGS}
-    \    SxpLib.Should Contain Binding    ${resp}    ${i}0    ${i}.${i}.${i}.${i}/32
+    FOR    ${i}    IN RANGE    1    ${BINDINGS}
+        SxpLib.Should Contain Binding    ${resp}    ${i}0    ${i}.${i}.${i}.${i}/32
+    END

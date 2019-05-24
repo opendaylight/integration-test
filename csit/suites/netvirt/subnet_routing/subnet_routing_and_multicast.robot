@@ -94,15 +94,17 @@ Stop Suite
 
 Create Neutron Networks
     [Documentation]    Create required number of networks
-    : FOR    ${net}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${net}
+    FOR    ${net}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${net}
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
 
 Create Neutron Subnets
     [Arguments]    ${num_of_network}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create required number of subnets for previously created networks
-    : FOR    ${index}    IN RANGE    0    ${num_of_network}
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDR}[${index}]
+    FOR    ${index}    IN RANGE    0    ${num_of_network}
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDR}[${index}]
+    END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
 Create Neutron Ports
@@ -110,22 +112,26 @@ Create Neutron Ports
     ${allowed_address_pairs_args1} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1]
     ${allowed_address_pairs_args2} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[2]
     ${allowed_address_pairs_args3} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[2] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0]
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{NET_1_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args1}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{NET_2_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args2}
-    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-    \    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{NET_3_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args3}
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
+        OpenStackOperations.Create Port    @{NETWORKS}[0]    @{NET_1_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args1}
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
+        OpenStackOperations.Create Port    @{NETWORKS}[1]    @{NET_2_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args2}
+    END
+    FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
+        OpenStackOperations.Create Port    @{NETWORKS}[2]    @{NET_3_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args3}
+    END
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute nodes
-    : FOR    ${index}    IN RANGE    0    2
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index}]    @{NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index+2}]    @{NET_1_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index}]    @{NET_2_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index+2}]    @{NET_2_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index}]    @{NET_3_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index+2}]    @{NET_3_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    2
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index}]    @{NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index+2}]    @{NET_1_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index}]    @{NET_2_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index+2}]    @{NET_2_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index}]    @{NET_3_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index+2}]    @{NET_3_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     @{NET_3_VM_IPS}    ${NET3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
@@ -149,9 +155,10 @@ Create Setup
     Create Nova VMs
     Create Sub Interfaces And Verify
     Create L3VPN
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
-    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    FOR    ${network}    IN    @{NETWORKS}
+        ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+        VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    END
     Create BGP Config On ODL
     Create BGP Config On DCGW
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP

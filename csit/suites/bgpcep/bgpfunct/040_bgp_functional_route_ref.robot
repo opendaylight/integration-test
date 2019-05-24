@@ -111,21 +111,23 @@ Upload_Config_Files
     SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${BGP_CFG_NAME}    .
     SSHLibrary.Put_File    ${EXARPCSCRIPT}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/enable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/enable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END
 
 Configure_Routes_And_Start_ExaBgp
     [Arguments]    ${cfg_file}
     [Documentation]    Setup keyword for exa to odl test case
     ${app_rib}    Set Variable    ${ODL_SYSTEM_IP}
-    : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
-    \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
-    \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
+    FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
+        &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
+        TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
+    END
     BuiltIn.Set_Suite_Variable    ${nr_configured_routes}    2
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
@@ -170,8 +172,9 @@ Verify_Cli_Output_Count
     String.Get Line Count    ${output}
     BuiltIn.Log    ${expstate}
     ${expected_line_count}    String.Get Line Count    ${expstate}
-    : FOR    ${expected_line_pos}    IN RANGE    0    ${expected_line_count-1}
-    \    ${expected_line_offset}    BuiltIn.Evaluate    ${MSG_STATE_OFFSET} + ${expected_line_pos}
-    \    ${output_line}    String.Get Line    ${output}    ${expected_line_offset}
-    \    ${expected_line}    String.Get Line    ${expstate}    ${expected_line_pos}
-    \    BuiltIn.Should Match    ${output_line}    ${expected_line}
+    FOR    ${expected_line_pos}    IN RANGE    0    ${expected_line_count-1}
+        ${expected_line_offset}    BuiltIn.Evaluate    ${MSG_STATE_OFFSET} + ${expected_line_pos}
+        ${output_line}    String.Get Line    ${output}    ${expected_line_offset}
+        ${expected_line}    String.Get Line    ${expstate}    ${expected_line_pos}
+        BuiltIn.Should Match    ${output_line}    ${expected_line}
+    END

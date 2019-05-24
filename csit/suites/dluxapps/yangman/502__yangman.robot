@@ -34,13 +34,14 @@ Verify Operations Presence In Operation Select Menu
 Select Each Operation And Verify That Code Mirrors Has Been Displayed Correctly
     ${operation_ids}=    YangmanKeywords.Return List Of Operation IDs
     ${operation_names}=    YangmanKeywords.Return List Of Operation Names
-    : FOR    ${i}    IN RANGE    0    len(${operation_ids})
-    \    ${operation_id}=    Collections.Get From List    ${operation_ids}    ${i}
-    \    ${operation_name}=    Collections.Get From List    ${operation_names}    ${i}
-    \    YangmanKeywords.Expand Operation Select Menu And Select Operation    ${operation_id}    ${operation_name}
-    \    Run Keyword If    "${operation_name}"=="PUT" or "${operation_name}"=="POST"    BuiltIn.Run Keywords    YangmanKeywords.Verify Sent Data CM Is Displayed
-    \    ...    AND    YangmanKeywords.Verify Received Data CM Is Displayed
-    \    Run Keyword If    "${operation_name}"=="GET" or "${operation_name}"=="DELETE"    YangmanKeywords.Verify Received Data CM Is Displayed
+    FOR    ${i}    IN RANGE    0    len(${operation_ids})
+        ${operation_id}=    Collections.Get From List    ${operation_ids}    ${i}
+        ${operation_name}=    Collections.Get From List    ${operation_names}    ${i}
+        YangmanKeywords.Expand Operation Select Menu And Select Operation    ${operation_id}    ${operation_name}
+        Run Keyword If    "${operation_name}"=="PUT" or "${operation_name}"=="POST"    BuiltIn.Run Keywords    YangmanKeywords.Verify Sent Data CM Is Displayed
+        ...    AND    YangmanKeywords.Verify Received Data CM Is Displayed
+        Run Keyword If    "${operation_name}"=="GET" or "${operation_name}"=="DELETE"    YangmanKeywords.Verify Received Data CM Is Displayed
+    END
 
 Verify Displaying And Hiding Of CMs When Selecting Show Data Checkboxes
     YangmanKeywords.Select Json View

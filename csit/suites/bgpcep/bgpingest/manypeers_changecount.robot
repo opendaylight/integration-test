@@ -109,14 +109,15 @@ Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
     ...    In Versions Fluorine and above, it sets peer-group as template, and than sets all neighbors using it.
     CompareStream.Run_Keyword_If_At_Least_Fluorine    Configure_Peer_Group
-    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
-    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
-    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}
-    \    ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
-    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
-    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
+        ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+        ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+        &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}
+        ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+        ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+        CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+        CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    END
     # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
 Reconfigure_Data_Change_Counter
@@ -181,13 +182,14 @@ Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     # TODO: Is it useful to extract peer naming logic to separate Keyword?
-    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
-    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
-    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    ...    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
-    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
-    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
+        ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+        ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+        &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+        ...    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+        CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+        CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    END
     CompareStream.Run_Keyword_If_At_Least_Fluorine    Deconfigure_Peer_Group
 
 *** Keywords ***
