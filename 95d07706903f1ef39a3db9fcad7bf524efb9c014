@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d94164d8_eaa4a2f8",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-05-28T19:48:16Z",
+      "side": 1,
+      "message": "I think these are no longer used with this change",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "95d07706903f1ef39a3db9fcad7bf524efb9c014",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
