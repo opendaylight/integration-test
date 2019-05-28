@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "314e17bf_26a21f18",
+        "filename": "csit/testplans/netvirt-1node-dcgw-openstack.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-05-28T05:14:32Z",
+      "side": 1,
+      "message": "is this really needed? why do we do JVM plots for all suites?",
+      "revId": "60b84aea991d2542a7b15aec72d6425e64911da2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
