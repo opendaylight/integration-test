@@ -93,7 +93,7 @@ def find_key(response, key):
     try:
         val = response.json()
         return val['any'][0][key]
-    except:
+    except Exception:
         return None
 
 
@@ -126,7 +126,7 @@ def status(response):
     """Return the protocol status code in the response."""
     try:
         return response.status_code
-    except:
+    except Exception:
         return None
 
 
@@ -134,7 +134,7 @@ def headers(response):
     """Return the protocol headers in the response."""
     try:
         return response.headers
-    except:
+    except Exception:
         return None
 
 
@@ -142,7 +142,7 @@ def error(response):
     """Return the error string in the response."""
     try:
         return response.json()['error']
-    except:
+    except Exception:
         return None
 
 

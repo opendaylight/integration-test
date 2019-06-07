@@ -77,8 +77,7 @@ class TestOneM2MHttp(unittest.TestCase):
         builder.set_content(content)
         primitive = builder.build()
 
-        rsp_primitive = tx.send(primitive)
-        # TODO rsp_primitive should be the same primitive, just use _compare()
+        tx.send(primitive)
         # TODO method of primitive if was correctly encoded / decoded
 
         tx.stop()
