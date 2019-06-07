@@ -40,8 +40,8 @@ ${NUM_OF_L3VPN}    3
 ${START_VALUE}    0
 
 *** Test Cases ***
-Verify ODL supports REST API/CLI for multipath configuration (enable/disable multipath)
-    [Documentation]    Enable and disable multipath on ODL using karaf CLI and verifying it
+Verify ODL supports CLI for multipath configuration (enable/disable multipath)
+    [Documentation]    Enable and disable multipath on ODL using karaf CLI and verify
     Configure Multipath On ODL    ${ENABLE}
     Verify Multipath    ${ENABLE}
     Configure Multipath On ODL    ${DISABLE}
@@ -49,8 +49,8 @@ Verify ODL supports REST API/CLI for multipath configuration (enable/disable mul
     Configure Multipath On ODL    ${ENABLE}
     Verify Multipath    ${ENABLE}
 
-Verify CSC supports REST API/CLI for max path configuration
-    [Documentation]    Verify CSC supports REST API/CLI for max path configuration
+Verify CSC supports CLI for max path configuration
+    [Documentation]    Verify CSC supports CLI for max path configuration
     : FOR    ${idx}    IN RANGE    ${START_VALUE}    ${NUM_OF_DCGW}
     \    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${idx}]    vpnid=@{VPN_ID}[${idx}]    rd=@{L3VPN_RD_IRT_ERT}[${idx}]    exportrt=@{L3VPN_RD_IRT_ERT}[${idx}]    importrt=@{L3VPN_RD_IRT_ERT}[${idx}]
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}
@@ -97,7 +97,7 @@ Verify ODL supports dynamic configuration changes for max path value
     \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify FIB Entry On ODL    @{NETWORK_IP}[0]    @{NUM_OF_ROUTES}[${index}]
 
 Verify that ECMP path gets withdrawn by QBGP after disabling multipath
-    [Documentation]    Verify that ECMP path gets withdrawn by QBGP after disabling multipath
+    [Documentation]    Verify that ECMP path gets withdrawn by QBGP after disabling multipath by setting multipath value to 1
     VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[0]    vpnid=@{VPN_ID}[0]    rd=@{L3VPN_RD_IRT_ERT}[0]    exportrt=@{L3VPN_RD_IRT_ERT}[0]    importrt=@{L3VPN_RD_IRT_ERT}[0]
     VpnOperations.Verify L3VPN On ODL    @{VPN_ID}[0]
     VpnOperations.Associate VPN to Router    routerid=@{router_id_list}[0]    vpnid=@{VPN_ID}[0]
