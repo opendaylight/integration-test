@@ -31,7 +31,7 @@ ${LOOPBACK_IP}    5.5.5.2
 ${DCGW_RD}        100:1
 ${VPN_NAME}       vpn_1
 ${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261442
-${ExtIP}          100.100.100.2
+${ExtIP}          100.100.100.24
 @{NETWORKS}       nat_net_1    nat_net_2
 @{EXTERNAL_NETWORKS}    nat_ext_11    nat_ext_22
 @{EXTERNAL_SUB_NETWORKS}    nat_ext_sub_net_1    nat_ext_sub_net_2
@@ -99,6 +99,20 @@ Verify Floating Ip Re-provision And Reachability From External Network Via Neutr
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
     BuiltIn.Should Contain    ${output}    ${ExtIP}
+
+Verify Multiple Floating Ip Provision And Reachability From External Network Via Neutron Router Through L3vpn
+    [Documentation]    Check Multiple floating IPs should be present in dump flows after creating multiple floating IPs and  associating it to external network
+    ...    which is associated to L3VPN
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
+    ${FloatIp1} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[1]
+    ${FloatIp2} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[2]
+    ${FloatIp3} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[3]
+    ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP2_CONN_ID}
+    BuiltIn.Should Match Regexp    ${output}    ${ExtIP}
+    BuiltIn.Should Match Regexp    ${output}    .*${FloatIp1}.*
+    BuiltIn.Should Match Regexp    ${output}    .*${FloatIp2}.*
+    BuiltIn.Should Match Regexp    ${output}    .*${FloatIp3}.*
 
 *** Keywords ***
 Suite Setup
