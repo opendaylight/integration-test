@@ -164,7 +164,7 @@ class OneM2MHttpTx(IoTTx):
     def send(self, jsonprimitive):
         try:
             message = self.encoder.encode(jsonprimitive)
-        except IoTDataEncodeError as e:
+        except IoTDataEncodeError:
             return None
 
         rsp_message = self.session.send(message)
@@ -172,7 +172,7 @@ class OneM2MHttpTx(IoTTx):
         rsp_primitive = None
         try:
             rsp_primitive = self.decoder.decode(rsp_message)
-        except IoTDataDecodeError as e:
+        except IoTDataDecodeError:
             return None
 
         return rsp_primitive

@@ -88,8 +88,8 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
             json_pointer = pointer
 
         try:
-            item = json_pointer.resolve(data_dict)
-        except JsonPointerException as e:
+            json_pointer.resolve(data_dict)
+        except JsonPointerException:
             return False
 
         return True
