@@ -38,9 +38,7 @@ ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRu
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
-${BUNDLEFOLDER}    /opt/opendaylight    # default location to find opendaylight root folder. Upstream CSIT overrides this on the pybot command line
-${CTRLS}          controllers    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${CTRLS_CREATE}    controllers.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${BUNDLEFOLDER}    /opt/opendaylight    # default location to find opendaylight root folder. Upstream CSIT overrides this on the pybot command line.
 ${CONFIG_NODES_API}    /restconf/config/opendaylight-inventory:nodes    # FIXME: Move to a separate Resource and add description.
 ${CONFIG_TOPO_API}    /restconf/config/network-topology:network-topology    # FIXME: Move to a separate Resource and add description.
 ${CONFIG_API}     /restconf/config    # FIXME: Move to a separate Resource and add description.
@@ -55,6 +53,8 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE}    topo-3sw-2host_multipath.py    # A shortha
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${CTRLS}          controllers    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${CTRLS_CREATE}    controllers.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description
 ${CUSTOMPROP}     /tmp/${BUNDLEFOLDER}/etc/custom.properties    # Full path of custom.properties file
 ${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
 ${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
