@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d64b8ad7_e552a1c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-07T20:49:10Z",
+      "side": 1,
+      "message": "use imperative tense for git commit summary messages. We like to\npoint folks to this guide:\nhttps://chris.beams.io/posts/git-commit/\n\nanyway, so it will be \"Sort variables alphabetically\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "a49fe78f9be5067c199ea78266ffb9a8175aec70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
