@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a2468c5_d60369ee",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T18:01:27Z",
+      "side": 1,
+      "message": "sodium",
+      "range": {
+        "startLine": 58,
+        "startChar": 31,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "f2d70d5e31784c050989eb50b2719455aa4917a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29bb5aee_43c938c7",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T18:01:27Z",
+      "side": 1,
+      "message": "sodium",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "f2d70d5e31784c050989eb50b2719455aa4917a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d53962dd_fb14dbb8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T18:01:27Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 19
+      },
+      "revId": "f2d70d5e31784c050989eb50b2719455aa4917a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dc90144_506ba11b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T18:01:27Z",
+      "side": 1,
+      "message": "these are all comments. I guess you are still working on this\npatch.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 107
+      },
+      "revId": "f2d70d5e31784c050989eb50b2719455aa4917a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
