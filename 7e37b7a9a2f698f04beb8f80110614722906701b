@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cda21fb_1bf814a4",
+        "filename": "csit/suites/genius/Interface_manager.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-06-14T05:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47d2c041_8230b976",
+      "revId": "7e37b7a9a2f698f04beb8f80110614722906701b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "186ba91d_5d687d14",
         "filename": "csit/variables/genius/l2vlan_member.json",
         "patchSetId": 20
@@ -30,6 +48,24 @@
       "writtenOn": "2019-06-13T08:36:39Z",
       "side": 1,
       "message": "why is vlan removed here? touch only itm related tests",
+      "revId": "7e37b7a9a2f698f04beb8f80110614722906701b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8394d84_59f80c67",
+        "filename": "csit/variables/genius/l2vlan_member.json",
+        "patchSetId": 20
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2019-06-14T05:25:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "186ba91d_5d687d14",
       "revId": "7e37b7a9a2f698f04beb8f80110614722906701b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
