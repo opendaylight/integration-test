@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfb890f5_e4b07c50",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T16:56:37Z",
+      "side": 1,
+      "message": "it would be nice in a follow up patch to make this format\nlike everything else in our code. (e.g., EXT_IP instead of ExtIP)",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 7
+      },
+      "revId": "7b3dd38b9997177d1461d7acb87db30dfa76abfe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "174eb996_61f64bb8",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-14T16:56:37Z",
+      "side": 1,
+      "message": "Should Match Regexp is fine, but Should Contain would work and be\na little less clutter when reading this and seeing the .* notations\nbelow. NBD\n\nor even better would be a more strict check since I think these ips\ncan appear in multiple lines of the flow table, like in a nw_dst or\nnw_src field. What specifically are we looking for here is the question\nand then you can add a more strict check. Again, not a big deal just\nwhat comes to mind when reviewing.",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 31
+      },
+      "revId": "7b3dd38b9997177d1461d7acb87db30dfa76abfe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
