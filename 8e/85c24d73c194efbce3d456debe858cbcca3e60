@@ -1,0 +1,7 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+2: Karthika Panneer <r.p.karthika@ericsson.com>
+Submitted-by: Karthika Panneer <r.p.karthika@ericsson.com>
+Submitted-at: Tue, 18 Jun 2019 10:38:57 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/81967
+Project: integration/test
+Branch: refs/heads/master
