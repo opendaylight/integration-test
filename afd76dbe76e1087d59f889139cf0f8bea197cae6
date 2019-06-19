@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c58965c_ab7ba164",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "put this in the netvirt variables file. there are similar things there already.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1516e2b4_b3d5e6e3",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "can you check what the return value is here if @{vm_ip_list} is empty? I am guessing the return value will also just be ${EMPTY}\n\nasking because I think that can make your logic in the next\nkeyword a little more simple.",
+      "range": {
+        "startLine": 15,
+        "startChar": 39,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce98cb75_cc9ecb58",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "if my assumption in the above keyword is true, then you can remove\nthis Run Keyword If condition and just let it return ${EMPTY}",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 27,
+        "endChar": 82
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93a51409_1481bbd3",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "can you just put @{next_hop_list_2} here and remove the next line?",
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afe1e0b8_c3c800ca",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "if all of my comments so far are accurate, you don\u0027t need this\nline at all. Just change routes_1 in line 28 to final_route",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 117
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d9ada45_7200cfd8",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "nothing really wrong here that I can see, but my first hunch\nis that we already have generic keywords for matching flow\ntables. Maybe something ovsdb lib, if not some netvirt or ofp\nlib? have you checked?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39e9eebe_f15b3000",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "are these things existing somewhere else?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d78ccd8_bc754578",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "use the space \u003d syntax",
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6397469a_26fe8e73",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-06-19T22:13:11Z",
+      "side": 1,
+      "message": "remove these kinds of log statements if they don\u0027t give too\nmuch value. the robot logs are verbose enough already. not\na big deal to keep it, just a general rule of thumb",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 83
+      },
+      "revId": "afd76dbe76e1087d59f889139cf0f8bea197cae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
