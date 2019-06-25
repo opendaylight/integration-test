@@ -26,16 +26,6 @@ ${FLOWS_FILTER_TABLE0}    | grep table=0
 ${FLOWS_FILTER_TABLE95}    | grep table=95
 
 *** Test Cases ***
-Create and Verify OFT TEPs
-    [Documentation]    Create TEPs set to use OF based Tunnels and verify.
-    OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
-    OFT Verify Vteps Created    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
-
-Delete and Verify OFT TEPs
-    [Documentation]    Delete TEPs set to use OF based Tunnels and verify.
-    OFT Delete Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
-    OFT Verify Vteps Deleted    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
-
 Create and Verify single OFT TEPs
     [Documentation]    Create single TEPs set to use OF based Tunnels and verify.
     ${tools_ips} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}
@@ -46,6 +36,16 @@ Create and Verify single OFT TEPs
     OFT Verify Vteps Created    ${dpn_ids}    ${tools_ips}
     OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}[-1]
     OFT Verify Vteps Created    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
+
+Create and Verify OFT TEPs
+    [Documentation]    Create TEPs set to use OF based Tunnels and verify.
+    OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
+    OFT Verify Vteps Created    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
+
+Delete and Verify OFT TEPs
+    [Documentation]    Delete TEPs set to use OF based Tunnels and verify.
+    OFT Delete Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
+    OFT Verify Vteps Deleted    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Delete and Verify single OFT TEPs
     [Documentation]    Delete single TEPs set to use OF based Tunnels and verify.
@@ -79,7 +79,7 @@ OFT Verify Vteps Created
     \    ${tun_ip_list} =    BuiltIn.CreateList    @{tools_ip_list}
     \    Collections.Remove From List    ${tun_ip_list}    ${tools_system_index}
     \    ${ports_output} =    Utils.Run Command On Remote System And Log    @{tools_ip_list}[${tools_system_index}]    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
-    \    ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).tun.*    ${1}
+    \    ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).of.*    ${1}
     \    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    @{tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
     \    ...    ${port_numbers}
     \    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Created per Switch    @{tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
@@ -96,6 +96,7 @@ OFT OVS Verify Ingress Flows Created per Switch
     [Arguments]    ${tools_ip}    ${tun_src_list}    ${port_numbers}
     [Documentation]    Verify if Ingress flow rules are created in OVS for a given switch.
     ${flows_table0_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE0}
+    BuiltIn.Should Not Contain    ${flows_table0_output}    tun_src=${tools_ip}
     : FOR    ${tun_src}    IN    @{tun_src_list}
     \    BuiltIn.Should Contain    ${flows_table0_output}    tun_src=${tun_src}
     : FOR    ${port_number}    IN    @{port_numbers}
@@ -106,7 +107,8 @@ OFT OVS Verify Egress Flows Created per Switch
     [Documentation]    Verify if Egress flow rules are created in OVS for a given switch.
     ${flows_table95_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE95}
     : FOR    ${tun_dst}    IN    @{tun_dst_list}
-    \    ${tun_dst_hex} =    BuiltIn.Evaluate    '0x'+binascii.hexlify(socket.inet_aton('${tun_dst}'))    modules=socket,binascii
+    \    Comment    ${tun_dst_hex} =    BuiltIn.Evaluate    '0x'+binascii.hexlify(socket.inet_aton('${tun_dst}'))    modules=socket,binascii
+    \    ${tun_dst_hex} =    BuiltIn.Evaluate    hex(struct.unpack('!I',socket.inet_aton('${tun_dst}'))[0])    modules=socket,struct
     \    BuiltIn.Should Contain    ${flows_table95_output}    load:${tun_dst_hex}->NXM_NX_TUN_IPV4_DST[]
     : FOR    ${port_number}    IN    @{port_numbers}
     \    BuiltIn.Should Contain    ${flows_table95_output}    output:${port_number}
