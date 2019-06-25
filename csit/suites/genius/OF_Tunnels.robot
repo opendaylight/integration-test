@@ -79,7 +79,7 @@ OFT Verify Vteps Created
     \    ${tun_ip_list} =    BuiltIn.CreateList    @{tools_ip_list}
     \    Collections.Remove From List    ${tun_ip_list}    ${tools_system_index}
     \    ${ports_output} =    Utils.Run Command On Remote System And Log    @{tools_ip_list}[${tools_system_index}]    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
-    \    ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).tun.*    ${1}
+    \    ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).of.*    ${1}
     \    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    @{tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
     \    ...    ${port_numbers}
     \    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Created per Switch    @{tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
@@ -96,6 +96,7 @@ OFT OVS Verify Ingress Flows Created per Switch
     [Arguments]    ${tools_ip}    ${tun_src_list}    ${port_numbers}
     [Documentation]    Verify if Ingress flow rules are created in OVS for a given switch.
     ${flows_table0_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE0}
+    BuiltIn.Should Not Contain    ${flows_table0_output}    tun_src=${tools_ip}
     : FOR    ${tun_src}    IN    @{tun_src_list}
     \    BuiltIn.Should Contain    ${flows_table0_output}    tun_src=${tun_src}
     : FOR    ${port_number}    IN    @{port_numbers}
