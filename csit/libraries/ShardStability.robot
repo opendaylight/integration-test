@@ -39,7 +39,7 @@ Shards_Stability_Get_Details
     : FOR    ${shard_details}    IN    @{shard_list}
     \    ${shard_name}    ${shard_type}    String.Split_String    ${shard_details}    separator=:
     \    ${leader}    ${followers}    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
-    \    ...    verify_restconf=${verify_restconf}    http_timeout=${http_timeout}
+         ...    verify_restconf=${verify_restconf}    http_timeout=${http_timeout}
     \    Collections.Sort_List    ${followers}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_leader=${leader}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_followers=${followers}

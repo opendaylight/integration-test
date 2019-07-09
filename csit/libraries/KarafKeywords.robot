@@ -241,7 +241,7 @@ Fail If Exceptions Found During Test
     \    Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
     \    ${listlength} =    BuiltIn.Get Length    ${exlist}
     \    BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
-    \    ...    ELSE    Collections.Log List    ${matchlist}
+         ...    ELSE    Collections.Log List    ${matchlist}
 
 Log And Fail Exceptions
     [Arguments]    ${exlist}    ${listlength}
@@ -268,7 +268,7 @@ Get Karaf Log Types From Test Start
     ...    of log messages. For example, we can grab all messages of type WARN and ERROR
     : FOR    ${type}    IN    @{types}
     \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
-    \    ...    ${prompt}    ${log_file}
+         ...    ${prompt}    ${log_file}
 
 Get Karaf Log Events From Test Start
     [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}

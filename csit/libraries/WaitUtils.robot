@@ -96,7 +96,7 @@ Wait_For_Getter_Failure_Or_Stateless_Validator_Pass
     : FOR    ${i}    IN RANGE    ${iterations}
     \    ${data} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
     \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${stateless_validator}
-    \    ...    ${data}
+         ...    ${data}
     \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${message}
     \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    message=Last validator message: ${message}
     \    BuiltIn.Sleep    ${period_in_seconds} s
@@ -174,17 +174,17 @@ Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Getter failed: ${data}
     \    # Is there enough time left?
     \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
+         ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     \    ${state}    ${status}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Two_Arguments    ${safe_validator}
-    \    ...    ${state}    ${data}
+         ...    ${state}    ${data}
     \    # Validator may have reported failure.
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Validator failed: ${result}
     \    # Was this the final try?
     \    BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${state}    ${status}    ${result}
     \    # Is there enough time left?
     \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
+         ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     \    # We will do next try, byt we have to sleep before.
     \    BuiltIn.Sleep    ${period_in_seconds} s
@@ -217,7 +217,7 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
     # The loop for failures.
     : FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
     \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
+         ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
     \    # Have we passed?
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
     \    # Are we out of time?
@@ -240,7 +240,7 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     # The loop for failures.
     : FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
     \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
+         ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
     \    # Have we passed?
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
     \    # Are we out of time? Look at ${result}.

@@ -136,10 +136,10 @@ Get_State_Info_For_Shard
     ${follower_list} =    BuiltIn.Create_List
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${raft_state} =    Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}    verify_restconf=${verify_restconf}
-    \    ...    http_timeout=${http_timeout}
+         ...    http_timeout=${http_timeout}
     \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
-    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
-    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+         ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
+         ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
     [Return]    ${leader_list}    ${follower_list}
 
 Get_Raft_State_Of_Shard_At_Member
@@ -587,7 +587,7 @@ Check_Bash_Command_On_List_Or_All
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    Check_Bash_Command_On_Member    command=${command}    member_index=${index}    return_success_only=${return_success_only}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}
-    \    ...    stderr_must_be_empty=${stderr_must_be_empty}
+         ...    stderr_must_be_empty=${stderr_must_be_empty}
 
 Check_Bash_Command_On_Member
     [Arguments]    ${command}    ${member_index}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
@@ -642,7 +642,7 @@ Install_Feature_On_List_Or_All
     ${status_list} =    BuiltIn.Create_List
     : FOR    ${index}    IN    @{index_list}
     \    ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Install_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
-    \    ...    timeout=${timeout}
+         ...    timeout=${timeout}
     \    BuiltIn.Log    ${text}
     \    Collections.Append_To_List    ${status_list}    ${status}
     : FOR    ${status}    IN    @{status_list}
@@ -842,7 +842,7 @@ ClusterManagement__Compute_Derived_Variables
     &{index_to_ip_mapping} =    BuiltIn.Create_Dictionary
     : FOR    ${index}    IN RANGE    1    ${int_of_members+1}
     \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    http_timeout=${http_timeout}
-    \    ...    http_retries=${http_retries}
+         ...    http_retries=${http_retries}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__member_index_list}    ${member_index_list}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__index_to_ip_mapping}    ${index_to_ip_mapping}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
