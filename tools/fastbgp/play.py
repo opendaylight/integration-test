@@ -1492,9 +1492,15 @@ class ReadTracker(object):
         """
         # TODO: We could return the whole message, currently not needed.
         # We assume the socket is readable.
+        logger.info("Receiving %d bytes", self.bytes_to_read)
         chunk_message = self.socket.recv(self.bytes_to_read)
+        msglen = len(chunk_message)
+        logger.info("Received %d bytes", msglen)
         self.msg_in += chunk_message
-        self.bytes_to_read -= len(chunk_message)
+        logger.info("Current message is %d bytes", len(self.msg_in))
+        self.bytes_to_read -= msglen
+        logger.info("Still require %d bytes to read (header=%s)",
+                    self.bytes_to_read, self.reading_header)
         # TODO: bytes_to_read < 0 is not possible, right?
         if not self.bytes_to_read:
             # Finished reading a logical block.
