@@ -83,6 +83,15 @@ Verify The Subnet Route When Vswitch Hosting Subnet Route Is Restarted On Single
     VpnOperations.Verify Tunnel Status as UP
     Verify Ping between Inter Intra And Enterprise host
 
+Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted On Multiple Vswitch Topology
+    [Documentation]    Restart the OVS node on both compute nodes and verify the subnet route
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_2_IP}
+    VpnOperations.Verify Tunnel Status as UP
+    Verify Ping between Inter Intra And Enterprise host
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
