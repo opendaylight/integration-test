@@ -151,7 +151,7 @@ def classify(resp_tuple):
     prepend = ''
     status = resp_tuple[0]
     # print 'DEBUG: verifying status', status
-    if status != 200:  # is it int?
+    if (status != 200) or (status != 204):  # is it int?
         # print 'DEBUG:', response.content
         prepend = 'status: ' + str(status) + ' '
     content = resp_tuple[1]
