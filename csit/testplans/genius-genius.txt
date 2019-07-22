@@ -2,6 +2,7 @@
 integration/test/csit/suites/genius/Interface_manager.robot
 integration/test/csit/suites/genius/ID_manager.robot
 integration/test/csit/suites/genius/Configure_ITM.robot
+integration/test/csit/suites/genius/Ovsdb_tunnel_reconciliation.robot
 integration/test/csit/suites/genius/BFD_monitoring.robot
 integration/test/csit/suites/genius/Service_Recovery.robot
 integration/test/csit/suites/genius/ITM_Direct_Tunnels.robot
