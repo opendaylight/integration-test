@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a04f4d04_c4b8bea8",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6545
+      },
+      "writtenOn": "2019-07-22T07:22:37Z",
+      "side": 1,
+      "message": "No It\u0027s Switch Connect only. Following are the CSIT cases added.\n\nCreate Reconciliation\n1) ODL and DPN are up and connected.\n2) VTEPS are created.\n3) DPN is disconnected and the the tunnel port is manually deleted from the DPN.\n4) on Connecting back the DPN, the ovsdb create reconciliation should take care of pushing back this missing tunnel to the switch.\n\nDelete Reconciliation\n1) ODL and DPN up and running with VTEPs created.\n2) DPN is disconnected and the VTEPS are delete from ODL side.\n3) DPN is connected back and verfiy the stale tunnel port on the DPN is deleted by ovsdb delete reconciliation.",
+      "parentUuid": "a5e5461a_15920cc3",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8290b91d_335b6d9f",
         "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "405d8c7a_ac583d3a",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6545
+      },
+      "writtenOn": "2019-07-22T07:22:37Z",
+      "side": 1,
+      "message": "The UC as written accordingly(as described above) and expect the ODL and DPN up and connected as the start of suite.",
+      "parentUuid": "8290b91d_335b6d9f",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63a8964c_55100198",
         "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-07-22T07:00:25Z",
       "side": 1,
       "message": "instead of doing like this, why can se start the test without setting the manager, and then push the config and then just do set-manager?",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b84c9482_e292ad54",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6545
+      },
+      "writtenOn": "2019-07-22T07:22:37Z",
+      "side": 1,
+      "message": "The UC as written accordingly(as described above) and expect the ODL and DPN up and connected as the start of suite. \n\nYes. This is also valid.  I will make the changes as below\n\n1) del-manager first\n2) Create VTEPS\n2) set-manager and then check tunnel-ports are pushed.",
+      "parentUuid": "63a8964c_55100198",
       "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
