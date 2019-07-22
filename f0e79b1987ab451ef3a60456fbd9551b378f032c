@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5e5461a_15920cc3",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-07-22T07:00:25Z",
+      "side": 1,
+      "message": "on switch disconnect?",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8290b91d_335b6d9f",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-07-22T07:00:25Z",
+      "side": 1,
+      "message": "this suite setup will connect the switches already right? then how are we testing reconciliation in the testcase",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63a8964c_55100198",
+        "filename": "csit/suites/genius/Ovsdb_tunnel_reconciliation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2019-07-22T07:00:25Z",
+      "side": 1,
+      "message": "instead of doing like this, why can se start the test without setting the manager, and then push the config and then just do set-manager?",
+      "revId": "f0e79b1987ab451ef3a60456fbd9551b378f032c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
