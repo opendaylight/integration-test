@@ -27,12 +27,12 @@ Create Key
 Attempt To Create Key Again
     [Documentation]    Try to overwrite existing IPv4 EID key
     ${add_key}=    OperatingSystem.Get File    ${IPV4_C_KEY}
-    Post Log Check    ${LFM_RPC_API_LI}:add-key    ${add_key}    409
+    Post Log Check    ${LFM_RPC_API_LI}:add-key    ${add_key}    status_codes=${409}
 
 Attempt To Read Non-Existing Key
     [Documentation]    Try to read a non-existing key for an IPv4 EID
     ${get_key}=    OperatingSystem.Get File    ${MISS_RD}
-    Post Log Check    ${LFM_RPC_API_LI}:get-key    ${get_key}    404
+    Post Log Check    ${LFM_RPC_API_LI}:get-key    ${get_key}    status_codes=${404}
 
 Read Key
     [Documentation]    Read an existing key for an IPv4 EID
@@ -59,12 +59,12 @@ Delete Key
 Attempt To Read Deleted Key
     [Documentation]    Try to read the key deleted in the previous test
     ${get_key}=    OperatingSystem.Get File    ${IPV4_RD}
-    Post Log Check    ${LFM_RPC_API_LI}:get-key    ${get_key}    404
+    Post Log Check    ${LFM_RPC_API_LI}:get-key    ${get_key}    status_codes=${404}
 
 Attempt To Update Non-Existing Key
     [Documentation]    Update a non-existing key for an IPv4 EID
     ${update_key}=    OperatingSystem.Get File    ${IPV4_U_KEY}
-    Post Log Check    ${LFM_RPC_API_LI}:update-key    ${update_key}    404
+    Post Log Check    ${LFM_RPC_API_LI}:update-key    ${update_key}    status_codes=${404}
 
 Create Mapping
     [Documentation]    Create a mapping for an IPv4 EID

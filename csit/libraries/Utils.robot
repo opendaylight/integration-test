@@ -423,11 +423,11 @@ Check Item Occurrence
     \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
 
 Post Log Check
-    [Arguments]    ${uri}    ${body}    ${status_code}=200    ${session}=session
+    [Arguments]    ${uri}    ${body}    ${session}=session    ${status_codes}=200
     [Documentation]    Post body to ${uri}, log response content, and check status
     ${resp}=    RequestsLibrary.Post Request    ${session}    ${uri}    ${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${status_code}
+    TemplatedRequests.Check Status Code    ${resp}    ${status_codes}
     [Return]    ${resp}
 
 Get Log File Name

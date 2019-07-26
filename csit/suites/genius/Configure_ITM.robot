@@ -154,7 +154,7 @@ Create Vteps IPv6
     ${SUBNET_IPV6} =    BuiltIn.Catenate    ${substr}0
     BuiltIn.Set Suite Variable    ${SUBNET_IPV6}
     ${body} =    Genius.Set Json    ${vlan}    ${gateway_ip}    ${SUBNET_IPV6}    @{TOOLS_SYSTEM_IPV6_LIST}
-    Utils.Post Log Check    ${CONFIG_API}/itm:transport-zones/    ${body}    204
+    Utils.Post Log Check    ${CONFIG_API}/itm:transport-zones/    ${body}    status_codes=${204}
 
 Get Network Topology with Tunnel
     [Arguments]    ${url}    ${network_topology_list}
