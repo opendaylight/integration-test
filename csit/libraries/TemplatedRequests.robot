@@ -411,8 +411,16 @@ Check_Status_Code
     # TODO: Remove overlap with keywords from Utils.robot
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
-    BuiltIn.Run_Keyword_And_Return_If    """${explicit_status_codes}""" != """${NO_STATUS_CODES}"""    Collections.List_Should_Contain_Value    ${explicit_status_codes}    ${response.status_code}
-    ${final_allowd_list} =    Collections.Combine_Lists    ${ALLOWED_STATUS_CODES}    ${additional_allowed_status_codes}
+    # In order to allow other existing keywords to consume this keyword by passing a single non-list status code, we need to
+    # check the type of the argument passed and convert those single non-list codes in to a one item list
+    ${status_codes_type} =    Evaluate    type($list_arg).__name__
+    ${allowed_status_codes_list} =    Run Keyword If    "${status_codes_type}"!="list"    Create List    ${additional_allowed_status_codes}
+    ...    ELSE    Set Variable    ${additional_allowed_status_codes}
+    ${status_codes_type} =    Evaluate    type($list_arg).__name__
+    ${explicit_status_codes_list} =    Run Keyword If    "${status_codes_type}"!="list"    Create List    ${explicit_status_codes}
+    ...    ELSE    Set Variable    ${explicit_status_codes}
+    BuiltIn.Run_Keyword_And_Return_If    """${explicit_status_codes_list}""" != """${NO_STATUS_CODES}"""    Collections.List_Should_Contain_Value    ${explicit_status_codes_list}    ${response.status_code}
+    ${final_allowd_list} =    Collections.Combine_Lists    ${ALLOWED_STATUS_CODES}    ${allowed_status_codes_list}
     Collections.List_Should_Contain_Value    ${final_allowd_list}    ${response.status_code}
 
 Join_Two_Headers
