@@ -17,7 +17,7 @@ Create Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON
     ${add_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    204
 
 Attempt To Read Non-Existing Key
     [Documentation]    Try to read a non-existing key for an IPv4 EID
@@ -34,7 +34,7 @@ Update Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON    key_string=updated-password
     ${update_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}
+    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    204
 
 Read Updated Key
     [Documentation]    Read the key updated in the previous test
@@ -44,7 +44,7 @@ Read Updated Key
 Delete Key
     [Documentation]    Delete an existing key for an IPv4 EID
     ${remove_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
-    Post Log Check    ${LFM_RPC_API}:remove-key    ${remove_key}
+    Post Log Check    ${LFM_RPC_API}:remove-key    ${remove_key}    204
 
 Attempt To Read Deleted Key
     [Documentation]    Try to read the key deleted in the previous test
@@ -61,7 +61,7 @@ Attempt To Update Non-Existing Key
 Create Mapping
     [Documentation]    Create a mapping for an IPv4 EID
     ${add_mapping}=    Get Mapping JSON    ipv4:192.0.2.1/32    ipv4:10.10.10.10
-    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
+    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}    204
 
 Attempt To Read Non-Existing Mapping
     [Documentation]    Try to read a non-existing mapping for an IPv4 EID
@@ -76,7 +76,7 @@ Read Mapping
 Update Mapping
     [Documentation]    Update an existing mapping for an IPv4 EID
     ${update_mapping}=    Get Mapping JSON    ipv4:192.0.2.1/32    ipv4:20.20.20.20
-    Post Log Check    ${LFM_RPC_API}:update-mapping    ${update_mapping}
+    Post Log Check    ${LFM_RPC_API}:update-mapping    ${update_mapping}    204
 
 Read Updated Mapping
     [Documentation]    Read the mapping updated in the previous test
@@ -86,7 +86,7 @@ Read Updated Mapping
 Delete Mapping
     [Documentation]    Delete an existing mapping for an IPv4 EID
     ${remove_mapping}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
-    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${remove_mapping}
+    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${remove_mapping}    204
 
 Attempt To Read Deleted Mapping
     [Documentation]    Try to read the mapping deleted in the previous test

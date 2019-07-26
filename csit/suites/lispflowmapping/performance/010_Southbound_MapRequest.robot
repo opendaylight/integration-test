@@ -96,11 +96,11 @@ Reset Stats
 
 Allow Unauthenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default_no-auth.json
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    204
 
 Allow Authenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default.json
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    204
 
 Get Control Message Stats
     [Arguments]    ${lisp_type}    ${stat_type}
