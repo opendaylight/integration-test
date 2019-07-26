@@ -11,6 +11,7 @@ Library           String
 Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Genius.robot
 Resource          ../../libraries/KarafKeywords.robot
+Resource          ../../libraries/TemplatedRequests.robot
 Resource          ../../libraries/ToolsSystem.robot
 Resource          ../../libraries/Utils.robot
 Resource          ../../variables/netvirt/Variables.robot
