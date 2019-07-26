@@ -54,11 +54,11 @@ Get Elp Hop
 
 Check Key Removal
     [Arguments]    ${json}
-    Post Log Check    ${LFM_RPC_API}:get-key    ${json}    404
+    Post Log Check    ${LFM_RPC_API}:get-key    ${json}    status_codes=${404}
 
 Check Mapping Removal
     [Arguments]    ${json}
-    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    status_codes=${404}
 
 Get Mapping JSON
     [Arguments]    ${eid}    ${rloc}
