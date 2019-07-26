@@ -66,11 +66,11 @@ Check Datatype
     ${add_mapping}=    Get Mapping JSON    ${add_mapping_eid}    ${add_mapping_rloc}
     ${get_mapping}=    Get LispAddress JSON And Wrap input    ${get_mapping_eid}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${get_mapping}
-    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
+    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}    204
     Wait Until Keyword Succeeds    5s    200ms    Post Log Check LocatorRecord    ${get_mapping}
 
 Remove Datatype And Check Removal
     Variable Should Exist    ${RPC_Datatype__current_json}
-    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}
+    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}    204
     Wait Until Keyword Succeeds    5s    200ms    Check Mapping Removal    ${RPC_Datatype__current_json}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
