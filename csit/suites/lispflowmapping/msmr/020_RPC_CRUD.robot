@@ -9,6 +9,7 @@ Library           ../../../libraries/Common.py
 Library           ../../../libraries/JsonGenerator.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/LISPFlowMapping.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
@@ -17,12 +18,12 @@ Create Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON
     ${add_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    status_codes=${ALLOWED_STATUS_CODES}
 
 Attempt To Read Non-Existing Key
     [Documentation]    Try to read a non-existing key for an IPv4 EID
     ${get_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.255/32
-    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}    404
+    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}    status_codes=404
 
 Read Key
     [Documentation]    Read an existing key for an IPv4 EID
@@ -56,7 +57,7 @@ Attempt To Update Non-Existing Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON    key_string=updated-password
     ${update_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    404
+    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=404
 
 Create Mapping
     [Documentation]    Create a mapping for an IPv4 EID
