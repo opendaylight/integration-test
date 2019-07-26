@@ -21,7 +21,8 @@ Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
 *** Variables ***
-@{VALIDATION_KEYWORDS}    Verify Services    Verify Expected Default Tunnels    Verify Expected Default Tables On Nodes
+@{VALIDATION_KEYWORDS}    Verify Services
+#@{VALIDATION_KEYWORDS}    Verify Services    Verify Expected Default Tunnels    Verify Expected Default Tables On Nodes
 ${VALIDATION_FILE}    /tmp/validations.txt
 
 *** Keywords ***
