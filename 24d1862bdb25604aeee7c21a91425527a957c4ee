@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe12d0b7_20ac9be1",
+        "filename": "csit/libraries/LISPFlowMapping.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2019-07-29T20:53:04Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this and the next instance also have status_codes\u003d${DELETED_STATUS_CODE}",
+      "revId": "24d1862bdb25604aeee7c21a91425527a957c4ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
