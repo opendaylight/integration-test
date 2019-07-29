@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6411029_b29379ca",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-07-29T17:21:24Z",
+      "side": 1,
+      "message": "where is this coming from? prepend the library please",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 11
+      },
+      "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "167c8025_34a63b6c",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-07-29T17:21:24Z",
+      "side": 1,
+      "message": "move up above variables folder lines",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
