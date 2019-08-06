@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69511753_2a907389",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-08-06T10:00:00Z",
+      "side": 1,
+      "message": "Since we are using it in all netvirt suites and it is bydefault being taken from OpenstackOperations.robot so retaining it.",
+      "parentUuid": "e6411029_b29379ca",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 11
+      },
+      "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "167c8025_34a63b6c",
         "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48f72ab0_d1b7797d",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-08-06T10:00:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "167c8025_34a63b6c",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
