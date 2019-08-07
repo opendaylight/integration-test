@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "23ef5e1d_6184834a",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-08-07T15:52:02Z",
+      "side": 1,
+      "message": "I\u0027m just saying to change it to the full \"OpenStackOperations.Suite Setup\"\n\nother suites have local keywords called \"Suite Setup\" and prepending the lib makes it more clear.",
+      "parentUuid": "69511753_2a907389",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 11
+      },
+      "revId": "0caf622f0f855b0eb4d53db09a154fe9b3fbc3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "167c8025_34a63b6c",
         "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
         "patchSetId": 3
