@@ -443,7 +443,7 @@ Stop_Members_From_List_Or_All
     Collections.Remove_Values_From_List    ${updated_index_list}    @{stop_index_list}
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
     : FOR    ${index}    IN    @{stop_index_list}
-    \    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    \    BuiltIn.Wait Until Keyword Succeeds    600s    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
     Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
     [Return]    ${updated_index_list}
 
