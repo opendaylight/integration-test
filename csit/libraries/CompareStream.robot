@@ -8,7 +8,7 @@ Library           Collections
 Library           String
 
 *** Variables ***
-&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}
+&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}    magnesium=${12}
 
 *** Keywords ***
 Set_Variable_If_At_Least
@@ -59,6 +59,11 @@ Set_Variable_If_At_Least_Sodium
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    soduim    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Magnesium
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast magnesium, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    magnesium    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
@@ -94,6 +99,12 @@ Set_Variable_If_At_Most_Sodium
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most sodium,
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    sodium    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Magnesium
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most magnesium,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    magnesium    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Arguments]    @{arguments}
@@ -224,6 +235,12 @@ Run_Keyword_If_At_Least_Sodium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    sodium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Magnesium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least magnesium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    magnesium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
@@ -259,6 +276,12 @@ Run_Keyword_If_At_Most_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    sodium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Magnesium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most magnesium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    magnesium    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
@@ -296,6 +319,12 @@ Run_Keyword_If_More_Than_Sodium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    sodium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Magnesium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and in case ${ODL_STREAM} is more than magnesium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    magnesium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
@@ -331,3 +360,9 @@ Run_Keyword_If_Less_Than_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    sodium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Magnesium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than magnesium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    magnesium    ${kw_name}    @{varargs}    &{kwargs}
