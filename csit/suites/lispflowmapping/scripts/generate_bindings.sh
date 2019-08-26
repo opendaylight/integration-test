@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 echo "Downloading yang dependencies..."
 
 DIRECTORY="odl-lispflowmapping-yang-files"
@@ -31,6 +32,12 @@ then
     curl "$GITWEB_MDSAL;hb=refs/tags/v3.0.6;f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
     curl "$GITWEB_MDSAL;hb=refs/tags/v3.0.6;f=model/ietf/rfc6991-ietf-yang-types/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
     curl "$GITWEB_MDSAL;hb=refs/tags/v3.0.6;f=model/ietf/rfc6991-ietf-inet-types/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
+elif [ ${DISTROBRANCH} = "stable/sodium" ]
+then
+    curl "$GITWEB_MDSAL;hb=refs/tags/v4.0.4;f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE}/$DIRECTORY/yang-ext.yang
+    curl "$GITWEB_MDSAL;hb=refs/tags/v4.0.4;f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
+    curl "$GITWEB_MDSAL;hb=refs/tags/v4.0.4;f=model/ietf/rfc6991-ietf-yang-types/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
+    curl "$GITWEB_MDSAL;hb=refs/tags/v4.0.4;f=model/ietf/rfc6991-ietf-inet-types/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
 else
     curl "$GITWEB_MDSAL;hb=refs/heads/${DISTROBRANCH};f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE}/$DIRECTORY/yang-ext.yang
     curl "$GITWEB_MDSAL;hb=refs/heads/${DISTROBRANCH};f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
