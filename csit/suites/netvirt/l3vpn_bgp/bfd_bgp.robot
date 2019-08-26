@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Case to configure and validate default bfd configuration
-Suite Setup       OpenStackOperations.Suite Setup
+Suite Setup       Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
