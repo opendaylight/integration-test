@@ -9,6 +9,7 @@ Library           RequestsLibrary
 Library           String
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/LISPFlowMapping.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -96,11 +97,11 @@ Reset Stats
 
 Allow Unauthenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default_no-auth.json
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    status_codes=${ALLOWED_STATUS_CODES}
 
 Allow Authenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default.json
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    status_codes=${ALLOWED_STATUS_CODES}
 
 Get Control Message Stats
     [Arguments]    ${lisp_type}    ${stat_type}
