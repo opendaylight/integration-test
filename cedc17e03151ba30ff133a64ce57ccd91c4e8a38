@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8608609a_b8d2e98f",
+        "filename": "csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-08-29T15:38:19Z",
+      "side": 1,
+      "message": "I just noticed this. If you are going to use OpenStack.Suite Setup in the settings section, then this entire\nlocal keyword is irrelevant and you should remove it.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "cedc17e03151ba30ff133a64ce57ccd91c4e8a38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
