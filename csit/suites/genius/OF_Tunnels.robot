@@ -28,17 +28,20 @@ ${FLOWS_FILTER_TABLE95}    | grep table=95
 *** Test Cases ***
 Create and Verify OFT TEPs
     [Documentation]    Create TEPs set to use OF based Tunnels and verify.
+    CompareStream.Run_Keyword_If_At_Least_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
     OFT Create Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
     OFT Verify Vteps Created    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
 
 Delete and Verify OFT TEPs
     [Documentation]    Delete TEPs set to use OF based Tunnels and verify.
+    CompareStream.Run_Keyword_If_At_Least_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
     OFT Delete Vteps using Auto Tunnels    @{TOOLS_SYSTEM_ALL_IPS}
     OFT Verify Vteps Deleted    ${DPN_ID_LIST}    ${TOOLS_SYSTEM_ALL_IPS}
     BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.No Content From URI    session    ${OPERATIONAL_API}/itm-state:tunnels_state
 
 Create and Verify single OFT TEPs
     [Documentation]    Create single TEPs set to use OF based Tunnels and verify.
+    CompareStream.Run_Keyword_If_At_Least_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
     ${tools_ips} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}
     Collections.Remove From List    ${tools_ips}    -1
     ${dpn_ids} =    BuiltIn.CreateList    @{DPN_ID_LIST}
@@ -50,6 +53,7 @@ Create and Verify single OFT TEPs
 
 Delete and Verify single OFT TEPs
     [Documentation]    Delete single TEPs set to use OF based Tunnels and verify.
+    CompareStream.Run_Keyword_If_At_Least_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
     ${deleted_tools_ip_list} =    BuiltIn.Create List    @{TOOLS_SYSTEM_ALL_IPS}[0]
     OFT Delete Vteps using Auto Tunnels    @{deleted_tools_ip_list}
     ${deleted_dpn_id_list} =    BuiltIn.CreateList    @{DPN_ID_LIST}[0]
