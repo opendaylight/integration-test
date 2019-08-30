@@ -28,6 +28,7 @@ ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
 ${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
 ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
+${RPING_MIP_IP3}    sudo arping -I eth0:1 -c 5 -b -s ${NEW_EXTRA_NW_SUBNET} ${NEW_EXTRA_NW_SUBNET}
 @{INTERFACE_STATE}    up    down
 @{NETWORKS}       mc_net_1    mc_net_2    mc_net_3
 @{NET_1_VMS}      mc_net_1_vm_1    mc_net_1_vm_2    mc_net_1_vm_3    mc_net_1_vm_4
@@ -39,6 +40,7 @@ ${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXT
 @{SUBNETS}        mc_sub_1    mc_sub_2    mc_sub_3
 @{SUBNET_CIDR}    10.1.0.0/24    10.2.0.0/24    10.3.0.0/24
 @{EXTRA_NW_SUBNET}    10.1.0.100    10.2.0.100    10.3.0.100
+${NEW_EXTRA_NW_SUBNET}    10.1.0.110
 ${MASK}           255.255.255.0
 
 *** Test Cases ***
@@ -90,6 +92,25 @@ Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted
     BuiltIn.Wait Until Keyword Succeeds    10s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_1_IP}
     BuiltIn.Wait Until Keyword Succeeds    10s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_2_IP}
     VpnOperations.Verify Tunnel Status as UP
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For One Subnet On Single Vswitch
+    [Documentation]    Verify the subnet route for one subnet on a single VSwitch
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
+    [Documentation]    Configure one more IP on sub interface and verify the subnet route for multiple subnets on multi VSwitch topology
+    BuiltIn.Log    Bring up enterprise host in another vswitch
+    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]    ${MASK}
+    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
+    BuiltIn.Should Contain    ${output}    broadcast
+    BuiltIn.Should Contain    ${output}    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    BuiltIn.Should Contain    ${output}    64 bytes
     Verify Ping between Inter Intra And Enterprise host
 
 *** Keywords ***
