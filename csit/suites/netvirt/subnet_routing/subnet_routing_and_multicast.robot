@@ -92,6 +92,25 @@ Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted
     VpnOperations.Verify Tunnel Status as UP
     Verify Ping between Inter Intra And Enterprise host
 
+Verify The Subnet Route For One Subnet On Single Vswitch
+    [Documentation]    Verify the subnet route for one subnet on a single VSwitch
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
+    Verify Ping between Inter Intra And Enterprise host
+
+Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
+    [Documentation]    Configure one more IP on sub interface and verify the subnet route for multiple subnets on multi VSwitch topology
+    BuiltIn.Log    Bring up enterprise host in another vswitch
+    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]    ${MASK}
+    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
+    BuiltIn.Should Contain    ${output}    broadcast
+    BuiltIn.Should Contain    ${output}    Received 0 reply
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    BuiltIn.Should Contain    ${output}    64 bytes
+    Verify Ping between Inter Intra And Enterprise host
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
