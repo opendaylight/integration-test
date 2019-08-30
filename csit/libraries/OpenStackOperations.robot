@@ -164,13 +164,19 @@ Create And Associate Floating IPs
     \    ${ip_length} =    BuiltIn.Get Length    ${ip}
     \    BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Collections.Append To List    ${ip_list}    None
-    \    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+    \    ${vm_ip} =    OpenStack CLI    openstack server show ${vm} | grep "addresses" | awk '{print $4}' | cut -d"=" -f 2
+    \    ${port_id} =    OpenStack CLI    openstack port list | grep "ip_address='${vm_ip}'" | awk '{print $2}' | cut -d"=" -f 2
+    \    ${output} =    BuiltIn.Run Keyword If    '${OPENSTACK_BRANCH}' == 'stable/rocky'    OpenStack CLI    openstack floating ip set --port ${port_id} @{ip}[0]
+    \    ...    ELSE    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
     [Return]    ${ip_list}
 
 Remove Floating Ip From Vm
     [Arguments]    ${vm_name}    ${fip}
     [Documentation]    Remove the Floating IP From VM Instance
-    ${output} =    OpenStack CLI    openstack server remove floating ip ${vm_name} ${fip}
+    ${vm_ip} =    OpenStack CLI    openstack server show ${vm_name} | grep "addresses" | awk '{print $4}' | cut -d"=" -f 2
+    ${port_id} =    OpenStack CLI    openstack port list | grep "ip_address='${vm_ip}'" | awk '{print $2}' | cut -d"=" -f 2
+    ${output} =    BuiltIn.Run Keyword If    '${OPENSTACK_BRANCH}' == 'stable/rocky'    OpenStack CLI    openstack floating ip unset --port ${port_id} ${fip}
+    ...    ELSE    OpenStack CLI    openstack server remove floating ip ${vm_name} ${fip}
 
 Delete Floating IP
     [Arguments]    ${fip}
