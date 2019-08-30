@@ -164,9 +164,9 @@ Create And Associate Floating IPs
     \    ${ip_length} =    BuiltIn.Get Length    ${ip}
     \    BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Collections.Append To List    ${ip_list}    None
-    \    ${port_id} =   openstack port list --device-id ${vm} | awk '{print $2}'
-#    \    BuiltIn.Run Keyword If    '${OPENSTACK_VERSION}' == 'rocky'    ${output} =    OpenStack CLI    openstack floating ip set --port $(port_id) @{ip}[0]
-#    \    ...    ELSE    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+#    \    ${port_id} =   openstack port list --device-id ${vm} | awk '{print $2}'
+    \    BuiltIn.Run Keyword If    '${OPENSTACK_VERSION}' == 'rocky'    ${output} =    OpenStack CLI    openstack floating ip set --port $(port_id) @{ip}[0]
+    \    ...    ELSE    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
     ${output} =    OpenStack CLI    openstack floating ip set --port $(port_id) @{ip}[0]
     [Return]    ${ip_list}
 
