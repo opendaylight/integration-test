@@ -45,7 +45,7 @@ Find Max Netconf Devices
     ${start} =    BuiltIn.Convert to Integer    ${INIT_DEVICE_COUNT}
     ${stop} =    BuiltIn.Convert to Integer    ${MAX_DEVICE_COUNT}
     ${increment} =    BuiltIn.Convert to Integer    ${DEVICE_INCREMENT}
-    CheckJVMResource.Get JVM Memory
+    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
     : FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
     \    ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
     \    Log To Console    Starting Iteration with ${devices} devices
@@ -65,11 +65,11 @@ Find Max Netconf Devices
     \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${maximum_devices} =    Set Variable    ${devices}
-    \    CheckJVMResource.Get JVM Memory
+    \    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
     \    NetconfKeywords.Stop_Testtool
     [Teardown]    Run Keywords    NetconfKeywords.Stop_Testtool
     ...    AND    Collect_Data_Points    ${maximum_devices}
-    ...    AND    CheckJVMResource.Get JVM Memory
+    ...    AND    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
 
 *** Keywords ***
 Collect_Data_Points
