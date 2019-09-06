@@ -198,6 +198,21 @@ Post_As_Json_Templated
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
 
+Post_As_Json_Rfc8040_Templated
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
+    ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified and returned if JMES path is specified in
+    ...    file ${folder}${/}jmespath.expr.
+    ...    Response status code must be one of values from ${explicit_status_codes} if specified or one of set
+    ...    created from all positive HTTP status codes together with ${additional_allowed_status_codes}.
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_RFC8040_JSON}
+    ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    [Return]    ${response_text}
+
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
@@ -447,10 +462,11 @@ Resolve_Text_From_Template_Folder
     ${item_template} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${base_name}.item.${extension}    mapping=${mapping}
     ${items} =    BuiltIn.Create_List
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
-    : FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
-    \    BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
-    \    ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
-    \    Collections.Append_To_List    ${items}    ${item}
+    FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
+        BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
+        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
+        Collections.Append_To_List    ${items}    ${item}
+    END
     # TODO: The following makes ugly result for iterations=0. Should we fix that?
     ${final_text} =    BuiltIn.Catenate    SEPARATOR=    ${prolog}    ${endline}    @{items}    ${endline}
     ...    ${epilog}

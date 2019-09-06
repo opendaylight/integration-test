@@ -92,6 +92,7 @@ ${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/  
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
 &{HEADERS}        Content-Type=application/json    # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 &{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. TODO: Hide into more specific Resource if possible.
+&{HEADERS_YANG_RFC8040_JSON}    Content-Type=application/yang-data+json
 &{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
 ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console login.
 ${ICMP_TYPE}      135
@@ -211,3 +212,4 @@ ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
 # Keep this list sorted alphabetically.
+
