@@ -8,6 +8,7 @@
 
 # Run non intrusive cluster tests first.
 integration/test/csit/suites/netconf/clustering/CRUD.robot
+integration/test/csit/suites/netconf/CRUD/CRUD-ACTION.robot
 integration/test/csit/suites/netconf/clustering/bug8086.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
