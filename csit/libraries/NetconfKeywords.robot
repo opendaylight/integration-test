@@ -102,7 +102,7 @@ Remove_Device_From_Netconf
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
 
 Wait_Device_Fully_Removed
-    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
+    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default
     [Documentation]    Wait until all netconf connectors for the device with the given name disappear.
     ...    Call of Remove_Device_From_Netconf returns before netconf gets
     ...    around deleting the device's connector. To ensure the device is
@@ -141,6 +141,17 @@ NetconfKeywords__Deploy_Additional_Schemas
     SSHLibrary.Put_Directory    ${schemas}    destination=./schemas
     [Return]    --schemas-dir ./schemas
 
+NetconfKeywords__Deploy_Custom_RPC
+    [Arguments]    ${rpc_config}
+    [Documentation]    Internal keyword for Install_And_Start_TestTool
+    ...    This deploys the optional custom rpc file.
+    # Drop out of the keyword, returning no command line argument when there
+    # is no rpc file to deploy.
+    BuiltIn.Return_From_Keyword_If    '${rpc_config}' == 'none'    ${EMPTY}
+    SSHKeywords.Copy_File_To_Tools_System    ${TOOLS_SYSTEM_1_IP}    ${rpc_config}    /tmp
+    # Construct a command line argument pointing to custom rpc
+    [Return]    --rpc-config /tmp/customaction.xml
+
 NetconfKeywords__Check_Device_Is_Up
     [Arguments]    ${last-port}
     ${count}=    SSHKeywords.Count_Port_Occurences    ${last-port}    LISTEN    java
@@ -152,22 +163,24 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_BOOT_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
+    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
+    ...    ${mdsal}=true
     [Documentation]    Install and run testtool.
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
-    Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${tool_options}    ${java_options}
-    ...    ${mdsal}
+    Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}
+    ...    ${java_options}    ${mdsal}
 
 Start_Testtool
-    [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
-    ...    ${mdsal}=true
+    [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}
+    ...    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
     [Documentation]    Arrange to collect tool's output into a log file.
     ...    Will use specific ${schemas} unless argument resolves to 'none',
     ...    which signifies that there are no additional schemas to be deployed.
     ...    If so the directory for the additional schemas is deleted on the
     ...    remote machine and the additional schemas argument is left out.
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
+    ${rpc_config_option}=    NetconfKeywords__Deploy_Custom_RPC    ${rpc_config}
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} ${rpc_config_option} --md-sal ${mdsal}
     BuiltIn.Log    Running testtool: ${command}
     ${logfile}=    Utils.Get_Log_File_Name    testtool
     BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
@@ -214,3 +227,4 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+
