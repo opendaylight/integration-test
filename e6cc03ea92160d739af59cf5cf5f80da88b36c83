@@ -22,6 +22,23 @@
       "revId": "e6cc03ea92160d739af59cf5cf5f80da88b36c83",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe647c44_2dbdae47",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-09-06T06:14:58Z",
+      "side": 1,
+      "message": "Does this option work with queens also?",
+      "revId": "e6cc03ea92160d739af59cf5cf5f80da88b36c83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
