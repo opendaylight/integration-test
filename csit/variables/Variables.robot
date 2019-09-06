@@ -92,6 +92,7 @@ ${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/  
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
 &{HEADERS}        Content-Type=application/json    # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 &{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. TODO: Hide into more specific Resource if possible.
+&{HEADERS_YANG_RFC8040_JSON}    Content-Type=application/yang-data+json
 &{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
 ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console login.
 ${ICMP_TYPE}      135

@@ -141,6 +141,22 @@ NetconfKeywords__Deploy_Additional_Schemas
     SSHLibrary.Put_Directory    ${schemas}    destination=./schemas
     [Return]    --schemas-dir ./schemas
 
+NetconfKeywords__Deploy_Custom_RPC
+    [Arguments]    ${rpc_config}
+    [Documentation]    Internal keyword for Install_And_Start_TestTool
+    ...    This deploys the optional custom rpc file.
+    # Drop out of the keyword, returning no command line argument when there
+    # is no rpc file to deploy.
+    BuiltIn.Return_From_Keyword_If    '${rpc_config}' == 'none'    ${EMPTY}
+    SSHLibrary.Put_File    ${rpc_config}
+    BuiltIn.Log To Console    STEP4
+    # Construct a command line argument pointing to custom rpc
+    OperatingSystem.File Should Exist    ~/customaction.xml
+    ${out}=    OperatingSystem.Run    cat ~/customaction.xml
+    BuiltIn.Log To Console    WAS#2
+    BuiltIn.Log To Console    ${out}
+    [Return]    --rpc-config ~/customaction.xml
+
 NetconfKeywords__Check_Device_Is_Up
     [Arguments]    ${last-port}
     ${count}=    SSHKeywords.Count_Port_Occurences    ${last-port}    LISTEN    java
@@ -152,14 +168,16 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_BOOT_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
+    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
     [Documentation]    Install and run testtool.
+    BuiltIn.Log To Console    STEP1
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
-    Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${tool_options}    ${java_options}
+    BuiltIn.Log To Console    STEP2
+    Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}    ${java_options}
     ...    ${mdsal}
 
 Start_Testtool
-    [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
+    [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ...    ${mdsal}=true
     [Documentation]    Arrange to collect tool's output into a log file.
     ...    Will use specific ${schemas} unless argument resolves to 'none',
@@ -167,7 +185,14 @@ Start_Testtool
     ...    If so the directory for the additional schemas is deleted on the
     ...    remote machine and the additional schemas argument is left out.
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
+    BuiltIn.Log To Console    STEP3
+    ${rpc_config_option}=    NetconfKeywords__Deploy_Custom_RPC    ${rpc_config}
+    # BuiltIn.Log To Console    STEP4
+    BuiltIn.Log To Console    rpc_config_option_HERE:
+    BuiltIn.Log To Console    ${rpc_config_option}
+    OperatingSystem.File Should Exist    ${rpc_config}
+
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} ${rpc_config_option} --md-sal ${mdsal}
     BuiltIn.Log    Running testtool: ${command}
     ${logfile}=    Utils.Get_Log_File_Name    testtool
     BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
