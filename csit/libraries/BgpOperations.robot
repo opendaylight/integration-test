@@ -403,15 +403,9 @@ Verify_Two_Hex_Messages_Are_Equal
     ${len_1} =    BuiltIn.Get_Length    ${hex_1}
     ${len_2} =    BuiltIn.Get_Length    ${hex_2}
     BuiltIn.Should_Be_Equal    ${len_1}    ${len_2}
-    ${sum_1} =    Sum_Hex_Message_Arguments_To_Integer    ${hex_1}
-    ${sum_2} =    Sum_Hex_Message_Arguments_To_Integer    ${hex_2}
+    ${sum_1} =    BgpRpcClient.Sum_Hex_Message    ${hex_1}
+    ${sum_2} =    BgpRpcClient.Sum_Hex_Message    ${hex_2}
     BuiltIn.Should_Be_Equal    ${sum_1}    ${sum_2}
-
-Sum_Hex_Message_Arguments_To_Integer
-    [Arguments]    ${hex_string}
-    [Documentation]    Converts hex message arguments to integers and sums them up and returns the sum.
-    ${final_sum} =    BuiltIn.Evaluate    sum(map(lambda x: int(x, 16), re.compile('[a-f\d]{2}').findall('${hex_string}'[32:])))    modules=re
-    [Return]    ${final_sum}
 
 Check BGP VPNv4 Nbr On ODL
     [Arguments]    ${dcgw_count}    ${flag}=True    ${start}=${START_VALUE}
