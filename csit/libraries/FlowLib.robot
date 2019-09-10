@@ -35,6 +35,7 @@ Check Switches In Inventory
     [Documentation]    Check all switches and stats in operational inventory
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
+    \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
