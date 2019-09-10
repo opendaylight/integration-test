@@ -131,7 +131,7 @@ Workflow Full Mesh Topology
     ...    ${switches}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking switch    ${topology_discover_time}
     Log To Console    Check number of links in inventory is ${links}
-    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10s    2s    FlowLib.Check Number Of Links
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    20s    2s    FlowLib.Check Number Of Links
     ...    ${links}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking topology    ${topology_discover_time}
     ${end_time}=    DateTime.Get Current Date    result_format=timestamp
