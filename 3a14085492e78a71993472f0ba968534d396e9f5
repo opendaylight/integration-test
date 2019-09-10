@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "530ae993_94e546ee",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-09-10T18:27:05Z",
+      "side": 0,
+      "message": "why you remove this? without this we cannot see what is failing when netcong testtool does not work.",
+      "revId": "3a14085492e78a71993472f0ba968534d396e9f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
