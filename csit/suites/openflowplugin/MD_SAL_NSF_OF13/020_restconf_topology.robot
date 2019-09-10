@@ -65,6 +65,7 @@ Link Up
 
 Remove Port
     [Documentation]    Remove port s2-eth2
+    [Tags]    exclude
     Write    sh ovs-vsctl del-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:2
@@ -72,6 +73,7 @@ Remove Port
 
 Add Port
     [Documentation]    Add port s2-eth2, new id 5
+    [Tags]    exclude
     Write    sh ovs-vsctl add-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:5
