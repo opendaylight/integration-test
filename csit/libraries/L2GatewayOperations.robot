@@ -118,13 +118,16 @@ Verify L2Gateway Connection
     Utils.Check For Elements At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
 
 Delete L2Gateway Connection
-    [Arguments]    ${gw_name}
+    [Arguments]    ${gw_name}    ${check_for_null}=false
     [Documentation]    Delete the L2 Gateway connection existing for Gateway ${gw_name} received in argument (Using Neutron CLI).
+    ...    If ${check_for_null} is True return of 404 is treated as empty list. From Neon onwards, an empty list is always
+    ...    returned as null, giving 404 on rest call.
     ${l2gw_conn_id}=    OpenStackOperations.Get L2gw Connection Id    ${gw_name}
     ${output}=    Exec Command    ${OS_CNTL_CONN_ID}    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
     Log    ${output}
     @{list_to_check}=    Create List    ${l2gw_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
+    ...    check_for_null=${check_for_null}
 
 Update Port For Hwvtep
     [Arguments]    ${port_name}
