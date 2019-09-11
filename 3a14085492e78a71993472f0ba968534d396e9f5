@@ -16,6 +16,24 @@
       "revId": "3a14085492e78a71993472f0ba968534d396e9f5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "734923dc_b7a8349a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-09-11T08:42:53Z",
+      "side": 0,
+      "message": "it is only for troubleshooting purposes. All will be back as originaly",
+      "parentUuid": "530ae993_94e546ee",
+      "revId": "3a14085492e78a71993472f0ba968534d396e9f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
