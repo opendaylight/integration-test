@@ -189,9 +189,9 @@ TC19 Ping Verification From Namespace Tap To Ovs Vm
 
 TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
-    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
+    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}    check_for_null=True
     L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME1}
-    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME2}
+    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME2}    check_for_null=True
     OpenStackOperations.Delete Vm Instance    ${OVS_VM1_NAME}
     OpenStackOperations.Delete Vm Instance    ${OVS_VM2_NAME}
     OpenStackOperations.Delete Port    ${OVS_PORT_1}
