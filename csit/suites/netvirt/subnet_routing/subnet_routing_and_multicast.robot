@@ -113,6 +113,19 @@ Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
     BuiltIn.Should Contain    ${output}    64 bytes
     Verify Ping between Inter Intra And Enterprise host
 
+Verify The Subnet Route When The Network Is Removed From The Vpn
+    [Documentation]    Dissociate vpn from the network and verify the subnet route
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    ${vm_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
+    Utils.Check For Elements Not At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID}
+    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ip_list}
+    Verify Ping between Inter Intra And Enterprise host
+	
 *** Keywords ***
 Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.
