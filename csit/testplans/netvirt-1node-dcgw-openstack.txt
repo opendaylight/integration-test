@@ -2,4 +2,5 @@
 integration/test/csit/suites/netvirt/snatdnat/snat_dnat.robot
 integration/test/csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot
 integration/test/csit/suites/netvirt/l3vpn_bgp/bfd_bgp.robot
+integration/test/csit/suites/netvirt/l3vpn_bgp/l3vpn_bgp_multipath_maxpath_cli.robot
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
