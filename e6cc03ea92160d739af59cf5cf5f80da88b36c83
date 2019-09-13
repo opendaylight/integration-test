@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1886da0_b6169d28",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-09-13T16:35:43Z",
+      "side": 1,
+      "message": "Yes, latest patch is the correct one to be merged.",
+      "parentUuid": "8741adfb_590ef579",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 110
+      },
+      "revId": "e6cc03ea92160d739af59cf5cf5f80da88b36c83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe647c44_2dbdae47",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2019-09-06T06:14:58Z",
       "side": 1,
       "message": "Does this option work with queens also?",
+      "revId": "e6cc03ea92160d739af59cf5cf5f80da88b36c83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f012e09c_cedfbc40",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2019-09-13T16:35:43Z",
+      "side": 1,
+      "message": "No, queens wasn\u0027t working, latest patch has both working",
+      "parentUuid": "fe647c44_2dbdae47",
       "revId": "e6cc03ea92160d739af59cf5cf5f80da88b36c83",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
