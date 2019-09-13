@@ -4,7 +4,6 @@
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_subnet_routing.robot
 integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
-integration/test/csit/suites/netvirt/l3vpn_bgp/l3vpn_bgp_multipath_maxpath_cli.robot
 integration/test/csit/suites/netvirt/l3vpn_bgp/multi_vpn_bgp.robot
 integration/test/csit/suites/netvirt/bgpvpn/bgpvpn.robot
 integration/test/csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot
