@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12849ae1_4681b63f",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-09-16T07:26:11Z",
+      "side": 1,
+      "message": "I guess this can be check_for_null. Can you please revert, Also please add the detail to documentation",
+      "revId": "a799112849db17e85b051950fbb8703a7ba9f7fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
