@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebf44b38_f0b1925a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-09-16T09:32:31Z",
+      "side": 1,
+      "message": "thanks for fixing, I guess you are missing the extracting port-id part.",
+      "revId": "f50ffe6e8f7c3d56adc9592170c9c6b57631375e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
