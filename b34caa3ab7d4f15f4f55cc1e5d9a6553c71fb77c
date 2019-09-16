@@ -16,6 +16,24 @@
       "revId": "b34caa3ab7d4f15f4f55cc1e5d9a6553c71fb77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f1b8591_1526cbcb",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2019-09-16T09:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e77c275b_2a51f1a4",
+      "revId": "b34caa3ab7d4f15f4f55cc1e5d9a6553c71fb77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
