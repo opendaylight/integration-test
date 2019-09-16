@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6405dc34_cee7fd2f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-09-16T07:31:35Z",
+      "side": 1,
+      "message": "does it always have 7 lines in result?",
+      "revId": "8841dbc0e212b6a0036f2325aed2c54c4d302bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
