@@ -16,6 +16,24 @@
       "revId": "a799112849db17e85b051950fbb8703a7ba9f7fb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d96b627_db2005eb",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2019-09-16T08:17:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12849ae1_4681b63f",
+      "revId": "a799112849db17e85b051950fbb8703a7ba9f7fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
