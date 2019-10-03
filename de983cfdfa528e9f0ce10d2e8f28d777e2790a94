@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da363709_20884f71",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c42d4cc_acadbe9f",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 31
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c30ac21d_cd4776c0",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-03T17:07:47Z",
       "side": 1,
       "message": "this comment is probably not needed. not a big deal to keep but too many comments in robot code (which is already pretty self-explanatory) is just added noise.",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 62
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9d88ba_6fb979eb",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c30ac21d_cd4776c0",
       "range": {
         "startLine": 151,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2f940381_380338a3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "217d201f_6fe92b57",
+      "range": {
+        "startLine": 187,
+        "startChar": 1,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2b2b2f9_00a26930",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-03T17:07:47Z",
       "side": 1,
       "message": "can you add info in the docs section about what this RFC8040 is all about?",
+      "range": {
+        "startLine": 201,
+        "startChar": 13,
+        "endLine": 201,
+        "endChar": 20
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5f02fd_46cdc130",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2b2b2f9_00a26930",
       "range": {
         "startLine": 201,
         "startChar": 13,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "561dc5d5_1ec55b8c",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cf73265_9b7b254a",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 66
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3699f855_d4fd8b2f",
         "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-10-03T17:07:47Z",
       "side": 1,
       "message": "use ALL_CAPS for variables assigned here in this *** Variables *** section. these are more like GLOBALS and makes\nit easier to follow them when we see them down inside test cases and local keywords",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 89
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88591c99_16cc9fe1",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3699f855_d4fd8b2f",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "fd590990_a8c08e93",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fddd9acb_1b21a7a9",
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d53d3b3b_4fcd8952",
         "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
         "patchSetId": 1
@@ -168,6 +330,30 @@
       "writtenOn": "2019-10-03T17:07:47Z",
       "side": 1,
       "message": "use ${count} \u003d",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 12
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f9d6d2b_640ae672",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d53d3b3b_4fcd8952",
       "range": {
         "startLine": 58,
         "startChar": 4,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "0975e381_2aa18a54",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3fc62db_9e00ae0d",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 40
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "807ec452_917c4a9a",
         "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
         "patchSetId": 1
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "3e92db86_d9553af3",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "807ec452_917c4a9a",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 18
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "208c5806_9430cd90",
         "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
         "patchSetId": 1
@@ -237,6 +471,30 @@
       "writtenOn": "2019-10-03T17:07:47Z",
       "side": 1,
       "message": "put a space between ${variable} and \u003d\n\napplies below",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 12
+      },
+      "revId": "de983cfdfa528e9f0ce10d2e8f28d777e2790a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e7d21f_05b1b373",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 8432
+      },
+      "writtenOn": "2019-10-03T19:06:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "208c5806_9430cd90",
       "range": {
         "startLine": 117,
         "startChar": 4,
