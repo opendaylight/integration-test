@@ -47,7 +47,7 @@ __email__ = "vrpolak@cisco.com"
 #
 def Init_Session(ip, username, password, scope, reuse=True, port="8181"):
     """Robot keyword, return opaque session object, which handles authentication automatically."""
-    if scope:
+    if scope is not None:
         if reuse:
             return _TokenReusingSession(ip, username, password, scope, port=port)
         else:
