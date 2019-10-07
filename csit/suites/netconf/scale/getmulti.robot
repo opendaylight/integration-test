@@ -54,7 +54,7 @@ Issue_Requests_On_Devices
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHKeywords.Flexible_Mininet_Login
-    SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
+    SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT} --scope=None
     : FOR    ${number}    IN RANGE    1    ${DEVICE_COUNT}+1
     \    Read_Python_Tool_Operation_Result    ${number}
     SSHLibrary.Read_Until_Prompt
