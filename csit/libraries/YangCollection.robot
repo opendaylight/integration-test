@@ -29,14 +29,12 @@ Static_Set_As_Src
     SSHKeywords.Set_Cwd    ${root_dir}/src/main
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone https://github.com/YangModels/yang    stderr_must_be_empty=False
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest f4b09f38ac4b794e4e9b2e8646f326eccf556fe5    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf tools
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang/experimental
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf openconfig
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone https://github.com/openconfig/public    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mv -v public openconfig
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang/experimental/openconfig
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest 8bd7aafde63785880fe192174e5b075105ab97cb    stderr_must_be_empty=False
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang
     Delete_Static_Paths
 
