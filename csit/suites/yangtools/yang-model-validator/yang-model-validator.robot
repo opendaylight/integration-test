@@ -17,6 +17,7 @@ Suite Setup       Setup_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing    # TODO: Suite Teardown to close SSH connections and other cleanup?
 Test Teardown     Teardown_Test
 Default Tags      1node    yang-model-validator    critical
+Library           Collections
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
@@ -30,9 +31,6 @@ Resource          ${CURDIR}/../../../libraries/YangCollection.robot
 
 *** Variables ***
 ${TEST_TOOL_NAME}    yang-model-validator
-${EXPLICIT_YANG_SYSTEM_TEST_URL}    ${EMPTY}
-${NITROGEN_YANG_SYSTEM_TEST_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/yangtools/${TEST_TOOL_NAME}/2.0.0/${TEST_TOOL_NAME}-2.0.0-jar-with-dependencies.jar
-${OXYGEN_YANG_SYSTEM_TEST_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/yangtools/${TEST_TOOL_NAME}/2.0.1/${TEST_TOOL_NAME}-2.0.1-jar-with-dependencies.jar
 
 *** Test Cases ***
 Kill_Odl
@@ -42,9 +40,15 @@ Kill_Odl
 Prepare_Yang_Files_To_Test
     [Documentation]    Set up collection of Yang files to test with.
     YangCollection.Static_Set_As_Src
-    ${dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang
+    ${openconfig_dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang/openconfig
+    ${standard_dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang/standard
+    ${vendor_dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang/vendor
+    ${dirs_to_process} =    Collections.Combine Lists     ${openconfig_dirs_to_process}     ${standard_dirs_to_process}
+    ${yang_dirs_to_process} =    Collections.Combine Lists     ${openconfig_dirs_to_process}     ${standard_dirs_to_process}     ${vendor_dirs_to_process}
+    ${unwanted_dirs} =    Collections.Get Matches     ${yang_dirs_to_process}     ^.*DRAFT|^.*EXPERIMENTAL    case_insensitive=${True}
+    ${yang_dirs_to_process_1} =     Collections.Remove Values From List         ${yang_dirs_to_process}      ${unwanted_dirs}
     ${p_option_value} =    BuiltIn.Catenate    SEPARATOR=:    @{dirs_to_process}
-    ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
+    ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${yang_dirs_to_process_1}
     BuiltIn.Set_Suite_Variable    ${yang_files_to_validate}
     BuiltIn.Set_Suite_Variable    \${p_option_value}
 
@@ -69,9 +73,11 @@ Collect_Files_To_Archive
 Setup_Suite
     [Documentation]    Activate dependency Resources, create SSH connection.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ${TEST_TOOL_NAME}=    CompareStream.Set_Variable_If_At_Most_Carbon    yang-system-test    ${TEST_TOOL_NAME}
-    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Nitrogen    ${NITROGEN_YANG_SYSTEM_TEST_URL}    ${EMPTY}
-    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Oxygen    ${OXYGEN_YANG_SYSTEM_TEST_URL}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
+    ${YANGTOOLS_VERSION}=    CompareStream.Set_Variable_If_At_Least_Fluorine    2.0.22    2.0.1
+    ${YANGTOOLS_VERSION}=    CompareStream.Set_Variable_If_At_Least_Neon    2.1.12    2.0.22
+    ${YANGTOOLS_VERSION}=    CompareStream.Set_Variable_If_At_Least_Sodium    3.0.5    2.1.12
+    ${YANGTOOLS_VERSION}=    CompareStream.Set_Variable_If_At_Least_Magnesium    4.0.1    3.0.5
+    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    Set Variable    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/yangtools/${TEST_TOOL_NAME}/${YANGTOOLS_VERSION}/${TEST_TOOL_NAME}-${YANGTOOLS_VERSION}-jar-with-dependencies.jar
     Set Suite Variable    ${TEST_TOOL_NAME}
     Set Suite Variable    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
