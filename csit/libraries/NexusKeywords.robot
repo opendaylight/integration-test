@@ -31,6 +31,8 @@ ${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
 ${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
+${JAVA_11_HOME_CENTOS}    /usr/lib/jvm/java-11-openjdk
+${JAVA_11_HOME_UBUNTU}    /usr/lib/jvm/java-11-openjdk-amd64
 ${JAVA_OPTIONS}    -Xmx2560m    # Note that '-Xmx=3g' is wrong syntax. Also 3GB heap may not fit in 4GB RAM.
 ${JAVA_7_OPTIONS}    -Xmx2048m -XX:MaxPermSize=512m
 ${MAVEN_DEFAULT_OUTPUT_FILENAME}    default_maven.log
@@ -174,13 +176,14 @@ Compose_Base_Java_Command
     # Check whether the user set the override and return it if yes.
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk11"    Compose_Dilemma_Filepath    ${JAVA_11_HOME_CENTOS}/bin/java    ${JAVA_11_HOME_UBUNTU}/bin/java
     # Attempt to call plain "java" command directly. If it works, return it.
     ${out}    ${rc} =    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    java
     # Query the virtual machine for the JAVA_HOME environment variable and
     # use it to assemble a (hopefully) working command. If that worked out,
     # return the result.
-    ${java} =    SSHLibrary.Execute_Command    echo \$JAVA_HOME/bin/java 2>&1
+    ${java} =    SSHLibrary.Execute_Command    echo $JAVA_HOME/bin/java 2>&1
     ${out}    ${rc} =    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
     # There are bizzare test environment setups where the (correct) JAVA_HOME
