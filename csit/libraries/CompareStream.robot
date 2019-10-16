@@ -57,7 +57,7 @@ Set_Variable_If_At_Least_Sodium
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least sodium,
     ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    soduim    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    sodium    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Least_Magnesium
     [Arguments]    ${value_if_true}    ${value_if_false}
