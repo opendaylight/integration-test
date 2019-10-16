@@ -509,7 +509,7 @@ Perform_Test
     ${actual}=    Load_And_Send_Message    ${name}
     ${expected}=    Load_Expected_Reply    ${name}
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
-    BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
+    BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual.strip()}
     [Return]    ${actual}
 
 Send_And_Check
