@@ -35,6 +35,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
+Library           String
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -507,12 +508,24 @@ Perform_Test
     [Arguments]    ${name}
     [Documentation]    Load and send the request from the dataset and compare the returned reply to the one stored in the dataset.
     ${actual}=    Load_And_Send_Message    ${name}
+    ${actual}=       Run_Keyword_If_At_Least_Magnesium     Trim Whitespaces   ${actual} 
     ${expected}=    Load_Expected_Reply    ${name}
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
     BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
     [Return]    ${actual}
-
+    
 Send_And_Check
     [Arguments]    ${name}    ${expected}
     ${actual}=    Load_And_Send_Message    ${name}
     BuiltIn.Should_Be_Equal    ${expected}    ${actual}
+
+Trim Whitespaces
+    [Arguments]      ${actual}
+    ${list}        Split To Lines    ${actual}
+    Remove From List       ${list}      0
+    ${modified_data}    Set Variable    ${EMPTY}
+    :FOR      ${line}    IN     @{list}
+    \   ${data}      String.Strip String        ${line}     mode=left 
+    \   ${modified_data}       Catenate       SEPARATOR=${\n}      ${modified_data}     ${data}
+    Log      ${modified_data}     
+    [Return]       ${modified_data}
