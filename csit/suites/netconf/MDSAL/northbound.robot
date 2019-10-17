@@ -35,6 +35,8 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
+Library           String
+Library           XML
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -401,8 +403,7 @@ Load_Expected_Reply
     [Arguments]    ${name}
     [Documentation]    Load the expected reply from the data file set and return it.
     ${expected_reply}=    Get_Data    ${name}-reply
-    ${expected}=    Prepare_For_Search    ${expected_reply}
-    [Return]    ${expected}
+    [Return]    ${expected_reply}
 
 Abort_ODL_Netconf_Connection
     [Documentation]    Correctly close the Netconf connection and make sure it is really dead.
@@ -506,10 +507,11 @@ Check_Test_Objects_Not_Present_In_Config
 Perform_Test
     [Arguments]    ${name}
     [Documentation]    Load and send the request from the dataset and compare the returned reply to the one stored in the dataset.
-    ${actual}=    Load_And_Send_Message    ${name}
+    ${actual}=    Load_And_Send_Message    ${name}    
     ${expected}=    Load_Expected_Reply    ${name}
-    ${newline}=    BuiltIn.Evaluate    "\\r\\n"
-    BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
+    ${actual}=       String.Remove String       ${actual}      ]]>]]>
+    ${actual}=      String.Strip String        ${actual}      mode=both
+    XML.Elements Should Be Equal       ${actual}        ${expected}       normalize_whitespace=True
     [Return]    ${actual}
 
 Send_And_Check
