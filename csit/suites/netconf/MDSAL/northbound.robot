@@ -507,12 +507,22 @@ Perform_Test
     [Arguments]    ${name}
     [Documentation]    Load and send the request from the dataset and compare the returned reply to the one stored in the dataset.
     ${actual}=    Load_And_Send_Message    ${name}
+    ${actual}=       Run_Keyword_If_At_Least_Magnesium     Trim Whitespaces   ${actual} 
     ${expected}=    Load_Expected_Reply    ${name}
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
     BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
     [Return]    ${actual}
-
+    
 Send_And_Check
     [Arguments]    ${name}    ${expected}
     ${actual}=    Load_And_Send_Message    ${name}
     BuiltIn.Should_Be_Equal    ${expected}    ${actual}
+
+Trim Whitespaces
+    [Arguments]      ${actual}
+    ${list}        Split To Lines    ${actual}
+    ${modified_data}    Set Variable    ${EMPTY}
+    :FOR      ${line}    IN     @{list}
+    \   ${data}      String.Strip String        ${line}     mode=left 
+    \   ${modified_data}       Catenate       SEPARATOR=${\n}      ${modified_data}     ${data}
+    [Return]       ${modified_data}
