@@ -507,12 +507,23 @@ Perform_Test
     [Arguments]    ${name}
     [Documentation]    Load and send the request from the dataset and compare the returned reply to the one stored in the dataset.
     ${actual}=    Load_And_Send_Message    ${name}
+    ${is_magnesium}       Run_Keyword_If_At_Least_Magnesium     Check_Config_Data    <data xmlns\="${ODL_NETCONF_NAMESPACE}"/>
+    ${actual}=       Run Keyword if    ${is_magnesium}==${True}      Perform striping in actual data      ${actual} 
     ${expected}=    Load_Expected_Reply    ${name}
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
     BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
     [Return]    ${actual}
-
+    
 Send_And_Check
     [Arguments]    ${name}    ${expected}
     ${actual}=    Load_And_Send_Message    ${name}
     BuiltIn.Should_Be_Equal    ${expected}    ${actual}
+
+Perform striping in actual data
+    [Arguments]      ${actual}
+    ${list}        Split To Lines    ${actual}
+    ${modified_data}    Set Variable    ${EMPTY}
+    :FOR      ${line}    IN     @{modified_data}
+    /   ${data}      String.Strip String        ${line}     mode=left 
+    /   ${modified_data}       Catenate       SEPARATOR=${\n}      ${modified_data}     ${data1}
+    [Return]       ${modified_data}
