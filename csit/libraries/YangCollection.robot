@@ -31,6 +31,7 @@ Static_Set_As_Src
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest f4b09f38ac4b794e4e9b2e8646f326eccf556fe5    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf tools
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf vendor/cisco/xr/601/
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang/experimental
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf openconfig
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone https://github.com/openconfig/public    stderr_must_be_empty=False
