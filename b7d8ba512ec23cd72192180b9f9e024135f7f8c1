@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd6afac8_f7c6dbc2",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-10-23T08:13:44Z",
+      "side": 1,
+      "message": "Instead of 2 lines, You can use the Keyword\nTemplatedRequests.Check Status Code    ${resp}    ${status_codes}",
+      "revId": "b7d8ba512ec23cd72192180b9f9e024135f7f8c1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
