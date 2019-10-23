@@ -9,6 +9,7 @@ Library           RequestsLibrary
 Library           String
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/LISPFlowMapping.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -90,9 +91,10 @@ Generate Test Traffic
     [Return]    ${time}
 
 Reset Stats
+    [Arguments]    ${status_codes}=${ALLOWED_STATUS_CODES}
     ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:reset-stats
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    TemplatedRequests.Check Status Code    ${resp}    ${status_codes}
 
 Allow Unauthenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default_no-auth.json
