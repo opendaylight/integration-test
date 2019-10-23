@@ -92,7 +92,7 @@ Generate Test Traffic
 Reset Stats
     ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:reset-stats
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    204
 
 Allow Unauthenticated Map-Registers
     ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default_no-auth.json
