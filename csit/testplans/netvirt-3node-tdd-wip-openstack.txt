@@ -3,4 +3,3 @@
 # unnecessary failures.
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot
 integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot

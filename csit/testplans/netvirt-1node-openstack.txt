@@ -16,4 +16,3 @@ integration/test/csit/suites/netvirt/l2l3_gatewaymac_arp.robot
 integration/test/csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot
 integration/test/csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot
 integration/test/csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot

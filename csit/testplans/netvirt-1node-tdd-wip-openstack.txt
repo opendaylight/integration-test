@@ -7,4 +7,3 @@ integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
 integration/test/csit/suites/netvirt/l3vpn_bgp/multi_vpn_bgp.robot
 integration/test/csit/suites/netvirt/bgpvpn/bgpvpn.robot
 integration/test/csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
