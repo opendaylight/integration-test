@@ -7,4 +7,3 @@
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready
 integration/test/csit/suites/netconf/scale/max_devices.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot

@@ -1,2 +1,1 @@
 integration/test/csit/suites/openstack/tempest/tempest.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
