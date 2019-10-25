@@ -1,2 +1,1 @@
 integration/test/csit/suites/netvirt/upgrade/upgrade.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
