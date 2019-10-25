@@ -1,2 +1,1 @@
 integration/test/csit/suites/l2gw/
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
