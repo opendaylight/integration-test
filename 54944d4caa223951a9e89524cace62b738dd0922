@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_0e390941",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T07:00:00Z",
+      "side": 1,
+      "message": "I think the timers in general can be very much optimized:\n\n- 10 secs between retry seems like a long time\n- 30 secs timout seems also too long\n\nCan you please run this test in sandbox so we can estimate a good value for these timers?",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2e116d5d",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T07:00:00Z",
+      "side": 1,
+      "message": "This is too many verifications in a single KW, I would recommend to split this in few KWs and then use the few KWs in few test cases so when a test case fails we can quickly point out where the failure is.",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
