@@ -33,6 +33,23 @@
       "revId": "54944d4caa223951a9e89524cace62b738dd0922",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_65ecb0c8",
+        "filename": "csit/testplans/genius.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T19:57:05Z",
+      "side": 1,
+      "message": "I do not think this is going to work in sandbox, filename format for testplan is {project}-{functionality_inder_test}.txt",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
