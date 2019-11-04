@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_847d2b1f",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "this block looks like a near duplication from the above suite.  For those things, you can create a local keyword in the *** Keywords *** section below.  maybe call it Create VTEP and pass some args, like vlan, gateway, and the two system IPs you need.  That would make this more readable and more maintainable.\n\n...and looking below, you have the same block in the next test case I think.\n\nsomething like this doesn\u0027t have to block this patch and you can do it on a new patch.  but it\u0027s a good idea to do it.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 60
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a472ef46",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "you can delete line 149 and just use ${TOPOLOGY_URL} instead of url_2.  it comes from Variables.py",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 49
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_24ec1fc7",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "${Bridge-2}",
+      "range": {
+        "startLine": 330,
+        "startChar": 48,
+        "endLine": 330,
+        "endChar": 51
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_04b8fbc6",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "so, just another example.  \"Validate interface state Delete\" already does a \"Log {resp.content}\" which is exactly what \"Log {resp_9}\" is going to show.  it will make thing more clean not to duplicate these things.",
+      "range": {
+        "startLine": 435,
+        "startChar": 4,
+        "endLine": 435,
+        "endChar": 20
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_84d24bfe",
+        "filename": "csit/suites/genius/02_Interface_manager.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_048abb1a",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "I think you want to also do the SSHLibrary.Close Connection stuff here too.",
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
