@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_a66acbeb",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_467937c7",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "if the above line fails, this will never execute.  probably better to put your log message in the keyword itself.\n\nactually looking at the keyword below \"no table0 entry\" you are not even returning a resp.  this line is not needed at all.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 18
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_867fcfaa",
+        "filename": "csit/suites/genius/02_ID_manager.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c64c27a1",
+        "filename": "csit/suites/genius/02_ID_manager.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "good job with a negative test case here.  we don\u0027t enough of these upstream.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e647a375",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a6512b38",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "I still think this file is wrong.",
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0643bf6c",
+        "filename": "csit/variables/genius/Itm_creation_no_vlan.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-30T00:03:45Z",
+      "side": 1,
+      "message": "tabs to get rid of.  more below.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 2
+      },
+      "revId": "d7424f7d04afde0351b7e998fe6811e5604eee74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
