@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e493474d",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "one thing that makes this suite a little hard to read is all the Log statements.  you already do the Log inside the Get Tunnel keyword anyway, so you don\u0027t need it again.  I think you can probably remove a lot of these Log statements in the test cases when they are already (and should be) done in the keyword used right before it.",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 22
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a472ef46",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 3
@@ -48,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_44e953b7",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "this should be ${Bridge-1}",
+      "range": {
+        "startLine": 329,
+        "startChar": 97,
+        "endLine": 329,
+        "endChar": 100
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_24ec1fc7",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 3
@@ -64,6 +110,29 @@
         "startChar": 48,
         "endLine": 330,
         "endChar": 51
+      },
+      "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_449b1367",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-18T22:49:14Z",
+      "side": 1,
+      "message": "this reads like \"delete ovs\", but all the keyword is doing is a \"show\"",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 7
       },
       "revId": "fe80992820e93628d146179efb3038c193b4b8e8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
