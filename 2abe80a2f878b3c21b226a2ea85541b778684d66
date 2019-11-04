@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_3b8b93c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-29T22:51:47Z",
+      "side": 1,
+      "message": "Vidya,\n\nthe commit message summary needs to describe the\nmain goal of the patch set. Not just the latest\niteration you did on the same patch.\n\nmake a 50 char or less top line summary of what the\nentire patch is about. If you need to add more details\nyou can do it in a paragraph below the top line.\n\nas it stands, if we merge this, the git log will say\nthat this commit did an \"Add SuiteTeardown in script\"\nand we know it does much more than that.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "2abe80a2f878b3c21b226a2ea85541b778684d66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
