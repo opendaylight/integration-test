@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_42459515",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2016-07-27T07:29:45Z",
+      "side": 1,
+      "message": "Luiz, creating tunnels on OVS through Genius involves a sequence of steps, we are just verifying all these steps, so that in case of a failure we know which database operation has failed, splitting it into different TCs wont make sense, it is just the same operation with a sequence of verfications. Is it okay to retain the TC like this?",
+      "parentUuid": "9a561d44_ae4c5dc9",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2e116d5d",
         "filename": "csit/suites/genius/03_Configure_ITM.robot",
         "patchSetId": 5
