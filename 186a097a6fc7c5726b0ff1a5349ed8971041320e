@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_0247694c",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-18T17:34:07Z",
+      "side": 1,
+      "message": "don\u0027t need these when you are done figuring this patch out.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 126
+      },
+      "revId": "186a097a6fc7c5726b0ff1a5349ed8971041320e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
