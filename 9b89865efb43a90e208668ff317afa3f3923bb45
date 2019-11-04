@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af78d9a_60031874",
+        "filename": "csit/suites/netvirt/ACL/01_ACL_operational_Single_DPN.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-12T22:42:12Z",
+      "side": 1,
+      "message": "every keyword and test case should have proper [Documentation]\n\nplease do not use \"Log\" lines unless really needed, as it\njust adds noise. Robot is already verbose enough and it\u0027s\nkeywords should be self-explanatory.\n\ndo not use \"sleep\".\n\nhere are some more guidelines and best practices:\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines",
+      "revId": "9b89865efb43a90e208668ff317afa3f3923bb45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_40041c7e",
+        "filename": "csit/suites/netvirt/ACL/01_ACL_operational_Single_DPN.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-12T22:42:12Z",
+      "side": 1,
+      "message": "use Variables.robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "9b89865efb43a90e208668ff317afa3f3923bb45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_20091096",
+        "filename": "csit/suites/netvirt/ACL/01_ACL_operational_Single_DPN.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-12T22:42:12Z",
+      "side": 1,
+      "message": "I\u0027m guessing some/most of these variables are duplicated\nin the other suite. Possibly some of these variables are\nalready there is some other lib/variable file. common\ncode/vars/etc need to be in a common location for easier\nmaintenance.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "9b89865efb43a90e208668ff317afa3f3923bb45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_80fe046a",
+        "filename": "csit/suites/netvirt/ACL/01_ACL_operational_Single_DPN.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-12T22:42:12Z",
+      "side": 1,
+      "message": "a better name would be \"Get Acl Port Statistics\"",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 978,
+        "endChar": 15
+      },
+      "revId": "9b89865efb43a90e208668ff317afa3f3923bb45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
