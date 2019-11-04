@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_95e2422d",
+        "filename": "csit/variables/vpnservice/Itm_creation_no_vlan.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-02-19T01:03:00Z",
+      "side": 1,
+      "message": "please remove tabs",
+      "revId": "1d23493924baf3f5817319b1725c6d68d5b75b2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f5d2ae5a",
+        "filename": "csit/variables/vpnservice/Itm_creation_no_vlan.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-02-19T01:03:00Z",
+      "side": 1,
+      "message": "please remove tabs",
+      "revId": "1d23493924baf3f5817319b1725c6d68d5b75b2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
