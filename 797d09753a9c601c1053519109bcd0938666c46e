@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_7e18591e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "As I already pushed other patches with relevant changes hence mentioned the current patch. Will be updating it as mentioned by you.",
+      "parentUuid": "ba1f61a0_de122508",
+      "revId": "797d09753a9c601c1053519109bcd0938666c46e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_3efb81c2",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 32
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "I am not sure about this. The library keyword is like\nthis:\n\nVerify Ovs-vsctl Output\n    [Arguments]    ${vsctl_args}    ${expected_output}    ${ovs_system}\u003d${TOOLS_SYSTEM_IP}    ${should_match}\u003dTrue\n    [Documentation]    A wrapper keyword to make it easier to validate ovs-vsctl output, and gives an easy\n    ...    way to check this output in a WUKS. The argument ${should_match} can control if the match should\n    ...    exist (True} or not (False) or don\u0027t care (anything but True or False). ${should_match} is True by default\n    ${output}\u003d    Utils.Run Command On Mininet    ${ovs_system}    sudo ovs-vsctl ${vsctl_args}\n    Log    ${output}\n    Run Keyword If    \"${should_match}\"\u003d\u003d\"True\"    Should Contain    ${output}    ${expected_output}\n    Run Keyword If    \"${should_match}\"\u003d\u003d\"False\"    Should Not Contain    ${output}    ${expected_output}\n    [Return]    ${output}\n\n\nThe only difference between the above and what you have\nin this file is the [Arguments] line, right?\n\nthe library keyword has ${ovs_system}\u003d${TOOLS_SYSTEM_IP} which means that if you\ndon\u0027t pass a value for ${ovs_system} it will default to ${TOOLS_SYSTEM_IP}, but\nyou should be able to pass any value you want to that argument.",
       "parentUuid": "ba1f61a0_1ee67d15",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "797d09753a9c601c1053519109bcd0938666c46e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_1ee67d15",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Yes jamo this is the same copy of the same keyword .\nThe reason for this approach done is , the keyword \"Verify Ovs-vsctl Output\" had no option of passing different tools_system_ip as inside the keyword the variable \"${ovs_system} \"is assigned with ${TOOLS_SYSTEM_IP} which was failing for the 2nd ovs check as it dint take the ${TOOLS_SYSTEM_2_IP} when checked. Hence same keyword was added in code by passing the OVS ip as parameter.",
+      "parentUuid": "ba1f61a0_3efb81c2",
       "range": {
         "startLine": 171,
         "startChar": 0,
