@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_f4d2afd0",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-28T18:19:53Z",
+      "side": 1,
+      "message": "it\u0027s better to put \"Genius.Delete All Sessions\" in the\nSuite Teardown in the *** Settings *** section. I think\nyou misinterpreted my comment before.\n\nWhen keywords are run in \"Teardown\" sections, all steps\nare executed. So you get a best effort of teardown \nactions. When it\u0027s done in a test case (like this) robot\nwill stop execution of the steps on the first sign of\ntrouble (failure). So you don\u0027t get best effort any more.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 30
+      },
+      "revId": "cae36bcc1e4482301f4e070758991a9a42c65300",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
