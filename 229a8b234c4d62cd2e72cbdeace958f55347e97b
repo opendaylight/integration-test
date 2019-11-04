@@ -1,0 +1,240 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_a42520ad",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "same thing as above, as ${OPERATIONAL_API}",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_043a0ccd",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "just put two lines in Variables section above:\n\n${Bridge-1}    BR1\n${Bridge-2}    BR2\n\ninstead of these four lines here.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 38
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_e436f8e6",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "same comment here as above about BR1 and BR2",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_261571f1",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-24T22:26:49Z",
+      "side": 1,
+      "message": "everywhere you use CONTROLLER, change it to ODL_SYSTEM_IP.  everywhere you have MININET, change it to TOOLS_SYSTEM_IP",
+      "parentUuid": "ba51214e_8463bc19",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_84745c9d",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "the new keyword is \"RequestsLibrary.Post Request\".  it will apply to Get, Delete, etc. as well.",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_64794893",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "this is there in Variables.py too as ${CONFIG_TOPO_API}",
+      "range": {
+        "startLine": 136,
+        "startChar": 30,
+        "endLine": 136,
+        "endChar": 76
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_e46438e7",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "local keyword?",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 30
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_245f5010",
+        "filename": "csit/suites/genius/02_Interface_manager.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "I think some of my comments on the previous file will apply here too.",
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_c603d5b6",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-24T22:28:38Z",
+      "side": 1,
+      "message": "for the ovsdb library, you should just do it like this KarafKeywords.robot.  \n\nit\u0027s this one:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot",
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_849bbcc8",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "if you source the OVSDB.robot library, you can turn this block in to two lines:\n\nClean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}\nClean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 17
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_c4a5b405",
+        "filename": "csit/variables/genius/bind_service.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "tabs and blank lines to clean up (just for style)",
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
