@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_5fa0269f",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-18T05:48:02Z",
+      "side": 1,
+      "message": "I think a better way which uses work already done for you is to put these two lines:\n\nRequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data\u003d${INTERVAL_5000}\n${list}\u003d    Create List    5000\nWait Until Keyword Succeeds    30s    5s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${list}\n\nyou have to do that Create List line because Check For Elements At URI expects a list. you can add more items to that list if you have additional\nthings to check in the output.",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 81
+      },
+      "revId": "9b62cc28bd01faee7e4d1b6693d24560a984c0fd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_1f96ae4c",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-18T05:48:02Z",
+      "side": 1,
+      "message": "this line should not be in this keyword. You should only do\nthe PUT once, and it should work. If it stays here, it will\nbe doing a new PUT each time.\n\nanyway, this keyword may go away if you go with my suggestion above.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 135
+      },
+      "revId": "9b62cc28bd01faee7e4d1b6693d24560a984c0fd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
