@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_df5b7685",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-18T06:40:44Z",
+      "side": 1,
+      "message": "if you source the OVSDB.robot lib you can remove your\ncustom keyword below and use:\n\nVerify Ovs-vsctl Output    list interface ${Bridge-1}    5000",
+      "range": {
+        "startLine": 86,
+        "startChar": 48,
+        "endLine": 86,
+        "endChar": 65
+      },
+      "revId": "541c5f9336c172363d9b900d08407150405b9130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
