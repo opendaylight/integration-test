@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_d51417f7",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-09T16:44:07Z",
+      "side": 1,
+      "message": "can you change this to:\n\nOVSDB.Verify Ovs-vsctl Output    list-ports ${bridge}    ${something_you_expect_in_output}\n\n\nbtw, I know the purpose of this keyword is just to be able to use it in\na WUKS to poll on tunnel creation. You could use garbage in the\n${something_you_expect_in_output} variable and then add this argument\nto the line should_match\u003dFalse. If you did that, then the OVSDB keyword\nwould not do any match checking.",
+      "range": {
+        "startLine": 163,
+        "startChar": 19,
+        "endLine": 163,
+        "endChar": 73
+      },
+      "revId": "26dfc637fb4a698d62328706868048396b30f857",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
