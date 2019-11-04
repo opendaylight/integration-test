@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ae4c5dc9",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T07:00:00Z",
+      "side": 1,
+      "message": "Some test cases in this suite look very long and contain many verifications in them. Normally every test case should do one verification on some retrieved data like a REST response, this way you can easily spot an issue by looking at the test case that failed. Can you please split the test cases of this suite in more test cases containing less verification?",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2e116d5d",
         "filename": "csit/suites/genius/03_Configure_ITM.robot",
         "patchSetId": 5
