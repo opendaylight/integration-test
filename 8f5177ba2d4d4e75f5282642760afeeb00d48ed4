@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_4728d699",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-22T16:13:53Z",
+      "side": 1,
+      "message": "this line is unnecessary.",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 40
+      },
+      "revId": "8f5177ba2d4d4e75f5282642760afeeb00d48ed4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_272322be",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-22T16:13:53Z",
+      "side": 1,
+      "message": "not needed. the info will be shown in line 435.\n\nin general, adding all these Log messages just makes it\nharder/noisier to read the test code. Robot Framework is\nalready pretty verbose, and we can run it with the -L TRACE\noption if we want extra output.",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 24
+      },
+      "revId": "8f5177ba2d4d4e75f5282642760afeeb00d48ed4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
