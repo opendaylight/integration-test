@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_de122508",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T05:00:12Z",
+      "side": 1,
+      "message": "I don\u0027t think you understood my last comment about the\ncommit message. what you have here is more detailed but\nonly describes a single line of the 49 lines of changed\ncode in this whole patch. You are only describing the\nwork you did in the most recent patch set. Nobody is\ngoing to care what change happened in gerrit between patch\nset 29 and 30. We will want to know what this whole change\nis doing.\n\nI think the idea of this patch is to add some polling\non tunnels that are being created and maybe do a little\nmore extra verifications like port-list checks, etc.",
+      "revId": "797d09753a9c601c1053519109bcd0938666c46e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_3efb81c2",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T05:00:12Z",
+      "side": 1,
+      "message": "how did this end up in here? isn\u0027t this an exact copy of the\nsame keyword in the OVSDB.robot library?",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "797d09753a9c601c1053519109bcd0938666c46e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
