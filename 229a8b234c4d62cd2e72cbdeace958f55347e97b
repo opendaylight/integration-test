@@ -227,6 +227,29 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_04684cb9",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-16T03:08:17Z",
+      "side": 1,
+      "message": "good checks you have here on ${resp}, but you should put the \"Log   ${resp.content} above the lines that can FAIL.  in robot, if a step fails, then the test case is stopped there.  That case is when you\u0027ll want to see the log message, but if you have it here, it would never be shown.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 26
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_e46438e7",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
