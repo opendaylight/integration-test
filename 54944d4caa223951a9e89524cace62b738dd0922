@@ -85,6 +85,24 @@
       "revId": "54944d4caa223951a9e89524cace62b738dd0922",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_90fe6c6a",
+        "filename": "csit/testplans/genius.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Hi Luis,\n          You mean to say , the file name is now \"genius\" , which needs to be changed as per \" {project}-{functionality_inder_test}.txt\" ? but what is inder? here means?",
+      "parentUuid": "7a6b29fe_65ecb0c8",
+      "revId": "54944d4caa223951a9e89524cace62b738dd0922",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
