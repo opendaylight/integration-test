@@ -46,6 +46,54 @@
       "revId": "541c5f9336c172363d9b900d08407150405b9130",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_4d006d67",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Hi Jamo,\n            Will be working on the comment given Stuck with some work hence getting delayed.",
+      "parentUuid": "da2a55be_54f764f5",
+      "range": {
+        "startLine": 86,
+        "startChar": 48,
+        "endLine": 86,
+        "endChar": 65
+      },
+      "revId": "541c5f9336c172363d9b900d08407150405b9130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_27038d74",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Hi Jamo,\n           I tried using the keyword OVSDB.Verify Ovs-vsctl Output . The keyword is not flexible to check on different OVS as it been assigned internally to \"${ovs_system}\u003d${TOOLS_SYSTEM_IP}\". Hence wrote the same keyword in the script which has option of checking on multiple OVS by passing OVS IP i.e. TOOLS_SYSTEM_IP or TOOLS_SYSTEM_2_IP .",
+      "parentUuid": "da2a55be_4d006d67",
+      "range": {
+        "startLine": 86,
+        "startChar": 48,
+        "endLine": 86,
+        "endChar": 65
+      },
+      "revId": "541c5f9336c172363d9b900d08407150405b9130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
