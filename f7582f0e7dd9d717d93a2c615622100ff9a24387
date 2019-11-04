@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_2506dc86",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "looks like you are changing a lot in this file, but maybe that\u0027s on accident since you were adding it back after accidentally deleting it in your patch?",
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6500d467",
+        "filename": "csit/variables/genius/bind_service.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "tabs to clean up.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 2
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_05092095",
+        "filename": "csit/variables/genius/bind_service.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "tabs to clean up.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_45031873",
+        "filename": "csit/variables/genius/deleteIdPool.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 3
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e5f3449c",
+        "filename": "csit/variables/genius/l2vlan_member.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "extra indent",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_85f41088",
+        "filename": "csit/variables/genius/l2vlan_member.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a5f94c82",
+        "filename": "csit/variables/genius/l2vlan_member.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 1
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c5ee08b4",
+        "filename": "csit/variables/genius/releaseIds.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-17T23:27:09Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 4
+      },
+      "revId": "f7582f0e7dd9d717d93a2c615622100ff9a24387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
