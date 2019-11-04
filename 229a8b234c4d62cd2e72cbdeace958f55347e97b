@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_3e962a95",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_446244d9",
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_c420149e",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-06-16T03:08:17Z",
       "side": 1,
       "message": "this is available in Variables.py as ${CONFIG_API}",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_b12c3d4c",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_c420149e",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_913139a5",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_a42520ad",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_043a0ccd",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_fe41520c",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_043a0ccd",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 38
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_e436f8e6",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -99,6 +189,30 @@
       "writtenOn": "2016-06-16T03:08:17Z",
       "side": 1,
       "message": "same comment here as above about BR1 and BR2",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_be37daaf",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "As the variables will be holding the return value from the keyword, unable to add them in *** Variables *** section as done with Bridge name as the section is Static.\nHence this comment is not incorporated.",
+      "parentUuid": "ba51214e_e436f8e6",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -158,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_8463bc19",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "In Variables.py we have 2 variables \n1. ODL_SYSTEM_IP and 2.TOOLS_SYSTEM_IP which holds 127.0.0.1 . From the above comment I need to change mininet to which Variable here? Please let me know.",
+      "parentUuid": "ba51214e_2448f05a",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_84745c9d",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -169,6 +307,30 @@
       "writtenOn": "2016-06-16T03:08:17Z",
       "side": 1,
       "message": "the new keyword is \"RequestsLibrary.Post Request\".  it will apply to Get, Delete, etc. as well.",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_de460e23",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_84745c9d",
       "range": {
         "startLine": 45,
         "startChar": 31,
@@ -204,6 +366,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_f126b567",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_64794893",
+      "range": {
+        "startLine": 136,
+        "startChar": 30,
+        "endLine": 136,
+        "endChar": 76
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_a47360b0",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -215,6 +401,30 @@
       "writtenOn": "2016-06-16T03:08:17Z",
       "side": 1,
       "message": "I think this is the same work I see above.  this is a perfect example of something you can move to the bottom as a local keyword and turn this entire block in to a single line to make the test case more readable.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 18
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_d12bb12e",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_a47360b0",
       "range": {
         "startLine": 155,
         "startChar": 0,
@@ -250,6 +460,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_31202d49",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_04684cb9",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 26
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_e46438e7",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 1
@@ -273,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_111d2910",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_e46438e7",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 30
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_245f5010",
         "filename": "csit/suites/genius/02_Interface_manager.robot",
         "patchSetId": 1
@@ -284,6 +542,24 @@
       "writtenOn": "2016-06-16T03:08:17Z",
       "side": 1,
       "message": "I think some of my comments on the previous file will apply here too.",
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_bed07a54",
+        "filename": "csit/suites/genius/02_Interface_manager.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_245f5010",
       "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -342,6 +618,30 @@
       "side": 1,
       "message": "what was the error exactly?",
       "parentUuid": "ba51214e_decf2eaf",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 17
+      },
+      "revId": "229a8b234c4d62cd2e72cbdeace958f55347e97b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_decf2eaf",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Unable to import the library OVSDB after several tries(error in importing ). Hence kept this code to clean the config on OVS as same.",
+      "parentUuid": "ba51214e_849bbcc8",
       "range": {
         "startLine": 44,
         "startChar": 0,
