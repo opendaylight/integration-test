@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_287d321d",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "All review comments are incorporated",
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_e631b9a3",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2016-06-24T23:13:58Z",
       "side": 1,
       "message": "just some style advice, since I think it applies in other places too.  These 6 lines of code look really similar to\nthe next 6 lines of code, with the only things changing (I think) is the fact that you are working with tunnel-1 and dpn_id_1 vs tunnel-2 and dpn_id_2 below.\n\nwhy not make a local keyword that is:\n\nValidate Interface States\n[Arguments]    ${tunnel}    ${dpn_id}\n# put your 6 lines here.\n\n\nnow these *12* lines would collapse to just two and make it easier to read/review/maintain/enhance.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 59
+      },
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e8acdaa2",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_e631b9a3",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -48,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_08914e52",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_4627c564",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 15
+      },
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_262c5147",
         "filename": "csit/suites/genius/01_Configure_ITM.robot",
         "patchSetId": 2
@@ -59,6 +124,30 @@
       "writtenOn": "2016-06-24T23:13:58Z",
       "side": 1,
       "message": "btw, MININET1 would map to TOOLS_SYSTEM_2_IP, whereas MININET\njust maps to TOOLS_SYSTEM_IP",
+      "range": {
+        "startLine": 506,
+        "startChar": 87,
+        "endLine": 506,
+        "endChar": 95
+      },
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_68a0ca9f",
+        "filename": "csit/suites/genius/01_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_262c5147",
       "range": {
         "startLine": 506,
         "startChar": 87,
@@ -94,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_489b4672",
+        "filename": "csit/suites/genius/02_Interface_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_a617c1ec",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_06d4ad1e",
         "filename": "csit/suites/genius/02_Interface_manager.robot",
         "patchSetId": 2
@@ -105,6 +218,30 @@
       "writtenOn": "2016-06-24T23:13:58Z",
       "side": 1,
       "message": "I didn\u0027t search for every sleep, but here is another one to remove.",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 14
+      },
+      "revId": "95c48069b34f9bbc684155a6f9a0fc38e2294785",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a8894228",
+        "filename": "csit/suites/genius/02_Interface_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5333
+      },
+      "writtenOn": "2019-11-04T21:09:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_06d4ad1e",
       "range": {
         "startLine": 97,
         "startChar": 4,
