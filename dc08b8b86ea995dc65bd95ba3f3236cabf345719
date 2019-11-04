@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_01b6ce89",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-21T23:06:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t need to have this \"1\"",
+      "range": {
+        "startLine": 288,
+        "startChar": 10,
+        "endLine": 288,
+        "endChar": 11
+      },
+      "revId": "dc08b8b86ea995dc65bd95ba3f3236cabf345719",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_e1b8da76",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-21T23:06:38Z",
+      "side": 1,
+      "message": "lots of extra logging here. is it all neccessary? robot\nlogs are pretty verbose as it is.",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "dc08b8b86ea995dc65bd95ba3f3236cabf345719",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_21ae722e",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-21T23:06:38Z",
+      "side": 1,
+      "message": "Can You Use The Common Keyword Naming Format Please  :)",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 20
+      },
+      "revId": "dc08b8b86ea995dc65bd95ba3f3236cabf345719",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_41b3a697",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-21T23:06:38Z",
+      "side": 1,
+      "message": "why log to console? this ends up in stdout. Is that what we \nneed for some reason?",
+      "range": {
+        "startLine": 439,
+        "startChar": 0,
+        "endLine": 439,
+        "endChar": 32
+      },
+      "revId": "dc08b8b86ea995dc65bd95ba3f3236cabf345719",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
