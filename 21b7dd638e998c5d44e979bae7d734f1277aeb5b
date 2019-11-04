@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_80850aaf",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-21T18:08:24Z",
+      "side": 1,
+      "message": "it makes more sense to leave Delete All Sessions here, so \nthat it will run all steps no matter what.",
+      "revId": "21b7dd638e998c5d44e979bae7d734f1277aeb5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
