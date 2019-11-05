@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1fa2ab4a",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1feaabab",
+      "range": {
+        "startLine": 428,
+        "startChar": 35,
+        "endLine": 428,
+        "endChar": 45
+      },
+      "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_df95d333",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 28
@@ -64,6 +88,30 @@
         "startChar": 14,
         "endLine": 562,
         "endChar": 60
+      },
+      "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5f5c234b",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_df95d333",
+      "range": {
+        "startLine": 562,
+        "startChar": 65,
+        "endLine": 562,
+        "endChar": 94
       },
       "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
