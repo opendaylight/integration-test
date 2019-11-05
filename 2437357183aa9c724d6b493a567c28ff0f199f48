@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_0db29793",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "All outputs of PluginManager RPC calls (expect to onem2m-plugin-manager-communication-channels) includes at least common-plugin-data. Implement method verifying them and use it in all test cases testing PluginManager RPC calls.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4dfacf43",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "I think that we should use some self-describing names of variables, e.g.: o -\u003e output, icpd -\u003e common-data,.... etc. This way it is not clear.\nPlease change it also in all test cases.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0d045748",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "Verification of existence of items for all plugins is missing.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_adeba376",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "Do this check first (before the verification of port, etc.)\nand change it also in all next test cases.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ed00fb35",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "Missing check if the item for Onem2mExample exists.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6d6a2bef",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "1. Missing check of items of all modules.\n2. We need to have implemented methods testing items specific to test cases 1., 2., 3. and then we should use the same methods for the outputs in test cases 4.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8d650720",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "Currently we have migrated HTTP from CSS to Blueprint. Now the output of plugin data RPC includes also current configuration of HTTP module. Please check the configuration as well and add TODO for CoAP, MQTT and WS which are not migrated yet.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cd6b7fef",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-17T07:10:29Z",
+      "side": 1,
+      "message": "Check if the all expected default channels (for the default protocol provider modules) are instantiated.",
+      "revId": "2437357183aa9c724d6b493a567c28ff0f199f48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
