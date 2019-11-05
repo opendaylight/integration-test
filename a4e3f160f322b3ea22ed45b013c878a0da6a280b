@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b7fcc33f",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "Is there still a reason to override the default values?",
+      "range": {
+        "startLine": 174,
+        "startChar": 32,
+        "endLine": 174,
+        "endChar": 87
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_97f7ff58",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "No space.",
+      "range": {
+        "startLine": 275,
+        "startChar": 74,
+        "endLine": 275,
+        "endChar": 75
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7213895c",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "Everything on this line except the highlighted part repeats many times.\nCreate a keyword to wrap that to save horizontal space?\n\nThe highlighted part should be a mandatory argument, explicit_status_codes an optional one.",
+      "range": {
+        "startLine": 37,
+        "startChar": 79,
+        "endLine": 37,
+        "endChar": 92
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_17714fe0",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "verify\u003dTrue\n\nAlso for other lines changed from patch set 42.",
+      "range": {
+        "startLine": 73,
+        "startChar": 105,
+        "endLine": 73,
+        "endChar": 106
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b7816391",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "verify\u003dTrue perhaps?",
+      "range": {
+        "startLine": 177,
+        "startChar": 85,
+        "endLine": 177,
+        "endChar": 86
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d2023508",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "Either delete (the next line should be readable enough by itself), or split 7.00 to three test cases.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#AVOID:_Comments_as_abstraction",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 5
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_37457370",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "folder\u003d${VAR_BASE}/negative_tcs/http_cfg/missing_sec_level\n\nThat would mean location.uri will be duplicated, but TemplatedRequests would be slightly simpler.",
+      "range": {
+        "startLine": 264,
+        "startChar": 48,
+        "endLine": 264,
+        "endChar": 132
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_17482f86",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T09:59:38Z",
+      "side": 1,
+      "message": "folder\u003d${VAR_BASE}/negative_tcs/simple_config/iplugin_cfg_putnon_reg_plugin\n\nSee line 264.",
+      "range": {
+        "startLine": 410,
+        "startChar": 48,
+        "endLine": 410,
+        "endChar": 191
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
