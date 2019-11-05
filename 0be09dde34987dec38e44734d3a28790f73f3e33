@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d73b799a",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_d999f220",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7988c6c6",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 38
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-22T16:48:46Z",
       "side": 1,
       "message": "I am not sure on readability of this. ${jmes_path} perhaps?",
+      "range": {
+        "startLine": 143,
+        "startChar": 11,
+        "endLine": 143,
+        "endChar": 27
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_97ed71f2",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_7988c6c6",
       "range": {
         "startLine": 143,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1714e1f3",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_59ace235",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 32
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_396d9e05",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 38
@@ -82,6 +154,30 @@
       "writtenOn": "2017-03-22T16:48:46Z",
       "side": 1,
       "message": "Why do you need this? .rstrip() is already in line 495.",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 479,
+        "endChar": 4
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_57e30905",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_396d9e05",
       "range": {
         "startLine": 479,
         "startChar": 0,
