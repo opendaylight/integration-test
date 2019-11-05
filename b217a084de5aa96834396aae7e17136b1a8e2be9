@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_8ea50849",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": ".robot now please",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ee65b41e",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "is this something more than just using the karaf keywords\nto install the already available odl-jolokia feature?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 172
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_cf7fc4de",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -65,6 +111,29 @@
         "startChar": 0,
         "endLine": 29,
         "endChar": 172
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ce6a70ed",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "put this work in your actual Suite Setup, and not as a test case.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 36
       },
       "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
@@ -165,6 +234,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_0e7118e0",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "I commented in patch 51397 the same, but you can add/replace\nwith \"exclude\" as a tag. That will let this test case be\nskipped and not reported as a failure.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 8
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_99fa7173",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -211,6 +303,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ee4c94a0",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "to me, it looks like this pattern of four lines is repeated\nquite a bit below. I wonder if a local keyword accepting\na few arguments to handle the different inputs/outputs\nwould be possible. that would read easier and really reduce\nthe number of lines.",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_793ead29",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -228,6 +343,75 @@
         "startChar": 0,
         "endLine": 284,
         "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ce51d037",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "if you wanted, you could leave this test case running and\nfailing. We have robot hooks that you could use to easily\npoint the result of these test case to the bugzilla 7771",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 8
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2e433c6d",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "probably not as many repetitions, but still seems like a\npattern of 4 lines that could be wrapped in to a local\nkeyword",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6e60a401",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:17:49Z",
+      "side": 1,
+      "message": "just to reiterate. I think using the tag \"exclude\" and \nletting CSIT skip the test is better than failing with\nthis TODO keyword",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 29
       },
       "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
