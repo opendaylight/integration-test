@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_fb00c303",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-12T13:02:04Z",
+      "side": 0,
+      "message": "Is there a documentation on the expected format written somewhere?",
+      "range": {
+        "startLine": 91,
+        "startChar": 101,
+        "endLine": 91,
+        "endChar": 102
+      },
+      "revId": "1801e9c299d9d5116bd0f188f5ddf653d49e2f1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
