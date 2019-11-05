@@ -45,6 +45,30 @@
       "revId": "789629372816ef3adfcefafa39ba179064a31751",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e9cafd18",
+        "filename": "csit/variables/IoTDM/simpleconfig/delete_config/post_data.json",
+        "patchSetId": 41
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T16:25:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_66075a1e",
+      "range": {
+        "startLine": 1,
+        "startChar": 68,
+        "endLine": 1,
+        "endChar": 69
+      },
+      "revId": "789629372816ef3adfcefafa39ba179064a31751",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
