@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f671fa0c",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "We are creating resources where the timestamp of created resource is saved and than we are filter resources older than certain time. So if Create the tree and created Before runs fastern than in one second than createdBefore would fail.",
+      "parentUuid": "1a622d24_1b2dbfa8",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5b1a977d",
         "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
         "patchSetId": 8
@@ -60,6 +84,30 @@
       "writtenOn": "2017-01-12T13:02:04Z",
       "side": 1,
       "message": "This pattern repeats, create a Keyword which produces it to save space.",
+      "range": {
+        "startLine": 100,
+        "startChar": 86,
+        "endLine": 100,
+        "endChar": 127
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f643baac",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5b1a977d",
       "range": {
         "startLine": 100,
         "startChar": 86,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_765dea78",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d642fe3c",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f6457a43",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 8
@@ -106,6 +178,30 @@
       "writtenOn": "2017-01-12T13:02:04Z",
       "side": 1,
       "message": "\"It is recommended to use Create List when creating new lists.\"\n\nhttp://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Variable",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b675c2cc",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f6457a43",
       "range": {
         "startLine": 33,
         "startChar": 15,
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_167f56ac",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f6145aea",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d6695ebf",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 8
@@ -152,6 +272,30 @@
       "writtenOn": "2017-01-12T13:02:04Z",
       "side": 1,
       "message": "Create a keyword to allow checking for non-presence of multiple substrings at once.",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 22
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_564c2e9e",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d6695ebf",
       "range": {
         "startLine": 205,
         "startChar": 4,
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e142d63c",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_569d4ebb",
+      "range": {
+        "startLine": 77,
+        "startChar": 44,
+        "endLine": 77,
+        "endChar": 64
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_76f68afa",
         "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
         "patchSetId": 8
@@ -210,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_614fe66b",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_76f68afa",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 46
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_967a4675",
         "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
         "patchSetId": 8
@@ -221,6 +413,30 @@
       "writtenOn": "2017-01-12T13:02:04Z",
       "side": 1,
       "message": "Cannot update this resource [400]*\n\nand you do not need the next line.",
+      "range": {
+        "startLine": 306,
+        "startChar": 50,
+        "endLine": 306,
+        "endChar": 51
+      },
+      "revId": "906159d3f2bed54acf8a2666a9ad72349de958a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_815a0228",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_967a4675",
       "range": {
         "startLine": 306,
         "startChar": 50,
