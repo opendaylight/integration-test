@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9c97fbeb",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:22:17Z",
+      "side": 1,
+      "message": "All the following test cases are also only counting the number of items in the same list. I can imagine Bug which would result in the same number, but different items.\n\nIf there was a\n    BuiltIn.Log    ${r.text}\ncommand, people could see the exact data returned,\nand perhaps a stronger check could be invented.",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc526f65",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "See line 248.",
+      "range": {
+        "startLine": 255,
+        "startChar": 16,
+        "endLine": 255,
+        "endChar": 17
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5c4c43c8",
+        "filename": "csit/suites/iotdm/basic/024_ResourceAttributesACP.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "Use Should_Contain_All_Sub_Strings instead.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3c4987b7",
+        "filename": "csit/suites/iotdm/basic/025_ResourceAttributesNode.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "Once again, use the new keywords.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9cc9bb28",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAE_CNT_CIN.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "New keywords.",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5c7f23ab",
+        "filename": "csit/suites/iotdm/basic/091_ResourceHierarchyDelete.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:38:34Z",
+      "side": 1,
+      "message": "\u003e 091_ResourceHierarchyDelete.robot\n\nDoes 091 have a specific meaning? If not, it is better to not prepend numbers to filenames, instead list the files in desired order in integration/test: csit/testplans/iotdm-basic.txt\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Source_files",
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
