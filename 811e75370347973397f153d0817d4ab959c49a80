@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_943dfdc6",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-20T07:22:10Z",
+      "side": 1,
+      "message": "This TCs (together with next one) are not needed. Delete it.",
+      "revId": "811e75370347973397f153d0817d4ab959c49a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_743821d3",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-20T07:22:10Z",
+      "side": 1,
+      "message": "Delete this TC as well.",
+      "revId": "811e75370347973397f153d0817d4ab959c49a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
