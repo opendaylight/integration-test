@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_6da14ea9",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-24T12:50:37Z",
+      "side": 1,
+      "message": "Why are we testing MQTT here ? We have a TC specific for the MQTT.",
+      "revId": "fe9ce6dc1457a05906455a758992a04802a17ebd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8d9e3255",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-24T12:50:37Z",
+      "side": 1,
+      "message": "This TC was intended to test the default configuration of HTTPS and CoAPS. This default configuration is stored in the Onem2m core module but we will not implement in this phase.\n\nSo it should be as it was before:\n\n8.00 Test default configuration for plugins\n    [Documentation]     Tests usage of default configuration for IoTDM plugins\n    TODO\n\nAnd you should move the logic into test cases testing the PluginData RPC call (4.00 - 4.05)",
+      "revId": "fe9ce6dc1457a05906455a758992a04802a17ebd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_edc9be5b",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-24T12:50:37Z",
+      "side": 1,
+      "message": "Use the RPC call names in the TC names and fix typos.",
+      "revId": "fe9ce6dc1457a05906455a758992a04802a17ebd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
