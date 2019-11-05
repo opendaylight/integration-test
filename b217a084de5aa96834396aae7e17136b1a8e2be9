@@ -1,0 +1,237 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_19e041cc",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "Seems like an unfinished sentence, compared to lines 206-207.",
+      "range": {
+        "startLine": 314,
+        "startChar": 91,
+        "endLine": 314,
+        "endChar": 92
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d947d9ba",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "This may be useful some day, but I am not sure it is really needed for this Change.",
+      "range": {
+        "startLine": 432,
+        "startChar": 20,
+        "endLine": 432,
+        "endChar": 32
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_cf7fc4de",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T16:47:28Z",
+      "side": 1,
+      "message": "If your environment setup is different, you can create a separate suite which will perform additional steps you need, but that suite (as opposed to functional test suites) shall not be listed in the testplan file.",
+      "parentUuid": "fafc7978_abb1d048",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 172
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3902656f",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "Call TemplatedRequests.Create_Default_Session and you do need to specify session anymore.",
+      "range": {
+        "startLine": 44,
+        "startChar": 96,
+        "endLine": 44,
+        "endChar": 132
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1907a183",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "What is the reason to ignore the previous levels?\nIn my experience, checking the whole output is both simpler and more reliable when it comes to bug detection.\n\nYes, that would need more data in .json files and more frequent edits when ODL output changes, but each such output change should be analyzed for test consequences anyway, and it is better to have brittle tests than undiscovered bugs.",
+      "range": {
+        "startLine": 72,
+        "startChar": 165,
+        "endLine": 72,
+        "endChar": 185
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_af80808b",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T16:47:28Z",
+      "side": 1,
+      "message": "\u003e the output of the RPC includes list of registration data of all plugins registered.\n\nSo the RPC does not support querying only one plugin, and it dumps low level information that may change? All the more reasons to check the complete output.\n\nIf you want your check to work on multiple different ODL configurations, I would recommend to use a syntax-aware way of extracting sub-objects, for example [0]. Instead of specifying indent level, specify json_pointer.\n\n[0] http://peritus.github.io/robotframework-httplibrary/HttpLibrary.html#Get%20Json%20Value",
+      "parentUuid": "fafc7978_e4b14290",
+      "range": {
+        "startLine": 72,
+        "startChar": 165,
+        "endLine": 72,
+        "endChar": 185
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_59fda96d",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "This passes on all kinds of errors we want to fail on. Once again, I think checking the whole response is better.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 37
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_99fa7173",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "Why not TemplatedRequests.Post_As_Json_Templated?",
+      "range": {
+        "startLine": 247,
+        "startChar": 21,
+        "endLine": 247,
+        "endChar": 49
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_79f7cd8b",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "No check on ${response.text} needed?",
+      "range": {
+        "startLine": 248,
+        "startChar": 39,
+        "endLine": 248,
+        "endChar": 50
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_793ead29",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T14:58:57Z",
+      "side": 1,
+      "message": "\u003e a local keyword\n\nBetter yet, enhance TemplatedRequests.Put_As_Json_Templated to get the (list of) expected status code from an argument.",
+      "parentUuid": "fafc7978_ee4c94a0",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
