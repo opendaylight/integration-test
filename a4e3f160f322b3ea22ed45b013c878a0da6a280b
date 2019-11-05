@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d292354a",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_97f7ff58",
+      "range": {
+        "startLine": 275,
+        "startChar": 74,
+        "endLine": 275,
+        "endChar": 75
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7213895c",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 43
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f2181986",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_b7816391",
+      "range": {
+        "startLine": 177,
+        "startChar": 85,
+        "endLine": 177,
+        "endChar": 86
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d2023508",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 43
@@ -174,6 +222,30 @@
       "writtenOn": "2017-03-31T09:59:38Z",
       "side": 1,
       "message": "folder\u003d${VAR_BASE}/negative_tcs/simple_config/iplugin_cfg_putnon_reg_plugin\n\nSee line 264.",
+      "range": {
+        "startLine": 410,
+        "startChar": 48,
+        "endLine": 410,
+        "endChar": 191
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_653a0e38",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_17482f86",
       "range": {
         "startLine": 410,
         "startChar": 48,
