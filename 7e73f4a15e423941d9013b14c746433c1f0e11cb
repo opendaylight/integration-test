@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_c219007b",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Now that we are using ${jmespath_expr}, you should check that it finds zero elements instead.",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 36
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bf2b3993",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Is ${jmespath_expr} guaranteed to contain no single quote? If yes, document why. If no, use triple double quotes.",
+      "range": {
+        "startLine": 232,
+        "startChar": 30,
+        "endLine": 232,
+        "endChar": 31
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0252e812",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "match\n\nNow that we have ${jmespath_expr}, \"contain\" is not strict enough.",
+      "range": {
+        "startLine": 338,
+        "startChar": 88,
+        "endLine": 338,
+        "endChar": 95
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_62577403",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "See comment for line 338.",
+      "range": {
+        "startLine": 345,
+        "startChar": 34,
+        "endLine": 345,
+        "endChar": 41
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_823d38be",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Mention ${jmespath_expr} instead.",
+      "range": {
+        "startLine": 461,
+        "startChar": 71,
+        "endLine": 461,
+        "endChar": 90
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c247404a",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 35
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Move before line 165.\n\nInstead of vague \"is used\", explain the subset (instead of the whole text) will be returned as indented JSON string.",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 6
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_02878862",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Each folders is already different, due to different expected sub-elements. So there is no good reason ${expr} should be in the suite and not in a file (next to location.uri).",
+      "range": {
+        "startLine": 157,
+        "startChar": 90,
+        "endLine": 157,
+        "endChar": 100
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_42cfd0b0",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "Some TemplatedRequests keywords now support ${explicit_status_codes}, so you do not have to write long data into the suite.",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 274,
+        "endChar": 14
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_023ca892",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T13:31:49Z",
+      "side": 1,
+      "message": "ODL should never return 500. If the user sent incorrect data, the expected status code should be 400.",
+      "range": {
+        "startLine": 275,
+        "startChar": 82,
+        "endLine": 275,
+        "endChar": 85
+      },
+      "revId": "7e73f4a15e423941d9013b14c746433c1f0e11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
