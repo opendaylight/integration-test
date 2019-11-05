@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_d999f220",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T16:48:46Z",
+      "side": 1,
+      "message": "I do not believe there is a use case when URI is in file, but jmespath_expr not. So this doubles keywords needlessly.\n\nRead the expression in the same place as URI is read: Get_Templated.\n\nSuites are probably interested in the filtered value, so keywords such as Get_From_Uri should perform filtering.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7988c6c6",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T16:48:46Z",
+      "side": 1,
+      "message": "I am not sure on readability of this. ${jmes_path} perhaps?",
+      "range": {
+        "startLine": 143,
+        "startChar": 11,
+        "endLine": 143,
+        "endChar": 27
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_59ace235",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T16:48:46Z",
+      "side": 1,
+      "message": "What do you need this for? Just call a keyword with filter, and expect it to fail on zero items found.",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 32
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_396d9e05",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T16:48:46Z",
+      "side": 1,
+      "message": "Why do you need this? .rstrip() is already in line 495.",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 479,
+        "endChar": 4
+      },
+      "revId": "0be09dde34987dec38e44734d3a28790f73f3e33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
