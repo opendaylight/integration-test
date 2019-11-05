@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1feaabab",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-19T12:26:02Z",
+      "side": 1,
+      "message": "This goes back to previous discussion [2]. Unlike cni or cbs, st may increase by more than by 1 second, if slowness of Robot execution is enough to cause a rounding error.\n\n[2] https://git.opendaylight.org/gerrit/#/c/50172/19/csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot@421",
+      "range": {
+        "startLine": 428,
+        "startChar": 35,
+        "endLine": 428,
+        "endChar": 45
+      },
+      "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_df95d333",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-19T12:26:02Z",
+      "side": 1,
+      "message": "Google offered [1] and 7.4.38.1-3 is on page 103. The only relevant part seem to be:\n\n\"currentNrOfInstances | 1 | RO | Current number of instances in a \u003ccontainer\u003e resource. It is limited by the maxNrOfInstances. | OA\"\n\nIncreasing cni by 1 unon create makes sense. I was only asking for documentation because patch set 26 was allowing increase by two.\n\n[1] ftp://ftp.onem2m.org/Deliverables/20140801_Candidate%20Release/TS-0001-oneM2M-Functional-Architecture-V-2014-08.pdf",
+      "range": {
+        "startLine": 562,
+        "startChar": 65,
+        "endLine": 562,
+        "endChar": 94
+      },
+      "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1f858b06",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-19T12:26:02Z",
+      "side": 1,
+      "message": "\u003e TS0004 specification page 199 Table 7.4.38.1-3\n\nLink is something I can click on, or at least google for.\nGoogle offered this link [0] which only has 176 pages and tables only go to 7.3.X.\n\n[0] http://ftp.onem2m.org/Deliverables/20140801_Candidate%20Release/TS-0004-CoreProtocol-V-2014-08.pdf",
+      "range": {
+        "startLine": 562,
+        "startChar": 14,
+        "endLine": 562,
+        "endChar": 60
+      },
+      "revId": "a7d701a823d8f0a39509e3cf94b632b42df51bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
