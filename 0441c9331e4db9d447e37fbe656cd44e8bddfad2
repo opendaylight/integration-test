@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_643e35dc",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ed306c09",
+      "range": {
+        "startLine": 135,
+        "startChar": 11,
+        "endLine": 135,
+        "endChar": 32
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ad9e6461",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -83,6 +107,30 @@
       "writtenOn": "2017-03-23T11:36:29Z",
       "side": 1,
       "message": "Make it clear this is also returned.",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 22
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a41f7d6f",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ad9e6461",
       "range": {
         "startLine": 138,
         "startChar": 16,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_e6506a0c",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2d827400",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e64d0a9b",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -130,6 +202,30 @@
       "side": 1,
       "message": "I do not see it done in #41.",
       "parentUuid": "fafc7978_e6506a0c",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_89953142",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T16:25:14Z",
+      "side": 1,
+      "message": "Sorry, thought you mean something else.",
+      "parentUuid": "fafc7978_e64d0a9b",
       "range": {
         "startLine": 189,
         "startChar": 29,
@@ -259,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_24ca6d1a",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_edc6ac15",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 12
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_0dd690c5",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -282,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_84d199cf",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "fafc7978_0dd690c5",
+      "range": {
+        "startLine": 282,
+        "startChar": 19,
+        "endLine": 282,
+        "endChar": 44
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_2dd1d4cd",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -293,6 +437,30 @@
       "writtenOn": "2017-03-23T11:36:29Z",
       "side": 1,
       "message": "Add [Documentation].",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 5
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c4da81e8",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2dd1d4cd",
       "range": {
         "startLine": 283,
         "startChar": 4,
@@ -469,6 +637,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_66d63ac5",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_8d028009",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_2616f255",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 39
@@ -481,6 +673,30 @@
       "side": 1,
       "message": "Search for ${payload} and comment why any match is not templatized already.",
       "parentUuid": "fafc7978_66d63ac5",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c94e19c1",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T16:25:14Z",
+      "side": 1,
+      "message": "Templetized all.",
+      "parentUuid": "fafc7978_2616f255",
       "range": {
         "startLine": 397,
         "startChar": 4,
