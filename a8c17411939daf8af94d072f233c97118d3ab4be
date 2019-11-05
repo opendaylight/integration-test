@@ -68,6 +68,30 @@
       "revId": "a8c17411939daf8af94d072f233c97118d3ab4be",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_185a6650",
+        "filename": "csit/variables/IoTDM/iotdm_plugin_registrations/coap/default/post_data.json",
+        "patchSetId": 34
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-21T12:15:53Z",
+      "side": 1,
+      "message": "Not needed, removed.",
+      "parentUuid": "fafc7978_af2ec0a2",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "a8c17411939daf8af94d072f233c97118d3ab4be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
