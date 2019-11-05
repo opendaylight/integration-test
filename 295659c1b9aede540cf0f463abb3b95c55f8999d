@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_9f5e3544",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3c4ab780",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_5c45fb6e",
         "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-01T06:19:52Z",
       "side": 1,
       "message": "Add note in documentation that you are checning if the bundle IDs have been changed.",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bf55f91e",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_5c45fb6e",
       "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1f324510",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_7c5b9f54",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_fc366f02",
         "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2017-02-01T06:19:52Z",
       "side": 1,
       "message": "Name seems confusing, not clear if the BundleLoader instance is missing or some input parameter is missing. maybe you can rename to: Test removing all features without bundle loader instance name specified",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5f3ccde2",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_fc366f02",
       "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_3f41095b",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_5c3cdbe2",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_fc682ff7",
         "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2017-02-01T06:19:52Z",
       "side": 1,
       "message": "Not sure if this is good to have tests dependent on logging. We should rather look for the bundle id using Karaf console: bundle:list | grep \"bundle name\"\nWe will also need to verify by Karaf console whether the installed bundles really disappeard when feature uninstalled (same for KarafFeatureLoader.",
+      "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9f2595c4",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_fc682ff7",
       "revId": "295659c1b9aede540cf0f463abb3b95c55f8999d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
