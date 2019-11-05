@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_0b557cfa",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Yes, fixed.",
+      "parentUuid": "fafc7978_19e041cc",
+      "range": {
+        "startLine": 314,
+        "startChar": 91,
+        "endLine": 314,
+        "endChar": 92
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d947d9ba",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-22T14:58:57Z",
       "side": 1,
       "message": "This may be useful some day, but I am not sure it is really needed for this Change.",
+      "range": {
+        "startLine": 432,
+        "startChar": 20,
+        "endLine": 432,
+        "endChar": 32
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4b5b042e",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "We\u0027re really using it for verification of JSON data including list of multiple containers. This way we can check if specific container is included without comparission of other containers which are not important for spcific TC. This way TCs will successfully pass also in future when the tested JSON data will be extended by some data irrelevant to the TC.",
+      "parentUuid": "fafc7978_d947d9ba",
       "range": {
         "startLine": 432,
         "startChar": 20,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_4ea9c47a",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-21T12:15:53Z",
+      "side": 1,
+      "message": "As we have discussed, new distribution including testing specific features will be created and used instead.",
+      "parentUuid": "fafc7978_cf7fc4de",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 172
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ce6a70ed",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -129,6 +201,30 @@
       "writtenOn": "2017-02-22T06:17:49Z",
       "side": 1,
       "message": "put this work in your actual Suite Setup, and not as a test case.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4b5ca4ed",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ce6a70ed",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -211,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1fdd2515",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-21T12:15:53Z",
+      "side": 1,
+      "message": "OK, used JMESpath python module and related path syntax.",
+      "parentUuid": "fafc7978_af80808b",
+      "range": {
+        "startLine": 72,
+        "startChar": 165,
+        "endLine": 72,
+        "endChar": 185
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_59fda96d",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -234,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_0b39fcf2",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "I think I understand. I wouldn\u0027t like to check complete message if equals to expected data beacause it\u0027s possible that the tested RPC call output will be extended in future. So again, it is better to check that specific container is not included. I\u0027ve added keyword Post_As_Json_Templated_Check_Not_Included which sends request, process response and checks if doesn\u0027t include single specific container.",
+      "parentUuid": "fafc7978_59fda96d",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 37
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_0e7118e0",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -245,6 +389,30 @@
       "writtenOn": "2017-02-22T06:17:49Z",
       "side": 1,
       "message": "I commented in patch 51397 the same, but you can add/replace\nwith \"exclude\" as a tag. That will let this test case be\nskipped and not reported as a failure.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 8
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6b3a48e8",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_0e7118e0",
       "range": {
         "startLine": 191,
         "startChar": 0,
@@ -291,6 +459,30 @@
       "writtenOn": "2017-02-22T14:58:57Z",
       "side": 1,
       "message": "No check on ${response.text} needed?",
+      "range": {
+        "startLine": 248,
+        "startChar": 39,
+        "endLine": 248,
+        "endChar": 50
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_260875d9",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Response is empty, added verification using another RPC call.",
+      "parentUuid": "fafc7978_79f7cd8b",
       "range": {
         "startLine": 248,
         "startChar": 39,
@@ -350,6 +542,54 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_a410da59",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ee4c94a0",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_24a86a1f",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "In this case the payload is short so I\u0027ve decided to implement the local keyword because the same pattern is used too many times what would result to extensive directory structure.",
+      "parentUuid": "fafc7978_793ead29",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ce51d037",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -361,6 +601,30 @@
       "writtenOn": "2017-02-22T06:17:49Z",
       "side": 1,
       "message": "if you wanted, you could leave this test case running and\nfailing. We have robot hooks that you could use to easily\npoint the result of these test case to the bugzilla 7771",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 8
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_242d0aa9",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Thank you, it will be usefull. But since this is just improvement task, I\u0027ve deleted commented code and left just comments that the new functionality needs to be added in order to verify scenario.",
+      "parentUuid": "fafc7978_ce51d037",
       "range": {
         "startLine": 385,
         "startChar": 0,
@@ -396,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_042a868f",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2e433c6d",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 56
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6e60a401",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -407,6 +695,30 @@
       "writtenOn": "2017-02-22T06:17:49Z",
       "side": 1,
       "message": "just to reiterate. I think using the tag \"exclude\" and \nletting CSIT skip the test is better than failing with\nthis TODO keyword",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 29
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_641a727e",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_6e60a401",
       "range": {
         "startLine": 534,
         "startChar": 0,
