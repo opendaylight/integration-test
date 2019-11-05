@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_a4d5bdb8",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_4d8538ac",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 33
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ed306c09",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -141,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_46a69611",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "See my reply for comment at line 263",
+      "parentUuid": "fafc7978_0d49708b",
+      "range": {
+        "startLine": 258,
+        "startChar": 62,
+        "endLine": 258,
+        "endChar": 86
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_0dbb3073",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 39
@@ -152,6 +200,30 @@
       "writtenOn": "2017-03-23T11:36:29Z",
       "side": 1,
       "message": "If empty, makes no difference. If nonempty, gets overridden anyway. See lines 385-387.",
+      "range": {
+        "startLine": 263,
+        "startChar": 34,
+        "endLine": 263,
+        "endChar": 90
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_26f712f7",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "I see there something else.\n@{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}\nIf empty, only ALLOWED_STATUS_CODES are allowed.\nIf set, ALLOWED_STATUS_CODES are combined with the additional status codes.\n\nIf I would set desired result code to ${additional_allowed_status_codes} then it would match also ALLOWED_STATUS_CODES.\n\nIf I would set desired result code to  ${explicit_status_codes} only, then it would fail on line 387 because it\u0027s not in ALLOWED_STATUS_CODES.\n\nI want to check negative codes and not ALLOWED_STATUS_CODES.",
+      "parentUuid": "fafc7978_0dbb3073",
       "range": {
         "startLine": 263,
         "startChar": 34,
@@ -256,6 +328,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_66d8fa7f",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_0d405055",
+      "range": {
+        "startLine": 333,
+        "startChar": 107,
+        "endLine": 333,
+        "endChar": 128
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6d247cc6",
         "filename": "csit/libraries/norm_json.py",
         "patchSetId": 39
@@ -279,6 +375,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_66bf5afd",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "No, removed",
+      "parentUuid": "fafc7978_6d247cc6",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_4d21b8b3",
         "filename": "csit/libraries/norm_json.py",
         "patchSetId": 39
@@ -290,6 +410,30 @@
       "writtenOn": "2017-03-23T11:36:29Z",
       "side": 1,
       "message": "None is not a string. Can you return an empty string instead?",
+      "range": {
+        "startLine": 166,
+        "startChar": 47,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_06380e9f",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_4d21b8b3",
       "range": {
         "startLine": 166,
         "startChar": 47,
@@ -360,6 +504,30 @@
       "writtenOn": "2017-03-23T11:36:29Z",
       "side": 1,
       "message": "Templatize.",
+      "range": {
+        "startLine": 447,
+        "startChar": 4,
+        "endLine": 447,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c6e566a9",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-29T14:59:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_c803d60b",
       "range": {
         "startLine": 447,
         "startChar": 4,
