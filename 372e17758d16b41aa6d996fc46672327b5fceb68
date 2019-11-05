@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b9cda9b9",
+        "filename": "csit/libraries/IoTDMUtil.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T09:28:42Z",
+      "side": 1,
+      "message": "This file is about checking for substrings, the logic does not use anything specific to IoTDM.\n\nI would rename it to something like SubStrings.robot, rename arguments and expand Documentation.",
+      "revId": "372e17758d16b41aa6d996fc46672327b5fceb68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_55153b47",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T09:28:42Z",
+      "side": 1,
+      "message": "The file name contains two dots. It should not.",
+      "revId": "372e17758d16b41aa6d996fc46672327b5fceb68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
