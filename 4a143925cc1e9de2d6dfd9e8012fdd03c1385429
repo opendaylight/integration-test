@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_fc6b8f1b",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "Unify capitalization.",
+      "range": {
+        "startLine": 319,
+        "startChar": 16,
+        "endLine": 319,
+        "endChar": 17
+      },
+      "revId": "4a143925cc1e9de2d6dfd9e8012fdd03c1385429",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c625b3c",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "Should Contain All Sub Strings",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 18
+      },
+      "revId": "4a143925cc1e9de2d6dfd9e8012fdd03c1385429",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dc58538c",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T14:03:26Z",
+      "side": 1,
+      "message": "This does not contain correct number of digits, but I guess it is ok as ODL should refuse update due to permissions, not due to timestamp validity.",
+      "range": {
+        "startLine": 192,
+        "startChar": 40,
+        "endLine": 192,
+        "endChar": 52
+      },
+      "revId": "4a143925cc1e9de2d6dfd9e8012fdd03c1385429",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
