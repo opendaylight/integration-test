@@ -1,0 +1,74 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_38a151aa",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-23T11:08:10Z",
+      "side": 1,
+      "message": "Then why lines 499 and 519 wait for 2 seconds?",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 23
+      },
+      "revId": "0cfe68e20555f152a5d3fbdea49f1b364225bdbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fb8fc373",
+        "filename": "csit/suites/iotdm/basic/091_ResourceHierarchyDelete.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-23T11:08:10Z",
+      "side": 1,
+      "message": "Perhaps you could create a version of this keyword which tests multiple resources, but I think in this case the set of URI fragments is more readable when aligned like this.",
+      "range": {
+        "startLine": 389,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 25
+      },
+      "revId": "0cfe68e20555f152a5d3fbdea49f1b364225bdbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a63d1ebe",
+        "filename": "csit/suites/iotdm/basic/091_ResourceHierarchyDelete.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-23T12:51:43Z",
+      "side": 1,
+      "message": "\u003e if I am not able to retrieve something on path InCSE1/Con1 how will I ever be able to retrieve something on following things.\n\nThere might be a Bug. In other words, port 8282 is not a Restconf, so we cannot assume such errors are detected by other suites.",
+      "parentUuid": "fafc7978_3b630b1c",
+      "range": {
+        "startLine": 389,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 25
+      },
+      "revId": "0cfe68e20555f152a5d3fbdea49f1b364225bdbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
