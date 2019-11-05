@@ -1,0 +1,138 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_93652620",
+        "filename": "csit/suites/iotdm/basic/001_Prerequisities.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T12:37:52Z",
+      "side": 1,
+      "message": "This is not needed. Currently releng/builders scripts make sure restconf works before pybot starts.\nEven if move the wait from releng/builder into a suite, we would use a common suite, instead of a project-specific one.",
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b3eb0277",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T12:34:40Z",
+      "side": 1,
+      "message": "It would be nice to have a readable keyword for extracting this ...",
+      "range": {
+        "startLine": 346,
+        "startChar": 40,
+        "endLine": 346,
+        "endChar": 63
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e275a5cb",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T16:58:13Z",
+      "side": 1,
+      "message": "\u003e Done\n\nSo will the new keyword be used here?",
+      "parentUuid": "1a622d24_8ed21d5a",
+      "range": {
+        "startLine": 346,
+        "startChar": 40,
+        "endLine": 346,
+        "endChar": 63
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_13047648",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T12:34:40Z",
+      "side": 1,
+      "message": "... and this.",
+      "range": {
+        "startLine": 361,
+        "startChar": 46,
+        "endLine": 361,
+        "endChar": 70
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b3a2e248",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T12:34:40Z",
+      "side": 1,
+      "message": "Robot execution takes some time, so it is possible for the time to be rounded to ${oldst+2}.",
+      "range": {
+        "startLine": 421,
+        "startChar": 35,
+        "endLine": 421,
+        "endChar": 45
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a2128d06",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T15:49:29Z",
+      "side": 1,
+      "message": "Yes, there is only small chance the value will be ${oldst+2}. All I am saying that it will not always be ${oldst+1}.",
+      "parentUuid": "1a622d24_2ee2e92e",
+      "range": {
+        "startLine": 421,
+        "startChar": 35,
+        "endLine": 421,
+        "endChar": 45
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
