@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b901296c",
+        "filename": "csit/libraries/IoTDMUtil.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-16T10:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b9cda9b9",
+      "revId": "372e17758d16b41aa6d996fc46672327b5fceb68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_55153b47",
         "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2017-01-16T09:28:42Z",
       "side": 1,
       "message": "The file name contains two dots. It should not.",
+      "revId": "372e17758d16b41aa6d996fc46672327b5fceb68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d9fce574",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-16T10:17:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_55153b47",
       "revId": "372e17758d16b41aa6d996fc46672327b5fceb68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
