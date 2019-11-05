@@ -1,0 +1,97 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ecde346c",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T12:05:34Z",
+      "side": 1,
+      "message": "Is this even needed? (I do not see new enough Sandbox run).\nIf yes, capitalize properly.\n\nThere is \"do not reuse variables for multiple purposes\" rule, but variable names here already violate other recommentdations, so no big deal.\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Variable_naming",
+      "range": {
+        "startLine": 110,
+        "startChar": 15,
+        "endLine": 110,
+        "endChar": 16
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8ccd00ba",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T12:05:34Z",
+      "side": 1,
+      "message": "What is the scenario when cni changes by two (in contrast to the test case name)?\nI do not think it would be the Robot delay and rounding (as in timestamps).",
+      "range": {
+        "startLine": 566,
+        "startChar": 78,
+        "endLine": 566,
+        "endChar": 81
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ac10bc59",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T13:39:49Z",
+      "side": 1,
+      "message": "\u003e Specified more in depth in TS-0004.\n\nIf an external document is needed to understand fine details of test cases implementation, include a link to the document in suite Documentation.",
+      "parentUuid": "1a622d24_cc87f8b3",
+      "range": {
+        "startLine": 566,
+        "startChar": 78,
+        "endLine": 566,
+        "endChar": 81
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ccc25884",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T12:05:34Z",
+      "side": 1,
+      "message": "What is cs in this case and why it has two allowed values?",
+      "range": {
+        "startLine": 610,
+        "startChar": 60,
+        "endLine": 610,
+        "endChar": 64
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
