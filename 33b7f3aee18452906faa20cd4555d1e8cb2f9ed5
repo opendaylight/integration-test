@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8b20e19c",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 45
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:37:48Z",
+      "side": 1,
+      "message": "Mention this behavior in the docstring.",
+      "range": {
+        "startLine": 171,
+        "startChar": 15,
+        "endLine": 171,
+        "endChar": 17
+      },
+      "revId": "33b7f3aee18452906faa20cd4555d1e8cb2f9ed5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a02184b6",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:37:48Z",
+      "side": 1,
+      "message": "Not sure these 7 keywords are worth saving",
+      "range": {
+        "startLine": 517,
+        "startChar": 14,
+        "endLine": 517,
+        "endChar": 15
+      },
+      "revId": "33b7f3aee18452906faa20cd4555d1e8cb2f9ed5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8b09012f",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:37:48Z",
+      "side": 1,
+      "message": "Not sure these 7 keywords are worth it. Ideally directories such as plugin_data should be readable the same way as these keyword names. But I am not opposing these 7 keywords either.\n\nBut they should have [Documentation].",
+      "range": {
+        "startLine": 517,
+        "startChar": 14,
+        "endLine": 517,
+        "endChar": 15
+      },
+      "revId": "33b7f3aee18452906faa20cd4555d1e8cb2f9ed5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6b0e5d36",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:37:48Z",
+      "side": 1,
+      "message": "Negative",
+      "range": {
+        "startLine": 540,
+        "startChar": 11,
+        "endLine": 540,
+        "endChar": 20
+      },
+      "revId": "33b7f3aee18452906faa20cd4555d1e8cb2f9ed5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4b26f9bb",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:37:48Z",
+      "side": 1,
+      "message": "simple_config as in lines 412-414?",
+      "range": {
+        "startLine": 542,
+        "startChar": 27,
+        "endLine": 542,
+        "endChar": 39
+      },
+      "revId": "33b7f3aee18452906faa20cd4555d1e8cb2f9ed5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
