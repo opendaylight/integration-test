@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_57a43507",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-01-11T06:10:04Z",
+      "side": 1,
+      "message": "I would use something like \u0027iotdm-robot-tests\u0027",
+      "revId": "1bff41edc50f30e730bb4c7149c39feb2627f5b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
