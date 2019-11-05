@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_08228551",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:38:26Z",
+      "side": 1,
+      "message": "What is the difference between this and ${lt1}?\nIf there is any, it would be more readable to have a keyword similar to criotdm.Last_Modified_Time to extract it, instead of using this Python expression.",
+      "range": {
+        "startLine": 327,
+        "startChar": 27,
+        "endLine": 327,
+        "endChar": 58
+      },
+      "revId": "684b4ea599502b87b7aec6d833341ed58d6c7411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a8cd51b9",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:38:26Z",
+      "side": 1,
+      "message": "Up to here: https://git.opendaylight.org/gerrit/#/c/50172/12/csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot@134",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 18
+      },
+      "revId": "684b4ea599502b87b7aec6d833341ed58d6c7411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a8f6f1f6",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:38:26Z",
+      "side": 1,
+      "message": "Still not valid.",
+      "range": {
+        "startLine": 192,
+        "startChar": 44,
+        "endLine": 192,
+        "endChar": 46
+      },
+      "revId": "684b4ea599502b87b7aec6d833341ed58d6c7411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_08fa8574",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAE_CNT_CIN.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:38:26Z",
+      "side": 1,
+      "message": "What would happen if this was ${r.text} or ${r.content}?",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "684b4ea599502b87b7aec6d833341ed58d6c7411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_68a8598d",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAE_CNT_CIN.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:38:26Z",
+      "side": 1,
+      "message": "Looking at the Sandbox data, this results in list of string (as opposed to string), so the keyword Should_Contain_All_Sub_Strings performs what would be better named List_Should_Contain_All_Items.\nAnd because it it a list of strings, the previous line verifies the same occurrence, just without a specific path.\nFinally, it would be more readable to have a keyword to extract the list, instead using Python expression directly.\n\nOverall, I think it would be good enough to remove this line and only use the check in the previous line.",
+      "range": {
+        "startLine": 60,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "684b4ea599502b87b7aec6d833341ed58d6c7411",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
