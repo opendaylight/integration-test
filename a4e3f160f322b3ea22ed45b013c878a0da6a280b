@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_05e502a8",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_b7fcc33f",
+      "range": {
+        "startLine": 174,
+        "startChar": 32,
+        "endLine": 174,
+        "endChar": 87
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_97f7ff58",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 43
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_452b8aeb",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_7213895c",
+      "range": {
+        "startLine": 37,
+        "startChar": 79,
+        "endLine": 37,
+        "endChar": 92
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_17714fe0",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 43
@@ -106,6 +154,30 @@
       "writtenOn": "2017-03-31T09:59:38Z",
       "side": 1,
       "message": "verify\u003dTrue\n\nAlso for other lines changed from patch set 42.",
+      "range": {
+        "startLine": 73,
+        "startChar": 105,
+        "endLine": 73,
+        "endChar": 106
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_52cc8561",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_17714fe0",
       "range": {
         "startLine": 73,
         "startChar": 105,
@@ -188,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_25300656",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_d2023508",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 5
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_37457370",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 43
@@ -199,6 +295,30 @@
       "writtenOn": "2017-03-31T09:59:38Z",
       "side": 1,
       "message": "folder\u003d${VAR_BASE}/negative_tcs/http_cfg/missing_sec_level\n\nThat would mean location.uri will be duplicated, but TemplatedRequests would be slightly simpler.",
+      "range": {
+        "startLine": 264,
+        "startChar": 48,
+        "endLine": 264,
+        "endChar": 132
+      },
+      "revId": "a4e3f160f322b3ea22ed45b013c878a0da6a280b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_85357248",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-04-03T08:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_37457370",
       "range": {
         "startLine": 264,
         "startChar": 48,
