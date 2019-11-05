@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_1074fdcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "the commit message should describe what the entire\nreview is about, not what you did in the last iteration\nof the patch set.\n\nhttps://wiki.opendaylight.org/view/BestPractices/Commit_Messages",
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_507e85af",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "I know some of these variables are duplicated across suites. if possible you can source them from a common variables file.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_b04a4981",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "these kind of Log lines are not usually needed. Robot\nis usually human readable enough as it is.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_904f4d92",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "we have this already:\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Get%20OVSDB%20UUID",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_105b5d55",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "perfect example. why are we spending one line to say:\n  Get Hostname\nfollowed by an execution line that says\n  Get Hostname",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_d049d58c",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "is this different than the same block above in lines 51-58?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 82
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_90362d02",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "something wrong with this library:\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html\n\nspecifically, the keyword \"Create VM Instances\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 93
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_7058e156",
+        "filename": "csit/suites/netvirt/Host_Configuration/Host_Configuration_Tap_Tap.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-07T23:08:57Z",
+      "side": 1,
+      "message": "no sleeps please\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 108,
+        "startChar": 3,
+        "endLine": 108,
+        "endChar": 15
+      },
+      "revId": "197df1c94ed8a26abbd04532171bf03d9d2c8455",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
