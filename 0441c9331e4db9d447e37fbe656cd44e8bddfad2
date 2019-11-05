@@ -1,0 +1,374 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_4d8538ac",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "The variable is no more readable than the hardcoded value. Also, allowing users to override the value does not look useful.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 33
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ed306c09",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "I doubt this is useful, see comment at line 282.\nI do not see this used in suites.",
+      "range": {
+        "startLine": 135,
+        "startChar": 11,
+        "endLine": 135,
+        "endChar": 32
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ad9e6461",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Make it clear this is also returned.",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 22
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2d827400",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Response_Empty?\nIt would be better to enhance the existing code to not try to indent empty post_data.json and consider ${NONE} from filtering to be equal to empty string.",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e64d0a9b",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T15:22:31Z",
+      "side": 1,
+      "message": "I do not see it done in #41.",
+      "parentUuid": "fafc7978_e6506a0c",
+      "range": {
+        "startLine": 189,
+        "startChar": 29,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0d49708b",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "${explicit_status_codes}, see comment at line 263.",
+      "range": {
+        "startLine": 258,
+        "startChar": 62,
+        "endLine": 258,
+        "endChar": 86
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0dbb3073",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "If empty, makes no difference. If nonempty, gets overridden anyway. See lines 385-387.",
+      "range": {
+        "startLine": 263,
+        "startChar": 34,
+        "endLine": 263,
+        "endChar": 90
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_edc6ac15",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Jmes\n\nIt is no more strict acronym than URI or JSON.\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Capitalization",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 12
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0dd690c5",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "${folder}    ${jmes_path}\u003d${EMPTY}\n\nAssuming there even exist a case when the caller does not know whether the file exists AND has a specific default expression in mind.",
+      "range": {
+        "startLine": 282,
+        "startChar": 19,
+        "endLine": 282,
+        "endChar": 44
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2dd1d4cd",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 5
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0d405055",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "This is the first place this is useful, in comparison to line 135.",
+      "range": {
+        "startLine": 333,
+        "startChar": 107,
+        "endLine": 333,
+        "endChar": 128
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6d247cc6",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4d21b8b3",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "None is not a string. Can you return an empty string instead?",
+      "range": {
+        "startLine": 166,
+        "startChar": 47,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8d028009",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Templatize.",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2616f255",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T15:22:31Z",
+      "side": 1,
+      "message": "Search for ${payload} and comment why any match is not templatized already.",
+      "parentUuid": "fafc7978_66d63ac5",
+      "range": {
+        "startLine": 397,
+        "startChar": 4,
+        "endLine": 397,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c803d60b",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T11:36:29Z",
+      "side": 1,
+      "message": "Templatize.",
+      "range": {
+        "startLine": 447,
+        "startChar": 4,
+        "endLine": 447,
+        "endChar": 14
+      },
+      "revId": "0441c9331e4db9d447e37fbe656cd44e8bddfad2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
