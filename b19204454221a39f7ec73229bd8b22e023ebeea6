@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ee491132",
+        "filename": "csit/suites/iotdm/basic/001_Prerequisities.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_93652620",
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b3eb0277",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 19
@@ -66,6 +84,54 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8ed21d5a",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b3eb0277",
+      "range": {
+        "startLine": 346,
+        "startChar": 40,
+        "endLine": 346,
+        "endChar": 63
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_76eb1313",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e275a5cb",
+      "range": {
+        "startLine": 346,
+        "startChar": 40,
+        "endLine": 346,
+        "endChar": 63
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_13047648",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 19
@@ -77,6 +143,30 @@
       "writtenOn": "2017-01-17T12:34:40Z",
       "side": 1,
       "message": "... and this.",
+      "range": {
+        "startLine": 361,
+        "startChar": 46,
+        "endLine": 361,
+        "endChar": 70
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6ed7c14b",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_13047648",
       "range": {
         "startLine": 361,
         "startChar": 46,
@@ -124,6 +214,54 @@
       "side": 1,
       "message": "Yes, there is only small chance the value will be ${oldst+2}. All I am saying that it will not always be ${oldst+1}.",
       "parentUuid": "1a622d24_2ee2e92e",
+      "range": {
+        "startLine": 421,
+        "startChar": 35,
+        "endLine": 421,
+        "endChar": 45
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2ee2e92e",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Robot test fails if this is ${oldst+2}.",
+      "parentUuid": "1a622d24_b3a2e248",
+      "range": {
+        "startLine": 421,
+        "startChar": 35,
+        "endLine": 421,
+        "endChar": 45
+      },
+      "revId": "b19204454221a39f7ec73229bd8b22e023ebeea6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3647dbbd",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_a2128d06",
       "range": {
         "startLine": 421,
         "startChar": 35,
