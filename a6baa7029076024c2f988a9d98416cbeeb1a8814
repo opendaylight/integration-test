@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_bf5aa927",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9c97fbeb",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_fc526f65",
         "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE.robot",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-16T14:03:26Z",
       "side": 1,
       "message": "See line 248.",
+      "range": {
+        "startLine": 255,
+        "startChar": 16,
+        "endLine": 255,
+        "endChar": 17
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dcb4d383",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fc526f65",
       "range": {
         "startLine": 255,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_bcb9177b",
+        "filename": "csit/suites/iotdm/basic/024_ResourceAttributesACP.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5c4c43c8",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3c4987b7",
         "filename": "csit/suites/iotdm/basic/025_ResourceAttributesNode.robot",
         "patchSetId": 13
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1cb2cb93",
+        "filename": "csit/suites/iotdm/basic/025_ResourceAttributesNode.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3c4987b7",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9cc9bb28",
         "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAE_CNT_CIN.robot",
         "patchSetId": 13
@@ -105,6 +201,30 @@
       "writtenOn": "2017-01-16T14:03:26Z",
       "side": 1,
       "message": "New keywords.",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 5
+      },
+      "revId": "a6baa7029076024c2f988a9d98416cbeeb1a8814",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fcaeef2c",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAE_CNT_CIN.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9cc9bb28",
       "range": {
         "startLine": 60,
         "startChar": 4,
