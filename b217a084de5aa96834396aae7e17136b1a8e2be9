@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ab439040",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_8ea50849",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ee65b41e",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -130,6 +154,30 @@
       "writtenOn": "2017-02-22T06:17:49Z",
       "side": 1,
       "message": "is this something more than just using the karaf keywords\nto install the already available odl-jolokia feature?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 172
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_abb1d048",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "I\u0027ve noticed that IoTDM distribution used for automated testing has odl-jolokia available. But it is not when we are testing IoTDM locally.\nSo it is not needed for automated testing, but for local execution it does these steps:\n1. downloads odl-jolokia features .kar archive\n2. uzips the archive and copies content into system directory\n3. Installs feature repository with odl-jolokia feature\n4. Installs the feature\n\nI was not successfull with installation of .kar archive from karaf console (using the kar:install). Karaf behaves differently from documentation. It doesn\u0027t copy content of archive from data to system folder and so consecutive attempt to install odl-jolokia feature fails.",
+      "parentUuid": "fafc7978_ee65b41e",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -260,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_8be68c13",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3902656f",
+      "range": {
+        "startLine": 44,
+        "startChar": 96,
+        "endLine": 44,
+        "endChar": 132
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_1907a183",
         "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
         "patchSetId": 31
@@ -271,6 +343,30 @@
       "writtenOn": "2017-02-22T14:58:57Z",
       "side": 1,
       "message": "What is the reason to ignore the previous levels?\nIn my experience, checking the whole output is both simpler and more reliable when it comes to bug detection.\n\nYes, that would need more data in .json files and more frequent edits when ODL output changes, but each such output change should be analyzed for test consequences anyway, and it is better to have brittle tests than undiscovered bugs.",
+      "range": {
+        "startLine": 72,
+        "startChar": 165,
+        "endLine": 72,
+        "endChar": 185
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e4b14290",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "Well, yes the two problems you\u0027ve pointed to are the reason. I\u0027m thinking about it this way:\nChanges in one plugin registration should not affect results of TCs testing another specific plugin. This covers adding/removing plugins or changes in default registration data of plugins.\nMore details:\n1. the output of the RPC includes list of registration data of all plugins registered. New plugins can be added/removed in future simply as new karaf features of tested distribution and it will result in change of the RPC outpu\n2. The RPC output can by simply changed also by change in default blueprint XML configuration file of single plugin",
+      "parentUuid": "fafc7978_1907a183",
       "range": {
         "startLine": 72,
         "startChar": 165,
@@ -436,6 +532,30 @@
       "writtenOn": "2017-02-22T14:58:57Z",
       "side": 1,
       "message": "Why not TemplatedRequests.Post_As_Json_Templated?",
+      "range": {
+        "startLine": 247,
+        "startChar": 21,
+        "endLine": 247,
+        "endChar": 49
+      },
+      "revId": "b217a084de5aa96834396aae7e17136b1a8e2be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e66aed7f",
+        "filename": "csit/suites/iotdm/basic/200_IoTDMInfraPlugins.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-27T07:34:10Z",
+      "side": 1,
+      "message": "I see, it is better, I\u0027ve changed it.",
+      "parentUuid": "fafc7978_99fa7173",
       "range": {
         "startLine": 247,
         "startChar": 21,
