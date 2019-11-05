@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_138f632b",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/50172/8/csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot@28",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 5
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b3e82fe3",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "Page 35 has more detailed explanation.",
+      "range": {
+        "startLine": 94,
+        "startChar": 111,
+        "endLine": 94,
+        "endChar": 113
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d3996b7a",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/50172/8/csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot@28",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 5
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f3c5875c",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "You are importing Collections, which contains keyword of this name. That is confusing.\nShould_Contain_All_Sub_Strings would better describe what this keyword does.",
+      "range": {
+        "startLine": 750,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 23
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d3c20b52",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "Should_Not_Contain_Any_Sub_Strings?",
+      "range": {
+        "startLine": 756,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 27
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b3966f4a",
+        "filename": "csit/suites/iotdm/basic/023_ResourceAttributesAE..robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T09:53:56Z",
+      "side": 1,
+      "message": "These definitions appear in multiple suites. Create a Resource file so that the definitions are not duplicated.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 23
+      },
+      "revId": "9b5ba715f782249bf5fa14cf4ed28801d0e32b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
