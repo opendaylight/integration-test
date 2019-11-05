@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_6c62243f",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "I can rename those variables if you need me to. I didn`t create these tests only fixed them to work. \nconvert to string -\u003e done\nsandbox run done.",
+      "parentUuid": "1a622d24_ecde346c",
+      "range": {
+        "startLine": 110,
+        "startChar": 15,
+        "endLine": 110,
+        "endChar": 16
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2cbcac05",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 26
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-18T12:05:34Z",
       "side": 1,
       "message": "Those are reminders to implement the missing test cases later, right?",
+      "range": {
+        "startLine": 431,
+        "startChar": 4,
+        "endLine": 431,
+        "endChar": 5
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ac58bc8a",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Yes those are just reminders to implement them later on",
+      "parentUuid": "1a622d24_2cbcac05",
       "range": {
         "startLine": 431,
         "startChar": 4,
@@ -95,6 +143,78 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8bb3254c",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ac10bc59",
+      "range": {
+        "startLine": 566,
+        "startChar": 78,
+        "endLine": 566,
+        "endChar": 81
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cc87f8b3",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "This also probably means that changes of this kind should be reverted: \n\n    ${cni} \u003d    Current Number Of Instances    ${r}\n    ${oldcniall} \u003d    Create List    ${oldcni+1}    ${oldcni+2}\n    Should Contain    ${oldcniall}    ${cni}",
+      "parentUuid": "1a622d24_ecdc74e6",
+      "range": {
+        "startLine": 566,
+        "startChar": 78,
+        "endLine": 566,
+        "endChar": 81
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ecdc74e6",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "NO. Those are number of child resources of container and it is incremented in case of creating new content instance so if that would be +2 we need two child resources. Specified more in depth in TS-0004.",
+      "parentUuid": "1a622d24_8ccd00ba",
+      "range": {
+        "startLine": 566,
+        "startChar": 78,
+        "endLine": 566,
+        "endChar": 81
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ccc25884",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 26
@@ -106,6 +226,30 @@
       "writtenOn": "2017-01-18T12:05:34Z",
       "side": 1,
       "message": "What is cs in this case and why it has two allowed values?",
+      "range": {
+        "startLine": 610,
+        "startChar": 60,
+        "endLine": 610,
+        "endChar": 64
+      },
+      "revId": "d8aa3fdadbfb80bc4ce6d945fae2d61a832a76e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2cfaec42",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "cs is contentSize (in bytes)- it is a size of child resource which is created in container. This means that cbs of container is incremented by the cs of child. Specified more in depth in TS-0004.",
+      "parentUuid": "1a622d24_ccc25884",
       "range": {
         "startLine": 610,
         "startChar": 60,
