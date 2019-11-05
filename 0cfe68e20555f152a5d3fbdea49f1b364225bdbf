@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_bb76dbd6",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_38a151aa",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 23
+      },
+      "revId": "0cfe68e20555f152a5d3fbdea49f1b364225bdbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_fb8fc373",
         "filename": "csit/suites/iotdm/basic/091_ResourceHierarchyDelete.robot",
         "patchSetId": 30
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "\u003e if I am not able to retrieve something on path InCSE1/Con1 how will I ever be able to retrieve something on following things.\n\nThere might be a Bug. In other words, port 8282 is not a Restconf, so we cannot assume such errors are detected by other suites.",
       "parentUuid": "fafc7978_3b630b1c",
+      "range": {
+        "startLine": 389,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 25
+      },
+      "revId": "0cfe68e20555f152a5d3fbdea49f1b364225bdbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3b630b1c",
+        "filename": "csit/suites/iotdm/basic/091_ResourceHierarchyDelete.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 8125
+      },
+      "writtenOn": "2019-11-05T22:01:08Z",
+      "side": 1,
+      "message": "I think it is more readable like this too but better question might be that if I am not able to retrieve something on path InCSE1/Con1 how will I ever be able to retrieve something on following things. That check seems to be redundant for me. If con1 doesn`t exist than I shouldn`t be looking for con2 in con1? Or did I understand it incorectly?",
+      "parentUuid": "fafc7978_fb8fc373",
       "range": {
         "startLine": 389,
         "startChar": 4,
