@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_433c1594",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6431
+      },
+      "writtenOn": "2017-08-02T12:11:59Z",
+      "side": 1,
+      "message": "can you remove \"mulipath_fun\" variable.\n\nwhile running this script I was getting this error { Error in file \u0027/home/mininet/test/csit/suites/BgpMultipath.robot\u0027: Setting variable \u0027${multipath_fun}\u0027 failed: Creating a scalar variable with a list value in the Variable table is no longer possible. Create a list variable \u0027@{multipath_fun}\u0027 and use it as a scalar variable \u0027${multipath_fun}\u0027 instead }",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 2
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_f9a9787c",
         "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
         "patchSetId": 1
@@ -111,6 +134,23 @@
         "endLine": 51,
         "endChar": 22
       },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2355a1c6",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6431
+      },
+      "writtenOn": "2017-08-02T12:11:59Z",
+      "side": 1,
+      "message": "can you covert this variable into list\n\nlogs:-\nError in file \u0027/home/mininet/test/csit/suites/BgpMultipath.robot\u0027: Setting variable \u0027${multipath_fun_enable}\u0027 failed: Creating a scalar variable with a list value in the Variable table is no longer possible. Create a list variable \u0027@{multipath_fun_enable}\u0027 and use it as a scalar variable \u0027${multipath_fun_enable}\u0027 instead.",
       "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
