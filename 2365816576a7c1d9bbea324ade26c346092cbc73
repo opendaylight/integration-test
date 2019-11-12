@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_e7038071",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-07T22:29:49Z",
+      "side": 1,
+      "message": "looks like some stuff is wrong here.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 51
+      },
+      "revId": "2365816576a7c1d9bbea324ade26c346092cbc73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_47f88c7c",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-07T22:29:49Z",
+      "side": 1,
+      "message": "these things are in variables/netvirt/Variables.robot or just\nvariables/Variables.robot",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "2365816576a7c1d9bbea324ade26c346092cbc73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_27f59883",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-07T22:29:49Z",
+      "side": 1,
+      "message": "These probably belong in the devstackutils lib.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 47
+      },
+      "revId": "2365816576a7c1d9bbea324ade26c346092cbc73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_87f28498",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-07T22:29:49Z",
+      "side": 1,
+      "message": "a general comment that applies below:\n\nyou can remove almost all of the \"Log\" statements. Robot is\nvery human readable as it is. For example, line 128 says\n  Log    \"Verify Multipath configuration\"\n\nline 129 (which is actual code) says:\n\n  Verify Multipath\n\nThere is not much benefit from the \"Log\" statement and just\nadds to the bloat/noise of the test case when reading it.",
+      "revId": "2365816576a7c1d9bbea324ade26c346092cbc73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
