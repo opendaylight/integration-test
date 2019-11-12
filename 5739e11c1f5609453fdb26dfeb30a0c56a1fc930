@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3d1db074",
+        "filename": "csit/libraries/OVSFlowDumpParser.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "No spaces adjacent to quotes, end with dot.",
+      "range": {
+        "startLine": 6,
+        "startChar": 59,
+        "endLine": 6,
+        "endChar": 60
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9d120461",
+        "filename": "csit/libraries/OVSFlowDumpParser.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Remove commented-out block.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 2
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5dbcec6c",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "This Resource is deprecated now, use analogous keywords from ClusterManagement.",
+      "range": {
+        "startLine": 33,
+        "startChar": 53,
+        "endLine": 33,
+        "endChar": 68
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3dc130e5",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Remove commented-out lines.",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 4
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ddaf5c2a",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Distinguish from the previous test case.",
+      "range": {
+        "startLine": 68,
+        "startChar": 84,
+        "endLine": 68,
+        "endChar": 87
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_bd5a604e",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fd54d822",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1d2f14a3",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Why? Is it possible to configure timeout which should be long enough for normal operation, but which should guarantee not much time is spent in case of something gets stuck?",
+      "range": {
+        "startLine": 337,
+        "startChar": 33,
+        "endLine": 337,
+        "endChar": 48
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_dd88fcc8",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Include information on how this differs from the previous suite.",
+      "range": {
+        "startLine": 2,
+        "startChar": 51,
+        "endLine": 2,
+        "endChar": 52
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3df3f074",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Remove this line.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9d9fa403",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Maybe this would be better as two test cases, one for invalid and one for valid flow (that implies Test_Start and Test_End would be incorporated into suite setup/teardown).",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 9
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9de8447e",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_bdfee036",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Use SSHKeywords.Open_Connection_To_Tools_System please.",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fdf8584b",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Get_Flow\nas this does performs actual checking.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 10
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5deeac8c",
+        "filename": "csit/testplans/openflowplugin-failover-single.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T13:26:13Z",
+      "side": 1,
+      "message": "Any reason why this is not added to existing OFP cluster test jobs?\nopenflowplugin-clustering-helium-redesign.txt\nopenflowplugin-clustering-lithium-redesign.txt\nopenflowplugin-clustering.txt\n\nBy the way, I have heard there are two different implementations of FRM. How does user configure which one is to be used? I hope it is not as bad as -he/-li features.",
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
