@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_a041930d",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T14:13:01Z",
+      "side": 1,
+      "message": "How? I would say that new leader\u0027s election is verified by the fact, that all flows were configured.",
+      "range": {
+        "startLine": 30,
+        "startChar": 96,
+        "endLine": 30,
+        "endChar": 145
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_5dbcec6c",
         "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
         "patchSetId": 15
@@ -140,6 +163,29 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_e071cb78",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T14:13:01Z",
+      "side": 1,
+      "message": "is it possible to check this more often? we may not need to wait 10m for this",
+      "range": {
+        "startLine": 142,
+        "startChar": 43,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_fd54d822",
         "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
         "patchSetId": 15
@@ -156,6 +202,52 @@
         "startChar": 4,
         "endLine": 148,
         "endChar": 5
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0017a7ee",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T14:13:01Z",
+      "side": 1,
+      "message": "Write more detailed description which can consume several lines. And explain why you blast flows for the second time. And how do you know that the first blasting finished?",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 19
+      },
+      "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_400a3fd3",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T14:13:01Z",
+      "side": 1,
+      "message": "split this line into 2 lines",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 188,
+        "endChar": 21
       },
       "revId": "5739e11c1f5609453fdb26dfeb30a0c56a1fc930",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
