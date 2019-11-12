@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_3994b036",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "ws to remove",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 61
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_799e2858",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "this is passed on the command line. not needed.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b99f0050",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "maybe you want it to be ODL_SYSTEMS or ODL_SYSTEM_LIST to\nbe more clear?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 80
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_19ad6c89",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "aren\u0027t these already defined in Variables.robot",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f9a9787c",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 51,
+        "startChar": 21,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_59b6c4dd",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 73,
+        "startChar": 18,
+        "endLine": 73,
+        "endChar": 19
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_39bb10c6",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "seems weird that these lists all have the same elements?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_79ec68c8",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "only use Log statements if needed. robot code itself is\nbasically human readable.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 47
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_79b588cc",
+        "filename": "csit/suites/BgpMultipath/bgpmultipath_TC.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:31:53Z",
+      "side": 1,
+      "message": "when things are ready, we don\u0027t need commented code.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 46
+      },
+      "revId": "970d59ddd05476241b893615d3f65b6a2a4c6753",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
