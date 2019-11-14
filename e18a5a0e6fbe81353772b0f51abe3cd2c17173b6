@@ -1,0 +1,28 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_031df466",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-18T14:41:01Z",
+      "side": 1,
+      "message": "This Keyword should be probably split into two,\nthe Put part and the Get part should be called separately.\nSuites would call the Put part just once, but the Get and a check on content would be composed into a keyword and that keyword would be run under a WUKS.",
+      "parentUuid": "1a494da4_ae417a0d",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "e18a5a0e6fbe81353772b0f51abe3cd2c17173b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
