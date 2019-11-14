@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e207bad3_ab4d32fd",
+        "filename": "csit/scripts/set_elasticsearch_attribute.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2019-11-14T17:53:37Z",
+      "side": 1,
+      "message": "remove trailing space",
+      "revId": "63ea7e11c0dd021481a8781fee95ff862d56600a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
