@@ -46,6 +46,54 @@
       "revId": "e18a5a0e6fbe81353772b0f51abe3cd2c17173b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_0fc4f53e",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "Problem we have is, that state of ongoing operation cant be determined based on output in karaf log or in output overlay topology (from overlay topology yes, But then there will be needed to specify exact number of nodes/links in overlay topo which is based on actual test calling this Keyword)",
+      "parentUuid": "fa57193c_031df466",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "e18a5a0e6fbe81353772b0f51abe3cd2c17173b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ae417a0d",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "There is one problem with this approach:\n- topoproc is sort of stateless,at least the way it is processing topolgies so there is no clear indication where it finishes its job\n\n- number of elements that should be in output is determined by input topos/type of operations, so its not that simple to check for exact count\n\nthere is one possible optimalization:\nRun Keyword If    \"${dosleep}\".upper()\u003d\u003d\"ADDSLEEP\"    Sleep    1.5s    Required delay to finish operations with script\n\n(dosleep is parameter of keyword with default value, in tests with scripting, this parameter is setted)\n\n\nthis add delay only to tests with script which reduces overall delay by ~60s\nalso in [0] was mentioned that short delays are not necessarily evil, if its very short period\n\nnot sure if this optimization is good enough?\n\njust to clarify our problem with scripted operations:\nwhen operators processing nodes/elemnts they log some messages to console in karaf and this output is then checked for its occurence, and here comes the problem - this message is generated after first processed item, which in turn trigers reading of generated topology. In normal case items are processed fast so its sucessful but scripting has siginficant delays between first processed items (because of way how script is optimalized), which leads to reading of incomplete topology. Its usually happen on first run of scripted operation.",
+      "parentUuid": "3a4c51b2_2793b5a4",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "e18a5a0e6fbe81353772b0f51abe3cd2c17173b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
