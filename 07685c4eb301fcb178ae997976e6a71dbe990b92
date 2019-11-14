@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_195eee45",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T10:03:57Z",
+      "side": 1,
+      "message": "\"If Contain\" does not sound grammatically right, perhaps \"If Contains\".\nOr even better, \"Wait Till Contains\" for the whole highlighted part.",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 38
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f95a1a4f",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T10:03:57Z",
+      "side": 1,
+      "message": "Is this ever expected to fail if the previous checks have passed?\nThis check is present in every test case, taking space without adding much value. Perhaps if could be left out of most test cases?",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 74
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d9447676",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T10:03:57Z",
+      "side": 1,
+      "message": "This is the same check as in previous test case. If this passes, how does this test case know the reported state corresponds to its (and not the previous one\u0027s) expectation?\n(Applies also to other pairs of test cases.)",
+      "range": {
+        "startLine": 73,
+        "startChar": 132,
+        "endLine": 73,
+        "endChar": 151
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_5981868e",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/020_Filtration_nodes.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T10:03:57Z",
+      "side": 1,
+      "message": "What is this needed for?",
+      "range": {
+        "startLine": 115,
+        "startChar": 78,
+        "endLine": 115,
+        "endChar": 86
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_794f2a93",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/030_Filtration_termination_points.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T10:03:57Z",
+      "side": 1,
+      "message": "also here",
+      "range": {
+        "startLine": 127,
+        "startChar": 78,
+        "endLine": 127,
+        "endChar": 86
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
