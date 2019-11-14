@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a4c51b2_2793b5a4",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-09T00:44:35Z",
+      "side": 1,
+      "message": "no sleeps please [0]\n\nyou can do this instead of line 26:\n\nWUKS    5s    1s    Check For Elements At URI    ${OPERATIONAL_API}/${overlay_topology_url}   ${something_you_expect_to_be_in_the_response}\n\n\nWUKS \u003d\u003d Wait Until Keyword Succeeds\n\nfind something you expect to be in the response.content.  This will turn it in to an even better test because it\u0027s not just checking for 200 respsonse code, but that actual data is\nthere in the response.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 69
+      },
+      "revId": "e18a5a0e6fbe81353772b0f51abe3cd2c17173b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_031df466",
         "filename": "csit/libraries/TopoprocessingKeywords.robot",
         "patchSetId": 2
