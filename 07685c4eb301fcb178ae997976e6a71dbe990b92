@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_8abbb70d",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "It will be fixed, so its gramatically correct and more accurate",
+      "parentUuid": "fa57193c_195eee45",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 38
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_f95a1a4f",
         "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-04-27T10:03:57Z",
       "side": 1,
       "message": "Is this ever expected to fail if the previous checks have passed?\nThis check is present in every test case, taking space without adding much value. Perhaps if could be left out of most test cases?",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 74
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cad5af44",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "Yes thats, true. if it can read \"topo:1\" then there is no need to test afterwards if it contains \"topo:1\"....",
+      "parentUuid": "fa57193c_f95a1a4f",
       "range": {
         "startLine": 26,
         "startChar": 41,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_aa6cbb9d",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "Generated overlay topology is deleted in Test Teardown.",
+      "parentUuid": "fa57193c_d9447676",
+      "range": {
+        "startLine": 73,
+        "startChar": 132,
+        "endLine": 73,
+        "endChar": 151
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_5981868e",
         "filename": "csit/suites/topoprocessing/basic-topology-operations/020_Filtration_nodes.robot",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2016-04-27T10:03:57Z",
       "side": 1,
       "message": "What is this needed for?",
+      "range": {
+        "startLine": 115,
+        "startChar": 78,
+        "endLine": 115,
+        "endChar": 86
+      },
+      "revId": "07685c4eb301fcb178ae997976e6a71dbe990b92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_4ac19f7f",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/020_Filtration_nodes.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5702
+      },
+      "writtenOn": "2019-11-14T20:25:08Z",
+      "side": 1,
+      "message": "Probably mistake",
+      "parentUuid": "fa57193c_5981868e",
       "range": {
         "startLine": 115,
         "startChar": 78,
