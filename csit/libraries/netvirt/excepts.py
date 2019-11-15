@@ -161,6 +161,12 @@ _whitelist = [
          "org.opendaylight.yang.gen.v1.urn.opendaylight.openflow.oxm.rev150225.match.entries.grouping.MatchEntry " +
          "msgType: 1 oxm_field: 33 experimenterID: null was not found " +
          "- please verify that all needed deserializers ale loaded correctly"
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1640",
+     "id": "ElasticsearchAppender",
+     "context": [
+         "Can't append into Elasticsearch",
+         "org.apache.karaf.decanter.appender.elasticsearch - 1.0.0"
      ]}
 ]
 
