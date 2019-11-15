@@ -107,7 +107,7 @@
                 <set-mpls-ttl-action>
                     <mpls-ttl>1</mpls-ttl>
                 </set-mpls-ttl-action>
-                <order>0</order>    
+                <order>0</order>
             </action>
             <bucket-id>21</bucket-id>
             <watch_group>14</watch_group>
@@ -205,7 +205,7 @@
         <bucket>
             <action>
                 <copy-ttl-out/>
-                <order>0</order>  
+                <order>0</order>
             </action>
             <bucket-id>30</bucket-id>
             <watch_group>14</watch_group>

@@ -7,29 +7,29 @@ module ietf-yang-types {
   contact
     "WG Web:   <http://tools.ietf.org/wg/netmod/>
      WG List:  <mailto:netmod@ietf.org>
-     
+
      WG Chair: David Kessens
                <mailto:david.kessens@nsn.com>
-     
+
      WG Chair: Juergen Schoenwaelder
                <mailto:j.schoenwaelder@jacobs-university.de>
-     
+
      Editor:   Juergen Schoenwaelder
                <mailto:j.schoenwaelder@jacobs-university.de>";
   description
     "This module contains a collection of generally useful derived
      YANG data types.
-     
+
      Copyright (c) 2013 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
-     
+
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
-     
+
      This version of this YANG module is part of RFC 6991; see
      the RFC itself for full legal notices.";
 
@@ -55,7 +55,7 @@ module ietf-yang-types {
        that monotonically increases until it reaches a
        maximum value of 2^32-1 (4294967295 decimal), when it
        wraps around and starts increasing again from zero.
-       
+
        Counters have no defined 'initial' value, and thus, a
        single value of a counter has (in general) no information
        content.  Discontinuities in the monotonically increasing
@@ -67,11 +67,11 @@ module ietf-yang-types {
        re-initialization, then a corresponding schema node
        should be defined, with an appropriate type, to indicate
        the last discontinuity.
-       
+
        The counter32 type should not be used for configuration
        schema nodes.  A default statement SHOULD NOT be used in
        combination with the type counter32.
-       
+
        In the value set and its semantics, this type is equivalent
        to the Counter32 type of the SMIv2.";
     reference
@@ -85,19 +85,19 @@ module ietf-yang-types {
     description
       "The zero-based-counter32 type represents a counter32
        that has the defined 'initial' value zero.
-       
+
        A schema node of this type will be set to zero (0) on creation
        and will thereafter increase monotonically until it reaches
        a maximum value of 2^32-1 (4294967295 decimal), when it
        wraps around and starts increasing again from zero.
-       
+
        Provided that an application discovers a new schema node
        of this type within the minimum time to wrap, it can use the
        'initial' value as a delta.  It is important for a management
        station to be aware of this minimum time and the actual time
        between polls, and to discard data if the actual time is too
        long or there is no defined minimum time.
-       
+
        In the value set and its semantics, this type is equivalent
        to the ZeroBasedCounter32 textual convention of the SMIv2.";
     reference
@@ -112,7 +112,7 @@ module ietf-yang-types {
        that monotonically increases until it reaches a
        maximum value of 2^64-1 (18446744073709551615 decimal),
        when it wraps around and starts increasing again from zero.
-       
+
        Counters have no defined 'initial' value, and thus, a
        single value of a counter has (in general) no information
        content.  Discontinuities in the monotonically increasing
@@ -124,11 +124,11 @@ module ietf-yang-types {
        re-initialization, then a corresponding schema node
        should be defined, with an appropriate type, to indicate
        the last discontinuity.
-       
+
        The counter64 type should not be used for configuration
        schema nodes.  A default statement SHOULD NOT be used in
        combination with the type counter64.
-       
+
        In the value set and its semantics, this type is equivalent
        to the Counter64 type of the SMIv2.";
     reference
@@ -142,22 +142,22 @@ module ietf-yang-types {
     description
       "The zero-based-counter64 type represents a counter64 that
        has the defined 'initial' value zero.
-       
-       
-       
-       
+
+
+
+
        A schema node of this type will be set to zero (0) on creation
        and will thereafter increase monotonically until it reaches
        a maximum value of 2^64-1 (18446744073709551615 decimal),
        when it wraps around and starts increasing again from zero.
-       
+
        Provided that an application discovers a new schema node
        of this type within the minimum time to wrap, it can use the
        'initial' value as a delta.  It is important for a management
        station to be aware of this minimum time and the actual time
        between polls, and to discard data if the actual time is too
        long or there is no defined minimum time.
-       
+
        In the value set and its semantics, this type is equivalent
        to the ZeroBasedCounter64 textual convention of the SMIv2.";
     reference
@@ -180,7 +180,7 @@ module ietf-yang-types {
        If the information being modeled subsequently decreases
        below (increases above) the maximum (minimum) value, the
        gauge32 also decreases (increases).
-       
+
        In the value set and its semantics, this type is equivalent
        to the Gauge32 type of the SMIv2.";
     reference
@@ -203,7 +203,7 @@ module ietf-yang-types {
        If the information being modeled subsequently decreases
        below (increases above) the maximum (minimum) value, the
        gauge64 also decreases (increases).
-       
+
        In the value set and its semantics, this type is equivalent
        to the CounterBasedGauge64 SMIv2 textual convention defined
        in RFC 2856";
@@ -219,13 +219,13 @@ module ietf-yang-types {
     description
       "The object-identifier type represents administratively
        assigned names in a registration-hierarchical-name tree.
-       
+
        Values of this type are denoted as a sequence of numerical
        non-negative sub-identifier values.  Each sub-identifier
        value MUST NOT exceed 2^32-1 (4294967295).  Sub-identifiers
        are separated by single dots and without any intermediate
        whitespace.
-       
+
        The ASN.1 standard restricts the value space of the first
        sub-identifier to 0, 1, or 2.  Furthermore, the value space
        of the second sub-identifier is restricted to the range
@@ -233,12 +233,12 @@ module ietf-yang-types {
        the ASN.1 standard requires that an object identifier
        has always at least two sub-identifiers.  The pattern
        captures these restrictions.
-       
+
        Although the number of sub-identifiers is not limited,
        module designers should realize that there may be
        implementations that stick with the SMIv2 limit of 128
        sub-identifiers.
-       
+
        This type is a superset of the SMIv2 OBJECT IDENTIFIER type
        since it is not restricted to 128 sub-identifiers.  Hence,
        this type SHOULD NOT be used to represent the SMIv2 OBJECT
@@ -258,7 +258,7 @@ module ietf-yang-types {
     description
       "This type represents object-identifiers restricted to 128
        sub-identifiers.
-       
+
        In the value set and its semantics, this type is equivalent
        to the OBJECT IDENTIFIER type of the SMIv2.";
     reference
@@ -278,7 +278,7 @@ module ietf-yang-types {
        start with an alphabetic character or an underscore
        followed by an arbitrary sequence of alphabetic or
        numeric characters, underscores, hyphens, or dots.
-       
+
        A YANG identifier MUST NOT start with any possible
        combination of the lowercase or uppercase character
        sequence 'xml'.";
@@ -296,26 +296,26 @@ module ietf-yang-types {
        standard for representation of dates and times using the
        Gregorian calendar.  The profile is defined by the
        date-time production in Section 5.6 of RFC 3339.
-       
+
        The date-and-time type is compatible with the dateTime XML
        schema type with the following notable exceptions:
-       
+
        (a) The date-and-time type does not allow negative years.
-       
+
        (b) The date-and-time time-offset -00:00 indicates an unknown
            time zone (see RFC 3339) while -00:00 and +00:00 and Z
            all represent the same time zone in dateTime.
-       
+
        (c) The canonical format (see below) of data-and-time values
            differs from the canonical format used by the dateTime XML
            schema type, which requires all times to be in UTC using
            the time-offset 'Z'.
-       
+
        This type is not equivalent to the DateAndTime textual
        convention of the SMIv2 since RFC 3339 uses a different
        separator between full-date and full-time and provides
        higher resolution of time-secfrac.
-       
+
        The canonical format for date-and-time values with a known time
        zone uses a numeric time zone offset that is calculated using
        the device's configured known offset to UTC time.  A change of
@@ -340,7 +340,7 @@ module ietf-yang-types {
        hundredths of a second between two epochs.  When a schema
        node is defined that uses this type, the description of
        the schema node identifies both of the reference epochs.
-       
+
        In the value set and its semantics, this type is equivalent
        to the TimeTicks type of the SMIv2.";
     reference
@@ -360,10 +360,10 @@ module ietf-yang-types {
        value is zero.  Note that this requires all timestamp values
        to be reset to zero when the value of the associated timeticks
        attribute reaches 497+ days and wraps around to zero.
-       
+
        The associated timeticks schema node must be specified
        in the description of any schema node using this type.
-       
+
        In the value set and its semantics, this type is equivalent
        to the TimeStamp textual convention of the SMIv2.";
     reference "RFC 2579: Textual Conventions for SMIv2";
@@ -378,7 +378,7 @@ module ietf-yang-types {
        as a sequence octets, each octet represented by two hexadecimal
        numbers.  Octets are separated by colons.  The canonical
        representation uses lowercase characters.
-       
+
        In the value set and its semantics, this type is equivalent
        to the PhysAddress textual convention of the SMIv2.";
     reference "RFC 2579: Textual Conventions for SMIv2";
@@ -391,7 +391,7 @@ module ietf-yang-types {
     description
       "The mac-address type represents an IEEE 802 MAC address.
        The canonical representation uses lowercase characters.
-       
+
        In the value set and its semantics, this type is equivalent
        to the MacAddress textual convention of the SMIv2.";
     reference
@@ -404,7 +404,7 @@ module ietf-yang-types {
     type string;
     description
       "This type represents an XPATH 1.0 expression.
-       
+
        When a schema node is defined that uses this type, the
        description of the schema node MUST specify the XPath
        context in which the XPath expression is evaluated.";
@@ -429,7 +429,7 @@ module ietf-yang-types {
       "A Universally Unique IDentifier in the string representation
        defined in RFC 4122.  The canonical representation uses
        lowercase characters.
-       
+
        The following is an example of a UUID in string representation:
        f81d4fae-7dec-11d0-a765-00a0c91e6bf6
       ";

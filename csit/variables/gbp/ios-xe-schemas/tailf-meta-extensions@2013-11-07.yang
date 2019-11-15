@@ -11,13 +11,13 @@ submodule tailf-meta-extensions {
   revision 2013-11-07 {
     description
       "Released as part of ConfD-5.0.
-       
+
        Added tailf:occurrence.";
   }
   revision 2010-08-19 {
     description
       "Released as part of ConfD-3.3.1.
-       
+
        Added tailf:snmp-identifier.";
   }
   revision 2010-03-18 {
@@ -107,10 +107,10 @@ submodule tailf-meta-extensions {
     tailf:use-in "extension";
     description
       "Specifices how an extension statement may be used.
-       
+
        If this statement is given as a substatement to 'extension',
        it applies to all 'use-in' statements.
-       
+
        If this statement is given as a substatement to 'tailf:substatement',
        it applies to this substatement.";
   }

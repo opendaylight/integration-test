@@ -120,7 +120,7 @@ module ned {
   }
   revision 2015-06-25 {
     description
-      "Updated class-map protocol, mpls static output lable, 
+      "Updated class-map protocol, mpls static output lable,
        and ip/ipv6 route list";
   }
   revision 2015-06-15 {
@@ -228,7 +228,7 @@ module ned {
     description
       "Restructuring using new file ios-common0.yang and
        augment(s) in order to fix order dependencies.
-       
+
        Added model constructs for Cisco 2800.";
   }
 

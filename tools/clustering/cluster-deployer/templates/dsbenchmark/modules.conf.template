@@ -40,11 +40,11 @@ modules = [
         namespace = "urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:people"
         shard-strategy = "module"
     },
-    
+
     {
         name = "car-people"
         namespace = "urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:car-people"
         shard-strategy = "module"
-    }    
+    }
 
 ]

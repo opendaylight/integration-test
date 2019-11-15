@@ -1,4 +1,4 @@
-{ 
+{
    "tunnel-monitor-interval":{
       "interval":"$int"
    }

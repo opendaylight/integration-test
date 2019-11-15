@@ -8,18 +8,18 @@ add and delete flows.
 
 The test suite contains the following scripts:
 
-- inventory_crawler.py: 
+- inventory_crawler.py:
   Retrieves all nodes from either the config or operational data store
   and prints a flow summary to the console. Depending on the print level
   specified in a command line option, the summary can shows the overall
-  number of flows in the network, the number of flows in each node, or 
+  number of flows in the network, the number of flows in each node, or
   detailed data for each flow
 
 - flow_config_blaster.py:
   Adds and deletes ("blasts") flows into ODL's config space. Command line
-  options control the number of "blaster" threads, the number of blast 
-  cycles, the number of flows blasted in each cycle by each thread, etc. 
-  flow_config_blaster.py provides the FlowConfigBlaster class that is 
+  options control the number of "blaster" threads, the number of blast
+  cycles, the number of flows blasted in each cycle by each thread, etc.
+  flow_config_blaster.py provides the FlowConfigBlaster class that is
   reusable in other tests, such as in flow_add_delete_test.py
 
 - flow_config_blaster_fle.py:
@@ -30,17 +30,17 @@ The test suite contains the following scripts:
   Cleans up the config data store by deleting the entire inventory.
 
 - flow_add_delete_test.py:
-  Adds/deletes ("blasts") flows into ODL's config space. Similar to the 
+  Adds/deletes ("blasts") flows into ODL's config space. Similar to the
   flow_config_blaster (in fact, the flow_config_blaster is used in this
   test), but has more advanced handling of the add/delete cycles. The
   test executes in three steps:
   1. The specified number of flows is added in the 'add cycle' (uses
      flow_config_blaster to blast flows)
-  2. The network is polled for flow statistics from the network 
-     (using the inventory_crawler) to make sure that all flows have been 
+  2. The network is polled for flow statistics from the network
+     (using the inventory_crawler) to make sure that all flows have been
      properly programmed into the network and stats can properly read them
-  3. The flows are deleted in the flow cycle (either in 'bulk' using the 
-     config_cleanup script or one by one using the flow_config_blaster) 
+  3. The flows are deleted in the flow cycle (either in 'bulk' using the
+     config_cleanup script or one by one using the flow_config_blaster)
 
 
 Prerequisites:
@@ -78,7 +78,7 @@ Examples:
 To show a summary of all flows shown in the network, type:
 > ./inventory_crawler.py --plevel=1 --auth
 
-NOTE: REST authentication is turned by default in ODL Helium. To use 
+NOTE: REST authentication is turned by default in ODL Helium. To use
 authenticated REST, you have to specify the '--auth' switch in the command
 line.
 
@@ -133,20 +133,20 @@ optional arguments:
   --file FILE           File from which to read the JSON flow template;
                         default: no file, use a built in template.
 
-NOTE: The 'startflow' command line parameter is used with multiple 
+NOTE: The 'startflow' command line parameter is used with multiple
 flow_config_blasters blasting flows at the same ODL instance. With Python's
-GIL any given blaster can not use more than one CPU even when multiple blaster 
+GIL any given blaster can not use more than one CPU even when multiple blaster
 threads are specified. Therefore, multiple blaster processes must be used to
-test ODL's performance limits. The 'startflow' parameter gives each blaster 
+test ODL's performance limits. The 'startflow' parameter gives each blaster
 process its own flow id space so that each injects unique flows into ODL's
 config data store.
 
 NOTE: You don't have to be connected to mininet (or another openflow network,
-for that matter) to use this script. If ODL is connected to an openflow 
+for that matter) to use this script. If ODL is connected to an openflow
 network, flow_config_blaster will evenly distribute flows across the network.
-If ODL is not connected to a network, flows are only stored in the config 
-data store (i.e. nodes that may connect at some point in the future are in 
-effect "preconfigured"). The not-connected mode can be used to test the 
+If ODL is not connected to a network, flows are only stored in the config
+data store (i.e. nodes that may connect at some point in the future are in
+effect "preconfigured"). The not-connected mode can be used to test the
 performance of the data store and the REST subsystems. The 'nodes' parameter
 determines how many nodes are used in the non-connected mode.
 
@@ -155,31 +155,31 @@ Examples:
 To put 5000 flows into ODL running on the same node as the script type:
    > ./flow_config_blaster.py --flows=5000 --auth --no-delete
 
-To use 5 threads to put 5000 flows into ODL running on the same node as 
+To use 5 threads to put 5000 flows into ODL running on the same node as
 the script type:
    > ./flow_config_blaster.py --threads=5 --flows=1000 --auth --no-delete
 
-   NOTE: each thread will put 1000 flows, and all 5 threads will work 
+   NOTE: each thread will put 1000 flows, and all 5 threads will work
    simultaneously.
 
 To first put and then delete 5000 flows into ODL running on the same node
 as the script type:
    > ./flow_config_blaster.py --flows=5000 --auth
 
-To use 5 threads to first put and then delete 5000 flows into ODL running 
+To use 5 threads to first put and then delete 5000 flows into ODL running
 on the same node as the script type:
    > ./flow_config_blaster.py --threads=5 --flows=1000 --auth
-  
+
  NOTE: 5 threads are used to both add and delete flows
 
-To use 5 threads to first put and then delete 5000 flows into ODL in 10 
+To use 5 threads to first put and then delete 5000 flows into ODL in 10
 add/delete cycles type:
    > ./flow_config_blaster.py --threads=5 --flows=100 --cycles=10 --auth
 
-   NOTE: 5 threads are used to both add and delete flows. 
+   NOTE: 5 threads are used to both add and delete flows.
 
-   NOTE: Both Add and Delete are performed in 10 cycles. 5 worker threads 
-   are started in each cycle and the cycle ends when all threads finish. 
+   NOTE: Both Add and Delete are performed in 10 cycles. 5 worker threads
+   are started in each cycle and the cycle ends when all threads finish.
    Cycles are useful to determine performance degradation with increasing
    number of flows in the datastore and in the network.
 

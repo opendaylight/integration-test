@@ -33,7 +33,7 @@
         <ipv4-destination>20.4.0.0/16</ipv4-destination>
 		<ip-match>
             <ip-protocol>56</ip-protocol>
-            <ip-dscp>60</ip-dscp> 
+            <ip-dscp>60</ip-dscp>
 	    <ip-ecn>1</ip-ecn>
         </ip-match>
     </match>

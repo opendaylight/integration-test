@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flow 
+<flow
     xmlns="urn:opendaylight:flow:inventory">
     <flow-name>swap-mpls-action</flow-name>
     <instructions>

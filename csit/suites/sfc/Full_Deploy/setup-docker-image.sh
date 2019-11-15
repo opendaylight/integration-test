@@ -73,7 +73,7 @@ chmod a+x configure-ovs.sh
 wget https://raw.githubusercontent.com/socketplane/docker-ovs/master/supervisord.conf
 wget https://pypi.python.org/packages/source/s/supervisor-stdout/supervisor-stdout-0.1.1.tar.gz --no-check-certificate
 
-# busybox image is missing some libs, take them from the host 
+# busybox image is missing some libs, take them from the host
 cp /usr/lib64/libcrypto.so.10 .
 cp /usr/lib64/libssl.so.10 .
 cp /usr/lib64/libgssapi_krb5.so.2 .

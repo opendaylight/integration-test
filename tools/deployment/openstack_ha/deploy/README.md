@@ -13,26 +13,26 @@ https://jira.opendaylight.org/browse/INTTEST-34
 ### 1node  Setup (1 Openstack Control Node)
 Requires 4 VM instances
 * 1 for robot execution
-* 1 for Control Node 
+* 1 for Control Node
 * 2 Compute Nodes
 
 #### 1node setup Platform Requirements
 * All Nodes should have this hardware support as minimum
      - 4 VCPU
      - 8192 MB RAM
-  
+
 ### 3node Setup (3 Openstack Control Nodes for HA)
 Requires 7 VM instances
 * 1 for robot execution
-* 3 Openstack Control Nodes 
+* 3 Openstack Control Nodes
 * 1 HAProxy Node
 * 2 Compute Nodes
 
 #### 3node setup Platform Requirements
-* All Control Nodes to have 
+* All Control Nodes to have
      - 4 VCPU
      - 12288 MB RAM
-     
+
 * All Other Nodes should have this hardware support as minimum
      - 4 VCPU
      - 8192 MB RAM
@@ -41,14 +41,14 @@ Requires 7 VM instances
 * All VM's will run the latest CentOS (7) distro
   At the time of creating this text, latest can be found here
   [CentOS 7.4](http://mirrors.kernel.org/centos/7.4.1708/)
-  
+
 * Ensure that one common sudo capable username/password can login to all VM's. i.e login with the same username/password combination
   is possible in all VM's, preferrably have the same root password in all VM's
-  
+
 * Ensure that SELINUX is disabled in all nodes.
    ```
    Edit the file /etc/selinux/config and ensure the line
-   SELINUX=disabled 
+   SELINUX=disabled
    ```
 * Ensure the instances can reach internet to download and install packages
 
@@ -84,8 +84,8 @@ Requires 7 VM instances
 	                       |           |		|
       			     Data      External      External
                                       Network1	   Network2
-                                      
-                                 
+
+
  ### 3node Topology
 
 
@@ -113,35 +113,35 @@ Requires 7 VM instances
 	|	     |         |           |		|
 	|  haproxy   |---------|           |		|
 	|            |         |           |            |
-	-------------          |           |	        |  
+	-------------          |           |	        |
 	-------------          |           |		|
 	|	     |---------|-----------|		|
 	|  Compute1  |---------|           |		|
 	|            |---------|-----------|------------|
-	-------------          |           |		|  
+	-------------          |           |		|
 	-------------          |           |		|
 	|	     |---------|-----------|		|
 	|  Compute2  |---------|           |		|
 	|            |---------|-----------|------------|
-	-------------          |           |		|  
-			       |           |		|   
-			       |           |		|  
+	-------------          |           |		|
+			       |           |		|
+			       |           |		|
 			       Data      External      External
 			       		 Network1	Network2
- 
- 
+
+
  ## Steps to Execute from Robot VM
- 
+
  ### Get Deployer
- 
+
  * Install robotframework pre-requisites
  ```
  	sudo yum install python-pip git -y
- 	pip install robotframework robotframework-sshlibrary 
+ 	pip install robotframework robotframework-sshlibrary
  	pip install robotframework-requests
  	pip install robotframework-httplibrary
  ```
- 
+
  * Get the Deployer
  ```
  	git clone https://git.opendaylight.org/gerrit/p/integration/test
@@ -151,11 +151,11 @@ Requires 7 VM instances
  ```
  Note: The deployer is not merged yet
  ```
- 
+
  ### Test 1node Openstack with ODL
- 
+
  #### Deploy 1node Openstack with ODL
- 
+
  * Run the deployer with pybot
  ```
  	pybot --debug ~/debug_1node.log \
@@ -189,7 +189,7 @@ Requires 7 VM instances
 
 * If the status is "PASS", there will be an Openstack Installation with
   one control node and 2 compute nodes.
-  
+
 * All the settings for executing CSIT will be configured.
 
 #### Execute CSIT
@@ -258,7 +258,7 @@ Requires 7 VM instances
 * After execution, Check the log.html to understand the status of execution
 
 * If the status is "PASS", there will be an Openstack Installation with
-  three control nodes as HA and 2 compute nodes along with HAProxy node 
+  three control nodes as HA and 2 compute nodes along with HAProxy node
   configured to load balance and ensure HA.
 
 * All the settings for executing CSIT will be configured.

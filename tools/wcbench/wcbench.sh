@@ -822,7 +822,7 @@ uninstall_cbench()
     fi
     if [ -f $OFLOPS_BIN ]; then
         echo "Removing $OFLOPS_BIN"
-        sudo rm -f $OFLOPS_BIN 
+        sudo rm -f $OFLOPS_BIN
     fi
 }
 

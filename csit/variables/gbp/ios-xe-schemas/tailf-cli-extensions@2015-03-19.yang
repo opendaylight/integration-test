@@ -12,21 +12,21 @@ submodule tailf-cli-extensions {
   description
     "This module defines all Tail-f YANG extensions statements
      related to CLI customization.
-     
+
      See also the 'display-' statements and the 'alt-name' statement
      in tailf-common.yang.";
 
   revision 2015-03-19 {
     description
       "Released as part of ConfD-5.4 / NCS-3.4.
-       
+
        Added cli-show-obu-comments.
        Added cli-batch-confirm-default.";
   }
   revision 2014-11-13 {
     description
       "Released as part of ConfD-5.3 / NCS-3.3.
-       
+
        Added cli-strict-leafref.
        Added cli-trigger-on-*.
        Allow cli-boolean-no in typedef.";
@@ -34,7 +34,7 @@ submodule tailf-cli-extensions {
   revision 2013-11-07 {
     description
       "Released as part of ConfD-5.0.
-       
+
        Added cli-disabled-info.
        Added cli-suppress-shortenabled.
        Added cli-no-keyword.
@@ -43,7 +43,7 @@ submodule tailf-cli-extensions {
   revision 2012-11-08 {
     description
       "Released as part of ConfD-4.1.
-       
+
        Added cli-delete-when-empty.
        Added cli-diff-dependency.
        Added cli-ignore-modified.";
@@ -51,14 +51,14 @@ submodule tailf-cli-extensions {
   revision 2012-08-23 {
     description
       "Released as part of ConfD-4.0.1.
-       
+
        Allow tailf:cli-operational-mode and tailf:cli-configure-mode in
          rpc.";
   }
   revision 2012-06-14 {
     description
       "Released as part of ConfD-4.0.
-       
+
        Do not allow tailf:cli-drop-node-name and tailf:cli-sequence-commands
          inside tailf:action.
        Added tailf:cli-configure-mode.
@@ -67,7 +67,7 @@ submodule tailf-cli-extensions {
   revision 2012-05-24 {
     description
       "Released as part of ConfD-3.9.2.
-       
+
        Added tailf:cli-no-value-on-delete.
        Added tailf:cli-no-name-on-delete.
        Added tailf:cli-replace-all.
@@ -76,20 +76,20 @@ submodule tailf-cli-extensions {
   revision 2012-03-08 {
     description
       "Released as part of ConfD-3.9.
-       
+
        Allow tailf:cli-range-list-syntax in lists with one integer based
          key.";
   }
   revision 2011-12-08 {
     description
       "Released as part of ConfD-3.8.
-       
+
        Added tailf:cli-min-column-with.";
   }
   revision 2011-09-22 {
     description
       "Released as part of ConfD-3.7.
-       
+
        Added tailf:cli-disallow-value.
        Added tailf:cli-multi-word.
        Added tailf:cli-before-key.
@@ -98,7 +98,7 @@ submodule tailf-cli-extensions {
   revision 2011-08-25 {
     description
       "Released as part of ConfD-3.6.2.
-       
+
        Added cli-suppress-silent-no.
        Added cli-range-delimiters.
        Removed duplicate tailf:use-in statement from cli-show-config.";
@@ -106,21 +106,21 @@ submodule tailf-cli-extensions {
   revision 2011-06-30 {
     description
       "Released as part of ConfD-3.6.1.
-       
+
        Added cli-reversed.
        Added cli-range-list-syntax.";
   }
   revision 2011-05-26 {
     description
       "Released as part of ConfD-3.6.
-       
+
        Added cli-allow-join-with-key.
        Added cli-display-joined.";
   }
   revision 2011-02-24 {
     description
       "Released as part of ConfD-3.5.
-       
+
        Added cli-boolean-no.
        Added cli-exit-command.
        Added cli-custom-range-enumerator.
@@ -130,28 +130,28 @@ submodule tailf-cli-extensions {
        Added cli-hide-in-submode.
        Added cli-prefix-key.
        Added cli-show-with-default.
-       
+
        Added 'commasep' and 'show:<dictionary>' filter in
        cli-template-string.
-       
+
        Removed deprecated tailf:cli-default-order.";
   }
   revision 2010-12-02 {
     description
       "Released as part of ConfD-3.4.1.
-       
+
        Added cli-flatten-container.";
   }
   revision 2010-11-04 {
     description
       "Released as part of ConfD-3.4.
-       
+
        Added cli-key-format.
        Added cli-list-syntax.
        Added cli-flat-list-syntax.
-       
+
        The following statements were added in ConfD-3.3.3:
-       
+
        Added cli-suppress-list-no.
        Added cli-suppress-no.
        Added cli-full-no.
@@ -160,7 +160,7 @@ submodule tailf-cli-extensions {
   revision 2010-09-16 {
     description
       "Released as part of ConfD-3.3.2.
-       
+
        Added cli-autowizard.
        Added cli-multi-word-key.
        Added cli-no-match-completion.";
@@ -168,7 +168,7 @@ submodule tailf-cli-extensions {
   revision 2010-08-19 {
     description
       "Released as part of ConfD-3.3.1.
-       
+
        Added cli-show-template-footer.
        Added cli-run-template-footer.
        Added cli-table-footer.
@@ -177,24 +177,24 @@ submodule tailf-cli-extensions {
   revision 2010-06-17 {
     description
       "Released as part of ConfD-3.3.
-       
+
        Added cli-display-empty-config.
-       
+
        Added cli-expose-key-name.
-       
+
        Added cli-value-display-template.
-       
+
        Added cli-run-template.
        Added cli-run-template-legend.
        Added cli-run-template-enter.
-       
+
        Added cli-suppress-key-sort.
-       
+
        Added cli-suppress-validation-warning-prompt.
-       
+
        Added 'hex' and 'hexlist' as display parameters in the
        type cli-template-string.
-       
+
        Deprecated tailf:cli-default-order.";
   }
   revision 2010-03-18 {
@@ -214,7 +214,7 @@ submodule tailf-cli-extensions {
        should be displayed as 'no <name>' when it does not exist.
        For example, if a leaf 'shutdown' has this property and
        does not exist, 'no shutdown' is displayed.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -230,7 +230,7 @@ submodule tailf-cli-extensions {
     tailf:use-in "tailf:symlink";
     description
       "Specifies that a pattern for invalid values.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -244,10 +244,10 @@ submodule tailf-cli-extensions {
       "Specifies that a leaf of type boolean should be displayed as
        '<leafname>' if set to true, and 'no <leafname>' if set to
        false.
-       
+
        Cannot be used in conjunction with tailf:cli-hide-in-submode
        or tailf:cli-compact-syntax.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -256,7 +256,7 @@ submodule tailf-cli-extensions {
     description
       "Specified that true should be displayed as 'no <name>' and
        false as 'name'.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -267,11 +267,11 @@ submodule tailf-cli-extensions {
     description
       "Specifies that the autowizard should include this leaf even
        if the leaf is optional.
-       
+
        One use case is when implementing pre-configuration of devices.
        A config false node can be defined for showing if the
        configuration is active or not (preconfigured).
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -285,7 +285,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies that the node will be included when doing a 'show
        running-configuration', even if it is a non-config node.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -297,7 +297,7 @@ submodule tailf-cli-extensions {
       "Specifies that the node will be included when doing a 'show
        stats', even if it is a non-config node, provided
        that the list contains at least one non-config node.
-       
+
        Used in J-style CLI.";
   }
 
@@ -314,16 +314,16 @@ submodule tailf-cli-extensions {
     description
       "Specifies a custom mode name, instead of the default which is the
        name of the list or container node.
-       
+
        Can be used in config nodes only.  If used in a container, the
        container must also have a tailf:cli-add-mode statement, and if
        used in a list, the list must not also have a
        tailf:cli-suppress-mode statement.
-       
+
        Variables for the list keys in the current mode are available.
        For examples, 'config-foo-xx$(name)' (privided the key leaf
        is called 'name').
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -342,9 +342,9 @@ submodule tailf-cli-extensions {
        tailf:cli-show-order-tag attribute. Nodes will be displayed
        in the order indicated in the list. Nodes without a tag will
        be displayed after all nodes with a tag have been displayed.
-       
+
        The scope of a taglist is until a new taglist is encountered.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -365,9 +365,9 @@ submodule tailf-cli-extensions {
        tailf:cli-show-order-tag attribute. Nodes will be displayed
        in the order indicated by a cli-show-order-taglist attribute in
        a parent node.
-       
+
        The scope of a tag reaches until a new taglist is encountered.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -384,17 +384,17 @@ submodule tailf-cli-extensions {
       "Specifies that a custom function will be invoked to find out the mode
        name, instead of using the default with is the name of the list
        or container node.
-       
+
        The argument is the name of an actionpoint, which must be
        implemented by custom code.  In the actionpoint, the command()
        callback function will be invoked, and it must return a string
        with the mode name.  See confd_lib_dp(3) for details.
-       
+
        Can be used in config nodes only.  If used in a container, the
        container must also have a tailf:cli-add-mode statement, and if
        used in a list, the list must not also have a
        tailf:cli-suppress-mode statement.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -404,9 +404,9 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Creates a mode of the container.
-       
+
        Can be used in config nodes only.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -419,9 +419,9 @@ submodule tailf-cli-extensions {
       "Allows the CLI to exit the container and continue to input
        from the parent container when all leaves in the current
        container has been set.
-       
+
        Can be used in config nodes only.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -431,9 +431,9 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Instructs the CLI engine to not make a mode of the list node.
-       
+
        Can be used in config nodes only.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -443,7 +443,7 @@ submodule tailf-cli-extensions {
     description
       "Instructs the CLI engine to delete the list when the last list
        instance is deleted'. Requires that cli-suppress-mode is set.
-       
+
        The behavior is recursive. If all optional leafs in a list
        instance are deleted the list instance itself is deleted. If
        that list instance happens to be the last list instance in a
@@ -471,7 +471,7 @@ submodule tailf-cli-extensions {
     description
       "When displaying the deleted version of this leaf do not
        include the old value.
-       
+
        Applies to C-style";
   }
 
@@ -485,7 +485,7 @@ submodule tailf-cli-extensions {
     description
       "When displaying the deleted version of this element do not
        include the name.
-       
+
        Applies to C-style";
   }
 
@@ -499,7 +499,7 @@ submodule tailf-cli-extensions {
     description
       "Embed no in front of the element name insead of at the
        beginning of the line.
-       
+
        Applies to C-style";
   }
 
@@ -511,7 +511,7 @@ submodule tailf-cli-extensions {
     description
       "When generating configuration diffs delete all contents
        of a container or list before deleting the node.
-       
+
        Applies to C-style";
   }
 
@@ -538,7 +538,7 @@ submodule tailf-cli-extensions {
        with this declaration, it should be removed before the node
        it depends on is removed, ie the declaration controlls the ordering
        of the commands in the 'show configuration' output.
-       
+
        Applies to C-style";
   }
 
@@ -548,11 +548,11 @@ submodule tailf-cli-extensions {
       "Specify that the dependency should trigger on set/modify of
               the target path, but deletion of the target will trigger the
               current node to be placed in front of the target.
-       
+
               The annotation can be used to get the diff behavior where
               one leaf is first deleted before the other leaf is set.
               For example, having the data model below:
-       
+
                container X {
                  leaf A {
                    tailf:cli-diff-dependency \"../B\" {
@@ -567,23 +567,23 @@ submodule tailf-cli-extensions {
                    type empty;
                  }
                }
-       
+
               produces the following diffs when setting one leaf
               and deleting the other
-       
+
                 no X A
                 X B
-       
+
               and
-       
+
                 no X B
                 X A
-       
+
               this can also be done with list instances, for example
-       
+
                 list a {
                   key id;
-       
+
                   leaf id {
                     tailf:cli-diff-dependency \"/c[id=current()/../id]\" {
                       tailf:cli-trigger-on-set;
@@ -591,7 +591,7 @@ submodule tailf-cli-extensions {
                     type string;
                   }
                 }
-       
+
                 list c {
                   key id;
                   leaf id {
@@ -601,19 +601,19 @@ submodule tailf-cli-extensions {
                     type string;
                   }
                 }
-       
+
               we get
-       
+
                 no a foo
                 c foo
                 !
-       
+
               and
-       
+
                 no c foo
                 a foo
                 !
-       
+
               In the above case if we have the same id in list \"a\" and \"c\"
               and we delete the instance in one list, and add it in the other,
               then the deletion will always preceed the create.
@@ -626,19 +626,19 @@ submodule tailf-cli-extensions {
       "This annotation can be used togeter with tailf:cli-trigger-on-set
        to also get the behavior that when deleting the target display
        changes to this node first. For exmaple:
-       
+
         container settings {
           tailf:cli-add-mode;
-       
+
           leaf opmode {
             tailf:cli-no-value-on-delete;
-       
+
             type enumeration {
               enum nat;
               enum transparent;
             }
           }
-       
+
           leaf manageip {
             when \"../opmode = 'transparent'\";
             mandatory true;
@@ -647,40 +647,40 @@ submodule tailf-cli-extensions {
               tailf:cli-trigger-on-set;
               tailf:cli-trigger-on-delete;
             }
-       
+
             type string;
           }
         }
-       
+
        What we are trying to achieve here is that if manageip is
        deleted, it should be displayed before opmode, but if we
        configure both opmode and manageip, we should display opmode
        first, ie get the diffs:
-       
+
        settings
         opmode   transparent
         manageip 1.1.1.1
        !
-       
+
        and
-       
+
        settings
         no manageip
         opmode nat
        !
-       
+
        and
-       
+
        settings
         no manageip
         no opmode
        !
-       
+
        The cli-trigger-on-set annotation will cause the 'no manageip'
        command to be displayed before setting opmode. The
        tailf:cli-trigger-on-delete will cause 'no manageip' to be
        placed before 'no opmode' when both are deleted.
-       
+
        In the first diff where both are created, opmode will come first
        due to the diff-dependency setting, regardless of the
        cli-trigger-on-delete and cli-trigger-on-set.
@@ -693,7 +693,7 @@ submodule tailf-cli-extensions {
       "Specify that the dependency should always trigger. It is the
        same as placing one element before another in the data model.
        For example, given the data model:
-       
+
        container X {
          leaf A {
            tailf:cli-diff-dependency '../B' {
@@ -705,14 +705,14 @@ submodule tailf-cli-extensions {
            type empty;
          }
        }
-       
+
        We get the diffs
-       
+
          X B
          X A
-       
+
        and
-       
+
          no X B
          no X A
       ";
@@ -729,7 +729,7 @@ submodule tailf-cli-extensions {
       "Tells the cdb_cli_diff_iterate system call to not generate
        a CLI string when this container is modified. The string will
        instead be generated for the modified sub-element.
-       
+
        Applies to C-style and I-style";
   }
 
@@ -767,7 +767,7 @@ submodule tailf-cli-extensions {
             interface ethernet1/1
        and
             interface ethernet 1/1
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -783,7 +783,7 @@ submodule tailf-cli-extensions {
             interface ethernet1/1
        and
             interface ethernet 1/1
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -811,7 +811,7 @@ submodule tailf-cli-extensions {
       "Tells the CLI to add an explicit exit-from-submode command.
        The tailf:info substatement can be used for adding a custom
        info text for the command.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -825,7 +825,7 @@ submodule tailf-cli-extensions {
        the configuration. It will not be added if cli-exit-command
        is defined as well. The annotation is inherited by all
        sub-modes.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -845,10 +845,10 @@ submodule tailf-cli-extensions {
        items are numbered from 1-N and the format string should
        indicate how they are related by using $(X) (where X is the
        key number). For example:
-       
+
        tailf:cli-key-format '$(1)-$(2)' means that the first key
        item is concatenated with the second key item by a '-'.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -859,7 +859,7 @@ submodule tailf-cli-extensions {
     description
       "Instructs the CLI engine to not sort the keys in alphabetical order
        when presenting them to the user during TAB completion.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -870,9 +870,9 @@ submodule tailf-cli-extensions {
     description
       "Instructs the CLI engine to not print the list as a table in
        the 'show' command.
-       
+
        Can be used in non-config nodes only.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -886,7 +886,7 @@ submodule tailf-cli-extensions {
     description
       "Instructs the CLI engine to not prompt the user whether to proceed
        or not if a warning is generated for this node.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -897,14 +897,14 @@ submodule tailf-cli-extensions {
     description
       "Key values cannot be abbreviated.  The user must always give
        complete values for keys.
-       
+
        In the J-style CLI this is relevant when using the commands
        'delete' and 'edit'.
-       
+
        In the I- and C-style CLIs this is relevant when using the
        commands 'no', 'show configuration' and for commands to enter
        submodes.
-       
+
        See also /confdConfig/cli/allowAbbrevKeys in confd.conf(5).";
   }
 
@@ -914,14 +914,14 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Key values can be abbreviated.
-       
+
        In the J-style CLI this is relevant when using the commands
        'delete' and 'edit'.
-       
+
        In the I- and C-style CLIs this is relevant when using the
        commands 'no', 'show configuration' and for commands to enter
        submodes.
-       
+
        See also /confdConfig/cli/allowAbbrevKeys in confd.conf(5).";
   }
 
@@ -938,7 +938,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed before all list entries are
        printed.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -955,7 +955,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed after all list entries are
        printed.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -973,11 +973,11 @@ submodule tailf-cli-extensions {
     description
       "Specifies that completion for the leaf values is done through a
        callback function.
-       
+
        The argument is the name of an actionpoint, which must be
        implemented by custom code.  In the actionpoint, the completion()
        callback function will be invoked.  See confd_lib_dp(3) for details.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1010,7 +1010,7 @@ submodule tailf-cli-extensions {
     description
       "Tells the CLI to automatically enter multi-line mode when prompting
        the user for a value to this leaf.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1023,9 +1023,9 @@ submodule tailf-cli-extensions {
       "Specifies that the key should allow multiple tokens for the
        value. Proper type restrictions needs to be used to limit
        the range of the leaf value.
-       
+
        Can be used in key leafs only.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1048,9 +1048,9 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Means that the non-integer key should allow range expressions.
-       
+
        Can be used in key leafs only.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1072,7 +1072,7 @@ submodule tailf-cli-extensions {
        example, the delimiters value is set to '/.' then both '/' and
        '.' will be considered delimiters and an key such as 1/2/3.4 will
        consist of the enteties 1,2,3,4, all matched separately.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1082,9 +1082,9 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Means that the integer key should not allow range expressions.
-       
+
        Can be used in key leafs only.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1098,9 +1098,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies that the key should support ranges.  A type matching the
        range expression must be supplied.
-       
+
        Can be used in key leafs only.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1120,18 +1120,18 @@ submodule tailf-cli-extensions {
        function will be invoked to determine if an instance belong in
        the range or not. At least one key element needs a
        cli-custom-range statement.
-       
+
        The argument is the name of an actionpoint, which must be
        implemented by custom code.  In the actionpoint, the
        completion() callback function will be invoked.  See
        confd_lib_dp(3) for details.
-       
+
        When a range expression value which matches the type is given in
        the CLI, the CLI engine will invoke the callback with each
        existing list entry instance.  If the callback returns CONFD_OK,
        it matches the range expression, and if it returns CONFD_ERR, it
        doesn't match.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1151,13 +1151,13 @@ submodule tailf-cli-extensions {
        instances matching a regular expression. This is used
        when instances should be allowed to be created using
        a range expression in set.
-       
+
        The callback is not used for delete or show operations.
-       
+
        The callback is allowed to return a superset of all matching
        instances since the instances will be filtered using the
        range expression afterwards.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1172,9 +1172,9 @@ submodule tailf-cli-extensions {
       "This statement contains the name of a derived type, possibly
        with a prefix.  If no prefix is given, the type must be defined in
        the local module.  For example:
-       
+
         cli-range-type p:my-range-type;
-       
+
        All range expressions must match this type, and a valid key
        value must not match this type.";
   }
@@ -1185,9 +1185,9 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Means that the list allows wildcard expressions in the 'show' pattern.
-       
+
        See also /confdConfig/cli/allowWildcard in confd.conf(5).
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1198,9 +1198,9 @@ submodule tailf-cli-extensions {
     description
       "Means that the list does not allow wildcard expressions in the 'show'
        pattern.
-       
+
        See also /confdConfig/cli/allowWildcard in confd.conf(5).
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1210,10 +1210,10 @@ submodule tailf-cli-extensions {
     description
       "An action or rpc with this attribute will be available in
        configure mode, but not in operational mode.
-       
+
        The default is that the action or rpc is available in both
        configure and operational mode.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1223,10 +1223,10 @@ submodule tailf-cli-extensions {
     description
       "An action or rpc with this attribute will be available in
        operational mode, but not in configure mode.
-       
+
        The default is that the action or rpc is available in both
        configure and operational mode.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1269,12 +1269,12 @@ submodule tailf-cli-extensions {
       "Enables transactions while in a specific submode (or submode of that
        mode).  The modifications performed in that mode will not take effect
        until the user exits that submode.
-       
+
        Can be used in config nodes only.  If used in a container, the
        container must also have a tailf:cli-add-mode statement, and if
        used in a list, the list must not also have a
        tailf:cli-suppress-mode statement.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1285,7 +1285,7 @@ submodule tailf-cli-extensions {
     description
       "Suppresses quoting of non-config elements when displaying them.
        Newlines will be preserved in strings etc.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1302,7 +1302,7 @@ submodule tailf-cli-extensions {
       "Specifies an info string that will be used as a descriptive text for the
        value 'disable' (false) of boolean-typed leafs when the confd.conf(5)
        setting /confdConfig/cli/useShortEnabled is set to 'true'.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1312,7 +1312,7 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Suppresses the confd.conf(5) setting /confdConfig/cli/useShortEnabled.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1322,7 +1322,7 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Do not display value if it is same as default.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1333,7 +1333,7 @@ submodule tailf-cli-extensions {
     description
       "Force the user to enter the name of the key and display the
        key name when displaying the running-configuration.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1345,7 +1345,7 @@ submodule tailf-cli-extensions {
       "Forces the generation of a table for a list element node regardless of
        whether the table will be too wide or not.  This applies to the
        tables generated by the auto-rendred show commands for non-config data.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1358,13 +1358,13 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Specifies that the name of a node is not present in the CLI.
-       
+
        If tailf:cli-drop-node-name is given on a child to a list node,
        we recommend that you also use tailf:cli-suppress-mode on that
        list node, otherwise the CLI will be very confusing.
-       
+
        For example, consider this data model, from the tailf-aaa module:
-       
+
        list alias {
         key name;
         leaf name {
@@ -1376,17 +1376,17 @@ submodule tailf-cli-extensions {
           tailf:cli-drop-node-name;
         }
        }
-       
+
        If you type 'alias foo' in the CLI, you would end up in the
        'alias' submode.  But since the expansion is dropped, you would
        end up specifying the expansion value without typing any command.
-       
+
        If, on the other hand, the 'alias' list had a
        tailf:cli-suppress-mode statement, you would set an expansion
        'bar' by typing 'alias foo bar'.
-       
+
        tailf:cli-drop-node-name cannot be used inside tailf:action.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1399,13 +1399,13 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Specifies that the name of a node is not present in the CLI.
-       
-       
+
+
        Note that is must be used with some care, just
        like tailf:cli-drop-node-name. The resulting data model must still
        be possible to parse deterministically.
        For example, consider the data model
-       
+
        container interfaces {
           list traffic {
               tailf:cli-no-keyword;
@@ -1420,19 +1420,19 @@ submodule tailf-cli-extensions {
               leaf mtu { type uint16; }
           }
        }
-       
+
        In this case it is impossible to determine if the config
-       
+
        interfaces {
           eth0 {
              mtu 1400;
            }
        }
-       
+
        Means that there should be an traffic interface instance named
        'eth0' or a management interface instance maned 'eth0'. If, on
        the other hand, a restriction on the type was used, for example
-       
+
        container interfaces {
           list traffic {
               tailf:cli-no-keyword;
@@ -1447,9 +1447,9 @@ submodule tailf-cli-extensions {
               leaf mtu { type uint16; }
           }
        }
-       
+
        then the problem would disappear.
-       
+
        Used in the J-style CLIs.";
   }
 
@@ -1463,9 +1463,9 @@ submodule tailf-cli-extensions {
        node in the 'show running-configuration' command.  The compact
        representation means that all leaf elements are shown on a
        single line.
-       
+
        Cannot be used in conjunction with tailf:cli-boolean-no.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1483,7 +1483,7 @@ submodule tailf-cli-extensions {
       "Instructs the CLI engine to use the compact representation for this
        node.  The compact representation means that all leaf elements
        are shown on a single line.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1545,7 +1545,7 @@ submodule tailf-cli-extensions {
       "Display leafs in the container as columns, i.e., do not repeat
        the name of the container on each line, but instead indent each
        leaf under the container.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1561,7 +1561,7 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Set a fixed width for the column in the auto-rendered tables.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1577,7 +1577,7 @@ submodule tailf-cli-extensions {
     tailf:use-in "refine";
     description
       "Set a minimum width for the column in the auto-rendered tables.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1598,7 +1598,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies the alignment of the data in the column in the
        auto-rendered tables.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1610,7 +1610,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies that each entry in a leaf-list should be displayed as
        a separate element.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1629,7 +1629,7 @@ submodule tailf-cli-extensions {
       "Specifies that elements in a leaf-list should be entered without
        surrounding brackets. Also, multiple elements can be added to a list
        or deleted from a list.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1651,14 +1651,14 @@ submodule tailf-cli-extensions {
        without surrounding brackets and presented as ranges.  The
        element in the list should be separated by a comma.  For
        example:
-       
+
         vlan 1,3,10-20,30,32,300-310
-       
+
        When this statement is used for lists, the list must have a
        single key.  The elements are be presented as ranges as above.
-       
+
        The type of the list key, or the leaf-list, must be integer based.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1674,7 +1674,7 @@ submodule tailf-cli-extensions {
        the completion list for optional internal nodes, for example, or
        to ensure that the user enters all leaf values in a container
        (if used in combination with cli-sequence-commands).
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1689,7 +1689,7 @@ submodule tailf-cli-extensions {
       "Specifies that an auto-rendered command should be considered complete,
        ie, no additional leaves or containers can be entered on the same
        command line.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1706,12 +1706,12 @@ submodule tailf-cli-extensions {
        This, in combination with tailf:cli-drop-node-name, can be used
        to create CLI commands for setting multiple leafs in a container
        without having to specify the leaf names.
-       
+
        In almost all cases this annotation should be accompanied by the
        tailf:cli-compact-syntax annotation. Otherwise the output from
        'show running-config' will not be correct, and the sequence
        'save xx' 'load override xx' will not work.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1738,7 +1738,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies that all sibling leaves in the container should be
        reset when this element is set.
-       
+
        When used on a container its content is cleared when set.";
   }
 
@@ -1750,7 +1750,7 @@ submodule tailf-cli-extensions {
       "Tells CLI engine to display this container as a separate
        line item even when it has children. Only applies to
        presence containers.
-       
+
        Applicable for optional containers in the C- and I- style CLIs.";
   }
 
@@ -1774,7 +1774,7 @@ submodule tailf-cli-extensions {
       "Specifies that previous cli-sequence-command declaration should
        stop at this point. Only applicable when a cli-sequence-command
        declaration has been used in the parent container.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1788,7 +1788,7 @@ submodule tailf-cli-extensions {
        references to existing instances when the command is executed.
        Without this annotation the requirement is that the instance
        exists on commit time.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1802,7 +1802,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies that this element is optional in the sequence. If it
        is set it must be set in the right sequence but may be skipped.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1818,7 +1818,7 @@ submodule tailf-cli-extensions {
       "Specifies that a path to the show command is considered incomplete,
        i.e., it needs more elements added to the path.  It can also be used
        to specify a minimum number of keys to be given for lists.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -1842,9 +1842,9 @@ submodule tailf-cli-extensions {
       "Hide leaf when submode has been entered. Mostly useful when
        leaf has to be entered in order to enter a submode. Also works
        for flattened containers.
-       
+
        Cannot be used in conjunction with tailf:cli-boolean-no.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1867,10 +1867,10 @@ submodule tailf-cli-extensions {
       "This leaf has to be given as a prefix before entering the actual
        list keys. Very backwards but a construct that exists in some
        Cisco CLIs.
-       
+
        The construct can be used also for leaf-lists but only when
        then tailf:cli-range-list-syntax is also used.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1896,7 +1896,7 @@ submodule tailf-cli-extensions {
        when you save a config and then load it again. With this setting
        in place a leaf that has not been configured will be configured
        after the load.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -1920,7 +1920,7 @@ submodule tailf-cli-extensions {
       "This statement works exactly as tailf:info, with the exception
        that it is used when displaying the element info in the context
        of stats.
-       
+
        Both tailf:info and tailf:cli-oper-info can be present at the same
        time.";
   }
@@ -1933,7 +1933,7 @@ submodule tailf-cli-extensions {
       "Specifies that this node is case-sensitive.
        If applied to a container or a list, any nodes below will
        also be case-sensitive.
-       
+
        Note that this will override any case-sensitivity settings
        configured in confd.conf";
   }
@@ -1946,7 +1946,7 @@ submodule tailf-cli-extensions {
       "Specifies that node is case-insensitive.
        If applied to a container or a list, any nodes below will
        also be case-insensitive.
-       
+
        Note that this will override any case-insensitivity settings
        configured in confd.conf";
   }
@@ -1978,7 +1978,7 @@ submodule tailf-cli-extensions {
       "Specifies that a path to the show command is considered complete, i.e.,
        no more elements can be added to the path.  It can also be used to
        specify a maximum number of keys to be given for lists.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2004,7 +2004,7 @@ submodule tailf-cli-extensions {
       "Specifies that the show command cannot be invoked with the path,
        ie the path is suppressed when auto-rendering show commands for
        config='false' data.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2019,7 +2019,7 @@ submodule tailf-cli-extensions {
       "Specifies that a specific completion match (i.e., a filter match that
        appear at list nodes as an alternative to specifying a single
        instance) to the show command should not be available.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2033,7 +2033,7 @@ submodule tailf-cli-extensions {
        or leaf-list. Only specific instances should be deletable not the
        entire list in one command. ie, 'no foo <instance>' should be allowed
        but not 'no foo'.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2048,7 +2048,7 @@ submodule tailf-cli-extensions {
       "Specifies that the CLI should not auto-render 'no' commands for
        this element. An element with this annotation will not appear in the
        completion list to the 'no' command.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2069,7 +2069,7 @@ submodule tailf-cli-extensions {
        suppressed for a leaf and that a custom error message should
        be displayed when the user attempts to delete a non-existing
        element.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2084,7 +2084,7 @@ submodule tailf-cli-extensions {
       "Specifies that an auto-rendered 'no'-command should be considered complete,
        ie, no additional leaves or containers can be entered on the same
        command line.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2099,7 +2099,7 @@ submodule tailf-cli-extensions {
       "Specifies that an auto-rendered 'no'-command should not be considered
        complete, ie, additional leaves or containers must be entered on the same
        command line.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2110,7 +2110,7 @@ submodule tailf-cli-extensions {
     description
       "Specifies that the CLI engine should not provide match completion
        for the key leafs in the list.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2125,7 +2125,7 @@ submodule tailf-cli-extensions {
       "Specifies that the show running-config command cannot be invoked with
        the path, ie the path is suppressed when auto-rendering show running-
        config commands for config='true' data.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2137,7 +2137,7 @@ submodule tailf-cli-extensions {
       "Specifies that the CLI engine should not perform completion for key
        leafs in the list. This is to avoid querying the data provider
        for all existing keys.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2155,23 +2155,23 @@ submodule tailf-cli-extensions {
        when doing completion in the CLI.  By default, a list entry is
        displayed by listing its key values, and the value of a leaf
        called 'description', if such a leaf exists in the list entry.
-       
+
        The 'cli-instance-info-leafs' statement takes as its argument a
        space separated string of leaf names.  When a list entry is
        displayed, the values of these leafs are concatenated with a
        space character as separator and shown to the user.
-       
+
        For example, when asked to specify an interface the CLI will
        display a list of possible interface instances, say 1 2 3 4.  If
        the cli-instance-info-leafs property is set to 'description' then
        the CLI might show:
-       
+
         Possible completions:
           1 - internet
           2 - lab
           3 - dmz
           4 - wlan
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2186,10 +2186,10 @@ submodule tailf-cli-extensions {
        the need for quoting values containing spaces, but also
        prevents multiple leaves from being set on the same command
        line once a multi-value leaf has been given on a line.
-       
+
        If the tailf:cli-max-words substatements is used then
        additional leaves may be entered.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2209,9 +2209,9 @@ submodule tailf-cli-extensions {
        be referenced from a display template of one leaf. The only
        value accessible is the leaf's own value, accessed through
        $(.).
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2234,13 +2234,13 @@ submodule tailf-cli-extensions {
        operational mode.  It is primarily intended for displaying
        non-config data but config data may be included in the template
        as well.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Some restrictions includes not applying templates on a leaf that
        is the key in a list. It is recommended to use the template
        directly on the list to format the whole list instead.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2262,9 +2262,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed before all list entries are
        printed.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2281,9 +2281,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed before each list entry is
        printed.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2300,9 +2300,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed after all list entries are
        printed.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in J-, I- and C-style CLIs.";
   }
 
@@ -2322,9 +2322,9 @@ submodule tailf-cli-extensions {
        command in operational mode.  It is primarily intended for displaying
        config data but non-config data may be included in the template
        as well.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2341,9 +2341,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed before all list entries are
        printed.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2361,25 +2361,25 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed before each list entry is
        printed.
-       
+
        When used on a container it only has effect when the container
        also has a tailf:cli-add-mode, and when tailf:cli-show-no isn't
        used on the container.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        The variable .reenter is set to 'true' when the 'show configuration'
        command is executed and the list or container isn't created. This
        allow, for example, to display
-       
+
           create foo
-       
+
        when an instance is created
-       
+
           edit foo
-       
+
        when something inside the instance is modified.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2396,9 +2396,9 @@ submodule tailf-cli-extensions {
     description
       "Specifies a template string to be printed after all list entries are
        printed.
-       
+
        See the defintion of cli-template-string for more info.
-       
+
        Used in I- and C-style CLIs.";
   }
 
@@ -2407,40 +2407,40 @@ submodule tailf-cli-extensions {
     description
       "A template is a text string which is expanded by the CLI engine,
        and then displayed to the user.
-       
+
        The template may contain a mix of text and expandable entries.
        Expandable entries all start with $( and end with a matching ).
        Parentheses and dollar signs need to be quoted in plain text.
-       
+
        The template is expanded as follows:
-       
+
        A parameter is either a relative or absolute path to a leaf
        element (eg /foo/bar, foo/bar), or one of the builtin variables:
        .selected, .entered, .legend_shown, .user, .groups, .ip,
        .display_groups, .path, .ipath or .licounter. In addition the
        variables .spath and  .ispath are available when a command
        is executed from a show path.
-       
+
        .selected
-       
+
            The .selected variable contains the list of selected paths
            to be shown. The show template can inspect this element to
            determine if a given element should be displayed or
            not. For example:
-       
+
                $(.selected~=hwaddr?HW Address)
-       
+
        .entered
-       
+
            The .entered variable is true if the \"entered\" text has
            been displayed (either the auto generated text or a
            showTemplateEnter). This is useful when having a non-table
            template where each instance should have a text.
-       
+
                $(.entered?:host $(name))
-       
+
        .legend_shown
-       
+
            The .legend_shown variable is true if the \"legend\" text has
            been displayed (either the auto generated table header or
            a showTemplateLegend). This is useful to inspect when
@@ -2449,147 +2449,147 @@ submodule tailf-cli-extensions {
            displayed and the showTemplateLegend will not be invoked
            and it may be useful to render the legend specifically
            for this instance.
-       
+
                $(.legend_shown!=true?Address         Interface)
-       
+
        .user
-       
+
            The .user variable contains the name of the current
            user. This can be used for differentiating the content
            displayed for a specific user, or in paths. For exapmle:
-       
+
                $(user{$(.user)}/settings)
-       
+
        .groups
-       
+
            The .groups variable contains the a list of groups that the
            user belongs to.
-       
+
        .display_groups
-       
+
            The .display_groups variable contains a list of selected
            display groups. This can be used to display different
            content depending on the selected display group. For
            example:
-       
+
                $(.display_groups~=details?details...)
-       
+
        .ip
-       
+
            The .ip variable contains the ip address that the user
            connected from.
-       
+
        .path
-       
+
            The .path variable contains the path to the entry,
            formated in CLI style.
-       
+
        .ipath
-       
+
            The .ipath variable contains the path to the entry,
            formated in template style.
-       
+
        .spath
-       
+
            The .spath variable contains the show path,
            formated in CLI style.
-       
+
        .ispath
-       
+
            The .ispath variable contains the show path,
            formated in template style.
-       
+
        .licounter
-       
+
            The .licounter variable contains a counter that is
            incremented for each instance in a list. This means that
            it will be 0 in the legend, contain the total number of
            list instances in the footer and something in between in
            the basic show template.
-       
+
        $(parameter)
-       
+
         The value of 'parameter' is substituted.
-       
+
        $(cond?word1:word2)
-       
+
         The expansion of 'word1' is substituted if 'cond'
         evaluates to true, otherwise the expansion of 'word2' is
         substituted.
-       
+
         'cond' may be one of
-       
+
           parameter
-       
+
             Evaluates to true if the node exists.
-       
+
           parameter == <value>
-       
+
             Evaluates to true if the value of the parameter equals
             <value>.
-       
+
           parameter != <value>
-       
+
             Evalutes to true if the value of the parameter does not
             equal <value>
-       
+
           parameter ~= <value>
-       
+
             Provided that the value of the parameter is a list
             (i.e., the node that the parameter refers to is a
             leaf-list), this expression evaluates to true if <value>
             is a member of the list.
-       
+
        $(parameter|filter)
-       
+
         The value of 'parameter' processed by 'filter' is
         substituted. Filters may be either one of the
         built-ins or a customized filter defined in a
         callback. See /confdConfig/cli/templateFilter.
-       
+
         A built-in 'filter' may be one of:
-       
+
           capfirst
-       
+
             Capitalizes the first character of the value.
-       
+
           lower
-       
+
             Converts the value into lowercase.
-       
+
           upper
-       
+
             Converts the value into uppercase.
-       
+
           filesizeformat
-       
+
             Formats the value in a human-readable format (e.g.,
             '13 KB', '4.10 MB',  '102 bytes' etc), where  K
              means 1024, M means 1024*1024 etc.
-       
+
             When used without argument the default number of
             decimals displayed is 2. When used with a numeric
             integer argument, filesizeformat will display the
             given number of decimal places.
-       
+
           humanreadable
-       
+
             Similar to filesizeformat except no bytes suffix
             is added  (e.g., '13.00 k', '4.10 M' '102' etc),
             where k means 1000, M means 1000*1000 etc.
-       
+
             When used without argument the default number of
             decimals displayed is 2. When used with a numeric
             integer argument, humanreadable will display the
             given number of decimal places.
-       
+
           commasep
-       
+
             Separate the numerical values into groups of three
             digits using a comma (e.g., 1234567 -> 1,234,567)
-       
+
           hex
-       
+
             Display integer as hex number. An argument can be
             used to indicate how many digits should be used in
             the output. If the hex number is too long it will
@@ -2600,9 +2600,9 @@ submodule tailf-cli-extensions {
             with zeroes. Another argument can be given to indicate
             if the hex numbers should be written with lower
             or upper case.
-       
+
             For example:
-       
+
               value            Template                       Output
               12345           {{ value|hex }}                 3039
               12345           {{ value|hex:2 }}               39
@@ -2610,9 +2610,9 @@ submodule tailf-cli-extensions {
               12345           {{ value|hex:-8 }}              3039
               14911           {{ value|hex:-8:upper }}        3A3F
               14911           {{ value|hex:-8:lower }}        3a3f
-       
+
           hexlist
-       
+
             Display integer as hex number with : between pairs. An
             argument can be used to indicate how many digits should
             be used in the output. If the hex number is too long it
@@ -2623,9 +2623,9 @@ submodule tailf-cli-extensions {
             with zeroes. Another argument can be given to indicate
             if the hex numbers should be written with lower
             or upper case.
-       
+
             For example:
-       
+
               value            Template                       Output
               12345           {{ value|hexlist }}             30:39
               12345           {{ value|hexlist:2 }}           39
@@ -2633,124 +2633,124 @@ submodule tailf-cli-extensions {
               12345           {{ value|hexlist:-8 }}          30:39
               14911           {{ value|hexlist:-8:upper }}    3A:3F
               14911           {{ value|hexlist:-8:lower }}    3a:3f
-       
+
           floatformat
-       
+
             Used for type 'float' in tailf-xsd-types. We recommend
             that the YANG built-in type 'decimal64' is used instead of
             'float'.
-       
+
             When used without an argument, rounds a floating-point
             number to one decimal place -- but only if there is a
             decimal part to be displayed.
-       
+
             For example:
-       
+
               value           Template                        Output
               34.23234        {{ value|floatformat }}         34.2
               34.00000        {{ value|floatformat }}         34
               34.26000        {{ value|floatformat }}         34.3
-       
+
             If used with a numeric integer argument, floatformat
             rounds a number to that many decimal places. For example:
-       
+
               value           Template                        Output
               34.23234        {{ value|floatformat:3 }}       34.232
               34.00000        {{ value|floatformat:3 }}       34.000
               34.26000        {{ value|floatformat:3 }}       34.260
-       
+
             If the argument passed to floatformat is negative, it will
             round a number to that many decimal places -- but only if
             there's a decimal part to be displayed. For example:
-       
+
               value           Template                        Output
               34.23234        {{ value|floatformat:-3 }}      34.232
               34.00000        {{ value|floatformat:-3 }}      34
               34.26000        {{ value|floatformat:-3 }}      34.260
-       
+
             Using floatformat with no argument is equivalent to using
             floatformat with an argument of -1.
-       
+
           ljust:width
-       
+
             Left-align the value given a width.
-       
+
           rjust:width
-       
+
             Right-align the value given a width.
-       
+
           trunc:width
-       
+
             Truncate value to a given width.
-       
+
           lower
-       
+
             Convert the value into lowercase.
-       
+
           upper
-       
+
             Convert the value into uppercase.
-       
+
           show:<dictionary>
-       
+
             Substitutes the result of invoking the default display
             function for the parameter. The dictionary can be used
             for introducing own variables that can be accessed in
             the same manner as builtin variables. The user defined
             variables overrides builtin variables. The dictionary
             is specified as a string on the following form:
-       
+
               (key=value)(:key=value)*
-       
+
             For example, with the following expression:
-       
+
               $(foo|show:myvar1=true:myvar2=Interface)
-       
+
             the user defined variables can be accessed like this:
-       
+
               $(.myvar1!=true?Address) $(.myvar2)
-       
+
             A special case is the dict variable 'indent'. It
             controls the indentation level of the displayed path.
             The current indent level can be incremented and
             decremented using =+ and =-.
-       
+
             For example:
-       
+
               $(foobar|show:indent=+2)
               $(foobar|show:indent=-1)
               $(foobar|show:indent=10)
-       
+
             Another special case is he dict variable 'noalign'.
             It  may be used to suppress the default aligning that
             may occur when displaying an element.
-       
+
             For example:
-       
+
               $(foobar|show:noalign)
-       
+
           dict:<dictionary>
-       
+
             Translates the value using the dictionary. Can for
             example be used for displaying on/off instead of
             true/false. The dictionary is specified as a string on
             the following form:
-       
+
               (key=value)(:key=value)*
-       
+
             For example, with the following expression:
-       
+
               $(foo|dict:true=on:false=off)
-       
+
             if the leaf 'foo' has value 'true', it is displayed as 'on', and
             if its value is 'false' it is displayed as 'off'.
-       
+
         Nested invocations are allowed, ie it is possible to have expressions
         like $((state|dict:yes=Yes:no=No)|rjust:14), or $(/foo{$(../bar)})
-       
-       
+
+
        For example:
-       
+
         list interface {
           key name;
           leaf name { ... }

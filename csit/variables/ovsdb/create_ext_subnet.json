@@ -4,7 +4,7 @@
     "enable_dhcp": false,
     "network_id": "{netId}",
     "tenant_id": "{tntId}",
-    "dns_nameservers": [], 
+    "dns_nameservers": [],
     "gateway_ip": "192.168.111.254",
     "ipv6_ra_mode": null,
     "allocation_pools": [
