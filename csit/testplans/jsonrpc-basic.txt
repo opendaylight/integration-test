@@ -1,1 +1,1 @@
-test/csit/suites/jsonrpc/010-mdsal-jsonrpc-basic.txt
+test/csit/suites/jsonrpc/010-mdsal-jsonrpc-basic.robot
