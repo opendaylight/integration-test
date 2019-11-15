@@ -1,5 +1,0 @@
-[Python]
-bears = PEP8Bear
-files = **/*.py
-ignore = .*/**
-max_line_length = 120
