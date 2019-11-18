@@ -121,7 +121,7 @@ Start_Pcc_Mock
 
 Pcep_Topology_Postcondition
     [Documentation]    Verifies if the tool reported expected data
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_${pcep_owner}_IP}    ERROR=${ERROR_ARGS}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_${pcep_owner}_IP}    ERRORS=${ERROR_ARGS}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_on_state    ${mapping}    ${living_session}
     ...    verify=True
 
