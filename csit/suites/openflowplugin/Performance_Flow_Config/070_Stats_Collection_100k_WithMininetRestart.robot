@@ -102,7 +102,7 @@ Connect Switches
     Comment    Below line disables switch echos
     Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
     Read Until    mininet>
-    Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+    Wait Until Keyword Succeeds    20s    1s    Are Switches Connected Topo
 
 Create Http Session And Upload Files
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
