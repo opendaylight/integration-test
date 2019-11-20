@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5388bbcd_e1dba954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-11-20T16:18:19Z",
+      "side": 1,
+      "message": "merging this, but if it\u0027s really only happening in master then that seems more like a performance\nregression than just a timing issue we want to work around in test code. I didn\u0027t look at other\nmaster jobs yet though.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "90f910da7c3bc565eb942eaa1de3706fdac43b46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
