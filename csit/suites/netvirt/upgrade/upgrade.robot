@@ -28,6 +28,7 @@ ${TYPE}           tun
 ${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
 @{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
 ${UPDATE_FLAG_PATH}    /restconf/config/odl-serviceutils-upgrade:upgrade-config
+${COMMIT_ACTIVE_BUNDLE}    /restconf/operations/arbitrator-reconcile:commit-active-bundle
 
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
@@ -70,7 +71,7 @@ Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     : FOR    ${node}    IN    @{OS_ALL_IPS}
     \    Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
-    Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
+    Wait Until Keyword Succeeds    360s    15s    Check OVS Nodes Have Egress Flows
 
 UnSet Upgrade Flag
     ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":false}}
