@@ -125,7 +125,7 @@ Check Resource Connectivity
 Check OVS Nodes Have Egress Flows
     [Documentation]    Loop over all openstack nodes to ensure they have the proper flows installed.
     : FOR    ${node}    IN    @{OS_ALL_IPS}
-    \    Does OVS Have Multiple Egress Flows    ${node}
+    \    BuiltIn.Wait Until Keyword Succeeds    180s    15s    Does OVS Have Multiple Egress Flows    ${node}
 
 Does OVS Have Multiple Egress Flows
     [Arguments]    ${ip}
