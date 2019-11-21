@@ -231,6 +231,8 @@ Verification of route update after VM port removed and re added to VPN
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    ${status}    ${ips_and_console_log} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    360s    15s    OpenStackOperations.Get VM IP
+    ...    true    @{NET_1_VMS}[0]
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${NET_1_VM_IPS}
@@ -244,7 +246,7 @@ Verification of route update after reconfiguring vpn by adding new ports
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${PORT_NEW}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_NEW}    ${VM_NAME_NEW}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Poll VM Is ACTIVE    ${VM_NAME_NEW}
-    ${status}    ${ips_and_console_log} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    180s    15s    OpenStackOperations.Get VM IP
+    ${status}    ${ips_and_console_log} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    360s    15s    OpenStackOperations.Get VM IP
     ...    true    ${VM_NAME_NEW}
     ${output} =    VpnOperations.Get Fib Entries    session
     BuiltIn.Should Contain    ${output}    ${ips_and_console_log[0]}
