@@ -16,6 +16,24 @@
       "revId": "760a3b503344d900e9e9e28c63d39bdd0d63112b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a91603_eb7c0275",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2019-11-25T02:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ce38751_1e5efab8",
+      "revId": "760a3b503344d900e9e9e28c63d39bdd0d63112b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
