@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1a97b18_ecb0f98c",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-11-25T05:59:56Z",
+      "side": 1,
+      "message": "I think the check for \"ACTIVE\" should happen before collecting the IP?",
+      "revId": "1ab84e6be3d5771d7c0070738049bce50751ba35",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
