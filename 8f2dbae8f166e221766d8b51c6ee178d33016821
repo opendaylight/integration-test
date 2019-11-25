@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec8d630_f2416c89",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2019-11-25T05:43:05Z",
+      "side": 1,
+      "message": "does it really need 5 minutes? Can you provide some links for failing job and the new sandbox job?",
+      "revId": "8f2dbae8f166e221766d8b51c6ee178d33016821",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
