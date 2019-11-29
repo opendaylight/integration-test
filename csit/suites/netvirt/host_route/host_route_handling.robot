@@ -49,7 +49,9 @@ Verify creation of host route via openstack subnet create option
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{GATEWAY_PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{GATEWAY_PORTS}[0]    @{GATEWAY_PORTS}[1]    @{GATEWAY_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{GATEWAY_PORTS}[4]    @{GATEWAY_PORTS}[5]    @{GATEWAY_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    ${NETWORK_1_VM_IPS}    ${NETWORK_1_DHCP_IP}    ${VM_COSOLE_OUTPUT} =    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VMS}
+    OpenStackOperations.Poll VM Is ACTIVE    ${NETWORK_1_VMS}
+    ${NETWORK_1_VM_IPS}    ${NETWORK_1_DHCP_IP}    ${VM_COSOLE_OUTPUT}    BuiltIn.Wait Until Keyword Succeeds    180s    15s
+    ...    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VMS}
     BuiltIn.Set Suite Variable    ${NETWORK_1_VM_IPS}
     @{GATEWAY_VM_IPS}    ${GATEWAY_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{GATEWAY_VMS}
     BuiltIn.Set Suite Variable    @{GATEWAY_VM_IPS}
