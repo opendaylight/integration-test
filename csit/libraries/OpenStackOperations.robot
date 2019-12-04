@@ -699,10 +699,6 @@ Get Test Teardown Debugs
 Get Suite Debugs
     Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
 
-Get Test Teardown Debugs For SFC
-    [Arguments]    ${test_name}=${TEST_NAME}
-    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_sfc_data_models}
-
 Show Debugs
     [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
@@ -1294,12 +1290,6 @@ Verify Services
 
 Verify Expected Default Tunnels
     [Documentation]    Verify if the default tunnels are created.
-    ...    SFC jobs currently fail this validation because it uses of-tunnels.
-    ...    This validation will be blocked for NEtvirt SFC jobs until support for of-tunnels
-    ...    added to odltools.
-    ${check_feature_list} =    BuiltIn.Create List    odl-netvirt-sfc
-    ${is_sfc_enabled} =    OpenStackOperations.Is Feature Installed    features=${check_feature_list}
-    BuiltIn.Return From Keyword If    ${is_sfc_enabled} == ${True}    ${True}
     BuiltIn.Return From Keyword If    ${OS_NODE_CNT} == ${1}    ${True}
     ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
     BuiltIn.Should Contain    ${output}    All tunnels are up

@@ -60,17 +60,3 @@ netvirt_data_models = [
     'operational/odl-nat:intext-ip-map',
     'operational/opendaylight-inventory:nodes'
 ]
-
-netvirt_sfc_data_models = [
-    'config/service-function-chain:service-function-chains',
-    'config/service-function-classifier:service-function-classifiers',
-    'config/service-function-forwarder:service-function-forwarders',
-    'config/service-function-group:service-function-groups',
-    'config/service-function-mapping:sff-dpl-by-sf-dpl-mappings',
-    'config/service-function-path:service-function-paths',
-    'config/service-function-path-metadata:service-function-metadata',
-    'config/service-function-type:service-function-types',
-    'config/service-function:service-functions',
-    'config/sfc-of-renderer:sfc-of-renderer-config',
-    'operational/rendered-service-path:rendered-service-paths/'
-]
