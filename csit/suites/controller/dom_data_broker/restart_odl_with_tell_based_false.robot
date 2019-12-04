@@ -30,7 +30,7 @@ Unset_Tell_Based_Protocol_Usage
     [Documentation]    Comment out the flag usage in config file. Also clean most data except data/log/.
     DdbCommons.Change_Use_Tell_Based_Protocol    False    ${DATASTORE_CFG}
     ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
-    ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
+    #ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
 
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
