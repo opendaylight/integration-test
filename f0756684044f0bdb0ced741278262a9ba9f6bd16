@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a9d581a_b3d5feb0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 8584
+      },
+      "writtenOn": "2019-12-05T03:44:37Z",
+      "side": 0,
+      "message": "this refers netvirt_sfc_data_models, hence removed this",
+      "range": {
+        "startLine": 704,
+        "startChar": 90,
+        "endLine": 704,
+        "endChar": 96
+      },
+      "revId": "f0756684044f0bdb0ced741278262a9ba9f6bd16",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6574ba_cb89401e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 8584
+      },
+      "writtenOn": "2019-12-05T03:44:37Z",
+      "side": 0,
+      "message": "refers odl-netvirt-sfc, hence removed this",
+      "revId": "f0756684044f0bdb0ced741278262a9ba9f6bd16",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cee57e8_7673a14b",
+        "filename": "tools/deployment/openstack_ha/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 8584
+      },
+      "writtenOn": "2019-12-05T03:44:37Z",
+      "side": 0,
+      "message": "refers netvirt_sfc_data_models, hence removed this",
+      "range": {
+        "startLine": 611,
+        "startChar": 46,
+        "endLine": 611,
+        "endChar": 117
+      },
+      "revId": "f0756684044f0bdb0ced741278262a9ba9f6bd16",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
