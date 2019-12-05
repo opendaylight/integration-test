@@ -113,16 +113,16 @@ Trunk And Vlan Tag Is Removed From Operational
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
     OVSDB.Collect OVSDB Debugs
     @{list}    BuiltIn.Create List    vlan-tag-br    vlan-tag-port    "ovsdb:vlan-tag":81    "trunk":181    "trunk":182
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    120s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port tag
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl remove port vlan-tag-port trunks 181
     @{list}    BuiltIn.Create List    "ovsdb:vlan-tag":81    "trunk":181
     OVSDB.Collect OVSDB Debugs
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    120s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port trunks
     @{list}    BuiltIn.Create List    "ovsdb:vlan-tag":81    "trunk":181    "trunk":182
     OVSDB.Collect OVSDB Debugs
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    120s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
     [Teardown]    Builtin.Run Keywords    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ...    AND    Utils.Report_Failure_Due_To_Bug    OVSDB-413
 
