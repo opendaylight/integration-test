@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to validate bgpvpn configuration commands in an openstack integrated environment.
-Suite Setup       Suite Setup
+Suite Setup       OpenStackOperations.OpenStack Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs

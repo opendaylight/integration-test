@@ -1347,9 +1347,9 @@ Create Bgpvpn
 Get BgpVpn Id
     [Arguments]    ${vpnName}
     [Documentation]    Retrieve the bgpvpn id for the given bgpvpn name
-    ${output} =    OpenStack CLI    OperatingSystem.Run And Return Rc And Output    openstack bgpvpn show ${vpnName} | grep " ID" | awk '{print $4}'
-    ${splitted_output}=    String.Split String    ${output}    ${EMPTY}
-    ${vpn_id}=    Collections.Get from List    ${splitted_output}    0
+    ${output} =    OpenStack CLI    openstack bgpvpn show ${vpnName} | grep " ID" | awk '{print $4}'
+    ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
+    ${vpn_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${vpn_id}
 
 Configure_IP_On_Sub_Interface
