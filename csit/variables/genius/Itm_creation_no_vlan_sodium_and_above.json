@@ -6,17 +6,17 @@
                     {
                         "dpn-id": 100,
                         "ip-address": "2.2.2.2",
-                        "option-of-tunnel": false
+                        "option-of-tunnel": true
                     },
                     {
                         "dpn-id": 101,
                         "ip-address": "3.3.3.3",
-                        "option-of-tunnel": false
+                        "option-of-tunnel": true
                     },
                     {
                         "dpn-id": 102,
                         "ip-address": "4.4.4.4",
-                        "option-of-tunnel": false
+                        "option-of-tunnel": true
                     }
                 ],
                 "zone-name": "TZA"
