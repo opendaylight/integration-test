@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17433de5_24a04cd3",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2019-12-10T18:10:32Z",
+      "side": 1,
+      "message": "I got confused here because it says ${NETWORK_1_VMS} which is plural but I know the\nkeyword Poll VM Is ACTIVE only expects a single VM. clearly not your problem, but\ncould I ask that you refactor this with a new patch (I\u0027ll merge this one) to change\nthat variable name to singular format? NETWORK_1_VM\n\nplease :)",
+      "revId": "0ca7052217ddc4e7dfb2f0258f298e1638df1511",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
