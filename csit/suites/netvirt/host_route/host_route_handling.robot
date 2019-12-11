@@ -23,7 +23,7 @@ ${SECURITY_GROUP}    host_route_security_group
 @{PORTS}          host_route_port_1    host_route_port_2    host_route_port_3    host_route_port_4    host_route_port_5    host_route_port_6    host_route_port_7
 @{GATEWAY_PORTS}    host_route_gw_port_1    host_route_gw_port_2    host_route_gw_port_3    host_route_gw_port_4    host_route_gw_port_5    host_route_gw_port_6    host_route_gw_port_7
 ${ALLOWED_ADDRESS_PAIR}    0.0.0.0/0
-${NETWORK_1_VMS}    host_route_vm_1
+${NETWORK_1_VM}    host_route_vm_1
 @{NETWORK_2_VMS}    host_route_vm_2    host_route_vm_3
 @{NETWORK_3_VMS}    host_route_vm_4    host_route_vm_5
 @{NETWORK_4_VMS}    host_route_vm_6    host_route_vm_7
@@ -45,18 +45,18 @@ Verify creation of host route via openstack subnet create option
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${elements}
     Verify Hostroutes In Subnet    @{SUBNETS}[0]    destination='@{SUBNET_CIDR}[2]${PREFIX24}',\\sgateway='${NON_NEUTRON_NEXTHOP}'
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    ${NETWORK_1_VMS}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    ${NETWORK_1_VM}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{GATEWAY_PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=${ALLOWED_ADDRESS_PAIR}
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{GATEWAY_PORTS}[0]    @{GATEWAY_PORTS}[1]    @{GATEWAY_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{GATEWAY_PORTS}[4]    @{GATEWAY_PORTS}[5]    @{GATEWAY_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Poll VM Is ACTIVE    ${NETWORK_1_VMS}
-    BuiltIn.Wait Until Keyword Succeeds    180s    15s    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VMS}
-    ${NETWORK_1_VM_IPS}    ${NETWORK_1_DHCP_IP}    ${VM_COSOLE_OUTPUT} =    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VMS}
+    OpenStackOperations.Poll VM Is ACTIVE    ${NETWORK_1_VM}
+    BuiltIn.Wait Until Keyword Succeeds    180s    15s    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VM}
+    ${NETWORK_1_VM_IPS}    ${NETWORK_1_DHCP_IP}    ${VM_COSOLE_OUTPUT} =    OpenStackOperations.Get VM IP    true    ${NETWORK_1_VM}
     BuiltIn.Set Suite Variable    ${NETWORK_1_VM_IPS}
     @{GATEWAY_VM_IPS}    ${GATEWAY_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{GATEWAY_VMS}
     BuiltIn.Set Suite Variable    @{GATEWAY_VM_IPS}
     #TODO: Verifiy the routes in VM.
-    OpenStackOperations.Show Debugs    ${NETWORK_1_VMS}    @{GATEWAY_VMS}
+    OpenStackOperations.Show Debugs    ${NETWORK_1_VM}    @{GATEWAY_VMS}
     OpenStackOperations.Get Suite Debugs
 
 Verify creation of host route via openstack subnet update option
