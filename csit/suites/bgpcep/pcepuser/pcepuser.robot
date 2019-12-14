@@ -39,6 +39,7 @@ Start_Pcc_Mock
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
+    Sleep    1s
 
 Configure_Speaker_Entity_Identifier
     [Documentation]    Additional PCEP Speaker configuration for at least oxygen streams.
