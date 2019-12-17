@@ -22,6 +22,30 @@
       "revId": "06d0f2ab4678280719612fc9392440699b2b5cd5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8f27db_52ed1243",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2019-12-17T06:32:33Z",
+      "side": 1,
+      "message": "Sorry, I missed it.\nCorrected it now.\n\nAs per the design we need to have an RPC bundle commit after upgrade flag is set.",
+      "parentUuid": "312c21f8_4917eb39",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "06d0f2ab4678280719612fc9392440699b2b5cd5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
