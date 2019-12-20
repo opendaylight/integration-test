@@ -29,7 +29,7 @@ ${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
 @{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
 ${UPDATE_FLAG_PATH}    /restconf/config/odl-serviceutils-upgrade:upgrade-config
 ${COMMIT_ACTIVE_BUNDLE_URI}    /restconf/operations/arbitrator-reconcile:commit-active-bundle
-${COMMIT_ACTIVE_BUNDLE_DIR}    ${CURDIR}/../../variables/netvirt/commit_active_bundle
+${COMMIT_ACTIVE_BUNDLE_DIR}    ${CURDIR}/../../../variables/netvirt/commit_active_bundle
 
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
