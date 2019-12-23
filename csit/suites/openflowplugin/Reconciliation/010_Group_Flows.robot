@@ -18,18 +18,21 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 *** Test Cases ***
 Add Group 1 In Every Switch
     [Documentation]    Add ${ITER} groups of type 1 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    END
 
 Add Group 2 In Every Switch
     [Documentation]    Add ${ITER} groups of type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    END
 
 Add Flow to Group 2 In Every Switch
     [Documentation]    Add ${ITER} flows to group type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+    END
 
 Start Mininet Linear
     [Documentation]    Start Mininet Linear with ${SWITCHES} switches.
@@ -69,10 +72,11 @@ Check Linear Topology After Mininet Reconnects
 
 Remove Flows And Groups After Mininet Reconnects
     [Documentation]    Remove some groups and flows while network is down.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+        RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+        RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    END
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.

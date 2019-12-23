@@ -44,10 +44,12 @@ Verify Datapath for Single ELAN with Multiple DPN
 
 Verify Datapath After OVS Restart
     [Documentation]    Verify datapath after OVS restart
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    OVSDB.Restart OVSDB    ${ip}
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${ip}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        OVSDB.Restart OVSDB    ${ip}
+    END
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${ip}
+    END
     ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
     ${smac_cn2} =    BuiltIn.Create List    @{NET_1_MACS}[1]
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_CMP1_IP}    ${smac_cn1}    ${NET_1_MACS}
@@ -76,8 +78,9 @@ Verify Datapath After Recreate VM Instance
 
 Delete All elan_net_1 VM And Verify Flow Table Updated
     [Documentation]    Verify Flow table after all VM instance deleted
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
     Verify Flows Are Removed For ELAN Service On All compute Nodes    ${NET_1_MACS}
 
 Verify Datapath for Multiple ELAN with Multiple DPN
@@ -163,13 +166,15 @@ Verify Flows Are Present For ELAN Service
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
     ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
     Builtin.Log    ${smac_output}
-    : FOR    ${smac}    IN    @{smacs}
-    \    ${resp} =    BuiltIn.Should Contain    ${smac_output}    ${smac}
+    FOR    ${smac}    IN    @{smacs}
+        ${resp} =    BuiltIn.Should Contain    ${smac_output}    ${smac}
+    END
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
     ${dmac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
     Builtin.Log    ${dmac_output}
-    : FOR    ${dmac}    IN    @{dmacs}
-    \    ${resp} =    BuiltIn.Should Contain    ${dmac_output}    ${dmac}
+    FOR    ${dmac}    IN    @{dmacs}
+        ${resp} =    BuiltIn.Should Contain    ${dmac_output}    ${dmac}
+    END
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
     ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
     Builtin.Log    ${smac_output}
@@ -180,15 +185,18 @@ Verify Flows Are Removed For ELAN Service
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
     ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
     Builtin.Log    ${smac_output}
-    : FOR    ${smac}    IN    @{smacs}
-    \    ${resp} =    BuiltIn.Should Not Contain    ${smac_output}    ${smac}
+    FOR    ${smac}    IN    @{smacs}
+        ${resp} =    BuiltIn.Should Not Contain    ${smac_output}    ${smac}
+    END
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
     ${dmac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
     Builtin.Log    ${dmac_output}
-    : FOR    ${dmac}    IN    @{smacs}
-    \    ${resp} =    BuiltIn.Should Not Contain    ${dmac_output}    ${dmac}
+    FOR    ${dmac}    IN    @{smacs}
+        ${resp} =    BuiltIn.Should Not Contain    ${dmac_output}    ${dmac}
+    END
 
 Verify Flows Are Removed For ELAN Service On All compute Nodes
     [Arguments]    ${smacs}
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${ip}    ${smacs}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${ip}    ${smacs}
+    END

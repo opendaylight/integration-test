@@ -23,8 +23,9 @@ Verification of TSDR FLOWTABLESTATS
     [Documentation]    Verify the TSDR FlowiTableStats
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}| grep ActiveFlow | grep openflow:1    FLOWTABLESTATS
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}| grep openflow:1 | head    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    180
-    : FOR    ${list}    IN    @{FLOWTABLE_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWTABLE_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 *** Keywords ***
 Init Variables Master

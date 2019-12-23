@@ -54,14 +54,17 @@ TC02_Reconcilation check with new switch added
 TC03_Reconciliation check by pushing group dependent flows
     [Documentation]    Verify the Bundle based reconciliation by pushing multiple group dependent flows
     ${switch_idx}    OVSDB.Get DPID    ${TOOLS_SYSTEM_2_IP}
-    : FOR    ${index}    IN RANGE    1    3
-    \    Push Groups Via Restcall    ${switch_idx}    ${index}
-    : FOR    ${index}    IN RANGE    1    6
-    \    Push Flow Via Restcall    ${switch_idx}    ${FLOWFILE[${index}]}
-    \    Set Test Variable    ${flowbody[${index}]}    ${data}
+    FOR    ${index}    IN RANGE    1    3
+        Push Groups Via Restcall    ${switch_idx}    ${index}
+    END
+    FOR    ${index}    IN RANGE    1    6
+        Push Flow Via Restcall    ${switch_idx}    ${FLOWFILE[${index}]}
+        Set Test Variable    ${flowbody[${index}]}    ${data}
+    END
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo service openvswitch-switch restart
-    : FOR    ${index}    IN RANGE    1    6
-    \    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${flowbody[${index}]}
+    FOR    ${index}    IN RANGE    1    6
+        Wait Until Keyword Succeeds    5s    1s    FlowLib.Check Operational Flow    ${True}    ${flowbody[${index}]}
+    END
     Log    Check if flows are pushed as bundle messages
     ${Resyncdone_msg}=    BuiltIn.Set Variable    "Completing bundle based reconciliation for device ID:${switch_idx}"
     Check_Karaf_Log_Message_Count    ${Resyncdone_msg}    2

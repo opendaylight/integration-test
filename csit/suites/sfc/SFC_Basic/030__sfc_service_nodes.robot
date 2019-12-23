@@ -74,7 +74,7 @@ Put one Service Node
     Check For Elements At URI    ${SN_NODE100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_NODES_URI}    ${elements}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

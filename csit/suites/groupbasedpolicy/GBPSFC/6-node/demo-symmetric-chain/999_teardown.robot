@@ -12,5 +12,6 @@ ${timeout}        10s
 *** Test Cases ***
 Teardown Suite
     Log    Teardown suite in symetric-chain
-    : FOR    ${GBPSFC}    IN    @{GBPSFCs}
-    \    GBPSFC_6node.Teardown Node    ${GBPSFC}    ${CURDIR}    timeout=${timeout}
+    FOR    ${GBPSFC}    IN    @{GBPSFCs}
+        GBPSFC_6node.Teardown Node    ${GBPSFC}    ${CURDIR}    timeout=${timeout}
+    END

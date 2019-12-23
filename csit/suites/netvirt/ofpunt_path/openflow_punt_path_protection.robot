@@ -51,48 +51,53 @@ ${GARP_REG}       0x101
 Verify default punt timeout values and flows
     [Documentation]    Verify default time out for subnet route, SNAT and ARP in respective defualt openflow tables
     ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
-    : FOR    ${index}    IN RANGE    0    3
-    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
-    \    ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{ORIGINAL_TIMEOUTS}[${index}]
+    FOR    ${index}    IN RANGE    0    3
+        BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]
+        ...    True    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{ORIGINAL_TIMEOUTS}[${index}]
+    END
 
 Set punt timeout to zero and verify flows
     [Documentation]    Verify default flows in OVS for subnet route, SNAT and ARP after the changing the default punt timeout value to zero.
     ...    Default subnet route, SNAT and ARP should get deleted after changing default timeout value to zero
-    : FOR    ${index}    IN RANGE    0    3
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    ${0}
-    \    Verify Punt Values In XML File    @{FILES_PATH}[${index}]    ${0}
+    FOR    ${index}    IN RANGE    0    3
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    ${0}
+        Verify Punt Values In XML File    @{FILES_PATH}[${index}]    ${0}
+    END
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
     BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
-    : FOR    ${index}    IN RANGE    0    3
-    \    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]    False    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{ORIGINAL_TIMEOUTS}[${index}]
+    FOR    ${index}    IN RANGE    0    3
+        OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    @{OF_PUNT_TABLES}[${index}]    False    ${EMPTY}    learn(table=@{OF_PUNT_TABLES}[${index}],hard_timeout=@{ORIGINAL_TIMEOUTS}[${index}]
+    END
 
 Set punt timeout to combination of valid ranges and verfiy flows
     [Documentation]    Verify the default flow in OVS for subnet route, SNAT and ARP after the changing the default value to different set of values.
     ...    Default subnet route, SNAT and ARP flows should get changed after changing default timeout value to different set of values
     Set Original TimeOut In Xml    ${0}
-    : FOR    ${index}    IN RANGE    0    3
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    @{VALID_TIMEOUTS}[0]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{VALID_TIMEOUTS}[0]
+    FOR    ${index}    IN RANGE    0    3
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    @{VALID_TIMEOUTS}[0]
+        Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{VALID_TIMEOUTS}[0]
+    END
     ${count} =    BuiltIn.Get length    ${VALID_TIMEOUTS}
-    : FOR    ${index}    IN RANGE    1    ${count}
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[0]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[0]    @{VALID_TIMEOUTS}[${index}]
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[1]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[1]    @{VALID_TIMEOUTS}[${index}]
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[2]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[2]    @{VALID_TIMEOUTS}[${index}]
-    \    ClusterManagement.Stop_Members_From_List_Or_All
-    \    ClusterManagement.Start_Members_From_List_Or_All
-    \    BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
-    \    ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
-    \    BuiltIn.Wait Until Keyword Succeeds    120s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${L3_PUNT_TABLE}
-    \    ...    True    ${EMPTY}    learn(table=${L3_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
-    \    BuiltIn.Wait Until Keyword Succeeds    120s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ARP_PUNT_TABLE}
-    \    ...    True    ${EMPTY}    learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
-    \    BuiltIn.Wait Until Keyword Succeeds    180s    5s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}
-    \    ...    True    ${EMPTY}    learn(table=${SNAT_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
+    FOR    ${index}    IN RANGE    1    ${count}
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[0]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
+        Verify Punt Values In XML File    @{FILES_PATH}[0]    @{VALID_TIMEOUTS}[${index}]
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[1]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
+        Verify Punt Values In XML File    @{FILES_PATH}[1]    @{VALID_TIMEOUTS}[${index}]
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[2]    @{VALID_TIMEOUTS}[${index - 1}]    @{VALID_TIMEOUTS}[${index}]
+        Verify Punt Values In XML File    @{FILES_PATH}[2]    @{VALID_TIMEOUTS}[${index}]
+        ClusterManagement.Stop_Members_From_List_Or_All
+        ClusterManagement.Start_Members_From_List_Or_All
+        BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
+        ${snat_napt_switch_ip} =    Get NAPT Switch IP From DPID    @{ROUTERS}[1]
+        BuiltIn.Wait Until Keyword Succeeds    120s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${L3_PUNT_TABLE}
+        ...    True    ${EMPTY}    learn(table=${L3_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
+        BuiltIn.Wait Until Keyword Succeeds    120s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ARP_PUNT_TABLE}
+        ...    True    ${EMPTY}    learn(table=${ARP_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
+        BuiltIn.Wait Until Keyword Succeeds    180s    5s    OVSDB.Verify Dump Flows For Specific Table    ${snat_napt_switch_ip}    ${SNAT_PUNT_TABLE}
+        ...    True    ${EMPTY}    learn(table=${SNAT_PUNT_TABLE},hard_timeout=@{VALID_TIMEOUTS}[${index}]
+    END
     Set Original TimeOut In Xml    @{VALID_TIMEOUTS}[4]
 
 Verify learnt flow for subnet route flow table
@@ -100,9 +105,10 @@ Verify learnt flow for subnet route flow table
     ...    Send subnet route traffic using Ping with packet count 5.
     ...    Punt the first packet to controller and add new rule to stop pipeline processing.
     ...    Check packet count before and after traffic for both(defualt and learnt tables).
-    : FOR    ${index}    IN RANGE    0    3
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    @{VALID_TIMEOUTS}[0]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{VALID_TIMEOUTS}[0]
+    FOR    ${index}    IN RANGE    0    3
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]    @{VALID_TIMEOUTS}[0]
+        Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{VALID_TIMEOUTS}[0]
+    END
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
@@ -256,40 +262,47 @@ Verify resync subnet route, SNAT and ARP route flow tables after disconnect and 
 Suite Setup
     [Documentation]    Create common setup related to openflow punt path protection
     VpnOperations.Basic Suite Setup
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
     OpenStackOperations.Create Network    ${EXT_NETWORKS}    additional_args=--external --provider-network-type gre
     ${elements} =    BuiltIn.Create List    ${EXT_NETWORKS}
     ${count} =    BuiltIn.Get length    ${SUBNETS}
-    : FOR    ${index}    IN RANGE    0    ${count}
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNETS_CIDR}[${index}]
+    FOR    ${index}    IN RANGE    0    ${count}
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNETS_CIDR}[${index}]
+    END
     OpenStackOperations.Create SubNet    ${EXT_NETWORKS}    ${EXT_SUBNETS}    ${EXT_SUBNETS_CIDR}    additional_args=--no-dhcp
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-    \    ${router_id} =    OpenStackOperations.Get Router Id    ${router}
-    \    Collections.Append To List    ${ROUTERS_ID}    ${router_id}
+    FOR    ${router}    IN    @{ROUTERS}
+        OpenStackOperations.Create Router    ${router}
+        ${router_id} =    OpenStackOperations.Get Router Id    ${router}
+        Collections.Append To List    ${ROUTERS_ID}    ${router_id}
+    END
     BuiltIn.Set Suite Variable    @{ROUTERS_ID}
-    : FOR    ${index}    IN RANGE    0    2
-    \    OpenStackOperations.Add Router Interface    @{ROUTERS}[0]    @{SUBNETS}[${index}]
+    FOR    ${index}    IN RANGE    0    2
+        OpenStackOperations.Add Router Interface    @{ROUTERS}[0]    @{SUBNETS}[${index}]
+    END
     OpenStackOperations.Add Router Interface    @{ROUTERS}[1]    @{SUBNETS}[2]
     OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP}
     ${ext_net} =    BuiltIn.Create List    ${EXT_NETWORKS}
     ${NETWORKS_ALL} =    Collections.Combine Lists    ${NETWORKS}    ${ext_net}
-    : FOR    ${index}    IN RANGE    0    3
-    \    OpenStackOperations.Create Port    @{NETWORKS_ALL}[${index}]    @{PORT_LIST}[${index + ${index}}]    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Port    @{NETWORKS_ALL}[${index}]    @{PORT_LIST}[${index + ${index + 1}}]    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    3
+        OpenStackOperations.Create Port    @{NETWORKS_ALL}[${index}]    @{PORT_LIST}[${index + ${index}}]    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    @{NETWORKS_ALL}[${index}]    @{PORT_LIST}[${index + ${index + 1}}]    sg=${SECURITY_GROUP}
+    END
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{EXTRA_PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=--allowed-address ip-address=0.0.0.0 --fixed-ip subnet=@{SUBNETS}[0],ip-address=@{EXTRA_NW_IP}[0]
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{EXTRA_PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=--allowed-address ip-address=0.0.0.0 --fixed-ip subnet=@{SUBNETS}[1],ip-address=@{EXTRA_NW_IP}[1]
-    : FOR    ${index}    IN RANGE    0    3
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + ${index}}]    @{VM_LIST}[${index + ${index}}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + ${index + 1}}]    @{VM_LIST}[${index + ${index + 1}}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    FOR    ${index}    IN RANGE    0    3
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + ${index}}]    @{VM_LIST}[${index + ${index}}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[${index + ${index + 1}}]    @{VM_LIST}[${index + ${index + 1}}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    END
     @{VM_IPS}    ${dhcp_ip} =    OpenStackOperations.Get VM IPs    @{VM_LIST}
     BuiltIn.Set Suite Variable    ${VM_IPS}
     OpenStackOperations.Show Debugs    @{VM_LIST}
     BuiltIn.Should Not Contain    ${VM_IPS}    None
     BuiltIn.Should Not Contain    ${dhcp_ip}    None
-    : FOR    ${index}    IN RANGE    0    2
-    \    VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${index}]    vpnid=@{VPN_ID}[${index}]    rd=@{L3VPN_RD_IRT_ERT}[${index}]    exportrt=@{L3VPN_RD_IRT_ERT}[${index}]    importrt=@{L3VPN_RD_IRT_ERT}[${index}]
+    FOR    ${index}    IN RANGE    0    2
+        VpnOperations.VPN Create L3VPN    name=@{VPN_NAME}[${index}]    vpnid=@{VPN_ID}[${index}]    rd=@{L3VPN_RD_IRT_ERT}[${index}]    exportrt=@{L3VPN_RD_IRT_ERT}[${index}]    importrt=@{L3VPN_RD_IRT_ERT}[${index}]
+    END
     VpnOperations.Associate VPN to Router    routerid=@{ROUTERS_ID}[0]    vpnid=@{VPN_ID}[0]
     ${network_id} =    OpenStackOperations.Get Net Id    ${EXT_NETWORKS}
     VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_ID}[1]
@@ -300,9 +313,10 @@ Suite Setup
 Set Original TimeOut In Xml
     [Arguments]    ${hard_timeout}
     [Documentation]    Set default timeout in XML for all the punt files
-    : FOR    ${index}    IN RANGE    0    3
-    \    Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    ${hard_timeout}    @{ORIGINAL_TIMEOUTS}[${index}]
-    \    Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]
+    FOR    ${index}    IN RANGE    0    3
+        Change Hard Timeout Value In XML File    @{FILES_PATH}[${index}]    ${hard_timeout}    @{ORIGINAL_TIMEOUTS}[${index}]
+        Verify Punt Values In XML File    @{FILES_PATH}[${index}]    @{ORIGINAL_TIMEOUTS}[${index}]
+    END
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    120s    20s    OVSDB.Check OVS OpenFlow Connections    ${OS_CMP1_IP}    2
@@ -321,15 +335,18 @@ Change Hard Timeout Value In XML File
 
 Create Dictionary For DPN ID And Compute IP Mapping For All DPNS
     [Documentation]    Creating dictionary for DPN ID and compute IP mapping
-    : FOR    ${ip}    IN    @{OS_ALL_IPS}
-    \    ${dpnid}    OVSDB.Get DPID    ${ip}
-    \    Collections.Append To List    ${DPN_IDS}    ${dpnid}
+    FOR    ${ip}    IN    @{OS_ALL_IPS}
+        ${dpnid}    OVSDB.Get DPID    ${ip}
+        Collections.Append To List    ${DPN_IDS}    ${dpnid}
+    END
     ${DPN_TO_COMPUTE_IP} =    BuiltIn.Create Dictionary
     ${count} =    BuiltIn.Get length    ${OS_ALL_IPS}
-    : FOR    ${index}    IN RANGE    0    ${count}
-    \    Collections.Set To Dictionary    ${DPN_TO_COMPUTE_IP}    @{DPN_IDS}[${index}]    @{OS_ALL_IPS}[${index}]
-    : FOR    ${dp_id}    IN    @{DPN_IDS}
-    \    Collections.Dictionary Should Contain Key    ${DPN_TO_COMPUTE_IP}    ${dp_id}
+    FOR    ${index}    IN RANGE    0    ${count}
+        Collections.Set To Dictionary    ${DPN_TO_COMPUTE_IP}    @{DPN_IDS}[${index}]    @{OS_ALL_IPS}[${index}]
+    END
+    FOR    ${dp_id}    IN    @{DPN_IDS}
+        Collections.Dictionary Should Contain Key    ${DPN_TO_COMPUTE_IP}    ${dp_id}
+    END
     BuiltIn.Set Suite Variable    ${DPN_TO_COMPUTE_IP}
 
 Get SNAT NAPT Switch DPID

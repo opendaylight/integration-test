@@ -23,8 +23,9 @@ Verify the QueueStats attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_QUEUE_STATS}    Transmitted
     ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUE_STATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    : FOR    ${list}    IN    @{QUEUE_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{QUEUE_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 *** Keyword ***
 Configuration of Queue on Switch

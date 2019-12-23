@@ -58,24 +58,30 @@ Getting all Tables from Openflow Plugin
 Verification of FlowStats-Attributes on Cassandra Data Store
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
-    : FOR    ${flow}    IN    @{openflow_1}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:1,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op1_pc}    ${ret_val1}
-    : FOR    ${flow}    IN    @{openflow_2}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:2,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op2_pc}    ${ret_val1}
-    : FOR    ${flow}    IN    @{openflow_3}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:3,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op3_pc}    ${ret_val1}
-    : FOR    ${flow}    IN    @{openflow_1}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:1,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op1_bc}    ${ret_val1}
-    : FOR    ${flow}    IN    @{openflow_2}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:2,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op2_bc}    ${ret_val1}
-    : FOR    ${flow}    IN    @{openflow_3}
-    \    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:3,Table:0,Flow:${flow}'
-    \    Append To List    ${tsdr_op3_bc}    ${ret_val1}
+    FOR    ${flow}    IN    @{openflow_1}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:1,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op1_pc}    ${ret_val1}
+    END
+    FOR    ${flow}    IN    @{openflow_2}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:2,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op2_pc}    ${ret_val1}
+    END
+    FOR    ${flow}    IN    @{openflow_3}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:3,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op3_pc}    ${ret_val1}
+    END
+    FOR    ${flow}    IN    @{openflow_1}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:1,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op1_bc}    ${ret_val1}
+    END
+    FOR    ${flow}    IN    @{openflow_2}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:2,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op2_bc}    ${ret_val1}
+    END
+    FOR    ${flow}    IN    @{openflow_3}
+        ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWSTATS | grep MN=ByteCount | grep -F 'RK=Node:openflow:3,Table:0,Flow:${flow}'
+        Append To List    ${tsdr_op3_bc}    ${ret_val1}
+    END
     Set Suite Variable    @{tsdr_op1_pc}
     Set Suite Variable    @{tsdr_op2_pc}
     Set Suite Variable    @{tsdr_op3_pc}
@@ -85,21 +91,27 @@ Verification of FlowStats-Attributes on Cassandra Data Store
 
 Comparing Packet Count Metrics
     [Documentation]    Comparing Packet count values between Cassandra and openflow plugin
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_1_packetcount}    ${tsdr_op1_pc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_2_packetcount}    ${tsdr_op2_pc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_3_packetcount}    ${tsdr_op3_pc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_1_packetcount}    ${tsdr_op1_pc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_2_packetcount}    ${tsdr_op2_pc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_3_packetcount}    ${tsdr_op3_pc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
 
 Comparing Byte Count Metrics
     [Documentation]    Comparing byte count values between Cassandra and openflow plugin
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_1_bytecount}    ${tsdr_op1_bc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_2_bytecount}    ${tsdr_op2_bc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_3_bytecount}    ${tsdr_op3_bc}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_1_bytecount}    ${tsdr_op1_bc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_2_bytecount}    ${tsdr_op2_bc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_3_bytecount}    ${tsdr_op3_bc}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
 
 *** Keywords ***
 Initialize the Tsdr Suite

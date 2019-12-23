@@ -66,14 +66,16 @@ Monitor_Owner_And_Candidates_Stability
 Register_Singleton_Constant_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Register a candidate application on given nodes.
-    : FOR    ${index}    IN    @{index_list}
-    \    Register_Singleton_And_Update_Expected_Candidates    ${index}    ${CS_CONSTANT_PREFIX}${index}
+    FOR    ${index}    IN    @{index_list}
+        Register_Singleton_And_Update_Expected_Candidates    ${index}    ${CS_CONSTANT_PREFIX}${index}
+    END
 
 Unregister_Singleton_Constant_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Unregister the application from given nodes.
-    : FOR    ${index}    IN    @{index_list}
-    \    Unregister_Singleton_And_Update_Expected_Candidates    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Unregister_Singleton_And_Update_Expected_Candidates    ${index}
+    END
 
 Get_And_Save_Present_CsOwner_And_CsCandidates
     [Arguments]    ${node_to_ask}
@@ -92,14 +94,16 @@ Verify_Singleton_Constant_On_Node
 Verify_Singleton_Constant_On_Nodes
     [Arguments]    ${index_list}    ${cs_exp_constant}
     [Documentation]    Iterate over all cluster nodes and all should return expected constant.
-    : FOR    ${index}    IN    @{index_list}
-    \    Verify_Singleton_Constant_On_Node    ${index}    ${cs_exp_constant}
+    FOR    ${index}    IN    @{index_list}
+        Verify_Singleton_Constant_On_Node    ${index}    ${cs_exp_constant}
+    END
 
 Verify_Singleton_Constant_During_Isolation
     [Documentation]    Iterate over all non-isolated cluster nodes. They should return the correct constant.
-    : FOR    ${index}    IN    @{cs_all_indices}
-    \    BuiltIn.Run_Keyword_If    "${index}" == "${cs_isolated_index}"    BuiltIn.Log    Node not triggered, behavior not well described, see bugs 8207, 8214.
-    \    BuiltIn.Run_Keyword_Unless    "${index}" == "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+    FOR    ${index}    IN    @{cs_all_indices}
+        BuiltIn.Run_Keyword_If    "${index}" == "${cs_isolated_index}"    BuiltIn.Log    Node not triggered, behavior not well described, see bugs 8207, 8214.
+        BuiltIn.Run_Keyword_Unless    "${index}" == "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+    END
 
 Isolate_Owner_And_Verify_Isolated
     [Documentation]    Isolate the owner cluster node. Wait until the new owner is elected and store new values of owner and candidates.
@@ -121,17 +125,19 @@ Rejoin_Node_And_Verify_Rejoined
 Register_Flapping_Singleton_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Register a candidate application on each node which starts the test.
-    : FOR    ${index}    IN    @{index_list}
-    \    MdsalLowlevel.Register_Flapping_Singleton    ${index}
+    FOR    ${index}    IN    @{index_list}
+        MdsalLowlevel.Register_Flapping_Singleton    ${index}
+    END
 
 Unregister_Flapping_Singleton_On_Nodes_And_Validate_Results
     [Arguments]    ${index_list}    ${rate_limit_to_pass}    ${test_duration}
     [Documentation]    Unregister the testing service and check recevied statistics.
     ${movements_count} =    BuiltIn.Set_Variable    ${0}
-    : FOR    ${index}    IN    @{index_list}
-    \    ${count} =    MdsalLowlevel.Unregister_Flapping_Singleton    ${index}
-    \    BuiltIn.Run_Keyword_If    ${count} < 0    BuiltIn.Fail    No failure should have occured during the ${test_duration} timeout.
-    \    ${movements_count} =    BuiltIn.Evaluate    ${movements_count}+${count}
+    FOR    ${index}    IN    @{index_list}
+        ${count} =    MdsalLowlevel.Unregister_Flapping_Singleton    ${index}
+        BuiltIn.Run_Keyword_If    ${count} < 0    BuiltIn.Fail    No failure should have occured during the ${test_duration} timeout.
+        ${movements_count} =    BuiltIn.Evaluate    ${movements_count}+${count}
+    END
     ${seconds} =    DateTime.Convert_Time    ${test_duration}
     ${rate} =    BuiltIn.Evaluate    ${movements_count}/${seconds}
     BuiltIn.Run_Keyword_If    ${rate} < ${rate_limit_to_pass}    BuiltIn.Fail    Acceptance rate ${rate_limit_to_pass} not reached, actual rate is ${rate}.

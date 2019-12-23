@@ -68,8 +68,9 @@ Clean Connections
     [Documentation]    Delete all connections via RPC from node
     ${resp} =    Get Connections    ${node}    ${session}    ${domain}
     @{connections} =    Sxp.Parse Connections    ${resp}
-    : FOR    ${connection}    IN    @{connections}
-    \    Delete Connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}    ${domain}
+    FOR    ${connection}    IN    @{connections}
+        Delete Connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}    ${domain}
+    END
 
 Verify Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}=64999    ${node}=127.0.0.1    ${state}=on
@@ -109,10 +110,11 @@ Clean Bindings
     [Documentation]    Delete all bindings via RPC from Master DB of node
     ${resp} =    Get Bindings    ${node}    ${session}    ${domain}    ${scope}
     @{bindings} =    Sxp.Parse Bindings    ${resp}
-    : FOR    ${binding}    IN    @{bindings}
-    \    @{prefixes_list} =    collections.Get From Dictionary    ${binding}    ip-prefix
-    \    ${prefixes} =    BuiltIn.Catenate    SEPARATOR=,    @{prefixes_list}
-    \    Delete Bindings    ${binding['sgt']}    ${prefixes}    ${node}    ${domain}    ${session}
+    FOR    ${binding}    IN    @{bindings}
+        @{prefixes_list} =    collections.Get From Dictionary    ${binding}    ip-prefix
+        ${prefixes} =    BuiltIn.Catenate    SEPARATOR=,    @{prefixes_list}
+        Delete Bindings    ${binding['sgt']}    ${prefixes}    ${node}    ${domain}    ${session}
+    END
 
 Delete Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
@@ -145,8 +147,9 @@ Clean Peer Groups
     [Documentation]    Delete all PeerGroups via RPC from node
     ${resp} =    Get Peer Groups    ${node}    ${session}
     @{prefixes} =    Sxp.Parse Peer Groups    ${resp}
-    : FOR    ${group}    IN    @{prefixes}
-    \    Delete Peer Group    ${group['name']}    ${node}    ${session}
+    FOR    ${group}    IN    @{prefixes}
+        Delete Peer Group    ${group['name']}    ${node}    ${session}
+    END
 
 Add Filter
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
@@ -238,17 +241,18 @@ Connections Should Not Contain
 
 Setup Topology Complex
     [Arguments]    ${version}=version4    ${password}=none
-    : FOR    ${node}    IN RANGE    2    6
-    \    Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
-    \    ...    ${password}
-    \    Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
-    \    ...    ${password}
-    \    BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
-    \    ...    127.0.0.${node}
-    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    FOR    ${node}    IN RANGE    2    6
+        Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
+        ...    ${password}
+        Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
+        ...    ${password}
+        BuiltIn.Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
+        ...    127.0.0.${node}
+        Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+        Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+        Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+        Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    END
     Add Bindings    10    10.10.10.10/32    127.0.0.1
     Add Bindings    10    10.10.10.0/24    127.0.0.1
     Add Bindings    10    10.10.0.0/16    127.0.0.1
@@ -301,26 +305,29 @@ Check Binding Range
     [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node contains Bindings specified by range
     ${resp} =    Get Bindings    ${node}
-    : FOR    ${num}    IN RANGE    ${start}    ${end}
-    \    ${ip} =    Sxp.Get Ip From Number    ${num}
-    \    Should Contain Binding    ${resp}    ${sgt}    ${ip}/32
+    FOR    ${num}    IN RANGE    ${start}    ${end}
+        ${ip} =    Sxp.Get Ip From Number    ${num}
+        Should Contain Binding    ${resp}    ${sgt}    ${ip}/32
+    END
 
 Check Binding Range Negative
     [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node does not contains Bindings specified by range
     ${resp} =    Get Bindings    ${node}
-    : FOR    ${num}    IN RANGE    ${start}    ${end}
-    \    ${ip} =    Sxp.Get Ip From Number    ${num}
-    \    Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
+    FOR    ${num}    IN RANGE    ${start}    ${end}
+        ${ip} =    Sxp.Get Ip From Number    ${num}
+        Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
+    END
 
 Setup SXP Environment
     [Arguments]    ${node_range}=1
     [Documentation]    Create session to Controller, ${node_range} parameter specifies number of localhost nodes to be created on ${ODL_SYSTEM_IP}.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=${DEFAULT_TIMEOUT_HTTP}    max_retries=0
-    : FOR    ${num}    IN RANGE    1    ${node_range}+1
-    \    ${node} =    Sxp.Get Ip From Number    ${num}
-    \    Add Node    ${node}    retry_open_timer=${num}
-    \    BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${node}    system=${ODL_SYSTEM_IP}
+    FOR    ${num}    IN RANGE    1    ${node_range}+1
+        ${node} =    Sxp.Get Ip From Number    ${num}
+        Add Node    ${node}    retry_open_timer=${num}
+        BuiltIn.Wait Until Keyword Succeeds    20    1    Check Node Started    ${node}    system=${ODL_SYSTEM_IP}
+    END
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
@@ -347,10 +354,11 @@ Get Node Running Status
 Clean SXP Environment
     [Arguments]    ${node_range}=1
     [Documentation]    Destroy created sessions
-    : FOR    ${num}    IN RANGE    1    ${node_range}+1
-    \    ${ip} =    Sxp.Get Ip From Number    ${num}
-    \    Delete Node    ${ip}
-    \    BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Node Stopped    ${ip}    system=${ODL_SYSTEM_IP}
+    FOR    ${num}    IN RANGE    1    ${node_range}+1
+        ${ip} =    Sxp.Get Ip From Number    ${num}
+        Delete Node    ${ip}
+        BuiltIn.Wait Until Keyword Succeeds    12x    10s    Check Node Stopped    ${ip}    system=${ODL_SYSTEM_IP}
+    END
     RequestsLibrary.Delete All Sessions
 
 Get Routing Configuration From Controller

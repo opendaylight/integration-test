@@ -154,13 +154,14 @@ Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
     ${ip_list} =    BuiltIn.Create List    @{EMPTY}
-    : FOR    ${vm}    IN    @{vm_list}
-    \    ${output} =    OpenStack CLI    openstack floating ip create ${external_net}
-    \    @{ip} =    String.Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${ip_length} =    BuiltIn.Get Length    ${ip}
-    \    BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
-    \    ...    ELSE    Collections.Append To List    ${ip_list}    None
-    \    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+    FOR    ${vm}    IN    @{vm_list}
+        ${output} =    OpenStack CLI    openstack floating ip create ${external_net}
+        @{ip} =    String.Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+        ${ip_length} =    BuiltIn.Get Length    ${ip}
+        BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
+        ...    ELSE    Collections.Append To List    ${ip_list}    None
+        ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+    END
     [Return]    ${ip_list}
 
 Delete Floating IP
@@ -216,8 +217,9 @@ Create Vm Instances
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${image}    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    : FOR    ${vm}    IN    @{vm_instance_names}
-    \    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm} --security-group ${sg} --min ${min} --max ${max}
+    FOR    ${vm}    IN    @{vm_instance_names}
+        ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm} --security-group ${sg} --min ${min} --max ${max}
+    END
 
 Create Vm Instance On Compute Node
     [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
@@ -278,18 +280,19 @@ Collect VM IP Addresses
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
     ${ip_list}    Create List    @{EMPTY}
-    : FOR    ${vm}    IN    @{vm_list}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
-    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${vm_ip_length}    Get Length    ${vm_ip}
-    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
-    \    ...    ELSE    Append To List    ${ip_list}    None
-    \    ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
-    \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
-    \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
-    \    ${vm_console_output}=    Run    openstack console log show ${vm}
-    \    Log    ${vm_console_output}
+    FOR    ${vm}    IN    @{vm_list}
+        ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+        @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+        ${vm_ip_length}    Get Length    ${vm_ip}
+        Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
+        ...    ELSE    Append To List    ${ip_list}    None
+        ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
+        ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+        ${dhcp_ip_length}    Get Length    ${dhcp_ip}
+        Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
+        ${vm_console_output}=    Run    openstack console log show ${vm}
+        Log    ${vm_console_output}
+    END
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
@@ -330,19 +333,20 @@ Get VM IPs
     ...    TODO: there is a potential issue for a caller that passes in VMs belonging to different networks that
     ...    may have different dhcp server addresses. Not sure what TODO about that, but noting it here for reference.
     @{vm_ips}    BuiltIn.Create List    @{EMPTY}
-    : FOR    ${vm}    IN    @{vms}
-    \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
-    \    ${status}    ${ips_and_console_log}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    180s    15s
-    \    ...    OpenStackOperations.Get VM IP    true    ${vm}
-    \    # If there is trouble with Get VM IP, the status will be FAIL and the return value will be a string of what went
-    \    # wrong. We need to handle both the PASS and FAIL cases. In the FAIL case we know we wont have access to the
-    \    # console log, as it would not be returned; so we need to grab it again to log it. We also can append 'None' to
-    \    # the vm ip list if status is FAIL.
-    \    BuiltIn.Run Keyword If    "${status}" == "PASS"    BuiltIn.Log    ${ips_and_console_log[2]}
-    \    BuiltIn.Run Keyword If    "${status}" == "PASS"    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
-    \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
-    \    ${vm_console_output} =    BuiltIn.Run Keyword If    "${status}" == "FAIL"    OpenStack CLI    openstack console log show ${vm}
-    \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
+    FOR    ${vm}    IN    @{vms}
+        OpenStackOperations.Poll VM Is ACTIVE    ${vm}
+        ${status}    ${ips_and_console_log}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    180s    15s
+        ...    OpenStackOperations.Get VM IP    true    ${vm}
+        # If there is trouble with Get VM IP, the status will be FAIL and the return value will be a string of what went
+        # wrong. We need to handle both the PASS and FAIL cases. In the FAIL case we know we wont have access to the
+        # console log, as it would not be returned; so we need to grab it again to log it. We also can append 'None' to
+        # the vm ip list if status is FAIL.
+        BuiltIn.Run Keyword If    "${status}" == "PASS"    BuiltIn.Log    ${ips_and_console_log[2]}
+        BuiltIn.Run Keyword If    "${status}" == "PASS"    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
+        BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
+        ${vm_console_output} =    BuiltIn.Run Keyword If    "${status}" == "FAIL"    OpenStack CLI    openstack console log show ${vm}
+        BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
+    END
     OpenStackOperations.Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
@@ -354,25 +358,27 @@ Collect VM IPv6 SLAAC Addresses
     ...    Returns an empty list if no IPv6 addresses found or if SSH connection fails.
     ...    Otherwise, returns a list of IPv6 addresses.
     ${ipv6_list} =    BuiltIn.Create List    @{EMPTY}
-    : FOR    ${vm}    IN    @{vm_list}
-    \    ${output} =    OpenStack CLI    openstack server show ${vm} -f shell
-    \    ${pattern} =    String.Replace String    ${subnet}    ::/64    (:[a-f0-9]{,4}){,4}
-    \    @{vm_ipv6} =    String.Get Regexp Matches    ${output}    ${pattern}
-    \    ${vm_ip_length} =    BuiltIn.Get Length    ${vm_ipv6}[0]
-    \    ${ipv6_data_from_vm} =    BuiltIn.Run Keyword If    ${vm_ip_length}>0    OpenStackOperations.Execute Command on VM Instance    ${network}    ${vm_ipv6[0]}
-    \    ...    ip -6 a
-    \    @{ipv6} =    String.Get Regexp Matches    ${ipv6_data_from_vm}    ${pattern}
-    \    ${ipv6_addr_list_length}    BuiltIn.Get Length    @{ipv6}
-    \    BuiltIn.Run Keyword If    ${ipv6_addr_list_length}>0    Collections.Append To List    ${ipv6_list}    ${ipv6[0]}
-    \    ...    ELSE    Collections.Append To List    ${ipv6_list}    None
+    FOR    ${vm}    IN    @{vm_list}
+        ${output} =    OpenStack CLI    openstack server show ${vm} -f shell
+        ${pattern} =    String.Replace String    ${subnet}    ::/64    (:[a-f0-9]{,4}){,4}
+        @{vm_ipv6} =    String.Get Regexp Matches    ${output}    ${pattern}
+        ${vm_ip_length} =    BuiltIn.Get Length    ${vm_ipv6}[0]
+        ${ipv6_data_from_vm} =    BuiltIn.Run Keyword If    ${vm_ip_length}>0    OpenStackOperations.Execute Command on VM Instance    ${network}    ${vm_ipv6[0]}
+        ...    ip -6 a
+        @{ipv6} =    String.Get Regexp Matches    ${ipv6_data_from_vm}    ${pattern}
+        ${ipv6_addr_list_length}    BuiltIn.Get Length    @{ipv6}
+        BuiltIn.Run Keyword If    ${ipv6_addr_list_length}>0    Collections.Append To List    ${ipv6_list}    ${ipv6[0]}
+        ...    ELSE    Collections.Append To List    ${ipv6_list}    None
+    END
     [Return]    ${ipv6_list}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
-    : FOR    ${vm}    IN    @{vm_instance_names}
-    \    ${output} =    OpenStack CLI    openstack server show ${vm}
-    \    ${output} =    OpenStack CLI    openstack console log show ${vm}
+    FOR    ${vm}    IN    @{vm_instance_names}
+        ${output} =    OpenStack CLI    openstack server show ${vm}
+        ${output} =    OpenStack CLI    openstack console log show ${vm}
+    END
 
 Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
@@ -464,11 +470,12 @@ Test Operations From Vm Instance
     BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
     BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ip -f inet6 neigh show    ${OS_SYSTEM_PROMPT}
-    : FOR    ${dest_ip}    IN    @{dest_ips}
-    \    ${string_empty} =    BuiltIn.Run Keyword And Return Status    Should Be Empty    ${dest_ip}
-    \    BuiltIn.Run Keyword If    ${string_empty}    Continue For Loop
-    \    BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}
-    \    ...    ELSE    OpenStackOperations.Check No Ping    ${dest_ip}    ttl=${ttl}
+    FOR    ${dest_ip}    IN    @{dest_ips}
+        ${string_empty} =    BuiltIn.Run Keyword And Return Status    Should Be Empty    ${dest_ip}
+        BuiltIn.Run Keyword If    ${string_empty}    Continue For Loop
+        BuiltIn.Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    OpenStackOperations.Check Ping    ${dest_ip}    ttl=${ttl}
+        ...    ELSE    OpenStackOperations.Check No Ping    ${dest_ip}    ttl=${ttl}
+    END
     ${ethertype} =    String.Get Regexp Matches    ${src_ip}    ${IP_REGEX}
     BuiltIn.Run Keyword If    ${rcode} and "${check_metadata}" and ${ethertype} == "True"    OpenStackOperations.Check Metadata Access
     [Teardown]    Exit From Vm Console
@@ -494,8 +501,9 @@ Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
     [Documentation]    Check reachability with other network's instances.
     ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
-    : FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
-    \    OpenStackOperations.Check Ping    ${dest_ip}
+    FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
+        OpenStackOperations.Check Ping    ${dest_ip}
+    END
 
 Create Router
     [Arguments]    ${router_name}
@@ -558,10 +566,11 @@ Get DumpFlows And Ovsconfig
     Utils.Write Commands Until Expected Prompt    arp -an    ${DEFAULT_LINUX_PROMPT_STRICT}
     ${nslist} =    Utils.Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{lines}    Split To Lines    ${nslist}    end=-1
-    : FOR    ${line}    IN    @{lines}
-    \    Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
-    \    Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
-    \    Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
+    FOR    ${line}    IN    @{lines}
+        Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
+        Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
+        Utils.Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
+    END
     Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -579,9 +588,10 @@ Get Karaf Log Type From Test Start
 Get Karaf Log Types From Test Start
     [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    : FOR    ${type}    IN    @{types}
-    \    OpenStackOperations.Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
-    \    ...    ${prompt}    ${log_file}
+    FOR    ${type}    IN    @{types}
+        OpenStackOperations.Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+        ...    ${prompt}    ${log_file}
+    END
 
 Get Karaf Log Events From Test Start
     [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
@@ -615,9 +625,10 @@ Show Debugs
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     OpenStackOperations.Get ControlNode Connection
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    sudo ip netns list
-    : FOR    ${index}    IN    @{vm_indices}
-    \    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    nova show ${index}
-    \    BuiltIn.Log    ${output}
+    FOR    ${index}    IN    @{vm_indices}
+        ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    nova show ${index}
+        BuiltIn.Log    ${output}
+    END
     OpenStackOperations.List Nova VMs
     OpenStackOperations.List Routers
     OpenStackOperations.List Networks
@@ -708,8 +719,9 @@ Delete All Security Group Rules
     [Documentation]    Delete all security rules from a specified security group
     ${sg_rules_output} =    OpenStack CLI    openstack security group rule list ${sg_name} -cID -fvalue
     @{sg_rules} =    String.Split String    ${sg_rules_output}    \n
-    : FOR    ${rule}    IN    @{sg_rules}
-    \    ${output} =    OpenStack CLI    openstack security group rule delete ${rule}
+    FOR    ${rule}    IN    @{sg_rules}
+        ${output} =    OpenStack CLI    openstack security group rule delete ${rule}
+    END
 
 Create Allow All SecurityGroup
     [Arguments]    ${sg_name}    ${ether_type}=IPv4
@@ -735,9 +747,10 @@ Get Ports MacAddr
     [Arguments]    ${ports}
     [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list.
     ${macs}    BuiltIn.Create List
-    : FOR    ${port}    IN    @{ports}
-    \    ${mac} =    OpenStackOperations.Get Port Mac    ${port}
-    \    Collections.Append To List    ${macs}    ${mac}
+    FOR    ${port}    IN    @{ports}
+        ${mac} =    OpenStackOperations.Get Port Mac    ${port}
+        Collections.Append To List    ${macs}    ${mac}
+    END
     [Return]    ${macs}
 
 Get Port Ip
@@ -945,33 +958,40 @@ Wait For Routes To Propogate
     [Arguments]    ${networks}    ${subnets}
     [Documentation]    Check propagated routes
     OpenStackOperations.Get ControlNode Connection
-    : FOR    ${INDEX}    IN RANGE    0    1
-    \    ${net_id} =    OpenStackOperations.Get Net Id    @{networks}[${INDEX}]
-    \    ${is_ipv6} =    String.Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
-    \    ${length} =    BuiltIn.Get Length    ${is_ipv6}
-    \    ${cmd} =    BuiltIn.Set Variable If    ${length} == 0    ip route    ip -6 route
-    \    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
-    \    BuiltIn.Should Contain    ${output}    @{subnets}[${INDEX}]
+    FOR    ${INDEX}    IN RANGE    0    1
+        ${net_id} =    OpenStackOperations.Get Net Id    @{networks}[${INDEX}]
+        ${is_ipv6} =    String.Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
+        ${length} =    BuiltIn.Get Length    ${is_ipv6}
+        ${cmd} =    BuiltIn.Set Variable If    ${length} == 0    ip route    ip -6 route
+        ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
+        BuiltIn.Should Contain    ${output}    @{subnets}[${INDEX}]
+    END
 
 Neutron Cleanup
     [Arguments]    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
-    : FOR    ${vm}    IN    @{vms}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm}
-    : FOR    ${port}    IN    @{ports}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port}
-    : FOR    ${subnet}    IN    @{subnets}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete SubNet    ${subnet}
-    : FOR    ${network}    IN    @{networks}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network}
-    : FOR    ${sg}    IN    @{sgs}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${sg}
+    FOR    ${vm}    IN    @{vms}
+        BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm}
+    END
+    FOR    ${port}    IN    @{ports}
+        BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port}
+    END
+    FOR    ${subnet}    IN    @{subnets}
+        BuiltIn.Run Keyword And Ignore Error    Delete SubNet    ${subnet}
+    END
+    FOR    ${network}    IN    @{networks}
+        BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network}
+    END
+    FOR    ${sg}    IN    @{sgs}
+        BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${sg}
+    END
 
 OpenStack List All
     [Documentation]    Get a list of different OpenStack resources that might be in use.
     @{modules} =    BuiltIn.Create List    server    port    network    subnet    security group
     ...    security group rule    floating ip    router
-    : FOR    ${module}    IN    @{modules}
-    \    ${output} =    OpenStack CLI    openstack ${module} list
+    FOR    ${module}    IN    @{modules}
+        ${output} =    OpenStack CLI    openstack ${module} list
+    END
 
 OpenStack CLI Get List
     [Arguments]    ${cmd}
@@ -1001,34 +1021,41 @@ OpenStack Cleanup All
     [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
     ...    in use and then attempt to delete them. Errors are ignored to allow the cleanup to continue.
     @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json
-    : FOR    ${fip}    IN    @{fips}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
+    FOR    ${fip}    IN    @{fips}
+        BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
+    END
     @{vms} =    OpenStack CLI Get List    openstack server list -f json
-    : FOR    ${vm}    IN    @{vms}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
+    FOR    ${vm}    IN    @{vms}
+        BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
+    END
     @{routers} =    OpenStack CLI Get List    openstack router list -f json
-    : FOR    ${router}    IN    @{routers}
-    \    BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
+    FOR    ${router}    IN    @{routers}
+        BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
+    END
     @{ports} =    OpenStack CLI Get List    openstack port list -f json
-    : FOR    ${port}    IN    @{ports}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port['ID']}
+    FOR    ${port}    IN    @{ports}
+        BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port['ID']}
+    END
     @{networks} =    OpenStack CLI Get List    openstack network list -f json
-    : FOR    ${network}    IN    @{networks}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Subnet    ${network['Subnets']}
-    \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network['ID']}
+    FOR    ${network}    IN    @{networks}
+        BuiltIn.Run Keyword And Ignore Error    Delete Subnet    ${network['Subnets']}
+        BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network['ID']}
+    END
     @{security_groups} =    OpenStack CLI Get List    openstack security group list -f json
-    : FOR    ${security_group}    IN    @{security_groups}
-    \    BuiltIn.Run Keyword If    "${security_group['Name']}" != "default"    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${security_group['ID']}
+    FOR    ${security_group}    IN    @{security_groups}
+        BuiltIn.Run Keyword If    "${security_group['Name']}" != "default"    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${security_group['ID']}
+    END
     OpenStack List All
 
 Cleanup Router
     [Arguments]    ${id}
     [Documentation]    Delete a router, but first remove any interfaces or gateways so that the delete will be successful.
     @{ports} =    OpenStack CLI Get List    openstack port list --router ${id} -f json --long
-    : FOR    ${port}    IN    @{ports}
-    \    ${subnet_id} =    OpenStackOperations.Get Match    ${port['Fixed IP Addresses']}    ${REGEX_UUID}    0
-    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_gateway"    BuiltIn.Run Keyword And Ignore Error    Remove Gateway    ${id}
-    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_interface"    BuiltIn.Run Keyword And Ignore Error    Remove Interface    ${id}    ${subnet_id}
+    FOR    ${port}    IN    @{ports}
+        ${subnet_id} =    OpenStackOperations.Get Match    ${port['Fixed IP Addresses']}    ${REGEX_UUID}    0
+        BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_gateway"    BuiltIn.Run Keyword And Ignore Error    Remove Gateway    ${id}
+        BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_interface"    BuiltIn.Run Keyword And Ignore Error    Remove Interface    ${id}    ${subnet_id}
+    END
     BuiltIn.Run Keyword And Ignore Error    Delete Router    ${id}
 
 OpenStack Suite Setup
@@ -1060,9 +1087,10 @@ Copy DHCP Files From Control Node
 
 Is Feature Installed
     [Arguments]    ${features}=none
-    : FOR    ${feature}    IN    @{features}
-    \    ${status}    ${output}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Should Contain    ${CONTROLLERFEATURES}    ${feature}
-    \    Return From Keyword If    "${status}" == "PASS"    True
+    FOR    ${feature}    IN    @{features}
+        ${status}    ${output}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Should Contain    ${CONTROLLERFEATURES}    ${feature}
+        Return From Keyword If    "${status}" == "PASS"    True
+    END
     [Return]    False
 
 Add OVS Logging On All OpenStack Nodes

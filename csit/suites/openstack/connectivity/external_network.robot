@@ -178,11 +178,13 @@ Ping External Network PNF from Vm Instance 2 After Floating IP Removal
 *** Keywords ***
 Suite Setup
     OpenStackOperations.OpenStack Suite Setup
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
-    : FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
+    FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
     ...    ${SUBNET_CIDRS}
-    \    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
+        OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
+    END
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
@@ -205,15 +207,19 @@ Suite Setup
     OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
     OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
     OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
+    FOR    ${router}    IN    @{ROUTERS}
+        OpenStackOperations.Create Router    ${router}
+    END
+    FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+        OpenStackOperations.Add Router Interface    ${router}    ${interface}
+    END
+    FOR    ${router}    IN    @{ROUTERS}
+        OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
+    END
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    Should Contain    ${data}    ${router}
+    FOR    ${router}    IN    @{ROUTERS}
+        Should Contain    ${data}    ${router}
+    END
     OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
     OpenStackOperations.Get Suite Debugs

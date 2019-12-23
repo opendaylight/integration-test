@@ -20,10 +20,11 @@ ${switch_name}    s${switch_idx}
 *** Test Cases ***
 Test Add Flows
     [Documentation]    Add all flows and waits for SM to collect data
-    : FOR    ${flowfile}    IN    @{xml_files}
-    \    Log    ${flowfile}
-    \    Init Flow Variables    ${flowfile}
-    \    Run Keyword And Continue On Failure    Add Flow
+    FOR    ${flowfile}    IN    @{xml_files}
+        Log    ${flowfile}
+        Init Flow Variables    ${flowfile}
+        Run Keyword And Continue On Failure    Add Flow
+    END
 
 Test Is Flow 1 Added
     [Documentation]    Checks if flow is configured and operational
@@ -105,10 +106,11 @@ Test Is Flow 24 Added
 
 Test Delete Flows
     [Documentation]    Delete all flows and waits for SM to collect data
-    : FOR    ${flowfile}    IN    @{xml_files}
-    \    Log    ${flowfile}
-    \    Init Flow Variables    ${flowfile}
-    \    Run Keyword And Continue On Failure    Delete Flow
+    FOR    ${flowfile}    IN    @{xml_files}
+        Log    ${flowfile}
+        Init Flow Variables    ${flowfile}
+        Run Keyword And Continue On Failure    Delete Flow
+    END
 
 Test Is Flow 1 Deleted
     [Documentation]    Checks if flow is not configured and operational
@@ -255,10 +257,11 @@ Delete Flow
 
 Delete All Flows
     [Documentation]    Deletes all flows
-    : FOR    ${flowfile}    IN    @{xml_files}
-    \    Log    ${flowfile}
-    \    Init Flow Variables    ${flowfile}
-    \    Delete Flow
+    FOR    ${flowfile}    IN    @{xml_files}
+        Log    ${flowfile}
+        Init Flow Variables    ${flowfile}
+        Delete Flow
+    END
 
 Initialization Phase
     [Documentation]    Initiate tcp connection with controller

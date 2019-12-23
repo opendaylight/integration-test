@@ -18,10 +18,11 @@ Verification of TSDR Cassandra Feature Installation
 
 Sending syslog to ODL Syslog collector using Logger command
     [Documentation]    Sending Syslogs to collector.
-    : FOR    ${key}    IN ZIP    &{syslog_facility}
-    \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
-    \    ${f_value}=    Evaluate    ${value} * 8
-    \    Generate Syslog    ${f_value}
+    FOR    ${key}    IN ZIP    &{syslog_facility}
+        ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
+        ${f_value}=    Evaluate    ${value} * 8
+        Generate Syslog    ${f_value}
+    END
 
 Verifying TSDR Data Store For Syslog Entries
     [Documentation]    Verifying if syslogs is getting stored.
@@ -29,9 +30,10 @@ Verifying TSDR Data Store For Syslog Entries
     ${metric_log}=    Verify the Metrics Syslog on Cassandra Client    grep DC=SYSLOG
     @{Syslogs}=    Split to lines    ${metric_log}
     ${iterator}=    Set Variable    0
-    : FOR    ${key}    IN ZIP    &{syslog_facility}
-    \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
-    \    ${f_value}=    Evaluate    ${value} * 8
-    \    Should Contain    ${syslogs}[${iterator}]    ${MESSAGE}
-    \    Should Contain    ${syslogs}[${iterator}]    <${f_value}>
-    \    ${iterator}=    Evaluate    ${iterator} + 1
+    FOR    ${key}    IN ZIP    &{syslog_facility}
+        ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
+        ${f_value}=    Evaluate    ${value} * 8
+        Should Contain    ${syslogs}[${iterator}]    ${MESSAGE}
+        Should Contain    ${syslogs}[${iterator}]    <${f_value}>
+        ${iterator}=    Evaluate    ${iterator} + 1
+    END

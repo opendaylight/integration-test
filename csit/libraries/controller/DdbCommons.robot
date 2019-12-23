@@ -199,8 +199,9 @@ Leader_Isolation_Heal_Within_Rt
     [Documentation]    The leader isolation test case end if the heal happens within transaction timeout. All write transaction
     ...    producers shoudl finish without error.
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
 
 Module_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
@@ -216,8 +217,9 @@ Module_Leader_Isolation_Heal_Default
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ...    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
 
 Prefix_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
@@ -232,8 +234,9 @@ Prefix_Leader_Isolation_Heal_Default
     ${restart_producer_node_ip_as_list}    BuiltIn.Create_List    ${restart_producer_node_ip}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
 
 Client_Isolation_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
@@ -317,8 +320,9 @@ Listener_Stability_Test_Templ
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
@@ -341,8 +345,9 @@ Listener_Stability_PrefBasedShard_Test_Templ
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
@@ -363,9 +368,10 @@ Remove_Prefix_Based_Shard_And_Verify
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
     MdsalLowlevel.Remove_Prefix_Shard    ${node_to_trigger}    ${prefix}
-    : FOR    ${idx}    IN    @{all_indices}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${idx}    ${prefix}!!
-    \    ...    ${SHARD_TYPE}
+    FOR    ${idx}    IN    @{all_indices}
+        BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${idx}    ${prefix}!!
+        ...    ${SHARD_TYPE}
+    END
 
 Verify_Shard_Replica_Not_Present
     [Arguments]    ${member_index}    ${shard_name}    ${shard_type}

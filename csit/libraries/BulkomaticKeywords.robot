@@ -90,12 +90,15 @@ Get Bulk Flow And Verify Count In Cluster
     [Arguments]    ${json_body_get}    ${timeout}    ${flow_count}    ${controller_index_list}=${EMPTY}
     [Documentation]    Get Bulk Flow and Verify Flow Count in ${controller_index_list} matches ${flow_count}.
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
-    : FOR    ${index}    IN    @{index_list}
-    \    Get Bulk Flow    ${json_body_get}    ${index}
-    : FOR    ${index}    IN    @{index_list}
-    \    Wait Until Read Finishes    ${index}    ${timeout}
-    : FOR    ${index}    IN    @{index_list}
-    \    Verify Flow Count    ${flow_count}    ${index}
+    FOR    ${index}    IN    @{index_list}
+        Get Bulk Flow    ${json_body_get}    ${index}
+    END
+    FOR    ${index}    IN    @{index_list}
+        Wait Until Read Finishes    ${index}    ${timeout}
+    END
+    FOR    ${index}    IN    @{index_list}
+        Verify Flow Count    ${flow_count}    ${index}
+    END
 
 Set DPN And Flow Count In Json Add
     [Arguments]    ${json_config}    ${dpn_count}    ${flows_count}

@@ -30,7 +30,6 @@ Move_Leader_From_Listener_Local_To_Remote
 Restart_1
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -41,7 +40,6 @@ Move_Leader_From_Listener_Remote_To_Other_Remote
 Restart_2
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 

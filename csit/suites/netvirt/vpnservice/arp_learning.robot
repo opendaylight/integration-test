@@ -139,18 +139,22 @@ Suite Setup
     ...    Create a Neutron Router and associate subnet1 and subnet2.
     ...    Create an L3VPN instance and associate the L3VPN instance to the neutron router.
     VpnOperations.Basic Suite Setup
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${network}
+    END
     ${neutron_networks} =    OpenStackOperations.List Networks
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    BuiltIn.Should Contain    ${neutron_networks}    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        BuiltIn.Should Contain    ${neutron_networks}    ${network}
+    END
     ${NET_ID} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     BuiltIn.Set Suite Variable    ${NET_ID}
-    : FOR    ${i}    IN RANGE    0    3
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
+    FOR    ${i}    IN RANGE    0    3
+        OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
+    END
     ${neutron_subnets} =    OpenStackOperations.List Subnets
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
+    FOR    ${subnet}    IN    @{SUBNETS}
+        BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
+    END
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
@@ -243,13 +247,15 @@ Verify Flows Are Present
     @{vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{NET_3_VM_IPS}
     ${resp} =    Should Match regexp    ${flow_output}    table=0.*goto_table:36
     ${resp} =    Should Match regexp    ${flow_output}    table=0.*goto_table:17
-    : FOR    ${ip}    IN    @{vm_ips}
-    \    ${resp} =    Should Match regexp    ${flow_output}    table=21.*nw_dst=${ip}
+    FOR    ${ip}    IN    @{vm_ips}
+        ${resp} =    Should Match regexp    ${flow_output}    table=21.*nw_dst=${ip}
+    END
 
 Verify Flows Are Present On All Compute Nodes
     [Documentation]    Verify Flows Are Present On All Compute Nodes
-    : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${ip}
+    FOR    ${ip}    IN    @{OS_CMP_IPS}
+        BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${ip}
+    END
 
 Verify Ping To Sub Interface
     [Arguments]    ${sub_interface_ip}

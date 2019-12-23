@@ -68,32 +68,36 @@ Setup_Http_And_Netconf
     ${run_netconf_testtool_manually}    BuiltIn.Get_Variable_Value    ${run_netconf_testtool_manually}    ${False}
     ${logfile}    Utils.Get_Log_File_Name    testtool
     BuiltIn.Run_Keyword_If    ${run_netconf_testtool_manually}    BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
-    : FOR    ${ssh_session}    IN    @{TOOLS_SESSIONS}
-    \    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
-    \    BuiltIn.Run_Keyword_Unless    ${run_netconf_testtool_manually}    Install_And_Start_Testtool    device-count=1    debug=false    schemas=${IOS_XE_SCHEMAS_FOLDER}
-    \    ...    mdsal=true
+    FOR    ${ssh_session}    IN    @{TOOLS_SESSIONS}
+        SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
+        BuiltIn.Run_Keyword_Unless    ${run_netconf_testtool_manually}    Install_And_Start_Testtool    device-count=1    debug=false    schemas=${IOS_XE_SCHEMAS_FOLDER}
+        ...    mdsal=true
+    END
 
 Teardown_Http_And_Netconf
     [Documentation]    Close http session, close ssh session to tools, stop netconf-testtool
-    : FOR    ${ssh_session}    IN    @{TOOLS_SESSIONS}
-    \    BuiltIn.Log    ${ssh_session}
-    \    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
-    \    Stop_Testtool
+    FOR    ${ssh_session}    IN    @{TOOLS_SESSIONS}
+        BuiltIn.Log    ${ssh_session}
+        SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
+        Stop_Testtool
+    END
     gbpsxp.Teardown_Ssh_Tooling    ${TOOLS_SESSIONS}
     RequestsLibrary.Delete_All_Sessions
 
 Prepare_Renderer_Prerequisities
     [Documentation]    Prepare sfc configurations, connect netconf device
-    : FOR    ${INDEX}    IN RANGE    0    2
-    \    BuiltIn.Log    ${INDEX}
-    \    ${netconf_node_configuration_json}    Utils.Json_Parse_From_File    ${NETCONF_CONFIG_IOSXE_NODE_FILE}
-    \    ${netconf_node_configuration}    gbpsxp.Replace_Netconf_Node_Host    ${netconf_node_configuration_json}    ${IOS_XE_NODE_NAMES[${INDEX}]}    ${IOS_XE_IP[${INDEX}]}
-    \    BuiltIn.Log    ${netconf_node_configuration}    level=DEBUG
-    \    Utils.Add_Elements_To_URI_And_Verify    ${NETCONF_CONFIG_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}    ${netconf_node_configuration}
-    : FOR    ${INDEX}    IN RANGE    0    2
-    \    BuiltIn.Log    ${INDEX}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    30    2    Check_Netconf_Node_Status    session    ${NETCONF_OPERATIONAL_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_From_Uri    ${NETCONF_CONFIG_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}/yang-ext:mount    session=session
+    FOR    ${INDEX}    IN RANGE    0    2
+        BuiltIn.Log    ${INDEX}
+        ${netconf_node_configuration_json}    Utils.Json_Parse_From_File    ${NETCONF_CONFIG_IOSXE_NODE_FILE}
+        ${netconf_node_configuration}    gbpsxp.Replace_Netconf_Node_Host    ${netconf_node_configuration_json}    ${IOS_XE_NODE_NAMES[${INDEX}]}    ${IOS_XE_IP[${INDEX}]}
+        BuiltIn.Log    ${netconf_node_configuration}    level=DEBUG
+        Utils.Add_Elements_To_URI_And_Verify    ${NETCONF_CONFIG_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}    ${netconf_node_configuration}
+    END
+    FOR    ${INDEX}    IN RANGE    0    2
+        BuiltIn.Log    ${INDEX}
+        BuiltIn.Wait_Until_Keyword_Succeeds    30    2    Check_Netconf_Node_Status    session    ${NETCONF_OPERATIONAL_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}
+        BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_From_Uri    ${NETCONF_CONFIG_URI}/node/${IOS_XE_NODE_NAMES[${INDEX}]}/yang-ext:mount    session=session
+    END
     Utils.Add_Elements_To_URI_From_File    ${SERVICE_FUNCTIONS_URI}    ${SFC_SERVICE_FUNCTIONS_FILE}
     &{ip_mgmt_map}    BuiltIn.Create_Dictionary    SFF1=${TOOLS_SYSTEM_2_IP}    SFF2=${TOOLS_SYSTEM_IP}
     ${sfc_sf_forwarders_json}    Utils.Json_Parse_From_File    ${SFC_SF_FORWARDERS_FILE}
@@ -117,11 +121,13 @@ Wipe_Clean_Renderer_Policy_Cohort
     BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${SERVICE_FUNCTION_PATHS_URI}
     BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${GBP_RENDERER_CONFIG_URI}
     # clean netconf-device config (behind mountpoint) and disconnect by removing it from DS/config
-    : FOR    ${ios_xe_node_name}    IN    @{IOS_XE_NODE_NAMES}
-    \    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${NETCONF_CONFIG_URI}/node/${ios_xe_node_name}/${MOUNTPOINT_IOSXE_SUFFIX}
-    \    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${NETCONF_CONFIG_URI}/node/${ios_xe_node_name}
-    : FOR    ${ios_xe_node_name}    IN    @{IOS_XE_NODE_NAMES}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    5    1    Utils.No_Content_From_URI    session    ${NETCONF_OPERATIONAL_URI}/node/${ios_xe_node_name}
+    FOR    ${ios_xe_node_name}    IN    @{IOS_XE_NODE_NAMES}
+        BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${NETCONF_CONFIG_URI}/node/${ios_xe_node_name}/${MOUNTPOINT_IOSXE_SUFFIX}
+        BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${NETCONF_CONFIG_URI}/node/${ios_xe_node_name}
+    END
+    FOR    ${ios_xe_node_name}    IN    @{IOS_XE_NODE_NAMES}
+        BuiltIn.Wait_Until_Keyword_Succeeds    5    1    Utils.No_Content_From_URI    session    ${NETCONF_OPERATIONAL_URI}/node/${ios_xe_node_name}
+    END
     BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${SXP_EP_PROVIDER_CONFIG_URI}
     BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Remove_All_Elements_If_Exist    ${GBP_TENANT_CONFIG_URI}
 

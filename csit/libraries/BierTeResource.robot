@@ -39,10 +39,11 @@ Node Online
 Second Layer Loop
     [Arguments]    ${node-id}    ${tp-id-list}    ${bp-list}    ${length}
     [Documentation]    The keyword is used for the second layer of loop TC5_Configure Te Node.
-    : FOR    ${j}    IN RANGE    ${length}
-    \    ${tp-id}    Get From List    ${tp-id-list}    ${j}
-    \    ${bp}    Get From List    ${bp-list}    ${j}
-    \    ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    DOMAINID=${DOMAIN_ID_LIST[0]}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
-    \    ...    TPID=${tp-id}    BP=${bp}
-    \    ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_te_node    ${mapping}    session
-    \    Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    FOR    ${j}    IN RANGE    ${length}
+        ${tp-id}    Get From List    ${tp-id-list}    ${j}
+        ${bp}    Get From List    ${bp-list}    ${j}
+        ${mapping}    Create Dictionary    TOPOLOGYID=${TOPOLOGY_ID}    NODEID=${node-id}    DOMAINID=${DOMAIN_ID_LIST[0]}    SUBDOMAINID=${SUBDOMAIN_ID_LIST[0]}
+        ...    TPID=${tp-id}    BP=${bp}
+        ${resp}    TemplatedRequests.Post_As_Json_Templated    ${BIER_TE_VAR_FOLDER}/bier_node_configuration/configure_te_node    ${mapping}    session
+        Verify_Response_As_Json_Templated    ${resp}    ${BIER_TE_VAR_FOLDER}/common    success_response
+    END

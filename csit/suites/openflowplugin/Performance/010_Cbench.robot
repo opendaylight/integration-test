@@ -78,8 +78,9 @@ Run Cbench And Log Results
     @{result_name_list}=    Split String    ${results_list[5]}    /
     @{result_value_list}=    Split String    ${results_list[7]}    /
     ${num_stats}=    Get Length    ${result_name_list}
-    : FOR    ${i}    IN RANGE    0    ${num_stats}
-    \    Log    ${result_name_list[${i}]} :: ${result_value_list[${i}]}
+    FOR    ${i}    IN RANGE    0    ${num_stats}
+        Log    ${result_name_list[${i}]} :: ${result_value_list[${i}]}
+    END
     ${min}=    Set Variable    ${result_value_list[${0}]}
     ${max}=    Set Variable    ${result_value_list[${1}]}
     ${average}=    Set Variable    ${result_value_list[${2}]}

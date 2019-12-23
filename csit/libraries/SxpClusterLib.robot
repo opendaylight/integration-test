@@ -54,9 +54,10 @@ Setup SXP Cluster
     [Documentation]    Setup and connect SXP cluster topology
     SxpLib.Add Node    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    240x    1s    SxpLib.Check Node Started    ${DEVICE_NODE_ID}    session=${DEVICE_SESSION}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    node=${DEVICE_NODE_ID}
-    \    ...    session=${DEVICE_SESSION}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        SxpLib.Add Connection    version4    ${peer_mode}    ${ODL_SYSTEM_${i+1}_IP}    64999    node=${DEVICE_NODE_ID}
+        ...    session=${DEVICE_SESSION}
+    END
     ${cluster_mode} =    Sxp.Get Opposing Mode    ${peer_mode}
     SxpLib.Add Node    ${INADDR_ANY}    session=${CONTROLLER_SESSION}
     BuiltIn.Wait Until Keyword Succeeds    240x    1s    Check Cluster Node Started    ${INADDR_ANY}    ip=${EMPTY}
@@ -76,10 +77,11 @@ Check Cluster Node Started
     ${resp} =    RequestsLibrary.Get Request    ${CONTROLLER_SESSION}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${started} =    BuiltIn.Set Variable    ${False}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    ...    prompt=${ODL_SYSTEM_PROMPT}
-    \    ${started} =    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+        ...    prompt=${ODL_SYSTEM_PROMPT}
+        ${started} =    BuiltIn.Set Variable If    '${rc}' == '0'    ${True}    ${started}
+    END
     BuiltIn.Should Be True    ${started}
 
 Check Cluster Node Stopped
@@ -88,10 +90,11 @@ Check Cluster Node Stopped
     ${resp} =    RequestsLibrary.Get Request    ${CONTROLLER_SESSION}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
     ${stopped} =    BuiltIn.Set Variable    ${False}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    ...    prompt=${ODL_SYSTEM_PROMPT}
-    \    ${stopped} =    BuiltIn.Set Variable If    '${rc}' == '1'    ${True}    ${stopped}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ${rc} =    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+        ...    prompt=${ODL_SYSTEM_PROMPT}
+        ${stopped} =    BuiltIn.Set Variable If    '${rc}' == '1'    ${True}    ${stopped}
+    END
     BuiltIn.Should Be True    ${stopped}
 
 Check Device is Connected
@@ -99,10 +102,11 @@ Check Device is Connected
     [Documentation]    Checks if SXP device is connected to the cluster. It means it has connection in state "on" with one of the cluster members.
     ${resp} =    SxpLib.Get Connections    node=${node}    session=${session}
     ${is_connected} =    BuiltIn.Set Variable    ${False}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${is_connected} =    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
-    \    ...    ${port}    on
-    \    BuiltIn.Exit For Loop If    ${is_connected}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ${is_connected} =    Sxp.Find Connection    ${resp}    ${version}    any    ${ODL_SYSTEM_${i+1}_IP}
+        ...    ${port}    on
+        BuiltIn.Exit For Loop If    ${is_connected}
+    END
     BuiltIn.Should Be True    ${is_connected}
 
 Check Cluster is Connected
@@ -132,9 +136,10 @@ Get Any Controller
 Map Followers To Mac Addresses
     [Documentation]    Creates Map containing ODL_SYSTEM_IP to corresponding MAC-ADDRESS
     ${mac_addresses} =    BuiltIn.Create dictionary
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${mac_address}    Find Mac Address Of Ip Address    ${ODL_SYSTEM_${i+1}_IP}
-    \    Collections.Set To Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${i+1}_IP}    ${mac_address}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        ${mac_address}    Find Mac Address Of Ip Address    ${ODL_SYSTEM_${i+1}_IP}
+        Collections.Set To Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${i+1}_IP}    ${mac_address}
+    END
     BuiltIn.Log    ${mac_addresses}
     [Return]    ${mac_addresses}
 
@@ -169,13 +174,15 @@ Shutdown Tools Node
 
 Create Virtual Interface
     [Documentation]    Create virtual interface on all of the cluster nodes
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo modprobe dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link show    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo modprobe dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+        Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link show    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    END
 
 Delete Virtual Interface
     [Documentation]    Create virtual interface on all of the cluster nodes
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link delete ${VIRTUAL_INTERFACE} type dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo rmmod dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link show    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link delete ${VIRTUAL_INTERFACE} type dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+        Utils.Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    sudo rmmod dummy    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+        Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sudo ip link show    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
+    END

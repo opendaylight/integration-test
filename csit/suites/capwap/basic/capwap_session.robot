@@ -33,9 +33,10 @@ Run Test Get Discovered WTP
     @{wtp_discovered}    Get From Dictionary    ${ac_Root}    discovered-wtps
     ${expected_ip_addr}    get simulated wtpip    ${ODL_SYSTEM_IP}
     ${wtp_ip_list}    Create List    ''
-    : FOR    ${wtp}    IN    @{wtp_discovered}
-    \    ${wtp_ip}    Get From Dictionary    ${wtp}    ipv4-addr
-    \    Append to List    ${wtp_ip_list}    ${wtp_ip}
+    FOR    ${wtp}    IN    @{wtp_discovered}
+        ${wtp_ip}    Get From Dictionary    ${wtp}    ipv4-addr
+        Append to List    ${wtp_ip_list}    ${wtp_ip}
+    END
     Log    ${wtp_ip_list}
     List Should Contain Value    ${wtp_ip_list}    ${expected_ip_addr}
 
@@ -49,8 +50,9 @@ Run Test Get Specifc WTP
     ${result}    TO JSON    ${resp.content}
     @{wtp_discovered}    Get From Dictionary    ${result}    discovered-wtps
     ${wtp_ip_list}    Create List    ''
-    : FOR    ${wtp}    IN    @{wtp_discovered}
-    \    ${wtp_ip}    Get From Dictionary    ${wtp}    ipv4-addr
-    \    Append to List    ${wtp_ip_list}    ${wtp_ip}
+    FOR    ${wtp}    IN    @{wtp_discovered}
+        ${wtp_ip}    Get From Dictionary    ${wtp}    ipv4-addr
+        Append to List    ${wtp_ip_list}    ${wtp_ip}
+    END
     Log    ${wtp_ip_list}
     List Should Contain Value    ${wtp_ip_list}    ${expected_ip_addr}

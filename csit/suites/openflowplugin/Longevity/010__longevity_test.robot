@@ -24,12 +24,13 @@ Longevity Test
     ${max_duration}=    DateTime.Convert Time    ${TEST_LENGTH}    number
     ${start_time}=    DateTime.Get Current Date
     #    This loop is not infinite, so going "sufficiently large" for now.
-    : FOR    ${i}    IN RANGE    1    65536
-    \    ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}    ${SUSTAIN_TIME}
-    \    ${current_time}=    DateTime.Get Current Date
-    \    ${duration}=    DateTime.Subtract Date From Date    ${current_time}    ${start_time}    number
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Exit For Loop If    ${duration} > ${max_duration}
+    FOR    ${i}    IN RANGE    1    65536
+        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}    ${SUSTAIN_TIME}
+        ${current_time}=    DateTime.Get Current Date
+        ${duration}=    DateTime.Subtract Date From Date    ${current_time}    ${start_time}    number
+        Exit For Loop If    '${status}' == 'FAIL'
+        Exit For Loop If    ${duration} > ${max_duration}
+    END
     ${duration_compact}=    DateTime.Convert Time    ${duration}    compact
     Log to console    ${\n}
     Log To Console    Execution stopped because: ${error_message}

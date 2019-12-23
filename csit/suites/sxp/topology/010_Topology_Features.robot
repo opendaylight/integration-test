@@ -27,16 +27,17 @@ Export Test Legacy
     [Documentation]    Test behaviour after shutting down connections in Legacy versions
     [Tags]    SXP    TopoBuiltIn.Logy
     @{list} =    Create List    version1
-    : FOR    ${version}    IN    @{list}
-    \    Setup TopoBuiltIn.Logy Triangel    ${version}
-    \    BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part One
-    \    SxpLib.Delete Connections    127.0.0.1    64999    127.0.0.3
-    \    SxpLib.Delete Connections    127.0.0.3    64999    127.0.0.1
-    \    BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part Two
-    \    SxpLib.Delete Connections    127.0.0.1    64999    127.0.0.2
-    \    SxpLib.Delete Connections    127.0.0.2    64999    127.0.0.1
-    \    BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part Three
-    \    Clean Nodes
+    FOR    ${version}    IN    @{list}
+        Setup TopoBuiltIn.Logy Triangel    ${version}
+        BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part One
+        SxpLib.Delete Connections    127.0.0.1    64999    127.0.0.3
+        SxpLib.Delete Connections    127.0.0.3    64999    127.0.0.1
+        BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part Two
+        SxpLib.Delete Connections    127.0.0.1    64999    127.0.0.2
+        SxpLib.Delete Connections    127.0.0.2    64999    127.0.0.1
+        BuiltIn.Wait Until Keyword Succeeds    4    1    Check Export Part Three
+        Clean Nodes
+    END
 
 Forwarding Test V2=>V1
     [Documentation]    Version 2 => 1 functionality

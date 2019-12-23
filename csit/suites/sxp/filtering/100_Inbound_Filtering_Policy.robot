@@ -109,6 +109,7 @@ Reconnect Peers
     [Arguments]    ${version}=version4    ${PASSWORD}=none
     [Documentation]    Reconnect all peers connected to node containing filters
     Clean Connections    127.0.0.1
-    : FOR    ${node}    IN RANGE    2    6
-    \    Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
-    \    ...    ${PASSWORD}
+    FOR    ${node}    IN RANGE    2    6
+        Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
+        ...    ${PASSWORD}
+    END

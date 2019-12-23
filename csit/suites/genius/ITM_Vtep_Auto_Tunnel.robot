@@ -35,11 +35,13 @@ ${TRANSPORTZONE_POST_URL}    ${CONFIG_API}/itm:transport-zones
 Verify TEP in controller and transport zone in OVSDB table of compute nodes
     [Documentation]    Set local ip in compute nodes and verify default transport zone tunnels are up in controller
     @{LOCAL_IPS} =    BuiltIn.Create List
-    : FOR    ${ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    ${localip} =    Utils.Run Command On Remote System    ${ip}    ${SET_LOCAL_IP}${ip}
-    : FOR    ${node_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    ${ip} =    OvsManager.Get OVS Local Ip    ${node_ip}
-    \    Collections.Append To List    ${LOCAL_IPS}    ${ip}
+    FOR    ${ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        ${localip} =    Utils.Run Command On Remote System    ${ip}    ${SET_LOCAL_IP}${ip}
+    END
+    FOR    ${node_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        ${ip} =    OvsManager.Get OVS Local Ip    ${node_ip}
+        Collections.Append To List    ${LOCAL_IPS}    ${ip}
+    END
     BuiltIn.Set Suite Variable    @{LOCAL_IPS}
     BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Genius.Verify Tunnel Status as Up
 
@@ -50,11 +52,13 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
     BuiltIn.Should Contain    ${get_nohosted_data}    ${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_nohosted_data}    @{DPN_ID_LIST}[0]
     Utils.Post Elements To URI From File    ${TRANSPORTZONE_POST_URL}    ${TZA_JSON}
-    : FOR    ${node_number}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
-    \    Change Transport Zone In Compute    ${TOOLS_SYSTEM_${node_number}_IP}    ${TRANSPORT_ZONE}
-    : FOR    ${node}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    ${output} =    Utils.Run Command On Remote System    ${node}    ${GET_EXTERNAL_IDS}
-    \    BuiltIn.Should Contain    ${output}    ${TRANSPORT_ZONE}
+    FOR    ${node_number}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
+        Change Transport Zone In Compute    ${TOOLS_SYSTEM_${node_number}_IP}    ${TRANSPORT_ZONE}
+    END
+    FOR    ${node}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        ${output} =    Utils.Run Command On Remote System    ${node}    ${GET_EXTERNAL_IDS}
+        BuiltIn.Should Contain    ${output}    ${TRANSPORT_ZONE}
+    END
     ${get_hosted_data} =    BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_hosted_data}    ${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_hosted_data}    @{DPN_ID_LIST}[0]
@@ -63,14 +67,16 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
 Verify other-config-key and transport zone value in controller operational datastore
     [Documentation]    validate local_ip and transport-zone value from controller datastore and Verify value of external-id-key with transport_zone in Controller operational datastore
     ${controller-data} =    Utils.Get Data From URI    session    ${GET_NETWORK_TOPOLOGY_URL}
-    : FOR    ${node_ip}    IN    @{LOCAL_IPS}
-    \    BuiltIn.Should Contain    ${controller-data}    "other-config-value":"${node_ip}"
+    FOR    ${node_ip}    IN    @{LOCAL_IPS}
+        BuiltIn.Should Contain    ${controller-data}    "other-config-value":"${node_ip}"
+    END
     BuiltIn.Should Contain    ${controller-data}    "external-id-value":"${TRANSPORT_ZONE}"
 
 Delete transport zone on OVS and check ovsdb update to controller
     [Documentation]    To verify transport zone moves to default zone after deleting zone name in compute nodes
-    : FOR    ${node}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-    \    Utils.Run Command On Remote System    ${node}    ${DELETE_TRANSPORT_ZONE}
+    FOR    ${node}    IN    @{TOOLS_SYSTEM_ALL_IPS}
+        Utils.Run Command On Remote System    ${node}    ${DELETE_TRANSPORT_ZONE}
+    END
     ${tep_show_output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Contain    ${tep_show_output}    ${DEFAULT_TRANSPORT_ZONE}
     BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Genius.Verify Tunnel Status as Up

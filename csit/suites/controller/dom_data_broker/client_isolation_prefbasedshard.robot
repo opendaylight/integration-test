@@ -31,7 +31,6 @@ Producer_On_Shard_Leader_Node_Isolated_Transactions
 Restart1
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -42,7 +41,6 @@ Producer_On_Shard_Leader_Node_Nonisolated_Transactions
 Restart2
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -53,7 +51,6 @@ Producer_On_Shard_Non_Leader_Node_Isolated_Transactions
 Restart3
     [Documentation]    Restart odl
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 

@@ -142,13 +142,14 @@ Upload_Config_Files
     SSHLibrary.Put_File    ${BGP_L3VPN_DIR}/${L3VPN_EXA_CFG}    .
     SSHLibrary.Put_File    ${EXARPCSCRIPT}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END
 
 Setup_Testcase
     [Arguments]    ${cfg_file}

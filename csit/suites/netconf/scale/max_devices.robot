@@ -46,27 +46,28 @@ Find Max Netconf Devices
     ${stop} =    BuiltIn.Convert to Integer    ${MAX_DEVICE_COUNT}
     ${increment} =    BuiltIn.Convert to Integer    ${DEVICE_INCREMENT}
     Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
-    : FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
-    \    ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
-    \    Log To Console    Starting Iteration with ${devices} devices
-    \    Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    device-count=${devices}
-    \    ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    device-count=${devices}
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
-    \    ...    ${NUM_WORKERS}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${maximum_devices} =    Set Variable    ${devices}
-    \    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
-    \    NetconfKeywords.Stop_Testtool
+    FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
+        ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
+        Log To Console    Starting Iteration with ${devices} devices
+        Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    device-count=${devices}
+        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    device-count=${devices}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
+        ...    ${NUM_WORKERS}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${maximum_devices} =    Set Variable    ${devices}
+        Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
+        NetconfKeywords.Stop_Testtool
+    END
     [Teardown]    Run Keywords    NetconfKeywords.Stop_Testtool
     ...    AND    Collect_Data_Points    ${maximum_devices}
     ...    AND    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
@@ -85,8 +86,9 @@ Issue_Requests_On_Devices
     SSHLibrary.Open_Connection    ${client_ip}
     SSHKeywords.Flexible_Mininet_Login
     SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${expected_count} --name=${device_name_base} --workers=${worker_count}
-    : FOR    ${number}    IN RANGE    1    ${expected_count}+1
-    \    Read_Python_Tool_Operation_Result    ${number}
+    FOR    ${number}    IN RANGE    1    ${expected_count}+1
+        Read_Python_Tool_Operation_Result    ${number}
+    END
     SSHLibrary.Read_Until_Prompt
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}

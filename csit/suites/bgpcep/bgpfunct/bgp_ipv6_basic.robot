@@ -155,11 +155,12 @@ Upload_Config_Files
     [Documentation]    Uploads exabgp config files
     SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${EXABGP_CFG}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${IPV6_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${CONTROLLER_IPV6}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTERID/${EXABGP_ID}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${IPV6_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${CONTROLLER_IPV6}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTERID/${EXABGP_ID}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END

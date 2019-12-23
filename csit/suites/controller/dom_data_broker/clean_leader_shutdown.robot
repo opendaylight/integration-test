@@ -28,7 +28,6 @@ Local_Leader_Shutdown
 
 Restart
     [Documentation]    Restart odl
-    [Template]
     DdbCommons.Restart_Test_Templ
 
 Remote_Leader_Shutdown

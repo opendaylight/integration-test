@@ -41,9 +41,10 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
 Add_Original_Cars_On_Old_Leader_And_Verify
     [Documentation]    Add initial cars on car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
-    : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
-    \    ...    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+    FOR    ${session}    IN    @{ClusterManagement__session_list}
+        BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
+        ...    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+    END
 
 Isolate_Original_Car_Leader
     [Documentation]    Isolate the car Leader to cause a new leader to get elected.
@@ -61,8 +62,9 @@ See_Original_Cars_On_New_Leader
 
 See_Original_Cars_On_New_Followers
     [Documentation]    The same check on other existing member(s).
-    : FOR    ${session}    IN    @{new_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+    FOR    ${session}    IN    @{new_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+    END
 
 Delete_Original_Cars_On_New_Leader
     [Documentation]    Delete cars on the new Leader.
@@ -78,8 +80,9 @@ See_Leader_Cars_On_New_Leader
 
 See_Leader_Cars_On_New_Followers
     [Documentation]    The same check on other existing members.
-    : FOR    ${session}    IN    @{new_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${LEADER_2NODE_START_I}
+    FOR    ${session}    IN    @{new_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${LEADER_2NODE_START_I}
+    END
 
 Delete_Leader_Cars_On_New_First_Follower
     [Documentation]    Delete cars in new first Follower.
@@ -95,8 +98,9 @@ See_Folower_Cars_On_New_Leader
 
 See_Follower_Cars_On_New_Followers
     [Documentation]    The same check on other existing members.
-    : FOR    ${session}    IN    @{new_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${FOLLOWER_2NODE_START_I}
+    FOR    ${session}    IN    @{new_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${FOLLOWER_2NODE_START_I}
+    END
 
 Rejoin_Old_Car_Leader
     [Documentation]    Rejoin the isolated member without deleting the persisted data.

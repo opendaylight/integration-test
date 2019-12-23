@@ -70,7 +70,7 @@ Put one Service Function Forwarder
     Check For Elements At URI    ${SFF_SFFLOG_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}    ${elements}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variable. Logical SFFs
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

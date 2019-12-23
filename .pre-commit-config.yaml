@@ -16,7 +16,7 @@
   rev: 'master'
   hooks:
   - id: robotframework-tidy-wrapper
-    additional_dependencies: ['robotframework==3.1.1']  # Pin due to tidy warning in 3.1.2
+    additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
 
 - repo: https://github.com/jorisroovers/gitlint
   rev: v0.11.0
