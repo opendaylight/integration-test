@@ -32,16 +32,18 @@ Verification TSDR Command exists in Help
     ${output}=    Issue Command On Karaf Console    tsdr\t
     Should Contain    ${output}    tsdr:list
     ${output}=    Issue Command On Karaf Console    tsdr:list\t\t
-    : FOR    ${list}    IN    @{CATEGORY}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{CATEGORY}
+        Should Contain    ${output}    ${list}
+    END
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_PORTSTATS}    openflow
 
 Verify PortStats On Karaf console
     [Documentation]    Verify the InterfaceMetrics(PortStats),attributes using ${TSDR_PORTSTATS}
-    : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{INTERFACE_METRICS}
+        ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
+        ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+        Should Contain    ${output}    ${list}
+    END
 
 *** Keywords ***
 Init Variables Master

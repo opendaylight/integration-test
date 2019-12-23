@@ -360,13 +360,14 @@ Merge_Csv
     ${final_values}=    BuiltIn.Set_variable    ${Empty}
     @{csv_files}=    OperatingSystem.List_Files_In_Directory    .    *${final_file}
     Collections.Sort_List    ${csv_files}
-    : FOR    ${file}    IN    @{csv_files}
-    \    BuiltIn.Log_To_Console    ${file}
-    \    ${csv_content}=    OperatingSystem.GetFile    ${file}
-    \    ${column_names}=    Get_Column_Names    ${file}    ${csv_content}
-    \    ${column_values}=    String.Get_Line    ${csv_content}    1
-    \    ${final_columns}=    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    ${column_names}    ${final_columns},${column_names}
-    \    ${final_values}=    BuiltIn.Set_Variable_If    "${final_values}"=="${Empty}"    ${column_values}    ${final_values},${column_values}
+    FOR    ${file}    IN    @{csv_files}
+        BuiltIn.Log_To_Console    ${file}
+        ${csv_content}=    OperatingSystem.GetFile    ${file}
+        ${column_names}=    Get_Column_Names    ${file}    ${csv_content}
+        ${column_values}=    String.Get_Line    ${csv_content}    1
+        ${final_columns}=    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    ${column_names}    ${final_columns},${column_names}
+        ${final_values}=    BuiltIn.Set_Variable_If    "${final_values}"=="${Empty}"    ${column_values}    ${final_values},${column_values}
+    END
     ${content}=    BuiltIn.Catenate    SEPARATOR=${\n}    ${final_columns}    ${final_values}
     OperatingSystem.Create_File    ${final_file}    ${content}
 
@@ -379,6 +380,7 @@ Get_Column_Names
     # now we have followers and FOL_ will be prepended to the column names
     @{columns}    String.Split_String    ${column_names}    ,
     ${final_columns}    BuiltIn.Set_Variable    ${Empty}
-    : FOR    ${column}    IN    @{columns}
-    \    ${final_columns}    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    FOL_${column}    ${final_columns},FOL_${column}
+    FOR    ${column}    IN    @{columns}
+        ${final_columns}    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    FOL_${column}    ${final_columns},FOL_${column}
+    END
     BuiltIn.Return_From_Keyword    ${final_columns}

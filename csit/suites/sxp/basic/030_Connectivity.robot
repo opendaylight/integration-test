@@ -63,29 +63,30 @@ Mixed Versions
 Test Nodes
     [Arguments]    ${version}    ${PASSWORD}    @{versions}
     [Documentation]    Setup connection Speaker => Listener / Listener => Speaker / Both <=> Both for specific versions
-    : FOR    ${r_version}    IN    @{versions}
-    \    ${cmp_version}    Lower Version    ${r_version}    ${version}
-    \    BuiltIn.Log    ${r_version}
-    \    SxpLib.Add Connection    ${r_version}    listener    127.0.0.2    64999    127.0.0.1
-    \    ...    ${PASSWORD}
-    \    SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
-    \    ...    ${PASSWORD}
-    \    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    listener
-    \    ...    127.0.0.2    64999    127.0.0.1
-    \    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    speaker
-    \    ...    127.0.0.1    64999    127.0.0.2
-    \    BuiltIn.Log    OK ${r_version}:listener ${version}:speaker
-    \    SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
-    \    ...    ${PASSWORD}
-    \    SxpLib.Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
-    \    ...    ${PASSWORD}
-    \    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    listener
-    \    ...    127.0.0.2    64999    127.0.0.3
-    \    BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    speaker
-    \    ...    127.0.0.3    64999    127.0.0.2
-    \    BuiltIn.Log    OK ${version}:listener ${r_version}:speaker
-    \    BuiltIn.Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
-    \    Clean Nodes
+    FOR    ${r_version}    IN    @{versions}
+        ${cmp_version}    Lower Version    ${r_version}    ${version}
+        BuiltIn.Log    ${r_version}
+        SxpLib.Add Connection    ${r_version}    listener    127.0.0.2    64999    127.0.0.1
+        ...    ${PASSWORD}
+        SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
+        ...    ${PASSWORD}
+        BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    listener
+        ...    127.0.0.2    64999    127.0.0.1
+        BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    speaker
+        ...    127.0.0.1    64999    127.0.0.2
+        BuiltIn.Log    OK ${r_version}:listener ${version}:speaker
+        SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
+        ...    ${PASSWORD}
+        SxpLib.Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
+        ...    ${PASSWORD}
+        BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    listener
+        ...    127.0.0.2    64999    127.0.0.3
+        BuiltIn.Wait Until Keyword Succeeds    120x    1s    SxpLib.Verify Connection    ${cmp_version}    speaker
+        ...    127.0.0.3    64999    127.0.0.2
+        BuiltIn.Log    OK ${version}:listener ${r_version}:speaker
+        BuiltIn.Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
+        Clean Nodes
+    END
 
 Test Both
     [Arguments]    ${version}    ${r_version}    ${PASSWORD}

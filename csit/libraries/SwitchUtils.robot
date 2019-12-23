@@ -37,10 +37,11 @@ Iterate Switch Commands From List
     [Arguments]    ${switch}    ${cmd_list}
     [Documentation]    Each string in the @{cmd_list} argument is executed on the switch.connection_index.
     Configure Connection Index And Prompt Wrapper    ${switch}
-    : FOR    ${cmd}    IN    @{cmd_list}
-    \    Log    ${cmd}
-    \    Read Wrapper    ${switch}
-    \    Execute Command Wrapper    ${switch}    ${cmd}
+    FOR    ${cmd}    IN    @{cmd_list}
+        Log    ${cmd}
+        Read Wrapper    ${switch}
+        Execute Command Wrapper    ${switch}    ${cmd}
+    END
 
 Configure OpenFlow
     [Arguments]    ${switch}
@@ -63,9 +64,10 @@ Validate Switch Output
     Log    ${tmp}
     ${output}=    Execute Command Wrapper    ${switch}    ${cmd}
     Log    ${output}
-    : FOR    ${str}    IN    @{validations}
-    \    Run Keyword If    "${should_exist}" == "true"    Should Match Regexp    ${output}    ${str}
-    \    Run Keyword If    "${should_exist}" == "false"    Should Not Match Regexp    ${output}    ${str}
+    FOR    ${str}    IN    @{validations}
+        Run Keyword If    "${should_exist}" == "true"    Should Match Regexp    ${output}    ${str}
+        Run Keyword If    "${should_exist}" == "false"    Should Not Match Regexp    ${output}    ${str}
+    END
 
 Enable OpenFlow
     [Arguments]    ${switch}
@@ -140,10 +142,11 @@ Connect To Switch
     ${connection_index}=    Open Connection Wrapper    ${switch}
     Call Method    ${switch}    set_connection_index    ${connection_index}
     Configure Connection Index And Prompt Wrapper    ${switch}
-    : FOR    ${cmd}    IN    @{switch.connection_configs}
-    \    Write Bare Wrapper    ${switch}    ${cmd}
-    \    Sleep    1
-    \    Read Wrapper    ${switch}
+    FOR    ${cmd}    IN    @{switch.connection_configs}
+        Write Bare Wrapper    ${switch}    ${cmd}
+        Sleep    1
+        Read Wrapper    ${switch}
+    END
 
 Cleanup Switch
     [Arguments]    ${switch}
@@ -158,10 +161,11 @@ Initialize Switch
     ...    and a reconnect to the switch is made.
     Connect To Switch    ${switch}
     Configure Connection Index And Prompt Wrapper    ${switch}
-    : FOR    ${cmd}    IN    @{switch.initialization_cmds}
-    \    Write Bare Wrapper    ${switch}    ${cmd}
-    \    Sleep    1
-    \    Run Keyword And Ignore Error    Read Wrapper    ${switch}
+    FOR    ${cmd}    IN    @{switch.initialization_cmds}
+        Write Bare Wrapper    ${switch}    ${cmd}
+        Sleep    1
+        Run Keyword And Ignore Error    Read Wrapper    ${switch}
+    END
     Run Keyword If    "${switch.initialization_type}" == "reboot"    Wait For Switch Reboot    ${switch}
     Run Keyword If    "${switch.initialization_type}" == "reboot"    Connect To Switch    ${switch}
 

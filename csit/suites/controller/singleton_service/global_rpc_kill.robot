@@ -38,8 +38,9 @@ Rpc_Before_Stopping_On_Owner
 
 Rpc_Before_Stop_On_Successors
     [Documentation]    Run rpc on non owher cluster nodes.
-    : FOR    ${idx}    IN    @{brt_successors}
-    \    Run_Rpc    ${idx}
+    FOR    ${idx}    IN    @{brt_successors}
+        Run_Rpc    ${idx}
+    END
 
 Stop_Current_Owner_Member
     [Documentation]    Stop cluster node which is the owner.
@@ -55,8 +56,9 @@ Verify_New_Basic_Rpc_Test_Owner_Elected
 
 Rpc_On_Remained_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
-    : FOR    ${idx}    IN    @{old_brt_successors}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
+    FOR    ${idx}    IN    @{old_brt_successors}
+        BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
+    END
 
 Restart_Stopped_Member
     [Documentation]    Restart stopped node
@@ -78,8 +80,9 @@ Rpc_After_Rejoin_On_Old_Owner
 Rpc_After_Rejoin_On_All
     [Documentation]    Run rpc again on all nodes.
     Run_Rpc    ${brt_owner}
-    : FOR    ${idx}    IN    @{brt_successors}
-    \    Run_Rpc    ${idx}
+    FOR    ${idx}    IN    @{brt_successors}
+        Run_Rpc    ${idx}
+    END
 
 *** Keywords ***
 Setup_Suite

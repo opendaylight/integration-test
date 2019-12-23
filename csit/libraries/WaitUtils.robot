@@ -93,13 +93,14 @@ Wait_For_Getter_Failure_Or_Stateless_Validator_Pass
     ...    FIXME: Cover this keyword in WaitUtilTest.robot
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}
     ${iterations} =    BuiltIn.Evaluate    ${timeout_in_seconds} / ${period_in_seconds}
-    : FOR    ${i}    IN RANGE    ${iterations}
-    \    ${data} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
-    \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${stateless_validator}
-    \    ...    ${data}
-    \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${message}
-    \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    message=Last validator message: ${message}
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${i}    IN RANGE    ${iterations}
+        ${data} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
+        ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${stateless_validator}
+        ...    ${data}
+        BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${message}
+        WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    message=Last validator message: ${message}
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
@@ -110,15 +111,16 @@ Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     ${sleeps} =    BuiltIn.Evaluate    ${count} - 1
     WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps}    message=Last result: ${result}
     # Entering the main loop.
-    : FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1    # If count is 3, for will go through 2, 1, and 0.
-    \    # Run the assertor and collect the garbage.
-    \    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${assertor}
-    \    # We have not failed yet. Was this the final try?
-    \    BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${result}
-    \    # Is there enough time left?
-    \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
-    \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1    # If count is 3, for will go through 2, 1, and 0.
+        # Run the assertor and collect the garbage.
+        ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${assertor}
+        # We have not failed yet. Was this the final try?
+        BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${result}
+        # Is there enough time left?
+        WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
+        # We will do next try, byt we have to sleep before.
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively
@@ -139,14 +141,15 @@ Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     ${sleeps} =    BuiltIn.Evaluate    ${count} - 1
     WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps}    message=Last result: ${result}
     # Entering the main loop.
-    : FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1
-    \    ${state}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${assertor}    ${state}
-    \    # We have not failed yet. Was this the final try?
-    \    BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${result}
-    \    # Is there enough time left?
-    \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
-    \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1
+        ${state}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${assertor}    ${state}
+        # We have not failed yet. Was this the final try?
+        BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${result}
+        # Is there enough time left?
+        WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
+        # We will do next try, byt we have to sleep before.
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateful_Assert_Closure_Has_To_Succeed_Consecutively
@@ -168,26 +171,27 @@ Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     ...    message=Last result: ${result}
     BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     # Entering the main loop.
-    : FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1
-    \    # Getter may fail, but this Keyword should return state, so we need RKAIE.
-    \    ${status}    ${data} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Getter failed: ${data}
-    \    # Is there enough time left?
-    \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
-    \    ${state}    ${status}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Two_Arguments    ${safe_validator}
-    \    ...    ${state}    ${data}
-    \    # Validator may have reported failure.
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Validator failed: ${result}
-    \    # Was this the final try?
-    \    BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${state}    ${status}    ${result}
-    \    # Is there enough time left?
-    \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
-    \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${sleeps_left}    IN RANGE    ${count}-1    -1    -1
+        # Getter may fail, but this Keyword should return state, so we need RKAIE.
+        ${status}    ${data} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
+        BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Getter failed: ${data}
+        # Is there enough time left?
+        ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
+        ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
+        BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
+        ${state}    ${status}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Two_Arguments    ${safe_validator}
+        ...    ${state}    ${data}
+        # Validator may have reported failure.
+        BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Validator failed: ${result}
+        # Was this the final try?
+        BuiltIn.Return_From_Keyword_If    ${sleeps_left} <= 0    ${state}    ${status}    ${result}
+        # Is there enough time left?
+        ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
+        ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
+        BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
+        # We will do next try, byt we have to sleep before.
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Propagate_Fail_If_Message_Starts_With_Prefix
@@ -215,15 +219,16 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # The loop for failures.
-    : FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
-    \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
-    \    # Have we passed?
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
-    \    # Are we out of time?
-    \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
-    \    # We will do next try, but we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
+        ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
+        ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
+        # Have we passed?
+        BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
+        # Are we out of time?
+        Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
+        # We will do next try, but we have to sleep before.
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
@@ -238,15 +243,16 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # The loop for failures.
-    : FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
-    \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
-    \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
-    \    # Have we passed?
-    \    BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
-    \    # Are we out of time? Look at ${result}.
-    \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
-    \    # Now check for getter error, by analysing ${result}.
-    \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Getter failed
-    \    # We can do the next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    FOR    ${try}    IN RANGE    1    ${maximum_sleeps}+2    # If maximum_sleeps is 2, for will go through 1, 2, and 3.
+        ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
+        ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
+        # Have we passed?
+        BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''    ${result}
+        # Are we out of time? Look at ${result}.
+        Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
+        # Now check for getter error, by analysing ${result}.
+        Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Getter failed
+        # We can do the next try, byt we have to sleep before.
+        BuiltIn.Sleep    ${period_in_seconds} s
+    END
     BuiltIn.Fail    Logic error, we should have returned before.

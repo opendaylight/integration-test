@@ -58,13 +58,14 @@ Get Rendered Service Path Name
     # The "sfp-rendered-service-path" will only have 1 or 2 entries, depending on chain symmetry config.
     # The RSP name will be "<SfpName>-Path-<PathId>" and the optional symmetric name will be <SfpName>-Path-<PathId>-Reverse"
     ${value} =    BuiltIn.Set Variable    None
-    : FOR    ${i}    IN RANGE    ${list_length}
-    \    ${rsp_name_dict} =    Collections.Get From List    ${sfp_state_list}    ${i}
-    \    ${name} =    Collections.Get_From_Dictionary    ${rsp_name_dict}    name
-    \    @{matches} =    String.Get Regexp Matches    ${name}    .*Reverse$
-    \    ${matches_length} =    BuiltIn.Get Length    ${matches}
-    \    ${value} =    BuiltIn.Set Variable If    "${get_reverse}" == "False" and 0 == ${matches_length}    ${name}    "${get_reverse}" == "True" and 0 < ${matches_length}    ${name}
-    \    ...    "${value}" != "None"    ${value}
+    FOR    ${i}    IN RANGE    ${list_length}
+        ${rsp_name_dict} =    Collections.Get From List    ${sfp_state_list}    ${i}
+        ${name} =    Collections.Get_From_Dictionary    ${rsp_name_dict}    name
+        @{matches} =    String.Get Regexp Matches    ${name}    .*Reverse$
+        ${matches_length} =    BuiltIn.Get Length    ${matches}
+        ${value} =    BuiltIn.Set Variable If    "${get_reverse}" == "False" and 0 == ${matches_length}    ${name}    "${get_reverse}" == "True" and 0 < ${matches_length}    ${name}
+        ...    "${value}" != "None"    ${value}
+    END
     [Return]    ${value}
 
 Create Sfp And Wait For Rsp Creation
@@ -76,14 +77,15 @@ Create Sfp And Wait For Rsp Creation
     ${sfp_json_list} =    Collections.Get_From_Dictionary    ${sfps}    service-function-path
     ${list_length} =    BuiltIn.Get Length    ${sfp_json_list}
     # Each SFP state entry returned from ODL will have either 2 or 3 name elements, 2 for non-symmetric 3 for symmetric RSP
-    : FOR    ${i}    IN RANGE    ${list_length}
-    \    ${sfp_entry_dict} =    Collections.Get From List    ${sfp_json_list}    ${i}
-    \    ${sfp_name} =    Collections.Get_From_Dictionary    ${sfp_entry_dict}    name
-    \    ${status}    ${symmetric} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get_From_Dictionary    ${sfp_entry_dict}    symmetric
-    \    ${symmetric} =    BuiltIn.Set Variable If    "${status}" == "FAIL"    False    ${symmetric}
-    \    ${num_names} =    BuiltIn.Set Variable If    "${symmetric}" == "False"    2    3
-    \    BuiltIn.Wait Until Keyword Succeeds    60s    2s    Utils.Check For Specific Number Of Elements At URI    ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}    name
-    \    ...    ${num_names}
+    FOR    ${i}    IN RANGE    ${list_length}
+        ${sfp_entry_dict} =    Collections.Get From List    ${sfp_json_list}    ${i}
+        ${sfp_name} =    Collections.Get_From_Dictionary    ${sfp_entry_dict}    name
+        ${status}    ${symmetric} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get_From_Dictionary    ${sfp_entry_dict}    symmetric
+        ${symmetric} =    BuiltIn.Set Variable If    "${status}" == "FAIL"    False    ${symmetric}
+        ${num_names} =    BuiltIn.Set Variable If    "${symmetric}" == "False"    2    3
+        BuiltIn.Wait Until Keyword Succeeds    60s    2s    Utils.Check For Specific Number Of Elements At URI    ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}    name
+        ...    ${num_names}
+    END
 
 Delete Sfp And Wait For Rsps Deletion
     [Arguments]    ${sfp_name}
@@ -99,6 +101,7 @@ Delete All Sfps And Wait For Rsps Deletion
 Switch Ips In Json Files
     [Arguments]    ${json_dir}    ${container_names}
     ${normalized_dir}=    OperatingSystem.Normalize Path    ${json_dir}/*.json
-    : FOR    ${cont_name}    IN    @{container_names}
-    \    ${cont_ip} =    Get Docker IP    ${cont_name}
-    \    OperatingSystem.Run    sudo sed -i 's/${cont_name}/${cont_ip}/g' ${normalized_dir}
+    FOR    ${cont_name}    IN    @{container_names}
+        ${cont_ip} =    Get Docker IP    ${cont_name}
+        OperatingSystem.Run    sudo sed -i 's/${cont_name}/${cont_ip}/g' ${normalized_dir}
+    END

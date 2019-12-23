@@ -61,9 +61,10 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=125
     PrefixCounting.PC_Setup
     ${indices} =    ClusterManagement.List_All_Indices
-    : FOR    ${member_index}    IN    @{indices}
-    \    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${member_index}
-    \    BuiltIn.Set_Suite_Variable    ${operational_${member_index}}    ${session}
+    FOR    ${member_index}    IN    @{indices}
+        ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${member_index}
+        BuiltIn.Set_Suite_Variable    ${operational_${member_index}}    ${session}
+    END
     BuiltIn.Set_Suite_Variable    ${pc_all_indices}    ${indices}
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
@@ -102,12 +103,13 @@ Start_Bgp_Peer_And_Verify_Connected
     [Documentation]    Starts the peer and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
-    : FOR    ${idx}    IN RANGE    ${connection_retries}
-    \    Start_Bgp_Peer    peerip=${peerip}
-    \    ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
-    \    ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
-    \    BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
-    \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
+    FOR    ${idx}    IN RANGE    ${connection_retries}
+        Start_Bgp_Peer    peerip=${peerip}
+        ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
+        ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
+        BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
+        BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
+    END
     BuiltIn.Fail    Unable to connect bgp peer to ODL
 
 Verify_Bgp_Peer_Connection

@@ -23,8 +23,9 @@ Verify the Queue Metrics attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_QUEUESTATS}    Transmitted
     ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUESTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    90
-    : FOR    ${list}    IN    @{QUEUE_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{QUEUE_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 Verification of QueueMetrics-TransmittedPackets on Karaf Console
     [Documentation]    Verify the QueueMetrics has been updated thru tsdr:list command on karaf console

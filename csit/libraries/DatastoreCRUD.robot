@@ -12,13 +12,14 @@ Create Records
     ...    onto which will be appended the index number. Prefix and postfix are used to complete
     ...    the JSON payload. The keyword passes if return code is correct.
     ${last}    Convert to Integer    ${last}
-    : FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
-    \    ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
-    \    Log    ${payload}
-    \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}    RequestsLibrary.Post Request    session    ${node}    ${payload}
-    \    Log    ${resp}
-    \    Should Be Equal As Strings    ${resp}    <Response [204]>
+    FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
+        ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
+        Log    ${payload}
+        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+        ${resp}    RequestsLibrary.Post Request    session    ${node}    ${payload}
+        Log    ${resp}
+        Should Be Equal As Strings    ${resp}    <Response [204]>
+    END
 
 Read Records
     [Arguments]    ${controller_ip}    ${node}
@@ -35,22 +36,24 @@ Update Records
     ...    onto which will be appended the index number. Prefix and postfix are used to complete
     ...    the JSON payload. The keyword passes if return code is correct.
     ${last}    Convert to Integer    ${last}
-    : FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
-    \    ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
-    \    Log    ${payload}
-    \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}=    RequestsLibrary.Put Request    session    ${node}/${INDEX}    ${payload}
-    \    Log    ${resp}
-    \    Should Be Equal As Strings    ${resp}    <Response [200]>
+    FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
+        ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
+        Log    ${payload}
+        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+        ${resp}=    RequestsLibrary.Put Request    session    ${node}/${INDEX}    ${payload}
+        Log    ${resp}
+        Should Be Equal As Strings    ${resp}    <Response [200]>
+    END
 
 Delete Records
     [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}
     [Documentation]    DELETEs specified range of records from a shard on a contrsoller's data store.
     ${last}    Convert to Integer    ${last}
-    : FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
-    \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}=    RequestsLibrary.Delete Request    session    ${node}/${INDEX}
-    \    Should Be Equal As Strings    ${resp}    <Response [200]>
+    FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
+        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+        ${resp}=    RequestsLibrary.Delete Request    session    ${node}/${INDEX}
+        Should Be Equal As Strings    ${resp}    <Response [200]>
+    END
 
 Delete All Records
     [Arguments]    ${controller_ip}    ${node}
@@ -69,9 +72,10 @@ Assemble Payload
     ${length}=    Get Length    ${field bases}
     ${keys}=    Get Dictionary Keys    ${field bases}
     ${payload}=    Set Variable    ${prefix}
-    : FOR    ${key string}    IN    @{keys}
-    \    ${value string}=    Get From Dictionary    ${field bases}    ${key string}
-    \    ${payload}=    Catenate    ${payload}    "${key string}": "${value string}${id}",
+    FOR    ${key string}    IN    @{keys}
+        ${value string}=    Get From Dictionary    ${field bases}    ${key string}
+        ${payload}=    Catenate    ${payload}    "${key string}": "${value string}${id}",
+    END
     ${payload}=    Get Substring    ${payload}    ${EMPTY}    -1
     ${payload}=    Catenate    ${payload}    ${postfix}
     [Return]    ${payload}

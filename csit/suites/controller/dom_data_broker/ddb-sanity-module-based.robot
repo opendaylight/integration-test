@@ -37,8 +37,9 @@ ${MODULE_SHARD_PREFIX}    prefix-
 Get_Shard_Role
     [Documentation]    Get shard role.
     ${all_indices} =    ClusterManagement.List_All_Indices
-    : FOR    ${index}    IN    @{all_indices}
-    \    ${role} =    ClusterAdmin.Get_Shard_Role    ${index}    ${SHARD_NAME}    ${SHARD_TYPE}
+    FOR    ${index}    IN    @{all_indices}
+        ${role} =    ClusterAdmin.Get_Shard_Role    ${index}    ${SHARD_NAME}    ${SHARD_TYPE}
+    END
 
 Subscribe_Listener_To_Leader
     [Documentation]    Subscribe listener to leader.
@@ -109,8 +110,9 @@ Write_Transactions_One_Node_Leader
     ${leader_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${leader_idx_as_list}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
 
 Write_Transactions_One_Node_Follower
     [Documentation]    Write transactions.
@@ -121,8 +123,9 @@ Write_Transactions_One_Node_Follower
     ${follower_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${follower_idx_as_list}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END
 
 Write_Transactions_All_Nodes
     [Documentation]    Write transactions.
@@ -130,5 +133,6 @@ Write_Transactions_All_Nodes
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    FOR    ${resp}    IN    @{resp_list}
+        TemplatedRequests.Check_Status_Code    @{resp}[2]
+    END

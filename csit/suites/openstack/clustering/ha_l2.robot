@@ -220,13 +220,15 @@ No Ping For Deleted Vm
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in network_1.
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Vm Instances In net_2
     [Documentation]    Delete Vm instances using instance names in network_2.
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_2_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Sub Networks In net_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
@@ -238,8 +240,9 @@ Delete Sub Networks In net_2
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Delete Network    ${network}
+    END
 
 Delete Security Group
     [Documentation]    Delete security groups with neutron request

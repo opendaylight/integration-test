@@ -20,8 +20,9 @@ Verify the FlowGroup Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowGroupStats attributes exist on Karaf Console
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWGROUPSTATS}    ByteCount
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWGROUPSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    : FOR    ${list}    IN    @{FLOWGROUP_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWGROUP_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 Verification of FlowGroupStats-ByteCount on Karaf Console
     [Documentation]    Verify the FlowGroupStats has been updated thru tsdr:list command on karaf console
@@ -30,14 +31,16 @@ Verification of FlowGroupStats-ByteCount on Karaf Console
     Should Contain    ${output}    ByteCount
     Should Contain    ${output}    FLOWGROUPSTATS
     Should not Contain    ${output}    null
-    : FOR    ${list}    IN    @{FLOWGROUP_HEADER}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWGROUP_HEADER}
+        Should Contain    ${output}    ${list}
+    END
 
 Verify FlowGroupStats-Attributes on H2 Datastore using JDBC Client
     [Documentation]    Verify the GroupStats,attributes on H2 Datastore using JDBC Client
-    : FOR    ${list}    IN    @{FLOWGROUP_METRICS}
-    \    ${output}=    Query Metrics on H2 Datastore    FLOWGROUPSTATS    ${list}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{FLOWGROUP_METRICS}
+        ${output}=    Query Metrics on H2 Datastore    FLOWGROUPSTATS    ${list}
+        Should Contain    ${output}    ${list}
+    END
 
 *** Keyword ***
 Start TSDR suite with CPqD Switch

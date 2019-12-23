@@ -61,8 +61,9 @@ Setup Custom SXP Cluster
     [Documentation]    Setup custom SXP cluster topology with ${NUM_ODL_SYSTEM} nodes and one device
     SxpClusterLib.Check Shards Status
     SxpClusterLib.Setup SXP Cluster    ${mode}
-    : FOR    ${i}    IN RANGE    1    25
-    \    SxpLib.Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    FOR    ${i}    IN RANGE    1    25
+        SxpLib.Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    END
 
 Isolate SXP Controller
     [Arguments]    ${controller_index}    ${node}    ${session}=ClusterManagement__session_${controller_index}
@@ -87,5 +88,6 @@ Check Bindings
     [Arguments]    ${node}    ${session}
     [Documentation]    Checks that bindings were propagated to Peer
     ${resp} =    SxpLib.Get Bindings    node=${node}    session=${session}
-    : FOR    ${i}    IN RANGE    1    25
-    \    SxpLib.Should Contain Binding    ${resp}    ${i}0    ${i}.${i}.${i}.${i}/32
+    FOR    ${i}    IN RANGE    1    25
+        SxpLib.Should Contain Binding    ${resp}    ${i}0    ${i}.${i}.${i}.${i}/32
+    END

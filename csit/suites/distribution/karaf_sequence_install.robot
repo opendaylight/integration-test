@@ -35,6 +35,7 @@ Install_Features_One_By_One
     @{features} =    XML.Get_Elements_Texts    features.xml    .feature[@name="${FEATURES_LIST_NAME}"]/feature
     Collections.Log_List    ${features}
     KarafKeywords.Open_Controller_Karaf_Console_With_Timeout    ${1}    ${FEATURE_INSTALL_TIMEOUT}
-    : FOR    ${feature}    IN    @{features}
-    \    KarafKeywords.Log_Message_To_Controller_Karaf    Installing feature: ${feature}
-    \    KarafKeywords.Install_a_Feature_Using_Active_Connection    ${feature}
+    FOR    ${feature}    IN    @{features}
+        KarafKeywords.Log_Message_To_Controller_Karaf    Installing feature: ${feature}
+        KarafKeywords.Install_a_Feature_Using_Active_Connection    ${feature}
+    END

@@ -67,9 +67,10 @@ Verify ARP request generated from Spoofed IP for the VM
 Verify ARP request generated from Spoofed MAC for the VM
     [Documentation]    Verifying ARP resquest generated for Spoofed MAC with Valid IP and Validate the ARP packet drop at the VM Egress Table
     ${count} =    String.Get Line Count    ${ARP_CONFIG}
-    : FOR    ${index}    IN RANGE    0    ${count}
-    \    ${cmd} =    String.Get Line    ${ARP_CONFIG}    ${index}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${cmd}
+    FOR    ${index}    IN RANGE    0    ${count}
+        ${cmd} =    String.Get Line    ${ARP_CONFIG}    ${index}
+        ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[1]    @{VM_IP_DPN1}[1]    ${cmd}
+    END
     ${get_pkt_count_before_arp} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${VM1_METADATA}.*${ARP_SHA}
     ${get_arp_drop_pkt_before} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=@{DEFAULT_FLOW_TABLES}[15]    | grep ${ARP}.*${TABLE}
     ${arping_cli} =    BuiltIn.Set Variable    sudo arping -I eth0 -c ${PACKET_COUNT} \ ${RANDOM_IP}
@@ -116,16 +117,19 @@ Create Setup
     OpenStackOperations.Neutron Security Group Rule Create    @{SECURITY_GROUP}[0]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote-ip=0.0.0.0/0
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{PORTS}[0]    @{PORTS}[1]    @{VM_NAMES}[0]    ${OS_CMP1_HOSTNAME}    flavor=m1.tiny    sg=@{SECURITY_GROUP}[0]
     OpenStackOperations.Create Vm Instance With Ports On Compute Node    @{PORTS}[2]    @{PORTS}[3]    @{VM_NAMES}[1]    ${OS_CMP2_HOSTNAME}    flavor=m1.tiny    sg=@{SECURITY_GROUP}[0]
-    : FOR    ${vm}    IN    @{VM_NAMES}
-    \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
+    FOR    ${vm}    IN    @{VM_NAMES}
+        OpenStackOperations.Poll VM Is ACTIVE    ${vm}
+    END
     @{VM_IP_DPN1} =    BuiltIn.Wait Until Keyword Succeeds    300 sec    15 sec    OpenStackOperations.Get All VM IP Addresses    ${OS_CMP1_CONN_ID}    @{VM_NAMES}[0]
     @{VM_IP_DPN2} =    BuiltIn.Wait Until Keyword Succeeds    300 sec    15 sec    OpenStackOperations.Get All VM IP Addresses    ${OS_CMP2_CONN_ID}    @{VM_NAMES}[1]
     BuiltIn.Set Suite Variable    @{VM_IP_DPN1}
     BuiltIn.Set Suite Variable    @{VM_IP_DPN2}
-    : FOR    ${ip}    IN    @{VM_IP_DPN1}
-    \    BuiltIn.Should Not Contain    ${ip}    None
-    : FOR    ${ip}    IN    @{VM_IP_DPN2}
-    \    BuiltIn.Should Not Contain    ${ip}    None
+    FOR    ${ip}    IN    @{VM_IP_DPN1}
+        BuiltIn.Should Not Contain    ${ip}    None
+    END
+    FOR    ${ip}    IN    @{VM_IP_DPN2}
+        BuiltIn.Should Not Contain    ${ip}    None
+    END
     ${VM1_PORT} =    Get VMs OVS Port Number    ${OS_CMP1_IP}    @{PORTS}[0]
     ${VM1_METADATA} =    OVSDB.Get Port Metadata    ${OS_CMP1_IP}    ${VM1_PORT}
     BuiltIn.Set Suite Variable    ${VM1_METADATA}

@@ -73,14 +73,16 @@ Start Packet Capture on Nodes
     [Documentation]    Start packet captures on the given list of node ips.
     ...    The captures will be named with the tag and ip.
     @{conn_ids} =    BuiltIn.Create List    @{EMPTY}
-    : FOR    ${ip}    IN    @{ips}
-    \    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${ip}
-    \    ${conn_id} =    Tcpdump.Start Packet Capture on Node    ${ip}    file_Name=${fname}    filter=${filter}
-    \    Collections.Append To List    ${conn_ids}    ${conn_id}
+    FOR    ${ip}    IN    @{ips}
+        ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${ip}
+        ${conn_id} =    Tcpdump.Start Packet Capture on Node    ${ip}    file_Name=${fname}    filter=${filter}
+        Collections.Append To List    ${conn_ids}    ${conn_id}
+    END
     [Return]    @{conn_ids}
 
 Stop Packet Capture on Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     [Documentation]    Stop the packet captures on the given list of node connection ids
-    : FOR    ${conn_id}    IN    @{conn_ids}
-    \    Stop Packet Capture on Node    ${conn_id}
+    FOR    ${conn_id}    IN    @{conn_ids}
+        Stop Packet Capture on Node    ${conn_id}
+    END

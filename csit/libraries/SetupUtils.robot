@@ -47,8 +47,9 @@ Setup_Test_With_Logging_And_Without_Fast_Failing
 Setup_Logging_For_Debug_Purposes_On_List_Or_All
     [Arguments]    ${log_level}    ${loggers_list}    ${member_index_list}=${EMPTY}
     [Documentation]    Set the log level for given loggers on node nodes of the cluster
-    : FOR    ${logger}    IN    @{loggers_list}
-    \    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${log_level} ${logger}    member_index_list=${member_index_list}
+    FOR    ${logger}    IN    @{loggers_list}
+        ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${log_level} ${logger}    member_index_list=${member_index_list}
+    END
 
 Set_Known_Bug_Id
     [Arguments]    ${id}

@@ -17,10 +17,11 @@ Get Model Dump
     # is resolved, we can remove the timeout=1 and max_retries=0, but likely have to modify the request itself to
     # pass a timeout to restconf
     Create Session    model_dump_session    http://${controller_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=1    max_retries=0
-    : FOR    ${model}    IN    @{data_models}
-    \    ${resp}=    RequestsLibrary.Get Request    model_dump_session    restconf/${model}
-    \    ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
-    \    Log    ${pretty_output}
+    FOR    ${model}    IN    @{data_models}
+        ${resp}=    RequestsLibrary.Get Request    model_dump_session    restconf/${model}
+        ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
+        Log    ${pretty_output}
+    END
 
 Verify No Ingress Dispatcher Non-Default Flow Entries
     [Arguments]    ${ovs_ip}
@@ -31,5 +32,6 @@ Verify No Ingress Dispatcher Non-Default Flow Entries
 
 Verify Flows Are Cleaned Up On All OpenStack Nodes
     [Documentation]    Verify flows are cleaned up from all OpenStack nodes
-    : FOR    ${ip}    IN    @{OS_ALL_IPS}
-    \    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${ip}
+    FOR    ${ip}    IN    @{OS_ALL_IPS}
+        Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${ip}
+    END

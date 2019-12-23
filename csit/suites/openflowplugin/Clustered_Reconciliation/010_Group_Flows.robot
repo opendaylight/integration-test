@@ -133,9 +133,10 @@ Check Flows After Owner Reconnect In Switch
 Check Switches Generate Slave Connection
     [Documentation]    Check switches are connected to new Slave.
     ${original_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${original_owner}_IP}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s${switch}    ${original_master}
-    \    ...    update_data=${True}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s${switch}    ${original_master}
+        ...    update_data=${True}
+    END
 
 Disconnect Mininet From Successor
     [Documentation]    Disconnect mininet from the Successor.
@@ -200,9 +201,10 @@ Check No Switches After Disconnect
 
 Check Switch Is Not Connected
     [Documentation]    Check switch s1 is not connected to any controller.
-    : FOR    ${index}    IN    @{cluster_index_list}
-    \    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Disconnected    s1    ${ODL_SYSTEM_${index}_IP}
-    \    ...    update_data=${True}
+    FOR    ${index}    IN    @{cluster_index_list}
+        BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Disconnected    s1    ${ODL_SYSTEM_${index}_IP}
+        ...    update_data=${True}
+    END
 
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
@@ -380,10 +382,11 @@ Add Groups And Flows On Member
     [Arguments]    ${iter}=1    ${member_index}=1
     [Documentation]    Add ${ITER} groups type 1 & 2 and flows in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+    END
 
 Add Single Group And Flow On Member
     [Arguments]    ${member_index}=1
@@ -394,10 +397,11 @@ Remove Single Group And Flow On Member
     [Arguments]    ${member_index}=1
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    FOR    ${switch}    IN RANGE    1    ${switches+1}
+        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    END
 
 Check Flow Stats Are Not Frozen
     [Arguments]    ${member_index}=1    ${period_in_seconds}=5

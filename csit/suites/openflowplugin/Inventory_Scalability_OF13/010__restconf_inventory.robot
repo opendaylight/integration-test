@@ -45,27 +45,31 @@ Check Every Nodes
     [Arguments]    ${numnodes}
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-    \    Should Contain    ${resp.content}    openflow:${IND}
+    FOR    ${IND}    IN RANGE    1    ${numnodes+1}
+        Should Contain    ${resp.content}    openflow:${IND}
+    END
 
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
-    : FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-    \    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
-    \    Log    ${resp.content}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
-    \    Should Contain    ${resp.content}    flow-table-statistics
+    FOR    ${IND}    IN RANGE    1    ${numnodes+1}
+        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        Log    ${resp.content}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Should Contain    ${resp.content}    flow-capable-node-connector-statistics
+        Should Contain    ${resp.content}    flow-table-statistics
+    END
 
 Check Every Nodes Nodeconnector
     [Arguments]    ${numnodes}
-    : FOR    ${IND}    IN RANGE    2    ${numnodes+1}
-    \    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
-    \    Log    ${resp.content}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}
+    FOR    ${IND}    IN RANGE    2    ${numnodes+1}
+        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        Log    ${resp.content}
+        Should Be Equal As Strings    ${resp.status_code}    200
+        Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}
+    END
 
 Check conn loop
     [Arguments]    ${arg}    ${outerind}    ${content}
-    : FOR    ${var}    IN RANGE    1    ${arg+1}
-    \    Should Contain    ${content}    openflow:${outerind}:${var}
+    FOR    ${var}    IN RANGE    1    ${arg+1}
+        Should Contain    ${content}    openflow:${outerind}:${var}
+    END

@@ -82,7 +82,7 @@ Put one Service Function
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1-400
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

@@ -44,8 +44,9 @@ Take Down Leader Of Default Shard
 
 Create Networks
     [Documentation]    Create Network with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS}
-    \    OpenStackOperations.Create Network    ${NetworkElement}
+    FOR    ${NetworkElement}    IN    @{NETWORKS}
+        OpenStackOperations.Create Network    ${NetworkElement}
+    END
 
 Create Subnets For net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
@@ -118,8 +119,9 @@ Create Router router_3
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    @{ROUTERS}[2]    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Add Router Interface    @{ROUTERS}[2]    ${interface}
+    END
 
 Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
@@ -264,18 +266,21 @@ Connectivity Tests From Vm Instance3 In net_2 after recovering all nodes
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Vm Instances In net_2
     [Documentation]    Delete Vm instances using instance names in net_2.
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_2_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    @{ROUTERS}[2]    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS}
+        OpenStackOperations.Remove Interface    @{ROUTERS}[2]    ${interface}
+    END
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
@@ -298,8 +303,9 @@ Delete Sub Network In net_2
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${network}
+    FOR    ${network}    IN    @{NETWORKS}
+        OpenStackOperations.Delete Network    ${network}
+    END
 
 Delete Security Group
     [Documentation]    Delete security groups with neutron request

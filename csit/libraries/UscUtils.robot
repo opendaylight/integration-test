@@ -135,14 +135,15 @@ Start Multiple_Sessions_TCP
     Write    ${AgentTcp}
     Read
     ${L1}    Create List
-    : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-    \    Log    ${port_index}
-    \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
-    \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login
-    \    Write    ${NAV_USC_TOOLS}
-    \    Write    java -jar EchoServer.jar -t true -p ${port_index}
-    \    Read Until    initialized
+    FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
+        Log    ${port_index}
+        ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
+        Append To List    ${L1}    ${echo_conn_id}
+        Flexible Mininet Login
+        Write    ${NAV_USC_TOOLS}
+        Write    java -jar EchoServer.jar -t true -p ${port_index}
+        Read Until    initialized
+    END
     Set Suite Variable    ${L1}
 
 Start Multiple_Sessions_UDP
@@ -156,14 +157,15 @@ Start Multiple_Sessions_UDP
     Write    ${AgentUdp}
     Read
     ${L1}    Create List
-    : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-    \    Log    ${port_index}
-    \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
-    \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login
-    \    Write    ${NAV_USC_TOOLS}
-    \    Write    java -jar EchoServer.jar -t false -p ${port_index}
-    \    Read Until    initialized
+    FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
+        Log    ${port_index}
+        ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
+        Append To List    ${L1}    ${echo_conn_id}
+        Flexible Mininet Login
+        Write    ${NAV_USC_TOOLS}
+        Write    java -jar EchoServer.jar -t false -p ${port_index}
+        Read Until    initialized
+    END
     Set Suite Variable    ${L1}
 
 Stop Agent_Echo
@@ -200,9 +202,10 @@ Stop One_Agent_Multiple_Echo
     Write_Bare_Ctrl_C
     Write    exit
     Close Connection
-    : FOR    ${echo_conn_id}    IN    @{L1}
-    \    Switch Connection    ${echo_conn_id}
-    \    Read
-    \    Write_Bare_Ctrl_C
-    \    Write    exit
-    \    Close Connection
+    FOR    ${echo_conn_id}    IN    @{L1}
+        Switch Connection    ${echo_conn_id}
+        Read
+        Write_Bare_Ctrl_C
+        Write    exit
+        Close Connection
+    END

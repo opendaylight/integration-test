@@ -39,9 +39,10 @@ Start Emulator Multiple
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
     Set Suite Variable    ${mininet_conn_id}
     SSHKeywords.Flexible Mininet Login
-    : FOR    ${NODE_NUM}    IN RANGE    1    ${number}
-    \    SSHLibrary.Write    java -cp /tmp/agent/simple-agent/src/main/java/ org.opendaylight.ocpplugin.OcpAgent ${controller} 1033 ${vendorID} ${NODE_NUM} &
-    \    SSHLibrary.Read Until    getParamResp
+    FOR    ${NODE_NUM}    IN RANGE    1    ${number}
+        SSHLibrary.Write    java -cp /tmp/agent/simple-agent/src/main/java/ org.opendaylight.ocpplugin.OcpAgent ${controller} 1033 ${vendorID} ${NODE_NUM} &
+        SSHLibrary.Read Until    getParamResp
+    END
     [Return]    ${mininet_conn_id}
 
 Stop Emulator And Exit

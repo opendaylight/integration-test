@@ -240,7 +240,7 @@ Put DPL of Connected SFF Dictionary to SFF
     Check For Elements At URI    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2/sff-sff-data-plane-locator    ${elements}
     Check For Elements At URI    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2    ${elements}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

@@ -74,7 +74,7 @@ Put one Service Function Schedule Algorithm Type
     Check For Elements At URI    ${SERVICE_WSP_SCHED_TYPE_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_SCHED_TYPES_URI}    ${elements}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

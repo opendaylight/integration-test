@@ -36,69 +36,72 @@ Verification of TSDR Cassandra Feature Installation
 
 Storing Statistics from Openflow REST
     [Documentation]    Store openflow PortStats metrics using REST.
-    : FOR    ${item}    IN    @{xpath}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:2    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:LOCAL    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:1    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:2    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:3    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:LOCAL    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:1    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:2    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
-    \    ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:LOCAL    ${item}
-    \    Append To List    ${xml_list}    ${ret_val}
-    \    ${ret_val}=    Set Variable    -1
+    FOR    ${item}    IN    @{xpath}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:2    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:LOCAL    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:1    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:2    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:3    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:LOCAL    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:1    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:2    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:LOCAL    ${item}
+        Append To List    ${xml_list}    ${ret_val}
+        ${ret_val}=    Set Variable    -1
+    END
     Log List    ${xml_list}
 
 Verification of InterfaceMetrics-Attributes on Cassandra Client
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
-    : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:1
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:2
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:LOCAL
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:1
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:2
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:3
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:LOCAL
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:1
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:2
-    \    Append To List    ${tsdr_list}    ${ret_val1}
-    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:LOCAL
-    \    Append To List    ${tsdr_list}    ${ret_val1}
+    FOR    ${list}    IN    @{INTERFACE_METRICS}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:1
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:2
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:LOCAL
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:1
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:2
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:3
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:LOCAL
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:1
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:2
+        Append To List    ${tsdr_list}    ${ret_val1}
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:LOCAL
+        Append To List    ${tsdr_list}    ${ret_val1}
+    END
 
 Comparing Mertics
     [Documentation]    Compare openflow Interface metrics between data collected from openflow Plugin and TSDR
-    : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${xml_list}    ${tsdr_list}
-    \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${xml_list}    ${tsdr_list}
+        Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
+    END
 
 *** Keywords ***
 Extract From DB Table

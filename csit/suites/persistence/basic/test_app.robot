@@ -120,12 +120,13 @@ Find Line
     ${output}=    Issue Command On Karaf Console    networkdevice:get-reachable
     ${output}=    Split To Lines    ${output}
     ${length}=    Get Length    ${output}
-    : FOR    ${INDEX}    IN RANGE    0    ${length}
-    \    ${line}=    Get From List    ${output}    ${INDEX}
-    \    ${data}=    Fetch From Right    ${line}    ipAddress=IpAddress{value=
-    \    ${data}=    Split String    ${data}    },
-    \    ${data}=    Get From List    ${data}    0
-    \    Run Keyword If    '${data}' == '${device_ip}'    Exit For Loop
+    FOR    ${INDEX}    IN RANGE    0    ${length}
+        ${line}=    Get From List    ${output}    ${INDEX}
+        ${data}=    Fetch From Right    ${line}    ipAddress=IpAddress{value=
+        ${data}=    Split String    ${data}    },
+        ${data}=    Get From List    ${data}    0
+        Run Keyword If    '${data}' == '${device_ip}'    Exit For Loop
+    END
     [Return]    ${line}
 
 Find Device Id

@@ -79,7 +79,7 @@ Add Service Function Path where SFC types size and types for SFs in hops match
     ${path}    Get From Dictionary    ${result}    service-function-paths
     Lists Should be Equal    ${path}    ${paths}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

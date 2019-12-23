@@ -20,24 +20,28 @@ Verify the Queue Stats attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_QUEUE_STATS}    Transmitted
     ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUE_STATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
-    : FOR    ${list}    IN    @{QUEUE_METRICS}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{QUEUE_METRICS}
+        Should Contain    ${output}    ${list}
+    END
 
 Verify QueueStats-Attributes on H2 Datastore using JDBC Client
     [Documentation]    Verify the QueueStats,attributes on H2 Datastore using JDBC Client
-    : FOR    ${list}    IN    @{QUEUE_METRICS}
-    \    ${output}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}
-    \    Should Contain    ${output}    ${list}
+    FOR    ${list}    IN    @{QUEUE_METRICS}
+        ${output}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}
+        Should Contain    ${output}    ${list}
+    END
 
 Verify tsdr:purgeall command
     [Documentation]    Verify the tsdr:purgeall command
     Issue Command On Karaf Console    tsdr:purgeall    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
-    : FOR    ${list}    IN    @{CMD_LIST}
-    \    ${out}=    Issue Command On Karaf Console    tsdr:list ${list}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
-    \    Should Contain    ${out}    no data of this category
-    : FOR    ${list}    IN    @{QUEUE_METRICS}
-    \    ${out}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}
-    \    Should not Contain    ${out}    ${list}
+    FOR    ${list}    IN    @{CMD_LIST}
+        ${out}=    Issue Command On Karaf Console    tsdr:list ${list}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
+        Should Contain    ${out}    no data of this category
+    END
+    FOR    ${list}    IN    @{QUEUE_METRICS}
+        ${out}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}
+        Should not Contain    ${out}    ${list}
+    END
 
 *** Keyword ***
 Configuration of Queue on Switch

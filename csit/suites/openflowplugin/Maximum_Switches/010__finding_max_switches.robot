@@ -23,11 +23,12 @@ Find Max Switches
     ${start}=    Convert to Integer    ${MIN_SWITCHES}
     ${stop}=    Convert to Integer    ${MAX_SWITCHES}
     ${step}=    Convert to Integer    ${STEP_SWITCHES}
-    : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
-    \    ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Linear Topology    ${switches}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${maximum_switches}=    Set variable    ${switches}
-    \    ${discover_time}=    Set Variable    ${topology_discover_time}
+    FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Linear Topology    ${switches}
+        Exit For Loop If    '${status}' == 'FAIL'
+        ${maximum_switches}=    Set variable    ${switches}
+        ${discover_time}=    Set Variable    ${topology_discover_time}
+    END
     Log to console    ${\n}
     Log To Console    Execution stopped because: ${error_message}
     Log To Console    Max Switches: ${maximum_switches}

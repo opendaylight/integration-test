@@ -28,7 +28,6 @@ Producer_On_Shard_Leader_Node_ChainedTx
 
 Restart1
     [Documentation]    Restart odl
-    [Template]
     DdbCommons.Restart_Test_Templ
 
 Producer_On_Shard_Leader_Node_SimpleTx
@@ -37,7 +36,6 @@ Producer_On_Shard_Leader_Node_SimpleTx
 
 Restart2
     [Documentation]    Restart odl
-    [Template]
     DdbCommons.Restart_Test_Templ
 
 Producer_On_Shard_Non_Leader_Node_ChainedTx
@@ -46,7 +44,6 @@ Producer_On_Shard_Non_Leader_Node_ChainedTx
 
 Restart3
     [Documentation]    Restart odl
-    [Template]
     DdbCommons.Restart_Test_Templ
 
 Producer_On_Shard_Non_Leader_Node_SimpleTx

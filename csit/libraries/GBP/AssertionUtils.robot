@@ -78,13 +78,14 @@ Check Endpoint
     Should Be Equal As Strings    ${ep_tenant}    ${tenant}
     Check Group References    ${epg}    @{ep_endpoint_groups}
     LOG    ${ep_l3-addresses}
-    : FOR    ${l3}    IN    @{ep_l3-addresses}
-    \    LOG    ${l3-context}
-    \    LOG    ${ip_address}
-    \    LOG    ${l3['l3-context']}
-    \    LOG    ${l3['ip-address']}
-    \    Continue For Loop If    "${l3['l3-context']}" == "${l3-context}" and "${l3['ip-address']}" == "${ip_address}"
-    \    Fail
+    FOR    ${l3}    IN    @{ep_l3-addresses}
+        LOG    ${l3-context}
+        LOG    ${ip_address}
+        LOG    ${l3['l3-context']}
+        LOG    ${l3['ip-address']}
+        Continue For Loop If    "${l3['l3-context']}" == "${l3-context}" and "${l3['ip-address']}" == "${ip_address}"
+        Fail
+    END
 
 Check Endpoint-L3
     [Arguments]    ${endpoint-l3}    ${mac_address}    ${epg}    ${l2-context}    ${network-containment}    ${tenant}
@@ -107,10 +108,11 @@ Check Group References
     ...    among given endpoint groups
     Should Not Be Empty    ${epg_to_look_for}
     Should Not Be Empty    ${endpoint_groups}
-    : FOR    ${epg}    IN    @{endpoint_groups}
-    \    Continue For Loop If    "${epg}" == "${epg_to_look_for}"
-    \    Continue For Loop If    "${epg}" == "${NETWORK_CLIENT_GROUP}"
-    \    Fail
+    FOR    ${epg}    IN    @{endpoint_groups}
+        Continue For Loop If    "${epg}" == "${epg_to_look_for}"
+        Continue For Loop If    "${epg}" == "${NETWORK_CLIENT_GROUP}"
+        Fail
+    END
 
 Check Endpoint Group Name and Selector
     [Arguments]    ${epg_id}    ${epg_name}    ${tenant_id}    ${contract_id}    ${named-selector}
@@ -122,6 +124,7 @@ Check Endpoint Group Name and Selector
     ${endpoint_group_json}    To Json    ${endpoint_group}
     ${named_selectors}    Set Variable    ${endpoint_group_json['endpoint-group'][0]['${named-selector}']}
     ${selector_found}    Set Variable    FALSE
-    : FOR    ${selector}    IN    @{named_selectors}
-    \    Return From Keyword If    "${selector['contract'][0]}" == "${contract_id}"
+    FOR    ${selector}    IN    @{named_selectors}
+        Return From Keyword If    "${selector['contract'][0]}" == "${contract_id}"
+    END
     Fail

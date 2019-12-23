@@ -33,7 +33,8 @@ Get param from emulators
     [Documentation]    OCPPLUGIN get param
     [Tags]    OCPPLUGIN get
     ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
-    : FOR    ${NODE_NUM}    IN RANGE    1    ${NODE_AMOUNT+1}
-    \    ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-${NODE_NUM}","objId":"ALL","paramName":"ALL"}}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
+    FOR    ${NODE_NUM}    IN RANGE    1    ${NODE_AMOUNT+1}
+        ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-${NODE_NUM}","objId":"ALL","paramName":"ALL"}}
+        Should Be Equal As Strings    ${resp.status_code}    200
+    END
     Stop Emulator And Exit    ${mininet_conn_id}

@@ -115,7 +115,7 @@ Put one Service Function into Chain
     Check For Elements At URI    ${SERVICE_CHAIN100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_CHAINS_URI}    ${elements}
 
-*** keywords ***
+*** Keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

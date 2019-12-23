@@ -43,6 +43,7 @@ Teardown Node
 Setup Nodes
     [Arguments]    ${GBPSFCs}    ${init_scripts_dir}
     ${sw_index}    Set Variable    0
-    : FOR    ${GBPSFC}    IN    @{GBPSFCs}
-    \    Setup Node    ${GBPSFC}    ${sw_index}    ${init_scripts_dir}    timeout=10s
-    \    ${sw_index}    Evaluate    ${sw_index} + 1
+    FOR    ${GBPSFC}    IN    @{GBPSFCs}
+        Setup Node    ${GBPSFC}    ${sw_index}    ${init_scripts_dir}    timeout=10s
+        ${sw_index}    Evaluate    ${sw_index} + 1
+    END

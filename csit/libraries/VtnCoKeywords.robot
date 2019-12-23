@@ -12,7 +12,7 @@ Resource          ./CompareStream.robot
 Resource          ./Utils.robot
 Resource          ./MininetKeywords.robot
 
-*** variable ***
+*** Variable ***
 ${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${vtn_coordinator_nexus_path}    https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
 ${vtn_dist}       distribution.vtn-coordinator

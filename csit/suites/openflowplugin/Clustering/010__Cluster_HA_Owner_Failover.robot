@@ -31,9 +31,10 @@ Check Entity Owner Status And Find Owner and Successor Before Fail
 Reconnect Extra Switches To Successors And Check OVS Connections
     [Documentation]    Connect switches s2 and s3 to successor instances.
     ${controller_opt} =    BuiltIn.Set Variable
-    : FOR    ${index}    IN    @{original_successor_list}
-    \    ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
-    \    Log    ${controller_opt}
+    FOR    ${index}    IN    @{original_successor_list}
+        ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
+        Log    ${controller_opt}
+    END
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    ${controller_opt}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7

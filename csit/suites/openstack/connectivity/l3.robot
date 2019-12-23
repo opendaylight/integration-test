@@ -98,20 +98,23 @@ Connectivity Tests From Vm Instance3 In net_2
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
     [Tags]    NON_GATE
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_1_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Vm Instances In net_2
     [Documentation]    Delete Vm instances using instance names in net_2.
     [Tags]    NON_GATE
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_2_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Delete Vm Instances In net_3
     [Documentation]    Delete Vm instances using instance names in net_3.
     [Tags]    NON_GATE
-    : FOR    ${vm}    IN    @{NET_3_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    FOR    ${vm}    IN    @{NET_3_VMS}
+        OpenStackOperations.Delete Vm Instance    ${vm}
+    END
 
 Create Vm Instances For net_4
     [Documentation]    Create VM instances using flavor and image names for a network.
@@ -203,7 +206,8 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_2_L3_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_3_L3_DHCP_IP}    None
     OpenStackOperations.Create Router    @{ROUTER}[0]
-    : FOR    ${interface}    IN    @{SUBNETS_1}
-    \    OpenStackOperations.Add Router Interface    @{ROUTER}[0]    ${interface}
+    FOR    ${interface}    IN    @{SUBNETS_1}
+        OpenStackOperations.Add Router Interface    @{ROUTER}[0]    ${interface}
+    END
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     OpenStackOperations.Get Suite Debugs

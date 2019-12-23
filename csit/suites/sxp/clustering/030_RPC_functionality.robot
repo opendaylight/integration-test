@@ -27,8 +27,9 @@ Isolate SXP Controller
     [Arguments]    ${controller_index}
     [Documentation]    Isolate one of cluster nodes and perform check that RPC changes were performed afterwards reverts isolation
     ${owner_controller} =    SxpClusterLib.Get Owner Controller
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        SxpLib.Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
+    END
     @{running_members} =    ClusterManagement.Isolate_Member_From_List_Or_All    ${controller_index}
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    ClusterManagement.Verify_Members_Are_Ready    member_index_list=${running_members}    verify_cluster_sync=True    verify_restconf=True
     ...    verify_system_status=False    service_list=${EMPTY_LIST}
@@ -36,8 +37,9 @@ Isolate SXP Controller
     ${running_member} =    Collections.Get From List    ${running_members}    0
     ${owner_controller} =    SxpClusterLib.Get Owner Controller    ${running_member}
     BuiltIn.Wait Until Keyword Succeeds    60x    1s    Check Bindings Exist    ${owner_controller}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        SxpLib.Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
+    END
     ClusterManagement.Flush_Iptables_From_List_Or_All
     BuiltIn.Wait Until Keyword Succeeds    120x    1s    ClusterManagement.Verify_Members_Are_Ready    member_index_list=${EMPTY}    verify_cluster_sync=True    verify_restconf=True
     ...    verify_system_status=False    service_list=${EMPTY_LIST}
@@ -47,12 +49,14 @@ Check Bindings Exist
     [Arguments]    ${owner_controller}
     [Documentation]    Check that bindings exists in Cluster datastore
     ${resp} =    SxpLib.Get Bindings    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Should Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        SxpLib.Should Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
+    END
 
 Check Bindings Does Not Exist
     [Arguments]    ${owner_controller}
     [Documentation]    Check that bindings does not exist in Cluster datastore
     ${resp} =    SxpLib.Get Bindings    node=${INADDR_ANY}    session=ClusterManagement__session_${owner_controller}
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    SxpLib.Should Not Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
+    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+        SxpLib.Should Not Contain Binding    ${resp}    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32
+    END

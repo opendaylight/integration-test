@@ -23,24 +23,26 @@ Connectivity TCP-MD5 Test
 Setup Topology
     [Arguments]    ${connections}    ${PASSWORD}    ${version}
     [Documentation]    Adds connections to local and remote nodes
-    : FOR    ${num}    IN RANGE    0    ${connections}
-    \    ${address}    Get Ip From Number    ${num}    2130771968
-    \    Add Connection    ${version}    listener    ${address}    64999    password=${PASSWORD}
-    \    ConnectionTestLibrary.Add Node    ${address}    ${version}    64999    ${PASSWORD}
-    \    ConnectionTestLibrary.Add Connection    ${version}    speaker    127.0.0.1    64999    ${PASSWORD}
-    \    ...    ${address}
+    FOR    ${num}    IN RANGE    0    ${connections}
+        ${address}    Get Ip From Number    ${num}    2130771968
+        Add Connection    ${version}    listener    ${address}    64999    password=${PASSWORD}
+        ConnectionTestLibrary.Add Node    ${address}    ${version}    64999    ${PASSWORD}
+        ConnectionTestLibrary.Add Connection    ${version}    speaker    127.0.0.1    64999    ${PASSWORD}
+        ...    ${address}
+    END
 
 Check Connectivity
     [Arguments]    ${peers}    ${min_peers}    ${min_speed}    ${PASSWORD}=${EMPTY}    ${version}=version4
     [Documentation]    Starts SXP nodes and checks if peers are already connected, this is repeated N times
     @{ITEMS}    Create List
-    : FOR    ${num}    IN RANGE    0    ${TEST_SAMPLES}
-    \    Setup Topology    ${peers}    ${PASSWORD}    ${version}
-    \    ConnectionTestLibrary.Start Nodes
-    \    ConnectionTestLibrary.Initiate Connecting    ${min_peers}
-    \    ${ELEMENT}    Wait Until Keyword Succeeds    120    1    Check Connections Connected
-    \    Append To List    ${ITEMS}    ${ELEMENT}
-    \    Test Clean
+    FOR    ${num}    IN RANGE    0    ${TEST_SAMPLES}
+        Setup Topology    ${peers}    ${PASSWORD}    ${version}
+        ConnectionTestLibrary.Start Nodes
+        ConnectionTestLibrary.Initiate Connecting    ${min_peers}
+        ${ELEMENT}    Wait Until Keyword Succeeds    120    1    Check Connections Connected
+        Append To List    ${ITEMS}    ${ELEMENT}
+        Test Clean
+    END
     ${connectivity_speed}    Get Average Of Items    ${ITEMS}
     Log    Average connectivity speed ${connectivity_speed} connection/s.
     Should Be True    ${connectivity_speed} > ${min_speed}

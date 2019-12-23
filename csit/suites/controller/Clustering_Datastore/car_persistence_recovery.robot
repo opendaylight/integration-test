@@ -31,9 +31,10 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
 Add_Cars_On_Leader_And_Verify
     [Documentation]    Single big PUT to datastore to add cars to car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}
-    : FOR    ${session}    IN    @{ClusterManagement__session_list}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
-    \    ...    verify=True    iterations=${CAR_ITEMS}
+    FOR    ${session}    IN    @{ClusterManagement__session_list}
+        BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}
+        ...    verify=True    iterations=${CAR_ITEMS}
+    END
 
 Stop_All_Members
     [Documentation]    Stop all controllers.
@@ -53,8 +54,9 @@ See_Cars_On_Leader
 
 See_Cars_On_Followers
     [Documentation]    The same check on other members.
-    : FOR    ${session}    IN    @{car_follower_sessions}
-    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}
+    FOR    ${session}    IN    @{car_follower_sessions}
+        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}
+    END
 
 Delete_Cars_On_Leader
     [Documentation]    Delete cars on the new Leader.
