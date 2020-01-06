@@ -249,7 +249,8 @@ Create BGP Configuration On ODL
 AddNeighbor To BGP Configuration On ODL
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/addNeighbor_bgp    mapping=${Kwargs}    session=session
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/addNeighbor_bgp    mapping=${Kwargs}    session=session
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/addNeighborsContainer_bgp    mapping=${Kwargs}    session=session
 
 Get BGP Configuration On ODL
     [Arguments]    ${odl_session}
