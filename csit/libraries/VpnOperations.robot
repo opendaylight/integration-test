@@ -140,7 +140,7 @@ Verify Flows Are Present For L3VPN On All Compute Nodes
     [Arguments]    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN On All Compute Nodes
     : FOR    ${ip}    IN    @{OS_CMP_IPS}
-    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
+    \    BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
 
 Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
