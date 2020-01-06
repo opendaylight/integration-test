@@ -1,0 +1,9 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Code-Review+1: Thanh Ha (zxiiro) <zxiiro@gmail.com>
+Code-Review+2: Venkatrangan Govindarajan <vgovindarajan@luminanetworks.com>
+Submitted-by: Venkatrangan Govindarajan <vgovindarajan@luminanetworks.com>
+Submitted-at: Mon, 06 Jan 2020 18:13:46 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/86682
+Project: integration/test
+Branch: refs/heads/master
