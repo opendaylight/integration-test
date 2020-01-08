@@ -64,7 +64,7 @@ Run Netopeer Docker Container
     SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/datastore.xml    .
     SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key.pub    .
     Builtin.Set Suite Variable    ${netopeer_conn_id}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker run -dt -p ${netopeer_port}:830 -v ${USER_HOME}/datastore.xml:/usr/local/etc/netopeer/cfgnetopeer/datastore.xml -v ${USER_HOME}/sb-rsa-key.pub:/root/RSA.pub sdnhub/netopeer netopeer-server -v 3    return_stdout=True    return_stderr=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/datastore.xml:/usr/local/etc/netopeer/cfgnetopeer/datastore.xml -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/root/RSA.pub sdnhub/netopeer netopeer-server -v 3    return_stdout=True    return_stderr=True
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps    return_stdout=True    return_stderr=True
     ...    return_rc=True
