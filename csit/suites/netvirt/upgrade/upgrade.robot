@@ -68,19 +68,20 @@ Wait For Full Sync
 Set Upgrade Flag
     ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":true}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    FOR    ${node}    IN    @{OS_ALL_IPS}
-        ${dpnid} =    OVSDB.Get DPID    ${node}
-        ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
-        ${body} =    Replace String    ${body}    DPNID    ${dpnid}
-        ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}    data=${body}
-        BuiltIn.Log    ${resp.content}
-        BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    END
 
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     FOR    ${node}    IN    @{OS_ALL_IPS}
         Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+        ${dpnid} =    OVSDB.Get DPID    ${node}
+        ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}
+        BuiltIn.Log    ${resp.content}
+        BuiltIn.Should Contain    ${resp.content}    "result": 1
+        BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+        ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
+        ${body} =    Replace String    ${body}    DPNID    ${dpnid}
+        ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}    data=${body}
+        BuiltIn.Log    ${resp.content}
     END
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
