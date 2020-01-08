@@ -69,6 +69,7 @@ Set Upgrade Flag
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${node}    IN    @{OS_ALL_IPS}
     \    ${dpnid} =    OVSDB.Get DPID    ${node}
+    \    ${dpnid} =    BuiltIn.Convert to String    ${dpnid}
     \    ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
     \    ${body} =    Replace String    ${body}    DPNID    ${dpnid}
     \    ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}    data=${body}
