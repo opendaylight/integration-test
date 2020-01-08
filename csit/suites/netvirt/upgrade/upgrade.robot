@@ -28,6 +28,7 @@ ${TYPE}           tun
 ${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
 @{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
 ${UPDATE_FLAG_PATH}    /restconf/config/odl-serviceutils-upgrade:upgrade-config
+${GET_ACTIVE_BUNDLE_URI}    /restconf/operations/arbitrator-reconcile:get-active-bundle
 ${COMMIT_ACTIVE_BUNDLE_URI}    /restconf/operations/arbitrator-reconcile:commit-active-bundle
 ${COMMIT_ACTIVE_BUNDLE_DIR}    ${CURDIR}/../../../variables/netvirt/commit_active_bundle
 
@@ -68,19 +69,20 @@ Wait For Full Sync
 Set Upgrade Flag
     ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":true}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    FOR    ${node}    IN    @{OS_ALL_IPS}
-        ${dpnid} =    OVSDB.Get DPID    ${node}
-        ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
-        ${body} =    Replace String    ${body}    DPNID    ${dpnid}
-        ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}    data=${body}
-        BuiltIn.Log    ${resp.content}
-        BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    END
 
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     FOR    ${node}    IN    @{OS_ALL_IPS}
         Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+    END
+    Wait Until Keyword Succeeds    60s    10s    Verify Bundle Active State
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        ${dpnid} =    OVSDB.Get DPID    ${node}
+        ${dpnid} =    BuiltIn.Convert To String    ${dpnid}
+        ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
+        ${body} =    Replace String    ${body}    DPNID    ${dpnid}
+        ${resp} =    RequestsLibrary.Post Request    session    ${COMMIT_ACTIVE_BUNDLE_URI}    data=${body}
+        BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     END
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
@@ -91,7 +93,6 @@ UnSet Upgrade Flag
 Check Connectivity With Previously Created Resources And br-int Info
     [Documentation]    Check that pre-existing instance connectivity still works after the new controller is brought
     ...    up and config is sync'd
-    Dump Debug With Annotations    POST_UPGRADE
     Wait Until Keyword Succeeds    90s    10s    Check Resource Connectivity
 
 *** Keywords ***
@@ -157,22 +158,22 @@ Set Custom Component Logging To
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${level}    ${DEBUG_LOG_COMPONENTS}
     KarafKeywords.Issue_Command_On_Karaf_Console    log:list
 
-Dump Debug With Annotations
-    [Arguments]    ${tag}
-    [Documentation]    Dump tons of debug logs for each OS node but also emit tags to make parsing easier
-    Builtin.Log    Start dumping at phase ${tag}
-    FOR    ${node}    IN    @{OS_ALL_IPS}
-        ${conn_id} =    DevstackUtils.Open Connection    ${node}_CONNECTION_NAME    ${node}
-        Builtin.Log    Start dumping for ${node} at phase ${tag}
-        OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
-        Builtin.Log    End dumping for ${node} at phase ${tag}
-        SSHLibrary.Close Connection
-    END
-    Builtin.Log    End dumping at phase ${tag}
-
 Canary Network Should Exist
     OpenStackOperations.Get Neutron Network Rest    bd8db3a8-2b30-4083-a8b3-b3fd46401142
 
 Upgrade Suite Teardown
     Set Custom Component Logging To    INFO
     OpenStackOperations.OpenStack Suite Teardown
+
+Verify Bundle Active State
+    [Documentation]    Verify if the bundle is active for the node.
+    FOR    ${node}    IN    @{OS_ALL_IPS}
+        ${dpnid} =    OVSDB.Get DPID    ${node}
+        ${dpnid} =    BuiltIn.Convert To String    ${dpnid}
+        ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
+        ${body} =    Replace String    ${body}    DPNID    ${dpnid}
+        ${resp} =    RequestsLibrary.Post Request    session    ${GET_ACTIVE_BUNDLE_URI}    data=${body}
+        BuiltIn.Log    ${resp.content}
+        BuiltIn.Should Contain    ${resp.content}    "result":
+        BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    END
