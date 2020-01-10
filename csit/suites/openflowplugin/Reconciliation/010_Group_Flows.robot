@@ -11,7 +11,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${SWITCHES}       10
+${SWITCHES}       3
 ${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
