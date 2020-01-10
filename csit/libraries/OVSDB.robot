@@ -506,3 +506,9 @@ Verify Ovsdb State
     ${output} =    Utils.Run Command On Remote System And Log    ${dpn_ip}    sudo ovsdb-client dump -f list Open_vSwitch Controller | grep state
     BuiltIn.Log    ${output}
     BuiltIn.Should Contain    ${output}    state=${state}
+
+Verify Flows Are Present On Node
+    [Arguments]    ${conn_id}    ${match}
+    [Documentation]    Verify Flows Are Present On The Given Node
+    ${output} =    OVSDB.Get Flow Entries On Node    ${conn_id}
+    BuiltIn.Should Contain    ${output}    ${match}
