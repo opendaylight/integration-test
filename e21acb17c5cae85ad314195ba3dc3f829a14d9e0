@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "955d07c4_718f4b6e",
+        "filename": "csit/suites/netvirt/snatdnat/snat_dnat.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-10T16:37:45Z",
+      "side": 1,
+      "message": "move this keyword to ovsdb library and use arguments so you can pass in the connection id and output you are trying to find.\nnote that you will pass in ${ExtIP} as output, but it can be anything. I was surprised that we didn\u0027t have anything like this\nalready.",
+      "revId": "e21acb17c5cae85ad314195ba3dc3f829a14d9e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
