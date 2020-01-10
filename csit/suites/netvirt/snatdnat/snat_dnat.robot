@@ -77,8 +77,11 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
-    ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Contain    ${output}    ${ExtIP}
+    ${float} =    BuiltIn.Set Variable    @{float}[0]
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_CONN_ID}    ${PDNAT_TABLE}    True
+    ...    nw_dst=${float} actions=goto_table:${DNAT_TABLE}
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_CONN_ID}    ${PSNAT_TABLE}    True
+    ...    nw_src=${float} actions=goto_table:${SNAT_TABLE}
 
 Verify Floating Ip De-provision And Reachability From External Network Via Neutron Router Through L3vpn
     [Documentation]    Check floating IP should not be present in dump flows after deleting the floating IP
@@ -97,8 +100,10 @@ Verify Floating Ip Re-provision And Reachability From External Network Via Neutr
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
-    ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Contain    ${output}    ${ExtIP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_CONN_ID}    ${PDNAT_TABLE}    True
+    ...    nw_dst=${float} actions=goto_table:${DNAT_TABLE}
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_CONN_ID}    ${PSNAT_TABLE}    True
+    ...    nw_src=${float} actions=goto_table:${SNAT_TABLE}
 
 Verify Multiple Floating Ip Creation and Association to external network
     [Documentation]    Check Multiple floating IPs should be present in dump flows after creating multiple floating IPs and associating it to external network
@@ -140,7 +145,7 @@ Create Setup
 Create Neutron Networks
     [Documentation]    Create required number of networks
     FOR    ${NET}    IN    @{NETWORKS}
-        OpenStackOperations.Create Network    ${NET}
+    OpenStackOperations.Create Network    ${NET}
     END
     OpenStackOperations.Create Network    @{EXTERNAL_NETWORKS}[0]    --external --provider-network-type ${NETWORK_TYPE}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
@@ -149,7 +154,7 @@ Create Neutron Subnets
     [Documentation]    Create required number of subnets for previously created networks
     ${num_of_networks} =    BuiltIn.Get Length    ${NETWORKS}
     FOR    ${index}    IN RANGE    0    ${num_of_networks}
-        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
     END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
