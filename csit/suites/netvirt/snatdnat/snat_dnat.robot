@@ -77,8 +77,7 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
-    ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
-    BuiltIn.Should Contain    ${output}    ${ExtIP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    5s    Verify Flows Are Present For External IP
 
 Verify Floating Ip De-provision And Reachability From External Network Via Neutron Router Through L3vpn
     [Documentation]    Check floating IP should not be present in dump flows after deleting the floating IP
@@ -179,3 +178,8 @@ Stop Suite
     BgpOperations.Stop BGP Processes On Node    ${ODL_SYSTEM_IP}
     BgpOperations.Stop BGP Processes On Node    ${DCGW_SYSTEM_IP}
     OpenStackOperations.OpenStack Suite Teardown
+
+Verify Flows Are Present For External IP
+    [Documentation]    Verify Flows Are Present For External IP
+    ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
+    BuiltIn.Should Contain    ${output}    ${ExtIP}
