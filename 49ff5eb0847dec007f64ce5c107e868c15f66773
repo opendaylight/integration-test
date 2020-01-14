@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8eacf9d_56414ed6",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-14T16:46:42Z",
+      "side": 1,
+      "message": "wait, is this keyword being used after all? Looks like you are using a different kw in the test cases",
+      "revId": "49ff5eb0847dec007f64ce5c107e868c15f66773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
