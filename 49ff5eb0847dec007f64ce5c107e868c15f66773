@@ -34,6 +34,24 @@
       "revId": "49ff5eb0847dec007f64ce5c107e868c15f66773",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd6ec9e2_23e77e86",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-15T04:07:36Z",
+      "side": 1,
+      "message": "ok, sounds good.",
+      "parentUuid": "27b8c0f6_d594c280",
+      "revId": "49ff5eb0847dec007f64ce5c107e868c15f66773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
