@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1664ea20",
+        "filename": "docs/operation_map.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:32:42Z",
+      "side": 1,
+      "message": "This should really live in the models in description statements and we should have just links to that (via maven site if need be).\n\nThat would be a second-order TODO.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 95
+      },
+      "revId": "bb803e5272fbcf10e013f7a0bbb5ec4cba4347d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_566e7202",
+        "filename": "docs/operation_map.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:32:42Z",
+      "side": 1,
+      "message": "this should be three test runs: config, oper, config+oper.\n\nAlso, DataTree supports flexible configuration... can you add that to the yangtools system test as a FIXME?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "bb803e5272fbcf10e013f7a0bbb5ec4cba4347d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d62f02a0",
+        "filename": "docs/operation_map.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:32:42Z",
+      "side": 1,
+      "message": "need to check with RFC8040. It should be \u0027not implemented\u0027 or similar. Note YANG 1.1 actions, too.",
+      "range": {
+        "startLine": 78,
+        "startChar": 44,
+        "endLine": 78,
+        "endChar": 89
+      },
+      "revId": "bb803e5272fbcf10e013f7a0bbb5ec4cba4347d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_16198a88",
+        "filename": "docs/operation_map.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:32:42Z",
+      "side": 1,
+      "message": "kill -STOP $ODL_PID\n\nwill simulate long GC",
+      "range": {
+        "startLine": 115,
+        "startChar": 73,
+        "endLine": 115,
+        "endChar": 76
+      },
+      "revId": "bb803e5272fbcf10e013f7a0bbb5ec4cba4347d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
