@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "571eff0c_8099aa3c",
+        "filename": "docs/cluster_dev.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:35:53Z",
+      "side": 1,
+      "message": "Yeah, we have these",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 74
+      },
+      "revId": "176c43821af0e48622e55fb216fd0d61fee99896",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd58deca_134ac7c0",
+        "filename": "docs/cluster_dev.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2020-01-16T21:35:53Z",
+      "side": 1,
+      "message": "this is no longer true",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "176c43821af0e48622e55fb216fd0d61fee99896",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
