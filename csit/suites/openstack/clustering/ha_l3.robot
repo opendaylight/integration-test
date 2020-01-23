@@ -29,18 +29,28 @@ ${SECURITY_GROUP}    cl3_sg
 @{GATEWAY_IPS}    36.0.0.1    37.0.0.1
 @{ODL_1_AND_2_DOWN}    ${1}    ${2}
 @{ODL_2_AND_3_DOWN}    ${2}    ${3}
+@{index_list}     1    2    3
 
 *** Test Cases ***
 Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers.
     ClusterManagement.ClusterManagement Setup
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Take Down Leader Of Default Shard
     [Documentation]    Stop the karaf on ODL cluster leader
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ${cluster_leader}    ${followers} =    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     BuiltIn.Set Suite Variable    ${cluster_leader}
     ${new_cluster_list} =    ClusterManagement.Stop Single Member    ${cluster_leader}    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Set Suite Variable    ${new_cluster_list}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Create Networks
     [Documentation]    Create Network with neutron request.
@@ -59,6 +69,9 @@ Create Subnets For net_2
 Bring Up Leader Of Default Shard
     [Documentation]    Bring up on cluster leader
     ClusterManagement.Start Single Member    ${cluster_leader}    msg=up: ${new_cluster_list}, down: ${cluster_leader}
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -66,7 +79,13 @@ Add Ssh Allow All Rule
 
 Take Down ODL1
     [Documentation]    Stop the karaf in First Controller
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -76,11 +95,23 @@ Create Vm Instances For net_1
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    1    msg=up: ODL2, ODL3, down: ODL1
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Take Down ODL2
     [Documentation]    Stop the karaf in Second Controller
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -102,11 +133,23 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Take Down ODL3
     [Documentation]    Stop the karaf in Third Controller
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL2, ODL3, down=none
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -131,7 +174,13 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -177,8 +226,14 @@ Connectivity Tests From Vm Instance3 In net_1 In Healthy Cluster
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_1 With Two ODLs Down
@@ -202,14 +257,32 @@ Connectivity Tests From Vm Instance3 In net_1 With Two ODLs Down
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down ODL2 and ODL3
     [Documentation]    Stop the karaf in First and Second Controller
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL3, down=ODL2
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_2
@@ -233,23 +306,48 @@ Connectivity Tests From Vm Instance3 In net_2
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    2    msg=up: ODL1, down: ODL2, ODL3    wait_for_sync=False
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     ClusterManagement.Stop Single Member    3    msg=up: ODL3, down=ODL1, ODL2
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up All Instances
     [Documentation]    Bring up all controllers. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
-    ClusterManagement.Start Single Member    1    msg=up: none, down: ODL1, ODL2, ODL3    wait_for_sync=False
-    ClusterManagement.Start Single Member    2    msg=up: ~ODL1, down: ODL2, ODL3    wait_for_sync=False
-    ClusterManagement.Start Single Member    3    msg=up: ~ODL1, ~ODL2, down: ODL3
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
+    ClusterManagement.Start Members From List Or All
+    FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+        BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard At Member    shard_name=default    shard_type=config    member_index=${index}
+    END
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
