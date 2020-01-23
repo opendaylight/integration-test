@@ -438,7 +438,7 @@ Stop_Single_Member
     [Return]    ${updated_index_list}
 
 Stop_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=240s
+    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=360s
     [Documentation]    If the list is empty, stops all ODL instances. Otherwise stop members based on \${stop_index_list}
     ...    If \${confirm} is True, verify stopped instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
@@ -465,7 +465,7 @@ Start_Single_Member
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}    check_system_status=${check_system_status}    verify_restconf=${verify_restconf}    service_list=${service_list}
 
 Start_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=360s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
     ...    ${check_system_status}=False    ${verify_restconf}=True    ${service_list}=${EMPTY_LIST}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
