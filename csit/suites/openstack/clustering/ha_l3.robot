@@ -34,6 +34,7 @@ ${SECURITY_GROUP}    cl3_sg
 Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers.
     ClusterManagement.ClusterManagement Setup
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Take Down Leader Of Default Shard
     [Documentation]    Stop the karaf on ODL cluster leader
@@ -41,6 +42,7 @@ Take Down Leader Of Default Shard
     BuiltIn.Set Suite Variable    ${cluster_leader}
     ${new_cluster_list} =    ClusterManagement.Stop Single Member    ${cluster_leader}    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Set Suite Variable    ${new_cluster_list}
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Networks
     [Documentation]    Create Network with neutron request.
@@ -66,7 +68,9 @@ Add Ssh Allow All Rule
 
 Take Down ODL1
     [Documentation]    Stop the karaf in First Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -76,11 +80,15 @@ Create Vm Instances For net_1
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL2, ODL3, down: ODL1
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Take Down ODL2
     [Documentation]    Stop the karaf in Second Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -102,11 +110,15 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Take Down ODL3
     [Documentation]    Stop the karaf in Third Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -131,7 +143,9 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -177,8 +191,10 @@ Connectivity Tests From Vm Instance3 In net_1 In Healthy Cluster
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_1 With Two ODLs Down
@@ -202,14 +218,20 @@ Connectivity Tests From Vm Instance3 In net_1 With Two ODLs Down
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down ODL2 and ODL3
     [Documentation]    Stop the karaf in First and Second Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL3, down=ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_2
@@ -233,22 +255,32 @@ Connectivity Tests From Vm Instance3 In net_2
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, down: ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL3, down=ODL1, ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up All Instances
     [Documentation]    Bring up all controllers. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: none, down: ODL1, ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ~ODL1, down: ODL2, ODL3    wait_for_sync=False
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ~ODL1, ~ODL2, down: ODL3
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
