@@ -66,8 +66,10 @@ Delete the Bridge Manually and Verify Before Fail
 
 Take Down ODL1
     [Documentation]    Stop the karaf in First Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ${new_cluster_list} =    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Set Suite Variable    ${new_cluster_list}
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Bridge Manually and Verify After Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -83,7 +85,9 @@ Delete the Bridge Manually and Verify After Fail
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL2, ODL3, down: ODL1
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -99,7 +103,9 @@ Delete the Bridge Manually and Verify After Recover
 
 Take Down ODL2
     [Documentation]    Stop the karaf in Second Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -127,7 +133,9 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -155,7 +163,9 @@ Ping Vm Instance3 In net_2
 
 Take Down ODL3
     [Documentation]    Stop the karaf in Third Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -171,7 +181,9 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Connectivity Tests From Vm Instance1 In net_2 In Healthy Cluster
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -187,8 +199,11 @@ Connectivity Tests From Vm Instance3 In net_2 In Healthy Cluster
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Connectivity Tests From Vm Instance1 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -205,8 +220,11 @@ Connectivity Tests From Vm Instance3 In net_2 With Two ODLs Down
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
+    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
