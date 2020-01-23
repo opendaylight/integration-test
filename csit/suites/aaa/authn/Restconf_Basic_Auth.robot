@@ -15,12 +15,15 @@ Library           String
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
+${ADMIN_USER}     ${ODL_RESTCONF_USER}
+${ADMIN_PW}       ${ODL_RESTCONF_PASSWORD}
 ${RESTCONF_TEST_URL}    ${MODULES_API}
 ${JOLOKIA_TEST_URL}    jolokia
 ${JOLOKIA_USER}    ${ODL_RESTCONF_USER}
 ${JOLOKIA_PW}     ${ODL_RESTCONF_PASSWORD}
-${JOLOKIA_BAD_USER}    bad_user
+${BAD_USER}       bad_user
 ${BAD_PW}         bad_pw
+${JOLOKIA_BAD_USER}    ${BAD_USER}
 ${USERS_REST_URL}    auth/v1/users
 ${USER_USER}      user
 ${USER_PW}        user
@@ -32,15 +35,15 @@ No RESTCONF Credentials
 
 Incorrect RESTCONF Password
     [Documentation]    Given incorrect password GET RESTCONF fails
-    Auth Should Fail    ${RESTCONF_TEST_URL}    some_user    ${ODL_RESTCONF_PASSWORD}
+    Auth Should Fail    ${RESTCONF_TEST_URL}    ${ADMIN_USER}    ${BAD_PW}
 
 Incorrect RESTCONF Username
     [Documentation]    Given incorrect username GET RESTCONF fails
-    Auth Should Fail    ${RESTCONF_TEST_URL}    ${ODL_RESTCONF_USER}    ${BAD_PW}
+    Auth Should Fail    ${RESTCONF_TEST_URL}    ${BAD_USER}    ${ADMIN_PW}
 
 Correct RESTCONF Credentials
     [Documentation]    Given correct credentials GET RESTCONF succeeds
-    Auth Should Pass    ${RESTCONF_TEST_URL}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+    Auth Should Pass    ${RESTCONF_TEST_URL}    ${ADMIN_USER}    ${ADMIN_PW}
 
 No Jolokia REST Credentials
     [Documentation]    Given no credentials, HTTP GET on a Jolokia endpoint fails
