@@ -124,7 +124,7 @@ Start_Suite
     Builtin.Set_Suite_Variable    ${tools_system_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
-    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
+    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.17
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
     ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}

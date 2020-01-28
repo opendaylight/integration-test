@@ -113,7 +113,7 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${tools_system_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
-    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
+    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.17
     ExaBgpLib.Upload_ExaBgp_Cluster_Config_Files    ${BGP_VAR_FOLDER}    ${DEFAULT_EXA_CFG}
 
 Teardown_Everything
