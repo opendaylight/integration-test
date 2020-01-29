@@ -101,6 +101,7 @@ Start_Suite
     Builtin.Set_Suite_Variable    ${mininet_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
+    SSHKeywords.Virtual_Env_Install_Package    setuptools==44.0.0
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
