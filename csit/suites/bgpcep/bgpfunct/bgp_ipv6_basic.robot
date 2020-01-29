@@ -125,6 +125,7 @@ Start_Suite
     SSHKeywords.Flexible_Controller_Login
     Configure_Ipv6_Network
     SSHKeywords.Virtual_Env_Create
+    SSHKeywords.Virtual_Env_Install_Package    setuptools==44.0.0
     SSHKeywords.Virtual_Env_Install_Package    exabgp==4.0.5
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
