@@ -28,6 +28,7 @@ Local_To_Remote_Movement
 
 Restart1
     [Documentation]    Restart odl
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
 
 Remote_To_Remote_Movement
@@ -36,6 +37,7 @@ Remote_To_Remote_Movement
 
 Restart2
     [Documentation]    Restart odl
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
 
 Remote_To_Local_Movement

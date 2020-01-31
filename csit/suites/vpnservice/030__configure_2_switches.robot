@@ -140,6 +140,7 @@ Verify FIB entries after delete
 Verify flows after delete
     [Documentation]    Verify if the flows are deleted from the switch
     [Tags]    verify in switch
+    [Template]    ${EMPTY}
     Wait Until Keyword Succeeds    12s    2s    Ensure Flows Are Removed    ${mininet1_conn_id_1}
     Wait Until Keyword Succeeds    12s    2s    Ensure Flows Are Removed    ${mininet2_conn_id_1}
 

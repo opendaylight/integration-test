@@ -27,6 +27,7 @@ Move_Leader_From_Listener_Local_To_Remote
 
 Restart_1
     [Documentation]    Restart odl.
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
 
 Move_Leader_From_Listener_Remote_To_Other_Remote
@@ -35,6 +36,7 @@ Move_Leader_From_Listener_Remote_To_Other_Remote
 
 Restart_2
     [Documentation]    Restart odl.
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
 
 Move_Leader_From_Listener_Remote_To_Local

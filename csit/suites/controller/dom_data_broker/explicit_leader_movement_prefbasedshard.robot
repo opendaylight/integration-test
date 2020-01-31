@@ -31,6 +31,7 @@ Local_To_Remote_Movement
 Restart1
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -41,6 +42,7 @@ Remote_To_Remote_Movement
 Restart2
     [Documentation]    Restart odl.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 

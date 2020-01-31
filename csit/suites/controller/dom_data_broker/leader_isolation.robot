@@ -27,6 +27,7 @@ Healing_Within_Request_Timeout
 
 Restart
     [Documentation]    Restart odl
+    [Template]    ${EMPTY}
     DdbCommons.Restart_Test_Templ
 
 Healing_After_Request_Timeout
