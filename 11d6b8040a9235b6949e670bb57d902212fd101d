@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2d36c0f_8c80f16e",
+        "filename": "csit/suites/openstack/clustering/ha_l3.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-31T02:23:04Z",
+      "side": 1,
+      "message": "I added comments on specific lines below, but since your change is just a straight copy/paste of the same\nthree lines everywhere, see if you can find a good place to put it in an already existing keyword so you\nget it for free. Barring that, at least make a new keyword to do the work and call that in a single line\nin this suite",
+      "revId": "11d6b8040a9235b6949e670bb57d902212fd101d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf00bd1_fa4c74a3",
+        "filename": "csit/suites/openstack/clustering/ha_l3.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-31T02:23:04Z",
+      "side": 1,
+      "message": "any chance it makes sense to add this work of looping through to get the Raft State of the default shard in to the ClusterMangement Setup keyword? Since it\u0027s\na \"Run Keyword And Ignore Error\" it should be fine and then everyone using that ClusterManagement Steup kw will get the benefit",
+      "revId": "11d6b8040a9235b6949e670bb57d902212fd101d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38f0043_04130ae7",
+        "filename": "csit/suites/openstack/clustering/ha_l3.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-01-31T02:23:04Z",
+      "side": 1,
+      "message": "or maybe there is an even deeper keyword to add this too so that Start Single Member would get it for free as well?",
+      "revId": "11d6b8040a9235b6949e670bb57d902212fd101d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
