@@ -42,7 +42,7 @@ ${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparen
 ${MAVEN_VERSION}    3.3.9
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 ${NEXUS_RELEASE_BASE_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release
-${NEXUS_RELEASES_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/integration/distribution-karaf
+${NEXUS_RELEASES_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/integration/karaf
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
@@ -309,7 +309,7 @@ Get_Latest_ODL_Stream_Release_URL
     [Arguments]    ${stream}=latest    ${format}=.zip
     [Documentation]    Returns URL for last release for specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/distribution-karaf-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/karaf-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
 
@@ -332,6 +332,6 @@ Get_Latest_ODL_Previous_Stream_Release_URL
     [Arguments]    ${stream}=${ODL_STREAM}    ${format}=.zip
     [Documentation]    Returns URL for last release for previous stream of specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Previous_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/distribution-karaf-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/karaf-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
