@@ -110,6 +110,12 @@ Execute Command On Quagga Telnet Session
     Log    ${output}
     [Return]    ${output}
 
+Verify ODL DCGW Reachability
+    [Arguments]    ${dcgw_ip}    ${odl_ip}
+    [Documentation]    Verify ODL DCGW Ping reachability
+    Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    Execute Command On Quagga Telnet Session    ping -c 5 ${odl_ip}
+
 Configure BGP And Add Neighbor On DCGW
     [Arguments]    ${dcgw_ip}    ${as_id}    ${router_id}    ${neighbor_ip}    ${vrf_name}    ${rd}
     ...    ${loopback_ip}
