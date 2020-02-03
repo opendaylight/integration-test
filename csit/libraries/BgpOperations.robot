@@ -110,6 +110,14 @@ Execute Command On Quagga Telnet Session
     Log    ${output}
     [Return]    ${output}
 
+Verify ODL DCGW Reachability
+    [Arguments]    ${dcgw_ip}    ${odl_ip}
+    [Documentation]    Verify ODL DCGW Ping reachability
+    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
+    Switch Connection    ${dcgw_conn_id}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ping -c 3 ${odl_ip}    ${OS_SYSTEM_PROMPT}
+    BuiltIn.Should Not Contain    ${output}    64 bytes
+
 Configure BGP And Add Neighbor On DCGW
     [Arguments]    ${dcgw_ip}    ${as_id}    ${router_id}    ${neighbor_ip}    ${vrf_name}    ${rd}
     ...    ${loopback_ip}
