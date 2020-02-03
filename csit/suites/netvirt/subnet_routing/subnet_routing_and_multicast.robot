@@ -254,6 +254,7 @@ Create BGP Config On DCGW
     ...    ${LOOPBACK_IP}
     ${output} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    ${RUN_CONFIG}
     BuiltIn.Should Contain    ${output}    ${ODL_SYSTEM_IP}
+    BgpOperations.Verify ODL DCGW Reachability    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    180s    10s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
 
 Verify Ping between Inter Intra And Enterprise host
