@@ -24,7 +24,9 @@ Resource          Utils.robot
 Resource          RemoteBash.robot
 
 *** Variables ***
-${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M
+${MAX_HEAP}       1G
+${MAX_PERM_SIZE}    256M
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx${MAX_HEAP} -XX:MaxPermSize=${MAX_PERM_SIZE}
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
@@ -139,6 +141,7 @@ NetconfKeywords__Deploy_Additional_Schemas
     # directory from the point of view of the process running on that
     # machine.
     SSHLibrary.Put_Directory    ${schemas}    destination=./schemas
+    SSHLibrary.List_Directory    ./schemas
     [Return]    --schemas-dir ./schemas
 
 NetconfKeywords__Deploy_Custom_RPC
