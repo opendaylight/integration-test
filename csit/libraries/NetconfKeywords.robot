@@ -139,6 +139,7 @@ NetconfKeywords__Deploy_Additional_Schemas
     # directory from the point of view of the process running on that
     # machine.
     SSHLibrary.Put_Directory    ${schemas}    destination=./schemas
+    SSHLibrary.List_Directory    ./schemas
     [Return]    --schemas-dir ./schemas
 
 NetconfKeywords__Deploy_Custom_RPC
