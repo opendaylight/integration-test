@@ -24,7 +24,9 @@ Resource          Utils.robot
 Resource          RemoteBash.robot
 
 *** Variables ***
-${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M
+${MAX_HEAP}       1G
+${MAX_PERM_SIZE}    256M
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx${MAX_HEAP} -XX:MaxPermSize=${MAX_PERM_SIZE}
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
@@ -139,6 +141,7 @@ NetconfKeywords__Deploy_Additional_Schemas
     # directory from the point of view of the process running on that
     # machine.
     SSHLibrary.Put_Directory    ${schemas}    destination=./schemas
+    SSHLibrary.List_Directory    ./schemas
     [Return]    --schemas-dir ./schemas
 
 NetconfKeywords__Deploy_Custom_RPC
@@ -165,6 +168,7 @@ Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ...    ${mdsal}=true
     [Documentation]    Install and run testtool.
+    Log To Console    inside: Install_And_Start_Testtool. using TTDJO: ${java_options}, but global was set to: ${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
     Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}
     ...    ${java_options}    ${mdsal}
@@ -177,6 +181,7 @@ Start_Testtool
     ...    which signifies that there are no additional schemas to be deployed.
     ...    If so the directory for the additional schemas is deleted on the
     ...    remote machine and the additional schemas argument is left out.
+    Log To Console    inside: Install_And_Start_Testtool. using TTDJO: ${java_options}, but global was set to: ${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     ${rpc_config_option}=    NetconfKeywords__Deploy_Custom_RPC    ${rpc_config}
     ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} ${rpc_config_option} --md-sal ${mdsal}
