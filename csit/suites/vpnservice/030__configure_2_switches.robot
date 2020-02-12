@@ -27,15 +27,18 @@ Veirfy The Switches
 Create VPN Instances
     [Documentation]    Creates VPN Instances through restconf
     [Tags]    Post
-    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn:vpn-instances/    data=${vpn_instances}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn:vpn-instances/    data=${vpn_instances}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/    data=${vpn_instances}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify VPN instances
     [Documentation]    Verifies the vpn instances in the datastores
     [Tags]    Get
-    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_CON}/l3vpn:vpn-instances/    ${vpn_inst_values}
-    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn:vpn-instances/    ${vpn_inst_values}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_CON}/l3vpn:vpn-instances/    ${vpn_inst_values}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn:vpn-instances/    ${vpn_inst_values}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/    ${vpn_inst_values}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn-instances-interfaces:vpn-instances/    ${vpn_inst_values}
 
 Create ietf interfaces
     [Documentation]    Creates ietf interfaces through the restconf
@@ -54,14 +57,17 @@ Verify ietf interfaces
 Create VPN interfaces
     [Documentation]    Creates vpn interface for the corresponding ietf interface
     [Tags]    Post
-    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn:vpn-interfaces/    data=${vpn_interfaces}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn:vpn-interfaces/    data=${vpn_instances}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/    data=${vpn_instances}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify VPN interfaces
     [Documentation]    Verifies the vpn interfaces created in datastores
     [Tags]    Get
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_CON}/l3vpn:vpn-interfaces/    ${vpn_int_values}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn:vpn-interfaces/    ${vpn_int_values}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_CON}/l3vpn:vpn-interfaces/    ${vpn_int_values}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn:vpn-interfaces/    ${vpn_int_values}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/    ${vpn_int_values}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_OPER}/l3vpn-instances-interfaces:vpn-interfaces/    ${vpn_int_values}
 
 Verify FIB entries after create
     [Documentation]    Verifies the fib entries in the operational DS for the corresponding vpn interfaces
@@ -98,13 +104,15 @@ Verify ping
 Delete vpn interfaces
     [Documentation]    Deletes the vpn interfaces
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-interfaces/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-interfaces/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vpn interfaces
     [Documentation]    Verifies if vpn interfaces are deleted
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete ietf interfaces
@@ -122,13 +130,15 @@ Verify after deleting ietf interfaces
 Delete VPN Instances
     [Documentation]    Deletes the VPN Instances
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-instances/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-instances/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instances
     [Documentation]    Verifies after deleting the vpn instances
     [Tags]    Verfiy after delete
-    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn:vpn-instances/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn:vpn-instances/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.get Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Verify FIB entries after delete
