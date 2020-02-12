@@ -13,6 +13,8 @@ netvirt_data_models = [
     'config/itm:transport-zones',
     'config/l3vpn:vpn-instances',
     'config/l3vpn:vpn-interfaces',
+    'config/l3vpn-instances-interfaces:vpn-instances',
+    'config/l3vpn-instances-interfaces:vpn-interfaces',
     'config/network-topology:network-topology/topology/ovsdb:1',
     'config/neutron:neutron',
     'config/neutronvpn:networkMaps',
