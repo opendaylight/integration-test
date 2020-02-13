@@ -8,6 +8,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
@@ -129,7 +130,8 @@ Associate L3VPN To Routers
 
 Verify L3VPN Datapath With Router Association
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_ips}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_ips}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_INST_IFACES_URL}    ${vm_ips}
     ${RD} =    Strip String    @{RDS}[0]    characters="[]
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_ips}
     Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}

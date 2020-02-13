@@ -71,6 +71,7 @@ ${PORT_URL}       ${CONFIG_API}/neutron:neutron/ports/
 ${ROUTER_URL}     ${CONFIG_API}/neutron:neutron/routers/
 ${FIB_ENTRY_URL}    ${CONFIG_API}/odl-fib:fibEntries/
 ${VPN_IFACES_URL}    ${CONFIG_API}/l3vpn:vpn-interfaces/
+${VPN_INST_IFACES_URL}    ${CONFIG_API}/l3vpn-instances-interfaces:vpn-interfaces/
 ${VPN_PORT_DATA_URL}    ${CONFIG_API}/neutronvpn:neutron-vpn-portip-port-data/
 ${TUNNEL_MONITOR_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/
 ${MONITOR_INTERVAL_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
