@@ -7,3 +7,6 @@ integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
 integration/test/csit/suites/netvirt/l3vpn_bgp/multi_vpn_bgp.robot
 integration/test/csit/suites/netvirt/bgpvpn/bgpvpn.robot
 integration/test/csit/suites/netvirt/ofpunt_path/openflow_punt_path_protection.robot
+integration/test/csit/suites/vpnservice/010__verify_feature.robot
+integration/test/csit/suites/vpnservice/020__configure_vpn.robot
+integration/test/csit/suites/vpnservice/030__configure_2_switches.robot
