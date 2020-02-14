@@ -27,8 +27,8 @@ Run Read Service Python Script on Controller Vm
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install zmq pyzmq    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Log    ${stdout}
-    ${module}    OperatingSystem.Get File    ${INTERFACES_MODULE_JSON}
-    ${data}    OperatingSystem.Get File    ${INTERFACES_DATA_JSON}
+    ${module}    OperatingSystem.Get File    ${JSONRPCCONFIG_MODULE_JSON}
+    ${data}    OperatingSystem.Get File    ${JSONRPCCONFIG_DATA_JSON}
     ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
     Log    ${cmd}
     ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
@@ -53,10 +53,9 @@ Verify Data On Mounted Endpoint
     ${resp}    ClusterManagement.Get_From_Member    ${READ_SERVICE_PEER_GET_1}${endpoint}${READ_SERVICE_PEER_GET_2}    ${controller_index}
     ${response_json}    Builtin.Convert To String    ${resp}
     Log    ${response_json}
-    Verify Restconf Get On Mounted Endpoint    ${response_json}    ${READSERVICE_NAME}    ${INTERFACE_MODULE_DEFAULT_DATA}
+    Verify Restconf Get On Mounted Endpoint    ${response_json}    ${READSERVICE_NAME}
 
 Verify Restconf Get On Mounted Endpoint
-    [Arguments]    ${output}    ${name}    ${type}
+    [Arguments]    ${output}    ${name}
     [Documentation]    This keyword parses restconf get of mountpoint
     Builtin.Should Match Regexp    ${output}    "name":"${name}"
-    Builtin.Should Match Regexp    ${output}    "type":"${type}"

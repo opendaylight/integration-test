@@ -1,7 +1,7 @@
 {
  "configured-endpoints": {
   "name": "foo",
-  "modules": ["ietf-interfaces"],
+  "modules": ["jsonrpc"],
   "data-config-endpoints": [{
    "path": "{}",
    "endpoint-uri": "zmq://127.0.0.1:4444"
