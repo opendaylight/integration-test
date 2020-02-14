@@ -28,7 +28,7 @@ Run Read Service Python Script on Controller Vm
     ...    return_rc=True
     Log    ${stdout}
     ${module}    OperatingSystem.Get File    ${INTERFACES_MODULE_JSON}
-    ${data}    OperatingSystem.Get File    ${INTERFACES_DATA_JSON}
+    ${data}    OperatingSystem.Get File    ${JSONRPCCONFIG_DATA_JSON}
     ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
     Log    ${cmd}
     ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
