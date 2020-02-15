@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d93189a8_c0415016",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-02-15T18:57:38Z",
+      "side": 1,
+      "message": "Just a thought, Is it better to clone to the /tmp/junos_19.4R1?",
+      "revId": "72002db6806aadae43aed59c9d318da1766f1e37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242b803e_4b11318a",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-02-15T18:57:38Z",
+      "side": 1,
+      "message": "why is find repeated?",
+      "revId": "72002db6806aadae43aed59c9d318da1766f1e37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
