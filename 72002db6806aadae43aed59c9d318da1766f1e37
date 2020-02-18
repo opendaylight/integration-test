@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b79cd1b8_55dd37b9",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-02-18T19:01:50Z",
+      "side": 1,
+      "message": "no, I need a flat directory to put all the .yang files in to which is what I\u0027m using /tmp/junos_19.4R1 for. The\nnetconftesttool doesn\u0027t work with subfolders which is what you get if you clone directly to that folder.\n\nThat\u0027s what line 163 is doing. finding all .yang files under the specific version for junos and moving them to\na flat structure. Also line 165 is copying the few common/ files too.\n\nat least that was the only way I could get it to work when I was testing locally.",
+      "parentUuid": "37ebf315_9fbc2016",
+      "revId": "72002db6806aadae43aed59c9d318da1766f1e37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "242b803e_4b11318a",
         "filename": "csit/suites/netconf/scale/max_devices.robot",
         "patchSetId": 16
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "1f0b7c17_55503d68",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-02-18T19:01:50Z",
+      "side": 1,
+      "message": "whoops. I removed it now. it was a relic from when I was debugging in the sandbox.",
+      "parentUuid": "242b803e_4b11318a",
+      "revId": "72002db6806aadae43aed59c9d318da1766f1e37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f1dd683_a459c85f",
         "filename": "csit/suites/netconf/scale/max_devices.robot",
         "patchSetId": 16
@@ -65,6 +101,30 @@
       "writtenOn": "2020-02-16T21:30:50Z",
       "side": 1,
       "message": "so this is the latest as of this writing, I wonder if we should have another dimension to cover multiple sets (and pick up anything new that comes along automatically?)",
+      "range": {
+        "startLine": 167,
+        "startChar": 21,
+        "endLine": 167,
+        "endChar": 33
+      },
+      "revId": "72002db6806aadae43aed59c9d318da1766f1e37",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0421d9a3_2644e6c5",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-02-18T19:01:50Z",
+      "side": 1,
+      "message": "yeah, I can imagine some cool ideas around this. We could parameterize it some how so we could pass in the specific version or device (there are other device models in that repo other than \"junos\"). This can be the first step for\nnow though, if you don\u0027t mind. We can start getting a history of this and the plots this job creates will be a nice\nthing to view over time in case there are any big scale regressions or improvements.",
+      "parentUuid": "0f1dd683_a459c85f",
       "range": {
         "startLine": 167,
         "startChar": 21,
