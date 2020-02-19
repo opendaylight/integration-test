@@ -24,7 +24,7 @@ Resource          Utils.robot
 Resource          RemoteBash.robot
 
 *** Variables ***
-${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
