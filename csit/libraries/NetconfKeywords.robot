@@ -18,6 +18,7 @@ Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary
 Resource          NexusKeywords.robot
+Resource          Restconf.robot
 Resource          SSHKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
@@ -59,7 +60,8 @@ Count_Netconf_Connectors_For_Device
     # This keyword should be renamed but without an automatic keyword naming standards checker this is
     # potentially destabilizing change so right now it is as FIXME. Proposed new name:
     # Count_Device_Instances_In_Netconf_Topology
-    ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${session}
+    ${uri} =    Restconf.Generate URI    network-topology:network-topology/topology/topology-netconf    operational
+    ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
     Builtin.Log    ${mounts}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
