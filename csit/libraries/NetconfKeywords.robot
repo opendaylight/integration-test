@@ -18,6 +18,7 @@ Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary
 Resource          NexusKeywords.robot
+Resource          Restconf.robot
 Resource          SSHKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
@@ -59,7 +60,8 @@ Count_Netconf_Connectors_For_Device
     # This keyword should be renamed but without an automatic keyword naming standards checker this is
     # potentially destabilizing change so right now it is as FIXME. Proposed new name:
     # Count_Device_Instances_In_Netconf_Topology
-    ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${session}
+    ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational
+    ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
     Builtin.Log    ${mounts}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
@@ -77,7 +79,7 @@ Check_Device_Completely_Gone
     [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that the specified device has no Netconf connectors nor associated data.
     Check_Device_Has_No_Netconf_Connector    ${device_name}    session=${session}
-    ${uri}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}
+    ${uri} =    Restconf.Generate URI    network-topology:network-topology    config    topology=topology-netconf    node=${device_name}
     ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}
     BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
     BuiltIn.Should_Contain    ${response}    404
@@ -85,7 +87,8 @@ Check_Device_Completely_Gone
 Check_Device_Connected
     [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that the specified device is accessible from Netconf.
-    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}    session=${session}
+    ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational    topology=topology-netconf    node=${device_name}
+    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
     Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
 
 Wait_Device_Connected
