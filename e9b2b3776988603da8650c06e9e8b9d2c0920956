@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "044b5736_ef2a2275",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-02-21T07:59:55Z",
+      "side": 1,
+      "message": "Is this planned to be a job parameter?",
+      "revId": "e9b2b3776988603da8650c06e9e8b9d2c0920956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
