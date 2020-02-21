@@ -16,6 +16,24 @@
       "revId": "e9b2b3776988603da8650c06e9e8b9d2c0920956",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e835d4_ddcd1eac",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-02-21T16:55:16Z",
+      "side": 1,
+      "message": "yes. here is the releng/builder patch where I\u0027m planning to use it:\nhttps://git.opendaylight.org/gerrit/c/releng/builder/+/87937",
+      "parentUuid": "044b5736_ef2a2275",
+      "revId": "e9b2b3776988603da8650c06e9e8b9d2c0920956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
