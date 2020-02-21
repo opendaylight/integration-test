@@ -8,7 +8,7 @@ Library           Collections
 Library           String
 
 *** Variables ***
-&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}    magnesium=${12}
+&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}    magnesium=${12}    aluminium=${13}
 
 *** Keywords ***
 Set_Variable_If_At_Least
@@ -64,6 +64,11 @@ Set_Variable_If_At_Least_Magnesium
     [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast magnesium, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    magnesium    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Aluminium
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast aluminium, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    aluminium    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
@@ -105,6 +110,12 @@ Set_Variable_If_At_Most_Magnesium
     [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most magnesium,
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    magnesium    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Aluminium
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most aluminium,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    aluminium    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Arguments]    @{arguments}
@@ -242,6 +253,12 @@ Run_Keyword_If_At_Least_Magnesium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    magnesium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Aluminium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least aluminium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    aluminium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
@@ -284,6 +301,12 @@ Run_Keyword_If_At_Most_Magnesium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    magnesium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Most_Aluminium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most aluminium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    aluminium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_More_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than carbon,
@@ -325,6 +348,12 @@ Run_Keyword_If_More_Than_Magnesium
     [Documentation]    Compare magnesium to ${ODL_STREAM} and in case ${ODL_STREAM} is more than magnesium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    magnesium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_More_Than_Aluminium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is more than aluminium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    aluminium    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_Less_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
