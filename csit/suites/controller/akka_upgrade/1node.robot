@@ -70,6 +70,7 @@ Select_Latest_Previous_Release_If_Not_Specified
     BuiltIn.Pass_Execution_If    '${odl_zip_url}'!=''    Bundle url to previous release is provided: ${PREVIOUS_ODL_RELEASE_ZIP_URL}, no need to search in nexus.
     ${previous_release} =    NexusKeywords.Get_Latest_ODL_Previous_Stream_Release_URL    ${ODL_STREAM}
     BuiltIn.Set_Suite_Variable    ${odl_zip_url}    ${previous_release}
+    FATAL ERROR
 
 Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
