@@ -42,7 +42,7 @@ ${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparen
 ${MAVEN_VERSION}    3.3.9
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 ${NEXUS_RELEASE_BASE_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release
-${NEXUS_RELEASES_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/integration/distribution-karaf
+${NEXUS_RELEASES_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/integration/opendaylight
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
@@ -309,7 +309,7 @@ Get_Latest_ODL_Stream_Release_URL
     [Arguments]    ${stream}=latest    ${format}=.zip
     [Documentation]    Returns URL for last release for specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/distribution-karaf-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/opendaylight-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
 
@@ -319,12 +319,12 @@ Get_Latest_ODL_Previous_Stream_Release
     ...    Note: If specified stream is not found on nexus, then it is taken as new one (not released yet).
     ...    So in this case, latest release version is return.
     ${latest}    @{versions}=    Get_ODL_Versions_From_Nexus
-    ${latest_version}=    BuiltIn.Set_Variable    xxx
+    ${latest_version}=    BuiltIn.Set_Variable    0.0.0
     FOR    ${version}    IN    @{versions}
         BuiltIn.Exit_For_Loop_If    '${stream}'.title() in '${version}'
-        ${latest_version}=    BuiltIn.Set_Variable    ${version}
+        ${latest_version}=    Run Keyword If    ${version} > ${latest_version}    BuiltIn.Set_Variable    ${version}
     END
-    BuiltIn.Run_Keyword_If    '${latest_version}'=='xxx'    BuiltIn.Fail    Could not find latest previous release for stream ${stream}
+    BuiltIn.Run_Keyword_If    '${latest_version}'=='0.0.0'    BuiltIn.Fail    Could not find latest previous release for stream ${stream}
     BuiltIn.Log    ${latest_version}
     [Return]    ${latest_version}
 
@@ -332,6 +332,6 @@ Get_Latest_ODL_Previous_Stream_Release_URL
     [Arguments]    ${stream}=${ODL_STREAM}    ${format}=.zip
     [Documentation]    Returns URL for last release for previous stream of specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Previous_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/distribution-karaf-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/opendaylight-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
