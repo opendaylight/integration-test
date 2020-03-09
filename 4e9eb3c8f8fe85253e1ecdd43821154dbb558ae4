@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ceb366b_cc841398",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-03-09T20:02:14Z",
+      "side": 1,
+      "message": "this is resource",
+      "revId": "4e9eb3c8f8fe85253e1ecdd43821154dbb558ae4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
