@@ -16,6 +16,24 @@
       "revId": "4e9eb3c8f8fe85253e1ecdd43821154dbb558ae4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bbb6ef4_8a221726",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-03-09T23:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ceb366b_cc841398",
+      "revId": "4e9eb3c8f8fe85253e1ecdd43821154dbb558ae4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
