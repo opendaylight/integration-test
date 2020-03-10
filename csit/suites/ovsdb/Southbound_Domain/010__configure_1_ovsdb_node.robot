@@ -20,8 +20,8 @@ ${QUEUE}          QUEUE-1
 
 *** Test Cases ***
 Make the OVS instance to listen for connection
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_NODE_PORT}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_NODE_PORT}
 
 Connect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
