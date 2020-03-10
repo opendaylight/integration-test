@@ -16,6 +16,24 @@
       "revId": "20aee3e2e85762291fecd0e8d29d1d404cd322a3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5f49d75_ca55ed59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-03-10T20:04:14Z",
+      "side": 1,
+      "message": "If the test wants to execute commands in the test tools system (mininet VM) it has to use right command, otherwise prompt, credentials or other stuff may not work.",
+      "parentUuid": "be52ae10_8c75f620",
+      "revId": "20aee3e2e85762291fecd0e8d29d1d404cd322a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
