@@ -18,8 +18,8 @@ ${OVSDB_UUID}     ${EMPTY}
 
 *** Test Cases ***
 Connecting an OVS instance to the controller
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
 
 Get Operational Topology to verify the ovs instance is connected to the controller
@@ -34,7 +34,7 @@ Verify OVS Not In Config Topology
     Utils.Check For Elements Not At URI    ${CONFIG_TOPO_API}    ${NODE_LIST}    pretty_print_json=True
 
 Create bridge manually
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE1}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE1}
 
 Get Operational Topology to verify the bridge has been added
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
@@ -76,7 +76,7 @@ Get Config Topology to verify the entry of existing bridge added to the config d
     BuiltIn.Should Contain    ${resp.content}    ovsdb://uuid/${OVSDB_UUID}/bridge/${BRIDGE1}
 
 Delete bridge manually
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br ${BRIDGE2}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br ${BRIDGE2}
 
 Get Operational Topology to verify the bridge has been deleted manually
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
@@ -105,21 +105,21 @@ Trunk And Vlan Tag Is Removed From Operational
     ...    in the operational store. Also verify that when all trunks are cleared from ovs, it's accurate in operational.
     [Tags]    8529    bug
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br vlan-tag-br
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port vlan-tag-br vlan-tag-port
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set port vlan-tag-port tag=81
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set port vlan-tag-port trunks=[181,182]
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br vlan-tag-br
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port vlan-tag-br vlan-tag-port
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set port vlan-tag-port tag=81
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set port vlan-tag-port trunks=[181,182]
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
     OVSDB.Collect OVSDB Debugs
     @{list}    BuiltIn.Create List    vlan-tag-br    vlan-tag-port    "ovsdb:vlan-tag":81    "trunk":181    "trunk":182
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port tag
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl remove port vlan-tag-port trunks 181
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port tag
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl remove port vlan-tag-port trunks 181
     @{list}    BuiltIn.Create List    "ovsdb:vlan-tag":81    "trunk":181
     OVSDB.Collect OVSDB Debugs
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port trunks
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port trunks
     @{list}    BuiltIn.Create List    "ovsdb:vlan-tag":81    "trunk":181    "trunk":182
     OVSDB.Collect OVSDB Debugs
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True

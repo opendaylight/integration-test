@@ -19,10 +19,10 @@ ${PORT2}          vx2
 *** Test Cases ***
 Create a Topology in OVSDB node
     [Documentation]    Create topology in OVSDB and ready it for further tests
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port ${BRIDGE} ${PORT1} -- set Interface ${PORT1} type=vxlan options:remote_ip=192.168.1.11
-    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:6634
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port ${BRIDGE} ${PORT1} -- set Interface ${PORT1} type=vxlan options:remote_ip=192.168.1.11
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:6634
 
 Connect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
