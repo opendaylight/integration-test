@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1099a466_0aed23ce",
+        "filename": "tools/wstools/wsreceiver.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-03-12T06:23:41Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "55cf75fe_dd2d52b4",
+      "revId": "3ee204a7453a571c777b8d87e9b6184f9c1e1a33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cbc5dec_09df9d2e",
         "filename": "tools/wstools/wsreceiver.py",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "3ee204a7453a571c777b8d87e9b6184f9c1e1a33",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b99dcaf5_29fea819",
+        "filename": "tools/wstools/wsreceiver.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-03-12T06:23:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cbc5dec_09df9d2e",
+      "revId": "3ee204a7453a571c777b8d87e9b6184f9c1e1a33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
