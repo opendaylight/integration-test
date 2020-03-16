@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5399660_39d18034",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-03-16T18:51:26Z",
+      "side": 1,
+      "message": "Should the arguments be data_store_config\u003dconfig? \nor is configmeant to be the nodelist?",
+      "revId": "6418b94890cc51c2b224e87625a43ed59fa5d78b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
