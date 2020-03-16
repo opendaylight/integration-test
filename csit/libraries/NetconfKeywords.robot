@@ -77,26 +77,26 @@ Check_Device_Has_No_Netconf_Connector
     Builtin.Should_Be_Equal_As_Strings    ${count}    0
 
 Check_Device_Completely_Gone
-    [Arguments]    ${device_name}    ${session}=default
+    [Arguments]    ${device_name}    ${session}=default    ${log_response}=True
     [Documentation]    Check that the specified device has no Netconf connectors nor associated data.
     Check_Device_Has_No_Netconf_Connector    ${device_name}    session=${session}
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    config    topology=topology-netconf    node=${device_name}
-    ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}
+    ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}    log_response=${log_response}
     BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
     BuiltIn.Should_Contain    ${response}    404
 
 Check_Device_Connected
-    [Arguments]    ${device_name}    ${session}=default
+    [Arguments]    ${device_name}    ${session}=default    ${log_response}=True
     [Documentation]    Check that the specified device is accessible from Netconf.
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational    topology=topology-netconf    node=${device_name}
-    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
+    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}    log_response=${log_response}
     Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
 
 Wait_Device_Connected
-    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default
+    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default    ${log_response}=True
     [Documentation]    Wait for the device to become connected.
     ...    It is more readable to use this keyword in a test case than to put the whole WUKS below into it.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}    log_response=${log_response}
 
 Remove_Device_From_Netconf
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
@@ -106,7 +106,7 @@ Remove_Device_From_Netconf
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
 
 Wait_Device_Fully_Removed
-    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
+    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default    ${log_response}=True
     [Documentation]    Wait until all netconf connectors for the device with the given name disappear.
     ...    Call of Remove_Device_From_Netconf returns before netconf gets
     ...    around deleting the device's connector. To ensure the device is
@@ -115,7 +115,7 @@ Wait_Device_Fully_Removed
     ...    is not made before using this keyword, the wait will fail.
     ...    Using this keyword is more readable than putting the WUKS below
     ...    into a test case.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Completely_Gone    ${device_name}    session=${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Completely_Gone    ${device_name}    session=${session}    log_response=${log_response}
 
 NetconfKeywords__Deploy_Additional_Schemas
     [Arguments]    ${schemas}
