@@ -136,13 +136,13 @@ Create_Default_Session
 
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${http_timeout}=${EMPTY}
+    ...    ${http_timeout}=${EMPTY}    ${log_response}=True
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
     ...    Only subset of JSON data is verified and returned if JMES path is specified in
     ...    file ${folder}${/}jmespath.expr.
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
-    ...    http_timeout=${http_timeout}
+    ...    http_timeout=${http_timeout}    log_response=${log_response}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
     [Return]    ${response_text}
@@ -249,15 +249,15 @@ Verify_Response_As_Xml_Templated
     ...    endline=${EMPTY}    iterations=${iterations}    iter_start=${iter_start}
 
 Get_As_Json_From_Uri
-    [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}
+    [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}    ${log_response}=True
     [Documentation]    Specify JSON headers and return Get_From_Uri normalized response text.
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True    http_timeout=${http_timeout}
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True    http_timeout=${http_timeout}    log_response=${log_response}
     [Return]    ${response_text}
 
 Get_As_Xml_From_Uri
-    [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}
+    [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}    ${log_response}=True
     [Documentation]    Specify XML headers and return Get_From_Uri response text.
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False    http_timeout=${http_timeout}
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False    http_timeout=${http_timeout}    log_response=${log_response}
     [Return]    ${response_text}
 
 Put_As_Json_To_Uri
@@ -321,13 +321,13 @@ Resolve_Volatiles_Path
     [Return]    ${volatiles_list}
 
 Get_Templated
-    [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False    ${http_timeout}=${EMPTY}
+    [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False    ${http_timeout}=${EMPTY}    ${log_response}=True
     [Documentation]    Resolve URI from folder, call Get_From_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${volatiles_list}=    Resolve_Volatiles_Path    ${folder}
     ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
-    ...    http_timeout=${http_timeout}    keys_with_volatiles=${volatiles_list}
+    ...    http_timeout=${http_timeout}    keys_with_volatiles=${volatiles_list}    log_response=${log_response}
     [Return]    ${response_text}
 
 Put_Templated
@@ -369,7 +369,7 @@ Verify_Response_Templated
 
 Get_From_Uri
     [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}
-    ...    ${keys_with_volatiles}=${EMPTY}
+    ...    ${keys_with_volatiles}=${EMPTY}    ${log_response}=True
     [Documentation]    GET data from given URI, check status code and return response text.
     ...    \${accept} is a Python object with headers to use.
     ...    If \${normalize_json}, normalize as JSON text before returning.
@@ -377,7 +377,7 @@ Get_From_Uri
     BuiltIn.Log    ${accept}
     ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
     ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
-    Check_Status_Code    ${response}
+    Check_Status_Code    ${response}    log_response=${log_response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}    keys_with_volatiles=${keys_with_volatiles}
     [Return]    ${text_normalized}
@@ -423,11 +423,13 @@ Post_To_Uri
     [Return]    ${text_normalized}
 
 Check_Status_Code
-    [Arguments]    ${response}    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
-    [Documentation]    Log response text, check status_code is one of allowed ones.
+    [Arguments]    ${response}    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${log_response}=True
+    [Documentation]    Log response text, check status_code is one of allowed ones. In cases where this keyword is
+    ...    called in a WUKS it could end up logging tons of data and it may be desired to skip the logging by passing
+    ...    log_response=False, but by default it remains True.
     # TODO: Remove overlap with keywords from Utils.robot
-    BuiltIn.Log    ${response.text}
-    BuiltIn.Log    ${response.status_code}
+    Run Keyword If    "${log_response}" == "True"    BuiltIn.Log    ${response.text}
+    Run Keyword If    "${log_response}" == "True"    BuiltIn.Log    ${response.status_code}
     # In order to allow other existing keywords to consume this keyword by passing a single non-list status code, we need to
     # check the type of the argument passed and convert those single non-list codes in to a one item list
     ${status_codes_type} =    Evaluate    type($additional_allowed_status_codes).__name__
