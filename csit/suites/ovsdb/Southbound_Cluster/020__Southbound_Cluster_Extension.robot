@@ -27,41 +27,42 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${original_candidate}
 
-Create Bridge Manually and Verify Before Fail
-    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
 
-Add Port Manually and Verify Before Fail
-    [Documentation]    Add port with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
 
-Delete the Bridge Manually and Verify Before Fail
-    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
-Create Bridge In Owner and Verify Before Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge And Verify    ${original_owner}
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
 
-Create Port In Owner and Verify Before Fail
-    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Port And Verify    ${original_owner}
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
 
-Modify the destination IP of Port In Owner Before Fail
-    [Documentation]    Modify the dst ip of existing port in Owner.
-    ClusterOvsdb.Modify the destination IP of Sample Port    ${original_owner}
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
 
-Verify Port Is Modified Before Fail
-    [Documentation]    Verify port is modified in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified
-
-Delete Port In Owner Before Fail
-    [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Port And Verify    ${original_owner}
-
-Delete Bridge In Owner And Verify Before Fail
-    [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge And Verify    ${original_owner}
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
 Kill Candidate Instance
     [Documentation]    Kill Owner Instance and verify it is dead
@@ -79,33 +80,43 @@ Check Entity Owner Status And Find Owner and Candidate After Fail
     BuiltIn.Set Suite Variable    ${new_owner}
     BuiltIn.Set Suite Variable    ${new_candidate}
 
-Create Bridge Manually and Verify After Fail
-    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify    controller_index_list=${new_cluster_list}
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
 
-Add Port Manually and Verify After Fail
-    [Documentation]    Add port with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    controller_index_list=${new_cluster_list}
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
 
-Delete the Bridge Manually and Verify After Fail
-    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    controller_index_list=${new_cluster_list}
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
 
-Create Bridge In Owner and Verify After Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge And Verify    ${new_owner}    ${new_cluster_list}
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
-Create Port In Owner and Verify After Fail
-    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Port And Verify    ${new_owner}    ${new_cluster_list}
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
 
-Modify the destination IP of Port In Owner After Fail
-    [Documentation]    Modify the dst ip of existing port in Owner.
-    ClusterOvsdb.Modify the destination IP of Sample Port    ${new_owner}    ${new_cluster_list}
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
 
-Verify Port Is Modified After Fail
-    [Documentation]    Verify port is modified in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified    ${new_cluster_list}
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
 Start Old Candidate Instance
     [Documentation]    Start Owner Instance and verify it is active
@@ -117,60 +128,275 @@ Check Shards Status After Recover
 
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
     ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
     BuiltIn.Set Suite Variable    ${new_owner}
 
-Create Bridge Manually and Verify After Recover
-    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
-Add Port Manually and Verify After Recover
-    [Documentation]    Add port with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
 
-Delete the Bridge Manually and Verify After Recover
-    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
 
-Verify Modified Port After Recover
-    [Documentation]    Verify modified port exists in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
-Delete Port In New Owner After Recover
-    [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Port And Verify    ${new_owner}
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
 
-Delete Bridge In New Owner And Verify After Recover
-    [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge And Verify    ${new_owner}
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
 
-Create Bridge In Old Candidate and Verify After Recover
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge And Verify    ${original_candidate}
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
 
-Create Port In Old Owner and Verify After Recover
-    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Port And Verify    ${original_candidate}
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
-Modify the destination IP of Port In Old Owner After Recover
-    [Documentation]    Modify the dst ip of existing port in Owner.
-    ClusterOvsdb.Modify the destination IP of Sample Port    ${original_candidate}
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
 
-Verify Port Is Modified After Recover
-    [Documentation]    Verify port is modified in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
 
-Delete Port In Old Owner After Recover
-    [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Port And Verify    ${original_candidate}
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
-Delete Bridge In Old Owner And Verify After Recover
-    [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge And Verify    ${original_candidate}
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
 
-Cleans Up Test Environment For Next Suite
-    [Documentation]    Cleans up test environment, close existing sessions in teardown.
-    ClusterOvsdb.Configure Exit OVSDB Connection
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
+
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
+
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
+
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
+
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
+
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
+
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
+
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
+
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
+
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
+
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
+
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
+
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
+
+heck Entity Owner Status And Find Owner and Candidate Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat start
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate}
+
+Kill Candidate Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    ${new_cluster_list} =    ClusterManagement.Kill Single Member    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
+
+Start Old Candidate Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    ClusterManagement.Start Single Member    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    ClusterOvsdb.Check Ovsdb Shards Status After Cluster Event
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    [Tags]    repeat end
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
 
 *** Keywords ***
 Suite Setup
