@@ -55,16 +55,16 @@ Find Max Netconf Devices
         ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
         ...    ${NUM_WORKERS}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${maximum_devices} =    Set Variable    ${devices}
         Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
@@ -114,17 +114,17 @@ Teardown_Everything
     NetconfKeywords.Stop_Testtool
 
 Configure_Device
-    [Arguments]    ${current_name}
+    [Arguments]    ${current_name}    ${log_response}=True
     [Documentation]    Operation for configuring the device.
     KarafKeywords.Log_Message_To_Controller_Karaf    Configuring device ${current_name} to Netconf
     NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
 
 Wait_Connected
-    [Arguments]    ${current_name}
+    [Arguments]    ${current_name}    ${log_response}=True
     [Documentation]    Operation for waiting until the device is connected.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=120s
+    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=120s    log_response=${log_response}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
 Read_Python_Tool_Operation_Result
@@ -151,10 +151,10 @@ Deconfigure_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} deconfigured
 
 Check_Device_Deconfigured
-    [Arguments]    ${current_name}
+    [Arguments]    ${current_name}    ${log_response}=True
     [Documentation]    Operation for making sure the device is really deconfigured.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
+    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s    log_response=${log_response}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
 
 Get Juniper Device Schemas
