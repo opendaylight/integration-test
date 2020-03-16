@@ -60,7 +60,7 @@ Find Max Netconf Devices
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
         ...    ${NUM_WORKERS}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
@@ -121,10 +121,10 @@ Configure_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
 
 Wait_Connected
-    [Arguments]    ${current_name}
+    [Arguments]    ${current_name}    ${log_response}=True
     [Documentation]    Operation for waiting until the device is connected.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=120s
+    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=120s    log_response=${log_response}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
 Read_Python_Tool_Operation_Result

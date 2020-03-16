@@ -86,17 +86,17 @@ Check_Device_Completely_Gone
     BuiltIn.Should_Contain    ${response}    404
 
 Check_Device_Connected
-    [Arguments]    ${device_name}    ${session}=default
+    [Arguments]    ${device_name}    ${session}=default    ${log_response}=True
     [Documentation]    Check that the specified device is accessible from Netconf.
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational    topology=topology-netconf    node=${device_name}
-    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
+    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}    log_response=${log_response}
     Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
 
 Wait_Device_Connected
-    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default
+    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default    ${log_response}=True
     [Documentation]    Wait for the device to become connected.
     ...    It is more readable to use this keyword in a test case than to put the whole WUKS below into it.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}    log_response=${log_response}
 
 Remove_Device_From_Netconf
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
