@@ -13,7 +13,7 @@ Documentation     BGP functional HA testing with one exabgp peer.
 ...               After isolating karaf which owned connection, new owner should be elected and
 ...               this new owner should accept incomming bgp connection.
 ...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
-Suite Setup       Setup_Everything
+Suite Setup       Setup_Ev  erything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
@@ -38,7 +38,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 *** Test Cases ***
 Get_Example_Bgp_Rib_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection.
-    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
+    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    15s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
     ...    Bgpcep    1
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
@@ -61,7 +61,7 @@ Start_ExaBgp_Peer
 
 Verify_ExaBgp_Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Isolate_Current_Owner_Member
     [Documentation]    Isolating cluster node which is connected with exabgp.
@@ -79,7 +79,7 @@ Verify_New_Rib_Owner
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
@@ -91,7 +91,7 @@ Verify_New_Candidate
 
 Verify_ExaBgp_Still_Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp tool by sending ctrl+c
