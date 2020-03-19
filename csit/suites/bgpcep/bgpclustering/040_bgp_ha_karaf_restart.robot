@@ -61,7 +61,7 @@ Start_ExaBgp_Peer
 
 Verify ExaBgp Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Kill_Current_Owner_Member
     [Documentation]    Killing karaf which is connected with exabgp.
@@ -79,7 +79,7 @@ Verify_New_Rib_Owner
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Start_Stopped_Member
     [Documentation]    Starting stopped node
@@ -91,7 +91,7 @@ Verify_New_Candidate
 
 Verify_ExaBgp_Still_Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    30s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp tool by sending ctrl+c
