@@ -131,9 +131,9 @@ Kill_Older_Odl
     ClusterManagement.Kill_Members_From_List_Or_All
 
 Transfer_Persisted_Data
-    [Documentation]    Move snapshots and journal into the original ODL installation.
+    [Documentation]    Move snapshots and (segmented-)journal into the original ODL installation.
     # SSHLibrary.Switch_Connection    ${odl_system_ssh_index}
-    ${stdout} =    SSHKeywords.Execute_Command_Should_Pass    cp -rv "${alternative_bundlefolder}/snapshots" "${WORKSPACE}/${BUNDLEFOLDER}/" && cp -rv "${alternative_bundlefolder}/journal" "${WORKSPACE}/${BUNDLEFOLDER}/"
+    ${stdout} =    SSHKeywords.Execute_Command_Should_Pass    cp -rv "${alternative_bundlefolder}/snapshots" "${WORKSPACE}/${BUNDLEFOLDER}/" && cp -rv "${alternative_bundlefolder}/*journal" "${WORKSPACE}/${BUNDLEFOLDER}/"
     Set_Suite_Variable    ${stdout}
 
 Check_Snapshot_With_Transferred_Persisted_Data
