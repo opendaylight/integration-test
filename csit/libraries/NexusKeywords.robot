@@ -28,14 +28,11 @@ Resource          ${CURDIR}/Utils.robot
 *** Variables ***
 &{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
 ${JDKVERSION}     None
-${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
-${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
 ${JAVA_11_HOME_CENTOS}    /usr/lib/jvm/java-11-openjdk
 ${JAVA_11_HOME_UBUNTU}    /usr/lib/jvm/java-11-openjdk-amd64
 ${JAVA_OPTIONS}    -Xmx2560m    # Note that '-Xmx=3g' is wrong syntax. Also 3GB heap may not fit in 4GB RAM.
-${JAVA_7_OPTIONS}    -Xmx2048m -XX:MaxPermSize=512m
 ${MAVEN_DEFAULT_OUTPUT_FILENAME}    default_maven.log
 ${MAVEN_OPTIONS}    -Pq -Djenkins
 ${MAVEN_REPOSITORY_PATH}    /tmp/r
@@ -153,8 +150,7 @@ Install_And_Start_Java_Artifact
     [Documentation]    Deploy the artifact, assign name for log file, figure out java command, write the command to active SSH connection and return the log name.
     ...    This keyword does not examine whether the artifact was started successfully or whether is still running upon return.
     # TODO: Unify this keyword with what NexusKeywords.Install_And_Start_Testtool does.
-    ${default_java_options} =    Default_Java_Options    ${openjdk}
-    ${actual_java_options} =    BuiltIn.Set_Variable_If    """${java_options}""" != ""    ${java_options}    ${default_java_options}
+    ${actual_java_options} =    BuiltIn.Set_Variable_If    """${java_options}""" != ""    ${java_options}    ${JAVA_OPTIONS}
     ${filename} =    Deploy_Test_Tool    ${component}    ${artifact}    ${suffix}    ${fallback_url}    ${explicit_url}
     ${command} =    Compose_Full_Java_Command    ${actual_java_options} -jar ${filename} ${tool_options}
     ${logfile} =    Utils.Get_Log_File_Name    ${artifact}
@@ -176,7 +172,6 @@ Compose_Base_Java_Command
     ...    Not directly related to Nexus, but versioned Java tools may need this.
     # Check whether the user set the override and return it if yes.
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
-    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk11"    Compose_Dilemma_Filepath    ${JAVA_11_HOME_CENTOS}/bin/java    ${JAVA_11_HOME_UBUNTU}/bin/java
     # Attempt to call plain "java" command directly. If it works, return it.
     ${out}    ${rc} =    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
@@ -219,12 +214,6 @@ Compose_Java_Home
     ${java_command} =    Compose_Base_Java_Command
     ${java_home}    ${bin}    ${java} =    String.Split_String_From_Right    ${java_command}    separator=/    max_split=2
     [Return]    ${java_home}
-
-Default_Java_Options
-    [Arguments]    ${openjdk}=${JDKVERSION}
-    [Documentation]    Return Java options suitable for current JDK version.
-    ${java_actual_options} =    BuiltIn.Set_Variable_If    """${openjdk}""" == "openjdk7"    ${JAVA_7_OPTIONS}    ${JAVA_OPTIONS}
-    [Return]    ${java_actual_options}
 
 Install_Maven_Bare
     [Arguments]    ${maven_version}=3.3.9    ${openjdk}=${JDKVERSION}
