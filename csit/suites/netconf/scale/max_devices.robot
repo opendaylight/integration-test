@@ -32,6 +32,7 @@ ${DEVICE_TYPE}    full-uri-device
 ${BASE_PORT}      17830
 ${NUM_WORKERS}    10
 ${TIMEOUT_FACTOR}    2
+${MIN_CONNECT_TIMEOUT}    300s
 ${DEVICES_RESULT_FILE}    devices.csv
 ${INSTALL_TESTTOOL}    True
 ${TESTTOOL_EXECUTABLE}    ${EMPTY}
@@ -50,6 +51,7 @@ Find Max Netconf Devices
     Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
     FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
         ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
+        ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
         ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
@@ -124,7 +126,7 @@ Wait_Connected
     [Arguments]    ${current_name}    ${log_response}=True
     [Documentation]    Operation for waiting until the device is connected.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=120s    log_response=${log_response}
+    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=300s    log_response=${log_response}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
 Read_Python_Tool_Operation_Result
