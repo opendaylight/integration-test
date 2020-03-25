@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad0513b_d30205f9",
+        "filename": "csit/testplans/openflowplugin-flow-services.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-03-25T17:43:23Z",
+      "side": 1,
+      "message": "this is a test comment",
+      "revId": "edfe33fa506a60c9851c20eecdee75b71d057fe0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
