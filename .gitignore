@@ -29,4 +29,5 @@ products
 report.html
 repository
 target
+venv/
 workspace
