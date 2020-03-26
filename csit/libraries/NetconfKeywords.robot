@@ -54,6 +54,21 @@ Configure_Device_In_Netconf
     ...    ELSE    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
 
+Configure_Device
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for configuring the device.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Configuring device ${current_name} to Netconf
+    Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
+
+Configure_Device_And_Verify
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for configuring the device in the Netconf subsystem and connecting to it.
+    Configure_Device    ${current_name}    ${log_response}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
+    Wait_Device_Connected    ${current_name}    period=0.5s
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
+
 Count_Netconf_Connectors_For_Device
     [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Count all instances of the specified device in the Netconf topology (usually 0 or 1).
@@ -66,6 +81,13 @@ Count_Netconf_Connectors_For_Device
     Builtin.Log    ${mounts}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
+
+Wait_Connected
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for waiting until the device is connected.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
+    Wait_Device_Connected    ${current_name}    period=0.5s    timeout=300s
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
 Check_Device_Has_No_Netconf_Connector
     [Arguments]    ${device_name}    ${session}=default
@@ -104,6 +126,26 @@ Remove_Device_From_Netconf
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
+
+Deconfigure_Device
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for deconfiguring the device.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Deconfiguring device ${current_name}
+    Remove_Device_From_Netconf    ${current_name}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} deconfigured
+
+Deconfigure_Device_And_Verify
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for deconfiguring the device from Netconf.
+    Deconfigure_Device    ${current_name}    ${log_response}
+    Check_Device_Deconfigured    ${current_name}
+
+Check_Device_Deconfigured
+    [Arguments]    ${current_name}    ${log_response}=True
+    [Documentation]    Operation for making sure the device is really deconfigured.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
+    Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
 
 Wait_Device_Fully_Removed
     [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default    ${log_response}=True
