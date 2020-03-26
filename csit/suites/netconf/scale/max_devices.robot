@@ -55,16 +55,16 @@ Find Max Netconf Devices
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
         ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    log_response=False
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
         ...    ${NUM_WORKERS}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    log_response=False
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
@@ -84,6 +84,7 @@ Collect_Data_Points
     OperatingSystem.Append To File    ${DEVICES_RESULT_FILE}    ${devices}\n
 
 Issue_Requests_On_Devices
+    # FIXME: this keyword is nearly duplicated in the getmulti.robot suite. need to move it to a common lib
     [Arguments]    ${client_ip}    ${expected_count}    ${worker_count}
     [Documentation]    Spawn the specified count of worker threads to issue a GET request to each of the devices.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
@@ -115,20 +116,6 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
-Configure_Device
-    [Arguments]    ${current_name}    ${log_response}=True
-    [Documentation]    Operation for configuring the device.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Configuring device ${current_name} to Netconf
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
-
-Wait_Connected
-    [Arguments]    ${current_name}    ${log_response}=True
-    [Documentation]    Operation for waiting until the device is connected.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s    timeout=300s    log_response=${log_response}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
-
 Read_Python_Tool_Operation_Result
     [Arguments]    ${number}
     [Documentation]    Read and process a report line emitted from the Python tool that corresponds to the device with the given number.
@@ -144,13 +131,6 @@ Read_Python_Tool_Operation_Result
     ${data}=    Collections.Get_From_List    ${test}    4
     ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
-
-Deconfigure_Device
-    [Arguments]    ${current_name}    ${log_response}=True
-    [Documentation]    Operation for deconfiguring the device.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Deconfiguring device ${current_name}
-    NetconfKeywords.Remove_Device_From_Netconf    ${current_name}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} deconfigured
 
 Check_Device_Deconfigured
     [Arguments]    ${current_name}    ${log_response}=True
