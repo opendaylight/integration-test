@@ -37,7 +37,7 @@ Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     [Tags]    critical
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
-    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device_And_Verify    timeout=${timeout}
 
 Get_Data_From_Devices
     [Documentation]    Ask testtool devices for data.
@@ -48,7 +48,7 @@ Deconfigure_Devices_From_Netconf
     [Documentation]    Make requests to deconfigure the testtool devices.
     [Tags]    critical
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
-    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device_And_Verify    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 
 *** Keywords ***
@@ -69,15 +69,6 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
-Configure_Device
-    [Arguments]    ${current_name}
-    [Documentation]    Operation for configuring the device in the Netconf subsystem and connecting to it.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Connecting device ${current_name}
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
-
 Check_Device_Data
     [Arguments]    ${current_name}
     [Documentation]    Opration for getting the configuration data of the device and checking that it matches what is expected.
@@ -85,12 +76,3 @@ Check_Device_Data
     ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/node/${current_name}/yang-ext:mount    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
     BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
-
-Deconfigure_Device
-    [Arguments]    ${current_name}
-    [Documentation]    Operation for deconfiguring the device from Netconf.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Removing device ${current_name}
-    NetconfKeywords.Remove_Device_From_Netconf    ${current_name}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
