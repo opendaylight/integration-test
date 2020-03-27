@@ -47,7 +47,7 @@ http_result_code = "Result-Code"
 http_specific_headers = [
     http_header_content_type.lower(),
     http_header_content_location.lower(),
-    http_header_content_length.lower()
+    http_header_content_length.lower(),
 ]
 
 http_header_origin = "X-M2M-Origin"
@@ -63,15 +63,17 @@ http_header_rsc = "X-M2M-RSC"
 http_header_ati = "X-M2M-ATI"
 
 # TODO add missing element mappings
-http_headers = OneM2MEncodeDecodeData("HTTPHeaders")\
-    .add(http_header_content_type, http_header_content_type)\
-    .add(http_header_content_location, http_header_content_location)\
-    .add(http_header_content_length, http_header_content_length)\
-    .add(OneM2M.short_from, http_header_origin)\
-    .add(OneM2M.short_request_identifier, http_header_ri)\
-    .add(OneM2M.short_group_request_identifier, http_header_gid)\
-    .add(OneM2M.short_originating_timestamp, http_header_ot)\
+http_headers = (
+    OneM2MEncodeDecodeData("HTTPHeaders")
+    .add(http_header_content_type, http_header_content_type)
+    .add(http_header_content_location, http_header_content_location)
+    .add(http_header_content_length, http_header_content_length)
+    .add(OneM2M.short_from, http_header_origin)
+    .add(OneM2M.short_request_identifier, http_header_ri)
+    .add(OneM2M.short_group_request_identifier, http_header_gid)
+    .add(OneM2M.short_originating_timestamp, http_header_ot)
     .add(OneM2M.short_response_status_code, http_header_rsc)
+)
 
 http_query_params = [
     OneM2M.short_resource_type,
@@ -88,12 +90,10 @@ http_query_params = [
 
 onem2m_to_http_result_codes = {
     OneM2M.result_code_accepted: httplib.ACCEPTED,
-
     OneM2M.result_code_ok: httplib.OK,
     OneM2M.result_code_created: httplib.CREATED,
     OneM2M.result_code_deleted: httplib.OK,
     OneM2M.result_code_updated: httplib.OK,
-
     OneM2M.result_code_bad_request: httplib.BAD_REQUEST,
     OneM2M.result_code_not_found: httplib.NOT_FOUND,
     OneM2M.result_code_operation_not_allowed: httplib.METHOD_NOT_ALLOWED,
@@ -113,7 +113,6 @@ onem2m_to_http_result_codes = {
     OneM2M.result_code_esprim_unknown_orig_rand_id: httplib.FORBIDDEN,
     OneM2M.result_code_esprim_unknown_recv_rand_id: httplib.FORBIDDEN,
     OneM2M.result_code_esprim_bad_mac: httplib.FORBIDDEN,
-
     OneM2M.result_code_internal_server_error: httplib.INTERNAL_SERVER_ERROR,
     OneM2M.result_code_not_implemened: httplib.NOT_IMPLEMENTED,
     OneM2M.result_code_target_not_reachable: httplib.NOT_FOUND,
@@ -129,7 +128,6 @@ onem2m_to_http_result_codes = {
     OneM2M.result_code_esprim_decryption_error: httplib.INTERNAL_SERVER_ERROR,
     OneM2M.result_code_esprim_encryption_error: httplib.INTERNAL_SERVER_ERROR,
     OneM2M.result_code_sparql_update_error: httplib.INTERNAL_SERVER_ERROR,
-
     OneM2M.result_code_external_object_not_reachable: httplib.NOT_FOUND,
     OneM2M.result_code_external_object_not_found: httplib.NOT_FOUND,
     OneM2M.result_code_max_number_of_member_exceeded: httplib.BAD_REQUEST,
@@ -142,7 +140,7 @@ onem2m_to_http_result_codes = {
     OneM2M.result_code_mgmt_conversion_error: httplib.INTERNAL_SERVER_ERROR,
     OneM2M.result_code_mgmt_cancellation_failed: httplib.INTERNAL_SERVER_ERROR,
     OneM2M.result_code_already_complete: httplib.BAD_REQUEST,
-    OneM2M.result_code_mgmt_command_not_cancellable: httplib.BAD_REQUEST
+    OneM2M.result_code_mgmt_command_not_cancellable: httplib.BAD_REQUEST,
 }
 
 
@@ -203,7 +201,9 @@ class OneM2MHttpRx(IoTRx):
         if not rsp_primitive:
             code = httplib.INTERNAL_SERVER_ERROR
             reason = status_codes._codes[code]
-            start_line = httputil.ResponseStartLine(version='HTTP/1.1', code=code, reason=reason)
+            start_line = httputil.ResponseStartLine(
+                version="HTTP/1.1", code=code, reason=reason
+            )
             request.connection.write_headers(start_line, httputil.HTTPHeaders())
             request.finish()
             return
@@ -216,7 +216,9 @@ class OneM2MHttpRx(IoTRx):
         code = encoded.status_code
         reason = encoded.reason
 
-        start_line = httputil.ResponseStartLine(version='HTTP/1.1', code=code, reason=reason)
+        start_line = httputil.ResponseStartLine(
+            version="HTTP/1.1", code=code, reason=reason
+        )
         request.connection.write_headers(start_line, headers)
 
         # set content
@@ -303,7 +305,7 @@ class OneM2MHttpJsonEncoderTx(IoTDataEncoder):
         OneM2M.operation_retrieve: "get",
         OneM2M.operation_update: "put",
         OneM2M.operation_delete: "delete",
-        OneM2M.operation_notify: "post"
+        OneM2M.operation_notify: "post",
     }
 
     def _encode_operation(self, onem2m_operation):
@@ -341,7 +343,7 @@ class OneM2MHttpJsonEncoderTx(IoTDataEncoder):
                     if protocol_address in proto_params:
                         entity_address = proto_params[protocol_address]
                         if protocol_port in proto_params:
-                            entity_address += (":" + str(proto_params[protocol_port]))
+                            entity_address += ":" + str(proto_params[protocol_port])
 
                 msg.url = "http://" + entity_address + resource_uri
 
@@ -351,7 +353,7 @@ class OneM2MHttpJsonEncoderTx(IoTDataEncoder):
 
                 # Query parameters
                 if msg.url and key in http_query_params:
-                    msg.url += (delimiter + key + "=" + str(value))
+                    msg.url += delimiter + key + "=" + str(value)
                     delimiter = "&"
                     continue
 
@@ -417,7 +419,11 @@ class OneM2MHttpDecodeUtils:
                         try:
                             int(value)
                         except Exception as e:
-                            raise IoTDataDecodeError("Invalid Content-Length value: {}, error: {}".format(value, e))
+                            raise IoTDataDecodeError(
+                                "Invalid Content-Length value: {}, error: {}".format(
+                                    value, e
+                                )
+                            )
 
                     http_specifics[decoded_name] = value
                 else:
@@ -426,7 +432,11 @@ class OneM2MHttpDecodeUtils:
                         try:
                             value = int(value)
                         except Exception as e:
-                            raise IoTDataDecodeError("Invalid status code value: {}, error: {}".format(value, e))
+                            raise IoTDataDecodeError(
+                                "Invalid status code value: {}, error: {}".format(
+                                    value, e
+                                )
+                            )
 
                     primitive_param_dict[decoded_name] = value
 
@@ -442,18 +452,24 @@ class OneM2MHttpJsonDecoderRx(IoTDataDecoder):
         Decodes Tx specific HTTP message with JSON content type to OneM2M JSON
         primitive object
         """
-        builder = OneM2MHttpJsonPrimitiveBuilder() \
-            .set_communication_protocol(HTTPPROTOCOLNAME)
+        builder = OneM2MHttpJsonPrimitiveBuilder().set_communication_protocol(
+            HTTPPROTOCOLNAME
+        )
 
         primitive_param_dict = {}
         http_specifics = {}
-        OneM2MHttpDecodeUtils.decode_headers(primitive_param_dict, http_specifics, protocol_message.headers)
+        OneM2MHttpDecodeUtils.decode_headers(
+            primitive_param_dict, http_specifics, protocol_message.headers
+        )
 
         builder.set_parameters(primitive_param_dict)
         builder.set_protocol_specific_parameters(http_specifics)
 
         if protocol_message.path:
-            builder.set_param(OneM2M.short_to, OneM2MHttpDecodeUtils.translate_uri_to_onem2m(protocol_message.path))
+            builder.set_param(
+                OneM2M.short_to,
+                OneM2MHttpDecodeUtils.translate_uri_to_onem2m(protocol_message.path),
+            )
 
         if protocol_message.body:
             builder.set_content(protocol_message.body)
@@ -466,7 +482,8 @@ class OneM2MHttpJsonDecoderRx(IoTDataDecoder):
 
         if protocol_message.method:
             operation = OneM2MHttpDecodeUtils.translate_http_method_to_onem2m_operation(
-                protocol_message.method, builder.has_param(OneM2M.short_resource_type))
+                protocol_message.method, builder.has_param(OneM2M.short_resource_type)
+            )
             builder.set_param(OneM2M.short_operation, operation)
 
         return builder.build()
@@ -483,12 +500,15 @@ class OneM2MHttpJsonDecoderTx(IoTDataDecoder):
         Decodes Rx specific HTTP message with JSON content type to OneM2M JSON
         primitive object
         """
-        builder = OneM2MHttpJsonPrimitiveBuilder() \
-            .set_communication_protocol(HTTPPROTOCOLNAME)
+        builder = OneM2MHttpJsonPrimitiveBuilder().set_communication_protocol(
+            HTTPPROTOCOLNAME
+        )
 
         primitive_param_dict = {}
         http_specifics = {}
-        OneM2MHttpDecodeUtils.decode_headers(primitive_param_dict, http_specifics, protocol_message.headers)
+        OneM2MHttpDecodeUtils.decode_headers(
+            primitive_param_dict, http_specifics, protocol_message.headers
+        )
 
         # TODO decode query if needed
 
@@ -527,7 +547,9 @@ class OneM2MHttpJsonPrimitive(OneM2MJsonPrimitive):
 
         # TODO add support for other content types if needed
         if "json" not in content_type:
-            raise AssertionError("HTTP primitive with unsupported Content-Type: {}".format(content_type))
+            raise AssertionError(
+                "HTTP primitive with unsupported Content-Type: {}".format(content_type)
+            )
 
         content_length = primitive.get_proto_param(http_header_content_length)
         if not content_length:
@@ -536,7 +558,9 @@ class OneM2MHttpJsonPrimitive(OneM2MJsonPrimitive):
         if not isinstance(content_length, basestring):
             raise AssertionError(
                 "HTTP primitive with Content-Length value of invalid data type: {}, string is expected".format(
-                    content_length.__class__))
+                    content_length.__class__
+                )
+            )
 
         # verify length of content if exists
         # TODO commented out because this fails for primitives built by builder
@@ -552,7 +576,9 @@ class OneM2MHttpJsonPrimitive(OneM2MJsonPrimitive):
         return op, rqi
 
     def _check_response_common(self, response_primitive, rqi=None, rsc=None):
-        response_rsc = super(OneM2MHttpJsonPrimitive, self)._check_response_common(response_primitive, rqi, rsc)
+        response_rsc = super(OneM2MHttpJsonPrimitive, self)._check_response_common(
+            response_primitive, rqi, rsc
+        )
         self._check_http_primitive_content(response_primitive)
 
         http_res = response_primitive.get_proto_param(http_result_code)
@@ -562,28 +588,39 @@ class OneM2MHttpJsonPrimitive(OneM2MJsonPrimitive):
         if not isinstance(http_res, int):
             raise AssertionError(
                 "HTTP response primitive with Result-Code value of invalid data type: {}, expected is integer".format(
-                    http_res.__class__))
+                    http_res.__class__
+                )
+            )
 
         try:
             expected_http_res = onem2m_to_http_result_codes[response_rsc]
         except KeyError as e:
-            raise RuntimeError("Failed to map OneM2M rsc ({}) to HTTP status code: {}".format(response_rsc, e))
+            raise RuntimeError(
+                "Failed to map OneM2M rsc ({}) to HTTP status code: {}".format(
+                    response_rsc, e
+                )
+            )
 
         if expected_http_res != http_res:
             raise AssertionError(
                 "Incorrect HTTP status code mapped to OneM2M status code {}, http: {}, expected http: {}".format(
-                    response_rsc, http_res, expected_http_res))
+                    response_rsc, http_res, expected_http_res
+                )
+            )
 
         # Content-Location
         if response_rsc == OneM2M.result_code_created:
-            content_location = response_primitive.get_proto_param(http_header_content_location)
+            content_location = response_primitive.get_proto_param(
+                http_header_content_location
+            )
             if not content_location:
                 raise AssertionError("HTTP response primitive without Content-Location")
 
             if not isinstance(content_location, basestring):
                 raise AssertionError(
-                    "HTTP response primitive with invalid Content-Location value data type: {}, " +
-                    "string is expected".format(content_location.__class__))
+                    "HTTP response primitive with invalid Content-Location value data type: {}, "
+                    + "string is expected".format(content_location.__class__)
+                )
 
         return response_rsc
 
@@ -592,4 +629,6 @@ class OneM2MHttpJsonPrimitiveBuilder(OneM2MJsonPrimitiveBuilder):
     """Builder class specialized for OneM2MHttpJsonPrimitive objects"""
 
     def build(self):
-        return OneM2MHttpJsonPrimitive(self.parameters, self.content, self.protocol, self.proto_params)
+        return OneM2MHttpJsonPrimitive(
+            self.parameters, self.content, self.protocol, self.proto_params
+        )

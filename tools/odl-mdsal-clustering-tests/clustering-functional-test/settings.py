@@ -69,7 +69,8 @@ add_car_payload_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for Person resource payload
 add_person_payload_template = Template(
@@ -85,7 +86,8 @@ add_person_payload_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for Car Person mapping  payload
 add_car_person_template = Template(
@@ -98,7 +100,8 @@ add_car_person_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for adding person using RPC
 add_person_rpc_payload_template = Template(
@@ -113,7 +116,8 @@ add_person_rpc_payload_template = Template(
             "people:age":"$age"
         }
     }
-    """)
+    """
+)
 
 # Template for buying car rpc
 buy_car_rpc_template = Template(
@@ -126,4 +130,5 @@ buy_car_rpc_template = Template(
             "car-purchase:car-id" : "$carId"
         }
     }
-    """)
+    """
+)

@@ -8,11 +8,6 @@ repos:
         additional_dependencies: ['flake8~=3.5.0']
       - id: trailing-whitespace
 
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.4.4
-    hooks:
-      - id: autopep8
-
   - repo: https://github.com/guykisel/pre-commit-robotframework-tidy
     rev: 178d2190fa733d8f4d3f72fed9db6e75a9f65d35
     hooks:
