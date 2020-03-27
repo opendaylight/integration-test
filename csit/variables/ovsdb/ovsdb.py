@@ -38,8 +38,8 @@ class HostTopo(Topo):
 
     def __init__(self, host_suffix=1, hosts_per_switch=1, **opts):
         Topo.__init__(self, **opts)
-        switch = self.addSwitch('s%s' % host_suffix)
+        switch = self.addSwitch("s%s" % host_suffix)
         add_hosts(self, switch, hosts_per_switch, host_suffix)
 
 
-topos = {'host': HostTopo}
+topos = {"host": HostTopo}

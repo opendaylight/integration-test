@@ -13,17 +13,13 @@ import time
 flow_template = {
     "id": "2",
     "match": {
-        "ethernet-match": {
-            "ethernet-type": {
-                "type": 2048
-            }
-        },
-        "ipv4-destination": "10.0.20.0/24"
+        "ethernet-match": {"ethernet-type": {"type": 2048}},
+        "ipv4-destination": "10.0.20.0/24",
     },
     "priority": 2,
-    "table_id": 0
+    "table_id": 0,
 }
-odl_node_url = '/restconf/config/opendaylight-inventory:nodes/node/'
+odl_node_url = "/restconf/config/opendaylight-inventory:nodes/node/"
 
 
 class Timer(object):
@@ -73,16 +69,21 @@ def _prepare_post(cntl, method, flows, template=None):
         :returns req: http request object
     """
     flow_list = []
-    for dev_id, ip in (flows):
+    for dev_id, ip in flows:
         flow = copy.deepcopy(template)
         flow["id"] = ip
-        flow["match"]["ipv4-destination"] = '%s/32' % str(netaddr.IPAddress(ip))
+        flow["match"]["ipv4-destination"] = "%s/32" % str(netaddr.IPAddress(ip))
         flow_list.append(flow)
     body = {"flow": flow_list}
-    url = 'http://' + cntl + ':8181' + odl_node_url + dev_id + '/table/0'
+    url = "http://" + cntl + ":8181" + odl_node_url + dev_id + "/table/0"
     req_data = json.dumps(body)
-    req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
-                           data=req_data, auth=('admin', 'admin'))
+    req = requests.Request(
+        method,
+        url,
+        headers={"Content-Type": "application/json"},
+        data=req_data,
+        auth=("admin", "admin"),
+    )
     return req
 
 
@@ -102,14 +103,36 @@ def _prepare_delete(cntl, method, flows, template=None):
         :returns req: http request object
     """
     dev_id, flow_id = flows[0]
-    url = 'http://' + cntl + ':8181' + odl_node_url + dev_id + '/table/0/flow/' + str(flow_id)
-    req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
-                           data=None, auth=('admin', 'admin'))
+    url = (
+        "http://"
+        + cntl
+        + ":8181"
+        + odl_node_url
+        + dev_id
+        + "/table/0/flow/"
+        + str(flow_id)
+    )
+    req = requests.Request(
+        method,
+        url,
+        headers={"Content-Type": "application/json"},
+        data=None,
+        auth=("admin", "admin"),
+    )
     return req
 
 
-def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, controllers=[], restport='',
-                       template=None, outqueue=None, method=None):
+def _wt_request_sender(
+    thread_id,
+    preparefnc,
+    inqueue=None,
+    exitevent=None,
+    controllers=[],
+    restport="",
+    template=None,
+    outqueue=None,
+    method=None,
+):
     """The funcion sends http requests.
 
     Runs in the working thread. It reads out flow details from the queue and sends apropriate http requests
@@ -165,34 +188,43 @@ def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, cont
     outqueue.put(res)
 
 
-def get_device_ids(controller='127.0.0.1', port=8181):
+def get_device_ids(controller="127.0.0.1", port=8181):
     """Returns a list of switch ids"""
     ids = []
-    rsp = requests.get(url='http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes'
-                       .format(controller, port), auth=('admin', 'admin'))
+    rsp = requests.get(
+        url="http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes".format(
+            controller, port
+        ),
+        auth=("admin", "admin"),
+    )
     if rsp.status_code != 200:
         return []
     try:
-        devices = json.loads(rsp.content)['nodes']['node']
-        ids = [d['id'] for d in devices]
+        devices = json.loads(rsp.content)["nodes"]["node"]
+        ids = [d["id"] for d in devices]
     except KeyError:
         pass
     return ids
 
 
-def get_flow_ids(controller='127.0.0.1', port=8181):
+def get_flow_ids(controller="127.0.0.1", port=8181):
     """Returns a list of flow ids"""
     ids = []
     device_ids = get_device_ids(controller, port)
     for device_id in device_ids:
-        rsp = requests.get(url='http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes/node/%s/table/0'
-                           .format(controller, port) % device_id, auth=('admin', 'admin'))
+        rsp = requests.get(
+            url="http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes/node/%s/table/0".format(
+                controller, port
+            )
+            % device_id,
+            auth=("admin", "admin"),
+        )
         if rsp.status_code != 200:
             return []
         try:
-            flows = json.loads(rsp.content)['flow-node-inventory:table'][0]['flow']
+            flows = json.loads(rsp.content)["flow-node-inventory:table"][0]["flow"]
             for f in flows:
-                ids.append(f['id'])
+                ids.append(f["id"])
         except KeyError:
             pass
     return ids
@@ -200,28 +232,62 @@ def get_flow_ids(controller='127.0.0.1', port=8181):
 
 def main(*argv):
 
-    parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
-                                                 'into the config tree, as specified by optional parameters.')
+    parser = argparse.ArgumentParser(
+        description="Flow programming performance test: First adds and then deletes flows "
+        "into the config tree, as specified by optional parameters."
+    )
 
-    parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where ODL controller is running (default is 127.0.0.1)')
-    parser.add_argument('--port', default='8181',
-                        help='Port on which ODL\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads to start in each cycle; default=1. '
-                             'Each thread will add/delete <FLOWS> flows.')
-    parser.add_argument('--flows', type=int, default=10,
-                        help='Number of flows that will be added/deleted in total, default 10')
-    parser.add_argument('--fpr', type=int, default=1,
-                        help='Number of flows per REST request, default 1')
-    parser.add_argument('--timeout', type=int, default=100,
-                        help='The maximum time (seconds) to wait between the add and delete cycles; default=100')
-    parser.add_argument('--no-delete', dest='no_delete', action='store_true', default=False,
-                        help='Delete all added flows one by one, benchmark delete '
-                             'performance.')
-    parser.add_argument('--bulk-delete', dest='bulk_delete', action='store_true', default=False,
-                        help='Delete all flows in bulk; default=False')
-    parser.add_argument('--outfile', default='', help='Stores add and delete flow rest api rate; default=""')
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Host where ODL controller is running (default is 127.0.0.1)",
+    )
+    parser.add_argument(
+        "--port",
+        default="8181",
+        help="Port on which ODL's RESTCONF is listening (default is 8181)",
+    )
+    parser.add_argument(
+        "--threads",
+        type=int,
+        default=1,
+        help="Number of request worker threads to start in each cycle; default=1. "
+        "Each thread will add/delete <FLOWS> flows.",
+    )
+    parser.add_argument(
+        "--flows",
+        type=int,
+        default=10,
+        help="Number of flows that will be added/deleted in total, default 10",
+    )
+    parser.add_argument(
+        "--fpr", type=int, default=1, help="Number of flows per REST request, default 1"
+    )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=100,
+        help="The maximum time (seconds) to wait between the add and delete cycles; default=100",
+    )
+    parser.add_argument(
+        "--no-delete",
+        dest="no_delete",
+        action="store_true",
+        default=False,
+        help="Delete all added flows one by one, benchmark delete " "performance.",
+    )
+    parser.add_argument(
+        "--bulk-delete",
+        dest="bulk_delete",
+        action="store_true",
+        default=False,
+        help="Delete all flows in bulk; default=False",
+    )
+    parser.add_argument(
+        "--outfile",
+        default="",
+        help='Stores add and delete flow rest api rate; default=""',
+    )
 
     in_args = parser.parse_args(*argv)
     print(in_args)
@@ -230,7 +296,7 @@ def main(*argv):
     base_dev_ids = get_device_ids(controller=in_args.host)
     base_flow_ids = get_flow_ids(controller=in_args.host)
     # ip
-    ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')))
+    ip_addr = Counter(int(netaddr.IPAddress("10.0.0.1")))
     # prepare func
     preparefnc = _prepare_post
 
@@ -266,10 +332,19 @@ def main(*argv):
     with Timer() as tmr:
         threads = []
         for i in range(int(in_args.threads)):
-            thr = threading.Thread(target=_wt_request_sender, args=(i, preparefnc),
-                                   kwargs={"inqueue": sendqueue, "exitevent": exitevent,
-                                           "controllers": [in_args.host], "restport": in_args.port,
-                                           "template": flow_template, "outqueue": resultqueue, "method": "POST"})
+            thr = threading.Thread(
+                target=_wt_request_sender,
+                args=(i, preparefnc),
+                kwargs={
+                    "inqueue": sendqueue,
+                    "exitevent": exitevent,
+                    "controllers": [in_args.host],
+                    "restport": in_args.port,
+                    "template": flow_template,
+                    "outqueue": resultqueue,
+                    "method": "POST",
+                },
+            )
             threads.append(thr)
             thr.start()
 
@@ -305,7 +380,10 @@ def main(*argv):
     if i < rounds:
         print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
+        print(
+            "... monitoring aborted after %d rounds, elapsed time %d\n\n"
+            % ((rounds, t.secs))
+        )
 
     if in_args.no_delete:
         return
@@ -328,17 +406,30 @@ def main(*argv):
     preparefnc = _prepare_delete
     with Timer() as tmr:
         if in_args.bulk_delete:
-            url = 'http://' + in_args.host + ':' + '8181'
-            url += '/restconf/config/opendaylight-inventory:nodes'
-            rsp = requests.delete(url, headers={'Content-Type': 'application/json'}, auth=('admin', 'admin'))
+            url = "http://" + in_args.host + ":" + "8181"
+            url += "/restconf/config/opendaylight-inventory:nodes"
+            rsp = requests.delete(
+                url,
+                headers={"Content-Type": "application/json"},
+                auth=("admin", "admin"),
+            )
             result = {rsp.status_code: 1}
         else:
             threads = []
             for i in range(int(in_args.threads)):
-                thr = threading.Thread(target=_wt_request_sender, args=(i, preparefnc),
-                                       kwargs={"inqueue": sendqueue, "exitevent": exitevent,
-                                               "controllers": [in_args.host], "restport": in_args.port,
-                                               "template": None, "outqueue": resultqueue, "method": "DELETE"})
+                thr = threading.Thread(
+                    target=_wt_request_sender,
+                    args=(i, preparefnc),
+                    kwargs={
+                        "inqueue": sendqueue,
+                        "exitevent": exitevent,
+                        "controllers": [in_args.host],
+                        "restport": in_args.port,
+                        "template": None,
+                        "outqueue": resultqueue,
+                        "method": "DELETE",
+                    },
+                )
                 threads.append(thr)
                 thr.start()
 
@@ -373,11 +464,14 @@ def main(*argv):
     if i < rounds:
         print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
+        print(
+            "... monitoring aborted after %d rounds, elapsed time %d\n\n"
+            % ((rounds, t.secs))
+        )
 
     if in_args.outfile != "":
-        addrate = add_details['flows'] / add_details['duration']
-        delrate = del_details['flows'] / del_details['duration']
+        addrate = add_details["flows"] / add_details["duration"]
+        delrate = del_details["flows"] / del_details["duration"]
         print("addrate", addrate)
         print("delrate", delrate)
 
