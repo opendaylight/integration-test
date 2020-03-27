@@ -20,12 +20,12 @@ class PathpolicyTopo(Topo):
         Topo.__init__(self)
 
         # Add hosts and switches
-        leftHost = self.addHost('h1')
-        rightHost = self.addHost('h2')
-        leftSwitch = self.addSwitch('s1')
-        middleSwitch = self.addSwitch('s2')
-        middleSwitch2 = self.addSwitch('s4')
-        rightSwitch = self.addSwitch('s3')
+        leftHost = self.addHost("h1")
+        rightHost = self.addHost("h2")
+        leftSwitch = self.addSwitch("s1")
+        middleSwitch = self.addSwitch("s2")
+        middleSwitch2 = self.addSwitch("s4")
+        rightSwitch = self.addSwitch("s3")
 
         # Add links
         self.addLink(leftHost, leftSwitch)
@@ -36,4 +36,4 @@ class PathpolicyTopo(Topo):
         self.addLink(rightSwitch, rightHost)
 
 
-topos = {'pathpolicytopo': (lambda: PathpolicyTopo())}
+topos = {"pathpolicytopo": (lambda: PathpolicyTopo())}

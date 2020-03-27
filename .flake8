@@ -11,8 +11,9 @@ max-line-length = 120
 #   that (select E133 instead of E123) but that should be caught by the
 #   verify job.
 select = E,W
-ignore = E722,W503 # as of aprox 10/25 some update/change has caused existing code to fail on E722
+
+# E203,E501,W503 are disabled as recommended by python-black.
+ignore = E203,E501,W503
 exclude =
     .git,
-    .tox,
-    docs/conf.py
+    .tox

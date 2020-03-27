@@ -61,16 +61,18 @@ import data_generate as data_gen
 
 def p(x):
     print(json.dumps(x, indent=6, sort_keys=True))
+
+
 # ELK DB host and port to be passed as ':' separated argument
 
 
 if len(sys.argv) > 1:
-    if ':' in sys.argv[1]:
-        ELK_DB_HOST = sys.argv[1].split(':')[0]
-        ELK_DB_PORT = sys.argv[1].split(':')[1]
+    if ":" in sys.argv[1]:
+        ELK_DB_HOST = sys.argv[1].split(":")[0]
+        ELK_DB_PORT = sys.argv[1].split(":")[1]
 else:
-    print('Usage: python push_to_elk.py host:port')
-    print('Unable to publish data to ELK. Exiting.')
+    print("Usage: python push_to_elk.py host:port")
+    print("Unable to publish data to ELK. Exiting.")
     sys.exit()
 
 # Construct json body
@@ -79,12 +81,12 @@ else:
 
 try:
     es = Elasticsearch(
-        hosts=[{'host': ELK_DB_HOST, 'port': int(ELK_DB_PORT)}],
-        scheme='https',
-        connection_class=RequestsHttpConnection
+        hosts=[{"host": ELK_DB_HOST, "port": int(ELK_DB_PORT)}],
+        scheme="https",
+        connection_class=RequestsHttpConnection,
     )
 except Exception as e:
-    print('Unexpected Error Occurred. Exiting')
+    print("Unexpected Error Occurred. Exiting")
     print(e)
 # print(es.info())
 
@@ -95,18 +97,16 @@ BODY = data_gen.generate()
 print(json.dumps(BODY, indent=4))
 
 # Skip ELK update if it comes from sandbox.
-if BODY['jenkins-silo'] == 'sandbox':
-    print('silo is sandbox, ELK update is skipped')
+if BODY["jenkins-silo"] == "sandbox":
+    print("silo is sandbox, ELK update is skipped")
     sys.exit()
 
 # Try to send request to ELK DB.
 try:
-    index = '{}-{}'.format(BODY['project'],
-                           BODY['subject'])
-    ES_ID = '{}:{}-{}'.format(BODY['test-type'], BODY['test-name'],
-                              BODY['test-run'])
-    res = es.index(index=index, doc_type='doc', id=ES_ID, body=BODY)
+    index = "{}-{}".format(BODY["project"], BODY["subject"])
+    ES_ID = "{}:{}-{}".format(BODY["test-type"], BODY["test-name"], BODY["test-run"])
+    res = es.index(index=index, doc_type="doc", id=ES_ID, body=BODY)
     print(json.dumps(res, indent=4))
 except Exception as e:
     print(e)
-    print('Unable to push data to ElasticSearch')
+    print("Unable to push data to ElasticSearch")

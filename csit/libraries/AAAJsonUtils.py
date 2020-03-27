@@ -27,15 +27,15 @@ def countnodes(args):
     ctr = 0
 
     try:
-        jsonobj = json.loads(args['jsonblob'])
+        jsonobj = json.loads(args["jsonblob"])
     except KeyError:
         print("countnodes: json blob to parse not found")
         raise
 
-    if 'subnode' in args:
+    if "subnode" in args:
         ctr = len(jsonobj)
-    elif 'category' in args:
-        category_ = args['category'].encode('ascii', 'ignore')
+    elif "category" in args:
+        category_ = args["category"].encode("ascii", "ignore")
         ctr = len(jsonobj[category_])
     else:
         # working with a single record, short-cut and return count of 1
@@ -64,7 +64,7 @@ def fieldcount(pobject, field):
         :returns number_nodes: the correct number of fields you counted
         in the json
     """
-    number_nodes = countnodes({'jsonblob': pobject, 'field': field})
+    number_nodes = countnodes({"jsonblob": pobject, "field": field})
     return number_nodes
 
 
@@ -97,7 +97,7 @@ def subnodecount(pobject, subnode):
         :returns number_nodes: the correct number of fields you counted
         in the json
     """
-    number_nodes = countnodes({'jsonblob': pobject, 'subnode': subnode})
+    number_nodes = countnodes({"jsonblob": pobject, "subnode": subnode})
     return number_nodes
 
 
@@ -135,8 +135,7 @@ def nodecount(pobject, category, node):
         :returns number_nodes: the correct number of fields you counted
         in the json
     """
-    number_nodes = \
-        countnodes({'jsonblob': pobject, 'category': category, 'node': node})
+    number_nodes = countnodes({"jsonblob": pobject, "category": category, "node": node})
     return number_nodes
 
 
@@ -157,32 +156,32 @@ def get_id_by_name(args):
         :returns nodelist: return the first id that has same corresponding name
     """
     try:
-        jsonobj = json.loads(str(args['jsonblob']))
+        jsonobj = json.loads(str(args["jsonblob"]))
     except KeyError:
         print("get_id_by_name: json blob not specified:")
         raise
 
     try:
-        name = args['name']
+        name = args["name"]
     except KeyError:
         print("get_id_by_name: name [usr, domain, role] not specified in args")
         raise
 
-    if 'head' in args:
-        blobkey = args['head']
+    if "head" in args:
+        blobkey = args["head"]
     else:
         # use an empty key when the arg is not specified.  deals with simpler
         # form
-        blobkey = ''
+        blobkey = ""
 
     try:
-        datatype = args['typeval']
+        datatype = args["typeval"]
     except KeyError:
         print("get_id_by_name: need a type arg to process correct name for id")
         raise
 
     try:
-        ncount = args['size']
+        ncount = args["size"]
     except KeyError:
         raise
 
@@ -193,12 +192,12 @@ def get_id_by_name(args):
     if ncount > 0:
         for i in range(ncount):
             # build up some 'lookup' keys, call jsonpath with that key
-            bkey1 = '$.' + blobkey + '[' + str(i) + '].name'
-            typename = datatype + 'id'
-            bkey2 = '$.' + blobkey + '[' + str(i) + '].' + typename
+            bkey1 = "$." + blobkey + "[" + str(i) + "].name"
+            typename = datatype + "id"
+            bkey2 = "$." + blobkey + "[" + str(i) + "]." + typename
 
             # find records with same name
-            name_record = jsonobj[blobkey][i]['name']
+            name_record = jsonobj[blobkey][i]["name"]
             # find corresponding node info, for that name
             node_record = jsonobj[blobkey][i][typename]
 
@@ -229,48 +228,48 @@ def get_attribute_by_id(args):
         to the provided id
     """
     try:
-        jsonobj = json.loads(args['jsonblob'])
+        jsonobj = json.loads(args["jsonblob"])
     except KeyError:
         print("get_attribute_by_id: json blob not specified:")
         raise
 
     try:
-        nodeid = args['id']
+        nodeid = args["id"]
     except KeyError:
         print("get_attribute_by_id: id to look for not specified in parameters")
         raise
 
-    if 'attr' in args:
-        attr = args['attr']
+    if "attr" in args:
+        attr = args["attr"]
     else:
         # If caller does not specify a record attribute to return, then
         # simply default to giving the description of the id you are
         # searching on
-        attr = 'description'
+        attr = "description"
 
-    if 'head' in args:
+    if "head" in args:
         # will be one of roles, users, domains, or empty to process more
         # specific grouping of json data
-        blobkey = args['head']
+        blobkey = args["head"]
     else:
         # use an empty key when the arg is not specified, allows us to
         # process chunk of JSON without the outer layer defining roles,
         # users, domains. (simpler format)
-        blobkey = ''
+        blobkey = ""
 
     try:
-        datatype = args['typeval']
+        datatype = args["typeval"]
     except KeyError:
         print("get_attribute_by_id: need type arg to process name for id")
         raise
 
     try:
-        size = args['size']
+        size = args["size"]
     except KeyError:
         print("get_attribute_by_id: specify number of records we need")
         raise
 
-    typename = datatype + 'id'
+    typename = datatype + "id"
 
     # Loop through the records looking for the nodeid, when found, return
     # the corresponding attribute value
@@ -280,10 +279,10 @@ def get_attribute_by_id(args):
         for i in range(ncount):
 
             try:
-                name_record = jsonobj[blobkey][i]['name']
+                name_record = jsonobj[blobkey][i]["name"]
                 node_record = jsonobj[blobkey][i][typename]
             except Exception:
-                name_record = jsonobj['name']
+                name_record = jsonobj["name"]
                 node_record = jsonobj[typename]
 
             if nodeid == node_record:
@@ -312,11 +311,15 @@ def get_role_id_by_rolename(pobject, rolename, number_nodes):
         :returns roleid:  a list of one or more roleid's that match
         the rolename given
     """
-    roleid = get_id_by_name({'jsonblob': pobject,
-                             'name': rolename,
-                             'head': 'roles',
-                             'size': number_nodes,
-                             'typeval': 'role'})
+    roleid = get_id_by_name(
+        {
+            "jsonblob": pobject,
+            "name": rolename,
+            "head": "roles",
+            "size": number_nodes,
+            "typeval": "role",
+        }
+    )
     try:
         roleid
     except Exception:
@@ -347,12 +350,16 @@ def get_role_name_by_roleid(pobject, roleid, number_nodes):
         :returns rolename:  the role name that corresponds to the record
         identified by the role-id
     """
-    rolename = get_attribute_by_id({'jsonblob': pobject,
-                                    'head': 'roles',
-                                    'id': roleid,
-                                    'attr': 'name',
-                                    'size': number_nodes,
-                                    'typeval': 'role'})
+    rolename = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "roles",
+            "id": roleid,
+            "attr": "name",
+            "size": number_nodes,
+            "typeval": "role",
+        }
+    )
     try:
         rolename
     except Exception:
@@ -383,12 +390,16 @@ def get_role_description_by_roleid(pobject, roleid, number_nodes):
         :returns roledesc:  the role description that corresponds to the record
         identified by the role-id
     """
-    roledesc = get_attribute_by_id({'jsonblob': pobject,
-                                    'head': 'roles',
-                                    'id': roleid,
-                                    'attr': 'description',
-                                    'size': number_nodes,
-                                    'typeval': 'role'})
+    roledesc = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "roles",
+            "id": roleid,
+            "attr": "description",
+            "size": number_nodes,
+            "typeval": "role",
+        }
+    )
     try:
         roledesc
     except Exception:
@@ -420,11 +431,15 @@ def get_domain_id_by_domainname(pobject, domainname, number_nodes):
         :returns domainid:  a list of one or more domain-id's that match
         the domain-name given
     """
-    domainid = get_id_by_name({'jsonblob': pobject,
-                               'head': 'domains',
-                               'name': domainname,
-                               'size': number_nodes,
-                               'typeval': 'domain'})
+    domainid = get_id_by_name(
+        {
+            "jsonblob": pobject,
+            "head": "domains",
+            "name": domainname,
+            "size": number_nodes,
+            "typeval": "domain",
+        }
+    )
 
     try:
         domainid
@@ -457,12 +472,16 @@ def get_domain_name_by_domainid(pobject, domainid, number_nodes):
         :returns domainname:  the domain name that corresponds to the record
         identified by the domainid
     """
-    domainname = get_attribute_by_id({'jsonblob': pobject,
-                                      'head': 'domains',
-                                      'id': domainid,
-                                      'attr': 'name',
-                                      'size': number_nodes,
-                                      'typeval': 'domain'})
+    domainname = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "domains",
+            "id": domainid,
+            "attr": "name",
+            "size": number_nodes,
+            "typeval": "domain",
+        }
+    )
     try:
         domainname
     except Exception:
@@ -494,12 +513,16 @@ def get_domain_description_by_domainid(pobject, domainid, number_nodes):
         :returns domainname:  the domain description field that corresponds
         to the record identified by the domainid
     """
-    domaindesc = get_attribute_by_id({'jsonblob': pobject,
-                                      'head': 'domains',
-                                      'id': domainid,
-                                      'attr': 'description',
-                                      'size': number_nodes,
-                                      'typeval': 'domain'})
+    domaindesc = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "domains",
+            "id": domainid,
+            "attr": "description",
+            "size": number_nodes,
+            "typeval": "domain",
+        }
+    )
     try:
         domaindesc
     except Exception:
@@ -531,12 +554,16 @@ def get_domain_state_by_domainid(pobject, domainid, number_nodes):
         :returns domainstate:  the domain state (enabled) field that
         corresponds to the record identified by the domainid
     """
-    domainstate = get_attribute_by_id({'jsonblob': pobject,
-                                       'head': 'domains',
-                                       'id': domainid,
-                                       'attr': 'enabled',
-                                       'size': number_nodes,
-                                       'typeval': 'domain'})
+    domainstate = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "domains",
+            "id": domainid,
+            "attr": "enabled",
+            "size": number_nodes,
+            "typeval": "domain",
+        }
+    )
     try:
         domainstate
     except Exception:
@@ -571,11 +598,15 @@ def get_user_id_by_username(pobject, username, number_nodes):
         :returns userid:  a list of one or more user-id's that match
         the username given
     """
-    userid = get_id_by_name({'jsonblob': pobject,
-                             'name': username,
-                             'head': 'users',
-                             'size': number_nodes,
-                             'typeval': 'user'})
+    userid = get_id_by_name(
+        {
+            "jsonblob": pobject,
+            "name": username,
+            "head": "users",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         userid
     except Exception:
@@ -610,12 +641,16 @@ def get_user_password_by_userid(pobject, userid, number_nodes):
         :returns userpassword:  the raw password field that corresponds to
          the record identified by the userid
     """
-    userpassword = get_attribute_by_id({'jsonblob': pobject,
-                                        'head': 'users',
-                                        'id': userid,
-                                        'attr': 'password',
-                                        'size': number_nodes,
-                                        'typeval': 'user'})
+    userpassword = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "users",
+            "id": userid,
+            "attr": "password",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         userpassword
     except Exception:
@@ -650,12 +685,16 @@ def get_user_name_by_userid(pobject, userid, number_nodes):
         :returns username:  the name field that corresponds to the record
         identified by the userid
     """
-    username = get_attribute_by_id({'jsonblob': pobject,
-                                    'head': 'users',
-                                    'id': userid,
-                                    'attr': 'name',
-                                    'size': number_nodes,
-                                    'typeval': 'user'})
+    username = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "users",
+            "id": userid,
+            "attr": "name",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         username
     except Exception:
@@ -690,12 +729,16 @@ def get_user_state_by_userid(pobject, userid, number_nodes):
         :returns userstate:  the enabled field that corresponds to the record
         identified by the userid
     """
-    userstate = get_attribute_by_id({'jsonblob': pobject,
-                                     'head': 'users',
-                                     'id': userid,
-                                     'attr': 'enabled',
-                                     'size': number_nodes,
-                                     'typeval': 'user'})
+    userstate = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "users",
+            "id": userid,
+            "attr": "enabled",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         userstate
     except Exception:
@@ -730,12 +773,16 @@ def get_user_email_by_userid(pobject, userid, number_nodes):
         :returns useremail:  the email field that corresponds to the record
         identified by the userid
     """
-    useremail = get_attribute_by_id({'jsonblob': pobject,
-                                     'head': 'users',
-                                     'id': userid,
-                                     'attr': 'email',
-                                     'size': number_nodes,
-                                     'typeval': 'user'})
+    useremail = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "users",
+            "id": userid,
+            "attr": "email",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         useremail
     except Exception:
@@ -770,12 +817,16 @@ def get_user_description_by_userid(pobject, userid, number_nodes):
         :returns userdesc:  the description field that corresponds to the
         record identified by the userid
     """
-    userdesc = get_attribute_by_id({'jsonblob': pobject,
-                                    'head': 'users',
-                                    'id': userid,
-                                    'attr': 'description',
-                                    'size': number_nodes,
-                                    'typeval': 'user'})
+    userdesc = get_attribute_by_id(
+        {
+            "jsonblob": pobject,
+            "head": "users",
+            "id": userid,
+            "attr": "description",
+            "size": number_nodes,
+            "typeval": "user",
+        }
+    )
     try:
         userdesc
     except Exception:

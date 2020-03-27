@@ -9,17 +9,18 @@ import re
 content_key_set = {"meta", "resources"}
 resource_key_set = {"uri", "media-type", "accepts", "capabilities", "uses"}
 cost_type_key_set = {"cost-mode", "cost-metric", "description"}
-media_type_set = {"application/alto-directory+json",
-                  "application/alto-networkmap+json",
-                  "application/alto-networkmapfilter+json",
-                  "application/alto-costmap+json",
-                  "application/alto-costmapfilter+json",
-                  "application/alto-endpointprop+json",
-                  "application/alto-endpointpropparams+json",
-                  "application/alto-endpointcost+json",
-                  "application/alto-endpointcostparams+json",
-                  "application/alto-error+json"
-                  }
+media_type_set = {
+    "application/alto-directory+json",
+    "application/alto-networkmap+json",
+    "application/alto-networkmapfilter+json",
+    "application/alto-costmap+json",
+    "application/alto-costmapfilter+json",
+    "application/alto-endpointprop+json",
+    "application/alto-endpointpropparams+json",
+    "application/alto-endpointcost+json",
+    "application/alto-endpointcostparams+json",
+    "application/alto-error+json",
+}
 
 
 def get_basic_info(response):
@@ -64,9 +65,13 @@ def check_ird_configuration_entry(response, ird_resource_id, context_id, resourc
             for tag in context_tags:
                 if "dependency" in tag:
                     for one_dependency in tag["dependency"]:
-                        _context_id = re.findall("\d{8}-\d{4}-\d{4}-\d{4}-\d{12}", one_dependency)[0]
+                        _context_id = re.findall(
+                            "\d{8}-\d{4}-\d{4}-\d{4}-\d{12}", one_dependency
+                        )[0]
                         if _context_id == context_id:
-                            long_resource_id = re.findall("resource-id='[a-zA-Z\-]*'", one_dependency)[0]
+                            long_resource_id = re.findall(
+                                "resource-id='[a-zA-Z\-]*'", one_dependency
+                            )[0]
                             short_resource_id = re.findall("'.*'", long_resource_id)[0]
                             _resource_id = short_resource_id.replace("'", "")
                             if _resource_id == resource_id:
@@ -107,7 +112,10 @@ def verify_ird(response):
     resources = resp["resources"]
     for resource in resources.keys():
         if set(resources[resource].keys()).issubset(resource_key_set):
-            if "uri" not in resources[resource] or "media-type" not in resources[resource]:
+            if (
+                "uri" not in resources[resource]
+                or "media-type" not in resources[resource]
+            ):
                 return False
             else:
                 _resource = resources[resource]

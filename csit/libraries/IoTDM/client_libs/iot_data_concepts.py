@@ -49,6 +49,7 @@ class IoTDataEncoder(object):
 
 class IoTDataEncodeError(Exception):
     """IoTData encoding error"""
+
     pass
 
 
@@ -62,4 +63,5 @@ class IoTDataDecoder(object):
 
 class IoTDataDecodeError(Exception):
     """Protocol message decoding error"""
+
     pass

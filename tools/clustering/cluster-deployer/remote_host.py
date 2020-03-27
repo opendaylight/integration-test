@@ -26,9 +26,12 @@ class RemoteHost:
         print("Executing command %s on host %s" % (command, self.host))
         rc = self.lib.execute_command(command, return_rc=True)
         if rc[1] != 0:
-            raise Exception('remote command failed [{0}] with exit code {1}.'
-                            'For linux-based vms, Please make sure requiretty is disabled in the /etc/sudoers file'
-                            .format(command, rc))
+            raise Exception(
+                "remote command failed [{0}] with exit code {1}."
+                "For linux-based vms, Please make sure requiretty is disabled in the /etc/sudoers file".format(
+                    command, rc
+                )
+            )
 
     def mkdir(self, dir_name):
         self.exec_cmd("mkdir -p " + dir_name)
@@ -46,8 +49,10 @@ class RemoteHost:
         self.lib.put_file(src, dest)
 
     def kill_controller(self):
-        self.exec_cmd("sudo ps axf | grep karaf | grep -v grep "
-                      "| awk '{print \"kill -9 \" $1}' | sudo sh")
+        self.exec_cmd(
+            "sudo ps axf | grep karaf | grep -v grep "
+            "| awk '{print \"kill -9 \" $1}' | sudo sh"
+        )
 
     def start_controller(self, dir_name):
         self.exec_cmd(dir_name + "/odl/bin/start")

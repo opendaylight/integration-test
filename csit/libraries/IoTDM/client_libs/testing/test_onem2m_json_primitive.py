@@ -30,14 +30,15 @@ class TestOneM2MJsonPrimitive(unittest.TestCase):
         json_primitive = json.loads(primitive.get_primitive_str())
         self.assertNotIn(OneM2M.short_primitive_content, json_primitive)
 
-        self.assertEqual(json.dumps(json_primitive),
-                         primitive.get_parameters_str())
+        self.assertEqual(json.dumps(json_primitive), primitive.get_parameters_str())
 
     def _create_primitive(self):
-        builder = OneM2MJsonPrimitiveBuilder()\
-            .set_parameters(self.params)\
-            .set_content(self.content)\
+        builder = (
+            OneM2MJsonPrimitiveBuilder()
+            .set_parameters(self.params)
+            .set_content(self.content)
             .set_protocol_specific_parameters(self.proto_params)
+        )
         return builder.build()
 
     def test_primitive_build_with_content(self):
@@ -49,8 +50,10 @@ class TestOneM2MJsonPrimitive(unittest.TestCase):
         json_primitive = json.loads(primitive.get_primitive_str())
         self.assertIn(OneM2M.short_primitive_content, json_primitive)
 
-        self.assertEqual(json.dumps(json_primitive[OneM2M.short_primitive_content]),
-                         primitive.get_content_str())
+        self.assertEqual(
+            json.dumps(json_primitive[OneM2M.short_primitive_content]),
+            primitive.get_content_str(),
+        )
 
     def test_primitive_items_access(self):
         primitive = self._create_primitive()
