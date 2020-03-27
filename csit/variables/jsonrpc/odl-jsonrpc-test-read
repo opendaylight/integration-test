@@ -101,7 +101,7 @@ class Service(object):
         try:
             # assumes that params are supplied as a list for call by position
             response["result"] = self._methods[method](
-                params['store'], params['entity'], params['path']
+                params["store"], params["entity"], params["path"]
             )  # pylint: disable=star-args
         except KeyError:
             response["error"] = {"code": -32601, "message": "Method not found"}
