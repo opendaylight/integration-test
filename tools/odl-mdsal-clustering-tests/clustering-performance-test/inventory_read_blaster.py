@@ -67,7 +67,7 @@ def read(hosts, port, auth, datastore, print_lock, cycles, results_queue):
         stats[r.status_code] = stats.get(r.status_code, 0) + 1
 
     with print_lock:
-        print '   ', threading.current_thread().name, 'results:', stats
+        print('   %s results: %s' % (threading.current_thread().name, stats))
 
     results_queue.put(stats)
 
@@ -118,6 +118,6 @@ if __name__ == "__main__":
     # Aggregate the results
     stats = functools.reduce(operator.add, map(collections.Counter, results.queue))
 
-    print '\n*** Test summary:'
-    print '    Elapsed time:    %.2fs' % t.secs
-    print '    HTTP[OK] results:  %d\n' % stats[200]
+    print('\n*** Test summary:')
+    print('    Elapsed time:    %.2fs' % t.secs)
+    print('    HTTP[OK] results:  %d\n' % stats[200])

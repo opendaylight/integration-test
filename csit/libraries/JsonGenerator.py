@@ -64,7 +64,7 @@ def copy_eid(objA, objB):
             try:
                 setattr(objA, name, value)
             except AttributeError:
-                print name, "giving attribute error in", objA
+                print("%s giving attribute error in %s" % (name, objA))
 
 
 def copy_rloc(objA, objB):
@@ -80,7 +80,7 @@ def copy_rloc(objA, objB):
             try:
                 setattr(objA, name, value)
             except AttributeError:
-                print name, "giving attribute error in", objA
+                print(" %s giving attribute error in" % (name, objA))
 
 
 def clean_hops(obj):
@@ -330,7 +330,7 @@ def Get_MappingRecord_Object(eid, locators, ttl=1440, authoritative=True, action
         loc_id = loc.keys()[0]
         loc_obj = loc[loc_id]
         if loc_id in loc_ids:
-            print "Locator objects should have different keys"
+            print("Locator objects should have different keys")
             break
         # TODO: Locator-id, currently in the format of loc_id0, loc_id1
         mrecord_obj.LocatorRecord.add(loc_id)

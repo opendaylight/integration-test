@@ -78,7 +78,6 @@ class FlowConfigBulkBlaster(flow_config_blaster.FlowConfigBlaster):
             json_input = {'input': {'bulk-flow-ds-item': flow_list}}
 
         flow_data = json.dumps(json_input)
-        # print flow_data
         return flow_data
 
 
@@ -111,16 +110,16 @@ if __name__ == "__main__":
     # <flows> are added from each thread
     fcbb.add_blaster()
 
-    print '\n*** Total flows added: %s' % fcbb.get_ok_flows()
-    print '    HTTP[OK] results:  %d\n' % fcbb.get_ok_rqsts()
+    print('\n*** Total flows added: %s' % fcbb.get_ok_flows())
+    print('    HTTP[OK] results:  %d\n' % fcbb.get_ok_rqsts())
 
     if in_args.delay > 0:
-        print '*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay
+        print('*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay)
         time.sleep(in_args.delay)
 
     # Run through <cycles>, where <threads> are started in each cycle and
     # <flows> previously added in an add cycle are deleted in each thread
     if in_args.delete:
         fcbb.delete_blaster()
-        print '\n*** Total flows deleted: %s' % fcbb.get_ok_flows()
-        print '    HTTP[OK] results:    %d\n' % fcbb.get_ok_rqsts()
+        print('\n*** Total flows deleted: %s' % fcbb.get_ok_flows())
+        print('    HTTP[OK] results:    %d\n' % fcbb.get_ok_rqsts())

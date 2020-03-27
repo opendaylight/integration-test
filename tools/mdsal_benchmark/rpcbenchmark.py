@@ -53,7 +53,7 @@ def send_test_request(operation, clients, servers, payload_size, iterations):
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)['output'].items())
     else:
-        print 'Error %s, %s' % (r.status_code, r.content)
+        print('Error %s, %s' % (r.status_code, r.content))
     return result
 
 
@@ -67,9 +67,9 @@ def print_results(run_type, idx, res):
                 test run
     :return: None
     """
-    print '%s #%d: Ok: %d, Error: %d, Rate: %d, Exec time: %d' % \
+    print('%s #%d: Ok: %d, Error: %d, Rate: %d, Exec time: %d' %
           (run_type, idx,
-           res[u'global-rtc-client-ok'], res[u'global-rtc-client-error'], res[u'rate'], res[u'exec-time'])
+           res[u'global-rtc-client-ok'], res[u'global-rtc-client-error'], res[u'rate'], res[u'exec-time']))
 
 
 def run_test(warmup_runs, test_runs, operation, clients, servers, payload_size, iterations):
@@ -150,7 +150,7 @@ if __name__ == "__main__":
                     run_test(args.warm, args.run, args.operation, client, svr, args.payload, args.iterations)
                 rate_row.append(rate)
             rate_matrix.append(rate_row)
-        print rate_matrix
+        print(rate_matrix)
 
         writer.writerow(('RPC Rates:', ''))
         writer.writerows(rate_matrix)

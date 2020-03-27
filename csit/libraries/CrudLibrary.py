@@ -142,7 +142,7 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
     </note>
     """
 
-    print "Buying " + str(numberOfCarBuyers) + " Cars"
+    print("Buying " + str(numberOfCarBuyers) + " Cars")
     for x in range(start, start + numberOfCarBuyers):
         strId = str(x + 1)
 

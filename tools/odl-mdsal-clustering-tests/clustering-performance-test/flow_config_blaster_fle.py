@@ -103,9 +103,9 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
         clear_url = 'http://' + self.host + ":" + self.port + '/wm/staticflowpusher/clear/all/json'
         r = requests.get(clear_url)
         if r.status_code == 200:
-            print "All flows cleared before the test"
+            print("All flows cleared before the test")
         else:
-            print "Failed to clear flows from the controller, your results may vary"
+            print("Failed to clear flows from the controller, your results may vary")
 
 
 if __name__ == "__main__":
@@ -147,16 +147,16 @@ if __name__ == "__main__":
     # Run through <cycles>, where <threads> are started in each cycle and <flows> are added from each thread
     fct.add_blaster()
 
-    print '\n*** Total flows added: %s' % fct.get_ok_flows()
-    print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
+    print('\n*** Total flows added: %s' % fct.get_ok_flows())
+    print('    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts())
 
     if in_args.delay > 0:
-        print '*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay
+        print('*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay)
         time.sleep(in_args.delay)
 
     # Run through <cycles>, where <threads> are started in each cycle and <flows> previously added in an add cycle are
     # deleted in each thread
     if in_args.delete:
         fct.delete_blaster()
-        print '\n*** Total flows deleted: %s' % fct.get_ok_flows()
-        print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
+        print('\n*** Total flows deleted: %s' % fct.get_ok_flows())
+        print('    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts())

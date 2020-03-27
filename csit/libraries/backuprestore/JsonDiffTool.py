@@ -141,9 +141,9 @@ def prefilter_json_files_then_compare(args):
 
     if args.printDifferences:
         for patchline in differences_after_patching:
-            print json.dumps(patchline)
+            print(json.dumps(patchline))
 
-    print len(differences_after_patching)
+    print(len(differences_after_patching))
     return len(differences_after_patching)
 
 

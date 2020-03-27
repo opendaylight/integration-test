@@ -647,7 +647,6 @@ def flow_stats_collected(controller=''):
     Returns:
         :returns (switches, flows_reported, flows-found): tupple with counts of switches, reported and found flows
     """
-    # print type(flow_details), flow_details
     active_flows = 0
     found_flows = 0
     switches = _get_operational_inventory_of_switches(controller)
@@ -659,7 +658,7 @@ def flow_stats_collected(controller=''):
             active_flows += t['opendaylight-flow-table-statistics:flow-table-statistics']['active-flows']
             if 'flow' in t:
                 found_flows += len(t['flow'])
-    print "Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows
+    print("Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows)
     return len(switches), active_flows, found_flows
 
 
