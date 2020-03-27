@@ -231,14 +231,10 @@ def get_flow_device_pairs(controller='127.0.0.1', port=8181, flow_details=[]):
     if rsp.status_code != 200:
         return
     flows = json.loads(rsp.content)['flows']
-    # print "Flows", flows
-    # print "Details", flow_details
     for dev_id, ip in flow_details:
-        # print "looking for details", dev_id, ip
         for f in flows:
             # lets identify if it is our flow
             if f["treatment"]["instructions"][0]["type"] != "DROP":
-                # print "NOT DROP"
                 continue
             if f["deviceId"] == dev_id:
                 if "ip" in f["selector"]["criteria"][0]:
@@ -247,9 +243,7 @@ def get_flow_device_pairs(controller='127.0.0.1', port=8181, flow_details=[]):
                     item_idx = 1
                 else:
                     continue
-                # print "Comparing", '%s/32' % str(netaddr.IPAddress(ip))
                 if f["selector"]["criteria"][item_idx]["ip"] == '%s/32' % str(netaddr.IPAddress(ip)):
-                    # print dev_id, ip, f
                     yield dev_id, f["id"]
                     break
 
@@ -260,13 +254,10 @@ def get_flow_to_remove(controller='127.0.0.1', port=8181):
     if rsp.status_code != 200:
         return
     flows = json.loads(rsp.content)['flows']
-    # print "Flows", flows
-    # print "Details", flow_details
 
     for f in flows:
         # lets identify if it is our flow
         if f["treatment"]["instructions"][0]["type"] != "NOACTION":
-            # print "NOT DROP"
             continue
         if "ip" in f["selector"]["criteria"][0]:
             item_idx = 0
@@ -274,10 +265,8 @@ def get_flow_to_remove(controller='127.0.0.1', port=8181):
             item_idx = 1
         else:
             continue
-            # print "Comparing", '%s/32' % str(netaddr.IPAddress(ip))
         ipstr = f["selector"]["criteria"][item_idx]["ip"]
         if '10.' in ipstr and '/32' in ipstr:
-            # print dev_id, ip, f
             yield (f["deviceId"], f["id"])
 
 
@@ -307,7 +296,7 @@ def main(*argv):
     parser.add_argument('--outfile', default='', help='Stores add and delete flow rest api rate; default=""')
 
     in_args = parser.parse_args(*argv)
-    print in_args
+    print(in_args)
 
     # get device ids
     base_dev_ids = get_device_ids(controller=in_args.host)
@@ -319,9 +308,9 @@ def main(*argv):
 
     base_num_flows = len(base_flow_ids)
 
-    print "BASELINE:"
-    print "    devices:", len(base_dev_ids)
-    print "    flows  :", base_num_flows
+    print("BASELINE:")
+    print("    devices:", len(base_dev_ids))
+    print("    flows  :", base_num_flows)
 
     # lets fill the queue for workers
     nflows = 0
@@ -369,16 +358,16 @@ def main(*argv):
                 else:
                     result[k] += v
 
-    print "Added", in_args.flows, "flows in", tmr.secs, "seconds", result
+    print("Added", in_args.flows, "flows in", tmr.secs, "seconds", result)
     add_details = {"duration": tmr.secs, "flows": len(flow_details)}
 
     # lets print some stats
-    print "\n\nStats monitoring ..."
+    print("\n\nStats monitoring ...")
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
             flow_stats = get_flow_simple_stats(controller=in_args.host)
-            print flow_stats
+            print(flow_stats)
             try:
                 pending_adds = int(flow_stats[u'PENDING_ADD'])  # noqa  # FIXME: Print this somewhere.
             except KeyError:
@@ -386,9 +375,9 @@ def main(*argv):
             time.sleep(1)
 
     if i < rounds:
-        print "... monitoring finished in +%d seconds\n\n" % t.secs
+        print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print "... monitoring aborted after %d rounds, elapsed time %d\n\n" % (rounds, t.secs)
+        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
 
     if in_args.no_delete:
         return
@@ -402,7 +391,7 @@ def main(*argv):
     # for a in get_flow_device_pairs(controller=in_args.host, flow_details=flow_details):
     for a in get_flow_to_remove(controller=in_args.host):
         flows_remove_details.append(a)
-    print "Flows to be removed: ", len(flows_remove_details)
+    print("Flows to be removed: ", len(flows_remove_details))
 
     # lets fill the queue for workers
     nflows = 0
@@ -448,22 +437,15 @@ def main(*argv):
                 else:
                     result[k] += v
 
-    print "Removed", len(flows_remove_details), "flows in", tmr.secs, "seconds", result
+    print("Removed", len(flows_remove_details), "flows in", tmr.secs, "seconds", result)
     del_details = {"duration": tmr.secs, "flows": len(flows_remove_details)}
 
-#    # lets print some stats
-#    print "\n\nSome stats monitoring ...."
-#    for i in range(100):
-#        print get_flow_simple_stats(controller=in_args.host)
-#        time.sleep(5)
-#    print "... monitoring finished\n\n"
-    # lets print some stats
-    print "\n\nStats monitoring ..."
+    print("\n\nStats monitoring ...")
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
             flow_stats = get_flow_simple_stats(controller=in_args.host)
-            print flow_stats
+            print(flow_stats)
             try:
                 pending_rems = int(flow_stats[u'PENDING_REMOVE'])  # noqa  # FIXME: Print this somewhere.
             except KeyError:
@@ -471,15 +453,15 @@ def main(*argv):
             time.sleep(1)
 
     if i < rounds:
-        print "... monitoring finished in +%d seconds\n\n" % t.secs
+        print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print "... monitoring aborted after %d rounds, elapsed time %d\n\n" % (rounds, t.secs)
+        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
 
     if in_args.outfile != "":
         addrate = add_details['flows'] / add_details['duration']
         delrate = del_details['flows'] / del_details['duration']
-        print "addrate", addrate
-        print "delrate", delrate
+        print("addrate", addrate)
+        print("delrate", delrate)
 
         with open(in_args.outfile, "wt") as fd:
             fd.write("AddRate,DeleteRate\n")

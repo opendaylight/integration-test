@@ -71,7 +71,7 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
     results = {}
 
     with print_lock:
-        print 'Thread %d: Getting %s' % (tnum, url)
+        print('Thread %d: Getting %s' % (tnum, url))
 
     s = requests.Session()
     with Timer() as t:
@@ -95,12 +95,12 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
     total_mb_rate.increment(mrate)
 
     with print_lock:
-        print '\nThread %d: ' % tnum
-        print '    Elapsed time: %.2f,' % t.secs
-        print '    Requests: %d, Requests/sec: %.2f' % (total, rate)
-        print '    Volume: %.2f MB, Rate: %.2f MByte/s' % (mbytes, mrate)
-        print '    Results: ',
-        print results
+        print('\nThread %d: ' % tnum)
+        print('    Elapsed time: %.2f,' % t.secs)
+        print('    Requests: %d, Requests/sec: %.2f' % (total, rate))
+        print('    Volume: %.2f MB, Rate: %.2f MByte/s' % (mbytes, mrate))
+        print('    Results: ')
+        print(results)
 
     with cond:
         cond.notifyAll()
@@ -139,10 +139,10 @@ if __name__ == "__main__":
             cond.wait()
             finished = finished + 1
 
-    print '\nAggregate requests: %d, Aggregate requests/sec: %.2f' % (total_requests.value,
-                                                                      total_req_rate.value)
-    print 'Aggregate Volume: %.2f MB, Aggregate Rate: %.2f MByte/s' % (total_mbytes.value,
-                                                                       total_mb_rate.value)
+    print('\nAggregate requests: %d, Aggregate requests/sec: %.2f' % (total_requests.value,
+                                                                      total_req_rate.value))
+    print('Aggregate Volume: %.2f MB, Aggregate Rate: %.2f MByte/s' % (total_mbytes.value,
+                                                                       total_mb_rate.value))
 
 #    get_inventory(url, getheaders, int(in_args.requests))
 

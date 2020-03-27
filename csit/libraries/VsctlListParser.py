@@ -22,7 +22,7 @@ def _parse_stdout(stdout):
     regroups = re.finditer(pat, text)
     outdict = {}
     for g in regroups:
-        print g.group()
+        print(g.group())
         if g.group('key') == '_uuid':
             cntl_uuid = g.group('value')
             outdict[cntl_uuid] = {}

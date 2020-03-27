@@ -53,7 +53,7 @@ class DynamicMininet(cmd.Cmd):
             :param num: initial number of switches in the topology
         """
         if self._running:
-            print 'Mininet topology is already active'
+            print('Mininet topology is already active')
             return
         cntl, numsw = line.split()
         self._topo = mininet.topo.Topo()
@@ -68,10 +68,10 @@ class DynamicMininet(cmd.Cmd):
 
     def help_start(self):
         """Provide help message for start command"""
-        print 'Starts mininet'
-        print 'Usage: start <controller_ip> <num>'
-        print '\tcontroller_ip - controllers ip or host name'
-        print '\tnum           - number of switches at start'
+        print('Starts mininet')
+        print('Usage: start <controller_ip> <num>')
+        print('\tcontroller_ip - controllers ip or host name')
+        print('\tnum           - number of switches at start')
 
     def do_start_with_cluster(self, line):
         """Starts mininet network with initial number of switches
@@ -81,7 +81,7 @@ class DynamicMininet(cmd.Cmd):
                                    e.g.  1.1.1.1,2.2.2.2,3.3.3.3 (no spaces)
         """
         if self._running:
-            print 'Mininet topology is already active'
+            print('Mininet topology is already active')
             return
         cntls = line.split(',')
 
@@ -93,7 +93,7 @@ class DynamicMininet(cmd.Cmd):
         for i, cntl_ip in enumerate(cntls):
             cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
             controllers.append(cnt)
-            print "contrller {0} created".format(cnt)
+            print("contrller {0} created".format(cnt))
 
         self._net.buildFromTopo(topo=self._topo)
         self._net.start()
@@ -101,9 +101,9 @@ class DynamicMininet(cmd.Cmd):
 
     def help_start_with_cluster(self):
         """Provide help message for start_with_cluster command"""
-        print 'Starts mininet with one switch'
-        print 'Usage: start <controller_ips>'
-        print '\tcontroller_ips - comma separated list of controllers ip or host names'
+        print('Starts mininet with one switch')
+        print('Usage: start <controller_ips>')
+        print('\tcontroller_ips - comma separated list of controllers ip or host names')
 
     def do_start_switches_with_cluster(self, line):
         """Starts mininet network with initial number of switches
@@ -114,7 +114,7 @@ class DynamicMininet(cmd.Cmd):
                                    e.g.  1.1.1.1,2.2.2.2,3.3.3.3 (no spaces)
         """
         if self._running:
-            print 'Mininet topology is already active'
+            print('Mininet topology is already active')
             return
         num, contls = line.split()
         cntls = contls.split(',')
@@ -127,7 +127,7 @@ class DynamicMininet(cmd.Cmd):
         for i, cntl_ip in enumerate(cntls):
             cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
             controllers.append(cnt)
-            print "contrller {0} created".format(cnt)
+            print("contrller {0} created".format(cnt))
 
         self._net.buildFromTopo(topo=self._topo)
         self._net.start()
@@ -135,10 +135,10 @@ class DynamicMininet(cmd.Cmd):
 
     def help_start_switches_with_cluster(self):
         """Provide help message for start_with_cluster command"""
-        print 'Starts mininet with one switch'
-        print 'Usage: start <swnr> <controller_ips>'
-        print '\tswnt - number of switches in topology'
-        print '\tcontroller_ips - comma separated list of controllers ip or host names'
+        print('Starts mininet with one switch')
+        print('Usage: start <swnr> <controller_ips>')
+        print('\tswnt - number of switches in topology')
+        print('\tcontroller_ips - comma separated list of controllers ip or host names')
 
     def do_add_switch(self, line):
         """Adds one switch to the network
@@ -157,8 +157,8 @@ class DynamicMininet(cmd.Cmd):
 
     def help_add_switch(self):
         """Provide help message for add_switch command"""
-        print 'Adds one sinle switch to the running topology'
-        print 'Usage: add_switch'
+        print('Adds one sinle switch to the running topology')
+        print('Usage: add_switch')
 
     def do_add_switches(self, line):
         """Adds switches to the network
@@ -170,9 +170,9 @@ class DynamicMininet(cmd.Cmd):
 
     def help_add_switches(self):
         """Provide help message for add_switch command"""
-        print 'Adds one sinle switch to the running topology'
-        print 'Usage: add_switches <num>'
-        print '\tnum - number of switches tp be added'
+        print('Adds one sinle switch to the running topology')
+        print('Usage: add_switches <num>')
+        print('\tnum - number of switches tp be added')
 
     def do_exit(self, line):
         """Stops mininet"""
@@ -183,8 +183,8 @@ class DynamicMininet(cmd.Cmd):
 
     def help_exit(self):
         """Provide help message for exit command"""
-        print 'Exit mininet cli'
-        print 'Usage: exit'
+        print('Exit mininet cli')
+        print('Usage: exit')
 
     def do_sh(self, line):
         """Run an external shell command
@@ -195,9 +195,9 @@ class DynamicMininet(cmd.Cmd):
 
     def help_sh(self, line):
         """Provide help message for sh command"""
-        print 'Executes given commandAdds one sinle switch to the running topology'
-        print 'Usage: sh <line>'
-        print '\tline - command to be executed(e.g. ps -e'
+        print('Executes given commandAdds one sinle switch to the running topology')
+        print('Usage: sh <line>')
+        print('\tline - command to be executed(e.g. ps -e')
 
     def emptyline(self):
         pass

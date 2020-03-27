@@ -43,21 +43,21 @@ def wait_for_stats(crawler, exp_found, timeout, delay):
     :return: None
     """
     total_delay = 0
-    print 'Waiting for stats to catch up:'
+    print('Waiting for stats to catch up:')
 
     with Timer() as t:
         while True:
             crawler.crawl_inventory()
-            print '   %d, %d' % (crawler.reported_flows, crawler.found_flows)
+            print('   %d, %d' % (crawler.reported_flows, crawler.found_flows))
             if crawler.found_flows == exp_found or total_delay > timeout:
                 break
             total_delay += delay
             time.sleep(delay)
 
     if total_delay < timeout:
-        print 'Stats collected in %d seconds.' % t.secs
+        print('Stats collected in %d seconds.' % t.secs)
     else:
-        print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
+        print('Stats collection did not finish in %d seconds. Aborting...' % total_delay)
 
 
 if __name__ == "__main__":
@@ -131,16 +131,16 @@ if __name__ == "__main__":
     reported = ic.reported_flows
     found = ic.found_flows
 
-    print 'Baseline:'
-    print '   Reported flows: %d' % reported
-    print '   Found flows:    %d' % found
+    print('Baseline:')
+    print('   Reported flows: %d' % reported)
+    print('   Found flows:    %d' % found)
 
     # Run through <CYCLES> add cycles, where <THREADS> threads are started in
     # each cycle and <FLOWS> flows are added from each thread
     fct.add_blaster()
 
-    print '\n*** Total flows added: %d' % fct.get_ok_flows()
-    print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
+    print('\n*** Total flows added: %d' % fct.get_ok_flows())
+    print('    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts())
 
     # Wait for stats to catch up
     wait_for_stats(ic, found + fct.get_ok_flows(), in_args.timeout, in_args.delay)
@@ -149,17 +149,17 @@ if __name__ == "__main__":
     # in each cycle and <FLOWS> flows previously added in an add cycle are
     # deleted in each thread
     if in_args.bulk_delete:
-        print '\nDeleting all flows in bulk:'
+        print('\nDeleting all flows in bulk:')
         sts = cleanup_config_odl(in_args.host, in_args.port, in_args.auth)
         if sts != 200:
-            print '   Failed to delete flows, code %d' % sts
+            print('   Failed to delete flows, code %d' % sts)
         else:
-            print '   All flows deleted.'
+            print('   All flows deleted.')
     else:
-        print '\nDeleting flows one by one\n   ',
+        print('\nDeleting flows one by one\n   ',)
         fct.delete_blaster()
-        print '\n*** Total flows deleted: %d' % fct.get_ok_flows()
-        print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
+        print('\n*** Total flows deleted: %d' % fct.get_ok_flows())
+        print('    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts())
 
     # Wait for stats to catch up back to baseline
     wait_for_stats(ic, found, in_args.timeout, in_args.delay)

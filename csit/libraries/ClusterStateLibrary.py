@@ -22,18 +22,18 @@ def getClusterRoles(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesI
     for ip in ips:
         i = 1
         dict[ip] = None
-        print "numOfShards => " + str(numOfShards)
+        print("numOfShards => ", str(numOfShards))
         while i <= numOfShards:
             shardMemberName = "member-" + str(i) + "-" + shardName
             j = 1
-            print 'j => ' + str(j)
-            print 'numOfTries => ' + str(numOfTries)
+            print('j => ', str(j))
+            print('numOfTries => ', str(numOfTries))
             while int(j) <= int(numOfTries):
                 print("Try number " + str(j))
                 try:
                     print("getting role of " + ip + "  for shardName = " + shardMemberName)
                     url = SettingsLibrary.getJolokiaURL(ip, str(port), str(i), shardName)
-                    print url
+                    print(url)
                     resp = UtilLibrary.get(url)
                     print(resp)
                     if resp.status_code != 200:
@@ -92,7 +92,7 @@ def getFollowers(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesInSe
         for ip in dict.keys():
             if dict[ip] == 'Follower':
                 result.append(ip)
-        print "i=", i, "result=", result
+        print("i=%s result=%s" % (i, result))
         if (len(result) == (len(ips) - 1)):
             break
         sleep(1)
@@ -116,7 +116,7 @@ def testGetClusterRoles():
 def testGetLeader():
     leader = getLeader("shard-inventory-config", 3, 1, 1, 8181,
                        "10.194.126.116", "10.194.126.117", "10.194.126.118")
-    print leader
+    print(leader)
     return leader
 
 

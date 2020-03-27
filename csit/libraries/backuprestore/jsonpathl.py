@@ -71,7 +71,6 @@ def normalize(x):
         g1 = m.group(1)
         subx.append(g1)
         ret = "[#%d]" % n
-        #       print "f1:", g1, ret
         return ret
 
     x = re.sub(r"[\['](\??\(.*?\))[\]']", f1, x)
@@ -86,7 +85,6 @@ def normalize(x):
     # put expressions back
     def f2(m):
         g1 = m.group(1)
-        #       print "f2:", g1
         return subx[int(g1)]
 
     x = re.sub(r"#([0-9]+)", f2, x)
@@ -130,17 +128,17 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
 
     def trace(expr, obj, path):
         if debug:
-            print "trace", expr, "/", path
+            print("trace", expr, "/", path)
         if expr:
             x = expr.split(';')
             loc = x[0]
             x = ';'.join(x[1:])
             if debug:
-                print "\t", loc, type(obj)
+                print("\t", loc, type(obj))
             if loc == "*":
                 def f03(key, loc, expr, obj, path):
                     if debug > 1:
-                        print "\tf03", key, loc, expr, path
+                        print("\tf03", key, loc, expr, path)
                     trace(s(key, expr), obj, path)
 
                 walk(loc, x, obj, path, f03)
@@ -149,7 +147,7 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
 
                 def f04(key, loc, expr, obj, path):
                     if debug > 1:
-                        print "\tf04", key, loc, expr, path
+                        print("\tf04", key, loc, expr, path)
                     if isinstance(obj, dict):
                         if key in obj:
                             trace(s('..', expr), obj[key], s(path, key))
@@ -175,7 +173,7 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                 # [(index_expression)]
                 if loc.startswith("(") and loc.endswith(")"):
                     if debug > 1:
-                        print "index", loc
+                        print("index", loc)
                     e = evalx(loc, obj)
                     trace(s(e, x), obj, path)
                     return
@@ -183,11 +181,11 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                 # ?(filter_expression)
                 if loc.startswith("?(") and loc.endswith(")"):
                     if debug > 1:
-                        print "filter", loc
+                        print("filter", loc)
 
                     def f05(key, loc, expr, obj, path):
                         if debug > 1:
-                            print "f05", key, loc, expr, path
+                            print("f05", key, loc, expr, path)
                         if isinstance(obj, dict):
                             eval_result = evalx(loc, obj[key])
                         else:
@@ -240,7 +238,7 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                     # [index,index....]
                     for piece in re.split(r"'?,'?", loc):
                         if debug > 1:
-                            print "piece", piece
+                            print("piece", piece)
                         trace(s(piece, x), obj, path)
         else:
             store(path, obj)
@@ -257,7 +255,7 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
         """eval expression"""
 
         if debug:
-            print "evalx", loc
+            print("evalx", loc)
 
         # a nod to JavaScript. doesn't work for @.name.name.length
         # Write len(@.name.name) instead!!!
@@ -299,20 +297,20 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
         loc = re.sub(r'(?<!\\)@', "__obj", loc).replace(r'\@', '@')
         if not use_eval:
             if debug:
-                print "eval disabled"
+                print("eval disabled")
             raise Exception("eval disabled")
         if debug:
-            print "eval", loc
+            print("eval", loc)
         try:
             # eval w/ caller globals, w/ local "__obj"!
             v = eval(loc, caller_globals, {'__obj': obj})
-        except Exception, e:
+        except Exception as e:
             if debug:
-                print e
-            return False
+                print(e)
+        return False
 
         if debug:
-            print "->", v
+            print("->", v)
         return v
 
     # body of jsonpath()

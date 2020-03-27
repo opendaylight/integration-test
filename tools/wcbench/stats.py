@@ -355,7 +355,7 @@ if args.graphs or args.all_graphs:
         pyplot.subplots_adjust(hspace=.7)
     else:
         pyplot.subplots_adjust(hspace=.7)
-        print "WARNING: That's a lot of graphs. Add a second column?"
+        print("WARNING: That's a lot of graphs. Add a second column?")
     pyplot.show()
 
 # Print stats

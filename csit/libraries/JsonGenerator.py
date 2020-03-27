@@ -64,7 +64,7 @@ def copy_eid(objA, objB):
             try:
                 setattr(objA, name, value)
             except AttributeError:
-                print name, "giving attribute error in", objA
+                print("%s giving attribute error in %s" % (name, objA))
 
 
 def copy_rloc(objA, objB):
@@ -80,7 +80,7 @@ def copy_rloc(objA, objB):
             try:
                 setattr(objA, name, value)
             except AttributeError:
-                print name, "giving attribute error in", objA
+                print(" %s giving attribute error in" % (name, objA))
 
 
 def clean_hops(obj):
@@ -262,7 +262,7 @@ def Get_LispAddress_JSON_And_Wrap_input(eid_string, vni=None):
     return Wrap_input(Get_LispAddress_JSON(eid_string, vni))
 
 
-def Get_LocatorRecord_Object(rloc, weights='1/1/255/0', flags=001, loc_id="ISP1"):
+def Get_LocatorRecord_Object(rloc, weights='1/1/255/0', flags=0o01, loc_id="ISP1"):
     """ Description: Returns locator record object from pyangbind generated classes
         Returns: locator record object
         Params:
@@ -290,7 +290,7 @@ def Get_LocatorRecord_Object(rloc, weights='1/1/255/0', flags=001, loc_id="ISP1"
     return lrecord_obj
 
 
-def Get_LocatorRecord_JSON(rloc, weights='1/1/255/0', flags=001, loc_id="ISP1"):
+def Get_LocatorRecord_JSON(rloc, weights='1/1/255/0', flags=0o01, loc_id="ISP1"):
     """ Description: Returns locator record dictionary
         Returns: python dictionary
         Params:
@@ -330,7 +330,7 @@ def Get_MappingRecord_Object(eid, locators, ttl=1440, authoritative=True, action
         loc_id = loc.keys()[0]
         loc_obj = loc[loc_id]
         if loc_id in loc_ids:
-            print "Locator objects should have different keys"
+            print("Locator objects should have different keys")
             break
         # TODO: Locator-id, currently in the format of loc_id0, loc_id1
         mrecord_obj.LocatorRecord.add(loc_id)

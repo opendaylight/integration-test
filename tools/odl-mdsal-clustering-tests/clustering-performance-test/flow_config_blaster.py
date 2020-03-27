@@ -277,7 +277,6 @@ class FlowConfigBlaster(object):
         hosts = self.host.split(",")
         host = hosts[flow_count % len(hosts)]
         flow_url = self.assemble_post_url(host, node)
-        # print flow_url
 
         if not self.auth:
             r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False, timeout=self.TIMEOUT)
@@ -306,7 +305,6 @@ class FlowConfigBlaster(object):
         fmod = dict(self.flow_mode_template)
         fmod['flow'] = flow_list
         flow_data = json.dumps(fmod)
-        # print flow_data
         return flow_data
 
     def add_flows(self, start_flow_id, tid):
@@ -330,7 +328,7 @@ class FlowConfigBlaster(object):
         n_nodes = self.get_num_nodes(s)
 
         with self.print_lock:
-            print '    Thread %d:\n        Adding %d flows on %d nodes' % (tid, self.nflows, n_nodes)
+            print('    Thread %d:\n        Adding %d flows on %d nodes' % (tid, self.nflows, n_nodes))
 
         nflows = 0
         nb_actions = []
@@ -359,13 +357,13 @@ class FlowConfigBlaster(object):
         ok_rps, total_rps, ok_fps, total_fps = self.stats.process_stats(rqst_stats, flow_stats, t.secs)
 
         with self.print_lock:
-            print '\n    Thread %d results (ADD): ' % tid
-            print '        Elapsed time: %.2fs,' % t.secs
-            print '        Requests/s: %.2f OK, %.2f Total' % (ok_rps, total_rps)
-            print '        Flows/s:    %.2f OK, %.2f Total' % (ok_fps, total_fps)
-            print '        Stats ({Requests}, {Flows}): ',
-            print rqst_stats,
-            print flow_stats
+            print('\n    Thread %d results (ADD): ' % tid)
+            print('        Elapsed time: %.2fs,' % t.secs)
+            print('        Requests/s: %.2f OK, %.2f Total' % (ok_rps, total_rps))
+            print('        Flows/s:    %.2f OK, %.2f Total' % (ok_fps, total_fps))
+            print('        Stats ({Requests}, {Flows}): ')
+            print(rqst_stats,)
+            print(flow_stats)
             self.threads_done += 1
 
         s.close()
@@ -389,7 +387,6 @@ class FlowConfigBlaster(object):
         hosts = self.host.split(",")
         host = hosts[flow_count % len(hosts)]
         flow_url = self.del_url_template % (host, node, flow_id)
-        # print flow_url
 
         if not self.auth:
             r = session.delete(flow_url, headers=self.getheaders, timeout=self.TIMEOUT)
@@ -415,7 +412,7 @@ class FlowConfigBlaster(object):
         n_nodes = self.get_num_nodes(s)
 
         with self.print_lock:
-            print 'Thread %d: Deleting %d flows on %d nodes' % (tid, self.nflows, n_nodes)
+            print('Thread %d: Deleting %d flows on %d nodes' % (tid, self.nflows, n_nodes))
 
         with Timer() as t:
             for flow in range(self.nflows):
@@ -429,12 +426,12 @@ class FlowConfigBlaster(object):
         ok_rps, total_rps, ok_fps, total_fps = self.stats.process_stats(rqst_stats, rqst_stats, t.secs)
 
         with self.print_lock:
-            print '\n    Thread %d results (DELETE): ' % tid
-            print '        Elapsed time: %.2fs,' % t.secs
-            print '        Requests/s:  %.2f OK,  %.2f Total' % (ok_rps, total_rps)
-            print '        Flows/s:     %.2f OK,  %.2f Total' % (ok_fps, total_fps)
-            print '        Stats ({Requests})',
-            print rqst_stats
+            print('\n    Thread %d results (DELETE): ' % tid)
+            print('        Elapsed time: %.2fs,' % t.secs)
+            print('        Requests/s:  %.2f OK,  %.2f Total' % (ok_rps, total_rps))
+            print('        Flows/s:     %.2f OK,  %.2f Total' % (ok_fps, total_fps))
+            print('        Stats ({Requests})',)
+            print(rqst_stats)
             self.threads_done += 1
 
         s.close()
@@ -457,7 +454,7 @@ class FlowConfigBlaster(object):
         for c in range(self.ncycles):
             self.stats = self.FcbStats()
             with self.print_lock:
-                print '\nCycle %d:' % c
+                print('\nCycle %d:' % c)
 
             threads = []
             for i in range(self.nthreads):
@@ -471,20 +468,20 @@ class FlowConfigBlaster(object):
                     thread.join()
 
             with self.print_lock:
-                print '\n*** Test summary:'
-                print '    Elapsed time:    %.2fs' % t.secs
-                print '    Peak requests/s: %.2f OK, %.2f Total' % (
-                    self.stats.get_ok_rqst_rate(), self.stats.get_total_rqst_rate())
-                print '    Peak flows/s:    %.2f OK, %.2f Total' % (
-                    self.stats.get_ok_flow_rate(), self.stats.get_total_flow_rate())
-                print '    Avg. requests/s: %.2f OK, %.2f Total (%.2f%% of peak total)' % (
+                print('\n*** Test summary:')
+                print('    Elapsed time:    %.2fs' % t.secs)
+                print('    Peak requests/s: %.2f OK, %.2f Total' % (
+                    self.stats.get_ok_rqst_rate(), self.stats.get_total_rqst_rate()))
+                print('    Peak flows/s:    %.2f OK, %.2f Total' % (
+                    self.stats.get_ok_flow_rate(), self.stats.get_total_flow_rate()))
+                print('    Avg. requests/s: %.2f OK, %.2f Total (%.2f%% of peak total)' % (
                     self.stats.get_ok_rqsts() / t.secs,
                     self.stats.get_total_rqsts() / t.secs,
-                    (self.stats.get_total_rqsts() / t.secs * 100) / self.stats.get_total_rqst_rate())
-                print '    Avg. flows/s:    %.2f OK, %.2f Total (%.2f%% of peak total)' % (
-                    self.stats.get_ok_flows() / t.secs,
-                    self.stats.get_total_flows() / t.secs,
-                    (self.stats.get_total_flows() / t.secs * 100) / self.stats.get_total_flow_rate())
+                    (self.stats.get_total_rqsts() / t.secs * 100) / self.stats.get_total_rqst_rate()))
+                print('    Avg. flows/s:    %.2f OK, %.2f Total (%.2f%% of peak total)' % (
+                      self.stats.get_ok_flows() / t.secs,
+                      self.stats.get_total_flows() / t.secs,
+                      (self.stats.get_total_flows() / t.secs * 100) / self.stats.get_total_flow_rate()))
 
                 self.total_ok_flows += self.stats.get_ok_flows()
                 self.total_ok_rqsts += self.stats.get_ok_rqsts()
@@ -518,10 +515,10 @@ def get_json_from_file(filename):
             keys = ft['flow'][0].keys()
             if (u'cookie' in keys) and (u'flow-name' in keys) and (u'id' in keys) and (u'match' in keys):
                 if u'ipv4-destination' in ft[u'flow'][0]['match'].keys():
-                    print 'File "%s" ok to use as flow template' % filename
+                    print('File "%s" ok to use as flow template' % filename)
                     return ft
         except ValueError:
-            print 'JSON parsing of file %s failed' % filename
+            print('JSON parsing of file %s failed' % filename)
             pass
 
     return None
@@ -648,16 +645,16 @@ if __name__ == "__main__":
     # <flows> are added from each thread
     fct.add_blaster()
 
-    print '\n*** Total flows added: %s' % fct.get_ok_flows()
-    print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
+    print('\n*** Total flows added: %s' % fct.get_ok_flows())
+    print('    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts())
 
     if in_args.delay > 0:
-        print '*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay
+        print('*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay)
         time.sleep(in_args.delay)
 
     # Run through <cycles>, where <threads> are started in each cycle and
     # <flows> previously added in an add cycle are deleted in each thread
     if in_args.delete:
         fct.delete_blaster()
-        print '\n*** Total flows deleted: %s' % fct.get_ok_flows()
-        print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
+        print('\n*** Total flows deleted: %s' % fct.get_ok_flows())
+        print('    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts())

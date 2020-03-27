@@ -95,10 +95,10 @@ class MappingRPCBlaster(object):
         self.start_rloc = netaddr.IPAddress(start_rloc)
         self.nmappings = nmappings
         if v == "Li" or v == "li":
-            print "Using the Lithium RPC URL"
+            print("Using the Lithium RPC URL")
             rpc_url = self.RPC_URL_LI
         else:
-            print "Using the Beryllium and later RPC URL"
+            print("Using the Beryllium and later RPC URL")
             rpc_url = self.RPC_URL_BE
 
         self.post_url_template = 'http://' + self.host + ':' \
@@ -205,4 +205,4 @@ if __name__ == "__main__":
     elif in_args.mode == "get":
         mapping_rpc_blaster.get_n_mappings()
     else:
-        print "Unsupported mode:", in_args.mode
+        print("Unsupported mode:", in_args.mode)

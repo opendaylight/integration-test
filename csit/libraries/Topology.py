@@ -43,5 +43,5 @@ class Topology(object):
 
 if __name__ == '__main__':
     topology = Topology()
-    print topology.get_nodes_from_topology(2)
-    print topology.get_nodes_from_topology('2')
+    print(topology.get_nodes_from_topology(2))
+    print(topology.get_nodes_from_topology('2'))
