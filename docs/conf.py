@@ -14,16 +14,20 @@ import platform
 from docs_conf.conf import *
 
 # Append to intersphinx_mapping
-intersphinx_mapping['odl-releng-builder'] = ('http://docs.opendaylight.org/projects/releng-builder/en/latest/', None)
+intersphinx_mapping["odl-releng-builder"] = (
+    "http://docs.opendaylight.org/projects/releng-builder/en/latest/",
+    None,
+)
 
 linkcheck_ignore = [
     # Ignore jenkins because it's often slow to respond.
-    'https://jenkins.opendaylight.org/releng',
-    'https://jenkins.opendaylight.org/sandbox',
+    "https://jenkins.opendaylight.org/releng",
+    "https://jenkins.opendaylight.org/sandbox",
 ]
 
 nitpicky = True
 
-if platform.system() != 'Windows':
+if platform.system() != "Windows":
     import subprocess
+
     subprocess.call(["./build-integration-robot-libdoc.sh"])

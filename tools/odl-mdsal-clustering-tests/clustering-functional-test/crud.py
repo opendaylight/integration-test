@@ -14,9 +14,12 @@ def addCar(numberOfCars):
     for x in range(1, numberOfCars + 1):
         strId = str(x)
         payload = settings.add_car_payload_template.substitute(
-            id=strId, category="category" + strId, model="model" + strId,
+            id=strId,
+            category="category" + strId,
+            model="model" + strId,
             manufacturer="manufacturer" + strId,
-            year=(2000 + x % 100))
+            year=(2000 + x % 100),
+        )
         print("payload formed after template substitution=")
         print(payload)
         # Send the POST request
@@ -42,16 +45,19 @@ def addPerson(numberOfPersons):
     if numberOfPersons == 0:
         strId = str(numberOfPersons)
         payload = settings.add_person_payload_template.substitute(
-            personId="user" + strId, gender="unknown", age=0,
+            personId="user" + strId,
+            gender="unknown",
+            age=0,
             address=strId + "Way, Some Country, Some Zip  " + strId,
-            contactNo="some number" + strId)
+            contactNo="some number" + strId,
+        )
         # Send the POST request using RESTCONF
         resp = util.nonprintpost(settings.getAddPersonUrl(), "admin", "admin", payload)
         return
 
     genderToggle = "Male"
     for x in range(1, numberOfPersons + 1):
-        if(genderToggle == "Male"):
+        if genderToggle == "Male":
             genderToggle = "Female"
         else:
             genderToggle = "Male"
@@ -59,9 +65,12 @@ def addPerson(numberOfPersons):
         strId = str(x)
 
         payload = settings.add_person_rpc_payload_template.substitute(
-            personId="user" + strId, gender=genderToggle, age=(20 + x % 100),
+            personId="user" + strId,
+            gender=genderToggle,
+            age=(20 + x % 100),
             address=strId + "Way, Some Country, Some Zip  " + str(x % 1000),
-            contactNo="some number" + strId)
+            contactNo="some number" + strId,
+        )
         # Send the POST request using RPC
         resp = util.post(settings.getAddPersonRpcUrl(), "admin", "admin", payload)
 
@@ -88,16 +97,21 @@ def addCarPerson(numberOfCarPersons):
     # FOR RPC TO WORK PROPERLY THE FIRST ENTRY SHOULD BE VIA RESTCONF
     if numberOfCarPersons == 0:
         payload = settings.add_car_person_template.substitute(
-            Id=str(numberOfCarPersons), personId="user" + str(numberOfCarPersons))
+            Id=str(numberOfCarPersons), personId="user" + str(numberOfCarPersons)
+        )
         # Send the POST request REST CONF
-        resp = util.nonprintpost(settings.getAddCarPersonUrl(), "admin", "admin", payload)
+        resp = util.nonprintpost(
+            settings.getAddCarPersonUrl(), "admin", "admin", payload
+        )
 
         return
 
     for x in range(1, numberOfCarPersons + 1):
         strId = str(x)
 
-        payload = settings.add_car_person_template.substitute(Id=strId, personId="user" + strId)
+        payload = settings.add_car_person_template.substitute(
+            Id=strId, personId="user" + strId
+        )
 
         # Send the POST request REST CONF
         resp = util.post(settings.getAddCarPersonUrl(), "admin", "admin", payload)
@@ -125,7 +139,9 @@ def buyCar(numberOfCarBuyers):
     for x in range(1, numberOfCarBuyers + 1):
         strId = str(x)
 
-        payload = settings.buy_car_rpc_template.substitute(personId="user" + strId, carId=strId)
+        payload = settings.buy_car_rpc_template.substitute(
+            personId="user" + strId, carId=strId
+        )
 
         # Send the POST request using RPC
         resp = util.post(settings.getBuyCarRpcUrl(), "admin", "admin", payload)
@@ -191,19 +207,25 @@ def deleteAllPersons(ignore):
 # Usage message shown to user
 #
 
+
 def options():
 
-    command = 'ac=Add Car\n\t\tap=Add Person \n\t\tbc=Buy Car\n\t\tgc=Get Cars\n\t\tgp=Get Persons\n\t\t' \
-              'gcp=Get Car-Person Mappings\n\t\tdc=Delete All Cars\n\t\tdp=Delete All Persons)'
+    command = (
+        "ac=Add Car\n\t\tap=Add Person \n\t\tbc=Buy Car\n\t\tgc=Get Cars\n\t\tgp=Get Persons\n\t\t"
+        "gcp=Get Car-Person Mappings\n\t\tdc=Delete All Cars\n\t\tdp=Delete All Persons)"
+    )
 
-    param = '\n\t<param> is\n\t\t' \
-            'number of cars to be added if <command>=ac\n\t\t' \
-            'number of persons to be added if <command>=ap\n\t\t' \
-            'number of car buyers if <command>=bc\n\t\t'\
-            'pass 0 if <command>=gc or gp or gcp or dc or dp'\
-
-    usageString = 'usage: python crud <ipaddress> <command> <param>\nwhere\n\t<ipaddress> = ODL server ip address' \
-                  '\n\t<command> = any of the following commands \n\t\t'
+    param = (
+        "\n\t<param> is\n\t\t"
+        "number of cars to be added if <command>=ac\n\t\t"
+        "number of persons to be added if <command>=ap\n\t\t"
+        "number of car buyers if <command>=bc\n\t\t"
+        "pass 0 if <command>=gc or gp or gcp or dc or dp"
+    )
+    usageString = (
+        "usage: python crud <ipaddress> <command> <param>\nwhere\n\t<ipaddress> = ODL server ip address"
+        "\n\t<command> = any of the following commands \n\t\t"
+    )
 
     usageString = usageString + command + param
 
@@ -214,14 +236,23 @@ def options():
 # entry point for command executions
 #
 
+
 def main():
     if len(sys.argv) < 4:
         options()
         quit(0)
     settings.hostname = sys.argv[1]
-    settings.port = '8080'
-    call = dict(ac=addCar, ap=addPerson, bc=buyCar,
-                gc=getCars, gp=getPersons, gcp=getCarPersonMappings, dc=deleteAllCars, dp=deleteAllPersons)
+    settings.port = "8080"
+    call = dict(
+        ac=addCar,
+        ap=addPerson,
+        bc=buyCar,
+        gc=getCars,
+        gp=getPersons,
+        gcp=getCarPersonMappings,
+        dc=deleteAllCars,
+        dp=deleteAllPersons,
+    )
 
     # FOR RPC TO WORK PROPERLY THE FIRST PERSON SHOULD BE ADDED VIA RESTCONF
     addPerson(0)

@@ -7,8 +7,8 @@ from ProVision import ProVision
 
 
 class ProVision_3800(ProVision):
-    '''
+    """
     ProVision 3800
-    '''
+    """
 
-    model = '3800'
+    model = "3800"
