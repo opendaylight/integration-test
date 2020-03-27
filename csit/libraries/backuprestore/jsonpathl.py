@@ -15,7 +15,7 @@ import sys
 
 __author__ = "Phil Budne"
 __revision__ = "$Revision: 1.13 $"
-__version__ = '0.54'
+__version__ = "0.54"
 
 #   Copyright (c) 2007 Stefan Goessner (goessner.net)
 #       Copyright (c) 2008 Kate Rhodes (masukomi.org)
@@ -53,12 +53,13 @@ __version__ = '0.54'
 # internally keep paths as lists to preserve integer types
 #       (instead of as ';' delimited strings)
 
-__all__ = ['jsonpath']
+__all__ = ["jsonpath"]
 
 
 # XXX precompile RE objects on load???
 # re_1 = re.compile(.....)
 # re_2 = re.compile(.....)
+
 
 def normalize(x):
     """normalize the path expression; outside jsonpath to allow testing"""
@@ -92,12 +93,12 @@ def normalize(x):
     return x
 
 
-def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
+def jsonpath(obj, expr, result_type="VALUE", debug=0, use_eval=True):
     """traverse JSON object using jsonpath expr, returning values or paths"""
 
     def s(x, y):
         """concatenate path elements"""
-        return str(x) + ';' + str(y)
+        return str(x) + ";" + str(y)
 
     def isint(x):
         """check if argument represents a decimal integer"""
@@ -106,8 +107,8 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
     def as_path(path):
         """convert internal path representation to
            "full bracket notation" for PATH output"""
-        p = '$'
-        for piece in path.split(';')[1:]:
+        p = "$"
+        for piece in path.split(";")[1:]:
             # make a guess on how to index
             # XXX need to apply \ quoting on '!!
             if isint(piece):
@@ -117,11 +118,11 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
         return p
 
     def store(path, object):
-        if result_type == 'VALUE':
+        if result_type == "VALUE":
             result.append(object)
-        elif result_type == 'IPATH':  # Index format path (Python ext)
+        elif result_type == "IPATH":  # Index format path (Python ext)
             # return list of list of indices -- can be used w/o "eval" or split
-            result.append(path.split(';')[1:])
+            result.append(path.split(";")[1:])
         else:  # PATH
             result.append(as_path(path))
         return path
@@ -130,12 +131,13 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
         if debug:
             print("trace", expr, "/", path)
         if expr:
-            x = expr.split(';')
+            x = expr.split(";")
             loc = x[0]
-            x = ';'.join(x[1:])
+            x = ";".join(x[1:])
             if debug:
                 print("\t", loc, type(obj))
             if loc == "*":
+
                 def f03(key, loc, expr, obj, path):
                     if debug > 1:
                         print("\tf03", key, loc, expr, path)
@@ -150,10 +152,10 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                         print("\tf04", key, loc, expr, path)
                     if isinstance(obj, dict):
                         if key in obj:
-                            trace(s('..', expr), obj[key], s(path, key))
+                            trace(s("..", expr), obj[key], s(path, key))
                     else:
                         if key < len(obj):
-                            trace(s('..', expr), obj[key], s(path, key))
+                            trace(s("..", expr), obj[key], s(path, key))
 
                 walk(loc, x, obj, path, f04)
             elif loc == "!":
@@ -197,9 +199,10 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                     walk(loc, x, obj, path, f05)
                     return
 
-                m = re.match(r'(-?[0-9]*):(-?[0-9]*):?(-?[0-9]*)$', loc)
+                m = re.match(r"(-?[0-9]*):(-?[0-9]*):?(-?[0-9]*)$", loc)
                 if m:
                     if isinstance(obj, (dict, list)):
+
                         def max(x, y):
                             if x > y:
                                 return x
@@ -283,18 +286,18 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
                 return ret
 
             g1 = m.group(1)
-            elts = g1.split('.')
+            elts = g1.split(".")
             if elts[-1] == "length":
                 return "len(%s)" % brackets(elts[1:-1])
             return brackets(elts[1:])
 
-        loc = re.sub(r'(?<!\\)(@\.[a-zA-Z@_.]+)', varmatch, loc)
+        loc = re.sub(r"(?<!\\)(@\.[a-zA-Z@_.]+)", varmatch, loc)
 
         # removed = -> == translation
         # causes problems if a string contains =
 
         # replace @  w/ "__obj", but \@ means a literal @
-        loc = re.sub(r'(?<!\\)@', "__obj", loc).replace(r'\@', '@')
+        loc = re.sub(r"(?<!\\)@", "__obj", loc).replace(r"\@", "@")
         if not use_eval:
             if debug:
                 print("eval disabled")
@@ -303,7 +306,7 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
             print("eval", loc)
         try:
             # eval w/ caller globals, w/ local "__obj"!
-            v = eval(loc, caller_globals, {'__obj': obj})
+            v = eval(loc, caller_globals, {"__obj": obj})
         except Exception as e:
             if debug:
                 print(e)
@@ -324,14 +327,14 @@ def jsonpath(obj, expr, result_type='VALUE', debug=0, use_eval=True):
             cleaned_expr = cleaned_expr[2:]
 
         # XXX wrap this in a try??
-        trace(cleaned_expr, obj, '$')
+        trace(cleaned_expr, obj, "$")
 
         if len(result) > 0:
             return result
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         import json  # v2.6
     except ImportError:
@@ -347,7 +350,7 @@ if __name__ == '__main__':
 
     object = json.load(file(sys.argv[1]))
     path = sys.argv[2]
-    format = 'VALUE'
+    format = "VALUE"
 
     if len(sys.argv) > 3:
         # XXX verify?

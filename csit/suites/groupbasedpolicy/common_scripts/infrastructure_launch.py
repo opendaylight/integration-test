@@ -45,7 +45,7 @@ def add_controller(sw, ip):
         print("Error: %s is not a valid IPv4 address of controller!" % (ip))
         os.exit(2)
 
-    call(['sudo', 'ovs-vsctl', 'set-controller', sw, 'tcp:%s:6653' % ip])
+    call(["sudo", "ovs-vsctl", "set-controller", sw, "tcp:%s:6653" % ip])
 
 
 def add_manager(ip):
@@ -64,7 +64,7 @@ def add_manager(ip):
         print("Error: %s is not a valid IPv4 address of manager!" % (ip))
         os.exit(2)
 
-    cmd = ['sudo', 'ovs-vsctl', 'set-manager', 'tcp:%s:6640' % ip]
+    cmd = ["sudo", "ovs-vsctl", "set-manager", "tcp:%s:6640" % ip]
     call(cmd)
 
 
@@ -78,20 +78,28 @@ def add_switch(name, dpid=None):
         :param dpid: DataPath ID of new switch
     """
 
-    call(['sudo', 'ovs-vsctl', 'add-br', name])  # Add bridge
+    call(["sudo", "ovs-vsctl", "add-br", name])  # Add bridge
     if dpid:
         if len(dpid) < 16:  # DPID must be 16-bytes in later versions of OVS
-            filler = '0000000000000000'
+            filler = "0000000000000000"
             # prepending zeros to match 16-byt length, e.g. 123 -> 0000000000000123
-            dpid = filler[:len(filler) - len(dpid)] + dpid
+            dpid = filler[: len(filler) - len(dpid)] + dpid
         elif len(dpid) > 16:
-            print('DPID: %s is too long' % dpid)
+            print("DPID: %s is too long" % dpid)
             sys.exit(3)
-        call(['sudo', 'ovs-vsctl', 'set', 'bridge', name,
-              'other-config:datapath-id=%s' % dpid])
+        call(
+            [
+                "sudo",
+                "ovs-vsctl",
+                "set",
+                "bridge",
+                name,
+                "other-config:datapath-id=%s" % dpid,
+            ]
+        )
 
 
-def set_of_version(sw, version='OpenFlow13,OpenFlow12,OpenFlow10'):
+def set_of_version(sw, version="OpenFlow13,OpenFlow12,OpenFlow10"):
     """Sets OpenFlow protocol versions on OVS switch
 
     Args:
@@ -100,7 +108,7 @@ def set_of_version(sw, version='OpenFlow13,OpenFlow12,OpenFlow10'):
         :param sw: OpenFlow versions to support on switch
     """
 
-    call(['sudo', 'ovs-vsctl', 'set', 'bridge', sw, 'protocols={}'.format(version)])
+    call(["sudo", "ovs-vsctl", "set", "bridge", sw, "protocols={}".format(version)])
 
 
 def add_vxlan_tunnel(sw):
@@ -112,12 +120,21 @@ def add_vxlan_tunnel(sw):
     NOTE:
         :Remote IP is read from flows.
     """
-    ifaceName = '{}-vxlan-0'.format(sw)
-    cmd = ['sudo', 'ovs-vsctl', 'add-port', sw, ifaceName,
-           '--', 'set', 'Interface', ifaceName,
-           'type=vxlan',
-           'options:remote_ip=flow',
-           'options:key=flow']
+    ifaceName = "{}-vxlan-0".format(sw)
+    cmd = [
+        "sudo",
+        "ovs-vsctl",
+        "add-port",
+        sw,
+        ifaceName,
+        "--",
+        "set",
+        "Interface",
+        ifaceName,
+        "type=vxlan",
+        "options:remote_ip=flow",
+        "options:key=flow",
+    ]
     call(cmd)
 
 
@@ -133,19 +150,28 @@ def add_gpe_tunnel(sw):
         :Remote IP is read from flows.
     """
 
-    ifaceName = '{}-vxlangpe-0'.format(sw)
-    cmd = ['sudo', 'ovs-vsctl', 'add-port', sw, ifaceName,
-           '--', 'set', 'Interface', ifaceName,
-           'type=vxlan',
-           'options:remote_ip=flow',
-           'options:dst_port=6633',
-           'options:nshc1=flow',
-           'options:nshc2=flow',
-           'options:nshc3=flow',
-           'options:nshc4=flow',
-           'options:nsp=flow',
-           'options:nsi=flow',
-           'options:key=flow']
+    ifaceName = "{}-vxlangpe-0".format(sw)
+    cmd = [
+        "sudo",
+        "ovs-vsctl",
+        "add-port",
+        sw,
+        ifaceName,
+        "--",
+        "set",
+        "Interface",
+        ifaceName,
+        "type=vxlan",
+        "options:remote_ip=flow",
+        "options:dst_port=6633",
+        "options:nshc1=flow",
+        "options:nshc2=flow",
+        "options:nshc3=flow",
+        "options:nshc4=flow",
+        "options:nsp=flow",
+        "options:nsi=flow",
+        "options:key=flow",
+    ]
     call(cmd)
 
 
@@ -166,18 +192,22 @@ def launch_container(host, containerImage):
 
     """
 
-    containerID = check_output(['docker',
-                                'run',
-                                '-d',
-                                '--net=none',
-                                '--name=%s' % host['name'],
-                                '-h',
-                                host['name'],
-                                '-t',
-                                '-i',
-                                '--privileged=True',
-                                containerImage,
-                                '/bin/bash'])
+    containerID = check_output(
+        [
+            "docker",
+            "run",
+            "-d",
+            "--net=none",
+            "--name=%s" % host["name"],
+            "-h",
+            host["name"],
+            "-t",
+            "-i",
+            "--privileged=True",
+            containerImage,
+            "/bin/bash",
+        ]
+    )
     return containerID[:-1]  # Remove extraneous \n from output of above
 
 
@@ -199,26 +229,19 @@ def connect_container_to_switch(sw, host, containerID):
         :param containerID: ID of docker container
     """
 
-    hostIP = host['ip']
-    mac = host['mac']
+    hostIP = host["ip"]
+    mac = host["mac"]
     nw = ipaddr.IPv4Network(hostIP)
     broadcast = "{}".format(nw.broadcast)
     router = "{}".format(nw.network + 1)
-    ovswork_path = os.path.dirname(os.path.realpath(__file__)) + '/ovswork.sh'
-    cmd = [ovswork_path,
-           sw,
-           containerID,
-           hostIP,
-           broadcast,
-           router,
-           mac,
-           host['name']]
-    if ('vlan') in host:
-        cmd.append(host['vlan'])
+    ovswork_path = os.path.dirname(os.path.realpath(__file__)) + "/ovswork.sh"
+    cmd = [ovswork_path, sw, containerID, hostIP, broadcast, router, mac, host["name"]]
+    if ("vlan") in host:
+        cmd.append(host["vlan"])
     call(cmd)
 
 
-def launch(switches, hosts, odl_ip='127.0.0.1'):
+def launch(switches, hosts, odl_ip="127.0.0.1"):
     """Connects hosts to switches. Arguments are
        tied to underlying configuration file. Processing runs
        for switch, that is present on local environment and
@@ -249,24 +272,26 @@ def launch(switches, hosts, odl_ip='127.0.0.1'):
         ports = 0
         first_host = True
         for host in hosts:
-            if host['switch'] == sw['name']:
+            if host["switch"] == sw["name"]:
                 if first_host:
-                    add_switch(sw['name'], sw['dpid'])
-                    set_of_version(sw['name'])
-                    add_controller(sw['name'], odl_ip)
-                    add_gpe_tunnel(sw['name'])
-                    add_vxlan_tunnel(sw['name'])
+                    add_switch(sw["name"], sw["dpid"])
+                    set_of_version(sw["name"])
+                    add_controller(sw["name"], odl_ip)
+                    add_gpe_tunnel(sw["name"])
+                    add_vxlan_tunnel(sw["name"])
                 first_host = False
                 containerImage = defaultContainerImage  # from Config
-                if ('container_image') in host:  # from Config
-                    containerImage = host['container_image']
+                if ("container_image") in host:  # from Config
+                    containerImage = host["container_image"]
                 containerID = launch_container(host, containerImage)
                 ports += 1
-                connect_container_to_switch(
-                    sw['name'], host, containerID)
-                host['port-name'] = 'vethl-' + host['name']
-                print("Created container: %s with IP: %s. Connect using docker attach %s,"
-                      "disconnect with 'ctrl-p-q'." % (host['name'], host['ip'], host['name']))
+                connect_container_to_switch(sw["name"], host, containerID)
+                host["port-name"] = "vethl-" + host["name"]
+                print(
+                    "Created container: %s with IP: %s. Connect using docker attach %s,"
+                    "disconnect with 'ctrl-p-q'."
+                    % (host["name"], host["ip"], host["name"])
+                )
 
 
 if __name__ == "__main__":
@@ -290,9 +315,9 @@ if __name__ == "__main__":
         print("Error: %s is not a valid switch index!" % (sw_index))
         sys.exit(2)
 
-    sw_type = switches[sw_index]['type']
-    sw_name = switches[sw_index]['name']
-    if sw_type == 'gbp':
+    sw_type = switches[sw_index]["type"]
+    sw_name = switches[sw_index]["name"]
+    if sw_type == "gbp":
         print("*****************************")
         print("Configuring %s as a GBP node." % (sw_name))
         print("*****************************")
@@ -302,20 +327,25 @@ if __name__ == "__main__":
         print("OVS status:")
         print("-----------")
         print
-        call(['sudo', 'ovs-vsctl', 'show'])
+        call(["sudo", "ovs-vsctl", "show"])
         print
         print("Docker containers:")
         print("------------------")
-        call(['docker', 'ps'])
+        call(["docker", "ps"])
         print("*****************************")
-    elif sw_type == 'sff':
+    elif sw_type == "sff":
         print("*****************************")
         print("Configuring %s as an SFF." % (sw_name))
         print("*****************************")
-        call(['sudo', 'ovs-vsctl', 'set-manager', 'tcp:%s:6640' % controller])
+        call(["sudo", "ovs-vsctl", "set-manager", "tcp:%s:6640" % controller])
         print
-    elif sw_type == 'sf':
+    elif sw_type == "sf":
         print("*****************************")
         print("Configuring %s as an SF." % (sw_name))
         print("*****************************")
-        call(['%s/sf-config.sh' % os.path.dirname(os.path.realpath(__file__)), '%s' % sw_name])
+        call(
+            [
+                "%s/sf-config.sh" % os.path.dirname(os.path.realpath(__file__)),
+                "%s" % sw_name,
+            ]
+        )

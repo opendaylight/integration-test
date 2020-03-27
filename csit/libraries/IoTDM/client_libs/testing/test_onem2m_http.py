@@ -24,8 +24,11 @@ class TestOneM2MHttp(unittest.TestCase):
     """Class of unittests testing OneM2M HTTP communication and related classes"""
 
     params = {OneM2M.short_to: "InCSE2/Postman", "op": 2, "fr": "AE1", "rqi": 12345}
-    proto_params = {onem2m_http.protocol_address: "localhost", onem2m_http.protocol_port: 8282,
-                    "Content-Type": "application/json"}
+    proto_params = {
+        onem2m_http.protocol_address: "localhost",
+        onem2m_http.protocol_port: 8282,
+        "Content-Type": "application/json",
+    }
     content = {"content": 123}
 
     def test_primitive_encoding(self):
@@ -56,9 +59,19 @@ class TestOneM2MHttp(unittest.TestCase):
         return rsp_builder.build()
 
     def test_communicaton_send(self):
-        params = {OneM2M.short_to: "InCSE2/Postman", "op": 2, "fr": "AE1", "rqi": 12345, "rcn": 1, "ty": 4}
-        proto_params = {onem2m_http.protocol_address: "localhost", onem2m_http.protocol_port: 5000,
-                        "Content-Type": "application/json"}
+        params = {
+            OneM2M.short_to: "InCSE2/Postman",
+            "op": 2,
+            "fr": "AE1",
+            "rqi": 12345,
+            "rcn": 1,
+            "ty": 4,
+        }
+        proto_params = {
+            onem2m_http.protocol_address: "localhost",
+            onem2m_http.protocol_port: 5000,
+            "Content-Type": "application/json",
+        }
         content = {"content": 123}
 
         encoder = OneM2MHttpJsonEncoderTx()
