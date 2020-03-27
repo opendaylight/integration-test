@@ -10,7 +10,7 @@ __email__ = "syedbahm@cisco.com"
 def get(url, userId, password):
     """Helps in making GET REST calls"""
     headers = {}
-    headers['Accept'] = 'application/xml'
+    headers["Accept"] = "application/xml"
 
     # Send the GET request
     req = requests.get(url, None, headers)
@@ -22,7 +22,7 @@ def get(url, userId, password):
 def nonprintpost(url, userId, password, data):
     """Helps in making POST REST calls without outputs"""
     headers = {}
-    headers['Content-Type'] = 'application/json'
+    headers["Content-Type"] = "application/json"
     # headers['Accept']= 'application/xml'
 
     resp = requests.post(url, data.encode(), headers=headers)
@@ -35,7 +35,7 @@ def post(url, userId, password, data):
     print("post request with url " + url)
     print("post request with data " + data)
     headers = {}
-    headers['Content-Type'] = 'application/json'
+    headers["Content-Type"] = "application/json"
     # headers['Accept']= 'application/xml'
 
     resp = requests.post(url, data.encode(), headers=headers)

@@ -5,9 +5,9 @@ Updated: 2013-11-14
 """
 import collections
 
-'''
+"""
 Common constants and functions for the robot framework.
-'''
+"""
 
 
 def collection_should_contain(collection, *members):
@@ -28,11 +28,11 @@ def combine_strings(*strings):
     Combines the given `strings` together and returns the result.
     The given strings are not altered by this keyword.
     """
-    result = ''
+    result = ""
     for s in strings:
         if isinstance(s, str) or isinstance(s, str):
             result += s
-    if result == '':
+    if result == "":
         return None
     else:
         return result
@@ -45,40 +45,40 @@ def compare_xml(xml1, xml2):
     It just split the xml in to lines and just check the line is in
     the other file
     """
-    for line in xml1.rstrip().split('\n'):
-        if line not in xml2.rstrip().split('\n'):
+    for line in xml1.rstrip().split("\n"):
+        if line not in xml2.rstrip().split("\n"):
             return False
 
-    for line in xml2.rstrip().split('\n'):
-        if line not in xml1.rstrip().split('\n'):
+    for line in xml2.rstrip().split("\n"):
+        if line not in xml1.rstrip().split("\n"):
             return False
 
     return True
 
 
 def num_of_nodes(depth, fanout):
-    '''returns num of switches of a mininet with tree topology
+    """returns num of switches of a mininet with tree topology
     with particular depth and fanout parameters
-    '''
+    """
     result = 0
     for i in range(depth):
-        result += fanout**i
+        result += fanout ** i
     return result
 
 
 def num_of_links_for_node(nodeid, leaflist, fanout):
-    '''
+    """
     If the given node is a leaf node, there will be an only one link for it
     and nodeid will be represented 2 times in topology
     If the given node is not a leaf node, then there will be fanout+1 links
     for it and nodeid will be represented (fanout+1)*2 times in topology
 
     p.s. root node is excluded.
-    '''
+    """
     if nodeid in leaflist:
         return 1
-    return (fanout + 1)
+    return fanout + 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print((num_of_nodes(3, 4)))
