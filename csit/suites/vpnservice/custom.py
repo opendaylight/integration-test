@@ -20,10 +20,14 @@ class Switch1(Topo):
 
     def __init__(self):
         Topo.__init__(self)
-        switch = self.addSwitch('s1')
+        switch = self.addSwitch("s1")
         n = 2
         for h in range(n):
-            host = self.addHost('h%s' % (h + 1), mac="00:00:00:00:00:0" + str(h + 1), ip="10.0.0." + str(h + 1))
+            host = self.addHost(
+                "h%s" % (h + 1),
+                mac="00:00:00:00:00:0" + str(h + 1),
+                ip="10.0.0." + str(h + 1),
+            )
             self.addLink(host, switch)
 
 
@@ -32,12 +36,15 @@ class Switch2(Topo):
 
     def __init__(self):
         Topo.__init__(self)
-        switch = self.addSwitch('s2')
+        switch = self.addSwitch("s2")
         n = 2
         for h in range(n):
-            host = self.addHost('h%s' % (h + 3), mac="00:00:00:00:00:0" + str(h + 3), ip="10.0.0." + str(h + 3))
+            host = self.addHost(
+                "h%s" % (h + 3),
+                mac="00:00:00:00:00:0" + str(h + 3),
+                ip="10.0.0." + str(h + 3),
+            )
             self.addLink(host, switch)
 
 
-topos = {'Switch1': (lambda: Switch1()),
-         'Switch2': (lambda: Switch2())}
+topos = {"Switch1": (lambda: Switch1()), "Switch2": (lambda: Switch2())}

@@ -26,21 +26,24 @@ __email__ = "vrpolak@cisco.com"
 
 # FIXME: Migrate values shared by other suites to separate Python module.
 
+
 def get_variables(mininet_ip):
     """Return dict of variables for the given IPv4 address of Mininet VM."""
     # TODO: Document in 'V' fashion, as in pcepuser/variables.py using more systematic local variable names.
     # Dict of variables to return, starts empty and grows as function proceeds.
     variables = {}
     # Given mininet_ip, this will be the sympolic name uf tunnel under test.
-    tunnelname = 'pcc_' + mininet_ip + '_tunnel_1'
+    tunnelname = "pcc_" + mininet_ip + "_tunnel_1"
     # Base64 code for the symbolic name, as that is present in datastore.
-    tunnelname_bytes = tunnelname.encode('ascii')
+    tunnelname_bytes = tunnelname.encode("ascii")
     pathcode_encoded = base64.b64encode(tunnelname_bytes)
-    pathcode = pathcode_encoded.decode('ascii')
-    variables['pcc_name'] = tunnelname
-    variables['pcc_name_code'] = pathcode
+    pathcode = pathcode_encoded.decode("ascii")
+    variables["pcc_name"] = tunnelname
+    variables["pcc_name_code"] = pathcode
     # JSON response when pcep-topology is ready but no PCC is connected.
-    variables['offjson'] = '''{
+    variables[
+        "offjson"
+    ] = """{
  "topology": [
   {
    "topology-id": "pcep-topology",
@@ -49,9 +52,10 @@ def get_variables(mininet_ip):
    }
   }
  ]
-}'''
+}"""
     # Template of JSON response with pcep-topology seeing 1 PCC 1 LSP.
-    onjsontempl = Template('''{
+    onjsontempl = Template(
+        """{
  "topology": [
   {
    "node": [
@@ -122,60 +126,79 @@ def get_variables(mininet_ip):
    }
   }
  ]
-}''')
+}"""
+    )
     # Dictionly which tells values for placeholders.
-    repl_dict = {'IP': mininet_ip, 'NAME': tunnelname, 'CODE': pathcode}
+    repl_dict = {"IP": mininet_ip, "NAME": tunnelname, "CODE": pathcode}
     # The finalized JSON.
-    variables['onjson'] = onjsontempl.substitute(repl_dict)
+    variables["onjson"] = onjsontempl.substitute(repl_dict)
     # The following strings are XML data.
     # See https://wiki.opendaylight.org/view/BGP_LS_PCEP:TCP_MD5_Guide#RESTCONF_Configuration
     # For curl, string is suitable to became -d argument only after
     # replacing ' -> '"'"' and enclosing in single quotes.
-    variables['key_access_module'] = '''<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+    variables[
+        "key_access_module"
+    ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:jni:cfg">x:native-key-access-factory</type>
  <name>global-key-access-factory</name>
-</module>'''
-    variables['key_access_service'] = '''<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+</module>"""
+    variables[
+        "key_access_service"
+    ] = """<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:cfg">x:key-access-factory</type>
  <instance>
   <name>global-key-access-factory</name>
   <provider>/modules/module[type='native-key-access-factory'][name='global-key-access-factory']</provider>
  </instance>
-</service>'''
-    variables['client_channel_module'] = '''<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+</service>"""
+    variables[
+        "client_channel_module"
+    ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-client-channel-factory</type>
  <name>md5-client-channel-factory</name>
  <key-access-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">
   <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:cfg">x:key-access-factory</type>
   <name>global-key-access-factory</name>
  </key-access-factory>
-</module>'''
-    variables['client_channel_service'] = '''<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+</module>"""
+    variables[
+        "client_channel_service"
+    ] = """<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-channel-factory</type>
  <instance>
   <name>md5-client-channel-factory</name>
   <provider>/modules/module[type='md5-client-channel-factory'][name='md5-client-channel-factory']</provider>
  </instance>
-</service>'''
-    variables['server_channel_module'] = '''<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
- <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">'''
+</service>"""
+    variables[
+        "server_channel_module"
+    ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">"""
     # What is your favourite way to concatenate strings without resembling tuple?
-    variables['server_channel_module'] += '''prefix:md5-server-channel-factory-impl</type>
+    variables[
+        "server_channel_module"
+    ] += """prefix:md5-server-channel-factory-impl</type>
  <name>md5-server-channel-factory</name>
  <server-key-access-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">
   <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:cfg">x:key-access-factory</type>
   <name>global-key-access-factory</name>
  </server-key-access-factory>
-</module>'''
-    variables['server_channel_service'] = '''<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
- <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">'''
-    variables['server_channel_service'] += '''prefix:md5-server-channel-factory</type>
+</module>"""
+    variables[
+        "server_channel_service"
+    ] = """<service xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">"""
+    variables[
+        "server_channel_service"
+    ] += """prefix:md5-server-channel-factory</type>
  <instance>
   <name>md5-server-channel-factory</name>
   <provider>/modules/module[type='md5-server-channel-factory-impl'][name='md5-server-channel-factory']</provider>
  </instance>
-</service>'''
-    variables['pcep_dispatcher_module'] = '''<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+</service>"""
+    variables[
+        "pcep_dispatcher_module"
+    ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">x:pcep-dispatcher-impl</type>
  <name>global-pcep-dispatcher</name>
  <md5-channel-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
@@ -186,27 +209,29 @@ def get_variables(mininet_ip):
   <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-server-channel-factory</type>
   <name>md5-server-channel-factory</name>
  </md5-server-channel-factory>
-</module>'''
+</module>"""
     # Template to set password.
-    passwd_templ = Template('''<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+    passwd_templ = Template(
+        """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">x:pcep-topology-provider</type>
  <name>pcep-topology</name>
  <client xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">
   <address xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">$IP</address>
 $PASSWD </client>
-</module>''')
+</module>"""
+    )
     # We use three template instantiations. No password:
-    repl_dict = {'IP': mininet_ip, 'PASSWD': ''}
-    variables['no_passwd_module'] = passwd_templ.substitute(repl_dict)
-    changeme = '''  <password>changeme</password>
-'''
+    repl_dict = {"IP": mininet_ip, "PASSWD": ""}
+    variables["no_passwd_module"] = passwd_templ.substitute(repl_dict)
+    changeme = """  <password>changeme</password>
+"""
     # wrong password
-    repl_dict = {'IP': mininet_ip, 'PASSWD': changeme}
-    variables['passwd_changeme_module'] = passwd_templ.substitute(repl_dict)
+    repl_dict = {"IP": mininet_ip, "PASSWD": changeme}
+    variables["passwd_changeme_module"] = passwd_templ.substitute(repl_dict)
     # and correct password.
-    topsecret = '''  <password>topsecret</password>
-'''
-    repl_dict = {'IP': mininet_ip, 'PASSWD': topsecret}
-    variables['passwd_topsecret_module'] = passwd_templ.substitute(repl_dict)
+    topsecret = """  <password>topsecret</password>
+"""
+    repl_dict = {"IP": mininet_ip, "PASSWD": topsecret}
+    variables["passwd_topsecret_module"] = passwd_templ.substitute(repl_dict)
     # All variables set, return dict to Robot.
     return variables

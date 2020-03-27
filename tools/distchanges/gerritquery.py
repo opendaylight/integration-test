@@ -12,7 +12,7 @@ import traceback
 import sys
 
 # TODO: Haven't tested python 3
-if sys.version < '3':
+if sys.version < "3":
     import urllib
     import urlparse
 
@@ -43,23 +43,26 @@ class CommandFailed(GitReviewException):
     def __init__(self, *args):
         Exception.__init__(self, *args)
         (self.rc, self.output, self.argv, self.envp) = args
-        self.quickmsg = dict([
-            ("argv", " ".join(self.argv)),
-            ("rc", self.rc),
-            ("output", self.output)])
+        self.quickmsg = dict(
+            [("argv", " ".join(self.argv)), ("rc", self.rc), ("output", self.output)]
+        )
 
     def __str__(self):
-        return self.__doc__ + """
+        return (
+            self.__doc__
+            + """
 The following command failed with exit code %(rc)d
     "%(argv)s"
 -----------------------
 %(output)s
------------------------""" % self.quickmsg
+-----------------------"""
+            % self.quickmsg
+        )
 
 
 class GerritQuery:
-    REMOTE_URL = 'ssh://git.opendaylight.org:29418'
-    BRANCH = 'master'
+    REMOTE_URL = "ssh://git.opendaylight.org:29418"
+    BRANCH = "master"
     QUERY_LIMIT = 50
 
     remote_url = REMOTE_URL
@@ -76,10 +79,10 @@ class GerritQuery:
     def print_safe_encoding(string):
         try:
             if type(string) == unicode:
-                encoding = 'utf-8'
-                if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
+                encoding = "utf-8"
+                if hasattr(sys.stdout, "encoding") and sys.stdout.encoding:
                     encoding = sys.stdout.encoding
-                return string.encode(encoding or 'utf-8', 'replace')
+                return string.encode(encoding or "utf-8", "replace")
             else:
                 return str(string)
         except Exception:
@@ -90,21 +93,23 @@ class GerritQuery:
         if len(argv) == 1:
             # for python2 compatibility with shlex
             if sys.version_info < (3,) and isinstance(argv[0], unicode):
-                argv = shlex.split(argv[0].encode('utf-8'))
+                argv = shlex.split(argv[0].encode("utf-8"))
             else:
                 argv = shlex.split(str(argv[0]))
-        stdin = kwargs.pop('stdin', None)
+        stdin = kwargs.pop("stdin", None)
         newenv = os.environ.copy()
-        newenv['LANG'] = 'C'
-        newenv['LANGUAGE'] = 'C'
+        newenv["LANG"] = "C"
+        newenv["LANGUAGE"] = "C"
         newenv.update(kwargs)
-        p = subprocess.Popen(argv,
-                             stdin=subprocess.PIPE if stdin else None,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT,
-                             env=newenv)
+        p = subprocess.Popen(
+            argv,
+            stdin=subprocess.PIPE if stdin else None,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            env=newenv,
+        )
         (out, nothing) = p.communicate(stdin)
-        out = out.decode('utf-8', 'replace')
+        out = out.decode("utf-8", "replace")
         return p.returncode, out.strip()
 
     def run_command(self, *argv, **kwargs):
@@ -174,8 +179,12 @@ class GerritQuery:
         :param str request: A gerrit query
         :return unicode: The JSON response
         """
-        (hostname, username, port, project_name) = \
-            self.parse_gerrit_ssh_params_from_git_url()
+        (
+            hostname,
+            username,
+            port,
+            project_name,
+        ) = self.parse_gerrit_ssh_params_from_git_url()
 
         port_data = "p%s" % port if port is not None else ""
         if username is None:
@@ -184,12 +193,23 @@ class GerritQuery:
             userhost = "%s@%s" % (username, hostname)
 
         logger.debug("gerrit request %s %s" % (self.remote_url, request))
-        output = self.run_command_exc(CommandFailed, "ssh", "-x" + port_data, userhost, request)
+        output = self.run_command_exc(
+            CommandFailed, "ssh", "-x" + port_data, userhost, request
+        )
         if logger.isEnabledFor(logging.DEBUG):
             logger.debug("%s", self.print_safe_encoding(output))
         return output
 
-    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None, status=None, comments=False, commitid=None):
+    def make_gerrit_query(
+        self,
+        project,
+        changeid=None,
+        limit=1,
+        msg=None,
+        status=None,
+        comments=False,
+        commitid=None,
+    ):
         """
         Make a gerrit query by combining the given options.
 
@@ -204,13 +224,16 @@ class GerritQuery:
         """
 
         if project == "odlparent" or project == "yangtools":
-            query = "gerrit query --format=json limit:%d " \
-                    "project:%s" \
-                    % (limit, project)
+            query = "gerrit query --format=json limit:%d " "project:%s" % (
+                limit,
+                project,
+            )
         else:
-            query = "gerrit query --format=json limit:%d " \
-                    "project:%s branch:%s" \
-                    % (limit, project, self.branch)
+            query = "gerrit query --format=json limit:%d " "project:%s branch:%s" % (
+                limit,
+                project,
+                self.branch,
+            )
         if changeid:
             query += " change:%s" % changeid
         if msg:
@@ -239,31 +262,37 @@ class GerritQuery:
             if line and line[0] == "{":
                 try:
                     data = json.loads(line)
-                    parsed['id'] = data['id']
-                    parsed['number'] = data['number']
-                    parsed['subject'] = data['subject']
-                    parsed['url'] = data['url']
-                    parsed['lastUpdated'] = data['lastUpdated']
-                    parsed['grantedOn'] = 0
+                    parsed["id"] = data["id"]
+                    parsed["number"] = data["number"]
+                    parsed["subject"] = data["subject"]
+                    parsed["url"] = data["url"]
+                    parsed["lastUpdated"] = data["lastUpdated"]
+                    parsed["grantedOn"] = 0
                     if "patchSets" in data:
-                        patch_sets = data['patchSets']
+                        patch_sets = data["patchSets"]
                         for patch_set in reversed(patch_sets):
                             if "approvals" in patch_set:
-                                approvals = patch_set['approvals']
+                                approvals = patch_set["approvals"]
                                 for approval in approvals:
-                                    if 'type' in approval and approval['type'] == 'SUBM':
-                                        parsed['grantedOn'] = approval['grantedOn']
+                                    if (
+                                        "type" in approval
+                                        and approval["type"] == "SUBM"
+                                    ):
+                                        parsed["grantedOn"] = approval["grantedOn"]
                                         break
-                                if parsed['grantedOn'] != 0:
+                                if parsed["grantedOn"] != 0:
                                     break
                     if "comments" in data:
-                        comments = data['comments']
+                        comments = data["comments"]
                         for comment in reversed(comments):
                             if "message" in comment and "timestamp" in comment:
-                                message = comment['message']
-                                timestamp = comment['timestamp']
-                                if "Build Started" in message and "patch-test" in message:
-                                    parsed['grantedOn'] = timestamp
+                                message = comment["message"]
+                                timestamp = comment["timestamp"]
+                                if (
+                                    "Build Started" in message
+                                    and "patch-test" in message
+                                ):
+                                    parsed["grantedOn"] = timestamp
                                     break
                 except Exception:
                     logger.warn("Failed to decode JSON: %s", traceback.format_exc())
@@ -291,10 +320,21 @@ class GerritQuery:
             else:
                 logger.debug("skipping: {}".format(line))
                 skipped += 1
-        logger.debug("get_gerrit_lines: found {} lines, skipped: {}".format(len(lines), skipped))
+        logger.debug(
+            "get_gerrit_lines: found {} lines, skipped: {}".format(len(lines), skipped)
+        )
         return lines
 
-    def get_gerrits(self, project, changeid=None, limit=1, msg=None, status=None, comments=False, commitid=None):
+    def get_gerrits(
+        self,
+        project,
+        changeid=None,
+        limit=1,
+        msg=None,
+        status=None,
+        comments=False,
+        commitid=None,
+    ):
         """
         Get a list of gerrits from gerrit query request.
 
@@ -313,10 +353,20 @@ class GerritQuery:
         :param commitid: A commit hash to search
         :return str: List of gerrits sorted by merge time
         """
-        logger.debug("get_gerrits: project: %s, changeid: %s, limit: %d, msg: %s, status: %s, comments: %s, " +
-                     "commitid: %s",
-                     project, changeid, limit, msg, status, comments, commitid)
-        query = self.make_gerrit_query(project, changeid, limit, msg, status, comments, commitid)
+        logger.debug(
+            "get_gerrits: project: %s, changeid: %s, limit: %d, msg: %s, status: %s, comments: %s, "
+            + "commitid: %s",
+            project,
+            changeid,
+            limit,
+            msg,
+            status,
+            comments,
+            commitid,
+        )
+        query = self.make_gerrit_query(
+            project, changeid, limit, msg, status, comments, commitid
+        )
         changes = self.gerrit_request(query)
         lines = self.extract_lines_from_json(changes)
         gerrits = []
@@ -325,11 +375,12 @@ class GerritQuery:
             gerrits.append(self.parse_gerrit(line))
 
         from operator import itemgetter
+
         if gerrits is None:
             logger.warn("No gerrits were found for %s", project)
             return gerrits
         try:
-            sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
+            sorted_gerrits = sorted(gerrits, key=itemgetter("grantedOn"), reverse=True)
         except KeyError as e:
             logger.warn("KeyError exception in %s, %s", project, str(e))
         return sorted_gerrits

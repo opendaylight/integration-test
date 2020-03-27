@@ -17,24 +17,24 @@ class FlowConfigBulkBlaster(flow_config_blaster.FlowConfigBlaster):
 
     def __init__(self, *args, **kwargs):
         super(FlowConfigBulkBlaster, self).__init__(*args, **kwargs)
-        self.bulk_type = 'RPC'
+        self.bulk_type = "RPC"
 
     def update_post_url_template(self, action):
         """
         Update url templates (defined in parent class) in order to point to bulk API rpcs.
         :param action: user intention (currently only 'ADD' is supported)
         """
-        if self.bulk_type == 'RPC':
-            self.post_url_template = 'http://%s:' + self.port + '/'
-            if action == 'ADD':
+        if self.bulk_type == "RPC":
+            self.post_url_template = "http://%s:" + self.port + "/"
+            if action == "ADD":
                 self.post_url_template += self.FLW_ADD_RPC_URL
-            elif action == 'REMOVE':
+            elif action == "REMOVE":
                 self.post_url_template += self.FLW_REMOVE_RPC_URL
-        elif self.bulk_type == 'DS':
-            self.post_url_template = 'http://%s:' + self.port + '/'
-            if action == 'ADD':
+        elif self.bulk_type == "DS":
+            self.post_url_template = "http://%s:" + self.port + "/"
+            if action == "ADD":
                 self.post_url_template += self.FLW_ADD_DS_URL
-            elif action == 'REMOVE':
+            elif action == "REMOVE":
                 self.post_url_template += self.FLW_REMOVE_DS_URL
 
     def assemble_post_url(self, host, node):
@@ -55,13 +55,17 @@ class FlowConfigBulkBlaster(flow_config_blaster.FlowConfigBlaster):
         :return: flow structure ready to use
         """
         # python 2.7 specific syntax (super)
-        flow = super(FlowConfigBulkBlaster, self).create_flow_from_template(flow_id, ipaddr, node_id)
-        flow_id = flow['id']
-        del(flow['id'])
-        if self.bulk_type == 'DS':
-            flow['flow-id'] = flow_id
-        flow['node'] = '/opendaylight-inventory:nodes/opendaylight-inventory' \
-                       ':node[opendaylight-inventory:id="openflow:{}"]'.format(node_id)
+        flow = super(FlowConfigBulkBlaster, self).create_flow_from_template(
+            flow_id, ipaddr, node_id
+        )
+        flow_id = flow["id"]
+        del flow["id"]
+        if self.bulk_type == "DS":
+            flow["flow-id"] = flow_id
+        flow["node"] = (
+            "/opendaylight-inventory:nodes/opendaylight-inventory"
+            ':node[opendaylight-inventory:id="openflow:{}"]'.format(node_id)
+        )
         return flow
 
     def convert_to_json(self, flow_list, node_id=None):
@@ -72,10 +76,10 @@ class FlowConfigBulkBlaster(flow_config_blaster.FlowConfigBlaster):
         :return: json string
         """
         json_input = None
-        if self.bulk_type == 'RPC':
-            json_input = {'input': {'bulk-flow-item': flow_list}}
-        elif self.bulk_type == 'DS':
-            json_input = {'input': {'bulk-flow-ds-item': flow_list}}
+        if self.bulk_type == "RPC":
+            json_input = {"input": {"bulk-flow-item": flow_list}}
+        elif self.bulk_type == "DS":
+            json_input = {"input": {"bulk-flow-ds-item": flow_list}}
 
         flow_data = json.dumps(json_input)
         return flow_data
@@ -89,37 +93,51 @@ if __name__ == "__main__":
     # deleting flows from the controller's config data store
     ############################################################################
     parser = flow_config_blaster.create_arguments_parser()
-    parser.add_argument('--bulk-type', default='RPC', dest='bulk_type',
-                        choices=['RPC', 'DS'],
-                        help='Bulk type to use: RPC, DS (default is RPC)')
+    parser.add_argument(
+        "--bulk-type",
+        default="RPC",
+        dest="bulk_type",
+        choices=["RPC", "DS"],
+        help="Bulk type to use: RPC, DS (default is RPC)",
+    )
 
     in_args = parser.parse_args()
 
-    if in_args.file != '':
+    if in_args.file != "":
         flow_template = flow_config_blaster.get_json_from_file(in_args.file)
     else:
         flow_template = None
 
-    fcbb = FlowConfigBulkBlaster(in_args.host, in_args.port, in_args.cycles,
-                                 in_args.threads, in_args.fpr, in_args.nodes,
-                                 in_args.flows, in_args.startflow, in_args.auth)
+    fcbb = FlowConfigBulkBlaster(
+        in_args.host,
+        in_args.port,
+        in_args.cycles,
+        in_args.threads,
+        in_args.fpr,
+        in_args.nodes,
+        in_args.flows,
+        in_args.startflow,
+        in_args.auth,
+    )
     fcbb.bulk_type = in_args.bulk_type
-    fcbb.update_post_url_template('ADD')
+    fcbb.update_post_url_template("ADD")
 
     # Run through <cycles>, where <threads> are started in each cycle and
     # <flows> are added from each thread
     fcbb.add_blaster()
 
-    print('\n*** Total flows added: %s' % fcbb.get_ok_flows())
-    print('    HTTP[OK] results:  %d\n' % fcbb.get_ok_rqsts())
+    print("\n*** Total flows added: %s" % fcbb.get_ok_flows())
+    print("    HTTP[OK] results:  %d\n" % fcbb.get_ok_rqsts())
 
     if in_args.delay > 0:
-        print('*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay)
+        print(
+            "*** Waiting for %d seconds before the delete cycle ***\n" % in_args.delay
+        )
         time.sleep(in_args.delay)
 
     # Run through <cycles>, where <threads> are started in each cycle and
     # <flows> previously added in an add cycle are deleted in each thread
     if in_args.delete:
         fcbb.delete_blaster()
-        print('\n*** Total flows deleted: %s' % fcbb.get_ok_flows())
-        print('    HTTP[OK] results:    %d\n' % fcbb.get_ok_rqsts())
+        print("\n*** Total flows deleted: %s" % fcbb.get_ok_flows())
+        print("    HTTP[OK] results:    %d\n" % fcbb.get_ok_rqsts())
