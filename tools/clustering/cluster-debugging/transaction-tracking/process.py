@@ -91,14 +91,14 @@ def filterTransactionsByTimeToComplete(timeToComplete):
     totalTime = 0
     for txn in txns:
         if txns[txn].totalTime() > timeToComplete:
-            print txns[txn]
+            print(txns[txn])
             totalTime += txns[txn].totalTime()
 
-    print "Total time for these transactions = " + unicode(totalTime)
+    print("Total time for these transactions = ", unicode(totalTime))
 
 
 def csv():
     txns = processFiles()
-    print Transaction.csv_header()
+    print(Transaction.csv_header())
     for txn in txns:
-        print txns[txn].csv()
+        print(txns[txn].csv())

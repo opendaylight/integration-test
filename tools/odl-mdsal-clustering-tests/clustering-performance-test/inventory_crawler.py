@@ -34,7 +34,7 @@ class InventoryCrawler(object):
         """
         self.found_flows += len(flows)
         if self.plevel > 1:
-            print '             Flows found: %d\n' % len(flows)
+            print('             Flows found: %d\n' % len(flows))
             if self.plevel > 2:
                 for f in flows:
                     s = json.dumps(f, sort_keys=True, indent=4, separators=(',', ': '))
@@ -45,8 +45,8 @@ class InventoryCrawler(object):
                     s = s.rstrip('}')
                     s = s.replace('\n', '\n            ')
                     s = s.lstrip('\n')
-                    print "             Flow %s:" % f['id']
-                    print s
+                    print("             Flow %s:" % (f['id']))
+                    print(s)
 
     def crawl_table(self, table):
         """
@@ -60,14 +60,14 @@ class InventoryCrawler(object):
             if active_flows > 0:
                 self.reported_flows += active_flows
                 if self.plevel > 1:
-                    print '        Table %s:' % table['id']
+                    print('        Table %s:' % table['id'])
                     s = json.dumps(stats, sort_keys=True, indent=12, separators=(',', ': '))
                     s = s.replace('{\n', '')
                     s = s.replace('}', '')
-                    print s
+                    print(s)
         except KeyError:
             if self.plevel > 1:
-                print "        Stats for Table '%s' not available." % table['id']
+                print("        Stats for Table '%s' not available." % (table['id']))
             self.table_stats_unavailable += 1
             pass
 
@@ -85,14 +85,14 @@ class InventoryCrawler(object):
         self.nodes += 1
 
         if self.plevel > 1:
-            print "\nNode '%s':" % (node['id'])
+            print("\nNode '%s':" % ((node['id'])))
         elif self.plevel > 0:
-            print "%s" % (node['id'])
+            print("%s" % ((node['id'])))
 
         try:
             tables = node['flow-node-inventory:table']
             if self.plevel > 1:
-                print '    Tables: %d' % len(tables)
+                print('    Tables: %d' % len(tables))
 
             for t in tables:
                 self.crawl_table(t)
@@ -102,7 +102,7 @@ class InventoryCrawler(object):
 
         except KeyError:
             if self.plevel > 1:
-                print '    Data for tables not available.'
+                print('    Data for tables not available.')
 
     def crawl_inventory(self):
         """
@@ -134,12 +134,12 @@ class InventoryCrawler(object):
                     try:
                         self.crawl_node(sinv[n])
                     except:
-                        print 'Can not crawl %s' % sinv[n]['id']
+                        print('Can not crawl %s' % sinv[n]['id'])
 
             except KeyError:
-                print 'Could not retrieve inventory, response not in JSON format'
+                print('Could not retrieve inventory, response not in JSON format')
         else:
-            print 'Could not retrieve inventory, HTTP error %d' % r.status_code
+            print('Could not retrieve inventory, HTTP error %d' % r.status_code)
 
         s.close()
 
@@ -170,16 +170,16 @@ if __name__ == "__main__":
     ic = InventoryCrawler(in_args.host, in_args.port, in_args.plevel, in_args.datastore, in_args.auth,
                           in_args.debug)
 
-    print "Crawling '%s'" % ic.url
+    print("Crawling '%s'" % (ic.url))
     ic.crawl_inventory()
 
-    print '\nTotals:'
-    print '    Nodes:          %d' % ic.nodes
-    print '    Reported flows: %d' % ic.reported_flows
-    print '    Found flows:    %d' % ic.found_flows
+    print('\nTotals:')
+    print('    Nodes:          %d' % ic.nodes)
+    print('    Reported flows: %d' % ic.reported_flows)
+    print('    Found flows:    %d' % ic.found_flows)
 
     if in_args.debug:
         n_missing = len(ic.table_stats_fails)
         if n_missing > 0:
-            print '\nMissing table stats (%d nodes):' % n_missing
-            print "%s\n" % ", ".join([x for x in ic.table_stats_fails])
+            print('\nMissing table stats (%d nodes):' % n_missing)
+            print("%s\n" % (", ".join([x for x in ic.table_stats_fails])))

@@ -56,10 +56,10 @@ if __name__ == "__main__":
         sts = cleanup_config_fl(in_args.host, in_args.port)
         exp = 204
     else:
-        print 'Unknown controller type'
+        print('Unknown controller type')
         sys.exit(-1)
 
     if sts != exp:
-        print 'Failed to delete nodes in the config space, code %d' % sts
+        print('Failed to delete nodes in the config space, code %d' % sts)
     else:
-        print 'Nodes in config space deleted.'
+        print('Nodes in config space deleted.')

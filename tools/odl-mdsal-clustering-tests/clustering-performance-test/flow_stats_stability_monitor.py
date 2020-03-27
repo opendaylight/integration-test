@@ -113,9 +113,9 @@ if __name__ == "__main__":
     reported = ic.reported_flows
     found = ic.found_flows
 
-    print 'Baseline:'
-    print '   Reported nodes: %d' % reported
-    print '   Found nodes:    %d' % found
+    print('Baseline:')
+    print('   Reported nodes: %d' % reported)
+    print('   Found nodes:    %d' % found)
 
     stats = []
     stats.append((time.time(), ic.nodes, ic.reported_flows, ic.found_flows))
@@ -123,33 +123,33 @@ if __name__ == "__main__":
     # each cycle and <FLOWS> flows are added from each thread
     fct.add_blaster()
 
-    print '\n*** Total flows added: %d' % fct.get_ok_flows()
-    print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
+    print('\n*** Total flows added: %d' % fct.get_ok_flows())
+    print('    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts())
 
     # monitor stats and save results in the list
     for stat_item in monitor_stats(ic, in_args.config_monitor, in_args.monitor_period):
-        print stat_item
+        print(stat_item)
         stats.append(stat_item)
 
     # Run through <CYCLES> delete cycles, where <THREADS> threads  are started
     # in each cycle and <FLOWS> flows previously added in an add cycle are
     # deleted in each thread
     if in_args.bulk_delete:
-        print '\nDeleting all flows in bulk:'
+        print('\nDeleting all flows in bulk:')
         sts = cleanup_config_odl(in_args.host, in_args.port, in_args.auth)
         if sts != 200:
-            print '   Failed to delete flows, code %d' % sts
+            print('   Failed to delete flows, code %d' % sts)
         else:
-            print '   All flows deleted.'
+            print('   All flows deleted.')
     else:
-        print '\nDeleting flows one by one\n   ',
+        print('\nDeleting flows one by one\n   ',)
         fct.delete_blaster()
-        print '\n*** Total flows deleted: %d' % fct.get_ok_flows()
-        print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
+        print('\n*** Total flows deleted: %d' % fct.get_ok_flows())
+        print('    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts())
 
     # monitor stats and append to the list
     for stat_item in monitor_stats(ic, in_args.deconfig_monitor, in_args.monitor_period):
-        print stat_item
+        print(stat_item)
         stats.append(stat_item)
 
     # if requested, write collected data into the file

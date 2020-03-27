@@ -54,8 +54,8 @@ class LacpTopo(Topo):
     net.build()
     s1.start([c0])
     s1.cmd('sudo ovs-vsctl set bridge s1 protocols=OpenFlow13')
-    print h1.cmd('./h1-bond0.sh')
-    print h2.cmd('./h2-bond0.sh')
+    print(h1.cmd('./h1-bond0.sh'))
+    print(h2.cmd('./h2-bond0.sh'))
     CLI(net)
     net.stop()
 

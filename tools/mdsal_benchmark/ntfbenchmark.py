@@ -53,7 +53,7 @@ def send_test_request(producer_type, producers, listeners, payload_size, iterati
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)['output'].items())
     else:
-        print 'Error %s, %s' % (r.status_code, r.content)
+        print('Error %s, %s' % (r.status_code, r.content))
     return result
 
 
@@ -67,10 +67,10 @@ def print_results(run_type, idx, res):
                 test run
     :return: None
     """
-    print '%s #%d: ProdOk: %d, ProdError: %d, LisOk: %d, ProdRate: %d, LisRate %d, ProdTime: %d, ListTime %d' % \
+    print('%s #%d: ProdOk: %d, ProdError: %d, LisOk: %d, ProdRate: %d, LisRate %d, ProdTime: %d, ListTime %d' %
           (run_type, idx,
            res[u'producer-ok'], res[u'producer-error'], res[u'listener-ok'], res[u'producer-rate'],
-           res[u'listener-rate'], res[u'producer-elapsed-time'], res[u'listener-elapsed-time'])
+           res[u'listener-rate'], res[u'producer-elapsed-time'], res[u'listener-elapsed-time']))
 
 
 def run_test(warmup_runs, test_runs, producer_type, producers, listeners, payload_size, iterations):
@@ -145,15 +145,15 @@ if __name__ == "__main__":
             for lis in args.listeners:
                 exec_time, prate, lrate = run_test(args.warm, args.run, args.ptype, prod, lis,
                                                    args.payload, args.iterations)
-                print 'Producers: %d, Listeners: %d, prate: %d, lrate: %d' % (prod, lis, prate, lrate)
+                print('Producers: %d, Listeners: %d, prate: %d, lrate: %d' % (prod, lis, prate, lrate))
                 lrate_row.append(lrate)
                 prate_row.append(prate)
 
             lrate_matrix.append(lrate_row)
             prate_matrix.append(prate_row)
 
-        print lrate_matrix
-        print prate_matrix
+        print(lrate_matrix)
+        print(prate_matrix)
 
         # writer.writerow((('%s:' % args.ptype), '', '', ''))
         # writer.writerow(('', exec_time, prate, lrate))

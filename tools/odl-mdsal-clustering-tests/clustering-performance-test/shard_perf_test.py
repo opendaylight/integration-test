@@ -104,7 +104,7 @@ class ShardPerformanceTester(object):
         s = requests.Session()
 
         with self.print_lock:
-            print '    Thread %d: Performing %d requests' % (tid, self.requests)
+            print('    Thread %d: Performing %d requests' % (tid, self.requests))
 
         with Timer() as t:
             for r in range(self.requests):
@@ -118,11 +118,11 @@ class ShardPerformanceTester(object):
         total_rate = sum(res.values()) / t.secs
 
         with self.print_lock:
-            print 'Thread %d done:' % tid
-            print '    Time: %.2f,' % t.secs
-            print '    Success rate:  %.2f, Total rate: %.2f' % (ok_rate, total_rate)
-            print '    Per-thread stats: ',
-            print res
+            print('Thread %d done:' % tid)
+            print('    Time: %.2f,' % t.secs)
+            print('    Success rate:  %.2f, Total rate: %.2f' % (ok_rate, total_rate))
+            print('    Per-thread stats: ',)
+            print(res)
             self.threads_done += 1
             self.total_rate += total_rate
 
@@ -160,17 +160,17 @@ class ShardPerformanceTester(object):
                     self.cond.wait()
 
         # Print summary results. Each worker prints its owns results too.
-        print '\nSummary Results:'
-        print '    Requests/sec (total_sum): %.2f' % ((self.threads * self.requests) / t.secs)
-        print '    Requests/sec (measured):  %.2f' % ((self.threads * self.requests) / t.secs)
-        print '    Time: %.2f' % t.secs
+        print('\nSummary Results:')
+        print('    Requests/sec (total_sum): %.2f' % ((self.threads * self.requests) / t.secs))
+        print('    Requests/sec (measured):  %.2f' % ((self.threads * self.requests) / t.secs))
+        print('    Time: %.2f' % t.secs)
         self.threads_done = 0
 
         if self.plevel > 0:
-            print '    Per URL Counts: ',
+            print('    Per URL Counts: ',)
             for i in range(len(urls)):
-                print '%d' % self.url_counters[i].value,
-            print '\n'
+                print('%d' % self.url_counters[i].value)
+            print('\n')
 
 
 class TestUrlGenerator(object):
@@ -199,7 +199,7 @@ class TestUrlGenerator(object):
         :param data: Bulk resource data (JSON) from which to generate the URLs
         :return: List of generated Resources
         """
-        print "Abstract class '%s' should never be used standalone" % self.__class__.__name__
+        print("Abstract class '%s' should never be used standalone" % (self.__class__.__name__))
         return []
 
     def generate(self):
@@ -218,12 +218,12 @@ class TestUrlGenerator(object):
             r = requests.get(t_url, headers=headers, stream=False, auth=('admin', 'admin'))
 
         if r.status_code != 200:
-            print "Failed to get HTTP response from '%s', code %d" % (t_url, r.status_code)
+            print("Failed to get HTTP response from '%s', code %d" % ((t_url, r.status_code)))
         else:
             try:
                 r_url = self.url_generator(json.loads(r.content))
             except:
-                print "Failed to get json from '%s'. Please make sure you are connected to mininet." % r_url
+                print("Failed to get json from '%s'. Please make sure you are connected to mininet." % (r_url))
 
         return r_url
 
@@ -251,7 +251,7 @@ class TopoUrlGenerator(TestUrlGenerator):
                     url_list.append(t_url)
             return url_list
         except KeyError:
-            print 'Error parsing topology json'
+            print('Error parsing topology json')
             return []
 
 
@@ -278,7 +278,7 @@ class InvUrlGenerator(TestUrlGenerator):
                     url_list.append(i_url)
             return url_list
         except KeyError:
-            print 'Error parsing inventory json'
+            print('Error parsing inventory json')
             return []
 
 
@@ -311,7 +311,7 @@ if __name__ == "__main__":
         tg = TopoUrlGenerator(in_args.host, in_args.port, in_args.auth)
         topo_urls += tg.generate()
         if len(topo_urls) == 0:
-            print 'Failed to generate topology URLs'
+            print('Failed to generate topology URLs')
             sys.exit(-1)
 
     # If required, get inventory resource URLs
@@ -319,32 +319,32 @@ if __name__ == "__main__":
         ig = InvUrlGenerator(in_args.host, in_args.port, in_args.auth)
         inv_urls += ig.generate()
         if len(inv_urls) == 0:
-            print 'Failed to generate inventory URLs'
+            print('Failed to generate inventory URLs')
             sys.exit(-1)
 
     if in_args.resource == 'topo+inv' or in_args.resource == 'all':
         # To have balanced test results, the number of URLs for topology and inventory must be the same
         if len(topo_urls) != len(inv_urls):
-            print "The number of topology and inventory URLs don't match"
+            print("The number of topology and inventory URLs don't match")
             sys.exit(-1)
 
     st = ShardPerformanceTester(in_args.host, in_args.port, in_args.auth, in_args.threads, in_args.requests,
                                 in_args.plevel)
 
     if in_args.resource == 'all' or in_args.resource == 'topo':
-        print '==================================='
-        print 'Testing topology shard performance:'
-        print '==================================='
+        print('===================================')
+        print('Testing topology shard performance:')
+        print('===================================')
         st.run_test(topo_urls)
 
     if in_args.resource == 'all' or in_args.resource == 'inv':
-        print '===================================='
-        print 'Testing inventory shard performance:'
-        print '===================================='
+        print('====================================')
+        print('Testing inventory shard performance:')
+        print('====================================')
         st.run_test(inv_urls)
 
     if in_args.resource == 'topo+inv' or in_args.resource == 'all':
-        print '==============================================='
-        print 'Testing combined shards (topo+inv) performance:'
-        print '==============================================='
+        print('===============================================')
+        print('Testing combined shards (topo+inv) performance:')
+        print('===============================================')
         st.run_test(topo_urls + inv_urls)

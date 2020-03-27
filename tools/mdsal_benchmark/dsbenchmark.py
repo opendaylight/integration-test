@@ -65,7 +65,7 @@ def send_clear_request():
     url = BASE_URL + "operations/dsbenchmark:cleanup-store"
 
     r = requests.post(url, stream=False, auth=('admin', 'admin'))
-    print r.status_code
+    print(r.status_code)
 
 
 def send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx):
@@ -101,7 +101,7 @@ def send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)['output'].items())
     else:
-        print 'Error %s, %s' % (r.status_code, r.content)
+        print('Error %s, %s' % (r.status_code, r.content))
     return result
 
 
@@ -115,8 +115,8 @@ def print_results(run_type, idx, res):
                 test run
     :return: None
     """
-    print '%s #%d: status: %s, listBuildTime %d, testExecTime %d, txOk %d, txError %d' % \
-          (run_type, idx, res[u'status'], res[u'listBuildTime'], res[u'execTime'], res[u'txOk'], res[u'txError'])
+    print('%s #%d: status: %s, listBuildTime %d, testExecTime %d, txOk %d, txError %d' %
+          (run_type, idx, res[u'status'], res[u'listBuildTime'], res[u'execTime'], res[u'txOk'], res[u'txError']))
 
 
 def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx):
@@ -138,8 +138,8 @@ def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, datastore, ou
     total_build_time = 0.0
     total_exec_time = 0.0
 
-    print "Tx Type:", tx_type, "Operation:", operation, "Data Format:", data_fmt, "Datastore:", datastore,
-    print "Outer Elements:", outer_elem, "Inner Elements:", inner_elem, "PutsPerTx:", ops_per_tx
+    print("Tx Type:", tx_type, "Operation:", operation, "Data Format:", data_fmt, "Datastore:", datastore,)
+    print("Outer Elements:", outer_elem, "Inner Elements:", inner_elem, "PutsPerTx:", ops_per_tx)
     for idx in range(warmup_runs):
         res = send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
         print_results('WARMUP', idx, res)
@@ -168,8 +168,8 @@ def store_result(values, tx_type, operation, data_fmt, datastore,
     :param value: The (measured) value
     :return: none
     """
-    plot_key = (datastore + '-' + data_fmt + '-' + tx_type + '-' + operation + '-' + str(outer_elem) + '/' +
-                str(inner_elem) + 'OUTER/INNER-' + str(ops_per_tx) + 'OP-' + value_name)
+    plot_key = (datastore + '-' + data_fmt + '-' + tx_type + '-' + operation + '-' + str(outer_elem) + '/'
+                + str(inner_elem) + 'OUTER/INNER-' + str(ops_per_tx) + 'OP-' + value_name)
     values[plot_key] = value
 
 
@@ -228,35 +228,35 @@ if __name__ == "__main__":
     f = open('test.csv', 'wt')
     try:
         start_time = time.time()
-        print "Start time: %f " % start_time
+        print("Start time: %f " % (start_time))
 
         writer = csv.writer(f)
 
         # Determine the impact of transaction type, data format and data structure on performance.
         # Iterate over all transaction types, data formats, operation types, and different
         # list-of-lists layouts; always use a single operation in each transaction
-        print '\n#######################################'
-        print 'Tx type, data format & data structure'
-        print '#######################################'
+        print('\n#######################################')
+        print('Tx type, data format & data structure')
+        print('#######################################')
         for tx_type in TX_TYPES:
-            print '***************************************'
-            print 'Transaction Type: %s' % tx_type
-            print '***************************************'
+            print('***************************************')
+            print('Transaction Type: %s' % tx_type)
+            print('***************************************')
             writer.writerow((('%s:' % tx_type), '', ''))
 
             for fmt in DATA_FORMATS:
-                print '---------------------------------------'
-                print 'Data format: %s' % fmt
-                print '---------------------------------------'
+                print('---------------------------------------')
+                print('Data format: %s' % fmt)
+                print('---------------------------------------')
                 writer.writerow(('', ('%s:' % fmt), ''))
 
                 for datastore in DATASTORES:
                     print
-                    print 'Data store: %s' % datastore
+                    print('Data store: %s' % datastore)
                     print
 
                     for oper in OPERATIONS:
-                        print 'Operation: %s' % oper
+                        print('Operation: %s' % oper)
                         writer.writerow(('', '', '%s:' % oper))
 
                         for elem in INNER_ELEMENTS:
@@ -273,28 +273,28 @@ if __name__ == "__main__":
         # Determine the impact of number of writes per transaction on performance.
         # Iterate over all transaction types, data formats, operation types, and
         # operations-per-transaction; always use a list of lists where the inner list has one parameter
-        print '\n#######################################'
-        print 'Puts per tx'
-        print '#######################################'
+        print('\n#######################################')
+        print('Puts per tx')
+        print('#######################################')
         for tx_type in TX_TYPES:
-            print '***************************************'
-            print 'Transaction Type: %s' % tx_type
-            print '***************************************'
+            print('***************************************')
+            print('Transaction Type: %s' % tx_type)
+            print('***************************************')
             writer.writerow((('%s:' % tx_type), '', ''))
 
             for fmt in DATA_FORMATS:
-                print '---------------------------------------'
-                print 'Data format: %s' % fmt
-                print '---------------------------------------'
+                print('---------------------------------------')
+                print('Data format: %s' % fmt)
+                print('---------------------------------------')
                 writer.writerow(('', ('%s:' % fmt), ''))
 
                 for datastore in DATASTORES:
                     print
-                    print 'Data store: %s' % datastore
+                    print('Data store: %s' % datastore)
                     print
 
                     for oper in OPERATIONS:
-                        print 'Operation: %s' % oper
+                        print('Operation: %s' % oper)
                         writer.writerow(('', '', '%s:' % oper))
 
                         for wtx in OPS_PER_TX:
@@ -311,8 +311,8 @@ if __name__ == "__main__":
         write_results_to_file(PLOT2, args.outfileops, PLOT_FILTER)
 
         end_time = time.time()
-        print "End time: %f " % end_time
-        print "Total execution time: %f" % (end_time - start_time)
+        print("End time: %f " % (end_time))
+        print("Total execution time: %f" % ((end_time - start_time)))
 
     finally:
         f.close()

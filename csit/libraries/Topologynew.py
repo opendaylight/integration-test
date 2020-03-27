@@ -102,7 +102,4 @@ class Topologynew(object):
 
 if __name__ == '__main__':
     topologynew = Topologynew()
-    # print topologynew.get_nodes_from_tree_topo(2)
-    # print topologynew.get_nodes_from_tree_topo('2')
-    print topologynew.get_nodes_from_tree_topo('(2,3)')
-    # print topologynew.get_ids_of_leaf_nodes(2,2 )#, depth)
+    print(topologynew.get_nodes_from_tree_topo('(2,3)'))

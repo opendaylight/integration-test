@@ -155,11 +155,11 @@ class Deployer:
                                      distribution_name)  # noqa
 
         if distribution_ver is None:
-            print distribution_name + " is not a valid distribution version." \
-                                      " (Must contain version in the form: " \
-                                      "\"<#>.<#>.<#>-<name>\" or \"<#>.<#>." \
-                                      "<#>-<name>-SR<#>\" or \"<#>.<#>.<#>" \
-                                      "-<name>-RC<#>\", e.g. 0.2.0-SNAPSHOT)"
+            print("%s is not a valid distribution version."
+                  " (Must contain version in the form: "
+                  "\"<#>.<#>.<#>-<name>\" or \"<#>.<#>."
+                  "<#>-<name>-SR<#>\" or \"<#>.<#>.<#>"
+                  "-<name>-RC<#>\", e.g. 0.2.0-SNAPSHOT)" % distribution_name)
             sys.exit(1)
         distribution_ver = distribution_ver.group()
 
@@ -206,35 +206,35 @@ class Deployer:
         # Copy the distribution to the host and unzip it
         odl_file_path = self.dir_name + "/odl.zip"
         self.remote.copy_file(self.distribution, odl_file_path)
-        self.remote.exec_cmd("unzip -o " + odl_file_path + " -d " +
-                             self.dir_name + "/")
+        self.remote.exec_cmd("unzip -o " + odl_file_path + " -d "
+                             + self.dir_name + "/")
 
         # Rename the distribution directory to odl
-        self.remote.exec_cmd("mv " + self.dir_name + "/" +
-                             distribution_name + " " + self.dir_name + "/odl")
+        self.remote.exec_cmd("mv " + self.dir_name + "/"
+                             + distribution_name + " " + self.dir_name + "/odl")
 
         # Copy all the generated files to the server
-        self.remote.mkdir(self.dir_name +
-                          "/odl/configuration/initial")
-        self.remote.copy_file(akka_conf, self.dir_name +
-                              "/odl/configuration/initial/")
-        self.remote.copy_file(module_shards_conf, self.dir_name +
-                              "/odl/configuration/initial/")
-        self.remote.copy_file(modules_conf, self.dir_name +
-                              "/odl/configuration/initial/")
-        self.remote.copy_file(features_cfg, self.dir_name +
-                              "/odl/etc/")
-        self.remote.copy_file(jolokia_xml, self.dir_name +
-                              "/odl/deploy/")
-        self.remote.copy_file(management_cfg, self.dir_name +
-                              "/odl/etc/")
+        self.remote.mkdir(self.dir_name
+                          + "/odl/configuration/initial")
+        self.remote.copy_file(akka_conf, self.dir_name
+                              + "/odl/configuration/initial/")
+        self.remote.copy_file(module_shards_conf, self.dir_name
+                              + "/odl/configuration/initial/")
+        self.remote.copy_file(modules_conf, self.dir_name
+                              + "/odl/configuration/initial/")
+        self.remote.copy_file(features_cfg, self.dir_name
+                              + "/odl/etc/")
+        self.remote.copy_file(jolokia_xml, self.dir_name
+                              + "/odl/deploy/")
+        self.remote.copy_file(management_cfg, self.dir_name
+                              + "/odl/etc/")
 
         if datastore_cfg is not None:
             self.remote.copy_file(datastore_cfg, self.dir_name + "/odl/etc/")
 
         # Add symlink
-        self.remote.exec_cmd("ln -sfn " + self.dir_name + " " +
-                             args.rootdir + "/deploy/current")
+        self.remote.exec_cmd("ln -sfn " + self.dir_name + " "
+                             + args.rootdir + "/deploy/current")
 
         # Run karaf
         self.remote.start_controller(self.dir_name)
@@ -243,11 +243,11 @@ class Deployer:
 def main():
     # Validate some input
     if os.path.exists(args.distribution) is False:
-        print args.distribution + " is not a valid file"
+        print("%s is not a valid file" % args.distribution)
         sys.exit(1)
 
     if os.path.exists(os.getcwd() + "/templates/" + args.template) is False:
-        print args.template + " is not a valid template"
+        print("%s is not a valid template" % args.template)
 
     # Prepare some 'global' variables
     hosts = args.hosts.split(",")
@@ -260,10 +260,10 @@ def main():
     replicas = {}
 
     for x in range(0, len(hosts)):
-        ds_seed_nodes.append("akka.tcp://opendaylight-cluster-data@" +
-                             hosts[x] + ":2550")
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" +
-                              hosts[x] + ":2551")
+        ds_seed_nodes.append("akka.tcp://opendaylight-cluster-data@"
+                             + hosts[x] + ":2550")
+        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@"
+                              + hosts[x] + ":2551")
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):

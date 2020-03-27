@@ -15,13 +15,13 @@ for line in log.splitlines():
     res = pat_rate.search(line)
     if res is not None:
         rate.append(res.groups('rate1')[0])
-print rate
+print(rate)
 
 for line in log.splitlines():
     res = pat_time.search(line)
     if res is not None:
         time.append(res.groups('time1')[0])
-print time
+print(time)
 
 text_file = open("rates.csv", "w")
 text_file.write('Add,Delete\n')

@@ -23,7 +23,7 @@ class RemoteHost:
         self.lib.close_connection()
 
     def exec_cmd(self, command):
-        print "Executing command " + command + " on host " + self.host
+        print("Executing command %s on host %s" % (command, self.host))
         rc = self.lib.execute_command(command, return_rc=True)
         if rc[1] != 0:
             raise Exception('remote command failed [{0}] with exit code {1}.'
@@ -35,14 +35,14 @@ class RemoteHost:
 
     def copy_file(self, src, dest):
         if src is None:
-            print "src is None not copy anything to " + dest
+            print("src is None not copy anything to ", dest)
             return
 
         if os.path.exists(src) is False:
-            print "Src file " + src + " was not found"
+            print("Src file " + src + " was not found")
             return
 
-        print "Copying " + src + " to " + dest + " on " + self.host
+        print("Copying %s to %s on %s" % (src, dest, self.host))
         self.lib.put_file(src, dest)
 
     def kill_controller(self):
