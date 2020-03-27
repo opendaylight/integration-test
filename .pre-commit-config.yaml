@@ -7,6 +7,11 @@
       additional_dependencies: ['flake8~=3.5.0']
     - id: trailing-whitespace
 
+- repo: https://github.com/ambv/black
+  rev: stable
+  hooks:
+    - id: black
+
 - repo: git://github.com/guykisel/pre-commit-robotframework-tidy
   rev: 'master'
   hooks:
