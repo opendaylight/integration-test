@@ -22,12 +22,12 @@ def getClusterRoles(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesI
     for ip in ips:
         i = 1
         dict[ip] = None
-        print "numOfShards => " + str(numOfShards)
+        print("numOfShards => ", str(numOfShards))
         while i <= numOfShards:
             shardMemberName = "member-" + str(i) + "-" + shardName
             j = 1
-            print 'j => ' + str(j)
-            print 'numOfTries => ' + str(numOfTries)
+            print('j => ', str(j))
+            print('numOfTries => ', str(numOfTries))
             while int(j) <= int(numOfTries):
                 print("Try number " + str(j))
                 try:
@@ -92,7 +92,7 @@ def getFollowers(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesInSe
         for ip in dict.keys():
             if dict[ip] == 'Follower':
                 result.append(ip)
-        print "i=", i, "result=", result
+        print("i=%s result=%s" % (i, result))
         if (len(result) == (len(ips) - 1)):
             break
         sleep(1)

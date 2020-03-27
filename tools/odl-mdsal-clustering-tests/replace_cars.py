@@ -69,8 +69,8 @@ $ENTRIES
         data = patch_data_template.substitute(mapping)
         response = session.put(url=url, auth=auth, headers=headers, data=data)
         if response.status_code not in [200, 201, 204]:
-            print "status: {}".format(response.status_code)
-            print "text: {}".format(response.text)
+            print("status: {}".format(response.status_code))
+            print("text: {}".format(response.text))
             sys.exit(1)
 
 

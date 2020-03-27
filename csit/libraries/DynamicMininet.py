@@ -93,7 +93,7 @@ class DynamicMininet(cmd.Cmd):
         for i, cntl_ip in enumerate(cntls):
             cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
             controllers.append(cnt)
-            print "contrller {0} created".format(cnt)
+            print("contrller {0} created".format(cnt))
 
         self._net.buildFromTopo(topo=self._topo)
         self._net.start()
@@ -127,7 +127,7 @@ class DynamicMininet(cmd.Cmd):
         for i, cntl_ip in enumerate(cntls):
             cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
             controllers.append(cnt)
-            print "contrller {0} created".format(cnt)
+            print("contrller {0} created".format(cnt))
 
         self._net.buildFromTopo(topo=self._topo)
         self._net.start()

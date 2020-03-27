@@ -103,9 +103,9 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
         clear_url = 'http://' + self.host + ":" + self.port + '/wm/staticflowpusher/clear/all/json'
         r = requests.get(clear_url)
         if r.status_code == 200:
-            print "All flows cleared before the test"
+            print("All flows cleared before the test")
         else:
-            print "Failed to clear flows from the controller, your results may vary"
+            print("Failed to clear flows from the controller, your results may vary")
 
 
 if __name__ == "__main__":

@@ -45,7 +45,7 @@ class InventoryCrawler(object):
                     s = s.rstrip('}')
                     s = s.replace('\n', '\n            ')
                     s = s.lstrip('\n')
-                    print "             Flow %s:" % f['id']
+                    print("             Flow %s:" % (f['id']))
                     print s
 
     def crawl_table(self, table):
@@ -67,7 +67,7 @@ class InventoryCrawler(object):
                     print s
         except KeyError:
             if self.plevel > 1:
-                print "        Stats for Table '%s' not available." % table['id']
+                print("        Stats for Table '%s' not available." % (table['id']))
             self.table_stats_unavailable += 1
             pass
 
@@ -85,9 +85,9 @@ class InventoryCrawler(object):
         self.nodes += 1
 
         if self.plevel > 1:
-            print "\nNode '%s':" % (node['id'])
+            print("\nNode '%s':" % ((node['id'])))
         elif self.plevel > 0:
-            print "%s" % (node['id'])
+            print("%s" % ((node['id'])))
 
         try:
             tables = node['flow-node-inventory:table']
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     ic = InventoryCrawler(in_args.host, in_args.port, in_args.plevel, in_args.datastore, in_args.auth,
                           in_args.debug)
 
-    print "Crawling '%s'" % ic.url
+    print("Crawling '%s'" % (ic.url))
     ic.crawl_inventory()
 
     print '\nTotals:'
@@ -182,4 +182,4 @@ if __name__ == "__main__":
         n_missing = len(ic.table_stats_fails)
         if n_missing > 0:
             print '\nMissing table stats (%d nodes):' % n_missing
-            print "%s\n" % ", ".join([x for x in ic.table_stats_fails])
+            print("%s\n" % (", ".join([x for x in ic.table_stats_fails])))

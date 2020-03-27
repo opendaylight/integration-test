@@ -94,7 +94,7 @@ def filterTransactionsByTimeToComplete(timeToComplete):
             print txns[txn]
             totalTime += txns[txn].totalTime()
 
-    print "Total time for these transactions = " + unicode(totalTime)
+    print("Total time for these transactions = ", unicode(totalTime))
 
 
 def csv():

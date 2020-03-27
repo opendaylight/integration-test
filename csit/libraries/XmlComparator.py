@@ -229,7 +229,6 @@ class XmlComparator:
 
     def is_flow_operational2(self, requested_flow, oper_resp, check_id=False):
         def _rem_unimplemented_tags(tagpath, recurs, tdict):
-            # print "_rem_unimplemented_tags", tagpath, tdict
             if len(tagpath) > 1 and tagpath[0] in tdict:
                 _rem_unimplemented_tags(tagpath[1:], recurs, tdict[tagpath[0]])
 
@@ -246,11 +245,9 @@ class XmlComparator:
                 del tdict[tagpath[0]]
             if tdict.keys() == ['order']:
                 del tdict['order']
-            # print "leaving", tdict
 
         def _add_tags(tagpath, newtag, value, tdict):
             '''if whole tagpath exists and the tag is not present, it is added with given value'''
-            # print "_add_tags", tagpath, newtag, value, tdict
             if len(tagpath) > 0 and tagpath[0] in tdict:
                 _add_tags(tagpath[1:], newtag, value, tdict[tagpath[0]])
             elif len(tagpath) == 0 and newtag not in tdict:
@@ -258,7 +255,6 @@ class XmlComparator:
 
         def _to_be_modified_tags(tagpath, tag, related_tag, tdict):
             '''if whole tagpath exists and the tag is not present, it is added with given value'''
-            # print "_to_be_modified_tags", tagpath, tag, related_tag, tdict
             if len(tagpath) > 0 and tagpath[0] in tdict:
                 _to_be_modified_tags(tagpath[1:], tag, related_tag, tdict[tagpath[0]])
             elif len(tagpath) == 0 and tag in tdict and related_tag in tdict:
@@ -298,8 +294,6 @@ class XmlComparator:
                     for (p, t, rt) in TAGS_TO_MODIFY_FOR_OC:
                         _to_be_modified_tags(p, t, rt, td)
 
-                    # print "comparing1", nodeDict
-                    # print "comparing2", td
                     if nodeDict == td:
                         return True, ''
                 if nodeDict == origDict:

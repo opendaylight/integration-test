@@ -24,10 +24,10 @@ __created__ = "19 March 2014"
 
 if len(sys.argv) < 5:
     print("Please povide correct inputs. Exiting!!!")
-    print "{0}  <switch_count> <host_per_switch> <base_mac: Eg:00:4b:00:00:00:00 > \
-          <base_ip: Eg:75.75.0.0>".format(sys.argv[0].split('/')[-1])
-    print "Dpid of switches is derived from base mac and \
-           host ip address is derived from base ip"
+    print("{0}  <switch_count> <host_per_switch> <base_mac: Eg:00:4b:00:00:00:00 > \
+          <base_ip: Eg:75.75.0.0>".format(sys.argv[0].split('/')[-1]))
+    print("Dpid of switches is derived from base mac and \
+           host ip address is derived from base ip")
     sys.exit(1)
 
 switch_count = int(sys.argv[1])
@@ -99,8 +99,8 @@ if __name__ == "__main__":
     \nHence generating this python file dynamically\"\"\"     \
     \nfrom mininet.topo import Topo\nclass DemoTopo(Topo):          \
     \n'.format(switch_count, switch_count * host_per_switch, sys.argv[0]))
-    print "This topology has %d switches %d hosts" \
-          % (switch_count, switch_count * host_per_switch)
+    print("This topology has %d switches %d hosts"
+          % (switch_count, switch_count * host_per_switch))
     configfile.write("    def __init__(self):\n ")
     configfile.write("        #  Initialize topology\n")
     configfile.write("        Topo.__init__(self)\n")

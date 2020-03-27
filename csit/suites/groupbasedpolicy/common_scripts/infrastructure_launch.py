@@ -42,7 +42,7 @@ def add_controller(sw, ip):
     try:
         socket.inet_aton(ip)
     except socket.error:
-        print "Error: %s is not a valid IPv4 address of controller!" % ip
+        print("Error: %s is not a valid IPv4 address of controller!" % (ip))
         os.exit(2)
 
     call(['sudo', 'ovs-vsctl', 'set-controller', sw, 'tcp:%s:6653' % ip])
@@ -61,7 +61,7 @@ def add_manager(ip):
     try:
         socket.inet_aton(ip)
     except socket.error:
-        print "Error: %s is not a valid IPv4 address of manager!" % ip
+        print("Error: %s is not a valid IPv4 address of manager!" % (ip))
         os.exit(2)
 
     cmd = ['sudo', 'ovs-vsctl', 'set-manager', 'tcp:%s:6640' % ip]
@@ -265,21 +265,21 @@ def launch(switches, hosts, odl_ip='127.0.0.1'):
                 connect_container_to_switch(
                     sw['name'], host, containerID)
                 host['port-name'] = 'vethl-' + host['name']
-                print "Created container: %s with IP: %s. Connect using docker attach %s," \
-                    "disconnect with 'ctrl-p-q'." % (host['name'], host['ip'], host['name'])
+                print("Created container: %s with IP: %s. Connect using docker attach %s,"
+                      "disconnect with 'ctrl-p-q'." % (host['name'], host['ip'], host['name']))
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print "Please, specify IP of ODL and switch index in arguments."
-        print "usage: ./infrastructure_launch.py ODL_IP SWITCH_INDEX"
+        print("Please, specify IP of ODL and switch index in arguments.")
+        print("usage: ./infrastructure_launch.py ODL_IP SWITCH_INDEX")
         sys.exit(2)
 
     controller = sys.argv[1]
     try:
         socket.inet_aton(controller)
     except socket.error:
-        print "Error: %s is not a valid IPv4 address!" % controller
+        print("Error: %s is not a valid IPv4 address!" % (controller))
         sys.exit(2)
 
     sw_index = int(sys.argv[2])
@@ -287,35 +287,35 @@ if __name__ == "__main__":
     print switches[sw_index]
     if sw_index not in range(0, len(switches) + 1):
         print len(switches) + 1
-        print "Error: %s is not a valid switch index!" % sw_index
+        print("Error: %s is not a valid switch index!" % (sw_index))
         sys.exit(2)
 
     sw_type = switches[sw_index]['type']
     sw_name = switches[sw_index]['name']
     if sw_type == 'gbp':
-        print "*****************************"
-        print "Configuring %s as a GBP node." % sw_name
-        print "*****************************"
+        print("*****************************")
+        print("Configuring %s as a GBP node." % (sw_name))
+        print("*****************************")
         print
         launch([switches[sw_index]], hosts, controller)
-        print "*****************************"
-        print "OVS status:"
-        print "-----------"
+        print("*****************************")
+        print("OVS status:")
+        print("-----------")
         print
         call(['sudo', 'ovs-vsctl', 'show'])
         print
-        print "Docker containers:"
-        print "------------------"
+        print("Docker containers:")
+        print("------------------")
         call(['docker', 'ps'])
-        print "*****************************"
+        print("*****************************")
     elif sw_type == 'sff':
-        print "*****************************"
-        print "Configuring %s as an SFF." % sw_name
-        print "*****************************"
+        print("*****************************")
+        print("Configuring %s as an SFF." % (sw_name))
+        print("*****************************")
         call(['sudo', 'ovs-vsctl', 'set-manager', 'tcp:%s:6640' % controller])
         print
     elif sw_type == 'sf':
-        print "*****************************"
-        print "Configuring %s as an SF." % sw_name
-        print "*****************************"
+        print("*****************************")
+        print("Configuring %s as an SF." % (sw_name))
+        print("*****************************")
         call(['%s/sf-config.sh' % os.path.dirname(os.path.realpath(__file__)), '%s' % sw_name])

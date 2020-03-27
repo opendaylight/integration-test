@@ -659,7 +659,7 @@ def flow_stats_collected(controller=''):
             active_flows += t['opendaylight-flow-table-statistics:flow-table-statistics']['active-flows']
             if 'flow' in t:
                 found_flows += len(t['flow'])
-    print "Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows
+    print("Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows)
     return len(switches), active_flows, found_flows
 
 

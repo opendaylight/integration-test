@@ -29,7 +29,7 @@ def countnodes(args):
     try:
         jsonobj = json.loads(args['jsonblob'])
     except KeyError:
-        print "countnodes: json blob to parse not found"
+        print("countnodes: json blob to parse not found")
         raise
 
     if 'subnode' in args:
@@ -159,13 +159,13 @@ def get_id_by_name(args):
     try:
         jsonobj = json.loads(str(args['jsonblob']))
     except KeyError:
-        print "get_id_by_name: json blob not specified:"
+        print("get_id_by_name: json blob not specified:")
         raise
 
     try:
         name = args['name']
     except KeyError:
-        print "get_id_by_name: name [usr, domain, role] not specified in args"
+        print("get_id_by_name: name [usr, domain, role] not specified in args")
         raise
 
     if 'head' in args:
@@ -178,7 +178,7 @@ def get_id_by_name(args):
     try:
         datatype = args['typeval']
     except KeyError:
-        print "get_id_by_name: need a type arg to process correct name for id"
+        print("get_id_by_name: need a type arg to process correct name for id")
         raise
 
     try:
@@ -231,13 +231,13 @@ def get_attribute_by_id(args):
     try:
         jsonobj = json.loads(args['jsonblob'])
     except KeyError:
-        print "get_attribute_by_id: json blob not specified:"
+        print("get_attribute_by_id: json blob not specified:")
         raise
 
     try:
         nodeid = args['id']
     except KeyError:
-        print "get_attribute_by_id: id to look for not specified in parameters"
+        print("get_attribute_by_id: id to look for not specified in parameters")
         raise
 
     if 'attr' in args:
@@ -261,13 +261,13 @@ def get_attribute_by_id(args):
     try:
         datatype = args['typeval']
     except KeyError:
-        print "get_attribute_by_id: need type arg to process name for id"
+        print("get_attribute_by_id: need type arg to process name for id")
         raise
 
     try:
         size = args['size']
     except KeyError:
-        print "get_attribute_by_id: specify number of records we need"
+        print("get_attribute_by_id: specify number of records we need")
         raise
 
     typename = datatype + 'id'

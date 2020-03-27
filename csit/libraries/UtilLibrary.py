@@ -112,13 +112,13 @@ def execute_ssh_command(ip, username, password, command):
     use username and password of controller server for ssh and need
     karaf distribution location like /root/Documents/dist
     """
-    print "executing ssh command"
+    print("executing ssh command")
     lib = SSHLibrary()
     lib.open_connection(ip)
     lib.login(username=username, password=password)
-    print "login done"
+    print("login done")
     cmd_response = lib.execute_command(command)
-    print "command executed : " + command
+    print("command executed : " + command)
     lib.close_connection()
     return cmd_response
 
@@ -127,22 +127,22 @@ def wait_for_controller_up(ip, port="8181"):
     url = "http://" + ip + ":" + str(port) + \
           "/restconf/config/opendaylight-inventory:nodes/node/controller-config/yang-ext:mount/config:modules"
 
-    print "Waiting for controller " + ip + " up."
+    print("Waiting for controller " + ip + " up.")
     # Try 30*10s=5 minutes for the controller to be up.
     for i in xrange(30):
         try:
-            print "attempt " + str(i) + " to url " + url
+            print("attempt %s to url %s" % (str(i), url))
             resp = get(url, "admin", "admin")
-            print "attempt " + str(i) + " response is " + str(resp)
-            print resp.text
+            print("attempt %s response is %s" % (str(i), str(resp)))
+            print(resp.text)
             if ('clustering-it-provider' in resp.text):
-                print "Wait for controller " + ip + " succeeded"
+                print("Wait for controller " + ip + " succeeded")
                 return True
         except Exception as e:
             print e
         time.sleep(10)
 
-    print "Wait for controller " + ip + " failed"
+    print("Wait for controller " + ip + " failed")
     return False
 
 
@@ -192,7 +192,6 @@ def wait_for_controller_stopped(ip, username, password, karafHome):
     i = 1
     while i <= tries:
         stdout = lib.execute_command("ps -axf | grep karaf | grep -v grep | wc -l")
-        # print "stdout: "+stdout
         processCnt = stdout[0].strip('\n')
         print("processCnt: " + processCnt)
         if processCnt == '0':
@@ -203,7 +202,7 @@ def wait_for_controller_stopped(ip, username, password, karafHome):
     lib.close_connection()
 
     if i > tries:
-        print "Killing controller"
+        print("Killing controller")
         kill_controller(ip, username, password, karafHome)
 
 
@@ -299,9 +298,9 @@ def flush_iptables(controllers, username, password):
         success_string += "Flushing chain `OUTPUT'"
         if not cmd_result == success_string:
             flush_result = "Failed to flush IPTables. Check Log."
-        print "."
-        print "."
-        print "."
+        print(".")
+        print(".")
+        print(".")
     return flush_result
 
 

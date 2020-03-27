@@ -138,8 +138,8 @@ def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, datastore, ou
     total_build_time = 0.0
     total_exec_time = 0.0
 
-    print "Tx Type:", tx_type, "Operation:", operation, "Data Format:", data_fmt, "Datastore:", datastore,
-    print "Outer Elements:", outer_elem, "Inner Elements:", inner_elem, "PutsPerTx:", ops_per_tx
+    print("Tx Type:", tx_type, "Operation:", operation, "Data Format:", data_fmt, "Datastore:", datastore,)
+    print("Outer Elements:", outer_elem, "Inner Elements:", inner_elem, "PutsPerTx:", ops_per_tx)
     for idx in range(warmup_runs):
         res = send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
         print_results('WARMUP', idx, res)
@@ -228,7 +228,7 @@ if __name__ == "__main__":
     f = open('test.csv', 'wt')
     try:
         start_time = time.time()
-        print "Start time: %f " % start_time
+        print("Start time: %f " % (start_time))
 
         writer = csv.writer(f)
 
@@ -311,8 +311,8 @@ if __name__ == "__main__":
         write_results_to_file(PLOT2, args.outfileops, PLOT_FILTER)
 
         end_time = time.time()
-        print "End time: %f " % end_time
-        print "Total execution time: %f" % (end_time - start_time)
+        print("End time: %f " % (end_time))
+        print("Total execution time: %f" % ((end_time - start_time)))
 
     finally:
         f.close()

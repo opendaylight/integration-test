@@ -330,7 +330,7 @@ def Get_MappingRecord_Object(eid, locators, ttl=1440, authoritative=True, action
         loc_id = loc.keys()[0]
         loc_obj = loc[loc_id]
         if loc_id in loc_ids:
-            print "Locator objects should have different keys"
+            print("Locator objects should have different keys")
             break
         # TODO: Locator-id, currently in the format of loc_id0, loc_id1
         mrecord_obj.LocatorRecord.add(loc_id)

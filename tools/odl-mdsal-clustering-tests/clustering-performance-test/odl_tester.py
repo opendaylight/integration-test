@@ -236,9 +236,9 @@ def main(*argv):
 
     base_num_flows = len(base_flow_ids)
 
-    print "BASELINE:"
-    print "    devices:", len(base_dev_ids)
-    print "    flows  :", base_num_flows
+    print("BASELINE:")
+    print("    devices:", len(base_dev_ids))
+    print("    flows  :", base_num_flows)
 
     # lets fill the queue for workers
     nflows = 0
@@ -287,25 +287,25 @@ def main(*argv):
                 else:
                     result[k] += v
 
-    print "Added", in_args.flows, "flows in", tmr.secs, "seconds", result
+    print("Added", in_args.flows, "flows in", tmr.secs, "seconds", result)
     add_details = {"duration": tmr.secs, "flows": len(flow_details)}
 
     # lets print some stats
-    print "\n\nStats monitoring ..."
+    print("\n\nStats monitoring ...")
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
             reported_flows = len(get_flow_ids(controller=in_args.host))
             expected_flows = base_num_flows + in_args.flows
-            print "Reported Flows: %d/%d" % (reported_flows, expected_flows)
+            print("Reported Flows: %d/%d" % ((reported_flows, expected_flows)))
             if reported_flows >= expected_flows:
                 break
             time.sleep(1)
 
     if i < rounds:
-        print "... monitoring finished in +%d seconds\n\n" % t.secs
+        print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print "... monitoring aborted after %d rounds, elapsed time %d\n\n" % (rounds, t.secs)
+        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
 
     if in_args.no_delete:
         return
@@ -313,7 +313,7 @@ def main(*argv):
     # sleep in between
     time.sleep(in_args.timeout)
 
-    print "Flows to be removed: %d" % len(flow_details)
+    print("Flows to be removed: %d" % (len(flow_details)))
     # lets fill the queue for workers
     sendqueue = Queue.Queue()
     for fld in flow_details:
@@ -356,37 +356,30 @@ def main(*argv):
                     else:
                         result[k] += v
 
-    print "Removed", len(flow_details), "flows in", tmr.secs, "seconds", result
+    print("Removed", len(flow_details), "flows in", tmr.secs, "seconds", result)
     del_details = {"duration": tmr.secs, "flows": len(flow_details)}
 
-#    # lets print some stats
-#    print "\n\nSome stats monitoring ...."
-#    for i in range(100):
-#        print get_flow_simple_stats(controller=in_args.host)
-#        time.sleep(5)
-#    print "... monitoring finished\n\n"
-    # lets print some stats
-    print "\n\nStats monitoring ..."
+    print("\n\nStats monitoring ...")
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
             reported_flows = len(get_flow_ids(controller=in_args.host))
             expected_flows = base_num_flows
-            print "Reported Flows: %d/%d" % (reported_flows, expected_flows)
+            print("Reported Flows: %d/%d" % ((reported_flows, expected_flows)))
             if reported_flows <= expected_flows:
                 break
             time.sleep(1)
 
     if i < rounds:
-        print "... monitoring finished in +%d seconds\n\n" % t.secs
+        print("... monitoring finished in +%d seconds\n\n" % (t.secs))
     else:
-        print "... monitoring aborted after %d rounds, elapsed time %d\n\n" % (rounds, t.secs)
+        print("... monitoring aborted after %d rounds, elapsed time %d\n\n" % ((rounds, t.secs)))
 
     if in_args.outfile != "":
         addrate = add_details['flows'] / add_details['duration']
         delrate = del_details['flows'] / del_details['duration']
-        print "addrate", addrate
-        print "delrate", delrate
+        print("addrate", addrate)
+        print("delrate", delrate)
 
         with open(in_args.outfile, "wt") as fd:
             fd.write("AddRate,DeleteRate\n")

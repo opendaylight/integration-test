@@ -199,7 +199,7 @@ class TestUrlGenerator(object):
         :param data: Bulk resource data (JSON) from which to generate the URLs
         :return: List of generated Resources
         """
-        print "Abstract class '%s' should never be used standalone" % self.__class__.__name__
+        print("Abstract class '%s' should never be used standalone" % (self.__class__.__name__))
         return []
 
     def generate(self):
@@ -218,12 +218,12 @@ class TestUrlGenerator(object):
             r = requests.get(t_url, headers=headers, stream=False, auth=('admin', 'admin'))
 
         if r.status_code != 200:
-            print "Failed to get HTTP response from '%s', code %d" % (t_url, r.status_code)
+            print("Failed to get HTTP response from '%s', code %d" % ((t_url, r.status_code)))
         else:
             try:
                 r_url = self.url_generator(json.loads(r.content))
             except:
-                print "Failed to get json from '%s'. Please make sure you are connected to mininet." % r_url
+                print("Failed to get json from '%s'. Please make sure you are connected to mininet." % (r_url))
 
         return r_url
 
@@ -325,7 +325,7 @@ if __name__ == "__main__":
     if in_args.resource == 'topo+inv' or in_args.resource == 'all':
         # To have balanced test results, the number of URLs for topology and inventory must be the same
         if len(topo_urls) != len(inv_urls):
-            print "The number of topology and inventory URLs don't match"
+            print("The number of topology and inventory URLs don't match")
             sys.exit(-1)
 
     st = ShardPerformanceTester(in_args.host, in_args.port, in_args.auth, in_args.threads, in_args.requests,
