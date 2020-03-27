@@ -59,14 +59,24 @@ def getAddCarPersonUrl(hostname, port):
 
 def getBuyCarRpcUrl(hostname, port):
     """POST URL for buy car rpc"""
-    return "http://" + hostname + ":" + port + "/restconf/operations/car-purchase:buy-car"
+    return (
+        "http://" + hostname + ":" + port + "/restconf/operations/car-purchase:buy-car"
+    )
 
 
 def getJolokiaURL(hostname, port, shardIndex, shardName):
     """GET URL for jolokia"""
-    return "http://" + hostname + ":" + port + \
-        "/jolokia/read/org.opendaylight.controller:Category=Shards,name=member-" + \
-        shardIndex + "-" + shardName + ",type=DistributedConfigDatastore"
+    return (
+        "http://"
+        + hostname
+        + ":"
+        + port
+        + "/jolokia/read/org.opendaylight.controller:Category=Shards,name=member-"
+        + shardIndex
+        + "-"
+        + shardName
+        + ",type=DistributedConfigDatastore"
+    )
 
 
 # Template for Car init resource payload
@@ -83,7 +93,8 @@ add_car_init_payload_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for Car resource payload
 add_car_payload_template = Template(
@@ -98,7 +109,8 @@ add_car_payload_template = Template(
             }
         ]
     }
-    """)
+    """
+)
 
 # Template for Person resource payload
 add_person_payload_template = Template(
@@ -114,7 +126,8 @@ add_person_payload_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for Car Person mapping  payload
 add_car_person_template = Template(
@@ -127,7 +140,8 @@ add_car_person_template = Template(
             }
         ]
     }}
-    """)
+    """
+)
 
 # Template for adding person using RPC
 add_person_rpc_payload_template = Template(
@@ -142,7 +156,8 @@ add_person_rpc_payload_template = Template(
                 "people:age":"$age"
             }
     }
-    """)
+    """
+)
 
 # Template for buing car rpc
 buy_car_rpc_template = Template(
@@ -155,4 +170,5 @@ buy_car_rpc_template = Template(
             "car-purchase:car-id" : "$carId"
         }
     }
-    """)
+    """
+)

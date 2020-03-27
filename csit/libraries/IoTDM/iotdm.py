@@ -11,7 +11,7 @@ op_provision = ":8181/restconf/operations/onem2m:onem2m-cse-provisioning"
 op_tree = ":8181/restconf/operational/onem2m:onem2m-resource-tree"
 op_cleanup = ":8181/restconf/operations/onem2m:onem2m-cleanup-store"
 
-cse_payload = '''
+cse_payload = """
 {    "input": {
         "onem2m-primitive": [
            {
@@ -25,18 +25,18 @@ cse_payload = '''
         ]
     }
 }
-'''
+"""
 
-application_payload = '''
+application_payload = """
 {
   any:
   [
     {"aei":"jb", "api":"jb", "apn":"jb2", "or":"http://hey/you" %s}
   ]
 }
-'''
+"""
 
-_container_payload = '''
+_container_payload = """
 {
   any:
   [
@@ -49,9 +49,9 @@ _container_payload = '''
     }
   ]
 }
-'''
+"""
 
-container_payload = '''
+container_payload = """
 {
   any:
   [
@@ -62,9 +62,9 @@ container_payload = '''
     }
   ]
 }
-'''
+"""
 
-contentInstance_payload = '''
+contentInstance_payload = """
 {
   "any": [
     {
@@ -74,7 +74,7 @@ contentInstance_payload = '''
     }
   ]
 }
-'''
+"""
 
 
 def which_payload(restype):
@@ -92,7 +92,7 @@ def which_payload(restype):
 def find_key(response, key):
     try:
         val = response.json()
-        return val['any'][0][key]
+        return val["any"][0][key]
     except Exception:
         return None
 
@@ -141,7 +141,7 @@ def headers(response):
 def error(response):
     """Return the error string in the response."""
     try:
-        return response.json()['error']
+        return response.json()["error"]
     except Exception:
         return None
 
@@ -174,28 +174,32 @@ def attr2str(attr):
 
 
 class connect:
-    def __init__(self, server="localhost", base='InCSE1',
-                 auth=('admin', 'admin'), protocol="http"):
+    def __init__(
+        self,
+        server="localhost",
+        base="InCSE1",
+        auth=("admin", "admin"),
+        protocol="http",
+    ):
         """Connect to a IoTDM server."""
         self.s = requests.Session()
         self.s.auth = auth
-        self.s.headers.update({'content-type': 'application/json'})
+        self.s.headers.update({"content-type": "application/json"})
         self.timeout = (5, 5)
         self.payload = cse_payload % (base)
         self.headers = {
             # Admittedly these are "magic values" but are required
             # and until a proper defaulting initializer is in place
             # are hard-coded.
-            'content-type': 'application/json',
-            'X-M2M-Origin': '//localhost:10000',
-            'X-M2M-RI': '12345',
-            'X-M2M-OT': 'NOW'
+            "content-type": "application/json",
+            "X-M2M-Origin": "//localhost:10000",
+            "X-M2M-RI": "12345",
+            "X-M2M-OT": "NOW",
         }
         self.server = "http://" + server
         if base is not None:
             self.url = self.server + op_provision
-            self.r = self.s.post(self.url,
-                                 data=self.payload, timeout=self.timeout)
+            self.r = self.s.post(self.url, data=self.payload, timeout=self.timeout)
 
     def create(self, parent, restype, name=None, attr=None):
         """Create resource."""
@@ -204,13 +208,14 @@ class connect:
         payload = which_payload(restype)
         payload = payload % (attr2str(attr))
         if name is None:
-            self.headers['X-M2M-NM'] = None
+            self.headers["X-M2M-NM"] = None
         else:
-            self.headers['X-M2M-NM'] = name
+            self.headers["X-M2M-NM"] = name
         parent = normalize(parent)
         self.url = self.server + ":8282/%s?ty=%s&rcn=1" % (parent, restype)
-        self.r = self.s.post(self.url, payload,
-                             timeout=self.timeout, headers=self.headers)
+        self.r = self.s.post(
+            self.url, payload, timeout=self.timeout, headers=self.headers
+        )
         return self.r
 
     def retrieve(self, id):
@@ -219,9 +224,8 @@ class connect:
             return None
         id = normalize(id)
         self.url = self.server + ":8282/%s?rcn=5&drt=2" % (id)
-        self.headers['X-M2M-NM'] = None
-        self.r = self.s.get(self.url, timeout=self.timeout,
-                            headers=self.headers)
+        self.headers["X-M2M-NM"] = None
+        self.r = self.s.get(self.url, timeout=self.timeout, headers=self.headers)
         return self.r
 
     def update(self, id, attr=None):
@@ -237,9 +241,8 @@ class connect:
             return None
         id = normalize(id)
         self.url = self.server + ":8282/%s" % (id)
-        self.headers['X-M2M-NM'] = None
-        self.r = self.s.delete(self.url, timeout=self.timeout,
-                               headers=self.headers)
+        self.headers["X-M2M-NM"] = None
+        self.r = self.s.delete(self.url, timeout=self.timeout, headers=self.headers)
         return self.r
 
     def tree(self):

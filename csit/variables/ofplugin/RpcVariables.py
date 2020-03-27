@@ -1,13 +1,13 @@
-RPC_SEND_BARRIER_DATA = '''<input xmlns="urn:opendaylight:flow:transaction">
+RPC_SEND_BARRIER_DATA = """<input xmlns="urn:opendaylight:flow:transaction">
     <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="openflow:1"]</node>
-</input>'''
+</input>"""
 
-RPC_SEND_ECHO_DATA = '''<input xmlns="urn:opendaylight:echo:service">
+RPC_SEND_ECHO_DATA = """<input xmlns="urn:opendaylight:echo:service">
     <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="openflow:1"]</node>
     <data>aGVsbG8gYmFzZSA2NC4gaW5wdXQ=</data>
-</input>'''
+</input>"""
 
-RPC_SEND_UPDATE_TABLE_DATA = '''<input xmlns="urn:opendaylight:table:service">
+RPC_SEND_UPDATE_TABLE_DATA = """<input xmlns="urn:opendaylight:table:service">
   <node xmlns:inv="urn:opendaylight:inventory">/inv:nodes/inv:node[inv:id="openflow:1"]</node>
   <updated-table>
     <table-features>  <!-- model opendaylight-table-types, grouping table-features  -->
@@ -19,4 +19,4 @@ RPC_SEND_UPDATE_TABLE_DATA = '''<input xmlns="urn:opendaylight:table:service">
       <config>DEPRECATED-MASK</config>
     </table-features>
   </updated-table>
-</input>'''
+</input>"""

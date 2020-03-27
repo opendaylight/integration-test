@@ -16,26 +16,13 @@ flow_template = {
     "timeout": 0,
     "isPermanent": True,
     "deviceId": "of:0000000000000001",
-    "treatment": {
-        "instructions": [
-            {
-                "type": "NOACTION"
-            }
-        ],
-        "deferred": []
-    },
+    "treatment": {"instructions": [{"type": "NOACTION"}], "deferred": []},
     "selector": {
         "criteria": [
-            {
-                "type": "ETH_TYPE",
-                "ethType": 2048
-            },
-            {
-                "type": "IPV4_DST",
-                "ip": "10.0.0.0/32"
-            }
+            {"type": "ETH_TYPE", "ethType": 2048},
+            {"type": "IPV4_DST", "ip": "10.0.0.0/32"},
         ]
-    }
+    },
 }
 
 
@@ -87,13 +74,18 @@ def _prepare_post(cntl, method, flows, template=None):
     """
     fl1 = flows[0]
     dev_id, ip = fl1
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/' + dev_id
+    url = "http://" + cntl + ":" + "8181/onos/v1/flows/" + dev_id
     flow = copy.deepcopy(template)
     flow["deviceId"] = dev_id
-    flow["selector"]["criteria"][1]["ip"] = '%s/32' % str(netaddr.IPAddress(ip))
+    flow["selector"]["criteria"][1]["ip"] = "%s/32" % str(netaddr.IPAddress(ip))
     req_data = json.dumps(flow)
-    req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
-                           data=req_data, auth=('onos', 'rocks'))
+    req = requests.Request(
+        method,
+        url,
+        headers={"Content-Type": "application/json"},
+        data=req_data,
+        auth=("onos", "rocks"),
+    )
     return req
 
 
@@ -114,13 +106,22 @@ def _prepare_delete(cntl, method, flows, template=None):
     """
     fl1 = flows[0]
     dev_id, flow_id = fl1
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/' + dev_id + '/' + flow_id
-    req = requests.Request(method, url, auth=('onos', 'rocks'))
+    url = "http://" + cntl + ":" + "8181/onos/v1/flows/" + dev_id + "/" + flow_id
+    req = requests.Request(method, url, auth=("onos", "rocks"))
     return req
 
 
-def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, controllers=[], restport='',
-                       template=None, outqueue=None, method=None):
+def _wt_request_sender(
+    thread_id,
+    preparefnc,
+    inqueue=None,
+    exitevent=None,
+    controllers=[],
+    restport="",
+    template=None,
+    outqueue=None,
+    method=None,
+):
     """The funcion sends http requests.
 
     Runs in the working thread. It reads out flow details from the queue and sends apropriate http requests
@@ -176,47 +177,59 @@ def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, cont
     outqueue.put(res)
 
 
-def get_device_ids(controller='127.0.0.1', port=8181):
+def get_device_ids(controller="127.0.0.1", port=8181):
     """Returns a list of switch ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/devices'.format(controller, port), auth=('onos', 'rocks'))
+    rsp = requests.get(
+        url="http://{0}:{1}/onos/v1/devices".format(controller, port),
+        auth=("onos", "rocks"),
+    )
     if rsp.status_code != 200:
         return []
-    devices = json.loads(rsp.content)['devices']
-    ids = [d['id'] for d in devices if 'of:' in d['id']]
+    devices = json.loads(rsp.content)["devices"]
+    ids = [d["id"] for d in devices if "of:" in d["id"]]
     return ids
 
 
-def get_flow_ids(controller='127.0.0.1', port=8181):
+def get_flow_ids(controller="127.0.0.1", port=8181):
     """Returns a list of flow ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
+    rsp = requests.get(
+        url="http://{0}:{1}/onos/v1/flows".format(controller, port),
+        auth=("onos", "rocks"),
+    )
     if rsp.status_code != 200:
         return []
-    flows = json.loads(rsp.content)['flows']
-    ids = [f['id'] for f in flows]
+    flows = json.loads(rsp.content)["flows"]
+    ids = [f["id"] for f in flows]
     return ids
 
 
-def get_flow_simple_stats(controller='127.0.0.1', port=8181):
+def get_flow_simple_stats(controller="127.0.0.1", port=8181):
     """Returns a list of flow ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
+    rsp = requests.get(
+        url="http://{0}:{1}/onos/v1/flows".format(controller, port),
+        auth=("onos", "rocks"),
+    )
     if rsp.status_code != 200:
         return []
-    flows = json.loads(rsp.content)['flows']
+    flows = json.loads(rsp.content)["flows"]
     res = {}
     for f in flows:
-        if f['state'] not in res:
-            res[f['state']] = 1
+        if f["state"] not in res:
+            res[f["state"]] = 1
         else:
-            res[f['state']] += 1
+            res[f["state"]] += 1
     return res
 
 
-def get_flow_device_pairs(controller='127.0.0.1', port=8181, flow_details=[]):
+def get_flow_device_pairs(controller="127.0.0.1", port=8181, flow_details=[]):
     """Pairing flows from controller with deteils we used ofr creation"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
+    rsp = requests.get(
+        url="http://{0}:{1}/onos/v1/flows".format(controller, port),
+        auth=("onos", "rocks"),
+    )
     if rsp.status_code != 200:
         return
-    flows = json.loads(rsp.content)['flows']
+    flows = json.loads(rsp.content)["flows"]
     for dev_id, ip in flow_details:
         for f in flows:
             # lets identify if it is our flow
@@ -229,17 +242,22 @@ def get_flow_device_pairs(controller='127.0.0.1', port=8181, flow_details=[]):
                     item_idx = 1
                 else:
                     continue
-                if f["selector"]["criteria"][item_idx]["ip"] == '%s/32' % str(netaddr.IPAddress(ip)):
+                if f["selector"]["criteria"][item_idx]["ip"] == "%s/32" % str(
+                    netaddr.IPAddress(ip)
+                ):
                     yield dev_id, f["id"]
                     break
 
 
-def get_flow_to_remove(controller='127.0.0.1', port=8181):
+def get_flow_to_remove(controller="127.0.0.1", port=8181):
     """Pairing flows from controller with deteils we used ofr creation"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
+    rsp = requests.get(
+        url="http://{0}:{1}/onos/v1/flows".format(controller, port),
+        auth=("onos", "rocks"),
+    )
     if rsp.status_code != 200:
         return
-    flows = json.loads(rsp.content)['flows']
+    flows = json.loads(rsp.content)["flows"]
 
     for f in flows:
         # lets identify if it is our flow
@@ -252,19 +270,27 @@ def get_flow_to_remove(controller='127.0.0.1', port=8181):
         else:
             continue
         ipstr = f["selector"]["criteria"][item_idx]["ip"]
-        if '10.' in ipstr and '/32' in ipstr:
+        if "10." in ipstr and "/32" in ipstr:
             yield (f["deviceId"], f["id"])
 
 
 def main(*argv):
 
-    parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
-                                                 'into the config tree, as specified by optional parameters.')
+    parser = argparse.ArgumentParser(
+        description="Flow programming performance test: First adds and then deletes flows "
+        "into the config tree, as specified by optional parameters."
+    )
 
-    parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where onos controller is running (default is 127.0.0.1)')
-    parser.add_argument('--port', default='8181',
-                        help='Port on which onos\'s RESTCONF is listening (default is 8181)')
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Host where onos controller is running (default is 127.0.0.1)",
+    )
+    parser.add_argument(
+        "--port",
+        default="8181",
+        help="Port on which onos's RESTCONF is listening (default is 8181)",
+    )
 
     in_args = parser.parse_args(*argv)
     print(in_args)
@@ -273,7 +299,9 @@ def main(*argv):
     base_dev_ids = get_device_ids(controller=in_args.host)
     base_flow_ids = get_flow_ids(controller=in_args.host)
     # ip
-    ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')))  # noqa  # FIXME: This script seems to be unfinished!
+    ip_addr = Counter(
+        int(netaddr.IPAddress("10.0.0.1"))
+    )  # noqa  # FIXME: This script seems to be unfinished!
     # prepare func
     preparefnc = _prepare_post  # noqa  # FIXME: This script seems to be unfinished!
 

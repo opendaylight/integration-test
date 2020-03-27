@@ -46,11 +46,13 @@ total_req_rate = Counter(0.0)
 total_mbytes = Counter(0.0)
 total_mb_rate = Counter(0.0)
 
-putheaders = {'content-type': 'application/json'}
-getheaders = {'Accept': 'application/json'}
+putheaders = {"content-type": "application/json"}
+getheaders = {"Accept": "application/json"}
 
-INVENTORY_URL = 'http://localhost:8080/restconf/operational/opendaylight-inventory:nodes'
-N1T0_URL = 'http://localhost:8080/restconf/operational/opendaylight-inventory:nodes/node/openflow:1/table/0'
+INVENTORY_URL = (
+    "http://localhost:8080/restconf/operational/opendaylight-inventory:nodes"
+)
+N1T0_URL = "http://localhost:8080/restconf/operational/opendaylight-inventory:nodes/node/openflow:1/table/0"
 
 num_threads = 1
 
@@ -71,7 +73,7 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
     results = {}
 
     with print_lock:
-        print('Thread %d: Getting %s' % (tnum, url))
+        print("Thread %d: Getting %s" % (tnum, url))
 
     s = requests.Session()
     with Timer() as t:
@@ -81,7 +83,7 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
 
             try:
                 results[r.status_code] += 1
-            except(KeyError):
+            except (KeyError):
                 results[r.status_code] = 1
 
     total = sum(results.values())
@@ -95,11 +97,11 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
     total_mb_rate.increment(mrate)
 
     with print_lock:
-        print('\nThread %d: ' % tnum)
-        print('    Elapsed time: %.2f,' % t.secs)
-        print('    Requests: %d, Requests/sec: %.2f' % (total, rate))
-        print('    Volume: %.2f MB, Rate: %.2f MByte/s' % (mbytes, mrate))
-        print('    Results: ')
+        print("\nThread %d: " % tnum)
+        print("    Elapsed time: %.2f," % t.secs)
+        print("    Requests: %d, Requests/sec: %.2f" % (total, rate))
+        print("    Volume: %.2f MB, Rate: %.2f MByte/s" % (mbytes, mrate))
+        print("    Results: ")
         print(results)
 
     with cond:
@@ -108,28 +110,43 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Restconf test program')
-    parser.add_argument('--odlhost', default='127.0.0.1', help='host where '
-                        'odl controller is running (default is 127.0.0.1)')
-    parser.add_argument('--odlport', default='8080', help='port on '
-                        'which odl\'s RESTCONF is listening (default is 8080)')
-    parser.add_argument('--requests', type=int, default=10, help='number of '
-                        'requests to send')
-    parser.add_argument('--url', default='restconf/operational/opendaylight-inventory:nodes',
-                        help='Url to send.')
-    parser.add_argument('--nthreads', type=int, default=1,
-                        help='Number of request worker threads, default=1')
+    parser = argparse.ArgumentParser(description="Restconf test program")
+    parser.add_argument(
+        "--odlhost",
+        default="127.0.0.1",
+        help="host where " "odl controller is running (default is 127.0.0.1)",
+    )
+    parser.add_argument(
+        "--odlport",
+        default="8080",
+        help="port on " "which odl's RESTCONF is listening (default is 8080)",
+    )
+    parser.add_argument(
+        "--requests", type=int, default=10, help="number of " "requests to send"
+    )
+    parser.add_argument(
+        "--url",
+        default="restconf/operational/opendaylight-inventory:nodes",
+        help="Url to send.",
+    )
+    parser.add_argument(
+        "--nthreads",
+        type=int,
+        default=1,
+        help="Number of request worker threads, default=1",
+    )
     in_args = parser.parse_args()
 
-    url = 'http://' + in_args.odlhost + ":" + in_args.odlport + '/' + in_args.url
+    url = "http://" + in_args.odlhost + ":" + in_args.odlport + "/" + in_args.url
 
     threads = []
     nthreads = int(in_args.nthreads)
     cond = threading.Condition()
 
     for i in range(nthreads):
-        t = threading.Thread(target=get_inventory,
-                             args=(i, url, getheaders, int(in_args.requests), cond))
+        t = threading.Thread(
+            target=get_inventory, args=(i, url, getheaders, int(in_args.requests), cond)
+        )
         threads.append(t)
         t.start()
 
@@ -139,10 +156,14 @@ if __name__ == "__main__":
             cond.wait()
             finished = finished + 1
 
-    print('\nAggregate requests: %d, Aggregate requests/sec: %.2f' % (total_requests.value,
-                                                                      total_req_rate.value))
-    print('Aggregate Volume: %.2f MB, Aggregate Rate: %.2f MByte/s' % (total_mbytes.value,
-                                                                       total_mb_rate.value))
+    print(
+        "\nAggregate requests: %d, Aggregate requests/sec: %.2f"
+        % (total_requests.value, total_req_rate.value)
+    )
+    print(
+        "Aggregate Volume: %.2f MB, Aggregate Rate: %.2f MByte/s"
+        % (total_mbytes.value, total_mb_rate.value)
+    )
 
 #    get_inventory(url, getheaders, int(in_args.requests))
 

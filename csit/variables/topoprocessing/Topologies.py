@@ -1,4 +1,4 @@
-NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_1 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
@@ -159,9 +159,9 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                     <igp:metric>14</igp:metric>
                                 </igp:igp-link-attributes>
                             </link>
-                        </topology>'''
+                        </topology>"""
 
-NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_2 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
@@ -262,9 +262,9 @@ NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                             </node>
-                        </topology>'''
+                        </topology>"""
 
-NETWORK_UNDERLAY_TOPOLOGY_3 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_3 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
@@ -337,9 +337,9 @@ NETWORK_UNDERLAY_TOPOLOGY_3 = '''<topology
                                     </isis:isis-node-attributes>
                                 </igp:igp-node-attributes>
                             </node>
-                        </topology>'''
+                        </topology>"""
 
-NETWORK_UNDERLAY_TOPOLOGY_4 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_4 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
@@ -394,9 +394,9 @@ NETWORK_UNDERLAY_TOPOLOGY_4 = '''<topology
                                     </isis:isis-node-attributes>
                                 </igp:igp-node-attributes>
                             </node>
-                        </topology>'''
+                        </topology>"""
 
-NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_5 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
@@ -508,9 +508,9 @@ NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
                                     </isis:isis-node-attributes>
                                 </igp:igp-node-attributes>
                             </node>
-                        </topology>'''
+                        </topology>"""
 
-NETWORK_UNDERLAY_TOPOLOGY_6 = '''<topology
+NETWORK_UNDERLAY_TOPOLOGY_6 = """<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
@@ -617,9 +617,9 @@ NETWORK_UNDERLAY_TOPOLOGY_6 = '''<topology
                                     <igp:metric>12</igp:metric>
                                 </igp:igp-link-attributes>
                             </link>
-                        </topology>'''
+                        </topology>"""
 
-OPENFLOW_UNDERLAY_NODES = '''
+OPENFLOW_UNDERLAY_NODES = """
 <nodes
     xmlns="urn:opendaylight:inventory"
     xmlns:flov-inv="urn:opendaylight:flow:inventory">
@@ -863,9 +863,9 @@ OPENFLOW_UNDERLAY_NODES = '''
         </node-connector>
     </node>
 </nodes>
-'''
+"""
 
-OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
+OPENFLOW_UNDERLAY_TOPOLOGY_1 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -964,9 +964,9 @@ OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
         </termination-point>
     </node>
 </topology>
-'''
+"""
 
-OPENFLOW_UNDERLAY_TOPOLOGY_2 = '''
+OPENFLOW_UNDERLAY_TOPOLOGY_2 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -993,9 +993,9 @@ OPENFLOW_UNDERLAY_TOPOLOGY_2 = '''
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:10"]</inventory-topo:inventory-node-ref>
     </node>
 </topology>
-'''
+"""
 
-OPENFLOW_UNDERLAY_TOPOLOGY_3 = '''
+OPENFLOW_UNDERLAY_TOPOLOGY_3 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -1075,8 +1075,8 @@ OPENFLOW_UNDERLAY_TOPOLOGY_3 = '''
         </igp:igp-link-attributes>
     </link>
 </topology>
-'''
-OPENFLOW_UNDERLAY_TOPOLOGY_4 = '''
+"""
+OPENFLOW_UNDERLAY_TOPOLOGY_4 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -1103,9 +1103,9 @@ OPENFLOW_UNDERLAY_TOPOLOGY_4 = '''
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:20"]</inventory-topo:inventory-node-ref>
     </node>
 </topology>
-'''
+"""
 
-OPENFLOW_UNDERLAY_TOPOLOGY_5 = '''
+OPENFLOW_UNDERLAY_TOPOLOGY_5 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -1162,9 +1162,9 @@ OPENFLOW_UNDERLAY_TOPOLOGY_5 = '''
         </termination-point>
     </node>
 </topology>
-'''
+"""
 
-OPENFLOW_UNDERLAY_TOPOLOGY_6 = '''
+OPENFLOW_UNDERLAY_TOPOLOGY_6 = """
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
@@ -1191,4 +1191,4 @@ OPENFLOW_UNDERLAY_TOPOLOGY_6 = '''
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:10"]</inventory-topo:inventory-node-ref>
     </node>
 </topology>
-'''
+"""

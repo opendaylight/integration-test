@@ -7,8 +7,8 @@ from H3C import H3C
 
 
 class H3C_5920(H3C):
-    '''
+    """
     Comware 5920
-    '''
+    """
 
-    model = '5920'
+    model = "5920"

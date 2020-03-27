@@ -32,8 +32,9 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
         XML short scheme, XML long scheme
     """
 
-    def __init__(self, parameters, content,
-                 protocol_name, protocol_parameters, short_scheme=True):
+    def __init__(
+        self, parameters, content, protocol_name, protocol_parameters, short_scheme=True
+    ):
         self.parameters = parameters
         self.content = content
         self.protocol = protocol_name
@@ -50,16 +51,20 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
         try:
             json_pointer = str(pointer_string)
             # add leading slash if missing
-            if json_pointer[0] != '/':
-                json_pointer = '/' + json_pointer
+            if json_pointer[0] != "/":
+                json_pointer = "/" + json_pointer
 
             # remove slash from the end if exists
-            if json_pointer[-1] == '/':
+            if json_pointer[-1] == "/":
                 json_pointer = json_pointer[:-1]
 
             json_pointer = JsonPointer(json_pointer)
         except Exception as e:
-            raise RuntimeError("Invalid JSON pointer passed: {}, error: {}".format(pointer_string, e.message))
+            raise RuntimeError(
+                "Invalid JSON pointer passed: {}, error: {}".format(
+                    pointer_string, e.message
+                )
+            )
         return json_pointer
 
     def _get_item_by_pointer(self, data_dict, pointer):
@@ -74,7 +79,11 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
         try:
             item = json_pointer.resolve(data_dict)
         except JsonPointerException as e:
-            raise RuntimeError("Failed to get JSON item by JSON pointer: {}, error: {}".format(pointer, e.message))
+            raise RuntimeError(
+                "Failed to get JSON item by JSON pointer: {}, error: {}".format(
+                    pointer, e.message
+                )
+            )
 
         return item
 
@@ -160,10 +169,16 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
     def _check_exchange_protocols(self, response_primitive):
         self._check_protocol_of_request()
         self._check_protocol_of_response(response_primitive)
-        if not self.get_communication_protocol() == response_primitive.get_communication_protocol():
-            raise AssertionError("Request {} and response {} primitives' communication protocols doesn't match.".
-                                 format(self.get_communication_protocol(),
-                                        response_primitive.get_communication_protocol()))
+        if (
+            not self.get_communication_protocol()
+            == response_primitive.get_communication_protocol()
+        ):
+            raise AssertionError(
+                "Request {} and response {} primitives' communication protocols doesn't match.".format(
+                    self.get_communication_protocol(),
+                    response_primitive.get_communication_protocol(),
+                )
+            )
 
     def _check_request_common(self):
         op = self.get_param(OneM2M.short_operation)
@@ -171,18 +186,27 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
             raise AssertionError("Request primitive without operation set")
 
         if not isinstance(op, int):
-            raise AssertionError("Invalid data type ({}) of operation where integer is expected".format(op.__class__))
+            raise AssertionError(
+                "Invalid data type ({}) of operation where integer is expected".format(
+                    op.__class__
+                )
+            )
 
         if op not in OneM2M.operation_valid_values:
-            raise AssertionError("Request primitive with unknown operation set: {}".format(op))
+            raise AssertionError(
+                "Request primitive with unknown operation set: {}".format(op)
+            )
 
         rqi = self.get_param(OneM2M.short_request_identifier)
         if not rqi:
             raise AssertionError("Request primitive without request id")
 
         if not isinstance(rqi, basestring):
-            raise AssertionError("Invalid data type ({}) of request identifier where string is expected".
-                                 format(rqi.__class__))
+            raise AssertionError(
+                "Invalid data type ({}) of request identifier where string is expected".format(
+                    rqi.__class__
+                )
+            )
         return op, rqi
 
     def _check_response_common(self, response_primitive, rqi=None, rsc=None):
@@ -191,26 +215,38 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
             raise AssertionError("Response primitive without request id")
 
         if not isinstance(rsp_rqi, basestring):
-            raise AssertionError("Invalid data type ({}) of request identifier where string is expected".
-                                 format(rsp_rqi.__class__))
+            raise AssertionError(
+                "Invalid data type ({}) of request identifier where string is expected".format(
+                    rsp_rqi.__class__
+                )
+            )
 
         if rqi and rqi != rsp_rqi:
-            raise AssertionError("Request IDs mismatch: req: {}, rsp: {}".format(rqi, rsp_rqi))
+            raise AssertionError(
+                "Request IDs mismatch: req: {}, rsp: {}".format(rqi, rsp_rqi)
+            )
 
         r_rsc = response_primitive.get_param(OneM2M.short_response_status_code)
         if not r_rsc:
             raise AssertionError("Response primitive without status code")
 
         if not isinstance(r_rsc, int):
-            raise AssertionError("Invalid data type ({}) of response status code where integer is expected".
-                                 format(r_rsc.__class__))
+            raise AssertionError(
+                "Invalid data type ({}) of response status code where integer is expected".format(
+                    r_rsc.__class__
+                )
+            )
 
         if r_rsc not in OneM2M.supported_result_codes:
-            raise AssertionError("Unsupported response primitive result code: {}".format(r_rsc))
+            raise AssertionError(
+                "Unsupported response primitive result code: {}".format(r_rsc)
+            )
 
         if None is not rsc:
             if r_rsc != rsc:
-                raise AssertionError("Unexpected result code: {}, expected: {}".format(r_rsc, rsc))
+                raise AssertionError(
+                    "Unexpected result code: {}, expected: {}".format(r_rsc, rsc)
+                )
 
         return r_rsc
 
@@ -220,17 +256,24 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
         r_rsc = self._check_response_common(response_primitive, rqi, rsc)
         return op, r_rsc
 
-    def _check_response_positive_result(self, response_rsc=None, request_operation=None):
+    def _check_response_positive_result(
+        self, response_rsc=None, request_operation=None
+    ):
         if response_rsc and response_rsc not in OneM2M.positive_result_codes:
-            raise AssertionError("Response with negative status code: {}".format(response_rsc))
+            raise AssertionError(
+                "Response with negative status code: {}".format(response_rsc)
+            )
 
         if None is request_operation:
             return
 
         expected_rsc = OneM2M.expected_result_codes[request_operation]
         if expected_rsc != response_rsc:
-            raise AssertionError("Unexpected positive result code for operation: {}, received: {}, expected: {}".format(
-                                 request_operation, response_rsc, expected_rsc))
+            raise AssertionError(
+                "Unexpected positive result code for operation: {}, received: {}, expected: {}".format(
+                    request_operation, response_rsc, expected_rsc
+                )
+            )
 
     def check_exchange(self, response_primitive, rsc=None):
         op, r_rsc = self._check_exchange_common(response_primitive, rsc)
@@ -245,16 +288,25 @@ class OneM2MJsonPrimitive(OneM2MPrimitive):
 
         msg = response_primitive.get_attr(OneM2M.error_message_item)
         if not msg:
-            raise AssertionError("Negative response primitive without error message, expected message: {}".format(
-                                 error_message))
+            raise AssertionError(
+                "Negative response primitive without error message, expected message: {}".format(
+                    error_message
+                )
+            )
 
         if not isinstance(msg, basestring):
-            raise AssertionError("Invalid data type ({}) of response error message where string is expected".
-                                 format(msg.__class__))
+            raise AssertionError(
+                "Invalid data type ({}) of response error message where string is expected".format(
+                    msg.__class__
+                )
+            )
 
         if not msg == error_message:
-            raise AssertionError("Negative response with unexpected error message: {}, expected: {}".format(
-                                 msg, error_message))
+            raise AssertionError(
+                "Negative response with unexpected error message: {}, expected: {}".format(
+                    msg, error_message
+                )
+            )
 
     def check_exchange_negative(self, response_primitive, rsc, error_message=None):
         op, r_rsc = self._check_exchange_common(response_primitive, rsc)
@@ -357,7 +409,6 @@ class OneM2MJsonPrimitiveBuilder(OneM2MPrimitiveBuilder, OneM2MJsonPrimitive):
         raise NotImplementedError()
 
     def build(self):
-        return OneM2MJsonPrimitive(self.parameters,
-                                   self.content,
-                                   self.protocol,
-                                   self.proto_params)
+        return OneM2MJsonPrimitive(
+            self.parameters, self.content, self.protocol, self.proto_params
+        )

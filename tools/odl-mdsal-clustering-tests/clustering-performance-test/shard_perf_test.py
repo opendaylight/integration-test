@@ -54,7 +54,8 @@ class ShardPerformanceTester(object):
     specified when a test is started. By passing in the appropriate URLs, the test can be used to test data
     retrieval performance of different shards or different resources at different granularities, etc.
     """
-    headers = {'Accept': 'application/json'}
+
+    headers = {"Accept": "application/json"}
 
     def __init__(self, host, port, auth, threads, nrequests, plevel):
         """
@@ -88,7 +89,9 @@ class ShardPerformanceTester(object):
         if not self.auth:
             r = session.get(r_url, headers=self.headers, stream=False)
         else:
-            r = session.get(r_url, headers=self.headers, stream=False, auth=('admin', 'admin'))
+            r = session.get(
+                r_url, headers=self.headers, stream=False, auth=("admin", "admin")
+            )
         return r.status_code
 
     def worker(self, tid, urls):
@@ -104,7 +107,7 @@ class ShardPerformanceTester(object):
         s = requests.Session()
 
         with self.print_lock:
-            print('    Thread %d: Performing %d requests' % (tid, self.requests))
+            print("    Thread %d: Performing %d requests" % (tid, self.requests))
 
         with Timer() as t:
             for r in range(self.requests):
@@ -118,10 +121,10 @@ class ShardPerformanceTester(object):
         total_rate = sum(res.values()) / t.secs
 
         with self.print_lock:
-            print('Thread %d done:' % tid)
-            print('    Time: %.2f,' % t.secs)
-            print('    Success rate:  %.2f, Total rate: %.2f' % (ok_rate, total_rate))
-            print('    Per-thread stats: ',)
+            print("Thread %d done:" % tid)
+            print("    Time: %.2f," % t.secs)
+            print("    Success rate:  %.2f, Total rate: %.2f" % (ok_rate, total_rate))
+            print("    Per-thread stats: ")
             print(res)
             self.threads_done += 1
             self.total_rate += total_rate
@@ -160,17 +163,23 @@ class ShardPerformanceTester(object):
                     self.cond.wait()
 
         # Print summary results. Each worker prints its owns results too.
-        print('\nSummary Results:')
-        print('    Requests/sec (total_sum): %.2f' % ((self.threads * self.requests) / t.secs))
-        print('    Requests/sec (measured):  %.2f' % ((self.threads * self.requests) / t.secs))
-        print('    Time: %.2f' % t.secs)
+        print("\nSummary Results:")
+        print(
+            "    Requests/sec (total_sum): %.2f"
+            % ((self.threads * self.requests) / t.secs)
+        )
+        print(
+            "    Requests/sec (measured):  %.2f"
+            % ((self.threads * self.requests) / t.secs)
+        )
+        print("    Time: %.2f" % t.secs)
         self.threads_done = 0
 
         if self.plevel > 0:
-            print('    Per URL Counts: ',)
+            print("    Per URL Counts: ")
             for i in range(len(urls)):
-                print('%d' % self.url_counters[i].value)
-            print('\n')
+                print("%d" % self.url_counters[i].value)
+            print("\n")
 
 
 class TestUrlGenerator(object):
@@ -191,7 +200,7 @@ class TestUrlGenerator(object):
         self.host = host
         self.port = port
         self.auth = auth
-        self.resource_string = ''
+        self.resource_string = ""
 
     def url_generator(self, data):
         """
@@ -199,7 +208,10 @@ class TestUrlGenerator(object):
         :param data: Bulk resource data (JSON) from which to generate the URLs
         :return: List of generated Resources
         """
-        print("Abstract class '%s' should never be used standalone" % (self.__class__.__name__))
+        print(
+            "Abstract class '%s' should never be used standalone"
+            % (self.__class__.__name__)
+        )
         return []
 
     def generate(self):
@@ -208,22 +220,30 @@ class TestUrlGenerator(object):
          or the entire topology) from the controller specified during int()  and then invokes a resource-specific
          URL generator to create a set of resource-specific URLs.
         """
-        t_url = 'http://' + self.host + ":" + self.port + '/' + self.resource_string
-        headers = {'Accept': 'application/json'}
+        t_url = "http://" + self.host + ":" + self.port + "/" + self.resource_string
+        headers = {"Accept": "application/json"}
         r_url = []
 
         if not self.auth:
             r = requests.get(t_url, headers=headers, stream=False)
         else:
-            r = requests.get(t_url, headers=headers, stream=False, auth=('admin', 'admin'))
+            r = requests.get(
+                t_url, headers=headers, stream=False, auth=("admin", "admin")
+            )
 
         if r.status_code != 200:
-            print("Failed to get HTTP response from '%s', code %d" % ((t_url, r.status_code)))
+            print(
+                "Failed to get HTTP response from '%s', code %d"
+                % ((t_url, r.status_code))
+            )
         else:
             try:
                 r_url = self.url_generator(json.loads(r.content))
             except Exception:
-                print("Failed to get json from '%s'. Please make sure you are connected to mininet." % (r_url))
+                print(
+                    "Failed to get json from '%s'. Please make sure you are connected to mininet."
+                    % (r_url)
+                )
 
         return r_url
 
@@ -236,22 +256,31 @@ class TopoUrlGenerator(TestUrlGenerator):
 
     def __init__(self, host, port, auth):
         TestUrlGenerator.__init__(self, host, port, auth)
-        self.resource_string = 'restconf/operational/network-topology:network-topology/topology/flow:1'
+        self.resource_string = (
+            "restconf/operational/network-topology:network-topology/topology/flow:1"
+        )
 
     def url_generator(self, topo_data):
         url_list = []
         try:
-            nodes = topo_data['topology'][0]['node']
+            nodes = topo_data["topology"][0]["node"]
             for node in nodes:
-                tpoints = node['termination-point']
+                tpoints = node["termination-point"]
                 for tpoint in tpoints:
-                    t_url = 'http://' + self.host + ":" + self.port + \
-                            '/restconf/operational/network-topology:network-topology/topology/flow:1/node/' + \
-                            node['node-id'] + '/termination-point/' + tpoint['tp-id']
+                    t_url = (
+                        "http://"
+                        + self.host
+                        + ":"
+                        + self.port
+                        + "/restconf/operational/network-topology:network-topology/topology/flow:1/node/"
+                        + node["node-id"]
+                        + "/termination-point/"
+                        + tpoint["tp-id"]
+                    )
                     url_list.append(t_url)
             return url_list
         except KeyError:
-            print('Error parsing topology json')
+            print("Error parsing topology json")
             return []
 
 
@@ -262,89 +291,131 @@ class InvUrlGenerator(TestUrlGenerator):
 
     def __init__(self, host, port, auth):
         TestUrlGenerator.__init__(self, host, port, auth)
-        self.resource_string = 'restconf/operational/opendaylight-inventory:nodes'
+        self.resource_string = "restconf/operational/opendaylight-inventory:nodes"
 
     def url_generator(self, inv_data):
         url_list = []
         try:
-            nodes = inv_data['nodes']['node']
+            nodes = inv_data["nodes"]["node"]
             for node in nodes:
-                nconns = node['node-connector']
+                nconns = node["node-connector"]
                 for nconn in nconns:
-                    i_url = 'http://' + self.host + ":" + self.port + \
-                            '/restconf/operational/opendaylight-inventory:nodes/node/' + \
-                            node['id'] + '/node-connector/' + nconn['id'] + \
-                            '/opendaylight-port-statistics:flow-capable-node-connector-statistics'
+                    i_url = (
+                        "http://"
+                        + self.host
+                        + ":"
+                        + self.port
+                        + "/restconf/operational/opendaylight-inventory:nodes/node/"
+                        + node["id"]
+                        + "/node-connector/"
+                        + nconn["id"]
+                        + "/opendaylight-port-statistics:flow-capable-node-connector-statistics"
+                    )
                     url_list.append(i_url)
             return url_list
         except KeyError:
-            print('Error parsing inventory json')
+            print("Error parsing inventory json")
             return []
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
-                                                 'into the config tree, as specified by optional parameters.')
+    parser = argparse.ArgumentParser(
+        description="Flow programming performance test: First adds and then deletes flows "
+        "into the config tree, as specified by optional parameters."
+    )
 
-    parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where odl controller is running (default is 127.0.0.1)')
-    parser.add_argument('--port', default='8181',
-                        help='Port on which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--auth', dest='auth', action='store_true', default=False,
-                        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
-                             'default: no authentication')
-    parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads to start in each cycle; default=1. ')
-    parser.add_argument('--requests', type=int, default=100,
-                        help='Number of requests each worker thread will send to the controller; default=100.')
-    parser.add_argument('--resource', choices=['inv', 'topo', 'topo+inv', 'all'], default='both',
-                        help='Which resource to test: inventory, topology, or both; default both')
-    parser.add_argument('--plevel', type=int, default=0,
-                        help='Print level: controls output verbosity. 0-lowest, 1-highest; default 0')
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Host where odl controller is running (default is 127.0.0.1)",
+    )
+    parser.add_argument(
+        "--port",
+        default="8181",
+        help="Port on which odl's RESTCONF is listening (default is 8181)",
+    )
+    parser.add_argument(
+        "--auth",
+        dest="auth",
+        action="store_true",
+        default=False,
+        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
+        "default: no authentication",
+    )
+    parser.add_argument(
+        "--threads",
+        type=int,
+        default=1,
+        help="Number of request worker threads to start in each cycle; default=1. ",
+    )
+    parser.add_argument(
+        "--requests",
+        type=int,
+        default=100,
+        help="Number of requests each worker thread will send to the controller; default=100.",
+    )
+    parser.add_argument(
+        "--resource",
+        choices=["inv", "topo", "topo+inv", "all"],
+        default="both",
+        help="Which resource to test: inventory, topology, or both; default both",
+    )
+    parser.add_argument(
+        "--plevel",
+        type=int,
+        default=0,
+        help="Print level: controls output verbosity. 0-lowest, 1-highest; default 0",
+    )
     in_args = parser.parse_args()
 
     topo_urls = []
     inv_urls = []
 
     # If required, get topology resource URLs
-    if in_args.resource != 'inventory':
+    if in_args.resource != "inventory":
         tg = TopoUrlGenerator(in_args.host, in_args.port, in_args.auth)
         topo_urls += tg.generate()
         if len(topo_urls) == 0:
-            print('Failed to generate topology URLs')
+            print("Failed to generate topology URLs")
             sys.exit(-1)
 
     # If required, get inventory resource URLs
-    if in_args.resource != 'topology':
+    if in_args.resource != "topology":
         ig = InvUrlGenerator(in_args.host, in_args.port, in_args.auth)
         inv_urls += ig.generate()
         if len(inv_urls) == 0:
-            print('Failed to generate inventory URLs')
+            print("Failed to generate inventory URLs")
             sys.exit(-1)
 
-    if in_args.resource == 'topo+inv' or in_args.resource == 'all':
+    if in_args.resource == "topo+inv" or in_args.resource == "all":
         # To have balanced test results, the number of URLs for topology and inventory must be the same
         if len(topo_urls) != len(inv_urls):
             print("The number of topology and inventory URLs don't match")
             sys.exit(-1)
 
-    st = ShardPerformanceTester(in_args.host, in_args.port, in_args.auth, in_args.threads, in_args.requests,
-                                in_args.plevel)
+    st = ShardPerformanceTester(
+        in_args.host,
+        in_args.port,
+        in_args.auth,
+        in_args.threads,
+        in_args.requests,
+        in_args.plevel,
+    )
 
-    if in_args.resource == 'all' or in_args.resource == 'topo':
-        print('===================================')
-        print('Testing topology shard performance:')
-        print('===================================')
+    if in_args.resource == "all" or in_args.resource == "topo":
+        print("===================================")
+        print("Testing topology shard performance:")
+        print("===================================")
         st.run_test(topo_urls)
 
-    if in_args.resource == 'all' or in_args.resource == 'inv':
-        print('====================================')
-        print('Testing inventory shard performance:')
-        print('====================================')
+    if in_args.resource == "all" or in_args.resource == "inv":
+        print("====================================")
+        print("Testing inventory shard performance:")
+        print("====================================")
         st.run_test(inv_urls)
 
-    if in_args.resource == 'topo+inv' or in_args.resource == 'all':
-        print('===============================================')
-        print('Testing combined shards (topo+inv) performance:')
-        print('===============================================')
+    if in_args.resource == "topo+inv" or in_args.resource == "all":
+        print("===============================================")
+        print("Testing combined shards (topo+inv) performance:")
+        print("===============================================")
         st.run_test(topo_urls + inv_urls)

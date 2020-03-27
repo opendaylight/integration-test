@@ -12,12 +12,12 @@ def get_active_controller_from_json(resp, service):
     :type service: str
     :return: Index of controller
     """
-    entities = json.loads(resp)['entity-owners']['entity-type']
+    entities = json.loads(resp)["entity-owners"]["entity-type"]
     for entity in entities:
-        if entity['type'] == "org.opendaylight.mdsal.ServiceEntityType":
-            for instance in entity['entity']:
-                if service in instance['id']:
-                    return int(instance['owner'][-1:])
+        if entity["type"] == "org.opendaylight.mdsal.ServiceEntityType":
+            for instance in entity["entity"]:
+                if service in instance["id"]:
+                    return int(instance["owner"][-1:])
     return 0
 
 
@@ -52,11 +52,11 @@ def get_opposing_mode(mode):
         :returns: String with opposing SXP peer mode.
 
         """
-    if 'speaker' == mode:
-        return 'listener'
-    elif 'listener' == mode:
-        return 'speaker'
-    return 'both'
+    if "speaker" == mode:
+        return "listener"
+    elif "listener" == mode:
+        return "speaker"
+    return "both"
 
 
 def get_ip_from_number(n, base=2130706432):
@@ -105,7 +105,9 @@ def lower_version(ver1, ver2):
         return ver2
 
 
-def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", epl="", ps=""):
+def get_filter_entry(
+    seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", epl="", ps=""
+):
     """Generate xml containing FilterEntry data
 
     :param seq: Sequence of entry
@@ -132,24 +134,24 @@ def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", e
     entries = ""
     # Generate XML request containing combination of Matches of different types
     if sgt:
-        args = sgt.split(',')
+        args = sgt.split(",")
         entries += add_sgt_matches_xml(args)
     elif esgt:
-        args = esgt.split(',')
+        args = esgt.split(",")
         entries += add_sgt_range_xml(args[0], args[1])
     if pl:
         entries += add_pl_entry_xml(pl)
     elif epl:
-        args = epl.split(',')
+        args = epl.split(",")
         entries += add_epl_entry_xml(args[0], args[1], args[2])
     if acl:
-        args = acl.split(',')
+        args = acl.split(",")
         entries += add_acl_entry_xml(args[0], args[1])
     elif eacl:
-        args = eacl.split(',')
+        args = eacl.split(",")
         entries += add_eacl_entry_xml(args[0], args[1], args[2], args[3])
     if ps:
-        args = ps.split(',')
+        args = ps.split(",")
         entries += add_ps_entry_xml(args[0], args[1])
     # Wrap entries in ACL/PrefixList according to specified values
     if pl or epl:
@@ -167,13 +169,15 @@ def add_peers(*args):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <sxp-peer>
             <peer-address>$ip</peer-address>
-        </sxp-peer>''')
+        </sxp-peer>"""
+    )
     peers = ""
     for count, value in enumerate(args):
-        peers += templ.substitute({'ip': value})
+        peers += templ.substitute({"ip": value})
     return peers
 
 
@@ -185,13 +189,15 @@ def add_domains(*args):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <domain>
             <name>$name</name>
-        </domain>''')
+        </domain>"""
+    )
     peers = ""
     for count, value in enumerate(args):
-        peers += templ.substitute({'name': value})
+        peers += templ.substitute({"name": value})
     return peers
 
 
@@ -203,11 +209,13 @@ def add_sgt_matches_xml(sgt_entries):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
-        <matches>$sgt</matches>''')
+    templ = Template(
+        """
+        <matches>$sgt</matches>"""
+    )
     matches = ""
     for sgt in sgt_entries:
-        matches += templ.substitute({'sgt': sgt})
+        matches += templ.substitute({"sgt": sgt})
     return matches
 
 
@@ -221,10 +229,12 @@ def add_sgt_range_xml(start, end):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <sgt-start>$start</sgt-start>
-        <sgt-end>$end</sgt-end>''')
-    match = templ.substitute({'start': start, 'end': end})
+        <sgt-end>$end</sgt-end>"""
+    )
+    match = templ.substitute({"start": start, "end": end})
     return match
 
 
@@ -240,13 +250,16 @@ def add_acl_entry_default_xml(seq, entry_type, acl_entries):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <acl-entry>
             <entry-type>$entry_type</entry-type>
             <entry-seq>$seq</entry-seq>$acl_entries
-        </acl-entry>''')
+        </acl-entry>"""
+    )
     matches = templ.substitute(
-        {'seq': seq, 'entry_type': entry_type, 'acl_entries': acl_entries})
+        {"seq": seq, "entry_type": entry_type, "acl_entries": acl_entries}
+    )
     return matches
 
 
@@ -260,12 +273,14 @@ def add_acl_entry_xml(ip, mask):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <acl-match>
             <ip-address>$ip</ip-address>
             <wildcard-mask>$mask</wildcard-mask>
-        </acl-match>''')
-    return templ.substitute({'ip': ip, 'mask': mask})
+        </acl-match>"""
+    )
+    return templ.substitute({"ip": ip, "mask": mask})
 
 
 def add_eacl_entry_xml(ip, mask, amask, wmask):
@@ -282,7 +297,8 @@ def add_eacl_entry_xml(ip, mask, amask, wmask):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <acl-match>
             <ip-address>$ip</ip-address>
             <wildcard-mask>$mask</wildcard-mask>
@@ -290,8 +306,9 @@ def add_eacl_entry_xml(ip, mask, amask, wmask):
               <address-mask>$amask</address-mask>
               <wildcard-mask>$wmask</wildcard-mask>
             </mask>
-        </acl-match>''')
-    return templ.substitute({'ip': ip, 'mask': mask, 'amask': amask, 'wmask': wmask})
+        </acl-match>"""
+    )
+    return templ.substitute({"ip": ip, "mask": mask, "amask": amask, "wmask": wmask})
 
 
 def add_ps_entry_default_xml(seq, entry_type, ps_entries):
@@ -306,12 +323,16 @@ def add_ps_entry_default_xml(seq, entry_type, ps_entries):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
     <peer-sequence-entry xmlns="urn:opendaylight:sxp:controller">
           <entry-type>$entry_type</entry-type>
           <entry-seq>$seq</entry-seq>$ps_entries
-    </peer-sequence-entry>''')
-    return templ.substitute({'seq': seq, 'entry_type': entry_type, 'ps_entries': ps_entries})
+    </peer-sequence-entry>"""
+    )
+    return templ.substitute(
+        {"seq": seq, "entry_type": entry_type, "ps_entries": ps_entries}
+    )
 
 
 def add_pl_entry_default_xml(seq, entry_type, pl_entries):
@@ -326,12 +347,16 @@ def add_pl_entry_default_xml(seq, entry_type, pl_entries):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
     <prefix-list-entry xmlns="urn:opendaylight:sxp:controller">
           <entry-type>$entry_type</entry-type>
           <entry-seq>$seq</entry-seq>$pl_entries
-    </prefix-list-entry>''')
-    return templ.substitute({'seq': seq, 'entry_type': entry_type, 'pl_entries': pl_entries})
+    </prefix-list-entry>"""
+    )
+    return templ.substitute(
+        {"seq": seq, "entry_type": entry_type, "pl_entries": pl_entries}
+    )
 
 
 def add_pl_entry_xml(prefix):
@@ -342,11 +367,13 @@ def add_pl_entry_xml(prefix):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <prefix-list-match>
             <ip-prefix>$prefix</ip-prefix>
-        </prefix-list-match>''')
-    return templ.substitute({'prefix': prefix})
+        </prefix-list-match>"""
+    )
+    return templ.substitute({"prefix": prefix})
 
 
 def add_epl_entry_xml(prefix, op, mask):
@@ -361,15 +388,17 @@ def add_epl_entry_xml(prefix, op, mask):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <prefix-list-match>
             <ip-prefix>$prefix</ip-prefix>
             <mask>
                 <mask-range>$op</mask-range>
                 <mask-value>$mask</mask-value>
             </mask>
-        </prefix-list-match>''')
-    return templ.substitute({'prefix': prefix, 'mask': mask, 'op': op})
+        </prefix-list-match>"""
+    )
+    return templ.substitute({"prefix": prefix, "mask": mask, "op": op})
 
 
 def add_ps_entry_xml(op, length):
@@ -382,11 +411,13 @@ def add_ps_entry_xml(op, length):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
         <peer-sequence-length>$length</peer-sequence-length>
         <peer-sequence-range>$op</peer-sequence-range>
-        ''')
-    return templ.substitute({'length': length, 'op': op})
+        """
+    )
+    return templ.substitute({"length": length, "op": op})
 
 
 def parse_peer_groups(groups_json):
@@ -398,7 +429,7 @@ def parse_peer_groups(groups_json):
 
     """
     data = json.loads(groups_json)
-    groups = data['output']
+    groups = data["output"]
     output = []
     for group in groups.values():
         output += group
@@ -414,10 +445,10 @@ def parse_connections(connections_json):
 
     """
     data = json.loads(connections_json)
-    output = data['output']
+    output = data["output"]
     result = []
     if output:
-        connections = output['connections']
+        connections = output["connections"]
         for connection in connections.values():
             result += connection
     return result
@@ -442,11 +473,15 @@ def find_connection(connections_json, version, mode, ip, port, state):
 
     """
     for connection in parse_connections(connections_json):
-        if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and (
-                mode.strip() == 'any' or connection['mode'] == mode) and connection['version'] == version):
-            if state == 'none':
+        if (
+            connection["peer-address"] == ip
+            and connection["tcp-port"] == int(port)
+            and (mode.strip() == "any" or connection["mode"] == mode)
+            and connection["version"] == version
+        ):
+            if state == "none":
                 return True
-            elif connection['state'] == state:
+            elif connection["state"] == state:
                 return True
     return False
 
@@ -461,7 +496,7 @@ def parse_bindings(bindings_json):
     """
     data = json.loads(bindings_json)
     output = []
-    for bindings_json in data['output'].values():
+    for bindings_json in data["output"].values():
         for binding in bindings_json:
             output.append(binding)
     return output
@@ -480,8 +515,8 @@ def find_binding(bindings, sgt, prefix):
 
     """
     for binding in parse_bindings(bindings):
-        if binding['sgt'] == int(sgt):
-            for ip_prefix in binding['ip-prefix']:
+        if binding["sgt"] == int(sgt):
+            for ip_prefix in binding["ip-prefix"]:
                 if ip_prefix == prefix:
                     return True
     return False
@@ -498,12 +533,12 @@ def parse_prefix_groups(prefix_groups_json, source_):
 
     """
     data = json.loads(prefix_groups_json)
-    bindings = data['sxp-node:master-database']
+    bindings = data["sxp-node:master-database"]
     output = []
     for binding in bindings.values():
         for binding_source in binding:
-            if source_ == "any" or binding_source['binding-source'] == source_:
-                for prefix_group in binding_source['prefix-group']:
+            if source_ == "any" or binding_source["binding-source"] == source_:
+                for prefix_group in binding_source["prefix-group"]:
                     output.append(prefix_group)
     return output
 
@@ -526,14 +561,24 @@ def find_binding_legacy(prefix_groups_json, sgt, prefix, source_, action):
     """
     found = False
     for prefixgroup in parse_prefix_groups(prefix_groups_json, source_):
-        if prefixgroup['sgt'] == int(sgt):
-            for binding in prefixgroup['binding']:
-                if binding['ip-prefix'] == prefix and binding['action'] == action:
+        if prefixgroup["sgt"] == int(sgt):
+            for binding in prefixgroup["binding"]:
+                if binding["ip-prefix"] == prefix and binding["action"] == action:
                     found = True
     return found
 
 
-def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0, security_mode=''):
+def add_connection_xml(
+    version,
+    mode,
+    ip,
+    port,
+    node,
+    password_,
+    domain_name,
+    bindings_timeout=0,
+    security_mode="",
+):
     """Generate xml for Add Connection request
 
     :param version: Version of SXP protocol (version1/2/3/4)
@@ -557,7 +602,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$node</requested-node>
    $domain
    <connections xmlns="urn:opendaylight:sxp:controller">
@@ -581,11 +627,23 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
       </connection>
    </connections>
 </input>
-''')
+"""
+    )
     data = templ.substitute(
-        {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node,
-         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout,
-         'security_type': '<security-type>' + security_mode + '</security-type>' if security_mode else ''})
+        {
+            "ip": ip,
+            "port": port,
+            "mode": mode,
+            "version": version,
+            "node": node,
+            "password_": password_,
+            "domain": get_domain_name(domain_name),
+            "timeout": bindings_timeout,
+            "security_type": "<security-type>" + security_mode + "</security-type>"
+            if security_mode
+            else "",
+        }
+    )
     return data
 
 
@@ -603,13 +661,22 @@ def delete_connections_xml(address, port, node, domain_name):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$node</requested-node>
    $domain
    <peer-address xmlns="urn:opendaylight:sxp:controller">$address</peer-address>
    <tcp-port xmlns="urn:opendaylight:sxp:controller">$port</tcp-port>
-</input>''')
-    data = templ.substitute({'address': address, 'port': port, 'node': node, 'domain': get_domain_name(domain_name)})
+</input>"""
+    )
+    data = templ.substitute(
+        {
+            "address": address,
+            "port": port,
+            "node": node,
+            "domain": get_domain_name(domain_name),
+        }
+    )
     return data
 
 
@@ -625,14 +692,16 @@ def add_peer_group_xml(name, peers, ip):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <sxp-peer-group xmlns="urn:opendaylight:sxp:controller">
     <name xmlns="urn:opendaylight:sxp:controller">$name</name>
     <sxp-peers xmlns="urn:opendaylight:sxp:controller">$peers</sxp-peers>
     </sxp-peer-group>
-</input>''')
-    data = templ.substitute({'name': name, 'peers': peers, 'ip': ip})
+</input>"""
+    )
+    data = templ.substitute({"name": name, "peers": peers, "ip": ip})
     return data
 
 
@@ -646,11 +715,13 @@ def delete_peer_group_xml(name, ip):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <peer-group-name xmlns="urn:opendaylight:sxp:controller">$name</peer-group-name>
-</input>''')
-    data = templ.substitute({'name': name, 'ip': ip})
+</input>"""
+    )
+    data = templ.substitute({"name": name, "ip": ip})
     return data
 
 
@@ -662,10 +733,12 @@ def get_peer_groups_from_node_xml(ip):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-</input>''')
-    data = templ.substitute({'ip': ip})
+</input>"""
+    )
+    data = templ.substitute({"ip": ip})
     return data
 
 
@@ -689,16 +762,25 @@ def add_filter_xml(group, filter_type, entries, ip, policy=None):
         policy = "<filter-policy>" + policy + "</filter-policy>"
     else:
         policy = ""
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <peer-group-name xmlns="urn:opendaylight:sxp:controller">$group</peer-group-name>
   <sxp-filter xmlns="urn:opendaylight:sxp:controller">
     $filter_policy
     <filter-type>$filter_type</filter-type>$entries
   </sxp-filter>
-</input>''')
+</input>"""
+    )
     data = templ.substitute(
-        {'group': group, 'filter_type': filter_type, 'ip': ip, 'entries': entries, 'filter_policy': policy})
+        {
+            "group": group,
+            "filter_type": filter_type,
+            "ip": ip,
+            "entries": entries,
+            "filter_policy": policy,
+        }
+    )
     return data
 
 
@@ -720,7 +802,8 @@ def add_domain_filter_xml(domain, domains, entries, ip, filter_name=None):
     """
     if filter_name:
         filter_name = "<filter-name>" + filter_name + "</filter-name>"
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <domain-name xmlns="urn:opendaylight:sxp:controller">$domain</domain-name>
   <sxp-domain-filter xmlns="urn:opendaylight:sxp:controller">
@@ -728,9 +811,17 @@ def add_domain_filter_xml(domain, domains, entries, ip, filter_name=None):
     <domains>$domains</domains>
     $entries
   </sxp-domain-filter>
-</input>''')
+</input>"""
+    )
     data = templ.substitute(
-        {'domain': domain, 'domains': domains, 'ip': ip, 'entries': entries, 'filter_name': filter_name})
+        {
+            "domain": domain,
+            "domains": domains,
+            "ip": ip,
+            "entries": entries,
+            "filter_name": filter_name,
+        }
+    )
     return data
 
 
@@ -746,13 +837,14 @@ def delete_filter_xml(group, filter_type, ip):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <peer-group-name xmlns="urn:opendaylight:sxp:controller">$group</peer-group-name>
   <filter-type xmlns="urn:opendaylight:sxp:controller">$filter_type</filter-type>
-</input>''')
-    data = templ.substitute(
-        {'group': group, 'filter_type': filter_type, 'ip': ip})
+</input>"""
+    )
+    data = templ.substitute({"group": group, "filter_type": filter_type, "ip": ip})
     return data
 
 
@@ -769,14 +861,19 @@ def delete_domain_filter_xml(domain, ip, filter_name=None):
 
     """
     if filter_name:
-        filter_name = '<filter-name xmlns="urn:opendaylight:sxp:controller">' + filter_name + "</filter-name>"
-    templ = Template('''<input>
+        filter_name = (
+            '<filter-name xmlns="urn:opendaylight:sxp:controller">'
+            + filter_name
+            + "</filter-name>"
+        )
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <domain-name xmlns="urn:opendaylight:sxp:controller">$domain</domain-name>
   $filter_name
-</input>''')
-    data = templ.substitute(
-        {'domain': domain, 'ip': ip, 'filter_name': filter_name})
+</input>"""
+    )
+    data = templ.substitute({"domain": domain, "ip": ip, "filter_name": filter_name})
     return data
 
 
@@ -790,11 +887,13 @@ def get_connections_from_node_xml(ip, domain_name):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
    $domain
-</input>''')
-    data = templ.substitute({'ip': ip, 'domain': get_domain_name(domain_name)})
+</input>"""
+    )
+    data = templ.substitute({"ip": ip, "domain": get_domain_name(domain_name)})
     return data
 
 
@@ -810,17 +909,30 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
+    templ = Template(
+        """<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <bindings-range xmlns="urn:opendaylight:sxp:controller">$range</bindings-range>
   $domain
-</input>''')
-    data = templ.substitute({'ip': ip, 'range': binding_range, 'domain': get_domain_name(domain_name)})
+</input>"""
+    )
+    data = templ.substitute(
+        {"ip": ip, "range": binding_range, "domain": get_domain_name(domain_name)}
+    )
     return data
 
 
-def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0, keystores=None,
-                 retry_open_timer=1):
+def add_node_xml(
+    node_id,
+    port,
+    password,
+    version,
+    node_ip=None,
+    expansion=0,
+    bindings_timeout=0,
+    keystores=None,
+    retry_open_timer=1,
+):
     """Generate xml for Add Node request
 
     :param node_id: Ipv4 address formatted node id
@@ -842,9 +954,10 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     :returns: String containing xml data for request
 
     """
-    tls = ''
+    tls = ""
     if keystores:
-        tls = Template('''
+        tls = Template(
+            """
         <tls>
             <keystore>
               <location>$keystore</location>
@@ -860,10 +973,17 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
             </truststore>
             <certificate-password>$passwd</certificate-password>
         </tls>
-    ''').substitute(
-            {'keystore': keystores['keystore'], 'truststore': keystores['truststore'], 'passwd': keystores['password']})
+    """
+        ).substitute(
+            {
+                "keystore": keystores["keystore"],
+                "truststore": keystores["truststore"],
+                "passwd": keystores["password"],
+            }
+        )
 
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <timers>
         <retry-open-time>$retry_open_timer</retry-open-time>
@@ -884,11 +1004,21 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     <version>$version</version>
     <description>ODL SXP Controller</description>
     <source-ip>$ip</source-ip>
-</input>''')
+</input>"""
+    )
     data = templ.substitute(
-        {'ip': node_ip or node_id, 'id': node_id, 'port': port, 'password': password,
-         'version': version, 'expansion': expansion, 'timeout': bindings_timeout, 'tls': tls,
-         'retry_open_timer': retry_open_timer})
+        {
+            "ip": node_ip or node_id,
+            "id": node_id,
+            "port": port,
+            "password": password,
+            "version": version,
+            "expansion": expansion,
+            "timeout": bindings_timeout,
+            "tls": tls,
+            "retry_open_timer": retry_open_timer,
+        }
+    )
     return data
 
 
@@ -900,10 +1030,12 @@ def delete_node_xml(node_id):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
   <node-id>$id</node-id>
-</input>''')
-    data = templ.substitute({'id': node_id})
+</input>"""
+    )
+    data = templ.substitute({"id": node_id})
     return data
 
 
@@ -923,28 +1055,39 @@ def add_domain_xml_fluorine(node_id, name, sgt, prefixes, origin):
     :returns: String containing xml data for request
 
     """
-    master_database = ''
-    if prefixes != 'None':
-        xml_prefixes = ''
-        for prefix in prefixes.split(','):
-            xml_prefixes += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
+    master_database = ""
+    if prefixes != "None":
+        xml_prefixes = ""
+        for prefix in prefixes.split(","):
+            xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
         if xml_prefixes:
-            master_database += '''<master-database>
+            master_database += """<master-database>
             <binding>
                 <sgt>$sgt</sgt>
                 $xml_prefixes
             </binding>
-        </master-database>'''
-            master_database = Template(master_database).substitute(({'sgt': sgt, 'xml_prefixes': xml_prefixes}))
+        </master-database>"""
+            master_database = Template(master_database).substitute(
+                ({"sgt": sgt, "xml_prefixes": xml_prefixes})
+            )
 
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <domain-name>$name</domain-name>
     <origin>$origin</origin>
     $master_database
-</input>''')
+</input>"""
+    )
 
-    data = templ.substitute({'name': name, 'id': node_id, 'origin': origin, 'master_database': master_database})
+    data = templ.substitute(
+        {
+            "name": name,
+            "id": node_id,
+            "origin": origin,
+            "master_database": master_database,
+        }
+    )
     return data
 
 
@@ -962,27 +1105,33 @@ def add_domain_xml_oxygen(node_id, name, sgt, prefixes):
     :returns: String containing xml data for request
 
     """
-    master_database = ''
-    if prefixes != 'None':
-        xml_prefixes = ''
-        for prefix in prefixes.split(','):
-            xml_prefixes += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
+    master_database = ""
+    if prefixes != "None":
+        xml_prefixes = ""
+        for prefix in prefixes.split(","):
+            xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
         if xml_prefixes:
-            master_database += '''<master-database>
+            master_database += """<master-database>
             <binding>
                 <sgt>$sgt</sgt>
                 $xml_prefixes
             </binding>
-        </master-database>'''
-            master_database = Template(master_database).substitute(({'sgt': sgt, 'xml_prefixes': xml_prefixes}))
+        </master-database>"""
+            master_database = Template(master_database).substitute(
+                ({"sgt": sgt, "xml_prefixes": xml_prefixes})
+            )
 
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <domain-name>$name</domain-name>
     $master_database
-</input>''')
+</input>"""
+    )
 
-    data = templ.substitute({'name': name, 'id': node_id, 'master_database': master_database})
+    data = templ.substitute(
+        {"name": name, "id": node_id, "master_database": master_database}
+    )
     return data
 
 
@@ -996,12 +1145,14 @@ def delete_domain_xml(node_id, name):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$node_id</node-id>
     <domain-name>$name</domain-name>
-</input>''')
+</input>"""
+    )
 
-    data = templ.substitute({'node_id': node_id, 'name': name})
+    data = templ.substitute({"node_id": node_id, "name": name})
     return data
 
 
@@ -1013,10 +1164,14 @@ def get_domain_name(domain_name):
     :returns: String containing xml data for request
 
     """
-    if domain_name == 'global':
-        return ''
+    if domain_name == "global":
+        return ""
     else:
-        return '<domain-name xmlns="urn:opendaylight:sxp:controller">' + domain_name + '</domain-name>'
+        return (
+            '<domain-name xmlns="urn:opendaylight:sxp:controller">'
+            + domain_name
+            + "</domain-name>"
+        )
 
 
 def add_bindings_xml_fluorine(node_id, domain, sgt, prefixes, origin):
@@ -1035,10 +1190,11 @@ def add_bindings_xml_fluorine(node_id, domain, sgt, prefixes, origin):
     :returns: String containing xml data for request
 
     """
-    xml_prefixes = ''
-    for prefix in prefixes.split(','):
-        xml_prefixes += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    xml_prefixes = ""
+    for prefix in prefixes.split(","):
+        xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <domain-name>$name</domain-name>
     <origin>$origin</origin>
@@ -1048,8 +1204,17 @@ def add_bindings_xml_fluorine(node_id, domain, sgt, prefixes, origin):
             $xml_prefixes
         </binding>
     </master-database>
-</input>''')
-    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'xml_prefixes': xml_prefixes, 'origin': origin})
+</input>"""
+    )
+    data = templ.substitute(
+        {
+            "name": domain,
+            "id": node_id,
+            "sgt": sgt,
+            "xml_prefixes": xml_prefixes,
+            "origin": origin,
+        }
+    )
     return data
 
 
@@ -1067,18 +1232,22 @@ def add_bindings_xml_oxygen(node_id, domain, sgt, prefixes):
     :returns: String containing xml data for request
 
     """
-    xml_prefixes = ''
-    for prefix in prefixes.split(','):
-        xml_prefixes += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    xml_prefixes = ""
+    for prefix in prefixes.split(","):
+        xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <domain-name>$name</domain-name>
         <binding>
             <sgt>$sgt</sgt>
             $xml_prefixes
         </binding>
-</input>''')
-    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'xml_prefixes': xml_prefixes})
+</input>"""
+    )
+    data = templ.substitute(
+        {"name": domain, "id": node_id, "sgt": sgt, "xml_prefixes": xml_prefixes}
+    )
     return data
 
 
@@ -1096,18 +1265,22 @@ def delete_bindings_xml(node_id, domain, sgt, prefixes):
     :returns: String containing xml data for request
 
     """
-    xml_prefixes = ''
-    for prefix in prefixes.split(','):
-        xml_prefixes += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    xml_prefixes = ""
+    for prefix in prefixes.split(","):
+        xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <domain-name>$name</domain-name>
     <binding>
         <sgt>$sgt</sgt>
         $xml_prefixes
     </binding>
-</input>''')
-    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'xml_prefixes': xml_prefixes})
+</input>"""
+    )
+    data = templ.substitute(
+        {"name": domain, "id": node_id, "sgt": sgt, "xml_prefixes": xml_prefixes}
+    )
     return data
 
 
@@ -1124,12 +1297,12 @@ def prefix_range(start, end):
     start = int(start)
     end = int(end)
     index = 0
-    prefixes = ''
+    prefixes = ""
     while index < end:
-        prefixes += get_ip_from_number(index + start) + '/32'
+        prefixes += get_ip_from_number(index + start) + "/32"
         index += 1
         if index < end:
-            prefixes += ','
+            prefixes += ","
     return prefixes
 
 
@@ -1145,14 +1318,18 @@ def route_definition_xml(virtual_ip, net_mask, interface):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''
+    templ = Template(
+        """
     <routing-definition>
         <ip-address>$vip</ip-address>
         <interface>$interface</interface>
         <netmask>$mask</netmask>
     </routing-definition>
-    ''')
-    data = templ.substitute({'mask': net_mask, 'vip': virtual_ip, 'interface': interface})
+    """
+    )
+    data = templ.substitute(
+        {"mask": net_mask, "vip": virtual_ip, "interface": interface}
+    )
     return data
 
 
@@ -1167,13 +1344,17 @@ def route_definitions_xml(routes, old_routes=None):
 
     """
     if old_routes and "</sxp-cluster-route>" in old_routes:
-        templ = Template(old_routes.replace("</sxp-cluster-route>", "$routes</sxp-cluster-route>"))
+        templ = Template(
+            old_routes.replace("</sxp-cluster-route>", "$routes</sxp-cluster-route>")
+        )
     else:
-        templ = Template('''<sxp-cluster-route xmlns="urn:opendaylight:sxp:cluster:route">
+        templ = Template(
+            """<sxp-cluster-route xmlns="urn:opendaylight:sxp:cluster:route">
     $routes
 </sxp-cluster-route>
-    ''')
-    data = templ.substitute({'routes': routes})
+    """
+        )
+    data = templ.substitute({"routes": routes})
     return data
 
 
@@ -1187,11 +1368,13 @@ def add_binding_origin_xml(origin, priority):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:config:controller">
     <origin>$origin</origin>
     <priority>$priority</priority>
-</input>''')
-    data = templ.substitute({'origin': origin, 'priority': priority})
+</input>"""
+    )
+    data = templ.substitute({"origin": origin, "priority": priority})
     return data
 
 
@@ -1205,11 +1388,13 @@ def update_binding_origin_xml(origin, priority):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:config:controller">
     <origin>$origin</origin>
     <priority>$priority</priority>
-</input>''')
-    data = templ.substitute({'origin': origin, 'priority': priority})
+</input>"""
+    )
+    data = templ.substitute({"origin": origin, "priority": priority})
     return data
 
 
@@ -1221,10 +1406,12 @@ def delete_binding_origin_xml(origin):
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    templ = Template(
+        """<input xmlns="urn:opendaylight:sxp:config:controller">
     <origin>$origin</origin>
-</input>''')
-    data = templ.substitute({'origin': origin})
+</input>"""
+    )
+    data = templ.substitute({"origin": origin})
     return data
 
 
@@ -1239,7 +1426,7 @@ def find_binding_origin(origins_json, origin):
 
     """
     for json_origin in parse_binding_origins(origins_json):
-        if json_origin['origin'] == origin:
+        if json_origin["origin"] == origin:
             return True
     return False
 
@@ -1257,8 +1444,8 @@ def find_binding_origin_with_priority(origins_json, origin, priority):
 
     """
     for json_origin in parse_binding_origins(origins_json):
-        if json_origin['origin'] == origin:
-            if json_origin['priority'] == int(priority):
+        if json_origin["origin"] == origin:
+            if json_origin["priority"] == int(priority):
                 return True
     return False
 
@@ -1272,7 +1459,7 @@ def parse_binding_origins(origins_json):
 
     """
     output = []
-    for origins in origins_json['binding-origins'].values():
+    for origins in origins_json["binding-origins"].values():
         for origin in origins:
             output.append(origin)
     return output

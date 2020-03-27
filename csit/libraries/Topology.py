@@ -7,24 +7,27 @@ from robot.libraries.BuiltIn import BuiltIn
 
 
 class Topology(object):
-    '''
+    """
     Topology class provide topology database and provide many method to get property of topology.
-    '''
+    """
+
     topo_nodes_db = [
         [],
-        [{u'type': u'OF', u'id': u'00:00:00:00:00:00:00:01'}],
-        [{u'type': u'OF', u'id': u'00:00:00:00:00:00:00:01'},
-         {u'type': u'OF', u'id': u'00:00:00:00:00:00:00:02'},
-         {u'type': u'OF', u'id': u'00:00:00:00:00:00:00:03'}]
+        [{u"type": u"OF", u"id": u"00:00:00:00:00:00:00:01"}],
+        [
+            {u"type": u"OF", u"id": u"00:00:00:00:00:00:00:01"},
+            {u"type": u"OF", u"id": u"00:00:00:00:00:00:00:02"},
+            {u"type": u"OF", u"id": u"00:00:00:00:00:00:00:03"},
+        ],
     ]
 
     def __init__(self):
         self.builtin = BuiltIn()
 
     def get_nodes_from_topology(self, topo_level):
-        '''
+        """
         get nodes from topology database by topology tree level
-        '''
+        """
         if isinstance(topo_level, str) or isinstance(topo_level, unicode):
             if topo_level.isdigit():
                 topo_level = int(topo_level)
@@ -41,7 +44,7 @@ class Topology(object):
             return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     topology = Topology()
     print(topology.get_nodes_from_topology(2))
-    print(topology.get_nodes_from_topology('2'))
+    print(topology.get_nodes_from_topology("2"))

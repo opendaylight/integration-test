@@ -33,7 +33,7 @@ class OneM2MPrimitiveDefinitions:
         operation_retrieve,
         operation_update,
         operation_delete,
-        operation_notify
+        operation_notify,
     ]
 
     # Long naming schema definitions
@@ -128,12 +128,10 @@ class OneM2MPrimitiveDefinitions:
 
     supported_result_codes = [
         result_code_accepted,
-
         result_code_ok,
         result_code_created,
         result_code_deleted,
         result_code_updated,
-
         result_code_bad_request,
         result_code_not_found,
         result_code_operation_not_allowed,
@@ -153,7 +151,6 @@ class OneM2MPrimitiveDefinitions:
         result_code_esprim_unknown_orig_rand_id,
         result_code_esprim_unknown_recv_rand_id,
         result_code_esprim_bad_mac,
-
         result_code_internal_server_error,
         result_code_not_implemened,
         result_code_target_not_reachable,
@@ -169,7 +166,6 @@ class OneM2MPrimitiveDefinitions:
         result_code_esprim_decryption_error,
         result_code_esprim_encryption_error,
         result_code_sparql_update_error,
-
         result_code_external_object_not_reachable,
         result_code_external_object_not_found,
         result_code_max_number_of_member_exceeded,
@@ -182,7 +178,7 @@ class OneM2MPrimitiveDefinitions:
         result_code_mgmt_conversion_error,
         result_code_mgmt_cancellation_failed,
         result_code_already_complete,
-        result_code_mgmt_command_not_cancellable
+        result_code_mgmt_command_not_cancellable,
     ]
 
     positive_result_codes = [
@@ -190,7 +186,7 @@ class OneM2MPrimitiveDefinitions:
         result_code_deleted,
         result_code_updated,
         result_code_created,
-        result_code_accepted
+        result_code_accepted,
     ]
 
     # Expected positive result codes per operation
@@ -199,7 +195,7 @@ class OneM2MPrimitiveDefinitions:
         operation_retrieve: result_code_ok,
         operation_update: result_code_updated,
         operation_delete: result_code_deleted,
-        operation_notify: result_code_ok
+        operation_notify: result_code_ok,
     }
 
     # Error message content item
@@ -266,30 +262,44 @@ class OneM2MEncodeDecodeData(object):
             raise Exception("No data type string specified")
 
         self.data_type = data_type  # name of data type
-        self._encode = {}   # dictionary stores OneM2M: protocol mapping
-        self._decode = {}   # dictionary stores protocol: OneM2M mapping
-        self._encode_ci = {}    # stores case insensitive OneM2M: protocol mapping
-        self._decode_ci = {}    # stores case insensitive protocol: OneM2M mapping
+        self._encode = {}  # dictionary stores OneM2M: protocol mapping
+        self._decode = {}  # dictionary stores protocol: OneM2M mapping
+        self._encode_ci = {}  # stores case insensitive OneM2M: protocol mapping
+        self._decode_ci = {}  # stores case insensitive protocol: OneM2M mapping
 
     def add(self, onem2m, protocol_specific):
         """Adds new encoding/decoding pair"""
         if onem2m in self._encode:
-            raise Exception("Data type: {}, Encoding key {} already exists".format(self.data_type, onem2m))
+            raise Exception(
+                "Data type: {}, Encoding key {} already exists".format(
+                    self.data_type, onem2m
+                )
+            )
         self._encode[onem2m] = protocol_specific
         decoded_ci = onem2m if not isinstance(onem2m, basestring) else onem2m.lower()
         self._encode_ci[decoded_ci] = protocol_specific
 
         if protocol_specific in self._decode:
-            raise Exception("Data type: {}, Decoding key {} already exists".format(self.data_type, protocol_specific))
+            raise Exception(
+                "Data type: {}, Decoding key {} already exists".format(
+                    self.data_type, protocol_specific
+                )
+            )
         self._decode[protocol_specific] = onem2m
-        encoded_ci = protocol_specific if not isinstance(protocol_specific, basestring) else protocol_specific.lower()
+        encoded_ci = (
+            protocol_specific
+            if not isinstance(protocol_specific, basestring)
+            else protocol_specific.lower()
+        )
         self._decode_ci[encoded_ci] = onem2m
         return self
 
     def encode(self, key):
         """Returns key encoded to protocol specific form"""
         if key not in self._encode:
-            raise IoTDataEncodeError("Data type: {}, Encoding key {} not found".format(self.data_type, key))
+            raise IoTDataEncodeError(
+                "Data type: {}, Encoding key {} not found".format(self.data_type, key)
+            )
         return self._encode[key]
 
     def encode_default(self, key, default):
@@ -303,7 +313,10 @@ class OneM2MEncodeDecodeData(object):
         k = key if not isinstance(key, basestring) else key.lower()
         if k not in self._encode_ci:
             raise IoTDataEncodeError(
-                "Data type: {}, Case Insensitive Encoding key {} not found".format(self.data_type, key))
+                "Data type: {}, Case Insensitive Encoding key {} not found".format(
+                    self.data_type, key
+                )
+            )
         return self._encode_ci[k]
 
     def encode_default_ci(self, key, default):
@@ -319,7 +332,9 @@ class OneM2MEncodeDecodeData(object):
     def decode(self, key):
         """Decodes protocol specific key and returns decoded OneM2M string"""
         if key not in self._decode:
-            raise IoTDataDecodeError("Data type: {}, Decoding key {} not found".format(self.data_type, key))
+            raise IoTDataDecodeError(
+                "Data type: {}, Decoding key {} not found".format(self.data_type, key)
+            )
         return self._decode[key]
 
     def decode_default(self, key, default):
@@ -336,7 +351,10 @@ class OneM2MEncodeDecodeData(object):
         k = key if not isinstance(key, basestring) else key.lower()
         if k not in self._decode_ci:
             raise IoTDataDecodeError(
-                "Data type: {}, Case Insensitive Decoding key {} not found".format(self.data_type, key))
+                "Data type: {}, Case Insensitive Decoding key {} not found".format(
+                    self.data_type, key
+                )
+            )
         return self._decode_ci[k]
 
     def decode_default_ci(self, key, default):
@@ -428,6 +446,7 @@ class OneM2MPrimitive(IoTData):
 
 class OneM2MPrimitiveBuilderException(Exception):
     """OneM2M primitive build error"""
+
     pass
 
 

@@ -1,4 +1,4 @@
-UNIFICATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_NT = """<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -23,9 +23,9 @@ UNIFICATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xm
                                 </aggregation>
                             </correlation>
                         </correlations>
-                    </n:topology>'''
+                    </n:topology>"""
 
-UNIFICATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_NT_AGGREGATE_INSIDE = """<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -44,9 +44,9 @@ UNIFICATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendaylight:topolog
                                 </aggregation>
                             </correlation>
                         </correlations>
-                    </n:topology>'''
+                    </n:topology>"""
 
-UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = """<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -70,9 +70,9 @@ UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendayli
                                 </filtration>
                             </correlation>
                         </correlations>
-                    </n:topology>'''
+                    </n:topology>"""
 
-UNIFICATION_FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_FILTRATION_NT = """<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -103,9 +103,9 @@ UNIFICATION_FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:corr
                                 </filtration>
                             </correlation>
                         </correlations>
-                    </n:topology>'''
+                    </n:topology>"""
 
-FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+FILTRATION_NT = """<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                     <n:topology-id>topo:1</n:topology-id>
                     <correlations>
                         <output-model>{output-model}</output-model>
@@ -119,28 +119,28 @@ FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xml
                             </filtration>
                         </correlation>
                     </correlations>
-                </n:topology>'''
+                </n:topology>"""
 
-APPLY_FILTERS = '''
+APPLY_FILTERS = """
 <apply-filters>{filter-id}</apply-filters>
-'''
+"""
 
-TARGET_FIELD = '''
+TARGET_FIELD = """
 <target-field>
     <target-field-path>{target-field-path}</target-field-path>
     <matching-key>{matching-key}</matching-key>
 </target-field>
-'''
+"""
 
-SCRIPTING = '''
+SCRIPTING = """
 <scripting>
     <language>{language}</language>
     <script>
         {script}
     </script>
 </scripting>
-'''
-FILTER_SCRIPT = '''<filter>
+"""
+FILTER_SCRIPT = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -153,10 +153,10 @@ FILTER_SCRIPT = '''<filter>
                                 </script>
                             </scripting>
                         </script-filter>
-                 </filter>'''
+                 </filter>"""
 
 
-FILTER_IPV4 = '''<filter>
+FILTER_IPV4 = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -164,9 +164,9 @@ FILTER_IPV4 = '''<filter>
                         <ipv4-address-filter>
                              <ipv4-address>{ipv4}</ipv4-address>
                         </ipv4-address-filter>
-                 </filter>'''
+                 </filter>"""
 
-FILTER_IPV6 = '''<filter>
+FILTER_IPV6 = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -174,9 +174,9 @@ FILTER_IPV6 = '''<filter>
                         <ipv6-address-filter>
                              <ipv6-address>{ipv6}</ipv6-address>
                         </ipv6-address-filter>
-                 </filter>'''
+                 </filter>"""
 
-FILTER_RANGE_NUMBER = '''<filter>
+FILTER_RANGE_NUMBER = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -185,9 +185,9 @@ FILTER_RANGE_NUMBER = '''<filter>
                              <min-number-value>{min}</min-number-value>
                              <max-number-value>{max}</max-number-value>
                         </range-number-filter>
-                 </filter>'''
+                 </filter>"""
 
-FILTER_RANGE_STRING = '''<filter>
+FILTER_RANGE_STRING = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -196,9 +196,9 @@ FILTER_RANGE_STRING = '''<filter>
                              <min-string-value>{min}</min-string-value>
                              <max-string-value>{max}</max-string-value>
                         </range-string-filter>
-                 </filter>'''
+                 </filter>"""
 
-FILTER_SPECIFIC_NUMBER = '''<filter>
+FILTER_SPECIFIC_NUMBER = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -206,9 +206,9 @@ FILTER_SPECIFIC_NUMBER = '''<filter>
                         <specific-number-filter>
                              <specific-number>{number}</specific-number>
                         </specific-number-filter>
-                 </filter>'''
+                 </filter>"""
 
-FILTER_SPECIFIC_STRING = '''<filter>
+FILTER_SPECIFIC_STRING = """<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
                         <target-field>{target-field}</target-field>
@@ -216,9 +216,9 @@ FILTER_SPECIFIC_STRING = '''<filter>
                         <specific-string-filter>
                              <specific-string>{string}</specific-string>
                         </specific-string-filter>
-                 </filter>'''
+                 </filter>"""
 
-LINK_COMPUTATION_INSIDE = '''<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
+LINK_COMPUTATION_INSIDE = """<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
             <output-model>{output-model}</output-model>
             <node-info>
                 <node-topology>topo:1</node-topology>
@@ -228,9 +228,9 @@ LINK_COMPUTATION_INSIDE = '''<link-computation xmlns="urn:opendaylight:topology:
                 <link-topology>{underlay-topology-id}</link-topology>
                 <input-model>{input-model}</input-model>
             </link-info>
-        </link-computation>'''
+        </link-computation>"""
 
-LINK_COMPUTATION = '''<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
+LINK_COMPUTATION = """<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
             <output-model>{output-model}</output-model>
             <node-info>
                 <node-topology>topo:1</node-topology>
@@ -244,9 +244,9 @@ LINK_COMPUTATION = '''<link-computation xmlns="urn:opendaylight:topology:link:co
                 <link-topology>{underlay-topology-2-id}</link-topology>
                 <input-model>{input-model}</input-model>
             </link-info>
-        </link-computation>'''
+        </link-computation>"""
 
-NODE_ISIS = '''<node xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+NODE_ISIS = """<node xmlns="urn:TBD:params:xml:ns:yang:network-topology"
             xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
             xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
             xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
@@ -259,26 +259,26 @@ NODE_ISIS = '''<node xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                     </isis:ted>
                 </isis:isis-node-attributes>
             </igp:igp-node-attributes>
-        </node>'''
+        </node>"""
 
-NODE_OPENFLOW = '''<node xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
+NODE_OPENFLOW = """<node xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
         <id>{node-id}</id>
         <flov-inv:ip-address>{ip-address}</flov-inv:ip-address>
         <flov-inv:serial-number>{serial-number}</flov-inv:serial-number>
-    </node>'''
+    </node>"""
 
-TERMINATION_POINT_OVSDB = '''<termination-point xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+TERMINATION_POINT_OVSDB = """<termination-point xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                                 xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                                     <tp-id>{tp-id}</tp-id>
                                     <ovsdb:ofport>{ofport}</ovsdb:ofport>
-                                </termination-point>'''
+                                </termination-point>"""
 
-NODE_CONNECTOR_OPENFLOW = '''<node-connector xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
+NODE_CONNECTOR_OPENFLOW = """<node-connector xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
             <id>{nc-id}</id>
             <flov-inv:port-number>{port-number}</flov-inv:port-number>
-        </node-connector>'''
+        </node-connector>"""
 
-LINK = '''<link xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+LINK = """<link xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
                                 xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
                                 xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
@@ -293,4 +293,4 @@ LINK = '''<link xmlns="urn:TBD:params:xml:ns:yang:network-topology"
             <igp:name>{name}</igp:name>
             <igp:metric>{metric}</igp:metric>
         </igp:igp-link-attributes>
-    </link>'''
+    </link>"""

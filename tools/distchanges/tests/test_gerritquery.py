@@ -11,7 +11,7 @@ import logg
 
 
 REMOTE_URL = GerritQuery.remote_url
-BRANCH = 'stable/oxygen'
+BRANCH = "stable/oxygen"
 LIMIT = 10
 QLIMIT = 50
 VERBOSE = 0
@@ -29,5 +29,5 @@ class TestRequest(unittest.TestCase):
         print("{}".format(gerrits))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

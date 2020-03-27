@@ -14,9 +14,9 @@ class SwitchManager(object):
         """
         Return all nodes.
         """
-        if isinstance(content, dict) and 'nodeProperties' in content:
+        if isinstance(content, dict) and "nodeProperties" in content:
             self.builtin.log("18")
-            return [e.get('node') for e in content['nodeProperties']]
+            return [e.get("node") for e in content["nodeProperties"]]
         else:
             self.builtin.log("21")
             return None
@@ -24,9 +24,9 @@ class SwitchManager(object):
     def extract_all_properties(self, content, property_type):
         if isinstance(content, dict) and property_type in content:
             self.builtin.log("26")
-            list1 = [e.get('properties') for e in content[property_type]]
+            list1 = [e.get("properties") for e in content[property_type]]
             self.builtin.log(list1)
-            return [e.get('properties') for e in content[property_type]]
+            return [e.get("properties") for e in content[property_type]]
         else:
             self.builtin.log("29")
             return None
@@ -36,13 +36,13 @@ class SwitchManager(object):
         return [e.get(property) for e in res]
 
     def extract_all_node_properties(self, content):
-        return self.extract_all_properties(content, 'nodeProperties')
+        return self.extract_all_properties(content, "nodeProperties")
 
     def extract_node_property_values(self, content, property):
-        return self.extract_property_value(content, property, 'nodeProperties')
+        return self.extract_property_value(content, property, "nodeProperties")
 
     def extract_all_nodeconnector_properties(self, content):
-        return self.extract_all_properties(content, 'nodeConnectorProperties')
+        return self.extract_all_properties(content, "nodeConnectorProperties")
 
     def extract_nodeconnector_property_values(self, content, property):
-        return self.extract_property_value(content, property, 'nodeConnectorProperties')
+        return self.extract_property_value(content, property, "nodeConnectorProperties")

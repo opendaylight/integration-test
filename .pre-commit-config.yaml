@@ -11,11 +11,6 @@ repos:
         # so to prevent this conflict we will ignore .robot files in this trailing-whitespace hook
         exclude: '\.robot'
 
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.4.4
-    hooks:
-      - id: autopep8
-
   - repo: https://github.com/guykisel/pre-commit-robotframework-tidy
     rev: master
     hooks:
