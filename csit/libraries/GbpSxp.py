@@ -12,7 +12,7 @@ def check_iso8601_datetime_younger_then_limit(status_timestamp_raw, limit):
     :param limit: datetime value - status must be younger than this
     """
 
-    logger.debug('limit:{0}'.format(limit))
+    logger.debug("limit:{0}".format(limit))
 
     timestamp_raw = status_timestamp_raw
     # 2016-11-23T13:25:00.733+01:00
@@ -21,9 +21,11 @@ def check_iso8601_datetime_younger_then_limit(status_timestamp_raw, limit):
     limit_tstamp = limit_tstamp.replace(tzinfo=status_tstamp.tzinfo)
 
     if status_tstamp <= limit_tstamp:
-        logger.info('status stamp --> {0}'.format(status_tstamp))
-        logger.info('limit        --> {0}'.format(limit_tstamp))
-        raise ExecutionFailed('received status is not up-to-date: {0}'.format(status_tstamp))
+        logger.info("status stamp --> {0}".format(status_tstamp))
+        logger.info("limit        --> {0}".format(limit_tstamp))
+        raise ExecutionFailed(
+            "received status is not up-to-date: {0}".format(status_tstamp)
+        )
 
 
 def replace_ise_source_address(ise_source_json, new_target):
@@ -33,7 +35,9 @@ def replace_ise_source_address(ise_source_json, new_target):
     :param ise_source_json: ise source configuration as json
     :param new_target: current ise server url
     """
-    ise_source_json['ise-source-config']['connection-config']['ise-rest-url'] = new_target
+    ise_source_json["ise-source-config"]["connection-config"][
+        "ise-rest-url"
+    ] = new_target
 
 
 def remove_endpoint_timestamp(endpoint_json):
@@ -43,10 +47,12 @@ def remove_endpoint_timestamp(endpoint_json):
     :return: plain text without timestamp
     """
     try:
-        for address_endpoint in endpoint_json['endpoints']['address-endpoints']['address-endpoint']:
-            del address_endpoint['timestamp']
+        for address_endpoint in endpoint_json["endpoints"]["address-endpoints"][
+            "address-endpoint"
+        ]:
+            del address_endpoint["timestamp"]
     except KeyError:
-        msg = 'No endpoint present - can not wipe timestamp'
+        msg = "No endpoint present - can not wipe timestamp"
         logger.debug(msg)
         raise ExecutionFailed(msg)
 
@@ -61,10 +67,10 @@ def resolve_sxp_node_is_enabled(sxp_node_json):
     """
     enabled = None
     try:
-        for node in sxp_node_json['node']:
-            enabled = node['sxp-node:enabled']
+        for node in sxp_node_json["node"]:
+            enabled = node["sxp-node:enabled"]
     except KeyError:
-        msg = 'No sxp node content present - can not read value of enabled'
+        msg = "No sxp node content present - can not read value of enabled"
         logger.debug(msg)
         raise ExecutionFailed(msg)
 
@@ -80,11 +86,11 @@ def replace_netconf_node_host(netconf_node_json, node_name, host_value):
     :return: plain text with replaced host value
     """
     try:
-        for node in netconf_node_json['node']:
-            node['netconf-node-topology:host'] = host_value
-            node['node-id'] = node_name
+        for node in netconf_node_json["node"]:
+            node["netconf-node-topology:host"] = host_value
+            node["node-id"] = node_name
     except KeyError:
-        msg = 'No host found in given netconf node config'
+        msg = "No host found in given netconf node config"
         logger.debug(msg)
         raise ExecutionFailed(msg)
 
@@ -99,13 +105,15 @@ def replace_ip_mgmt_address_in_forwarder(sf_forwarders_json, ip_mgmt_map):
     :return: plain sfc forwarders with replaced ip-mgmt-addresses
     """
     try:
-        for sff in sf_forwarders_json['service-function-forwarders']['service-function-forwarder']:
-            sff_name = sff['name']
+        for sff in sf_forwarders_json["service-function-forwarders"][
+            "service-function-forwarder"
+        ]:
+            sff_name = sff["name"]
             if sff_name in ip_mgmt_map:
-                sff['ip-mgmt-address'] = ip_mgmt_map[sff_name]
+                sff["ip-mgmt-address"] = ip_mgmt_map[sff_name]
 
     except KeyError:
-        msg = 'Expected sff not found in given config'
+        msg = "Expected sff not found in given config"
         logger.debug(msg)
         raise ExecutionFailed(msg)
 
@@ -120,9 +128,9 @@ def replace_renderer_policy_version(renderer_policy_json, next_version):
     :return: plain renderer policy with replaced version
     """
     try:
-        renderer_policy_json['renderer-policy']['version'] = next_version
+        renderer_policy_json["renderer-policy"]["version"] = next_version
     except KeyError:
-        msg = 'Expected version element not found in given renderer-policy'
+        msg = "Expected version element not found in given renderer-policy"
         logger.debug(msg)
         raise ExecutionFailed(msg)
 

@@ -34,33 +34,35 @@ def docker_create(docker_image_name, passed_args_dict=None):
     logger.info(passed_args_dict)
     docker_client = docker_get_client()
 
-    default_args_dict = dict(command=None,
-                             hostname=None,
-                             user=None,
-                             detach=False,
-                             stdin_open=False,
-                             tty=False,
-                             mem_limit=0,
-                             ports=None,
-                             environment=None,
-                             dns=None,
-                             volumes=None,
-                             volumes_from=None,
-                             network_disabled=False,
-                             name=None,
-                             entrypoint=None,
-                             cpu_shares=None,
-                             working_dir=None,
-                             domainname=None,
-                             memswap_limit=0,
-                             cpuset=None,
-                             host_config=None
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_create")
+    default_args_dict = dict(
+        command=None,
+        hostname=None,
+        user=None,
+        detach=False,
+        stdin_open=False,
+        tty=False,
+        mem_limit=0,
+        ports=None,
+        environment=None,
+        dns=None,
+        volumes=None,
+        volumes_from=None,
+        network_disabled=False,
+        name=None,
+        entrypoint=None,
+        cpu_shares=None,
+        working_dir=None,
+        domainname=None,
+        memswap_limit=0,
+        cpuset=None,
+        host_config=None,
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_create"
+    )
 
     docker_client.images(name=docker_image_name)
-    docker_uid_dict = docker_client\
-        .create_container(docker_image_name, **args_dict)
+    docker_uid_dict = docker_client.create_container(docker_image_name, **args_dict)
     docker_info = docker_client.inspect_container(docker_uid_dict.get("Id"))
     return docker_info
 
@@ -85,28 +87,30 @@ def docker_start(docker_name, passed_args_dict=None):
     logger.info(passed_args_dict)
     docker_client = docker_get_client()
 
-    default_args_dict = dict(binds=None,
-                             port_bindings=None,
-                             lxc_conf=None,
-                             publish_all_ports=False,
-                             links=None,
-                             privileged=False,
-                             dns=None,
-                             dns_search=None,
-                             volumes_from=None,
-                             network_mode=None,
-                             restart_policy=None,
-                             cap_add=None,
-                             cap_drop=None,
-                             devices=None,
-                             extra_hosts=None
-                             )
+    default_args_dict = dict(
+        binds=None,
+        port_bindings=None,
+        lxc_conf=None,
+        publish_all_ports=False,
+        links=None,
+        privileged=False,
+        dns=None,
+        dns_search=None,
+        volumes_from=None,
+        network_mode=None,
+        restart_policy=None,
+        cap_add=None,
+        cap_drop=None,
+        devices=None,
+        extra_hosts=None,
+    )
     args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_start")
 
     docker_client.start(docker_name, **args_dict)
 
-    if "True" in str(docker_client.inspect_container(docker_name)
-                     .get("State").get("Running")):
+    if "True" in str(
+        docker_client.inspect_container(docker_name).get("State").get("Running")
+    ):
         logger.info("Started docker %s successfully" % docker_name)
         return True
     else:
@@ -131,11 +135,10 @@ def docker_remove(docker_name, passed_args_dict=None):
     logger.info(passed_args_dict)
     docker_client = docker_get_client()
 
-    default_args_dict = dict(v=False,
-                             link=False,
-                             force=False
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_remove")
+    default_args_dict = dict(v=False, link=False, force=False)
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_remove"
+    )
 
     docker_client.remove_container(docker_name, **args_dict)
     docker_containers = docker_client.containers(all=True)
@@ -164,8 +167,9 @@ def docker_stop(docker_name, timeout=10):
 
     docker_client.stop(docker_name, timeout)
 
-    if "False" in str(docker_client.inspect_container(docker_name)
-                      .get("State").get("Running")):
+    if "False" in str(
+        docker_client.inspect_container(docker_name).get("State").get("Running")
+    ):
         logger.info("Stopped docker %s successfully" % docker_name)
         return True
     else:
@@ -189,13 +193,12 @@ def docker_return_logs(docker_name, passed_args_dict=None):
     logger.info(passed_args_dict)
     docker_client = docker_get_client()
 
-    default_args_dict = dict(stdout=True,
-                             stderr=True,
-                             stream=False,
-                             timestamps=False,
-                             tail='all'
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_return_logs")
+    default_args_dict = dict(
+        stdout=True, stderr=True, stream=False, timestamps=False, tail="all"
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_return_logs"
+    )
 
     return docker_client.logs(docker_name, **args_dict)
 
@@ -223,13 +226,12 @@ def docker_execute(docker_name, cmd, passed_args_dict=None):
     logger.info(passed_args_dict)
     docker_client = docker_get_client()
 
-    default_args_dict = dict(detach=False,
-                             stdout=True,
-                             stderr=True,
-                             stream=False,
-                             tty=False
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_execute")
+    default_args_dict = dict(
+        detach=False, stdout=True, stderr=True, stream=False, tty=False
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_execute"
+    )
 
     return docker_client.execute(docker_name, cmd, **args_dict)
 
@@ -246,9 +248,11 @@ def docker_get_ip4(docker_name):
     """
     logger.info("Getting IP of docker %s" % docker_name)
     docker_client = docker_get_client()
-    return str(docker_client.inspect_container(docker_name)
-               .get("NetworkSettings")
-               .get("IPAddress"))
+    return str(
+        docker_client.inspect_container(docker_name)
+        .get("NetworkSettings")
+        .get("IPAddress")
+    )
 
 
 def docker_ping(docker_name, ip, count=3):
@@ -282,23 +286,24 @@ def docker_list_containers(passed_args_dict=None):
     logger.info("Listing docker containers")
     logger.info(passed_args_dict)
 
-    default_args_dict = dict(quiet=True,
-                             all=True,
-                             trunc=True,
-                             latest=False,
-                             since=None,
-                             before=None,
-                             limit=-1,
-                             size=False,
-                             filters=None
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict,
-                                    "docker_list_containers")
+    default_args_dict = dict(
+        quiet=True,
+        all=True,
+        trunc=True,
+        latest=False,
+        since=None,
+        before=None,
+        limit=-1,
+        size=False,
+        filters=None,
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_list_containers"
+    )
 
-    return docker.Client(
-        base_url='unix://var/run/docker.sock',
-        timeout=10)\
-        .containers(**args_dict)
+    return docker.Client(base_url="unix://var/run/docker.sock", timeout=10).containers(
+        **args_dict
+    )
 
 
 def docker_create_host_config(passed_args_dict):
@@ -316,24 +321,26 @@ def docker_create_host_config(passed_args_dict):
     """
     logger.info("Creating host config.")
 
-    default_args_dict = dict(binds=None,
-                             port_bindings=None,
-                             lxc_conf=None,
-                             publish_all_ports=False,
-                             links=None,
-                             privileged=False,
-                             dns=None,
-                             dns_search=None,
-                             volumes_from=None,
-                             network_mode=None,
-                             restart_policy=None,
-                             cap_add=None,
-                             cap_drop=None,
-                             devices=None,
-                             extra_hosts=None
-                             )
-    args_dict = docker_process_args(passed_args_dict, default_args_dict,
-                                    "docker_create_host_config")
+    default_args_dict = dict(
+        binds=None,
+        port_bindings=None,
+        lxc_conf=None,
+        publish_all_ports=False,
+        links=None,
+        privileged=False,
+        dns=None,
+        dns_search=None,
+        volumes_from=None,
+        network_mode=None,
+        restart_policy=None,
+        cap_add=None,
+        cap_drop=None,
+        devices=None,
+        extra_hosts=None,
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_create_host_config"
+    )
 
     return docker.utils.create_host_config(**args_dict)
 
@@ -380,9 +387,10 @@ def docker_get_client(*passed_args_dict):
     Returns:
         :returns obj: returns docker-py client object.
     """
-    default_args_dict = dict(base_url="unix://var/run/docker.sock",
-                             version=None,
-                             timeout=10,
-                             tls=False)
-    args_dict = docker_process_args(passed_args_dict, default_args_dict, "docker_get_client")
+    default_args_dict = dict(
+        base_url="unix://var/run/docker.sock", version=None, timeout=10, tls=False
+    )
+    args_dict = docker_process_args(
+        passed_args_dict, default_args_dict, "docker_get_client"
+    )
     return docker.Client(**args_dict)
