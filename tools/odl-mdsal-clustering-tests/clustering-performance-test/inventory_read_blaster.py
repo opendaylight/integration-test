@@ -15,9 +15,9 @@ __author__ = "Gary Wu"
 __email__ = "gary.wu1@huawei.com"
 
 
-GET_HEADERS = {'Accept': 'application/json'}
+GET_HEADERS = {"Accept": "application/json"}
 
-INVENTORY_URL = 'http://%s:%d/restconf/%s/opendaylight-inventory:nodes'
+INVENTORY_URL = "http://%s:%d/restconf/%s/opendaylight-inventory:nodes"
 
 
 class Timer(object):
@@ -67,31 +67,57 @@ def read(hosts, port, auth, datastore, print_lock, cycles, results_queue):
         stats[r.status_code] = stats.get(r.status_code, 0) + 1
 
     with print_lock:
-        print('   %s results: %s' % (threading.current_thread().name, stats))
+        print("   %s results: %s" % (threading.current_thread().name, stats))
 
     results_queue.put(stats)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Inventory read performance test: Repeatedly read openflow node data '
-                                     'from config datastore.  Note that the data needs to be created in the datastore '
-                                     'first using flow_config_blaster.py --no-delete.')
+    parser = argparse.ArgumentParser(
+        description="Inventory read performance test: Repeatedly read openflow node data "
+        "from config datastore.  Note that the data needs to be created in the datastore "
+        "first using flow_config_blaster.py --no-delete."
+    )
 
-    parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where odl controller is running (default is 127.0.0.1).  '
-                             'Specify a comma-separated list of hosts to perform round-robin load-balancing.')
-    parser.add_argument('--port', default='8181', type=int,
-                        help='Port on which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--datastore', choices=['operational', 'config'],
-                        default='operational', help='Which data store to crawl; default operational')
-    parser.add_argument('--cycles', type=int, default=100,
-                        help='Number of repeated reads; default 100. ')
-    parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads to start in each cycle; default=1. '
-                             'Each thread will add/delete <FLOWS> flows.')
-    parser.add_argument('--auth', dest='auth', action='store_true', default=False,
-                        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
-                             'default: no authentication')
+    parser.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="Host where odl controller is running (default is 127.0.0.1).  "
+        "Specify a comma-separated list of hosts to perform round-robin load-balancing.",
+    )
+    parser.add_argument(
+        "--port",
+        default="8181",
+        type=int,
+        help="Port on which odl's RESTCONF is listening (default is 8181)",
+    )
+    parser.add_argument(
+        "--datastore",
+        choices=["operational", "config"],
+        default="operational",
+        help="Which data store to crawl; default operational",
+    )
+    parser.add_argument(
+        "--cycles",
+        type=int,
+        default=100,
+        help="Number of repeated reads; default 100. ",
+    )
+    parser.add_argument(
+        "--threads",
+        type=int,
+        default=1,
+        help="Number of request worker threads to start in each cycle; default=1. "
+        "Each thread will add/delete <FLOWS> flows.",
+    )
+    parser.add_argument(
+        "--auth",
+        dest="auth",
+        action="store_true",
+        default=False,
+        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
+        "default: no authentication",
+    )
 
     args = parser.parse_args()
 
@@ -106,8 +132,18 @@ if __name__ == "__main__":
     with Timer() as t:
         threads = []
         for i in range(args.threads):
-            thread = threading.Thread(target=read, args=(hosts, port, auth, args.datastore, print_lock, args.cycles,
-                                                         results))
+            thread = threading.Thread(
+                target=read,
+                args=(
+                    hosts,
+                    port,
+                    auth,
+                    args.datastore,
+                    print_lock,
+                    args.cycles,
+                    results,
+                ),
+            )
             threads.append(thread)
             thread.start()
 
@@ -118,6 +154,6 @@ if __name__ == "__main__":
     # Aggregate the results
     stats = functools.reduce(operator.add, map(collections.Counter, results.queue))
 
-    print('\n*** Test summary:')
-    print('    Elapsed time:    %.2fs' % t.secs)
-    print('    HTTP[OK] results:  %d\n' % stats[200])
+    print("\n*** Test summary:")
+    print("    Elapsed time:    %.2fs" % t.secs)
+    print("    HTTP[OK] results:  %d\n" % stats[200])

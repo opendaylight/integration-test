@@ -24,10 +24,16 @@ __created__ = "19 March 2014"
 
 if len(sys.argv) < 5:
     print("Please povide correct inputs. Exiting!!!")
-    print("{0}  <switch_count> <host_per_switch> <base_mac: Eg:00:4b:00:00:00:00 > \
-          <base_ip: Eg:75.75.0.0>".format(sys.argv[0].split('/')[-1]))
-    print("Dpid of switches is derived from base mac and \
-           host ip address is derived from base ip")
+    print(
+        "{0}  <switch_count> <host_per_switch> <base_mac: Eg:00:4b:00:00:00:00 > \
+          <base_ip: Eg:75.75.0.0>".format(
+            sys.argv[0].split("/")[-1]
+        )
+    )
+    print(
+        "Dpid of switches is derived from base mac and \
+           host ip address is derived from base ip"
+    )
     sys.exit(1)
 
 switch_count = int(sys.argv[1])
@@ -35,11 +41,11 @@ host_per_switch = int(sys.argv[2])
 base_mac = sys.argv[3]
 base_host_ip = sys.argv[4]
 
-base_host_mac = base_mac.split(':')
-base_host_mac[0] = '10'
-base_host_mac = (':').join(base_host_mac)
-dpid_mac = base_mac.split(':')
-dpid_mac = ('').join(dpid_mac)
+base_host_mac = base_mac.split(":")
+base_host_mac[0] = "10"
+base_host_mac = (":").join(base_host_mac)
+dpid_mac = base_mac.split(":")
+dpid_mac = ("").join(dpid_mac)
 
 
 def new_mac(mac, offset):
@@ -53,7 +59,7 @@ def new_mac(mac, offset):
     """
     mac = netaddr.EUI(mac).value
     mac = mac + offset
-    mac = str(netaddr.EUI(mac)).replace('-', ':')
+    mac = str(netaddr.EUI(mac)).replace("-", ":")
     return mac
 
 
@@ -79,9 +85,9 @@ def new_dpid(mac, offset):
     """
     mac = netaddr.EUI(mac).value
     mac = mac + offset
-    mac = str(netaddr.EUI(mac)).replace('-', ':')
-    dpid_mac = mac.split(':')
-    dpid_mac = ('').join(dpid_mac)
+    mac = str(netaddr.EUI(mac)).replace("-", ":")
+    dpid_mac = mac.split(":")
+    dpid_mac = ("").join(dpid_mac)
     DPID = "0000" + dpid_mac
     return DPID
 
@@ -91,34 +97,47 @@ if __name__ == "__main__":
     HMAC = new_mac(base_host_mac, 1)
     HIP = new_ip(base_host_ip, 1)
     prefix = 8
-    configfile = open("switch.py", 'w')
-    configfile.write('\"\"\"@author: sandeep gangadharan\n             \
+    configfile = open("switch.py", "w")
+    configfile.write(
+        '"""@author: sandeep gangadharan\n             \
     This topology has {0:d} switches {1:d} hosts                       \
     \nThis topology is made out of {2:s} script                        \
     \nThis is a fully mesh topology. Not available in mininet by default.\
-    \nHence generating this python file dynamically\"\"\"     \
+    \nHence generating this python file dynamically"""     \
     \nfrom mininet.topo import Topo\nclass DemoTopo(Topo):          \
-    \n'.format(switch_count, switch_count * host_per_switch, sys.argv[0]))
-    print("This topology has %d switches %d hosts"
-          % (switch_count, switch_count * host_per_switch))
+    \n'.format(
+            switch_count, switch_count * host_per_switch, sys.argv[0]
+        )
+    )
+    print(
+        "This topology has %d switches %d hosts"
+        % (switch_count, switch_count * host_per_switch)
+    )
     configfile.write("    def __init__(self):\n ")
     configfile.write("        #  Initialize topology\n")
     configfile.write("        Topo.__init__(self)\n")
     configfile.write("        #  Add Switches\n")
     # Add switches
     for i in range(1, switch_count + 1):
-        configfile.write("        s{0:d} = self.addSwitch(\'s{1:d}\',dpid=\'{2:s}\')\
-            \n".format(i, i, DPID))
+        configfile.write(
+            "        s{0:d} = self.addSwitch('s{1:d}',dpid='{2:s}')\
+            \n".format(
+                i, i, DPID
+            )
+        )
         DPID = new_dpid(base_mac, i + 1)
 
     # Add hosts
     configfile.write("        #  Add Hosts\n")
     for i in range(1, switch_count + 1):
         for j in range(1, host_per_switch + 1):
-            configfile.write("        self.addLink(s{0:d}, \
+            configfile.write(
+                "        self.addLink(s{0:d}, \
                 self.addHost('s{1:d}h{2:d}',\
-                ip='{3:s}',mac='{4:s}',prefixLen='{5:d}'))\n"
-                             .format(i, i, j, HIP, HMAC, prefix))
+                ip='{3:s}',mac='{4:s}',prefixLen='{5:d}'))\n".format(
+                    i, i, j, HIP, HMAC, prefix
+                )
+            )
             HMAC = new_mac(HMAC, 1)
             HIP = new_ip(HIP, 1)
 
@@ -130,7 +149,11 @@ if __name__ == "__main__":
             continue
         for j in range(1, i + 1):
             if i != j:
-                configfile.write("        self.addLink(s{0:d}, s{1:d})\
-                \n".format(i, j))
+                configfile.write(
+                    "        self.addLink(s{0:d}, s{1:d})\
+                \n".format(
+                        i, j
+                    )
+                )
     configfile.write("topos = { 'demotopo': ( lambda: DemoTopo() ) }")
     configfile.close()
