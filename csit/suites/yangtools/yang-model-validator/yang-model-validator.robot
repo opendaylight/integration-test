@@ -31,8 +31,6 @@ Resource          ${CURDIR}/../../../libraries/YangCollection.robot
 *** Variables ***
 ${TEST_TOOL_NAME}    yang-model-validator
 ${EXPLICIT_YANG_SYSTEM_TEST_URL}    ${EMPTY}
-${NITROGEN_YANG_SYSTEM_TEST_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/yangtools/${TEST_TOOL_NAME}/2.0.0/${TEST_TOOL_NAME}-2.0.0-jar-with-dependencies.jar
-${OXYGEN_YANG_SYSTEM_TEST_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/yangtools/${TEST_TOOL_NAME}/2.0.1/${TEST_TOOL_NAME}-2.0.1-jar-with-dependencies.jar
 
 *** Test Cases ***
 Kill_Odl
@@ -70,11 +68,6 @@ Collect_Files_To_Archive
 Setup_Suite
     [Documentation]    Activate dependency Resources, create SSH connection.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ${TEST_TOOL_NAME}=    CompareStream.Set_Variable_If_At_Most_Carbon    yang-system-test    ${TEST_TOOL_NAME}
-    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Nitrogen    ${NITROGEN_YANG_SYSTEM_TEST_URL}    ${EMPTY}
-    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Oxygen    ${OXYGEN_YANG_SYSTEM_TEST_URL}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
-    Set Suite Variable    ${TEST_TOOL_NAME}
-    Set Suite Variable    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHKeywords.Open_Connection_To_ODL_System
 
