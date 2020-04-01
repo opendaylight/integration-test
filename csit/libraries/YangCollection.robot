@@ -12,167 +12,88 @@ Documentation     Resource for preparing various sets of Yang files to be used i
 ...               to system where a particular set of Yang files is to be created.
 ...               The keywords will change current working directory used by SSHKeywords.
 ...
-...               Currently only one set is supported, called Static.
-...               The set will not change in future
-...               and it does not include files which lead to binding v1 bugs.
+...               The two repos used in this suite ${YANGMODELS_REPO} and ${OPENCONFIG_REPO}
+...               have been updated:
+...               04/01/2020
 ...
-...               TODO: Do we want to support Windoes path separators?
 Resource          ${CURDIR}/SSHKeywords.robot
+
+*** Variables ***
+${YANGMODELS_REPO}    https://github.com/YangModels/yang
+${OPENCONFIG_REPO}    https://github.com/openconfig/public
+${YANGMODELS_REPO_COMMIT_HASH}    7351cec0c92d7fed74ae4a7c10f6bf4d32a95fa6    # TODO: update docs with new date when changing
+${OPENCONFIG_REPO_COMMIT_HASH}    e3c0374ce6aa9d1230ea31a5f0f9a739ed0db308    # TODO: update docs with new date when changing
 
 *** Keywords ***
 Static_Set_As_Src
     [Arguments]    ${root_dir}=.
     [Documentation]    Cleanup possibly leftover directories (src and target), clone git repos and remove unwanted paths.
+    ...    YangModels/yang and openconfig/public repos should be updated from time to time, but they are frozen to
+    ...    ${YANGMODELS_REPO_COMMIT_HASH} and ${OPENCONFIG_REPO_COMMIT_HASH} to prevent the chance that updates to those
+    ...    repos with problems will cause ODL CSIT to fail. There are obvious failures in these repos already, and those
+    ...    are addressed by removing those files/dirs with the Delete_Static_Paths keyword.
     SSHKeywords.Set_Cwd    ${root_dir}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf target src
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mkdir -p src/main
     SSHKeywords.Set_Cwd    ${root_dir}/src/main
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone https://github.com/YangModels/yang    stderr_must_be_empty=False
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone ${YANGMODELS_REPO}    stderr_must_be_empty=False
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest f4b09f38ac4b794e4e9b2e8646f326eccf556fe5    stderr_must_be_empty=False
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf tools
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest ${YANGMODELS_REPO_COMMIT_HASH}    stderr_must_be_empty=False
+    #SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf tools
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang/experimental
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf openconfig
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone https://github.com/openconfig/public    stderr_must_be_empty=False
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git clone ${OPENCONFIG_REPO}    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mv -v public openconfig
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang/experimental/openconfig
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest 8bd7aafde63785880fe192174e5b075105ab97cb    stderr_must_be_empty=False
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    git checkout -b ytest ${OPENCONFIG_REPO_COMMIT_HASH}    stderr_must_be_empty=False
     SSHKeywords.Set_Cwd    ${root_dir}/src/main/yang
-    Delete_Static_Paths
 
 Delete_Static_Paths
     [Documentation]    Long list of "rm -vrf" commands.
-    ...    TODO: Document exact reasons for each particular removed path.
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/ACL-MODEL/filter_template.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/ACL-MODEL/filter.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/hncp-topology.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/IETF-ENTITY/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/IETF-TIME/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf/ODL-PATHS/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/bgp/openconfig-bgp-policy.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/bgp/openconfig-bgp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/mpls/openconfig-mpls-igp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/mpls/openconfig-mpls-rsvp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/mpls/openconfig-mpls-static.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/mpls/openconfig-mpls-te.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/mpls/openconfig-mpls.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/network-instance/openconfig-network-instance.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/optical-transport/openconfig-optical-amplifier.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/optical-transport/openconfig-terminal-device.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/optical-transport/openconfig-transport-line-common.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/platform/openconfig-platform-transceiver.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/platform/openconfig-platform.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/rib/openconfig-rib-bgp-ext.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/rib/openconfig-rib-bgp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/rpc/openconfig-rpc.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/openconfig/release/models/telemetry/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/vendor/cisco/common/cisco-link-oam.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ieee/802.1/draft/ieee-dot1x.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-bfd.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-ipv4-unicast-routing.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-ipv6-unicast-routing.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-isis.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-keychain.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-netconf-server.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-restconf-server.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-routing.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-ssh-server.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-system-tls-auth.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-tls-server.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/ietf-zerotouch-bootstrap-server.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/DRAFT/newco-acl.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-inet-types/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-netconf-time@2016-01-26.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-common.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-community.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-engine.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-notification.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-proxy.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-ssh.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-target.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-tls.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-tsm.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-usm.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp-vacm.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-snmp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-x509-cert-to-name.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-yang-library@2016-06-21.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf standard/ietf/RFC/ietf-yang-types/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-aaa.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ag.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-arp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-bum-storm-control.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-cdp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-chassis.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-dhcp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-diagnostics.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-dot1x.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-eld.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-fabric-service.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-fcoe-ext.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-fcoe.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-hardware.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-hidden-cli.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-igmp-snooping.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-igmp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-interface-ext.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-interface.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-intf-loopback.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ip-access-list.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ip-config.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ip-forward.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ip-policy.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ipv6-access-list.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-lacp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-lag.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-license.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-lldp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-mac-access-list.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-mac-address-table.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ntp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-ospf.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-pim.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-policer.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-port-profile-ext.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-port-profile.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-qos.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-rmon.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-rtm.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-sflow.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-span.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-trilloam.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-udld.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-vlan.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-vrrp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-vswitch.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-xstp-ext.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/brocade-xstp.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/brocade/mpls.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/530/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/531/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/532/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/533/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/600/
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-aaa-tacacs-cfg.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-clns-isis-cfg.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-l2vpn-oper-sub1.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-l2vpn-oper-sub2.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-l2vpn-oper-sub3.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-l2vpn-oper-sub4.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-l2vpn-oper.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-lib-keychain-oper-sub1.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-lib-keychain-oper.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-lpts-pre-ifib-oper-sub1.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-lpts-pre-ifib-oper.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-mpls-te-cfg.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-platform-pifib-oper-sub1.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-platform-pifib-oper.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-watchd-cfg.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/Cisco-IOS-XR-wd-cfg.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/cisco-openconfig-mpls-devs.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/cisco-xr-bgp-deviations.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/cisco-xr-bgp-policy-deviations.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/601/cisco-xr-routing-policy-deviations.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/yumaworks/yangcli-pro.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/yumaworks/yumaworks-db-api.yang
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/yumaworks/yumaworks-sil-sa.yang
+    ...    All files/paths removed below are due to real issues in those files/paths as found with failures in
+    ...    the yang-model-validator tool. We do not want OpenDaylight CSIT to fail because of problems with
+    ...    external yangs.
+    # Please keep below list in alpha order
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/TUDA-V1-ATTESTATION-MIB@2017-10-30.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/alto-service-types@2015-03-22.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/bfd.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/gen-oam@2014-10-23.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/huawei-dhcp@2014-12-18.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/huawei-ipte@2014-08-13.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/i2rs-rib@2015-04-03.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/i2rs-service-topology@2015-07-07.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/iana-geo-uri-type@2014-05-08.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-OPSAWG-ute-tunnel.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-bulk-notification@2019-09-23.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-gen-oam-ais@2016-06-25.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-mpls-te-global@2014-10-13.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-mpls-te-links@2014-10-13.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-mpls-te-lsps@2014-10-13.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-mpls-te-tunnel-ifs@2014-10-13.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-netconf-light@2012-01-12.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-sd-onos-service-l3vpn@2015-12-16.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-supa-abstracted-l3vpn@2015-05-04.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-supa-ddc@2014-12-25.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-supa-l3vpn@2015-02-04.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-template.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-yang-hash@2016-02-10.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/ipfix-psamp.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/lora.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/media-channel@2014-06-05.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/mpls-rsvp@2015-04-22.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/mpls-te@2014-07-07.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/openconfig-mpls-rsvp@2015-09-18.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/service-function@2014-29-04.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/softwire@2014-12-14.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/tunnel-policy@2018-09-15.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf .git
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf tools
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/nx/7.0-3-I6-1/cisco-nx-openconfig-if-ip-deviations.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/nx/7.0-3-I6-1/cisco-nx-openconfig-routing-policy-deviations.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/nx/7.0-3-I7-1/cisco-nx-openconfig-if-ip-deviations.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/nx/7.0-3-I7-1/cisco-nx-openconfig-routing-policy-deviations.yang
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/cisco/xr/613/cisco-xr-openconfig-bgp-deviations.yang
+    ## Removing entire juniper folder because it creates an OOM Crash with the validator tool.*** Keywords ***
+    ## Unsure if the yang models are the problem or something in the tool. This is being tracked here:
+    ## https://jira.opendaylight.org/browse/YANGTOOLS-1093
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf vendor/juniper
