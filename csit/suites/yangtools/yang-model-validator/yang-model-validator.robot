@@ -8,13 +8,28 @@ Documentation     Suite for testing performance of yang-model-validator utility.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This suite measures time (only as a test case duration) needed
-...               for yang-model-validator to execute on a set of yang model.
+...               This suite executes the yang-model-validator tool and will turn up any major
+...               breakages in that tool. Since yangtools is now a release integrated project
+...               and the version of the tool is static and unchanging per release, this suite
+...               does not need to run very often.
 ...
-...               The set of Yang modules is large and fixed (no changes in future).
-...               It is the same set of models as in mdsal binding-parent suite.
+...               Two main things to check for this suite and the yang-model-validator tool:
+...
+...               1) Does it work against the updated yang model repos (see YangCollection.robot)
+...               and report valid issues in those models. When the models are updated, does
+...               the tool still work as expected.
+...
+...               2) What does the runtime of the tool look like as new versions of the tool are
+...               released? Does validation take significanltly shorter (an improvement) or
+...               longer (a regression)?
+...
+...               The set of Yang modules is large and fixed to specific commits from their relevant
+...               repos. That fixed point can be updated periodically in the YangCollection.robot
+...               library. Just be sure there is an apples to apples comparision (same exact repo
+...               state) between yangtools releases, so #2 above is known.
+...
 Suite Setup       Setup_Suite
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing    # TODO: Suite Teardown to close SSH connections and other cleanup?
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Teardown_Test
 Default Tags      1node    yang-model-validator    critical
 Library           RequestsLibrary
@@ -38,21 +53,27 @@ Kill_Odl
     ClusterManagement.Kill_Members_From_List_Or_All
 
 Prepare_Yang_Files_To_Test
-    [Documentation]    Set up collection of Yang files to test with.
-    YangCollection.Static_Set_As_Src
+    [Documentation]    Set up collection of Yang files to test with, manually deleting any files/paths
+    ...    that have known breakages that are issues with the models (not the validator tool).
+    ${YANG_FILES_ROOT_DIR} =    YangCollection.Static_Set_As_Src
+    BuiltIn.Set_Suite_Variable    ${YANG_FILES_ROOT_DIR}
+    YangCollection.Delete_Static_Paths
     ${dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang
-    ${p_option_value} =    BuiltIn.Catenate    SEPARATOR=:    @{dirs_to_process}
-    ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
-    BuiltIn.Set_Suite_Variable    ${yang_files_to_validate}
-    BuiltIn.Set_Suite_Variable    \${p_option_value}
+    ${YANG_FILES_TO_VALIDATE} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
+    BuiltIn.Set_Suite_Variable    ${YANG_FILES_TO_VALIDATE}
 
 Deploy_And_Start_Odl_Yang_Validator_Utility
     [Documentation]    Download appropriate version of ${TEST_TOOL_NAME} artifact
     ...    and run it for each single yang file in the prepared set.
     ...    The version is either given by ${EXPLICIT_YANG_SYSTEM_TEST_URL},
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
-    FOR    ${yang_file}    IN    @{yang_files_to_validate}
-        ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
+    FOR    ${yang_file}    IN    @{YANG_FILES_TO_VALIDATE}
+        # To speed up the validation, it helps to pass in a path that results in less yang files to parse
+        # so we can just grab the first directory in the path to the file under test to help with that
+        ${relative_path} =    Fetch From Right    ${yang_file}    ${YANG_FILES_ROOT_DIR}/
+        ${parse_folder} =    Fetch From Left    ${relative_path}    /
+        Log To Console    working through this: -p ${parser_path} -r -d ${yang_file}
+        ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${YANG_FILES_ROOT_DIR}/${parse_folder} -r -d ${yang_file}
         ...    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
         BuiltIn.Set_Suite_Variable    \${logfile}
         Wait_Until_Utility_Finishes
