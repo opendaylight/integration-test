@@ -114,7 +114,10 @@ Deploy_Artifact
     ${urlbase} =    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
     # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
     # ${urlbase} is the whole ${BUNDLE_URL}, in which case we use the ${fallback_url}
+    # If we are working with a "release integrated" project, we always will want to look for
+    # a released version, not in the snapshots
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
+    ${urlbase} =    BuiltIn.Set_Variable_If    ${component} in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
