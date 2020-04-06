@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd694068_002bd2a2",
+        "filename": "csit/suites/netvirt/ipv6_ovs_based_na_responder/ipv6_ovs_based_na_responder.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-04-06T16:25:42Z",
+      "side": 1,
+      "message": "whitespace here and more below. It\u0027s easy to see in gerrit.",
+      "range": {
+        "startLine": 6,
+        "startChar": 29,
+        "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "95f996cd0dedc74b119ad1c42c612946ac7cb935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34be070b_cca68057",
+        "filename": "csit/suites/netvirt/ipv6_ovs_based_na_responder/ipv6_ovs_based_na_responder.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-04-06T16:25:42Z",
+      "side": 1,
+      "message": "you don\u0027t need the assignment to ${output} on these three lines. you aren\u0027t using it anywhere.",
+      "revId": "95f996cd0dedc74b119ad1c42c612946ac7cb935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "630474f1_8fb27a77",
+        "filename": "csit/suites/netvirt/ipv6_ovs_based_na_responder/ipv6_ovs_based_na_responder.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-04-06T16:25:42Z",
+      "side": 1,
+      "message": "move these 10 lines to a local keyword in this suite. Then call it here and you\nwill be able to replace the same duplicated lines in the next test case with\nthat single line.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 87
+      },
+      "revId": "95f996cd0dedc74b119ad1c42c612946ac7cb935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64070173_7bcb856f",
+        "filename": "csit/suites/netvirt/ipv6_ovs_based_na_responder/ipv6_ovs_based_na_responder.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-04-06T16:25:42Z",
+      "side": 1,
+      "message": "could this be replaced with just OpenStackOperations.Create Allow All SecurityGroup ?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 177
+      },
+      "revId": "95f996cd0dedc74b119ad1c42c612946ac7cb935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbe6c442_b276569f",
+        "filename": "csit/suites/netvirt/ipv6_ovs_based_na_responder/ipv6_ovs_based_na_responder.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-04-06T16:25:42Z",
+      "side": 1,
+      "message": "does this keyword do this work instead?\n    OVSDB.Verify Dump Flows For Specific Table",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 88
+      },
+      "revId": "95f996cd0dedc74b119ad1c42c612946ac7cb935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
