@@ -237,8 +237,7 @@ Install_Maven_Bare
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget -N '${maven_download_url}'    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    tar xvf '${maven_archive_filename}'
     ${java_home} =    NexusKeywords.Compose_Java_Home    openjdk=${openjdk}
-    ${java_actual_options} =    Default_Java_Options    ${openjdk}
-    BuiltIn.Set_Global_Variable    \${maven_bash_command}    export JAVA_HOME='${java_home}' && export MAVEN_OPTS='${java_actual_options}' && ./${maven_directory}/bin/mvn
+    BuiltIn.Set_Global_Variable    \${maven_bash_command}    export JAVA_HOME='${java_home}' && export MAVEN_OPTS='${JAVA_OPTIONS}' && ./${maven_directory}/bin/mvn
     # TODO: Get settings files from Jenkins settings provider, somehow.
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget '${MAVEN_SETTINGS_URL}' -O settings.xml    stderr_must_be_empty=False
 
