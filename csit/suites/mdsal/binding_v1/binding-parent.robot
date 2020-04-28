@@ -60,6 +60,7 @@ Install_Maven
 Prepare_Yang_Files_To_Test
     [Documentation]    Set up collection of Yang files to test with.
     YangCollection.Static_Set_As_Src
+    YangCollection.Delete_Static_Paths
 
 Run_Maven
     [Documentation]    Create pom file with correct version and run maven with some performance switches.
