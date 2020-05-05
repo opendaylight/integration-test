@@ -107,6 +107,6 @@ Verify Tunnels By Disabling BFD
     BuiltIn.Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
     ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${TOOLS_SYSTEM_ALL_CONN_IDS[0]}
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
-    Genius.Verify Tunnel Status    UNKNOWN    ${tunnels_on_OVS}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status    UNKNOWN    ${tunnels_on_OVS}
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status As Up
