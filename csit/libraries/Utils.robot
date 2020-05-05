@@ -19,7 +19,7 @@ ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 
 
 *** Keywords ***
 Start Mininet
-    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}    ${timeout}=30s
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
@@ -32,7 +32,7 @@ Start Mininet
     Read Until    mininet>
 
 Stop Mininet
-    [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Arguments]    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
     ...    tests
     Log    Stop the test on the base edition
