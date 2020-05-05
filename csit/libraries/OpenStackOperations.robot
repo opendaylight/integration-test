@@ -338,6 +338,7 @@ Create Nano Flavor
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
+    OpenStack CLI    openstack server show ${vm_name}
     ${output} =    OpenStack CLI    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
     BuiltIn.Should Contain    ${output}    active
 
