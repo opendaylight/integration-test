@@ -43,11 +43,11 @@ Check No Flows In Operational
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=600
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
-    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Read Until    ${TOOLS_SYSTEM_PROMPT}
     Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
@@ -59,7 +59,7 @@ Stop Switches
     Delete All Sessions
     Read
     Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Read Until    ${TOOLS_SYSTEM_PROMPT}
     Close Connection
 
 Are Switches Connected Topo

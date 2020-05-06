@@ -87,7 +87,7 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=600
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
@@ -103,7 +103,7 @@ Stop Switches
     Log    Stopping mininet
     Read
     Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Read Until    ${TOOLS_SYSTEM_PROMPT}
     Close Connection
 
 Delete Http Session

@@ -29,7 +29,7 @@ Library           ../../../libraries/SwitchClasses/${SWITCH_CLASS}.py
 *** Variables ***
 ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${TOOLS_SYSTEM_IP}
-${SWITCH_PROMPT}    ${DEFAULT_LINUX_PROMPT}
+${SWITCH_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${ODL_SYSTEM_IP}    null
 ${ipv4_src}       11.3.0.0/16
 ${ipv4_dst}       99.0.0.0/8
