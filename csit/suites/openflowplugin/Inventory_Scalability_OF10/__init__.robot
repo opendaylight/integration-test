@@ -20,9 +20,7 @@ Start Suite
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    ${TOOLS_SYSTEM_PROMPT}
     Write    sudo mn -c
-    Read Until    ${TOOLS_SYSTEM_PROMPT}
-    Read Until    ${TOOLS_SYSTEM_PROMPT}
-    Read Until    ${TOOLS_SYSTEM_PROMPT}
+    Read Until    Cleanup complete.
     Write    ${start}
     Read Until    mininet>
 
