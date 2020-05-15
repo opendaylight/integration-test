@@ -17,12 +17,8 @@ Start Suite
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
     Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${numnodes*3}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    sudo mn -c
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
 
