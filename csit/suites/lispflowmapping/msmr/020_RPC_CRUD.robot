@@ -23,7 +23,7 @@ Create Key
 Attempt To Read Non-Existing Key
     [Documentation]    Try to read a non-existing key for an IPv4 EID
     ${get_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.255/32
-    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}    status_codes=${DELETED_STATUS_CODE}
+    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}    status_codes=${DELETED_STATUS_CODES}
 
 Read Key
     [Documentation]    Read an existing key for an IPv4 EID
@@ -35,7 +35,7 @@ Update Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON    key_string=updated-password
     ${update_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${ALLOWED_STATUS_CODES}
+    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${ALLOWED_STATUS_CODESS}
 
 Read Updated Key
     [Documentation]    Read the key updated in the previous test
@@ -57,7 +57,7 @@ Attempt To Update Non-Existing Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON    key_string=updated-password
     ${update_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${DELETED_STATUS_CODE}
+    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${DELETED_STATUS_CODES}
 
 Create Mapping
     [Documentation]    Create a mapping for an IPv4 EID
