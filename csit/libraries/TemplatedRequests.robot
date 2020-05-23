@@ -120,7 +120,7 @@ Resource          ${CURDIR}/../variables/Variables.robot
 @{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
 @{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
 @{DATA_VALIDATION_ERROR}    ${400}    # For testing mildly negative scenarios where ODL reports user error.
-@{DELETED_STATUS_CODE}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
+@{DELETED_STATUS_CODES}    ${404}    ${409}    # List of integers, not strings. Used by DELETE if the resource may be not present.
 # TODO: Add option for delete to require 404.
 @{INTERNAL_SERVER_ERROR}    ${500}    # Only for testing severely negative scenarios where ODL cannot recover.
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used

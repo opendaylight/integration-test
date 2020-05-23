@@ -310,7 +310,7 @@ Remove Group From Controller And Verify
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
-    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404
+    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
 
@@ -321,7 +321,7 @@ Remove Flow From Controller And Verify
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
-    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404
+    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
 
