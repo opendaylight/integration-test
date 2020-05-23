@@ -128,7 +128,7 @@ Check For Elements Not At URI
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
     ...    ELSE    BuiltIn.Log    ${resp.content}
-    BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404
+    BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
         Should Not Contain    ${resp.content}    ${i}
@@ -318,13 +318,13 @@ Remove All Elements At URI And Verify
     ${resp}    RequestsLibrary.Delete Request    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Should Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements If Exist
     [Arguments]    ${uri}    ${session}=session
     [Documentation]    Delete all elements from an URI if the configuration was not empty
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    Run Keyword If    '${resp.status_code}'!='404'    Remove All Elements At URI    ${uri}    ${session}
+    Run Keyword If    '${resp.status_code}'!='404' and '${resp.status_code}'!='409'    Remove All Elements At URI    ${uri}    ${session}
 
 Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
@@ -345,7 +345,7 @@ Add Elements To URI And Verify
     ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    ${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
-    Should Not Be Equal    ${resp.status_code}    404
+    Should Not Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Check Validation Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
@@ -405,7 +405,7 @@ No Content From URI
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     ${response}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
-    Builtin.Return_From_Keyword_If    ${response.status_code} == 404
+    Builtin.Return_From_Keyword_If    ${response.status_code} == 404 or ${resp.status_code} == 409
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
 

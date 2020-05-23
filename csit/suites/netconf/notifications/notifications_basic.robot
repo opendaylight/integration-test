@@ -59,7 +59,7 @@ Clean_Config
     [Documentation]    Make sure config inventory is empty.
     [Tags]    critical
     ${uri} =    Restconf.Generate URI    opendaylight-inventory:nodes    config
-    TemplatedRequests.Delete_From_Uri    uri=${uri}    additional_allowed_status_codes=${DELETED_STATUS_CODE}
+    TemplatedRequests.Delete_From_Uri    uri=${uri}    additional_allowed_status_codes=${DELETED_STATUS_CODES}
     # TODO: Rework also other test cases to use TemplatedRequests.
 
 Create_Subscribtion

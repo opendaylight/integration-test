@@ -54,11 +54,11 @@ Get Elp Hop
 
 Check Key Removal
     [Arguments]    ${json}
-    Post Log Check    ${LFM_RPC_API}:get-key    ${json}    status_codes=${DELETED_STATUS_CODE}
+    Post Log Check    ${LFM_RPC_API}:get-key    ${json}    status_codes=${DELETED_STATUS_CODES}
 
 Check Mapping Removal
     [Arguments]    ${json}
-    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    status_codes=${DELETED_STATUS_CODE}
+    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    status_codes=${DELETED_STATUS_CODES}
 
 Get Mapping JSON
     [Arguments]    ${eid}    ${rloc}
