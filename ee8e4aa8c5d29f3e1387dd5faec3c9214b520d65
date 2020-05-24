@@ -16,6 +16,24 @@
       "revId": "ee8e4aa8c5d29f3e1387dd5faec3c9214b520d65",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb88b79c_b4cdc0c6",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-05-24T17:59:31Z",
+      "side": 1,
+      "message": "I know, but last time there was an HTTP code change we just included it as allowed vs define per-release behavior: https://git.opendaylight.org/gerrit/c/integration/test/+/89921/1/csit/libraries/FlowLib.robot#290\nThis is what I did in all files of this patch so let me know if this is fine or we have to create per-release behavior.",
+      "parentUuid": "119f53bd_4702ac99",
+      "revId": "ee8e4aa8c5d29f3e1387dd5faec3c9214b520d65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
