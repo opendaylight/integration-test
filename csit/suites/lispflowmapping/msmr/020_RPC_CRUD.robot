@@ -35,7 +35,7 @@ Update Key
     ${eid_json}=    Get LispAddress JSON    ipv4:192.0.2.1/32
     ${authkey_json}=    Get MappingAuthkey JSON    key_string=updated-password
     ${update_key}=    Merge And Wrap input    ${eid_json}    ${authkey_json}
-    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${ALLOWED_STATUS_CODESS}
+    Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}    status_codes=${ALLOWED_STATUS_CODES}
 
 Read Updated Key
     [Documentation]    Read the key updated in the previous test
