@@ -105,7 +105,7 @@ Check_Device_Completely_Gone
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    config    topology=topology-netconf    node=${device_name}
     ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}    log_response=${log_response}
     BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
-    BuiltIn.Should_Contain    ${response}    404
+    BuiltIn.Should_Contain    ${response}    ${DELETED_STATUS_CODES}
 
 Check_Device_Connected
     [Arguments]    ${device_name}    ${session}=default    ${log_response}=True
