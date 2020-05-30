@@ -103,9 +103,7 @@ Check_Device_Completely_Gone
     [Documentation]    Check that the specified device has no Netconf connectors nor associated data.
     Check_Device_Has_No_Netconf_Connector    ${device_name}    session=${session}
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    config    topology=topology-netconf    node=${device_name}
-    ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}    log_response=${log_response}
-    BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
-    BuiltIn.Should_Contain    ${DELETED_STATUS_CODES}    ${response}
+    Utils.No Content From URI    ${session}    ${uri}
 
 Check_Device_Connected
     [Arguments]    ${device_name}    ${session}=default    ${log_response}=True
