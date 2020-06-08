@@ -48,7 +48,7 @@ ${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:t
 ${JOLOKIA_OPER_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:type=DistributedOperationalDatastore,Category=ShardManager,name=shard-manager-operational/LocalShards
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 # Bug 9044 workaround: delete etc/host.key before restart.
-@{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
+@{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    segmented-journal/    etc/opendaylight/current/    etc/host.key
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 ${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}    ]]]]}']
@@ -536,7 +536,7 @@ Clean_Journals_Data_And_Snapshots_On_List_Or_All
     ...    BEWARE: If only a subset of members is cleaned, this causes RetiredGenerationException in Carbon after the affected node re-start.
     ...    See https://bugs.opendaylight.org/show_bug.cgi?id=8138
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots" "${karaf_home}/data"
+    ${command} =    Set Variable    rm -rf "${karaf_home}/"*journal "${karaf_home}/snapshots" "${karaf_home}/data"
     FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
         Run_Bash_Command_On_Member    command=${command}    member_index=${index}
     END
