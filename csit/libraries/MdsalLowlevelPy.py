@@ -99,7 +99,8 @@ def start_write_transactions_on_nodes(host_list, index_list, id_prefix, duration
   <transactions-per-second>$RATE</transactions-per-second>
   <chained-transactions>$CHAINED_FLAG</chained-transactions>
 </input>''')
-    subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate, 'CHAINED_FLAG': chained_flag}
+    subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration,
+                  'RATE': rate, 'CHAINED_FLAG': 'true' if chained_flag else 'false'}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:write-transactions''')
     _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
@@ -137,7 +138,7 @@ def start_produce_transactions_on_nodes(host_list, index_list, id_prefix,
   <isolated-transactions>$ISOLATED_TRANSACTIONS</isolated-transactions>
 </input>''')
     subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate,
-                  'ISOLATED_TRANSACTIONS': isolated_transactions_flag}
+                  'ISOLATED_TRANSACTIONS': 'true' if isolated_transactions_flag else 'false'}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:produce-transactions''')
     _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
