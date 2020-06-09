@@ -12,7 +12,7 @@
   hooks:
     - id: autopep8
 
-- repo: git://github.com/guykisel/pre-commit-robotframework-tidy
+- repo: https://github.com/guykisel/pre-commit-robotframework-tidy.git
   rev: 'master'
   hooks:
   - id: robotframework-tidy-wrapper
