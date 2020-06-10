@@ -20,11 +20,12 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/RemoteBash.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${ITEM_COUNT}     ${10000}
@@ -84,21 +85,21 @@ Delete Cars
     ${rsp}=    RequestsLibrary.Delete Request    session    ${carurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${carurl}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
+    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    session    ${peopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${peopleurl}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
+    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    session    ${carpeopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${carpeopleurl}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
+    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 *** Keywords ***
 Start Suite

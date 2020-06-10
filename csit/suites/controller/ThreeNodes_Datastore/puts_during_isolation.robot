@@ -16,12 +16,13 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Default Tags      critical
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
+Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${ITEM_COUNT}     ${10000}
@@ -72,7 +73,7 @@ Delete Cars
     ${rsp}=    RequestsLibrary.Delete Request    ${session}    ${CARURL}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${CARURL}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
+    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 *** Keywords ***
 Start Suite
