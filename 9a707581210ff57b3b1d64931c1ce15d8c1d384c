@@ -22,6 +22,30 @@
       "revId": "9a707581210ff57b3b1d64931c1ce15d8c1d384c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cf28aef_6e899c99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2020-06-11T18:00:32Z",
+      "side": 1,
+      "message": "I\u0027m out of ideas. I spent about an hour this morning trying to figure it out. I have no idea why this particular repo fails to clone the \u0027master\u0027 branch.\n\nIn any case this repo is just a wrapper for robotframework-tidy so there\u0027s not really much activity in this repo and we can still benefit from new releases from robot-tidy. I only anticipate this repo needing to be updated if there\u0027s a robot-tidy releasee that breaks the wrapper.\n\nLooking at the commit log for this wrapper in the past year there was only 1 commit contributed to support robot-tidy 3.2. So yeah very low activity here.",
+      "parentUuid": "043ba95b_8fbe57e9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "9a707581210ff57b3b1d64931c1ce15d8c1d384c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
