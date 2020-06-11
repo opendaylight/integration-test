@@ -14,7 +14,7 @@ repos:
       - id: autopep8
 
   - repo: https://github.com/guykisel/pre-commit-robotframework-tidy
-    rev: 178d2190fa733d8f4d3f72fed9db6e75a9f65d35
+    rev: master
     hooks:
     - id: robotframework-tidy-wrapper
       additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
