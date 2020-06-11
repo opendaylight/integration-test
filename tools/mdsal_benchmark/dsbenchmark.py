@@ -168,8 +168,8 @@ def store_result(values, tx_type, operation, data_fmt, datastore,
     :param value: The (measured) value
     :return: none
     """
-    plot_key = (datastore + '-' + data_fmt + '-' + tx_type + '-' + operation + '-' + str(outer_elem) + '/'
-                + str(inner_elem) + 'OUTER/INNER-' + str(ops_per_tx) + 'OP-' + value_name)
+    plot_key = (datastore + '-' + data_fmt + '-' + tx_type + '-' + operation + '-' + str(outer_elem) + '/' +
+                str(inner_elem) + 'OUTER/INNER-' + str(ops_per_tx) + 'OP-' + value_name)
     values[plot_key] = value
 
 
