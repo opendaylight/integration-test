@@ -12,6 +12,13 @@
   hooks:
     - id: autopep8
 
+- repo: https://github.com/guykisel/pre-commit-robotframework-tidy.git
+  rev: master
+  hooks:
+  - id: robotframework-tidy-wrapper
+    language_version: python3
+    additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
+
 - repo: https://github.com/jorisroovers/gitlint
   rev: v0.11.0
   hooks:
