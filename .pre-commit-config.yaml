@@ -1,14 +1,11 @@
 ---
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.4.0  # Use the ref you want to point at
+  rev: v3.1.0
   hooks:
-    - id: flake8
-      language_version: python3
-      additional_dependencies: ['flake8~=3.5.0']
     - id: trailing-whitespace
 
 - repo: https://github.com/pre-commit/mirrors-autopep8
-  rev: v1.4.4
+  rev: v1.5.3
   hooks:
     - id: autopep8
 
@@ -18,8 +15,15 @@
   - id: robotframework-tidy-wrapper
     additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
 
+- repo: https://gitlab.com/pycqa/flake8
+  rev: 3.8.3
+  hooks:
+    - id: flake8
+      language_version: python3
+      additional_dependencies: ['flake8~=3.5.0']
+
 - repo: https://github.com/jorisroovers/gitlint
-  rev: v0.11.0
+  rev: v0.13.1
   hooks:
   - id: gitlint
 
