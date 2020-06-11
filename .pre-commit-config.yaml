@@ -1,33 +1,34 @@
 ---
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.4.0  # Use the ref you want to point at
-  hooks:
-    - id: flake8
-      language_version: python3
-      additional_dependencies: ['flake8~=3.5.0']
-    - id: trailing-whitespace
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0  # Use the ref you want to point at
+    hooks:
+      - id: flake8
+        language_version: python3
+        additional_dependencies: ['flake8~=3.5.0']
+      - id: trailing-whitespace
 
-- repo: https://github.com/pre-commit/mirrors-autopep8
-  rev: v1.4.4
-  hooks:
-    - id: autopep8
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.4.4
+    hooks:
+      - id: autopep8
 
-- repo: https://github.com/guykisel/pre-commit-robotframework-tidy
-  rev: 178d2190fa733d8f4d3f72fed9db6e75a9f65d35
-  hooks:
-  - id: robotframework-tidy-wrapper
-    additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
+  - repo: https://github.com/guykisel/pre-commit-robotframework-tidy
+    rev: 178d2190fa733d8f4d3f72fed9db6e75a9f65d35
+    hooks:
+    - id: robotframework-tidy-wrapper
+      additional_dependencies: ['robotframework==3.2a1']  # Pin due to tidy warning in 3.1.2
 
-- repo: https://github.com/jorisroovers/gitlint
-  rev: v0.11.0
-  hooks:
-  - id: gitlint
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.11.0
+    hooks:
+    - id: gitlint
 
-- repo: local
-  hooks:
-    - id: rstcheck
-      name: rstcheck
-      entry: rstcheck
-      files: '\.rst'
-      language: python
-      additional_dependencies: [rstcheck, sphinx]
+  - repo: local
+    hooks:
+      - id: rstcheck
+        name: rstcheck
+        entry: rstcheck
+        files: '\.rst'
+        language: python
+        additional_dependencies: [rstcheck, sphinx]
