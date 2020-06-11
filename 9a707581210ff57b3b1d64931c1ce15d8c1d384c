@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "043ba95b_8fbe57e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-06-11T17:57:16Z",
+      "side": 1,
+      "message": "this is really interesting. I didn\u0027t think to try that. But, we do want to use master\nso we get any new changes/fixes as they happen. any ideas for debugging further?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "9a707581210ff57b3b1d64931c1ce15d8c1d384c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
