@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "613d4a29_eb479944",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-14T20:21:10Z",
+      "side": 1,
+      "message": "I think this should be \"Should Contain\" because it is a list.",
+      "revId": "f80b6fad1de20c2a0cc39edcbe8648ae00cc5ffc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
