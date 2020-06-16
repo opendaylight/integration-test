@@ -73,7 +73,7 @@ Delete Cars
     ${rsp}=    RequestsLibrary.Delete Request    ${session}    ${CARURL}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${CARURL}
-    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
+    Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 *** Keywords ***
 Start Suite
