@@ -424,7 +424,7 @@ Play_To_Odl_Template
 
 Verify_Test_Preconditions
     ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    404
+    BuiltIn.Should_Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_FAMILY_LOC_RIB}    headers=${HEADERS}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${EMPTY_ROUTES}    ${rsp.content}
 
@@ -434,7 +434,7 @@ Remove_Configured_Routes
     Log    ${rsp.content}
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
     Log    ${rsp.content}
-    BuiltIn.Return_From_Keyword_If    "${rsp.status_code}" == "404"
+    BuiltIn.Return_From_Keyword_If    "${rsp.status_code}" in ${DELETED_STATUS_CODES}
     ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
 
