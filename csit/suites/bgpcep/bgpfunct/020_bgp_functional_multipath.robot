@@ -110,7 +110,7 @@ Upload_Config_Files
     FOR    ${cfgfile}    IN    @{cfgfiles}
         SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/enable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/${addpath}/g' ${cfgfile}
         ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
         Log    ${stdout}
