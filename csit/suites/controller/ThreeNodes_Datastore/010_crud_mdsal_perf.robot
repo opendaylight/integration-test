@@ -88,21 +88,21 @@ Delete Cars
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carurl}
-    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
+    Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${peopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${peopleurl}
-    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
+    Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carpeopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carpeopleurl}
-    Should Be Equal As Numbers    ${DELETED_STATUS_CODES}    ${rsp.status_code}
+    Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 *** Keywords ***
 Start Suite
