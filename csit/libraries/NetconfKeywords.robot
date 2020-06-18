@@ -1,17 +1,17 @@
 *** Settings ***
 Documentation     Perform complex operations on netconf.
-...
+...           
 ...               Copyright (c) 2015,2017 Cisco Systems, Inc. and others. All rights reserved.
-...
+...           
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...
-...
+...           
+...           
 ...               This library encapsulates a bunch of somewhat complex and commonly used
 ...               netconf operations into reusable keywords to make writing netconf
 ...               test suites easier.
-...
+...           
 ...               TODO: RemoteBash.robot contains logic which could be reused here.
 Library           Collections
 Library           DateTime
@@ -79,6 +79,12 @@ Count_Netconf_Connectors_For_Device
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational
     ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
     Builtin.Log    ${mounts}
+    ${mounts_data}=    Evaluate    json.loads("""${mounts}""")    json
+    ${keys}=    Get Dictionary Keys    ${mounts_data}
+    ${len}=    Get Length    ${keys}
+    Should Be Equal As Integers    ${len}    1
+    ${keyName}=    Set Variable If    "${USE_RFC8040}" == "True"    network-topology:network-topology    network-topology
+    Should Be Equal As Strings    ${keys[0]}    ${keyName}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
 
