@@ -79,6 +79,12 @@ Count_Netconf_Connectors_For_Device
     ${uri} =    Restconf.Generate URI    network-topology:network-topology    operational
     ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${uri}    session=${session}
     Builtin.Log    ${mounts}
+    ${mounts_data} =    Evaluate     json.loads("""${mounts}""")    json
+    ${keys}=    Get Dictionary Keys    ${mounts_data}
+    ${len}=    Get Length    ${keys}
+    Should Be Equal As Integers    ${len}    1
+    ${keyName}=    Set Variable If    "${USE_RFC8040}" == "True"    network-topology:network-topology    network-topology
+    Should Be Equal As Strings    ${keys[0]}    ${keyName}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
 
