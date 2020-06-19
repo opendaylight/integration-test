@@ -16,6 +16,24 @@
       "revId": "bfdbcbf10f1f2e60b313f81bbe617d8b11c231bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570ae2fb_0a1ddeee",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8668
+      },
+      "writtenOn": "2020-06-19T18:54:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e71a9a6a_c22247f0",
+      "revId": "bfdbcbf10f1f2e60b313f81bbe617d8b11c231bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
