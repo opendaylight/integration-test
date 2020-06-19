@@ -43,9 +43,9 @@ ${INVALID_VPN_INSTANCE_ID}    AAAAAAAAAA-4848-4949-9494-666666666666
 *** Test Cases ***
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 3 ${NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ping -c 3 @{NET_2_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ping -c 3 ${NET_2_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Create Router
@@ -69,30 +69,30 @@ Check L3_Datapath Traffic Across Networks With Router
     Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${dst_ip_list}
     [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop    ${tcpdump_conn_ids}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
-    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
-    ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP2}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ifconfig
-    ${ext_rt1} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET}[0],gateway=@{NET_1_VM_IPS}[0]
-    ${ext_rt2} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET}[1],gateway=@{NET_1_VM_IPS}[0]
+    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 ${EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ifconfig eth0:2 ${EXTRA_NW_IP}[1] netmask 255.255.255.0 up
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP2}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ifconfig
+    ${ext_rt1} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET}[0],gateway=${NET_1_VM_IPS}[0]
+    ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET}[1],gateway=${NET_1_VM_IPS}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}
     ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ping -c 3 ${EXTRA_NW_IP}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[1]    ping -c 3 ${EXTRA_NW_IP}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ping -c 3 ${EXTRA_NW_IP}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Delete Extra Route
@@ -101,13 +101,13 @@ Delete Extra Route
 
 Delete And Recreate Extra Route
     [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
-    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
-    ${ext_rt1} =    BuiltIn.Set Variable    destination=@{EXTRA_NW_SUBNET}[0],gateway=@{NET_1_VM_IPS}[0]
+    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 ${EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${ext_rt1} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET}[0],gateway=${NET_1_VM_IPS}[0]
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ping -c 3 ${EXTRA_NW_IP}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
     # clear off extra-routes before the next set of tests
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
@@ -115,34 +115,34 @@ Delete And Recreate Extra Route
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create L3VPN
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    BuiltIn.Log    @{RDS}[0]
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Log    ${RDS}[0]
+    VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]    name=${VPN_NAMES}[0]    rd=${RDS}[0]    exportrt=${RDS}[0]    importrt=${RDS}[0]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${VPN_INSTANCE_IDS}[0]
 
 Associate L3VPN To Routers
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
 
 Verify L3VPN Datapath With Router Association
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     CompareStream.Run_Keyword_If_Less_Than_Magnesium    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_ips}
     CompareStream.Run_Keyword_If_At_Least_Magnesium    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_INST_IFACES_URL}    ${vm_ips}
-    ${RD} =    Strip String    @{RDS}[0]    characters="[]
+    ${RD} =    Strip String    ${RDS}[0]    characters="[]
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_ips}
     Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    Check datapath from network1 to network2
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${dst_ip_list}
     BuiltIn.Log    Check datapath from network2 to network1
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Delete Router Failure When Associated With L3VPN
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
@@ -153,35 +153,35 @@ Delete Router Failure When Associated With L3VPN
     BuiltIn.Should Contain    ${router_output}    ${ROUTER}
     @{router_list} =    BuiltIn.Create List    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${ROUTER_URL}    ${router_list}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
     Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
 
 Verify Remove Interface From Router When Associated With L3VPN
-    OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ping_should_succeed=False
+    OpenStackOperations.Remove Interface    ${ROUTER}    ${SUBNETS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ping_should_succeed=False
 
 Verify L3VPN Datapath With Router Dissociation When Interfaces are Added To Router
-    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[0]
+    OpenStackOperations.Add Router Interface    ${ROUTER}    ${SUBNETS}[0]
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
-    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${router_id}
     Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${dst_ip_list}
     BuiltIn.Log    Check datapath from network2 to network1
-    ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    BuiltIn.Create List    ${NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Remove Router Interfaces And Check L3_Datapath Traffic Across Networks
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
     FOR    ${INTERFACE}    IN    @{SUBNETS}
         OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
-        OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
-        OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ping_should_succeed=False
+        OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+        OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${NET_2_VM_IPS}    ping_should_succeed=False
     END
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     FOR    ${INTERFACE}    IN    @{SUBNETS}
@@ -195,7 +195,7 @@ Delete Router
     BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
     @{router_list} =    BuiltIn.Create List    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}    check_for_null=True
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${ROUTER}
     Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
 
@@ -209,47 +209,47 @@ Delete Router With NonExistentRouter Name
 
 Associate Networks To L3VPN
     [Documentation]    Associates L3VPN to networks and verify
-    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
-    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]
-    VpnOperations.Associate L3VPN To Network    networkid=${network1_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${network1_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
+    ${network2_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[1]
+    VpnOperations.Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${network1_id}
-    VpnOperations.Associate L3VPN To Network    networkid=${network2_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${network2_id}
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 20 @{NET_1_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 20 ${NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 20 @{NET_2_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 20 ${NET_2_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 20 @{NET_2_VM_IPS}[0]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 20 ${NET_2_VM_IPS}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Verification of route update after VM port removed and re added to VPN
     [Documentation]    Verify route update after VM port removed and re added to VPN
-    OpenStackOperations.Delete Port    @{PORTS}[0]
+    OpenStackOperations.Delete Port    ${PORTS}[0]
     ${net_list} =    BuiltIn.Create List    ${NET_1_VM_IPS[0]}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements Not At URI    ${FIB_ENTRY_URL}    ${net_list}
-    OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}
+    OpenStackOperations.Delete Vm Instance    ${NET_1_VMS}[0]
+    OpenStackOperations.Create Port    ${NETWORKS}[0]    ${PORTS}[0]    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Poll VM Is ACTIVE    @{NET_1_VMS}[0]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Poll VM Is ACTIVE    ${NET_1_VMS}[0]
     ${status}    ${ips_and_console_log} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    360s    15s    OpenStackOperations.Get VM IP
-    ...    true    @{NET_1_VMS}[0]
+    ...    true    ${NET_1_VMS}[0]
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${NET_1_VM_IPS}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 10 @{NET_1_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 10 ${NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 10 @{NET_2_VM_IPS}[0]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 10 ${NET_2_VM_IPS}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
 
 Verification of route update after reconfiguring vpn by adding new ports
     [Documentation]    Verify route update after reconfiguring vpn by creating new VM with new port on openvswitch1
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${PORT_NEW}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS}[0]    ${PORT_NEW}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORT_NEW}    ${VM_NAME_NEW}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Poll VM Is ACTIVE    ${VM_NAME_NEW}
     ${status}    ${ips_and_console_log} =    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    360s    15s    OpenStackOperations.Get VM IP
@@ -261,13 +261,13 @@ Verification of route update after reconfiguring vpn by adding new ports
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
-    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
-    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${network1_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
+    ${network2_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[1]
+    VpnOperations.Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${network1_id}
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${network2_id}
 
 Delete Unknown L3VPN
@@ -277,53 +277,53 @@ Delete Unknown L3VPN
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.VPN Delete L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]    name=@{VPN_NAMES}[1]    rd=@{RDS}[1]    exportrt=@{RDS}[1]    importrt=@{RDS}[1]    tenantid=${tenant_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]    name=@{VPN_NAMES}[2]    rd=@{RDS}[2]    exportrt=@{RDS}[2]    importrt=@{RDS}[2]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
-    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[1]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
-    BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[2]
+    VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]    name=${VPN_NAMES}[0]    rd=${RDS}[0]    exportrt=${RDS}[0]    importrt=${RDS}[0]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS}[1]    name=${VPN_NAMES}[1]    rd=${RDS}[1]    exportrt=${RDS}[1]    importrt=${RDS}[1]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS}[2]    name=${VPN_NAMES}[2]    rd=${RDS}[2]    exportrt=${RDS}[2]    importrt=${RDS}[2]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[1]
+    BuiltIn.Should Contain    ${resp}    ${VPN_INSTANCE_IDS}[1]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[2]
+    BuiltIn.Should Contain    ${resp}    ${VPN_INSTANCE_IDS}[2]
 
 *** Keywords ***
 Suite Setup
     VpnOperations.Basic Suite Setup
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    OpenStackOperations.Create Network    ${NETWORKS}[0]
+    OpenStackOperations.Create Network    ${NETWORKS}[1]
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    OpenStackOperations.Update Network    @{NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
-    ${output} =    OpenStackOperations.Show Network    @{NETWORKS}[0]
+    OpenStackOperations.Update Network    ${NETWORKS}[0]    additional_args=--description ${UPDATE_NETWORK}
+    ${output} =    OpenStackOperations.Show Network    ${NETWORKS}[0]
     BuiltIn.Should Contain    ${output}    ${UPDATE_NETWORK}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS}[0]    ${SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS}[1]    ${SUBNET_CIDRS}[1]
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
-    OpenStackOperations.Update SubNet    @{SUBNETS}[0]    additional_args=--description ${UPDATE_SUBNET}
-    ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS}[0]
+    OpenStackOperations.Update SubNet    ${SUBNETS}[0]    additional_args=--description ${UPDATE_SUBNET}
+    ${output} =    OpenStackOperations.Show SubNet    ${SUBNETS}[0]
     BuiltIn.Should Contain    ${output}    ${UPDATE_SUBNET}
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1]
-    Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET}[0] --allowed-address ip-address=${EXTRA_NW_SUBNET}[1]
+    Create Port    ${NETWORKS}[0]    ${PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS}[0]    ${PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS}[1]    ${PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS}[1]    ${PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
     ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORTS}
     Set Suite Variable    ${PORTS_MACADDR}
-    Update Port    @{PORTS}[0]    additional_args=--description ${UPDATE_PORT}
-    ${output} =    Show Port    @{PORTS}[0]
+    Update Port    ${PORTS}[0]    additional_args=--description ${UPDATE_PORT}
+    ${output} =    Show Port    ${PORTS}[0]
     Should Contain    ${output}    ${UPDATE_PORT}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[1]    ${NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[2]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[3]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
@@ -338,7 +338,7 @@ Suite Setup
 
 Suite Teardown
     [Documentation]    Delete the setup
-    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
-    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=${VPN_INSTANCE_IDS}[1]
+    BuiltIn.Run Keyword And Ignore Error    VpnOperations.VPN Delete L3VPN    vpnid=${VPN_INSTANCE_IDS}[2]
     OpenStackOperations.OpenStack Suite Teardown

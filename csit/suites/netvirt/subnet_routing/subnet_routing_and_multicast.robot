@@ -25,9 +25,9 @@ ${VPN_NAME}       mc_vpn1
 ${LOOPBACK_IP}    5.5.5.2
 ${L3VPN_RD}       2200:2
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
-${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[0] @{EXTRA_NW_SUBNET}[0]
-${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[1] @{EXTRA_NW_SUBNET}[1]
-${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s @{EXTRA_NW_SUBNET}[2] @{EXTRA_NW_SUBNET}[2]
+${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s ${EXTRA_NW_SUBNET}[0] ${EXTRA_NW_SUBNET}[0]
+${RPING_MIP_IP1}    sudo arping -I eth0:1 -c 5 -b -s ${EXTRA_NW_SUBNET}[1] ${EXTRA_NW_SUBNET}[1]
+${RPING_MIP_IP2}    sudo arping -I eth0:1 -c 5 -b -s ${EXTRA_NW_SUBNET}[2] ${EXTRA_NW_SUBNET}[2]
 ${RPING_MIP_IP3}    sudo arping -I eth0:1 -c 5 -b -s ${NEW_EXTRA_NW_SUBNET} ${NEW_EXTRA_NW_SUBNET}
 @{INTERFACE_STATE}    up    down
 @{NETWORKS}       mc_net_1    mc_net_2    mc_net_3
@@ -46,13 +46,13 @@ ${MASK}           255.255.255.0
 *** Test Cases ***
 Verify The Subnet Route When Neutron Port Hosting Subnet Route Is Down/up On Single VSwitch Topology
     [Documentation]    Verify the subnet route when enterprise host is down and up.
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[1]
-    ${allowed_ip_list} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[1]
+    ${allowed_ip_list} =    BuiltIn.Create List    ${EXTRA_NW_SUBNET}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${allowed_ip_list}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${allowed_ip_list}
     Verify Ping between Inter Intra And Enterprise host
 
@@ -60,11 +60,11 @@ Verify Enterprise Hosts Reachability After VM Reboot
     [Documentation]    Restart the VSwitch1 which is hosting the enterprise host and check the subnet route
     OpenStackOperations.Get ControlNode Connection
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    OpenStackOperations.Reboot Nova VM    @{NET_1_VMS}[0]
+    OpenStackOperations.Reboot Nova VM    ${NET_1_VMS}[0]
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
     Verify Ping between Inter Intra And Enterprise host
 
 Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When DC-GW Is Restarted
@@ -96,7 +96,7 @@ Verify The Subnet Route When Vswitch Hosting Subnet Enterprise Host Is Restarted
 
 Verify The Subnet Route For One Subnet On Single Vswitch
     [Documentation]    Verify the subnet route for one subnet on a single VSwitch
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_SUBNET}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[2]    ${NET_2_VM_IPS}[1]    ping -c 3 ${EXTRA_NW_SUBNET}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
     Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${EXTRA_NW_SUBNET}
     Verify Ping between Inter Intra And Enterprise host
@@ -104,12 +104,12 @@ Verify The Subnet Route For One Subnet On Single Vswitch
 Verify The Subnet Route For Multiple Subnets On Multi Vswitch Topology
     [Documentation]    Configure one more IP on sub interface and verify the subnet route for multiple subnets on multi VSwitch topology
     BuiltIn.Log    Bring up enterprise host in another vswitch
-    Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]    ${MASK}
-    Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    @{NET_1_VM_IPS}[2]
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
+    Configure_IP_On_Sub_Interface    ${NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    ${NET_1_VM_IPS}[2]    ${MASK}
+    Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[0]    ${NEW_EXTRA_NW_SUBNET}    ${NET_1_VM_IPS}[2]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[2]    ${RPING_MIP_IP3}
     BuiltIn.Should Contain    ${output}    broadcast
     BuiltIn.Should Contain    ${output}    Received 0 reply
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[2]    ${NET_1_VM_IPS}[2]    ping -c 3 ${NEW_EXTRA_NW_SUBNET}
     BuiltIn.Should Contain    ${output}    64 bytes
     Verify Ping between Inter Intra And Enterprise host
 
@@ -163,11 +163,11 @@ Create Setup
     Create BGP Config On ODL
     Create BGP Config On DCGW
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    VpnOperations.Verify Tunnel Status as UP
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
     BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${RPING_MIP_IP1}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${RPING_MIP_IP1}
     BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[0]    ${RPING_MIP_IP2}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${NETWORKS}[2]    ${NET_3_VM_IPS}[0]    ${RPING_MIP_IP2}
     BuiltIn.Should Contain    ${output}    broadcast    Received 0 reply
 
 Create Neutron Networks
@@ -181,34 +181,34 @@ Create Neutron Subnets
     [Arguments]    ${num_of_network}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create required number of subnets for previously created networks
     FOR    ${index}    IN RANGE    0    ${num_of_network}
-        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDR}[${index}]
+        OpenStackOperations.Create SubNet    ${NETWORKS}[${index}]    ${SUBNETS}[${index}]    ${SUBNET_CIDR}[${index}]
     END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
-    ${allowed_address_pairs_args1} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1]
-    ${allowed_address_pairs_args2} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[2]
-    ${allowed_address_pairs_args3} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET}[2] --allowed-address ip-address=@{EXTRA_NW_SUBNET}[0]
+    ${allowed_address_pairs_args1} =    BuiltIn.Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET}[0] --allowed-address ip-address=${EXTRA_NW_SUBNET}[1]
+    ${allowed_address_pairs_args2} =    BuiltIn.Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET}[1] --allowed-address ip-address=${EXTRA_NW_SUBNET}[2]
+    ${allowed_address_pairs_args3} =    BuiltIn.Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET}[2] --allowed-address ip-address=${EXTRA_NW_SUBNET}[0]
     FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-        OpenStackOperations.Create Port    @{NETWORKS}[0]    @{NET_1_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args1}
+        OpenStackOperations.Create Port    ${NETWORKS}[0]    ${NET_1_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args1}
     END
     FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-        OpenStackOperations.Create Port    @{NETWORKS}[1]    @{NET_2_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args2}
+        OpenStackOperations.Create Port    ${NETWORKS}[1]    ${NET_2_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args2}
     END
     FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_NETWORK}
-        OpenStackOperations.Create Port    @{NETWORKS}[2]    @{NET_3_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args3}
+        OpenStackOperations.Create Port    ${NETWORKS}[2]    ${NET_3_PORTS}[${index}]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args3}
     END
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute nodes
     FOR    ${index}    IN RANGE    0    2
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index}]    @{NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_1_PORTS}[${index+2}]    @{NET_1_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index}]    @{NET_2_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_2_PORTS}[${index+2}]    @{NET_2_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index}]    @{NET_3_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Vm Instance With Port On Compute Node    @{NET_3_PORTS}[${index+2}]    @{NET_3_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS}[${index}]    ${NET_1_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS}[${index+2}]    ${NET_1_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS}[${index}]    ${NET_2_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS}[${index+2}]    ${NET_2_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS}[${index}]    ${NET_3_VMS}[${index}]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS}[${index+2}]    ${NET_3_VMS}[${index+2}]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     END
     @{NET_1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
@@ -223,19 +223,19 @@ Create Nova VMs
 
 Create Sub Interfaces And Verify
     [Documentation]    Create Sub Interface and verify for all VMs
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[0]    @{EXTRA_NW_SUBNET}[0]    @{NET_1_VM_IPS}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[1]    @{EXTRA_NW_SUBNET}[1]    @{NET_2_VM_IPS}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
-    ...    ${MASK}    @{INTERFACE_STATE}[0]
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    @{NETWORKS}[2]    @{EXTRA_NW_SUBNET}[2]    @{NET_3_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[0]    ${EXTRA_NW_SUBNET}[0]    ${NET_1_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[1]    ${EXTRA_NW_SUBNET}[1]    ${NET_2_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[1]    ${EXTRA_NW_SUBNET}[1]    ${NET_2_VM_IPS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Configure_IP_On_Sub_Interface    ${NETWORKS}[2]    ${EXTRA_NW_SUBNET}[2]    ${NET_3_VM_IPS}[0]
+    ...    ${MASK}    ${INTERFACE_STATE}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    OpenStackOperations.Verify_IP_Configured_On_Sub_Interface    ${NETWORKS}[2]    ${EXTRA_NW_SUBNET}[2]    ${NET_3_VM_IPS}[0]
 
 Create L3VPN
     [Documentation]    Create L3VPN and verify the same
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=["${L3VPN_RD}"]    exportrt=["${L3VPN_RD}"]    importrt=["${L3VPN_RD}"]    tenantid=${tenant_id}
     VpnOperations.Verify L3VPN On ODL    ${VPN_INSTANCE_ID}
@@ -259,7 +259,7 @@ Create BGP Config On DCGW
 Verify Ping between Inter Intra And Enterprise host
     [Documentation]    Ping Enterprise Host for Intra, Inter from different and same network
     ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}    @{EXTRA_NW_SUBNET}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[2]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[2]    ${dst_ip_list}

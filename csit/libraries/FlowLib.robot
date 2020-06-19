@@ -528,4 +528,4 @@ Get Flow Id
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
     BuiltIn.Log    ${resp.content}
     @{flow_id} =    String.Get Regexp Matches    ${resp.content}    id\":\"(\\d+${flow_element})    1
-    [Return]    @{flow_id}[0]
+    [Return]    ${flow_id}[0]

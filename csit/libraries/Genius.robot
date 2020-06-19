@@ -30,7 +30,7 @@ ${NO_VLAN}        0
 ${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
 ${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
 ${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
-${odl_stream_check }    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]
+${odl_stream_check }    ${Stream_dict}[${ODL_STREAM}] <= ${Stream_dict}[neon]
 
 *** Keywords ***
 Genius Suite Setup
@@ -63,7 +63,7 @@ Start Suite
 Stop Suite
     [Documentation]    stops all connections and deletes all the bridges available on OVS
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
+        SSHLibrary.Switch Connection    ${TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
         SSHLibrary.Execute Command    sudo ovs-vsctl del-br ${Bridge}
         SSHLibrary.Execute Command    sudo ovs-vsctl del-manager
         SSHLibrary.Write    exit
@@ -99,7 +99,7 @@ Set Json
     ...    ELSE    BuiltIn.Set Variable    ${body}
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
         ${body}    String.Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
-        ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
+        ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "${tools_ips}[${tool_system_index}]"
     END
     BuiltIn.Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
@@ -132,7 +132,7 @@ Genius Test Setup
 Genius Test Teardown
     [Arguments]    ${data_models}    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        OVSDB.Get DumpFlows And Ovsconfig    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]    ${Bridge}
+        OVSDB.Get DumpFlows And Ovsconfig    ${TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]    ${Bridge}
     END
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
@@ -185,7 +185,7 @@ Check Table0 Entry In a Dpn
     ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${bridgename}
     ${num_ports} =    BuiltIn.Get Length    ${port_numbers}
     FOR    ${port_index}    IN RANGE    ${num_ports}
-        BuiltIn.Should Contain    ${check}    in_port=@{port_numbers}[${port_index}]
+        BuiltIn.Should Contain    ${check}    in_port=${port_numbers}[${port_index}]
     END
 
 Verify Tunnel Status As Up
@@ -273,7 +273,7 @@ Verify Tunnel Monitoring Status
 Set Switch Configuration
     [Documentation]    This keyword will set manager,controller,tap port,bridge on each OVS
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
+        SSHLibrary.Switch Connection    ${TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
         SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
         SSHLibrary.Execute Command    sudo ovs-vsctl add-br ${Bridge}
         SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
