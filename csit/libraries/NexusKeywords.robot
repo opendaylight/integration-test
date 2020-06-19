@@ -322,7 +322,7 @@ Get_Latest_ODL_Previous_Stream_Release
     ...    numbers to the global variable ${ODL_STREAM} so that is used to ensure we get a major version that is
     ...    older than the current running major version.
     ${latest}    @{versions}=    Get_ODL_Versions_From_Nexus
-    ${current_version}=    BuiltIn.Set_Variable    &{Stream_dict}[${ODL_STREAM}].0
+    ${current_version}=    BuiltIn.Set_Variable    ${Stream_dict}[${ODL_STREAM}].0
     ${latest_version}=    BuiltIn.Set_Variable    0.0
     FOR    ${version}    IN    @{versions}
         ${version} =    String.Replace String Using Regexp    ${version}    ^0\.    ${EMPTY}

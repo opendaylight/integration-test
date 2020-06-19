@@ -51,5 +51,5 @@ Get Match
     @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
     ${matches_length} =    BuiltIn.Get Length    ${matches}
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
-    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    ${matches}[${index}]
     [Return]    ${OS_MATCH}

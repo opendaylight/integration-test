@@ -51,7 +51,7 @@ Get_Example_Bgp_Rib_Owner
 
 Move_Shard_Leaders_If_Needed
     [Documentation]    Set shard leaders to expected location
-    PrefixcountKeywords.Set_Shard_Leaders_Location_And_Verify    @{rib_candidates}[0]
+    PrefixcountKeywords.Set_Shard_Leaders_Location_And_Verify    ${rib_candidates}[0]
 
 Check_For_Empty_Ipv4_Topology_Before_Talking_1
     [Documentation]    Wait for ${EXAMPLE_IPV4_TOPOLOGY} to come up and empty. Give large timeout for case when BGP boots slower than restconf.

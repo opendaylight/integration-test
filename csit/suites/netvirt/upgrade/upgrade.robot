@@ -108,15 +108,15 @@ Create Resources
     FOR    ${net}    IN    @{NETWORKS}
         OpenStackOperations.Create Network    ${net}
     END
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNETS_RANGE}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNETS_RANGE}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS}[0]    ${SUBNETS_RANGE}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS}[1]    ${SUBNETS_RANGE}[1]
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Nano Flavor
     FOR    ${vm}    IN    @{NET_1_VMS}
-        OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    ${vm}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${vm}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     END
     FOR    ${vm}    IN    @{NET_2_VMS}
-        OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    ${vm}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${vm}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     END
     OpenStackOperations.Create Router    ${ROUTER}
     FOR    ${interface}    IN    @{SUBNETS}
@@ -133,12 +133,12 @@ Create Resources
 
 Check Resource Connectivity
     [Documentation]    Ping 2 VMs in the same net and 1 from another net.
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    @{NET1_VM_IPS}[0]
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    @{NET1_VM_IPS}[1]
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    @{NET2_VM_IPS}[0]
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    @{NET2_VM_IPS}[0]
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    @{NET2_VM_IPS}[1]
-    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    @{NET1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    ${NET1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    ${NET1_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_1    ${NET2_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    ${NET2_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    ${NET2_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    upgrade_net_2    ${NET1_VM_IPS}[0]
 
 Check OVS Nodes Have Egress Flows
     [Documentation]    Loop over all openstack nodes to ensure they have the proper flows installed.

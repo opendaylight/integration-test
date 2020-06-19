@@ -34,19 +34,19 @@ Create All Controller Sessions
 
 Create Network net_1
     [Documentation]    Create Network with neutron request.
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create Network    ${NETWORKS}[0]
 
 Create Subnet For net_1
     [Documentation]    Create Sub Net for the Network with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS}[0]    ${SUBNET_CIDRS}[0]
 
 Create Network net_2
     [Documentation]    Create Network with neutron request.
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    OpenStackOperations.Create Network    ${NETWORKS}[1]
 
 Create Subnet For net_2
     [Documentation]    Create Sub Net for the Network with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS}[1]    ${SUBNET_CIDRS}[1]
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -103,15 +103,15 @@ Take Down ODL2
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
@@ -131,27 +131,27 @@ Bring Up ODL2
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[2]
 
 Ping Vm Instance1 In net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_2_VM_IPS}[2]
 
 Take Down ODL3
     [Documentation]    Stop the karaf in Third Controller
@@ -159,15 +159,15 @@ Take Down ODL3
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
 
 Connectivity Tests From Vm Instance2 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${NET_1_VM_IPS}
 
 Connectivity Tests From Vm Instance3 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[2]    ${NET_1_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[2]    ${NET_1_VM_IPS}
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
@@ -175,15 +175,15 @@ Bring Up ODL3
 
 Connectivity Tests From Vm Instance1 In net_2 In Healthy Cluster
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance2 In net_2 In Healthy Cluster
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance3 In net_2 In Healthy Cluster
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
@@ -192,15 +192,15 @@ Take Down ODL1 and ODL2
 
 Connectivity Tests From Vm Instance1 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance2 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance3 In net_2 With Two ODLs Down
     [Documentation]    Logging to the vm instance using generated key pair.
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
@@ -211,12 +211,12 @@ Bring Up ODL1 and ODL2
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
     ...    list so that later cleanup will not try to delete it.
-    OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
+    OpenStackOperations.Delete Vm Instance    ${NET_1_VMS}[0]
     Remove From List    ${NET_1_VMS}    0
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output} =    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    ${output} =    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in network_1.
@@ -232,11 +232,11 @@ Delete Vm Instances In net_2
 
 Delete Sub Networks In net_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
+    OpenStackOperations.Delete SubNet    ${SUBNETS}[0]
 
 Delete Sub Networks In net_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[1]
+    OpenStackOperations.Delete SubNet    ${SUBNETS}[1]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.

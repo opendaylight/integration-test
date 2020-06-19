@@ -66,7 +66,7 @@ Run_Maven
     ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    echo '${final_pom}' > '${POM_FILENAME}'
     ${autorelease_dir} =    String.Get_Regexp_Matches    ${BUNDLE_URL}    (autorelease-[0-9]+)
-    BuiltIn.Run_Keyword_If    ${autorelease_dir} != []    Add_Autorelease_Profile    @{autorelease_dir}[0]
+    BuiltIn.Run_Keyword_If    ${autorelease_dir} != []    Add_Autorelease_Profile    ${autorelease_dir}[0]
     NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}
     # TODO: Figure out patters to identify various known Bug symptoms.
 
@@ -108,7 +108,7 @@ Add_Autorelease_Profile
     Update_Repository_Element    ${profile}    pluginRepositories/pluginRepository    ${nexus_autorelease_dir}
     XML.Add_Element    ${root}    ${profile}    xpath=profiles
     ${profiles} =    XML.Get_Elements    ${root}    xpath=activeProfiles/activeProfile
-    ${profile} =    XML.Copy_Element    @{profiles}[0]
+    ${profile} =    XML.Copy_Element    ${profiles}[0]
     XML.Set_Element_Text    ${profile}    opendaylight-autorelease
     XML.Add_Element    ${root}    ${profile}    xpath=activeProfiles
     ${content} =    XML.Log_Element    ${root}

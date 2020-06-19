@@ -92,8 +92,8 @@ Create Port
     # if allowed_address_pairs is not empty we need to create the arguments to pass to the port create command. They are
     # in a different format with the neutron vs openstack cli.
     ${address_pair_length} =    BuiltIn.Get Length    ${allowed_address_pairs}
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton' and '${address_pair_length}'=='2'    --allowed-address-pairs type=dict list=true ip_address=@{allowed_address_pairs}[0] ip_address=@{allowed_address_pairs}[1]
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton' and '${address_pair_length}'=='2'    --allowed-address-pairs type=dict list=true ip_address=${allowed_address_pairs}[0] ip_address=${allowed_address_pairs}[1]
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=${allowed_address_pairs}[0] --allowed-address ip-address=${allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='0'    ${EMPTY}    ${allowed_pairs_argv}
     ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
@@ -158,9 +158,9 @@ Create And Associate Floating IPs
         ${output} =    OpenStack CLI    openstack floating ip create ${external_net}
         @{ip} =    String.Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
         ${ip_length} =    BuiltIn.Get Length    ${ip}
-        BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
+        BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    ${ip}[0]
         ...    ELSE    Collections.Append To List    ${ip_list}    None
-        ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+        ${output} =    OpenStack CLI    openstack server add floating ip ${vm} ${ip}[0]
     END
     [Return]    ${ip_list}
 
@@ -284,7 +284,7 @@ Collect VM IP Addresses
         ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
         @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
         ${vm_ip_length}    Get Length    ${vm_ip}
-        Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
+        Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    ${vm_ip}[0]
         ...    ELSE    Append To List    ${ip_list}    None
         ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
         ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
@@ -306,7 +306,7 @@ Get Match
     @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
     ${matches_length} =    BuiltIn.Get Length    ${matches}
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
-    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    ${matches}[${index}]
     [Return]    ${OS_MATCH}
 
 Get VM IP
@@ -959,12 +959,12 @@ Wait For Routes To Propogate
     [Documentation]    Check propagated routes
     OpenStackOperations.Get ControlNode Connection
     FOR    ${INDEX}    IN RANGE    0    1
-        ${net_id} =    OpenStackOperations.Get Net Id    @{networks}[${INDEX}]
-        ${is_ipv6} =    String.Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
+        ${net_id} =    OpenStackOperations.Get Net Id    ${networks}[${INDEX}]
+        ${is_ipv6} =    String.Get Regexp Matches    ${subnets}[${INDEX}]    ${IP6_REGEX}
         ${length} =    BuiltIn.Get Length    ${is_ipv6}
         ${cmd} =    BuiltIn.Set Variable If    ${length} == 0    ip route    ip -6 route
         ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
-        BuiltIn.Should Contain    ${output}    @{subnets}[${INDEX}]
+        BuiltIn.Should Contain    ${output}    ${subnets}[${INDEX}]
     END
 
 Neutron Cleanup
