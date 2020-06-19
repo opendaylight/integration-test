@@ -421,6 +421,6 @@ Extract Flow Duration
     Log    ${resp.content}
     ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
     ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow
-    ${flow_stats} =    Collections.Get_From_Dictionary    @{flow_list}[0]    opendaylight-flow-statistics:flow-statistics
-    ${duration} =    Collections.Get_From_Dictionary    &{flow_stats}[duration]    second
+    ${flow_stats} =    Collections.Get_From_Dictionary    ${flow_list}[0]    opendaylight-flow-statistics:flow-statistics
+    ${duration} =    Collections.Get_From_Dictionary    ${flow_stats}[duration]    second
     Return From Keyword    ${duration}

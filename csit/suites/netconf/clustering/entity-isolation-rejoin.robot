@@ -99,8 +99,8 @@ Find_And_Isolate_Device_Entity_Owner
     Log    ${followers}
     Length Should Be    ${followers}    2    Wrong count of followers returned
     BuiltIn.Set_Suite_Variable    ${original_device_owner}    ${owner}
-    BuiltIn.Set_Suite_Variable    ${follower1}    @{followers}[0]
-    BuiltIn.Set_Suite_Variable    ${follower2}    @{followers}[1]
+    BuiltIn.Set_Suite_Variable    ${follower1}    ${followers}[0]
+    BuiltIn.Set_Suite_Variable    ${follower2}    ${followers}[1]
     ${original_device_owner_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${original_device_owner}
     ${follower1_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower1}
     ${follower2_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower2}

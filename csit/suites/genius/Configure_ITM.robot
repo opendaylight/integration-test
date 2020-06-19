@@ -156,7 +156,7 @@ Delete VTEP -Vlan and gateway
 Create Vteps IPv6
     [Arguments]    ${vlan}    ${gateway_ip}    ${tools_ips}
     [Documentation]    This keyword creates VTEPs between IPV6 ip's
-    ${substr} =    BuiltIn.Should Match Regexp    @{tools_ips}[0]    ${gateway_regex_IPV6}
+    ${substr} =    BuiltIn.Should Match Regexp    ${tools_ips}[0]    ${gateway_regex_IPV6}
     ${SUBNET_IPV6} =    BuiltIn.Catenate    ${substr}0
     BuiltIn.Set Suite Variable    ${SUBNET_IPV6}
     ${body} =    Genius.Set Json    ${vlan}    ${gateway_ip}    ${SUBNET_IPV6}    @{TOOLS_SYSTEM_IPV6_LIST}

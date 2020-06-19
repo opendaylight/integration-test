@@ -134,7 +134,7 @@ CompareStream__Convert_Input
         ${splitted}    BuiltIn.Run_Keyword_If    "${removed[0]}" == "<"    BuiltIn.Create List    ${arg}
         ...    ELSE    String.Split_String    ${arg}    separator==    max_split=1
         ${len}    BuiltIn.Get_Length    ${splitted}
-        Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    @{splitted}[0]
+        Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    ${splitted}[0]
         ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
     END
     BuiltIn.Return_From_Keyword    ${args}    ${kwargs}

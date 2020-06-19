@@ -431,14 +431,14 @@ Get Tunnel Id And Packet Count
     SSHLibrary.Switch Connection    ${conn_id}
     ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{list}=    Split to lines    ${output}
-    ${output} =    Set Variable    @{list}[0]
+    ${output} =    Set Variable    ${list}[0]
     ${output} =    String.Get Regexp Matches    ${output}    n_packets=([0-9]+),.*set_field:(0x[0-9a-z]+)|n_packets=([0-9]+),.*tun_id=(0x[0-9a-z]+)    1    2    3
     ...    4
-    ${output} =    BuiltIn.Set Variable    @{output}[0]
+    ${output} =    BuiltIn.Set Variable    ${output}[0]
     ${output}    Convert To List    ${output}
-    ${packet_count}    ${tunnel_id} =    BuiltIn.Run Keyword If    "${table_id}" == "${ELAN_DMACTABLE}"    BuiltIn.Set Variable    @{output}[0]    @{output}[1]
-    ...    ELSE IF    "${table_id}" == "${INTERNAL_TUNNEL_TABLE}"    BuiltIn.Set Variable    @{output}[2]    @{output}[3]
-    ...    ELSE IF    "${table_id}" == "${L3_TABLE}"    BuiltIn.Set Variable    @{output}[0]    @{output}[1]
+    ${packet_count}    ${tunnel_id} =    BuiltIn.Run Keyword If    "${table_id}" == "${ELAN_DMACTABLE}"    BuiltIn.Set Variable    ${output}[0]    ${output}[1]
+    ...    ELSE IF    "${table_id}" == "${INTERNAL_TUNNEL_TABLE}"    BuiltIn.Set Variable    ${output}[2]    ${output}[3]
+    ...    ELSE IF    "${table_id}" == "${L3_TABLE}"    BuiltIn.Set Variable    ${output}[0]    ${output}[1]
     ${tunnel_id} =    Convert To Integer    ${tunnel_id}    16
     [Return]    ${tunnel_id}    ${packet_count}
 
