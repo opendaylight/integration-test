@@ -40,11 +40,11 @@ Create Networks
 
 Create Subnets For net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS}[0]    ${SUBNET_CIDRS}[0]
 
 Create Subnets For net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS}[1]    ${SUBNET_CIDRS}[1]
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -56,9 +56,9 @@ Block Port On ODL1
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Allow Port On ODL1
     [Documentation]    Allow connection on first controller
@@ -70,9 +70,9 @@ Block Port On ODL2
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET_1_L3_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
@@ -96,24 +96,24 @@ Block Port On ODL3
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    @{ROUTERS}[1]
+    OpenStackOperations.Create Router    ${ROUTERS}[1]
     [Teardown]    Report_Failure_Due_To_Bug    6117
 
 Create Router router_3
     [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    @{ROUTERS}[2]
+    OpenStackOperations.Create Router    ${ROUTERS}[2]
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
     FOR    ${interface}    IN    @{SUBNETS}
-        OpenStackOperations.Add Router Interface    @{ROUTERS}[2]    ${interface}
+        OpenStackOperations.Add Router Interface    ${ROUTERS}[2]    ${interface}
     END
 
 Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    Should Contain    ${data}    @{ROUTERS}[2]
+    Should Contain    ${data}    ${ROUTERS}[2]
 
 Allow Port On ODL3
     [Documentation]    Allow connection on third controller
@@ -121,27 +121,27 @@ Allow Port On ODL3
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[0]
 
 Ping Vm Instance2 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[1]
 
 Ping Vm Instance3 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[2]
 
 Ping Vm Instance1 In net_1 From net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[0]
 
 Ping Vm Instance2 In net_1 From net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[1]
 
 Ping Vm Instance3 In net_1 From net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[2]
 
 Block Port On ODL1 Again
     [Documentation]    Block connection on first controller the second time
@@ -156,19 +156,19 @@ Block Port On ODL2 Again
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[0]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[1]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[2]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Allow Port On ODL1 Again
@@ -192,19 +192,19 @@ Block Port On ODL3 Again
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[0]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[0]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[1]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[2]    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Allow Port On ODL2 Finally
@@ -230,27 +230,27 @@ Delete Vm Instances In net_2
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     FOR    ${interface}    IN    @{SUBNETS}
-        OpenStackOperations.Remove Interface    @{ROUTERS}[2]    ${interface}
+        OpenStackOperations.Remove Interface    ${ROUTERS}[2]    ${interface}
     END
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
-    OpenStackOperations.Delete Router    @{ROUTERS}[1]
-    OpenStackOperations.Delete Router    @{ROUTERS}[2]
+    OpenStackOperations.Delete Router    ${ROUTERS}[1]
+    OpenStackOperations.Delete Router    ${ROUTERS}[2]
 
 Verify Deleted Routers
     [Documentation]    Check deleted routers using northbound rest calls
     ${data} =    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    BuiltIn.Should Not Contain    ${data}    @{ROUTERS}[2]
+    BuiltIn.Should Not Contain    ${data}    ${ROUTERS}[2]
 
 Delete Sub Network In net_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
+    OpenStackOperations.Delete SubNet    ${SUBNETS}[0]
 
 Delete Sub Network In net_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[1]
+    OpenStackOperations.Delete SubNet    ${SUBNETS}[1]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.

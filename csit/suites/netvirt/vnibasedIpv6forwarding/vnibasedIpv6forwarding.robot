@@ -55,79 +55,79 @@ ${NET3_ADDITIONAL_ARGS}    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mo
 VNI Based IPv6 Forwarding
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI6_NET_0_PORTS}[0]    @{VNI6_NET_1_PORTS}[0]    @{VNI6_NETWORKS}[0]
-    ...    @{VNI6_NETWORKS}[1]    @{VM_IP_NET0}[0]    @{VM_IP_NET1}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI6_NET_0_PORTS}[0]    ${VNI6_NET_1_PORTS}[0]    ${VNI6_NETWORKS}[0]
+    ...    ${VNI6_NETWORKS}[1]    ${VM_IP_NET0}[0]    ${VM_IP_NET1}[0]    ${IP}
 
 VNI Based IPv6 Forwarding With BGPVPN Router Association
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Router associated to a BGPVPN.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    ${net_id} =    OpenStackOperations.Get Net Id    @{VNI6_NETWORKS}[0]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${VNI6_NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[0]    name=@{VNI6_VPN_NAMES}[0]    rd=@{VNI6_RDS}[0]    exportrt=@{VNI6_RDS}[0]    importrt=@{VNI6_RDS}[0]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    @{VNI6_VPN_INSTANCE_IDS}[0]
-    ${router_id} =    OpenStackOperations.Get Router Id    @{VNI6_ROUTER}[0]
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VNI6_VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[0]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[0]    name=${VNI6_VPN_NAMES}[0]    rd=${VNI6_RDS}[0]    exportrt=${VNI6_RDS}[0]    importrt=${VNI6_RDS}[0]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${VNI6_VPN_INSTANCE_IDS}[0]
+    ${router_id} =    OpenStackOperations.Get Router Id    ${VNI6_ROUTER}[0]
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VNI6_VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI6_NET_0_PORTS}[0]    @{VNI6_NET_1_PORTS}[0]    @{VNI6_NETWORKS}[0]
-    ...    @{VNI6_NETWORKS}[1]    @{VM_IP_NET0}[0]    @{VM_IP_NET1}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI6_NET_0_PORTS}[0]    ${VNI6_NET_1_PORTS}[0]    ${VNI6_NETWORKS}[0]
+    ...    ${VNI6_NETWORKS}[1]    ${VM_IP_NET0}[0]    ${VM_IP_NET1}[0]    ${IP}
 
 VNI Based IPv6 Forwarding With Two Routers And BGPVPN With Irt Ert
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Two Routers each associated to a BGPVPN and The Two BGPVPN is connected with irt and ert.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    OpenStackOperations.Create Network    @{VNI6_NETWORKS}[2]
-    OpenStackOperations.Create Network    @{VNI6_NETWORKS}[3]
-    OpenStackOperations.Create SubNet    @{VNI6_NETWORKS}[2]    @{VNI6_SUBNETS}[2]    @{VNI6_SUBNET_CIDRS}[2]    ${NET2_ADDITIONAL_ARGS}
-    OpenStackOperations.Create SubNet    @{VNI6_NETWORKS}[3]    @{VNI6_SUBNETS}[3]    @{VNI6_SUBNET_CIDRS}[3]    ${NET3_ADDITIONAL_ARGS}
-    OpenStackOperations.Create Port    @{VNI6_NETWORKS}[2]    @{VNI6_NET_2_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{VNI6_NETWORKS}[3]    @{VNI6_NET_3_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Router    @{VNI6_ROUTER}[1]
-    OpenStackOperations.Add Router Interface    @{VNI6_ROUTER}[1]    @{VNI6_SUBNETS}[2]
-    OpenStackOperations.Create Router    @{VNI6_ROUTER}[2]
-    OpenStackOperations.Add Router Interface    @{VNI6_ROUTER}[2]    @{VNI6_SUBNETS}[3]
-    ${net_id} =    OpenStackOperations.Get Net Id    @{VNI6_NETWORKS}[2]
+    OpenStackOperations.Create Network    ${VNI6_NETWORKS}[2]
+    OpenStackOperations.Create Network    ${VNI6_NETWORKS}[3]
+    OpenStackOperations.Create SubNet    ${VNI6_NETWORKS}[2]    ${VNI6_SUBNETS}[2]    ${VNI6_SUBNET_CIDRS}[2]    ${NET2_ADDITIONAL_ARGS}
+    OpenStackOperations.Create SubNet    ${VNI6_NETWORKS}[3]    ${VNI6_SUBNETS}[3]    ${VNI6_SUBNET_CIDRS}[3]    ${NET3_ADDITIONAL_ARGS}
+    OpenStackOperations.Create Port    ${VNI6_NETWORKS}[2]    ${VNI6_NET_2_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${VNI6_NETWORKS}[3]    ${VNI6_NET_3_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Router    ${VNI6_ROUTER}[1]
+    OpenStackOperations.Add Router Interface    ${VNI6_ROUTER}[1]    ${VNI6_SUBNETS}[2]
+    OpenStackOperations.Create Router    ${VNI6_ROUTER}[2]
+    OpenStackOperations.Add Router Interface    ${VNI6_ROUTER}[2]    ${VNI6_SUBNETS}[3]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${VNI6_NETWORKS}[2]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[1]    name=@{VNI6_VPN_NAMES}[1]    rd=@{VNI6_RDS}[1]    exportrt=@{VNI6_RDS}[1]    importrt=@{VNI6_RDS}[2]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[1]
-    BuiltIn.Should Contain    ${resp}    @{VNI6_VPN_INSTANCE_IDS}[1]
-    ${router_id} =    OpenStackOperations.Get Router Id    @{VNI6_ROUTER}[1]
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VNI6_VPN_INSTANCE_IDS}[1]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[1]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[1]    name=${VNI6_VPN_NAMES}[1]    rd=${VNI6_RDS}[1]    exportrt=${VNI6_RDS}[1]    importrt=${VNI6_RDS}[2]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[1]
+    BuiltIn.Should Contain    ${resp}    ${VNI6_VPN_INSTANCE_IDS}[1]
+    ${router_id} =    OpenStackOperations.Get Router Id    ${VNI6_ROUTER}[1]
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VNI6_VPN_INSTANCE_IDS}[1]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[1]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[2]    name=@{VNI6_VPN_NAMES}[2]    rd=@{VNI6_RDS}[2]    exportrt=@{VNI6_RDS}[2]    importrt=@{VNI6_RDS}[1]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[2]
-    BuiltIn.Should Contain    ${resp}    @{VNI6_VPN_INSTANCE_IDS}[2]
-    ${router_id} =    OpenStackOperations.Get Router Id    @{VNI6_ROUTER}[2]
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VNI6_VPN_INSTANCE_IDS}[2]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[2]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[2]    name=${VNI6_VPN_NAMES}[2]    rd=${VNI6_RDS}[2]    exportrt=${VNI6_RDS}[2]    importrt=${VNI6_RDS}[1]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[2]
+    BuiltIn.Should Contain    ${resp}    ${VNI6_VPN_INSTANCE_IDS}[2]
+    ${router_id} =    OpenStackOperations.Get Router Id    ${VNI6_ROUTER}[2]
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VNI6_VPN_INSTANCE_IDS}[2]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI6_VPN_INSTANCE_IDS}[2]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI6_NET_2_PORTS}[0]    @{VNI6_NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI6_NET_3_PORTS}[0]    @{VNI6_NET_3_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Poll VM Is ACTIVE    @{VNI6_NET_2_VMS}[0]
-    OpenStackOperations.Poll VM Is ACTIVE    @{VNI6_NET_3_VMS}[0]
-    @{networks} =    BuiltIn.Create List    @{VNI6_NETWORKS}[2]    @{VNI6_NETWORKS}[3]
-    @{subnet_cidrs} =    BuiltIn.Create List    @{VNI6_SUBNET_CIDRS}[2]    @{VNI6_SUBNET_CIDRS}[3]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI6_NET_2_PORTS}[0]    ${VNI6_NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI6_NET_3_PORTS}[0]    ${VNI6_NET_3_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Poll VM Is ACTIVE    ${VNI6_NET_2_VMS}[0]
+    OpenStackOperations.Poll VM Is ACTIVE    ${VNI6_NET_3_VMS}[0]
+    ${networks} =    BuiltIn.Create List    ${VNI6_NETWORKS}[2]    ${VNI6_NETWORKS}[3]
+    ${subnet_cidrs} =    BuiltIn.Create List    ${VNI6_SUBNET_CIDRS}[2]    ${VNI6_SUBNET_CIDRS}[3]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${networks}    ${subnet_cidrs}
-    ${prefix_net2} =    String.Replace String    @{VNI6_SUBNET_CIDRS}[2]    ::/64    (:[a-f0-9]{,4}){,4}
+    ${prefix_net2} =    String.Replace String    ${VNI6_SUBNET_CIDRS}[2]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    fail_on_none=true    vm_list=${VNI6_NET_2_VMS}    network=@{VNI6_NETWORKS}[2]    subnet=${prefix_net2}
-    ${prefix_net3} =    String.Replace String    @{VNI6_SUBNET_CIDRS}[3]    ::/64    (:[a-f0-9]{,4}){,4}
+    ...    fail_on_none=true    vm_list=${VNI6_NET_2_VMS}    network=${VNI6_NETWORKS}[2]    subnet=${prefix_net2}
+    ${prefix_net3} =    String.Replace String    ${VNI6_SUBNET_CIDRS}[3]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    fail_on_none=true    vm_list=${VNI6_NET_3_VMS}    network=@{VNI6_NETWORKS}[3]    subnet=${prefix_net3}
-    ${VM_IP_NET2} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_2_VMS}    network=@{VNI6_NETWORKS}[2]    subnet=${prefix_net2}
-    ${VM_IP_NET3} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_3_VMS}    network=@{VNI6_NETWORKS}[3]    subnet=${prefix_net3}
+    ...    fail_on_none=true    vm_list=${VNI6_NET_3_VMS}    network=${VNI6_NETWORKS}[3]    subnet=${prefix_net3}
+    ${VM_IP_NET2} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_2_VMS}    network=${VNI6_NETWORKS}[2]    subnet=${prefix_net2}
+    ${VM_IP_NET3} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_3_VMS}    network=${VNI6_NETWORKS}[3]    subnet=${prefix_net3}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IP_NET2}    None
-    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VNI6_NET_2_VMS}[0]    30s
+    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show ${VNI6_NET_2_VMS}[0]    30s
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IP_NET3}    None
-    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VNI6_NET_3_VMS}[0]    30s
+    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show ${VNI6_NET_3_VMS}[0]    30s
     OpenStackOperations.Copy DHCP Files From Control Node
     BuiltIn.Should Not Contain    ${VM_IP_NET2}    None
     BuiltIn.Should Not Contain    ${VM_IP_NET3}    None
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI6_NET_2_PORTS}[0]    @{VNI6_NET_3_PORTS}[0]    @{VNI6_NETWORKS}[2]
-    ...    @{VNI6_NETWORKS}[3]    @{VM_IP_NET2}[0]    @{VM_IP_NET3}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI6_NET_2_PORTS}[0]    ${VNI6_NET_3_PORTS}[0]    ${VNI6_NETWORKS}[2]
+    ...    ${VNI6_NETWORKS}[3]    ${VM_IP_NET2}[0]    ${VM_IP_NET3}[0]    ${IP}
 
 *** Keywords ***
 Suite Setup
@@ -136,39 +136,39 @@ Suite Setup
     BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI6_SECURITY_GROUP}    IPv6
-    OpenStackOperations.Create Network    @{VNI6_NETWORKS}[0]
-    OpenStackOperations.Create Network    @{VNI6_NETWORKS}[1]
-    OpenStackOperations.Create SubNet    @{VNI6_NETWORKS}[0]    @{VNI6_SUBNETS}[0]    @{VNI6_SUBNET_CIDRS}[0]    ${NET0_ADDITIONAL_ARGS}
-    OpenStackOperations.Create SubNet    @{VNI6_NETWORKS}[1]    @{VNI6_SUBNETS}[1]    @{VNI6_SUBNET_CIDRS}[1]    ${NET1_ADDITIONAL_ARGS}
-    OpenStackOperations.Create Port    @{VNI6_NETWORKS}[0]    @{VNI6_NET_0_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{VNI6_NETWORKS}[1]    @{VNI6_NET_1_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Router    @{VNI6_ROUTER}[0]
-    OpenStackOperations.Add Router Interface    @{VNI6_ROUTER}[0]    @{VNI6_SUBNETS}[0]
-    OpenStackOperations.Add Router Interface    @{VNI6_ROUTER}[0]    @{VNI6_SUBNETS}[1]
-    ${interface_output} =    OpenStackOperations.Show Router Interface    @{VNI6_ROUTER}[0]
-    ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    @{VNI6_ROUTER}[0]
+    OpenStackOperations.Create Network    ${VNI6_NETWORKS}[0]
+    OpenStackOperations.Create Network    ${VNI6_NETWORKS}[1]
+    OpenStackOperations.Create SubNet    ${VNI6_NETWORKS}[0]    ${VNI6_SUBNETS}[0]    ${VNI6_SUBNET_CIDRS}[0]    ${NET0_ADDITIONAL_ARGS}
+    OpenStackOperations.Create SubNet    ${VNI6_NETWORKS}[1]    ${VNI6_SUBNETS}[1]    ${VNI6_SUBNET_CIDRS}[1]    ${NET1_ADDITIONAL_ARGS}
+    OpenStackOperations.Create Port    ${VNI6_NETWORKS}[0]    ${VNI6_NET_0_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${VNI6_NETWORKS}[1]    ${VNI6_NET_1_PORTS}[0]    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Router    ${VNI6_ROUTER}[0]
+    OpenStackOperations.Add Router Interface    ${VNI6_ROUTER}[0]    ${VNI6_SUBNETS}[0]
+    OpenStackOperations.Add Router Interface    ${VNI6_ROUTER}[0]    ${VNI6_SUBNETS}[1]
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${VNI6_ROUTER}[0]
+    ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${VNI6_ROUTER}[0]
     BuiltIn.Set Suite Variable    ${GWMAC_ADDRS}
     BuiltIn.Set Suite Variable    ${GWIP_ADDRS}
-    ${router_list} =    BuiltIn.Create List    @{VNI6_ROUTER}[0]
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI6_NET_0_PORTS}[0]    @{VNI6_NET_0_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI6_NET_1_PORTS}[0]    @{VNI6_NET_1_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
-    OpenStackOperations.Poll VM Is ACTIVE    @{VNI6_NET_0_VMS}[0]
-    OpenStackOperations.Poll VM Is ACTIVE    @{VNI6_NET_1_VMS}[0]
-    @{networks} =    BuiltIn.Create List    @{VNI6_NETWORKS}[0]    @{VNI6_NETWORKS}[1]
-    @{subnet_cidrs} =    BuiltIn.Create List    @{VNI6_SUBNET_CIDRS}[0]    @{VNI6_SUBNET_CIDRS}[1]
+    ${router_list} =    BuiltIn.Create List    ${VNI6_ROUTER}[0]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI6_NET_0_PORTS}[0]    ${VNI6_NET_0_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI6_NET_1_PORTS}[0]    ${VNI6_NET_1_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI6_SECURITY_GROUP}
+    OpenStackOperations.Poll VM Is ACTIVE    ${VNI6_NET_0_VMS}[0]
+    OpenStackOperations.Poll VM Is ACTIVE    ${VNI6_NET_1_VMS}[0]
+    ${networks} =    BuiltIn.Create List    ${VNI6_NETWORKS}[0]    ${VNI6_NETWORKS}[1]
+    ${subnet_cidrs} =    BuiltIn.Create List    ${VNI6_SUBNET_CIDRS}[0]    ${VNI6_SUBNET_CIDRS}[1]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Wait For Routes To Propogate    ${networks}    ${subnet_cidrs}
-    ${prefix_net0} =    Replace String    @{VNI6_SUBNET_CIDRS}[0]    ::/64    (:[a-f0-9]{,4}){,4}
+    ${prefix_net0} =    Replace String    ${VNI6_SUBNET_CIDRS}[0]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    fail_on_none=true    vm_list=${VNI6_NET_0_VMS}    network=@{VNI6_NETWORKS}[0]    subnet=${prefix_net0}
-    ${prefix_net1} =    Replace String    @{VNI6_SUBNET_CIDRS}[1]    ::/64    (:[a-f0-9]{,4}){,4}
+    ...    fail_on_none=true    vm_list=${VNI6_NET_0_VMS}    network=${VNI6_NETWORKS}[0]    subnet=${prefix_net0}
+    ${prefix_net1} =    Replace String    ${VNI6_SUBNET_CIDRS}[1]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    fail_on_none=true    vm_list=${VNI6_NET_1_VMS}    network=@{VNI6_NETWORKS}[1]    subnet=${prefix_net1}
-    ${VM_IP_NET0} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_0_VMS}    network=@{VNI6_NETWORKS}[0]    subnet=${prefix_net0}
-    ${VM_IP_NET1} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_1_VMS}    network=@{VNI6_NETWORKS}[1]    subnet=${prefix_net1}
+    ...    fail_on_none=true    vm_list=${VNI6_NET_1_VMS}    network=${VNI6_NETWORKS}[1]    subnet=${prefix_net1}
+    ${VM_IP_NET0} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_0_VMS}    network=${VNI6_NETWORKS}[0]    subnet=${prefix_net0}
+    ${VM_IP_NET1} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${VNI6_NET_1_VMS}    network=${VNI6_NETWORKS}[1]    subnet=${prefix_net1}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IP_NET0}    None
-    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VNI6_NET_0_VMS}[0]    30s
+    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show ${VNI6_NET_0_VMS}[0]    30s
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    ${VM_IP_NET1}    None
-    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show @{VNI6_NET_1_VMS}[0]    30s
+    Run Keyword If    '${status}' == 'FAIL'    OpenStack CLI    openstack console log show ${VNI6_NET_1_VMS}[0]    30s
     OpenStackOperations.Copy DHCP Files From Control Node
     BuiltIn.Set Suite Variable    ${VM_IP_NET0}
     BuiltIn.Set Suite Variable    ${VM_IP_NET1}

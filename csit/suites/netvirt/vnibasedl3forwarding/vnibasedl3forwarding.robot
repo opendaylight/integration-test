@@ -56,51 +56,51 @@ ${VNI_SECURITY_GROUP}    vni_sg
 VNI Based L3 Forwarding
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI_NET_0_PORTS}[0]    @{VNI_NET_1_PORTS}[0]    @{VNI_NETWORKS}[0]
-    ...    @{VNI_NETWORKS}[1]    @{NET_0_VM_IPS}[0]    @{NET_1_VM_IPS}[0]    ${IP}
+    Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI_NET_0_PORTS}[0]    ${VNI_NET_1_PORTS}[0]    ${VNI_NETWORKS}[0]
+    ...    ${VNI_NETWORKS}[1]    ${NET_0_VM_IPS}[0]    ${NET_1_VM_IPS}[0]    ${IP}
 
 VNI Based L3 Forwarding With BGPVPN Router Association
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Router associated to a BGPVPN.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    ${net_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[0]
+    ${net_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[0]    name=@{VNI_VPN_NAMES}[0]    rd=@{VNI_RDS}[0]    exportrt=@{VNI_RDS}[0]    importrt=@{VNI_RDS}[0]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    @{VNI_VPN_INSTANCE_IDS}[0]
-    ${router_id} =    OpenStackOperations.Get Router Id    @{VNI_ROUTER}[0]
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VNI_VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[0]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[0]    name=${VNI_VPN_NAMES}[0]    rd=${VNI_RDS}[0]    exportrt=${VNI_RDS}[0]    importrt=${VNI_RDS}[0]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Contain    ${resp}    ${VNI_VPN_INSTANCE_IDS}[0]
+    ${router_id} =    OpenStackOperations.Get Router Id    ${VNI_ROUTER}[0]
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VNI_VPN_INSTANCE_IDS}[0]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI_NET_0_PORTS}[0]    @{VNI_NET_1_PORTS}[0]    @{VNI_NETWORKS}[0]
-    ...    @{VNI_NETWORKS}[1]    @{NET_0_VM_IPS}[0]    @{NET_1_VM_IPS}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI_NET_0_PORTS}[0]    ${VNI_NET_1_PORTS}[0]    ${VNI_NETWORKS}[0]
+    ...    ${VNI_NETWORKS}[1]    ${NET_0_VM_IPS}[0]    ${NET_1_VM_IPS}[0]    ${IP}
 
 VNI Based L3 Forwarding With BGPVPN Network Association
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Networks associated to a BGPVPN.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[2]
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[3]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[2]    @{VNI_SUBNETS}[2]    @{VNI_SUBNET_CIDRS}[2]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[3]    @{VNI_SUBNETS}[3]    @{VNI_SUBNET_CIDRS}[3]
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[2]    @{VNI_NET_2_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[3]    @{VNI_NET_3_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    ${net_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[2]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[2]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[3]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[2]    ${VNI_SUBNETS}[2]    ${VNI_SUBNET_CIDRS}[2]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[3]    ${VNI_SUBNETS}[3]    ${VNI_SUBNET_CIDRS}[3]
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[2]    ${VNI_NET_2_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[3]    ${VNI_NET_3_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    ${net_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[2]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    BuiltIn.Log    @{VNI_RDS}[1]
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]    name=@{VNI_VPN_NAMES}[1]    rd=@{VNI_RDS}[1]    exportrt=@{VNI_RDS}[1]    importrt=@{VNI_RDS}[1]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]
-    BuiltIn.Should Contain    ${resp}    @{VNI_VPN_INSTANCE_IDS}[1]
-    ${network2_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[2]
-    ${network3_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[3]
-    VpnOperations.Associate L3VPN To Network    networkid=${network2_id}    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]
+    BuiltIn.Log    ${VNI_RDS}[1]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[1]    name=${VNI_VPN_NAMES}[1]    rd=${VNI_RDS}[1]    exportrt=${VNI_RDS}[1]    importrt=${VNI_RDS}[1]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[1]
+    BuiltIn.Should Contain    ${resp}    ${VNI_VPN_INSTANCE_IDS}[1]
+    ${network2_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[2]
+    ${network3_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[3]
+    VpnOperations.Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VNI_VPN_INSTANCE_IDS}[1]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[1]
     BuiltIn.Should Contain    ${resp}    ${network2_id}
-    VpnOperations.Associate L3VPN To Network    networkid=${network3_id}    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[1]
+    VpnOperations.Associate L3VPN To Network    networkid=${network3_id}    vpnid=${VNI_VPN_INSTANCE_IDS}[1]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[1]
     BuiltIn.Should Contain    ${resp}    ${network3_id}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_2_PORTS}[0]    @{VNI_NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_3_PORTS}[0]    @{VNI_NET_3_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_2_PORTS}[0]    ${VNI_NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_3_PORTS}[0]    ${VNI_NET_3_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_2_VMS}
     @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_3_VMS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
@@ -109,39 +109,39 @@ VNI Based L3 Forwarding With BGPVPN Network Association
     BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_3_DHCP_IP}    None
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI_NET_2_PORTS}[0]    @{VNI_NET_3_PORTS}[0]    @{VNI_NETWORKS}[2]
-    ...    @{VNI_NETWORKS}[3]    @{NET_2_VM_IPS}[0]    @{NET_3_VM_IPS}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI_NET_2_PORTS}[0]    ${VNI_NET_3_PORTS}[0]    ${VNI_NETWORKS}[2]
+    ...    ${VNI_NETWORKS}[3]    ${NET_2_VM_IPS}[0]    ${NET_3_VM_IPS}[0]    ${IP}
 
 VNI Based L3 Forwarding With BGPVPN With Irt Ert
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With two Networks associated to two BGPVPN.
     BuiltIn.Pass Execution If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[4]
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[5]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[4]    @{VNI_SUBNETS}[4]    @{VNI_SUBNET_CIDRS}[4]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[5]    @{VNI_SUBNETS}[5]    @{VNI_SUBNET_CIDRS}[5]
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[4]    @{VNI_NET_4_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[5]    @{VNI_NET_5_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    ${net_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[4]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[4]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[5]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[4]    ${VNI_SUBNETS}[4]    ${VNI_SUBNET_CIDRS}[4]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[5]    ${VNI_SUBNETS}[5]    ${VNI_SUBNET_CIDRS}[5]
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[4]    ${VNI_NET_4_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[5]    ${VNI_NET_5_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    ${net_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[4]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    BuiltIn.Log    @{VNI_RDS}[2]
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[2]    name=@{VNI_VPN_NAMES}[2]    rd=@{VNI_RDS}[2]    exportrt=@{VNI_RDS}[2]    importrt=@{VNI_RDS}[3]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[2]
-    BuiltIn.Should Contain    ${resp}    @{VNI_VPN_INSTANCE_IDS}[2]
-    ${network4_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[4]
-    VpnOperations.Associate L3VPN To Network    networkid=${network4_id}    vpnid=@{VNI_VPN_INSTANCE_IDS}[2]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[2]
+    BuiltIn.Log    ${VNI_RDS}[2]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[2]    name=${VNI_VPN_NAMES}[2]    rd=${VNI_RDS}[2]    exportrt=${VNI_RDS}[2]    importrt=${VNI_RDS}[3]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[2]
+    BuiltIn.Should Contain    ${resp}    ${VNI_VPN_INSTANCE_IDS}[2]
+    ${network4_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[4]
+    VpnOperations.Associate L3VPN To Network    networkid=${network4_id}    vpnid=${VNI_VPN_INSTANCE_IDS}[2]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[2]
     BuiltIn.Should Contain    ${resp}    ${network4_id}
-    BuiltIn.Log    @{VNI_RDS}[3]
-    VpnOperations.VPN Create L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[3]    name=@{VNI_VPN_NAMES}[3]    rd=@{VNI_RDS}[3]    exportrt=@{VNI_RDS}[3]    importrt=@{VNI_RDS}[2]    tenantid=${tenant_id}
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[3]
-    BuiltIn.Should Contain    ${resp}    @{VNI_VPN_INSTANCE_IDS}[3]
-    ${network5_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[5]
-    VpnOperations.Associate L3VPN To Network    networkid=${network5_id}    vpnid=@{VNI_VPN_INSTANCE_IDS}[3]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[3]
+    BuiltIn.Log    ${VNI_RDS}[3]
+    VpnOperations.VPN Create L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[3]    name=${VNI_VPN_NAMES}[3]    rd=${VNI_RDS}[3]    exportrt=${VNI_RDS}[3]    importrt=${VNI_RDS}[2]    tenantid=${tenant_id}
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[3]
+    BuiltIn.Should Contain    ${resp}    ${VNI_VPN_INSTANCE_IDS}[3]
+    ${network5_id} =    OpenStackOperations.Get Net Id    ${VNI_NETWORKS}[5]
+    VpnOperations.Associate L3VPN To Network    networkid=${network5_id}    vpnid=${VNI_VPN_INSTANCE_IDS}[3]
+    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VNI_VPN_INSTANCE_IDS}[3]
     BuiltIn.Should Contain    ${resp}    ${network5_id}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_4_PORTS}[0]    @{VNI_NET_4_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_5_PORTS}[0]    @{VNI_NET_5_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_4_PORTS}[0]    ${VNI_NET_4_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_5_PORTS}[0]    ${VNI_NET_5_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
     @{NET_4_VM_IPS}    ${NET_4_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_4_VMS}
     @{NET_5_VM_IPS}    ${NET_5_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_5_VMS}
     BuiltIn.Set Suite Variable    @{NET_4_VM_IPS}
@@ -150,8 +150,8 @@ VNI Based L3 Forwarding With BGPVPN With Irt Ert
     BuiltIn.Should Not Contain    ${NET_5_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_4_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_5_DHCP_IP}    None
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI_NET_4_PORTS}[0]    @{VNI_NET_5_PORTS}[0]    @{VNI_NETWORKS}[4]
-    ...    @{VNI_NETWORKS}[5]    @{NET_4_VM_IPS}[0]    @{NET_5_VM_IPS}[0]    ${IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    ${VNI_NET_4_PORTS}[0]    ${VNI_NET_5_PORTS}[0]    ${VNI_NETWORKS}[4]
+    ...    ${VNI_NETWORKS}[5]    ${NET_4_VM_IPS}[0]    ${NET_5_VM_IPS}[0]    ${IP}
 
 *** Keywords ***
 Suite Setup
@@ -160,22 +160,22 @@ Suite Setup
     BuiltIn.Return From Keyword If    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
     VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[0]
-    OpenStackOperations.Create Network    @{VNI_NETWORKS}[1]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[0]    @{VNI_SUBNETS}[0]    @{VNI_SUBNET_CIDRS}[0]
-    OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[1]    @{VNI_SUBNETS}[1]    @{VNI_SUBNET_CIDRS}[1]
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[0]    @{VNI_NET_0_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{VNI_NETWORKS}[1]    @{VNI_NET_1_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Router    @{VNI_ROUTER}[0]
-    OpenStackOperations.Add Router Interface    @{VNI_ROUTER}[0]    @{VNI_SUBNETS}[0]
-    OpenStackOperations.Add Router Interface    @{VNI_ROUTER}[0]    @{VNI_SUBNETS}[1]
-    ${interface_output} =    OpenStackOperations.Show Router Interface    @{VNI_ROUTER}[0]
-    ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    @{VNI_ROUTER}[0]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[0]
+    OpenStackOperations.Create Network    ${VNI_NETWORKS}[1]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[0]    ${VNI_SUBNETS}[0]    ${VNI_SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${VNI_NETWORKS}[1]    ${VNI_SUBNETS}[1]    ${VNI_SUBNET_CIDRS}[1]
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[0]    ${VNI_NET_0_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${VNI_NETWORKS}[1]    ${VNI_NET_1_PORTS}[0]    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Router    ${VNI_ROUTER}[0]
+    OpenStackOperations.Add Router Interface    ${VNI_ROUTER}[0]    ${VNI_SUBNETS}[0]
+    OpenStackOperations.Add Router Interface    ${VNI_ROUTER}[0]    ${VNI_SUBNETS}[1]
+    ${interface_output} =    OpenStackOperations.Show Router Interface    ${VNI_ROUTER}[0]
+    ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${VNI_ROUTER}[0]
     BuiltIn.Set Suite Variable    ${GWMAC_ADDRS}
     BuiltIn.Set Suite Variable    ${GWIP_ADDRS}
-    ${router_list} =    BuiltIn.Create List    @{VNI_ROUTER}[0]
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_0_PORTS}[0]    @{VNI_NET_0_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{VNI_NET_1_PORTS}[0]    @{VNI_NET_1_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    ${router_list} =    BuiltIn.Create List    ${VNI_ROUTER}[0]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_0_PORTS}[0]    ${VNI_NET_0_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${VNI_NET_1_PORTS}[0]    ${VNI_NET_1_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${VNI_SECURITY_GROUP}
     @{NET_0_VM_IPS}    ${NET_0_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_0_VMS}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VNI_NET_1_VMS}
     BuiltIn.Set Suite Variable    @{NET_0_VM_IPS}

@@ -111,7 +111,7 @@ Write_Transactions_One_Node_Leader
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
 
 Write_Transactions_One_Node_Follower
@@ -124,7 +124,7 @@ Write_Transactions_One_Node_Follower
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
 
 Write_Transactions_All_Nodes
@@ -134,5 +134,5 @@ Write_Transactions_All_Nodes
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END

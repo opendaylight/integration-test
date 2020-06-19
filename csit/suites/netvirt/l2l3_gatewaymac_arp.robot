@@ -86,13 +86,13 @@ Verify that Multiple GWMAC entries in GWMAC table points to FIB table 21 (L3VPN 
     ${gw_mac_addr_2} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
     OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    dl_dst=${gw_mac_addr_1}    actions=goto_table:${L3_TABLE}
     ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 8 @{NET_2_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${REQ_NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ping -c 8 ${NET_2_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
     ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${pkt_diff} =    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
     BuiltIn.Should Be True    ${pkt_diff} > ${PING_COUNT_VALUE}
     ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_2_VM_IPS}[0]    ping -c 8 @{NET_1_VM_IPS}[1]
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${REQ_NETWORKS}[0]    ${NET_2_VM_IPS}[0]    ping -c 8 ${NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
     ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${pkt_diff} =    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
@@ -113,7 +113,7 @@ Verify GWMAC entires are populated with Neutron Router MAC address per network i
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True
     ...    ${EMPTY}    dl_dst=${gw_mac_addr}    actions=goto_table:${L3_TABLE}
     ${output} =    VpnOperations.Get Fib Entries    session
-    BuiltIn.Should Match Regexp    ${output}    .*@{DEFAULT_GATEWAY_IPS}[1]/32.*${NEXTHOP}
+    BuiltIn.Should Match Regexp    ${output}    .*${DEFAULT_GATEWAY_IPS}[1]/32.*${NEXTHOP}
 
 Verify GWMAC entires are populated with port MAC address for network with vpn association to router in GWMAC table
     [Documentation]    To Verify gateway mac entires are populated with port MAC address for network with vpn association to router
@@ -152,8 +152,8 @@ Create Neutron Subnets
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
     FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}
-        OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
-        OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    ${REQ_NETWORKS}[${index}]    ${PORT_LIST}[${index}]    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Port    ${REQ_NETWORKS}[${index}]    ${PORT_LIST}[${index + 2}]    sg=${SECURITY_GROUP}
     END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORT_LIST}
 

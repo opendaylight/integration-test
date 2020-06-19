@@ -31,69 +31,69 @@ ${SECURITY_GROUP}    l3_sg
 *** Test Cases ***
 Ping Vm Instance1 In net_2 From net_1 (vxlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[0]
 
 Ping Vm Instance2 In net_2 From net_1 (vxlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[1]
 
 Ping Vm Instance3 In net_2 From net_1 (vxlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_2_L3_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_2_L3_VM_IPS}[2]
 
 Ping Vm Instance1 In net_1 From net_2 (vlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[0]
 
 Ping Vm Instance2 In net_1 From net_2 (vlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[1]
 
 Ping Vm Instance3 In net_1 From net_2 (vlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_1_L3_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_1_L3_VM_IPS}[2]
 
 Ping Vm Instance1 In net_3 From net_2 (vxlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_3_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_3_L3_VM_IPS}[0]
 
 Ping Vm Instance2 In net_3 From net_2 (vxlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_3_L3_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_3_L3_VM_IPS}[1]
 
 Ping Vm Instance3 In net_3 From net_2 (vxlan to vxlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET_3_L3_VM_IPS}[2]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[1]    ${NET_3_L3_VM_IPS}[2]
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Login to the VM instance and test operations
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[0]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[0]    ${dst_list}
 
 Connectivity Tests From Vm Instance2 In net_1
     [Documentation]    Login to the vm instance and test operations
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[1]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[1]    ${dst_list}
 
 Connectivity Tests From Vm Instance3 In net_1
     [Documentation]    Login to the vm instance and test operations
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_L3_VM_IPS}[2]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_L3_VM_IPS}[2]    ${dst_list}
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    Login to the vm instance and test operations
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[0]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[0]    ${dst_list}
 
 Connectivity Tests From Vm Instance2 In net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[1]    ${dst_list}
 
 Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_list} =    BuiltIn.Create List    @{NET_1_L3_VM_IPS}    @{NET_2_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[2]    ${dst_list}
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
@@ -119,22 +119,22 @@ Delete Vm Instances In net_3
 Create Vm Instances For net_4
     [Documentation]    Create VM instances using flavor and image names for a network.
     [Tags]    NON_GATE
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[3]    @{NET_4_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[3]    ${NET_4_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_5
     [Documentation]    Create VM instances using flavor and image names for a network.
     [Tags]    NON_GATE
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[4]    @{NET_5_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[4]    ${NET_5_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Create Router2
     [Documentation]    Create Router
     [Tags]    NON_GATE
-    OpenStackOperations.Create Router    @{ROUTER}[1]
+    OpenStackOperations.Create Router    ${ROUTER}[1]
 
 Add net_4 Interfaces To Router2
     [Documentation]    Add Interfaces
     [Tags]    NON_GATE
-    OpenStackOperations.Add Router Interface    @{ROUTER}[1]    @{SUBNETS_2}[0]
+    OpenStackOperations.Add Router Interface    ${ROUTER}[1]    ${SUBNETS_2}[0]
 
 Check Vm Instances on net_4 and net_5 Have Ip Address
     [Tags]    NON_GATE
@@ -152,47 +152,47 @@ Check Vm Instances on net_4 and net_5 Have Ip Address
 Add net_5 Interfaces To Router2
     [Documentation]    Add Interfaces
     [Tags]    NON_GATE
-    OpenStackOperations.Add Router Interface    @{ROUTER}[1]    @{SUBNETS_2}[1]
+    OpenStackOperations.Add Router Interface    ${ROUTER}[1]    ${SUBNETS_2}[1]
 
 Ping Vm Instance5 In net_5 From net_4 (vlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     [Tags]    NON_GATE
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[3]    @{NET_5_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[3]    ${NET_5_L3_VM_IPS}[0]
 
 Ping Vm Instance5 In net_4 From net_5 (vlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     [Tags]    NON_GATE
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[4]    @{NET_4_L3_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[4]    ${NET_4_L3_VM_IPS}[0]
 
 Connectivity Tests From Vm Instance4 In net_5
     [Documentation]    Check reachability of vm instance on a different network with one vlan vm in source and destination.
     [Tags]    NON_GATE
     ${dst_list} =    BuiltIn.Create List    @{NET_4_L3_VM_IPS}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[4]    @{NET_5_L3_VM_IPS}[0]    ${dst_list}
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[4]    ${NET_5_L3_VM_IPS}[0]    ${dst_list}
 
 *** Keywords ***
 Suite Setup
     OpenStackOperations.OpenStack Suite Setup
-    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment @{NET_VLAN_ID}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS_1}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS_1}[1]    @{SUBNET_CIDRS}[1]
-    OpenStackOperations.Create Network    @{NETWORKS}[2]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[2]    @{SUBNETS_1}[2]    @{SUBNET_CIDRS}[2]
-    OpenStackOperations.Create Network    @{NETWORKS}[3]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment @{NET_VLAN_ID}[1]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[3]    @{SUBNETS_2}[0]    @{SUBNET_CIDRS}[3]
-    OpenStackOperations.Create Network    @{NETWORKS}[4]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment @{NET_VLAN_ID}[2]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[4]    @{SUBNETS_2}[1]    @{SUBNET_CIDRS}[4]
+    OpenStackOperations.Create Network    ${NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_VLAN_ID}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS_1}[0]    ${SUBNET_CIDRS}[0]
+    OpenStackOperations.Create Network    ${NETWORKS}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS_1}[1]    ${SUBNET_CIDRS}[1]
+    OpenStackOperations.Create Network    ${NETWORKS}[2]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[2]    ${SUBNETS_1}[2]    ${SUBNET_CIDRS}[2]
+    OpenStackOperations.Create Network    ${NETWORKS}[3]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_VLAN_ID}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[3]    ${SUBNETS_2}[0]    ${SUBNET_CIDRS}[3]
+    OpenStackOperations.Create Network    ${NETWORKS}[4]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_VLAN_ID}[2]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[4]    ${SUBNETS_2}[1]    ${SUBNET_CIDRS}[4]
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[2]    @{NET_3_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[2]    @{NET_3_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[2]    @{NET_3_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[2]    ${NET_3_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[2]    ${NET_3_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[2]    ${NET_3_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_L3_VM_IPS}    ${NET_1_L3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_L3_VM_IPS}    ${NET_2_L3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     @{NET_3_L3_VM_IPS}    ${NET_3_L3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
@@ -205,9 +205,9 @@ Suite Setup
     BuiltIn.Should Not Contain    ${NET_1_L3_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_2_L3_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${NET_3_L3_DHCP_IP}    None
-    OpenStackOperations.Create Router    @{ROUTER}[0]
+    OpenStackOperations.Create Router    ${ROUTER}[0]
     FOR    ${interface}    IN    @{SUBNETS_1}
-        OpenStackOperations.Add Router Interface    @{ROUTER}[0]    ${interface}
+        OpenStackOperations.Add Router Interface    ${ROUTER}[0]    ${interface}
     END
     OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     OpenStackOperations.Get Suite Debugs

@@ -15,13 +15,13 @@ Set_Variable_If_At_Least
     [Arguments]    ${lower_bound}    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least ${lower_bound},
     ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    ${Stream_dict}[${ODL_STREAM}] >= ${Stream_dict}[${lower_bound}]    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Most
     [Arguments]    ${upper_bound}    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most ${upper_bound},
     ...    return ${value_if_false} otherwise.
-    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    ${Stream_dict}[${ODL_STREAM}] <= ${Stream_dict}[${upper_bound}]    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Least_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
@@ -134,7 +134,7 @@ CompareStream__Convert_Input
         ${splitted}    BuiltIn.Run_Keyword_If    "${removed[0]}" == "<"    BuiltIn.Create List    ${arg}
         ...    ELSE    String.Split_String    ${arg}    separator==    max_split=1
         ${len}    BuiltIn.Get_Length    ${splitted}
-        Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    @{splitted}[0]
+        Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    ${splitted}[0]
         ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
     END
     BuiltIn.Return_From_Keyword    ${args}    ${kwargs}
@@ -143,7 +143,7 @@ Run_Keyword_If_At_Least
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return_If    ${Stream_dict}[${ODL_STREAM}] >= ${Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Least_Else
     [Arguments]    ${lower_bound}    @{varargs}
@@ -155,7 +155,7 @@ Run_Keyword_If_At_Least_Else
     ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
     ${args_if}    ${kwargs_if}    CompareStream__Convert_Input    @{varargs_if}
     ${args_else}    ${kwargs_else}    CompareStream__Convert_Input    @{varargs_else}
-    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
+    ${resp}    BuiltIn.Run_Keyword_If    ${Stream_dict}[${ODL_STREAM}] >= ${Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
     ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
@@ -163,7 +163,7 @@ Run_Keyword_If_At_Most
     [Arguments]    ${upper_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at most ${upper_bound},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return_If    ${Stream_dict}[${ODL_STREAM}] <= ${Stream_dict}[${upper_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Most_Else
     [Arguments]    ${upper_bound}    @{varargs}
@@ -175,7 +175,7 @@ Run_Keyword_If_At_Most_Else
     ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
     ${args_if}    ${kwargs_if}    CompareStream__Convert_Input    @{varargs_if}
     ${args_else}    ${kwargs_else}    CompareStream__Convert_Input    @{varargs_else}
-    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
+    ${resp}    BuiltIn.Run_Keyword_If    ${Stream_dict}[${ODL_STREAM}] >= ${Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
     ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
@@ -183,13 +183,13 @@ Run_Keyword_If_More_Than
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is more than ${lower_bound},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] > &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return_If    ${Stream_dict}[${ODL_STREAM}] > ${Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_Equals
     [Arguments]    ${stream}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${stream} to ${ODL_STREAM} and in case ${ODL_STREAM} equals ${stream},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] == &{Stream_dict}[${stream}]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return_If    ${Stream_dict}[${ODL_STREAM}] == ${Stream_dict}[${stream}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_Equals_Else
     [Arguments]    ${stream}    @{varargs}
@@ -201,7 +201,7 @@ Run_Keyword_If_Equals_Else
     ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
     ${args_if}    ${kwargs_if}    CompareStream__Convert_Input    @{varargs_if}
     ${args_else}    ${kwargs_else}    CompareStream__Convert_Input    @{varargs_else}
-    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] == &{Stream_dict}[${stream}]    @{args_if}    &{kwargs_if}
+    ${resp}    BuiltIn.Run_Keyword_If    ${Stream_dict}[${ODL_STREAM}] == ${Stream_dict}[${stream}]    @{args_if}    &{kwargs_if}
     ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
@@ -209,7 +209,7 @@ Run_Keyword_If_Less_Than
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is less than ${lower_bound},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] < &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return_If    ${Stream_dict}[${ODL_STREAM}] < ${Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Least_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}

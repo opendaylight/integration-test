@@ -50,7 +50,7 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
     Change Transport Zone In Compute    ${TOOLS_SYSTEM_1_IP}    ${TRANSPORT_ZONE}
     ${get_nohosted_data} =    BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Utils.Get Data From URI    session    ${TEP_NOT_HOSTED_ZONE_URL}
     BuiltIn.Should Contain    ${get_nohosted_data}    ${TRANSPORT_ZONE}
-    BuiltIn.Should Contain    ${get_nohosted_data}    @{DPN_ID_LIST}[0]
+    BuiltIn.Should Contain    ${get_nohosted_data}    ${DPN_ID_LIST}[0]
     Utils.Post Elements To URI From File    ${TRANSPORTZONE_POST_URL}    ${TZA_JSON}
     FOR    ${node_number}    IN RANGE    2    ${NUM_TOOLS_SYSTEM}+1
         Change Transport Zone In Compute    ${TOOLS_SYSTEM_${node_number}_IP}    ${TRANSPORT_ZONE}
@@ -61,7 +61,7 @@ Verify TEPs with transport zone configured from OVS will be added to correspondi
     END
     ${get_hosted_data} =    BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Utils.Get Data From URI    session    ${TRANSPORT_ZONE_ENDPOINT_URL}/${TRANSPORT_ZONE}
     BuiltIn.Should Contain    ${get_hosted_data}    ${TRANSPORT_ZONE}
-    BuiltIn.Should Contain    ${get_hosted_data}    @{DPN_ID_LIST}[0]
+    BuiltIn.Should Contain    ${get_hosted_data}    ${DPN_ID_LIST}[0]
     BuiltIn.Wait Until Keyword Succeeds    3x    10 sec    Genius.Verify Tunnel Status as Up
 
 Verify other-config-key and transport zone value in controller operational datastore
