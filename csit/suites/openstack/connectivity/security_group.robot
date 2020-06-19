@@ -31,17 +31,17 @@ ${ROUTER}         sg_router
 *** Test Cases ***
 No Ping From DHCP To Vm Instance1
     [Documentation]    Check non-reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 No Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}    ping_should_succeed=False
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}    ping_should_succeed=False
 
 No Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}    ping_should_succeed=False
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}    ping_should_succeed=False
 
 Add Ping Allow Rules With Remote SG (only between VMs)
     OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
@@ -50,21 +50,21 @@ Add Ping Allow Rules With Remote SG (only between VMs)
 
 Verify No Ping From DHCP To Vm Instance1
     [Documentation]    Check non-reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 Verify No Ping From DHCP To Vm Instance2
     [Documentation]    Check non-reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -77,18 +77,18 @@ Add Interfaces To Router
 
 Ping From Vm Instance1 To Vm Instance3
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_2_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_2_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With a Router
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance2 To Vm Instance1 With a Router
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 Add Additional Security Group To VMs
     [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
@@ -102,28 +102,28 @@ Add Additional Security Group To VMs
 
 Ping From DHCP To Vm Instance1
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 Ping From DHCP To Vm Instance2
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With additional SG
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips}    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance2 To Vm Instance1 With additional SG
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips}    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 Test Connection when Rules Change Dynamically
     [Documentation]    Initiate ping from DHCP to VM instance and remove security rules
     ...    dynamically check the communication has stopped after removing the security group rules.
-    ${net_id}=    OpenstackOperations.Get Net Id    @{NETWORKS}[0]
+    ${net_id}=    OpenstackOperations.Get Net Id    ${NETWORKS}[0]
     Get ControlNode Connection
-    ${output}=    SSHLibrary.Write    sudo ip netns exec qdhcp-${net_id} ping @{NET_1_VM_IPS}[0]
+    ${output}=    SSHLibrary.Write    sudo ip netns exec qdhcp-${net_id} ping ${NET_1_VM_IPS}[0]
     Delete All Security Group Rules    additional-sg
     Read    delay=10s
     Write_Bare_Ctrl_C
@@ -132,35 +132,35 @@ Test Connection when Rules Change Dynamically
 
 No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 No Ping From DHCP To Vm Instance2 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 Add The Rules To Additional Security Group Again
     OpenStackOperations.Neutron Security Group Rule Create    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET_1_DHCP_IP}/32
 
 Ping From DHCP To Vm Instance1 After Rules Are Added Again
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]
 
 Ping From DHCP To Vm Instance2 After Rules Are Added Again
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]
 
 Remove the additional Security Group from First Vm
-    OpenStackOperations.Remove Security Group From VM    @{NET_1_VMS}[0]    additional-sg
+    OpenStackOperations.Remove Security Group From VM    ${NET_1_VMS}[0]    additional-sg
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With Additional SG Removed From Vm1
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance2 To Vm Instance1 With Additional SG Removed From Vm1
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 Remove Router Interfaces
     FOR    ${interface}    IN    @{SUBNETS}
@@ -172,13 +172,13 @@ Delete Router
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With Router Removed
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips}    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance2 To Vm Instance1 With Router Removed
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips}    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 Delete Vm Instances In net_2
     FOR    ${vm}    IN    @{NET_2_VMS}
@@ -187,30 +187,30 @@ Delete Vm Instances In net_2
 
 Repeat Ping From Vm Instance1 To Vm Instance2 With net_2 VM Deleted
     [Documentation]    Login to the vm instance and test some operations
-    ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${vm_ips}
+    ${vm_ips}    BuiltIn.Create List    ${NET_1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[0]    ${vm_ips}
 
 Repeat Ping From Vm Instance2 To Vm Instance1 With net_2 VM Deleted
     [Documentation]    Login to the vm instance and test operations
-    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
+    ${vm_ips} =    BuiltIn.Create List    ${NET_1_VM_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[0]    ${NET_1_VM_IPS}[1]    ${vm_ips}
 
 *** Keywords ***
 Suite Setup
     OpenStackOperations.OpenStack Suite Setup
-    OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    OpenStackOperations.Create Network    ${NETWORKS}[0]
+    OpenStackOperations.Create Network    ${NETWORKS}[1]
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[0]    ${SUBNETS}[0]    ${SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${NETWORKS}[1]    ${SUBNETS}[1]    ${SUBNET_CIDRS}[1]
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
     OpenStackOperations.Security Group Create Without Default Security Rules    ${SECURITY_GROUP}
     OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
     OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
     OpenStackOperations.Neutron Security Group Show    ${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}

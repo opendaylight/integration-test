@@ -41,12 +41,12 @@ ACL Service Recovery CLI
     ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
     ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/flow-node-inventory:table/${INGRESS_ACL_REMOTE_ACL_TABLE}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     ${flow_after_delete} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
     BuiltIn.Should Be Equal As Strings    ${flow_after_delete}    0
     ${output} =    Issue_Command_On_Karaf_Console    srm:recover service acl
     BuiltIn.Should Contain    ${output}    RPC call to recover was successful
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify Flow Counts Are Same    ${count_before}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
 
 ACL Instance Recovery CLI
@@ -56,13 +56,13 @@ ACL Instance Recovery CLI
     Write Commands Until Expected Prompt    sudo ovs-ofctl del-flows br-int -OOpenflow13 "table=${EGRESS_LEARN_ACL_FILTER_TABLE},icmp"    ${DEFAULT_LINUX_PROMPT_STRICT}
     Wait Until Keyword Succeeds    30s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${EGRESS_LEARN_ACL_FILTER_TABLE}    False
     ...    |grep icmp
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     ${output} =    OpenStack CLI    openstack security group show ${acl_sr_security_group} | awk '/ id / {print $4}'
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${instance_id} =    Collections.Get from List    ${splitted_output}    0
     ${output} =    Issue_Command_On_Karaf_Console    srm:recover instance acl-instance ${instance_id}
     BuiltIn.Should Contain    ${output}    RPC call to recover was successful
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     Wait Until Keyword Succeeds    30s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${EGRESS_LEARN_ACL_FILTER_TABLE}    True
     ...    ${EMPTY}    icmp
     Wait Until Keyword Succeeds    30s    5s    Verify Flow Counts Are Same    ${count_before}    ${EGRESS_LEARN_ACL_FILTER_TABLE}
@@ -75,7 +75,7 @@ ACL Interface Recovery CLI
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${EGRESS_ACL_TABLE}    port_mac=${port_mac}
     ${node_id}    OVSDB.Get DPID    ${OS_CMP1_IP}
     Write Commands Until Expected Prompt    sudo ovs-ofctl del-flows br-int -OOpenflow13 "table=${EGRESS_ACL_TABLE},dl_dst=${port_mac}"    ${DEFAULT_LINUX_PROMPT_STRICT}
-    OpenStackOperations.Ping From DHCP Should Not Succeed    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping From DHCP Should Not Succeed    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     Wait Until Keyword Succeeds    30s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${EGRESS_LEARN_ACL_FILTER_TABLE}    False
     ...    |grep ${port_mac}
     ${output} =    OpenStack CLI    openstack port show ${acl_sr_net_1_ports[0]} |awk '/ id / {print$4}'
@@ -83,7 +83,7 @@ ACL Interface Recovery CLI
     ${interface_id} =    Collections.Get from List    ${splitted_output}    0
     ${output} =    Issue_Command_On_Karaf_Console    srm:recover instance acl-interface ${interface_id}
     BuiltIn.Should Contain    ${output}    RPC call to recover was successful
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     Wait Until Keyword Succeeds    30s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    True
     ...    ${EMPTY}    ${port_mac}
     Wait Until Keyword Succeeds    30s    5s    Verify Flow Counts Are Same    ${count_before}    ${EGRESS_ACL_TABLE}    port_mac=${port_mac}
@@ -100,10 +100,10 @@ Suite Setup
     OpenStackOperations.OpenStack Suite Setup
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
     OpenStackOperations.Create Allow All SecurityGroup    ${acl_sr_security_group}
-    OpenStackOperations.Create Network    @{acl_sr_networks}[0]
-    OpenStackOperations.Create SubNet    @{acl_sr_networks}[0]    @{acl_sr_subnets}[0]    ${acl_sr_subnet_cidrs[0]}
-    OpenStackOperations.Create Port    @{acl_sr_networks}[0]    ${acl_sr_net_1_ports[0]}    sg=${acl_sr_security_group}
-    OpenStackOperations.Create Port    @{acl_sr_networks}[0]    ${acl_sr_net_1_ports[1]}    sg=${acl_sr_security_group}
+    OpenStackOperations.Create Network    ${acl_sr_networks}[0]
+    OpenStackOperations.Create SubNet    ${acl_sr_networks}[0]    ${acl_sr_subnets}[0]    ${acl_sr_subnet_cidrs[0]}
+    OpenStackOperations.Create Port    ${acl_sr_networks}[0]    ${acl_sr_net_1_ports[0]}    sg=${acl_sr_security_group}
+    OpenStackOperations.Create Port    ${acl_sr_networks}[0]    ${acl_sr_net_1_ports[1]}    sg=${acl_sr_security_group}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${acl_sr_net_1_ports}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${acl_sr_net_1_ports[0]}    ${acl_sr_net_1_vms[0]}    ${OS_CMP1_HOSTNAME}    sg=${acl_sr_security_group}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${acl_sr_net_1_ports[1]}    ${acl_sr_net_1_vms[1]}    ${OS_CMP2_HOSTNAME}    sg=${acl_sr_security_group}
@@ -111,5 +111,5 @@ Suite Setup
     BuiltIn.Set Suite Variable    @{ACL_SR_NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${ACL_SR_NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${net1_dhcp_ip}    None
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[0]
-    OpenStackOperations.Ping Vm From DHCP Namespace    @{acl_sr_networks}[0]    @{ACL_SR_NET_1_VM_IPS}[1]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
+    OpenStackOperations.Ping Vm From DHCP Namespace    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[1]

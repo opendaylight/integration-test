@@ -289,7 +289,7 @@ Extract current suite name
     END
     ${num_suites} =    BuiltIn.Get Length    ${suite_names_updated}
     ${suite line}    ${current_suite} =    BuiltIn.Run Keyword If    ${num_suites} > ${1}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
-    ...    ELSE    BuiltIn.Set Variable    @{suite_names_updated}[0]    @{suite_names_updated}[0]
+    ...    ELSE    BuiltIn.Set Variable    ${suite_names_updated}[0]    ${suite_names_updated}[0]
     [Return]    ${current_suite}    ${suite_names_updated}
 
 Check For Stale veth Ports

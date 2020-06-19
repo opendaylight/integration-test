@@ -145,5 +145,5 @@ Verify ovs-vsctl Output For Each Tunnel
     FOR    ${each_tun}    IN RANGE    ${no of tunnels}
         ${tun}    Collections.Get From List    ${tun_names}    ${each_tun}
         BuiltIn.Wait Until Keyword Succeeds    20    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun}    5000
-        ...    ovs_system=@{TOOLS_SYSTEM_ALL_IPS}[${tool_system_index}]
+        ...    ovs_system=${TOOLS_SYSTEM_ALL_IPS}[${tool_system_index}]
     END

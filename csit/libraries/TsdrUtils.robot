@@ -480,7 +480,7 @@ Generate TSDR NBI
     @{convert}=    Parse Json    ${resp.content}
     ${dict_convert}=    Convert To Dictionary    @{convert}
     @{dict}=    Get Dictionary Values    ${dict_convert}
-    @{datapoints_list}=    Convert to List    @{dict}[0]
+    ${datapoints_list}=    Convert to List    ${dict}[0]
     Delete All Sessions
     [Return]    @{datapoints_list}
 

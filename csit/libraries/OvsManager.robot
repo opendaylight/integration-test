@@ -263,4 +263,4 @@ Get OVS Local Ip
     [Documentation]    Get local ip of compute node ovsdb
     ${cmd_output} =    Utils.Run Command On Remote System    ${ip}    ${GET_LOCAL_IP}
     ${localip} =    String.Get Regexp Matches    ${cmd_output}    (\[0-9]+\.\[0-9]+\.\[0-9]+\.\[0-9]+)
-    [Return]    @{localip}[0]
+    [Return]    ${localip}[0]

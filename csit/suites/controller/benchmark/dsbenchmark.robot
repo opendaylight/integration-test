@@ -329,7 +329,7 @@ Set_Node_Ip_For_Benchmark
     ${shard_type}=    BuiltIn.Set_Variable_If    "${tested_ds}"=="CONFIG"    config    operational
     ${leader}    ${followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_type=${shard_type}
     BuiltIn.Return From Keyword If    "${state}"=="leader"    ${ODL_SYSTEM_${leader}_IP}
-    BuiltIn.Return From Keyword    ${ODL_SYSTEM_@{followers}[0]_IP}
+    BuiltIn.Return From Keyword    ${ODL_SYSTEM_${followers}[0]_IP}
 
 Measuring_Template
     [Arguments]    ${state}    ${tested_ds}    ${file_prefix}    ${retry}=${EMPTY}    ${warmups}=${WARMUPS}    ${runs}=${RUNS}
