@@ -73,6 +73,17 @@ Create_Subscribtion
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
+Check_Notification_Stream
+    [Documentation]    Check any notification stream via RESTCONF is accessible
+    [Tags]    critical
+    ${resp} =    RequestsLibrary.Get_Request    restconf    rests/data/ietf-restconf-monitoring:restconf-state/streams    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${name} =    XML.Get Element Text    ${resp.content}    streams
+    ${resp} =    RequestsLibrary.Get_Request    restconf    rests/data/ietf-restconf-monitoring:restconf-state/streams/stream=${name}/access=JSON/location    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
 Check_Subscribtion
     [Documentation]    Get & check subscribtion ...
     [Tags]    critical
@@ -80,8 +91,10 @@ Check_Subscribtion
     ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${location_in_header}=    Utils.Extract Value From Content    ${resp.headers}    /Location    strip
     ${location} =    XML.Get Element Text    ${resp.content}
     BuiltIn.Log    ${location}
+    Should Contain    ${location}    ${location_in_header}
     BuiltIn.Set_Suite_Variable    ${location}
 
 Start_Receiver

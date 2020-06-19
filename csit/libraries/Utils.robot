@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     General Utils library. This library has broad scope, it can be used by any robot system tests.
 Library           SSHLibrary
-Library           HttpLibrary.HTTP
+#Library           HttpLibrary.HTTP
 Library           String
 Library           DateTime
 Library           Process
@@ -152,8 +152,10 @@ Clean Up Ovs
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
     [Documentation]    Will take the given response content and return the value at the given index as a string
-    ${value}=    Get Json Value    ${content}    ${index}
-    ${value}=    Convert To String    ${value}
+    #${value}=    Get Json Value    ${content}    ${index}
+    ${json_content}=    Evaluate    json.loads(${content})    json
+    #${value}=    Convert To String    ${value}
+    ${value}=    ${json_content[${index}]}
     ${value}=    Run Keyword If    '${strip}' == 'strip'    Strip Quotes    ${value}
     [Return]    ${value}
 
