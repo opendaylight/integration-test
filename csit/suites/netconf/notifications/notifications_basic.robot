@@ -77,6 +77,9 @@ Check_Subscribtion
     [Documentation]    Get & check subscribtion ...
     [Tags]    critical
     ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${RESTCONF_GET_SUBSCRIPTION_URI}    ${RFC8040_GET_SUBSCRIPTION_URI}
+    # debug
+    ${resp} =    RequestsLibrary.Get_Request    restconf    rests/data/ietf-restconf-monitoring:restconf-state/streams    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
     ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
