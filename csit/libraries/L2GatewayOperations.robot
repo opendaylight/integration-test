@@ -200,7 +200,7 @@ Verify Nova VM IP
     @{vm_ip}    ${dhcp_ip} =    Get VM IPs    ${vm_name}
     Should Not Contain    ${vm_ip}    None
     Should Not Contain    ${dhcp_ip}    None
-    [Return]    @{vm_ip}[0]
+    [Return]    ${vm_ip}[0]
 
 Get L2gw Debug Info
     [Documentation]    Keyword to collect the general debug information required for HWVTEP Test Suite.

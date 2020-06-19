@@ -83,9 +83,9 @@ Get_Node_Indexes_For_The_ELM_Test
     ...    producer should be deployed.
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    verify_restconf=False
     ${idx_from} =    BuiltIn.Set_Variable    ${leader}
-    ${idx_to} =    BuiltIn.Set_Variable    @{follower_list}[0]
-    ${idx_trans} =    BuiltIn.Set_Variable_If    "${leader_from}" == "remote" and "${leader_to}" == "remote"    @{follower_list}[1]    "${leader_from}" == "local"    ${leader}    "${leader_to}" == "local"
-    ...    @{follower_list}[0]
+    ${idx_to} =    BuiltIn.Set_Variable    ${follower_list}[0]
+    ${idx_trans} =    BuiltIn.Set_Variable_If    "${leader_from}" == "remote" and "${leader_to}" == "remote"    ${follower_list}[1]    "${leader_from}" == "local"    ${leader}    "${leader_to}" == "local"
+    ...    ${follower_list}[0]
     BuiltIn.Return_From_Keyword    ${idx_from}    ${idx_to}    ${idx_trans}
 
 Clean_Leader_Shutdown_Test_Templ
@@ -126,7 +126,7 @@ Get_Node_Indexes_For_Clean_Leader_Shutdown_Test
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    verify_restconf=False
     ${follower_list_leangth} =    BuiltIn.Evaluate    ${NUM_ODL_SYSTEM}-1
     BuiltIn.Length_Should_Be    ${follower_list}    ${follower_list_leangth}
-    ${producer_idx} =    BuiltIn.Set_Variable_If    "${leader_location}" == "local"    ${leader}    @{follower_list}[0]
+    ${producer_idx} =    BuiltIn.Set_Variable_If    "${leader_location}" == "local"    ${leader}    ${follower_list}[0]
     BuiltIn.Return_From_Keyword    ${producer_idx}    ${leader}    ${follower_list}
 
 Leader_Isolation_Test_Templ
@@ -200,7 +200,7 @@ Leader_Isolation_Heal_Within_Rt
     ...    producers shoudl finish without error.
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
 
 Module_Leader_Isolation_Heal_Default
@@ -218,7 +218,7 @@ Module_Leader_Isolation_Heal_Default
     ...    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
 
 Prefix_Leader_Isolation_Heal_Default
@@ -235,7 +235,7 @@ Prefix_Leader_Isolation_Heal_Default
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
 
 Client_Isolation_Test_Templ
@@ -294,7 +294,7 @@ Ongoing_Transactions_Not_Failed_Yet
 Ongoing_Transactions_Failed
     [Documentation]    Verify if write-transaction failed.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    Check_Status_Code    @{resp}[2]    explicit_status_codes=${TRANSACTION_FAILED}
+    Check_Status_Code    ${resp}[2]    explicit_status_codes=${TRANSACTION_FAILED}
 
 Get_Seconds_To_Time
     [Arguments]    ${date_in_future}
@@ -321,7 +321,7 @@ Listener_Stability_Test_Templ
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
@@ -346,7 +346,7 @@ Listener_Stability_PrefBasedShard_Test_Templ
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    @{resp}[2]
+        TemplatedRequests.Check_Status_Code    ${resp}[2]
     END
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
@@ -393,9 +393,9 @@ Restart_Test_Templ
 Check_Status_Of_First_Response
     [Arguments]    ${resp_list}
     [Documentation]    Extract first item from the list, third item of the tuple and call TemplatedRequests to check the http status code.
-    # @{resp_list}[0][2] does not work
-    ${tuple} =    BuiltIn.Set_Variable    @{resp_list}[0]
-    TemplatedRequests.Check_Status_Code    @{tuple}[2]
+    # ${resp_list}[0][2] does not work
+    ${tuple} =    BuiltIn.Set_Variable    ${resp_list}[0]
+    TemplatedRequests.Check_Status_Code    ${tuple}[2]
 
 Change_Use_Tell_Based_Protocol
     [Arguments]    ${status}    ${DATASTORE_CFG}
