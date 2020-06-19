@@ -127,7 +127,7 @@ Create Port
     # in a different format with the neutron vs openstack cli.
     ${address_pair_length} =    BuiltIn.Get Length    ${allowed_address_pairs}
     ${allowed_pairs_argv} =    BuiltIn.Set Variable    ${EMPTY}
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='2'    --allowed-address ip-address=${allowed_address_pairs}[0] --allowed-address ip-address=${allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${output} =    OpenStack CLI    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
 
 Update Port
@@ -165,12 +165,12 @@ Create And Associate Floating IPs
         ${output} =    OpenStack CLI    openstack floating ip create ${external_net}
         @{ip} =    String.Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
         ${ip_length} =    BuiltIn.Get Length    ${ip}
-        BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
+        BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    ${ip}[0]
         ...    ELSE    Collections.Append To List    ${ip_list}    None
         ${vm_ip} =    OpenStack CLI    openstack server show ${vm} | grep "addresses" | awk '{print $4}' | cut -d"=" -f 2
         ${port_id} =    OpenStack CLI    openstack port list | grep "ip_address='${vm_ip}'" | awk '{print $2}' | cut -d"=" -f 2
-        ${output} =    BuiltIn.Run Keyword If    '${OPENSTACK_BRANCH}' == 'stable/rocky'    OpenStack CLI    openstack floating ip set --port ${port_id} @{ip}[0]
-        ...    ELSE    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+        ${output} =    BuiltIn.Run Keyword If    '${OPENSTACK_BRANCH}' == 'stable/rocky'    OpenStack CLI    openstack floating ip set --port ${port_id} ${ip}[0]
+        ...    ELSE    OpenStack CLI    openstack server add floating ip ${vm} ${ip}[0]
     END
     [Return]    ${ip_list}
 
@@ -353,7 +353,7 @@ Get Match
     @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
     ${matches_length} =    BuiltIn.Get Length    ${matches}
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
-    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    ${matches}[${index}]
     [Return]    ${OS_MATCH}
 
 Get VM IP
@@ -1093,12 +1093,12 @@ Wait For Routes To Propogate
     [Documentation]    Check propagated routes
     OpenStackOperations.Get ControlNode Connection
     FOR    ${INDEX}    IN RANGE    0    1
-        ${net_id} =    OpenStackOperations.Get Net Id    @{networks}[${INDEX}]
-        ${is_ipv6} =    String.Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
+        ${net_id} =    OpenStackOperations.Get Net Id    ${networks}[${INDEX}]
+        ${is_ipv6} =    String.Get Regexp Matches    ${subnets}[${INDEX}]    ${IP6_REGEX}
         ${length} =    BuiltIn.Get Length    ${is_ipv6}
         ${cmd} =    BuiltIn.Set Variable If    ${length} == 0    ip route    ip -6 route
         ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
-        BuiltIn.Should Contain    ${output}    @{subnets}[${INDEX}]
+        BuiltIn.Should Contain    ${output}    ${subnets}[${INDEX}]
     END
 
 Neutron Cleanup
@@ -1322,7 +1322,7 @@ Get Network Segmentation Id
     [Documentation]    Returns network segmentation id for the given network name.
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
-    [Return]    @{list}[0]
+    [Return]    ${list}[0]
 
 Verify Services
     [Documentation]    Verify if the services are operational

@@ -44,18 +44,18 @@ ${ExtIP}          100.100.100.24
 *** Test Cases ***
 Verify Successful Creation Of External Network With Router External Set To TRUE
     [Documentation]    Create external network,enable snat on router and validate the same.
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --enable-snat
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --enable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_ENABLED}
-    ${output} =    OpenStackOperations.Show Network    @{EXTERNAL_NETWORKS}[0]
-    BuiltIn.Should Contain    ${output}    @{EXTERNAL_NETWORKS}[0]
+    ${output} =    OpenStackOperations.Show Network    ${EXTERNAL_NETWORKS}[0]
+    BuiltIn.Should Contain    ${output}    ${EXTERNAL_NETWORKS}[0]
 
 Verify Successful Update Of Router With External_gateway_info, Disable SNAT And Enable SNAT
     [Documentation]    Disable snat, enable snat and validate the same.
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --disable-snat
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --disable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --enable-snat
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --enable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_ENABLED}
 
@@ -69,15 +69,15 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     [Documentation]    Check floating IP should be present in dump flows after creating the floating IP and associating it to external network
     ...    which is associated to L3VPN
     VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=["${DCGW_RD}"]    exportrt=["${DCGW_RD}"]    importrt=["${DCGW_RD}"]
-    ${ext_net_id} =    OpenStackOperations.Get Net Id    @{EXTERNAL_NETWORKS}[0]
+    ${ext_net_id} =    OpenStackOperations.Get Net Id    ${EXTERNAL_NETWORKS}[0]
     VpnOperations.Associate L3VPN To Network    networkid=${ext_net_id}    vpnid=${VPN_INSTANCE_ID}
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --disable-snat
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --disable-snat
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
-    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
-    ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
-    ${float} =    BuiltIn.Set Variable    @{float}[0]
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    ${EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
+    ${float} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NETWORKS}[0]    ${NET_1_VMS}[0]
+    ${float} =    BuiltIn.Set Variable    ${float}[0]
     @{matching_paras} =    BuiltIn.Create List    nw_dst=${float}    goto_table:${DNAT_TABLE}
     BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${PDNAT_TABLE}    True
     ...    ${EMPTY}    @{matching_paras}
@@ -99,10 +99,10 @@ Verify Floating Ip De-provision And Reachability From External Network Via Neutr
 Verify Floating Ip Re-provision And Reachability From External Network Via Neutron Router Through L3vpn
     [Documentation]    Check floating IP should be present in dump flows after creating the floating IP again wnd associating it to external network
     ...    which is associated to L3VPN
-    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
-    ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
-    ${float} =    BuiltIn.Set Variable    @{float}[0]
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    ${EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
+    ${float} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NETWORKS}[0]    ${NET_1_VMS}[0]
+    ${float} =    BuiltIn.Set Variable    ${float}[0]
     @{matching_paras} =    BuiltIn.Create List    nw_dst=${float}    goto_table:${DNAT_TABLE}
     BuiltIn.Wait Until Keyword Succeeds    10s    5s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${PDNAT_TABLE}    True
     ...    ${EMPTY}    @{matching_paras}
@@ -113,11 +113,11 @@ Verify Floating Ip Re-provision And Reachability From External Network Via Neutr
 Verify Multiple Floating Ip Creation and Association to external network
     [Documentation]    Check Multiple floating IPs should be present in dump flows after creating multiple floating IPs and associating it to external network
     ...    which is associated to L3VPN
-    ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
-    ${FloatIp1} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[1]
-    ${FloatIp2} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[2]
-    ${FloatIp3} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[3]
+    ${subnetid} =    OpenStackOperations.Get Subnet Id    ${EXTERNAL_SUB_NETWORKS}[0]
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${ExtIP}
+    ${FloatIp1} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NETWORKS}[0]    ${NET_1_VMS}[1]
+    ${FloatIp2} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NETWORKS}[0]    ${NET_1_VMS}[2]
+    ${FloatIp3} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NETWORKS}[0]    ${NET_1_VMS}[3]
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP2_CONN_ID}
     BuiltIn.Should Match Regexp    ${output}    ${ExtIP}
     BuiltIn.Should Match Regexp    ${output}    .*${FloatIp1}.*
@@ -137,46 +137,46 @@ Suite Setup
 Create Setup
     Create Neutron Networks
     Create Neutron Subnets
-    OpenStackOperations.Create SubNet    @{EXTERNAL_NETWORKS}[0]    @{EXTERNAL_SUB_NETWORKS}[0]    @{EXT_SUBNET_CIDRS}[0]
+    OpenStackOperations.Create SubNet    ${EXTERNAL_NETWORKS}[0]    ${EXTERNAL_SUB_NETWORKS}[0]    ${EXT_SUBNET_CIDRS}[0]
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     Create Neutron Ports
     Create Nova VMs
     BgpOperations.Setup BGP Peering On ODL    ${ODL_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}
     BgpOperations.Setup BGP Peering On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${ODL_SYSTEM_IP}    ${VPN_NAME}    ${DCGW_RD}    ${LOOPBACK_IP}
     OpenStackOperations.Create Router    ${ROUTER}
-    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[0]
-    OpenStackOperations.Add Router Interface    ${ROUTER}    @{SUBNETS}[1]
+    OpenStackOperations.Add Router Interface    ${ROUTER}    ${SUBNETS}[0]
+    OpenStackOperations.Add Router Interface    ${ROUTER}    ${SUBNETS}[1]
 
 Create Neutron Networks
     [Documentation]    Create required number of networks
     FOR    ${NET}    IN    @{NETWORKS}
         OpenStackOperations.Create Network    ${NET}
     END
-    OpenStackOperations.Create Network    @{EXTERNAL_NETWORKS}[0]    --external --provider-network-type ${NETWORK_TYPE}
+    OpenStackOperations.Create Network    ${EXTERNAL_NETWORKS}[0]    --external --provider-network-type ${NETWORK_TYPE}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
 
 Create Neutron Subnets
     [Documentation]    Create required number of subnets for previously created networks
     ${num_of_networks} =    BuiltIn.Get Length    ${NETWORKS}
     FOR    ${index}    IN RANGE    0    ${num_of_networks}
-        OpenStackOperations.Create SubNet    @{NETWORKS}[${index}]    @{SUBNETS}[${index}]    @{SUBNET_CIDRS}[${index}]
+        OpenStackOperations.Create SubNet    ${NETWORKS}[${index}]    ${SUBNETS}[${index}]    ${SUBNET_CIDRS}[${index}]
     END
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
 
 Create Neutron Ports
     [Documentation]    Create required number of ports under previously created subnets
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS}[0]    ${PORTS}[0]    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS}[0]    ${PORTS}[1]    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS}[1]    ${PORTS}[2]    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS}[1]    ${PORTS}[3]    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORTS}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute nodes
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_1_VMS}[2]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_1_VMS}[3]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[1]    ${NET_1_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[2]    ${NET_1_VMS}[2]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${PORTS}[3]    ${NET_1_VMS}[3]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
