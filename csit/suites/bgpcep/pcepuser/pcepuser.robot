@@ -12,6 +12,7 @@ Library           OperatingSystem
 Library           SSHLibrary
 Library           RequestsLibrary
 Library           ../../../libraries/norm_json.py
+Library           ../../../variables/pcepuser/SetVariables.py
 Resource          ../../../libraries/NexusKeywords.robot
 Resource          ../../../libraries/PcepOperations.robot
 Resource          ../../../libraries/Utils.robot
@@ -19,7 +20,6 @@ Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../variables/Variables.robot
-Variables         ../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${CONFIG_SESSION}    session
@@ -126,6 +126,27 @@ Set_It_Up
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
+    ${test_vars}=    set_test_variables      ${TOOLS_SYSTEM_IP}
+    ${off_json_var}=     Get From Dictionary      ${test_vars}        "off_json"
+    Set Suite Variable     ${off_json}     ${off_json_var}
+    ${default_json_var}=    Get From Dictionary      ${test_vars}      "default_json"
+    Set Suite Variable     ${default_json}      ${default_json_var}
+    ${updated_json_var}=    Get From Dictionary     ${test_vars}      "updated_json"
+    Set Suite Variable      ${updated_json}     ${updated_json_var}
+    ${updated_default_json_var}=      Get From Dictionary      ${test_vars}    "updated_default_json"
+    Set Suite Variable     ${updated_default_json}      ${updated_default_json_var}
+    ${updated_updated_json_var}=      Get From Dictionary      ${test_vars}    "updated_updated_json"
+    Set Suite Variable     ${updated_updated_json}      ${updated_updated_json_var}
+    ${update_delegated_xml_var}=      Get From Dictionary      ${test_vars}    "update_delegated_xml"
+    Set Suite Variable     ${update_delegated_xml}      ${update_delegated_xml_var}
+    ${remove_delegated_xml_var}=      Get From Dictionary      ${test_vars}    "remove_delegated_xml"
+    Set Suite Variable     ${remove_delegated_xml}      ${remove_delegated_xml_var}
+    ${add_instantiated_xml_var}=      Get From Dictionary      ${test_vars}    "add_instantiated_xml"
+    Set Suite Variable     ${add_instantiated_xml}      ${add_instantiated_xml_var}
+    ${update_instantiated_xml_var}=      Get From Dictionary      ${test_vars}    "update_instantiated_xml"
+    Set Suite Variable     ${update_instantiated_xml}      ${update_instantiated_xml_var}
+    ${remove_instantiated_xml_var}=      Get From Dictionary      ${test_vars}    "remove_instantiated_xml"
+    Set Suite Variable     ${remove_instantiated_xml}      ${remove_instantiated_xml_var}
     PcepOperations.Setup_Pcep_Operations
 
 Tear_It_Down
