@@ -14,7 +14,7 @@ than do manipulation in Robot file.
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
-import binascii
+import base64
 from string import Template
 
 
@@ -34,7 +34,10 @@ def get_variables(mininet_ip):
     # Given mininet_ip, this will be the sympolic name uf tunnel under test.
     tunnelname = 'pcc_' + mininet_ip + '_tunnel_1'
     # Base64 code for the symbolic name, as that is present in datastore.
-    pathcode = binascii.b2a_base64(tunnelname)[:-1]  # remove endline
+    tunnelname_bytes = tunnelname.encode('ascii')
+    pathcode = base64.b64encode(tunnelname_bytes)
+    variables['pcc_name'] = tunnelname
+    variables['pcc_name_code'] = pathcode
     # JSON response when pcep-topology is ready but no PCC is connected.
     variables['offjson'] = '''{
  "topology": [

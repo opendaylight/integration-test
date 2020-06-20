@@ -19,7 +19,7 @@ Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../variables/Variables.robot
-Variables         ../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
+Variables           ../../../variables/pcepuser/variables.py      ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${CONFIG_SESSION}    session
