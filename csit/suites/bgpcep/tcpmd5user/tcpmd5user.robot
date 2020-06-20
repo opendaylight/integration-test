@@ -35,6 +35,8 @@ Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/WaitForFailure.robot
 Resource          ../../../variables/Variables.robot
+Variables           ../../../variables/tcpmd5user/variables.py      ${TOOLS_SYSTEM_IP}
+
 
 *** Variables ***
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/

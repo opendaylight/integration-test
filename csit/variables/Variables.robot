@@ -96,7 +96,7 @@ ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separ
 &{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
 ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console login.
 ${ICMP_TYPE}      135
-${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}[0m${ESCAPE_CHARACTER}[34mroot${ESCAPE_CHARACTER}[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
+${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}\[0m${ESCAPE_CHARACTER}\[34mroot${ESCAPE_CHARACTER}\[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # Karaf home directory path.
 ${KARAF_LOG}      ${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log    # location of karaf.log in standard CSIT jobs
 ${KARAF_PASSWORD}    karaf    # Plaintext password to authenticate to Karaf console.
