@@ -22,11 +22,11 @@ __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
 
 
-def get_variables(mininet_ip):
+def set_test_variables(mininet_ip):
     """Return dict of variables for the given IP address of Mininet VM."""
     variables = {}
     # 'V' style of explanation.
-    # Comments analyze from high level, to low level, then code builds from low level back to high level.
+    # Comments a nalyze from high level, to low level, then code builds from low level back to high level.
     # ### Pcep-topology JSON responses.
     # Some testcases see only the tunnel created by pcc-mock start: "delegated tunnel" (ID 1).
     # Other testcases see also tunnel created on ODL demand: "instatntiated tunnel" (ID 2).
