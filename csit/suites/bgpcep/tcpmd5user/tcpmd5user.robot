@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     TCPMD5 user-facing feature system tests, using PCEP.
-...
+...           
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
-...
+...           
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...
+...           
 ...               Test suite performs basic pcep md5 password authorization test cases:
 ...               (Run entire basic PCEP suite without passwords.)
 ...               Start pcc-mock (reconnecting mode): 1 pcc, 1 lsp, password set, check pcep-topology stays empty.
@@ -17,7 +17,7 @@ Documentation     TCPMD5 user-facing feature system tests, using PCEP.
 ...               Change ODL PCEP configuration to use the correct password, check pcep-topology shows the lsp.
 ...               Update the lsp, check a change in pcep-topology.
 ...               Change ODL PCEP configuration to not use password, pcep-topology empties, kill pcep-pcc-mock.
-...
+...           
 ...               Test cases no longer need netconf-connector-ssh, and they include comparison of
 ...               pcep-session-state.
 Suite Setup       Set_It_Up
@@ -35,6 +35,7 @@ Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/WaitForFailure.robot
 Resource          ../../../variables/Variables.robot
+Variables         ../../../variables/tcpmd5user/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/
@@ -172,9 +173,6 @@ Set_It_Up
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     #Setting Pcc Name and its code for mapping for templates
-    BuiltIn.Set_Suite_Variable    ${pcc_name}    pcc_${TOOLS_SYSTEM_IP}_tunnel_1
-    ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
-    BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
     FailFast.Do_Not_Fail_Fast_From_Now_On
     ${ERROR_ARGS} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
     BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
