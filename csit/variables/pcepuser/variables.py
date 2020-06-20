@@ -12,7 +12,7 @@ than do manipulation in Robot file."""
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
-import binascii
+import base64
 from string import Template
 
 
@@ -26,7 +26,7 @@ def get_variables(mininet_ip):
     """Return dict of variables for the given IP address of Mininet VM."""
     variables = {}
     # 'V' style of explanation.
-    # Comments analyze from high level, to low level, then code builds from low level back to high level.
+    # Comments a nalyze from high level, to low level, then code builds from low level back to high level.
     # ### Pcep-topology JSON responses.
     # Some testcases see only the tunnel created by pcc-mock start: "delegated tunnel" (ID 1).
     # Other testcases see also tunnel created on ODL demand: "instatntiated tunnel" (ID 2).
@@ -121,8 +121,13 @@ def get_variables(mininet_ip):
     # But as we need to plug the name to XML, let us try something more friendly:
     instantiated_name = 'Instantiated tunnel'  # the space is only somewhat evil character :)
     # What is CODE? The NAME in base64 encoding (without endline):
-    delegated_code = binascii.b2a_base64(delegated_name)[:-1]  # remove endline added by the library function
-    instantiated_code = binascii.b2a_base64(instantiated_name)[:-1]
+    delegated_name_bytes = delegated_name.encode('ascii')
+    delegated_code_encoded = base64.b64encode(delegated_name_bytes)
+    delegated_code = delegated_code_encoded.decode('ascii')
+    instantiated_name_bytes = instantiated_name.encode('ascii')
+    instantiated_code_encoded = base64.b64encode(instantiated_name_bytes)
+    instantiated_code = instantiated_code_encoded.decode('ascii')
+
     # The remaining segment is HOPS, and that is the place where default and updated states differ.
     # Once again, there is a template for a single hop:
     hop_templ = Template('''
