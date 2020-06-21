@@ -1,3 +1,5 @@
-lfdocs-conf
-robotframework
 elasticsearch
+elasticsearch_dsl
+lfdocs-conf
+matplotlib
+robotframework
