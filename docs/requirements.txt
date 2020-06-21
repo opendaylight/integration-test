@@ -1,2 +1,4 @@
 lfdocs-conf
 robotframework
+elasticsearch
+elasticsearch_dsl
