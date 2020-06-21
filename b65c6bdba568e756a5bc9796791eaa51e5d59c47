@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9275c05_2bdad7e7",
+        "filename": "csit/suites/bgpcep/pcepuser/pcepuser.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-21T20:50:42Z",
+      "side": 1,
+      "message": "remove these spaces",
+      "revId": "b65c6bdba568e756a5bc9796791eaa51e5d59c47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebff3eb_820c1fd3",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-21T20:50:42Z",
+      "side": 1,
+      "message": "remove these spaces",
+      "revId": "b65c6bdba568e756a5bc9796791eaa51e5d59c47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f9be41b_2a8a3374",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-21T20:50:42Z",
+      "side": 1,
+      "message": "remove these spaces",
+      "revId": "b65c6bdba568e756a5bc9796791eaa51e5d59c47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
