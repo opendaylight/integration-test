@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1527a5b3_ff790d50",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-06-22T17:54:26Z",
+      "side": 1,
+      "message": "can you include in the commit message why we are going from enable to disable?",
+      "range": {
+        "startLine": 113,
+        "startChar": 64,
+        "endLine": 113,
+        "endChar": 71
+      },
+      "revId": "ef20938c42841dd41a6061ff21c4df1267da2f6b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
