@@ -9,7 +9,7 @@ The idea how to configure and checks inventory operational data is taken from
 import random
 import threading
 import netaddr
-import Queue
+import queue
 import requests
 import json
 import copy
