@@ -115,7 +115,7 @@ Check For Elements At URI
     ...    ELSE    BuiltIn.Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
-        Should Contain    ${resp.content}    ${i}
+        Should Contain    '${resp.content}'    '${i}'
     END
 
 Check For Elements Not At URI
