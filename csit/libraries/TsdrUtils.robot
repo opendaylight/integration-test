@@ -8,7 +8,6 @@ Library           DateTime
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 Library           json
-Library           HttpLibrary.HTTP
 Library           Process
 
 *** Variables ***
