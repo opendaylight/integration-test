@@ -33,13 +33,13 @@ class XMLtoDictParserTools():
         """
         returnedDict = {} if returnedDict is None else returnedDict
         if (node.nodeType == Element.ELEMENT_NODE):
-            nodeKey = (node.localName).encode('utf-8', 'ignore')
+            nodeKey = node.localName
             if nodeKey not in ignoreList:
                 if node.childNodes is not None:
                     childDict = {}
                     for child in node.childNodes:
                         if child.nodeType == Element.TEXT_NODE:
-                            nodeValue = (child.nodeValue).encode('utf-8', 'ignore')
+                            nodeValue = child.nodeValue
                             if (len(nodeValue.strip(' \t\n\r'))) > 0:
                                 XMLtoDictParserTools.addDictValue(returnedDict, nodeKey, nodeValue)
                                 nodeKey = None
@@ -61,8 +61,8 @@ class XMLtoDictParserTools():
 
         def _convert_numbers(value):
             if value.startswith("0x"):
-                return str(long(value, 16))
-            return str(long(value))
+                return str(int(value, 16))
+            return str(int(value))
 
         if key is not None:
             if (isinstance(value, str)):
@@ -207,7 +207,7 @@ class XmlComparator:
     def is_flow_configured(self, requested_flow, configured_flows):
 
         orig_tree = md.parseString(requested_flow)
-        xml_resp_stream = configured_flows.encode('utf-8', 'ignore')
+        xml_resp_stream = configured_flows
         xml_resp_tree = md.parseString(xml_resp_stream)
         nodeListOperFlows = xml_resp_tree.getElementsByTagNameNS("*", 'flow')
         origDict = XMLtoDictParserTools.parseTreeToDict(orig_tree._get_documentElement())
@@ -241,7 +241,7 @@ class XmlComparator:
                 del tdict[tagpath[0]]
             if len(tagpath) > 1 and recurs is True and tagpath[0] in tdict and tdict[tagpath[0]] == {}:
                 del tdict[tagpath[0]]
-            if tdict.keys() == ['order']:
+            if list(tdict.keys()) == ['order']:
                 del tdict['order']
 
         def _add_tags(tagpath, newtag, value, tdict):
@@ -256,13 +256,13 @@ class XmlComparator:
             if len(tagpath) > 0 and tagpath[0] in tdict:
                 _to_be_modified_tags(tagpath[1:], tag, related_tag, tdict[tagpath[0]])
             elif len(tagpath) == 0 and tag in tdict and related_tag in tdict:
-                tdict[tag] = str(long(tdict[tag]) & long(tdict[related_tag]))
+                tdict[tag] = str(int(tdict[tag]) & int(tdict[related_tag]))
 
         IGNORED_TAGS_LIST = list(IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON)
         if check_id:
             IGNORED_TAGS_LIST.remove('id')
         orig_tree = md.parseString(requested_flow)
-        xml_resp_stream = oper_resp.encode('utf-8', 'ignore')
+        xml_resp_stream = oper_resp
         xml_resp_tree = md.parseString(xml_resp_stream)
         nodeListOperFlows = xml_resp_tree.getElementsByTagNameNS("*", 'flow')
         origDict = XMLtoDictParserTools.parseTreeToDict(
@@ -305,7 +305,7 @@ class XmlComparator:
             action = actionList[0]
             for child in action.childNodes:
                 if child.nodeType == Element.ELEMENT_NODE:
-                    nodeKey = (child.localName).encode('utf-8', 'ignore')
+                    nodeKey = (child.localName)
                     if nodeKey != 'order':
                         if nodeKey != 'drop-action':
                             new_act = child.ownerDocument.createElement('drop-action')
@@ -365,3 +365,4 @@ class XmlComparator:
 
         flow_data = flow_template % (tid, fid, fid, 'TestFlow-{0}'.format(fid), priority)
         return flow_data
+
