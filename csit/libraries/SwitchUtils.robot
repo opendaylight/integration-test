@@ -23,15 +23,15 @@ Verify Switch In Operational Data Store
     [Arguments]    ${switch}
     [Documentation]    Verifies the existence of the switch.datapath_id in the operational datastore.
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
-    Log    ${resp.content}
-    Should Match Regexp    ${resp.content}    openflow:${switch.datapath_id}
+    Log    ${resp.text}
+    Should Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 
 Verify Switch Not In Operational Data Store
     [Arguments]    ${switch}
     [Documentation]    Verifies that the given switch.datapath_id is not in the operational datastore.
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
-    Log    ${resp.content}
-    Should Not Match Regexp    ${resp.content}    openflow:${switch.datapath_id}
+    Log    ${resp.text}
+    Should Not Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 
 Iterate Switch Commands From List
     [Arguments]    ${switch}    ${cmd_list}

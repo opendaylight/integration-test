@@ -21,7 +21,7 @@ Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/0
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    152
+    Should Contain    ${resp.text}    152
 
 Verify after adding flow operational - Output to physical port#
     [Documentation]    Verify the flow
@@ -37,7 +37,7 @@ Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/0
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    152
+    Should Not Contain    ${resp.text}    152
     #    Standing bug #368 - This has been fixed
 
 Verify after deleting flow operational - Output to physical port#
