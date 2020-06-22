@@ -6,7 +6,6 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
-Library           HttpLibrary.HTTP
 Library           ../../../libraries/SFC/SfcUtils.py
 Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot

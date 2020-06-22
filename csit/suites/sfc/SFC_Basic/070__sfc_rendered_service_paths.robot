@@ -6,7 +6,6 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
-Library           HttpLibrary.HTTP
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../libraries/Utils.robot
