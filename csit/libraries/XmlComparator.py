@@ -206,9 +206,10 @@ class XmlComparator:
 
     def is_flow_configured(self, requested_flow, configured_flows):
 
+        print(requested_flow)
+        print(configured_flows)
         orig_tree = md.parseString(requested_flow)
-        xml_resp_stream = configured_flows.encode('utf-8', 'ignore')
-        xml_resp_tree = md.parseString(xml_resp_stream)
+        xml_resp_tree = md.parseString(configured_flows)
         nodeListOperFlows = xml_resp_tree.getElementsByTagNameNS("*", 'flow')
         origDict = XMLtoDictParserTools.parseTreeToDict(orig_tree._get_documentElement())
 

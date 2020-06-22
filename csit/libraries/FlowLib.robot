@@ -17,19 +17,19 @@ Check No Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        Should Not Contain    ${resp.content}    "openflow:${switch}"
+        Should Not Contain    ${resp.text}    "openflow:${switch}"
     END
 
 Check No Switches In Topology
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        Should Not Contain    ${resp.content}    openflow:${switch}
+        Should Not Contain    ${resp.text}    openflow:${switch}
     END
 
 Check Switches In Inventory
@@ -37,46 +37,46 @@ Check Switches In Inventory
     [Documentation]    Check all switches and stats in operational inventory
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
-        Log    ${resp.content}
+        Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
-        Should Contain    ${resp.content}    flow-capable-node-connector-statistics
-        Should Contain    ${resp.content}    flow-table-statistics
+        Should Contain    ${resp.text}    flow-capable-node-connector-statistics
+        Should Contain    ${resp.text}    flow-table-statistics
     END
 
 Check Switches In Topology
     [Arguments]    ${switches}
     [Documentation]    Check switches are in the topology.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "node-id":"openflow:
+    ${count}=    Get Count    ${resp.text}    "node-id":"openflow:
     BuiltIn.Should Be Equal As Numbers    ${count}    ${switches}
 
 Check Number Of Links
     [Arguments]    ${links}
     [Documentation]    Check number of links in the topolgy.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "link-id":"openflow:
+    ${count}=    Get Count    ${resp.text}    "link-id":"openflow:
     Should Be Equal As Integers    ${count}    ${links}
 
 Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology.
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
-        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
-        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
-        Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
-        Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "node-id":"openflow:${switch}"
+        Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:1"
+        Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:2"
         ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:3"
     END
 
 Check Flows Operational Datastore
@@ -89,42 +89,42 @@ Check Number Of Flows
     [Arguments]    ${flows}
     [Documentation]    Check number of flows in the inventory.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "priority"
+    ${count}=    Get Count    ${resp.text}    "priority"
     Should Be Equal As Integers    ${count}    ${flows}
 
 Check Number Of Groups
     [Arguments]    ${groups}
     [Documentation]    Check number of groups in the inventory.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${group_count}=    Get Count    ${resp.text}    "group-type"
     Should Be Equal As Integers    ${group_count}    ${groups}
 
 Check Flow Stats Are Available
     [Arguments]    ${node_id}    ${flows}
     [Documentation]    A GET on the /node/${node_id} inventory API is made and flow stats string is checked for existence.
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node_id}/table/2
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain X Times    ${resp.content}    priority    ${flows}
+    Should Contain X Times    ${resp.text}    priority    ${flows}
 
 Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in topology
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "node-id":"host:
+    ${count}=    Get Count    ${resp.text}    "node-id":"host:
     Should Be Equal As Integers    ${count}    ${hosts}
 
 Check No Hosts
     [Documentation]    Check if all hosts are deleted from inventory
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    "node-id":"host:
+    Should Not Contain    ${resp.text}    "node-id":"host:
 
 Add Table Miss Flows
     [Arguments]    ${switches}
@@ -275,23 +275,23 @@ Add Group To Controller And Verify
     [Arguments]    ${group_body}    ${node_id}    ${group_id}
     [Documentation]    Push group through REST-API and verify in data-store
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${HEADERS_XML}    data=${group_body}
-    Log    ${resp.content}
+    Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${ACCEPT_XML}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Compare Xml    ${group_body}    ${resp.content}
+    Compare Xml    ${group_body}    ${resp.text}
 
 Add Flow To Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Push flow through REST-API and verify in data-store
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
-    Log    ${resp.content}
+    Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Compare Xml    ${flow_body}    ${resp.content}
+    Compare Xml    ${flow_body}    ${resp.text}
 
 Verify Flow On Mininet Switch
     [Arguments]    ${flow_elements}
@@ -307,7 +307,7 @@ Remove Group From Controller And Verify
     [Arguments]    ${node_id}    ${group_id}
     [Documentation]    Remove group and verify
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
     Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
@@ -318,7 +318,7 @@ Remove Flow From Controller And Verify
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Remove flow and verify
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
     Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
@@ -350,11 +350,11 @@ Remove Default Flows
     ${switchoutput}    Read Until    >
     ${headers}=    Create Dictionary    Content-Type=application/yang.data+xml
     ${resp}    RequestsLibrary.Post Request    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
-    Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
+    Log    ${resp.text}
+    Should Not Contain    ${resp.text}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER
     Verify Flow Does Not Exist On Mininet Switch    ${strings_to_check_for}
 
@@ -391,9 +391,9 @@ Flow Presence In Config Store
     ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
-    ${pres}    ${msg}=    Is Flow Configured    ${expvalue}    ${resp.content}
+    ${pres}    ${msg}=    Is Flow Configured    ${expvalue}    ${resp.text}
     Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
     Return From Keyword    ${pres}    ${msg}
 
@@ -404,9 +404,9 @@ Flow Presence In Operational Store
     ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
-    ${pres}    ${msg}=    Is Flow Operational2    ${expvalue}    ${resp.content}    ${check_id}
+    ${pres}    ${msg}=    Is Flow Operational2    ${expvalue}    ${resp.text}    ${check_id}
     Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
     Return From Keyword    ${pres}    ${msg}
 
@@ -449,7 +449,7 @@ Add Flow Via RPC
     Log Element    ${req}
     ${strxml}=    Element To String    ${req}
     ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:add-flow    data=${strxml}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Flow Via Restconf
@@ -457,7 +457,7 @@ Add Flow Via Restconf
     [Documentation]    Configures a flow specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using POST method
     Log    ${flow_body}
     ${resp}=    RequestsLibrary.Post Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}    data=${flow_body}
-    Log    ${resp.content}
+    Log    ${resp.text}
     ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    204    msg=${msg}
 
@@ -485,7 +485,7 @@ Update Flow Via RPC
     Log Element    ${xml}
     ${strxml}=    Element To String    ${xml}
     ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:update-flow    data=${strxml}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Update Flow Via Restconf
@@ -493,7 +493,7 @@ Update Flow Via Restconf
     [Documentation]    Updates a flow configuration by given flow details (${node_id}, ${table_id}, ${flow_body}) using PUT method
     Log    ${flow_body}
     ${resp}=    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
-    Log    ${resp.content}
+    Log    ${resp.text}
     ${msg}=    Set Variable    Updating flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
@@ -511,14 +511,14 @@ Delete Flow Via RPC
     Log Element    ${req}
     ${strxml}=    Element To String    ${req}
     ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:remove-flow    data=${strxml}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Deletes a flow from configuration datastore specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using DELETE method
     ${resp}=    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}
-    Log    ${resp.content}
+    Log    ${resp.text}
     ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
@@ -526,6 +526,6 @@ Get Flow Id
     [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
     [Documentation]    This verifies specific flow-id for particular table-id matching from the flow element
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
-    BuiltIn.Log    ${resp.content}
-    @{flow_id} =    String.Get Regexp Matches    ${resp.content}    id\":\"(\\d+${flow_element})    1
+    BuiltIn.Log    ${resp.text}
+    @{flow_id} =    String.Get Regexp Matches    ${resp.text}    id\":\"(\\d+${flow_element})    1
     [Return]    @{flow_id}[0]
