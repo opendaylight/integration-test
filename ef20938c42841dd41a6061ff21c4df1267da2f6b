@@ -22,6 +22,30 @@
       "revId": "ef20938c42841dd41a6061ff21c4df1267da2f6b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8729ab8_d9099d32",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-22T18:04:21Z",
+      "side": 1,
+      "message": "It is already there, or am I missing anything?",
+      "parentUuid": "1527a5b3_ff790d50",
+      "range": {
+        "startLine": 113,
+        "startChar": 64,
+        "endLine": 113,
+        "endChar": 71
+      },
+      "revId": "ef20938c42841dd41a6061ff21c4df1267da2f6b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
