@@ -34,8 +34,7 @@ Get Tenant ID From Network
     [Arguments]    ${network_uuid}
     [Documentation]    Returns tenant ID by reading it from existing network.
     ${resp} =    TemplatedRequests.Get_From_Uri    uri=${CONFIG_API}/neutron:neutron/networks/network/${network_uuid}/    accept=${ACCEPT_EMPTY}    session=session
-    ${tenant_id} =    Utils.Extract Value From Content    ${resp}    /network/0/tenant-id    strip
-    [Return]    ${tenant_id}
+    [Return]    ${resp['network'][0]['tenant-id']}
 
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE

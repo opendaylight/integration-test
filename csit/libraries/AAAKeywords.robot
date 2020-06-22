@@ -51,8 +51,7 @@ Get Auth Token
     ${auth_data}=    Create Auth Data    ${USER}    ${PWD}    ${scope}    ${client_id}    ${client_secret}
     ${resp}=    AAA Login    ${ODL_SYSTEM_IP}    ${auth_data}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${auth_token}=    Extract Value From Content    ${resp.content}    /access_token    strip
-    [Return]    ${auth_token}
+    [Return]    ${resp.content['access_token']}
 
 Revoke Auth Token
     [Arguments]    ${token}

@@ -32,8 +32,7 @@ Fail To Get Token With Invalid Username And Password
     ${resp}=    AAA Login    ${ODL_SYSTEM_IP}    ${auth_data}
     Should Be Equal As Strings    ${resp.status_code}    401
     Log    ${resp.content}
-    ${error_msg}=    Extract Value From Content    ${resp.content}    /error    strip
-    Should Contain    ${error_msg}    User :${bad_user} does not exist
+    Should Contain    ${resp.content['error']}    User :${bad_user} does not exist
 
 Create Token with Client Authorization
     [Documentation]    Get a token using client domain
