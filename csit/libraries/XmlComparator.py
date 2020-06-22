@@ -34,13 +34,13 @@ class XMLtoDictParserTools():
         returnedDict = {} if returnedDict is None else returnedDict
         if (node.nodeType == Element.ELEMENT_NODE):
             nodeKey = (node.localName).encode('utf-8', 'ignore')
-            if nodeKey not in ignoreList:
+            if node.localName not in ignoreList:
                 if node.childNodes is not None:
                     childDict = {}
                     for child in node.childNodes:
                         if child.nodeType == Element.TEXT_NODE:
                             nodeValue = (child.nodeValue).encode('utf-8', 'ignore')
-                            if (len(nodeValue.strip(' \t\n\r'))) > 0:
+                            if (len(child.nodeValue.strip(' \t\n\r'))) > 0:
                                 XMLtoDictParserTools.addDictValue(returnedDict, nodeKey, nodeValue)
                                 nodeKey = None
                                 break
