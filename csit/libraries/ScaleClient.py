@@ -9,7 +9,7 @@ The idea how to configure and checks inventory operational data is taken from
 import random
 import threading
 import netaddr
-import Queue
+import queue
 import requests
 import json
 import copy
@@ -453,7 +453,7 @@ def _task_executor(method='', flow_template=None, flow_details=[], controllers=[
     # we have lists with flow details for particular (switch, table) tupples, now we need to split the lists
     # according to the flows per request (fpr) paramer
     sendqueue = Queue.Queue()
-    for flowgroup, flow_list in flowgroups.iteritems():
+    for flowgroup, flow_list in flowgroups.items():
         while len(flow_list) > 0:
             sendqueue.put(flow_list[:int(fpr)])
             flow_list = flow_list[int(fpr):]
@@ -481,7 +481,7 @@ def _task_executor(method='', flow_template=None, flow_details=[], controllers=[
         t.join()
         # reading partial resutls from sender thread
         part_result = resultqueue.get()
-        for k, v in part_result.iteritems():
+        for k, v in part_result.items():
             if k not in result:
                 result[k] = v
             else:
@@ -658,7 +658,7 @@ def flow_stats_collected(controller=''):
             active_flows += t['opendaylight-flow-table-statistics:flow-table-statistics']['active-flows']
             if 'flow' in t:
                 found_flows += len(t['flow'])
-    print("Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows)
+    print(("Switches,ActiveFlows(reported)/FlowsFound", len(switches), active_flows, found_flows))
     return len(switches), active_flows, found_flows
 
 
@@ -692,4 +692,4 @@ def validate_responses(received, expected):
         :returns True: if list of http statuses from received responses is the same as exxpected
         :returns False: elseware
     """
-    return True if received.keys() == expected else False
+    return True if list(received.keys()) == expected else False
