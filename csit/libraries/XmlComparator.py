@@ -40,7 +40,7 @@ class XMLtoDictParserTools():
                     for child in node.childNodes:
                         if child.nodeType == Element.TEXT_NODE:
                             nodeValue = (child.nodeValue).encode('utf-8', 'ignore')
-                            if (len(nodeValue.strip(' \t\n\r'))) > 0:
+                            if (len(child.nodeValue.strip(' \t\n\r'))) > 0:
                                 XMLtoDictParserTools.addDictValue(returnedDict, nodeKey, nodeValue)
                                 nodeKey = None
                                 break

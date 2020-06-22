@@ -22,7 +22,7 @@ Verify after adding flow config - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    139
+    Should Contain    ${resp.text}    139
 
 Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
@@ -38,7 +38,7 @@ Verify after modifying flow config - Output to physical port#
     [Documentation]    Verify the flow
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    10.0.20.1
+    Should Contain    ${resp.text}    10.0.20.1
 
 Verify after modifying flow operational - Output to physical port#
     [Documentation]    Verify the flow
@@ -54,7 +54,7 @@ Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    139
+    Should Not Contain    ${resp.text}    139
 
 Verify after deleting flow operational - Output to physical port#
     [Documentation]    Verify the flow
