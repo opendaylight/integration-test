@@ -16,7 +16,7 @@ Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
 
 List all the links
     [Documentation]    List all the links in the topology.
@@ -83,12 +83,11 @@ Add Port
 Verify Links
     [Arguments]    ${expected_links}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${result}    To JSON    ${resp.content}
+    ${result}    To JSON    ${resp.text}
     Log    ${result}
     ${content}    Get From Dictionary    ${result}    topology
     ${topology}    Get From List    ${content}    0
     ${link}    Get From Dictionary    ${topology}    link
-    Sort List    ${link}
-    Lists Should be Equal    ${link}    ${expected_links}
+    Lists Should be Equal    ${link}    ${expected_links}    ignore_order=True
