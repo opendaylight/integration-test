@@ -15,6 +15,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${connection_index_dict}    &{EMPTY}
+${Exception}      ModifiedNodeDoesNotExistException
 
 *** Keywords ***
 Setup_Karaf_Keywords
@@ -243,7 +244,8 @@ Fail If Exceptions Found During Test
     FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
         ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
         ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
-        ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
+        ${output1} =    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${Exception}    ${cmd}
+        ${exlist}    ${matchlist} =    Verify Exceptions    ${output1}
         Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
         ${listlength} =    BuiltIn.Get Length    ${exlist}
         BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
