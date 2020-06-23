@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+2: Venkatrangan Govindarajan <vgovindarajan@luminanetworks.com>
+Code-Review+1: Kailash Khalasi <kailash.khalasi@gmail.com>
+Submitted-by: Venkatrangan Govindarajan <vgovindarajan@luminanetworks.com>
+Submitted-at: Tue, 23 Jun 2020 04:51:54 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/90588
+Project: integration/test
+Branch: refs/heads/master
