@@ -233,6 +233,7 @@ Get Karaf Log Lines From Test Start
     ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
     ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
     ${output} =    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+    Log    ${output}
     @{log_lines} =    Split String    ${output}    ${\n}
     [Return]    ${log_lines}
 
@@ -265,6 +266,7 @@ Get Karaf Log Type From Test Start
     ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
     ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
     ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
+    Log    ${cmd}
     ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
     [Return]    ${output}
 
@@ -274,7 +276,7 @@ Get Karaf Log Types From Test Start
     [Documentation]    A wrapper keyword for "Get Karaf Log Type From Test Start" so that we can parse for multiple types
     ...    of log messages. For example, we can grab all messages of type WARN and ERROR
     FOR    ${type}    IN    @{types}
-        Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+        Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${types}    ${user}    ${password}
         ...    ${prompt}    ${log_file}
     END
 
