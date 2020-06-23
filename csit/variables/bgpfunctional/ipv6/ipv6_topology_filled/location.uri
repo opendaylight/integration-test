@@ -1,1 +1,2 @@
-restconf/operational/network-topology:network-topology/topology/example-ipv6-topology
+#restconf/operational/network-topology:network-topology/topology/example-ipv6-topology
+restconf/config/bgp-rib:application-rib/127.0.0.6/tables/bgp-types:ipv6-address-family/bgp-types:unicast-subsequent-address-family/bgp-inet:ipv6-routes
