@@ -25,8 +25,5 @@
     <afi-safi>
       <afi-safi-name xmlns:x="http://openconfig.net/yang/bgp-types">x:IPV4-UNICAST</afi-safi-name>
     </afi-safi>
-    <afi-safi>
-      <afi-safi-name xmlns:x="http://openconfig.net/yang/bgp-types">x:IPV6-UNICAST</afi-safi-name>
-    </afi-safi>
   </afi-safis>
 </neighbor>
