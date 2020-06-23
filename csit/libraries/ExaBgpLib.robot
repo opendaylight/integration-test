@@ -20,11 +20,13 @@ Resource          ${CURDIR}/BGPcliKeywords.robot
 *** Variables ***
 ${EXABGP_KILL_COMMAND}    ps axf | grep exabgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+#${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${PREFIX}    /restconf/operational/bgp-rib:bgp-rib/rib
+${SUFFIX}    peer/bgp:%2F%2F
 
 *** Keywords ***
 Start_ExaBgp
-    [Arguments]    ${cfg_file}
+    [Arguments]    ${cfg_file}    {RIB_NAME}
     [Documentation]    Dump the start command into prompt. It assumes that no exabgp is running. For verified
     ...    start use Start_ExaBgp_And_Verify_Connected keyword.
     ${start_cmd}    BuiltIn.Set_Variable    ${CMD} ${cfg_file}
@@ -50,7 +52,7 @@ Stop_All_ExaBgps
     BuiltIn.Log    ${output}
 
 Start_ExaBgp_And_Verify_Connected
-    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}
+    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}    {RIB_NAME}
     [Documentation]    Starts the ExaBgp and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
     FOR    ${idx}    IN RANGE    ${connection_retries}
@@ -66,6 +68,8 @@ Verify_ExaBgps_Connection
     [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
+    ${BGP-RIB-NAME}=    BuiltIn.Set_Variable_If    ${RIB_NAME}    example-bgp-rib    ${RIB_NAME}
+    ${PEER_CHECK_URL}=    BuiltIn.Set_Variable    ${PREFIX}/${BGP-RIB-NAME}/${SUFFIX}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
