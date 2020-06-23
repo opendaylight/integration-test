@@ -87,8 +87,8 @@ Check Nodes Stats
     ...    strings are checked for existence.
     ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/${node}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
-    Should Contain    ${resp.content}    flow-table-statistics
+    Should Contain    ${resp.text}    flow-capable-node-connector-statistics
+    Should Contain    ${resp.text}    flow-table-statistics
 
 Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}    ${session}=session
@@ -97,7 +97,7 @@ Check For Specific Number Of Elements At URI
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain X Times    ${resp.content}    ${element}    ${expected_count}
+    Should Contain X Times    ${resp.text}    ${element}    ${expected_count}
 
 Log Content
     [Arguments]    ${resp_content}
@@ -115,7 +115,7 @@ Check For Elements At URI
     ...    ELSE    BuiltIn.Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
-        Should Contain    ${resp.content}    ${i}
+        Should Contain    ${resp.text}    ${i}
     END
 
 Check For Elements Not At URI
@@ -130,7 +130,7 @@ Check For Elements Not At URI
     BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
-        Should Not Contain    ${resp.content}    ${i}
+        Should Not Contain    ${resp.text}    ${i}
     END
 
 Clean Mininet System
