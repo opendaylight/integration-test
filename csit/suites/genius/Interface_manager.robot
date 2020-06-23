@@ -94,8 +94,8 @@ get operational interface
     ${respjson} =    RequestsLibrary.To Json    ${get_oper_resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Be Equal As Strings    ${get_oper_resp.status_code}    200
-    BuiltIn.Should Not Contain    ${get_oper_resp.content}    down
-    BuiltIn.Should Contain    ${get_oper_resp.content}    up    up
+    BuiltIn.Should Not Contain    ${get_oper_resp.text}    down
+    BuiltIn.Should Contain    ${get_oper_resp.text}    up    up
 
 table entry
     [Documentation]    Checks for tables entry wrt the service the Interface is binded.

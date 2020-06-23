@@ -61,7 +61,7 @@ Allocate IDs of size 3 from the pool
     ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
     ${respjson} =    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
-    BuiltIn.Should Contain    ${get_resp.content}    17
+    BuiltIn.Should Contain    ${get_resp.text}    17
     BuiltIn.Should Be Equal As Strings    ${get_resp.status_code}    200
 
 Release a block of IDs allocated using releaseIds RPC
@@ -71,16 +71,16 @@ Release a block of IDs allocated using releaseIds RPC
     ${body} =    String.Replace String    ${body}    test-key    ${test_keys[2]}
     Utils.Post Elements To URI    ${OPERATIONS_API}/id-manager:releaseId    ${body}
     ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/
-    ${respjson} =    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
+    ${respjson} =    RequestsLibrary.To Json    ${get_resp.text}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Be Equal As Strings    ${get_resp.status_code}    200
-    ${child-pool-name} =    BuiltIn.Should Match Regexp    ${get_resp.content}    ${pool-name}\.[-]?[0-9]+
+    ${child-pool-name} =    BuiltIn.Should Match Regexp    ${get_resp.text}    ${pool-name}\.[-]?[0-9]+
     BuiltIn.Log    ${child-pool-name}
     ${get_releasedIds} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/
-    ${respjson} =    RequestsLibrary.To Json    ${get_releasedIds.content}    pretty_print=True
+    ${respjson} =    RequestsLibrary.To Json    ${get_releasedIds.text}    pretty_print=True
     BuiltIn.Log    ${respjson}
     Should Be Equal As Strings    ${get_releasedIds.status_code}    200
-    @{released_ids} =    re.Findall    <id>[0-9]+    ${get_releasedIds.content}
+    @{released_ids} =    re.Findall    <id>[0-9]+    ${get_releasedIds.text}
     BuiltIn.Log    ${released_ids}
 
 Delete the ID Pool using deleteIdPool RPC
@@ -97,5 +97,5 @@ get Id pool
     ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
     ${respjson} =    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
-    BuiltIn.Should Contain    ${get_resp.content}    14
+    BuiltIn.Should Contain    ${get_resp.text}    14
     BuiltIn.Should Be Equal As Strings    ${get_resp.status_code}    200

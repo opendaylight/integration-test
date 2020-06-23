@@ -30,7 +30,7 @@ ${NO_VLAN}        0
 ${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
 ${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
 ${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
-${odl_stream_check }    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[neon]
+${odl_stream_check }    ${Stream_dict}[${ODL_STREAM}] <= ${Stream_dict}[neon]
 
 *** Keywords ***
 Genius Suite Setup
@@ -233,10 +233,10 @@ Get Tunnel
     BuiltIn.Log    ${resp.content}
     ${respjson} =    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     ${json} =    Utils.Json Parse From String    ${resp.content}
-    BuiltIn.Should Contain    ${resp.content}    ${dst}
-    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.content}    ${src}
+    BuiltIn.Should Contain    ${resp.text}    ${dst}
+    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.text}    ${src}
     ${tunnel_interface_name} =    BuiltIn.Run Keyword If    "tunnel-interface-names" in "${json}"    Genius.Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
-    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword Unless    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.content}    "tunnel-name":"(tun[\\w\\d]+)"
+    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword Unless    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.text}    "tunnel-name":"(tun[\\w\\d]+)"
     ${tunnel} =    BuiltIn.Set Variable If    '${config_api_type}' == '${EMPTY}'    ${tunnel_interface_name}    ${tunnel_name}
     [Return]    ${tunnel}
 
