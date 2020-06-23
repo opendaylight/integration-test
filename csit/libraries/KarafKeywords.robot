@@ -15,6 +15,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${connection_index_dict}    &{EMPTY}
+${types}      ModifiedNodeDoesNotExistException
 
 *** Keywords ***
 Setup_Karaf_Keywords
@@ -243,7 +244,8 @@ Fail If Exceptions Found During Test
     FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
         ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
         ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
-        ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
+        ${output1} =    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${types}    ${cmd}
+        ${exlist}    ${matchlist} =    Verify Exceptions    ${output1}
         Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
         ${listlength} =    BuiltIn.Get Length    ${exlist}
         BuiltIn.Run Keyword If    "${fail}"=="True" and ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
@@ -265,6 +267,7 @@ Get Karaf Log Type From Test Start
     ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
     ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
     ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
+    Log    ${cmd}
     ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
     [Return]    ${output}
 
@@ -273,8 +276,9 @@ Get Karaf Log Types From Test Start
     ...    ${log_file}=${KARAF_LOG}
     [Documentation]    A wrapper keyword for "Get Karaf Log Type From Test Start" so that we can parse for multiple types
     ...    of log messages. For example, we can grab all messages of type WARN and ERROR
+    ${types} =    Create List    ${type}
     FOR    ${type}    IN    @{types}
-        Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+        Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${types}    ${user}    ${password}
         ...    ${prompt}    ${log_file}
     END
 
