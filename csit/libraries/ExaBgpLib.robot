@@ -20,7 +20,10 @@ Resource          ${CURDIR}/BGPcliKeywords.robot
 *** Variables ***
 ${EXABGP_KILL_COMMAND}    ps axf | grep exabgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+#${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${PREFIX_OF_URL}    /restconf/operational/bgp-rib:bgp-rib/rib
+${SUFFIX}    peer/bgp:%2F%2F
+${BGP_RIB_NAME}    example-bgp-rib
 
 *** Keywords ***
 Start_ExaBgp
@@ -50,22 +53,23 @@ Stop_All_ExaBgps
     BuiltIn.Log    ${output}
 
 Start_ExaBgp_And_Verify_Connected
-    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}
+    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}    ${RIB_NAME}=${BGP_RIB_NAME}
     [Documentation]    Starts the ExaBgp and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
     FOR    ${idx}    IN RANGE    ${connection_retries}
         Start_ExaBgp    ${cfg_file}
         ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
-        ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}
+        ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}    RIB_NAME=${RIB_NAME}
         BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    Stop_ExaBgp
         BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
     END
     BuiltIn.Fail    Unable to connect ExaBgp to ODL
 
 Verify_ExaBgps_Connection
-    [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
+    [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}    ${RIB_NAME}=${BGP_RIB_NAME}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
+    ${PEER_CHECK_URL}=    BuiltIn.Catenate    SEPARATOR=/    ${PREFIX_OF_URL}    ${RIB_NAME}    ${SUFFIX}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
