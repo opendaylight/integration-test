@@ -202,6 +202,8 @@ Run Command On Remote System
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     SSHKeywords.Flexible SSH Login    ${user}    ${password}
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
+    ${stdout}    SSHLibrary.Execute Command    ${cmd}
+    Should Not Contain	   ${stdout}    ModifiedNodeDoesNotExist
     SSHLibrary.Close Connection
     Log    ${stderr}
     Run Keyword If    "${return_stdout}"!="True"    Return From Keyword    ${stderr}
