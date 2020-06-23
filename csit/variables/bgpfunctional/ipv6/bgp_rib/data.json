@@ -1,0 +1,28 @@
+{
+    "bgp-inet:ipv6-routes": {
+        "ipv6-route": [
+            {
+                "route-key": "1:1:1::1/128",
+                "path-id": 1,
+                "prefix": "1:1:1::1/128",
+                "attributes": {
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "ipv6-next-hop": {
+                        "global": "2:1:1:1::1"
+                    },
+                    "as-path": {
+                        "segments": [
+                            {
+                                "as-sequence": [
+                                    64496
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
