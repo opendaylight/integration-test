@@ -1,12 +1,11 @@
 {
-    "topology": [
-        {
-            "server-provided": true,
-            "topology-id": "example-ipv6-topology",
-            "topology-types": {
-                "odl-bgp-topology-types:bgp-ipv6-reachability-topology": {}
-            }
-        }
-    ]
+  "topology": [
+    {
+      "server-provided": true,
+      "topology-id": "example-ipv6-topology",
+      "topology-types": {
+        "odl-bgp-topology-types:bgp-ipv6-reachability-topology": {}
+      }
+    }
+  ]
 }
-
