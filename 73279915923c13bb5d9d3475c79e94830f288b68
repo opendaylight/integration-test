@@ -22,6 +22,30 @@
       "revId": "73279915923c13bb5d9d3475c79e94830f288b68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb68ec1e_5cc76111",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-06-24T15:12:01Z",
+      "side": 1,
+      "message": "Yes Jamo, it seems to be copied from google\u0027s implementation of ipaddr.py\nhttps://github.com/google/ipaddr-py",
+      "parentUuid": "314ce983_fcce5117",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "73279915923c13bb5d9d3475c79e94830f288b68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
