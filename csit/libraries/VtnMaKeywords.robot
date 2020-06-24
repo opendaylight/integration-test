@@ -169,7 +169,7 @@ DataFlowsForBridge
     [Arguments]    ${resp}    @{BRIDGE_DATAFLOW}
     [Documentation]    Verify whether the required attributes exists.
     FOR    ${dataflowElement}    IN    @{BRIDGE_DATAFLOW}
-        should Contain    ${resp.content}    ${dataflowElement}
+        should Contain    ${resp.text}    ${dataflowElement}
     END
 
 Add a pathmap
@@ -182,7 +182,7 @@ Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-map:global-path-maps
     FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
-        should Contain    ${resp.content}    ${pathElement}
+        should Contain    ${resp.text}    ${pathElement}
     END
 
 Add a pathpolicy
@@ -196,7 +196,7 @@ Get a pathpolicy
     [Documentation]    Get a pathpolicy for a vtn.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
     FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
-        should Contain    ${resp.content}    ${pathpolicyElement}
+        should Contain    ${resp.text}    ${pathpolicyElement}
     END
 
 Delete a pathmap

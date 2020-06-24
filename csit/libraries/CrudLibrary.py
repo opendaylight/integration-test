@@ -242,7 +242,7 @@ def testlongevity(inputtime, port, *ips):
             resp = getCars(ip, port, 0)
             if resp.status_code == 200:
                 print("Pass: car data available after addition")
-                if resp.content.find("manufacturer100") == -1:
+                if resp.text.find("manufacturer100") == -1:
                     print("Fail: last car is not there")
                 else:
                     print("Pass: car data matches")
@@ -254,7 +254,7 @@ def testlongevity(inputtime, port, *ips):
             resp = getPersons(ip, port, 0)
             if resp.status_code == 200:
                 print("Pass: people data available after addition")
-                if resp.content.find("user100") == -1:
+                if resp.text.find("user100") == -1:
                     print("Fail: last person is not there")
                 else:
                     print("Pass: person data matches")
@@ -267,7 +267,7 @@ def testlongevity(inputtime, port, *ips):
             resp = getCarPersonMappings(ip, port, 0)
             if resp.status_code == 200:
                 print("Pass: car person data available after addition")
-                if resp.content.find("user100") == -1:
+                if resp.text.find("user100") == -1:
                     print("Fail: last car person is not there")
                 else:
                     print("Pass: car person data matches")
