@@ -207,11 +207,11 @@ Get L2gw Debug Info
     Exec Command    ${hwvtep_conn_id}    ${OVSDB_CLIENT_DUMP}
     OpenStackOperations.Get Test Teardown Debugs
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:external-tunnel-list/
-    Log    ${resp.content}
+    Log    ${resp.text}
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/topology/hwvtep:1
-    Log    ${resp.content}
+    Log    ${resp.text}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
-    Log    ${resp.content}
+    Log    ${resp.text}
     Exec Command    ${OS_CNTL_CONN_ID}    cat /etc/neutron/neutron.conf
     Exec Command    ${OS_CNTL_CONN_ID}    cat /etc/neutron/l2gw_plugin.ini
     Exec Command    ${OS_CNTL_CONN_ID}    ps -ef | grep neutron-server

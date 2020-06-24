@@ -130,7 +130,7 @@ Check Controller Status
     [Arguments]    ${ctrlname}    ${stat}
     [Documentation]    Get controller status
     ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
-    ${contents}    To JSON    ${resp.content}
+    ${contents}    To JSON    ${resp.text}
     ${controllerblock}    Get From Dictionary    ${contents}    controller
     ${status}    Get From Dictionary    ${controllerblock}    operstatus
     Should Be Equal As Strings    ${status}    ${stat}
@@ -301,7 +301,7 @@ Verify Switch
     [Arguments]    ${ctrlname}    ${switch_id}
     [Documentation]    Get switch
     ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
-    ${contents}    To JSON    ${resp.content}
+    ${contents}    To JSON    ${resp.text}
     ${switchblock}    Get From Dictionary    ${contents}    switch
     ${status}    Get From Dictionary    ${switchblock}    switch_id
     Should Be Equal As Strings    ${status}    ${switch_id}

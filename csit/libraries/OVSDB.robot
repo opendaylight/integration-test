@@ -34,7 +34,7 @@ Create OVSDB Node
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Post Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Connect To Ovsdb Node
@@ -47,7 +47,7 @@ Connect To Ovsdb Node
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Disconnect From Ovsdb Node
@@ -71,7 +71,7 @@ Add Bridge To Ovsdb Node
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete Bridge From Ovsdb Node
@@ -122,9 +122,9 @@ Get OVSDB UUID
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
     ${uuid} =    Set Variable    ${EMPTY}
     ${resp} =    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp_json} =    RequestsLibrary.To Json    ${resp.content}
+    ${resp_json} =    RequestsLibrary.To Json    ${resp.text}
     ${topologies} =    Collections.Get From Dictionary    ${resp_json}    topology
     ${topology} =    Collections.Get From List    ${topologies}    0
     ${node_list} =    Collections.Get From Dictionary    ${topology}    node
@@ -248,17 +248,17 @@ Get Port Metadata
 Log Config And Operational Topology
     [Documentation]    For debugging purposes, this will log both config and operational topo data stores
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
 
 Config and Operational Topology Should Be Empty
     [Documentation]    This will check that only the expected output is there for both operational and config
     ...    topology data stores. Empty probably means that only ovsdb:1 is there.
     ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    BuiltIn.Should Contain    ${config_resp.content}    {"topology-id":"ovsdb:1"}
-    BuiltIn.Should Contain    ${operational_resp.content}    {"topology-id":"ovsdb:1"}
+    BuiltIn.Should Contain    ${config_resp.text}    {"topology-id":"ovsdb:1"}
+    BuiltIn.Should Contain    ${operational_resp.text}    {"topology-id":"ovsdb:1"}
 
 Modify Multi Port Body
     [Arguments]    ${ovs_1_port_name}    ${ovs_2_port_name}    ${bridge}
@@ -278,7 +278,7 @@ Modify Multi Port Body
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     [Return]    ${body}
 
@@ -290,7 +290,7 @@ Create Qos
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Create Queue
@@ -301,7 +301,7 @@ Create Queue
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Update Qos
@@ -311,13 +311,13 @@ Update Qos
     BuiltIn.Log    URL is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Create Qos Linked Queue
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7160/create_qoslinkedqueue.json
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add OVS Logging

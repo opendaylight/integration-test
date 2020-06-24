@@ -95,7 +95,7 @@ Check For Specific Number Of Elements At URI
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.text}    ${element}    ${expected_count}
 
@@ -111,8 +111,8 @@ Check For Elements At URI
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
-    ...    ELSE    BuiltIn.Log    ${resp.content}
+    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.text}
+    ...    ELSE    BuiltIn.Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
         Should Contain    ${resp.text}    ${i}
@@ -125,8 +125,8 @@ Check For Elements Not At URI
     ...    return of 404 is treated as empty list. From Neon onwards, an empty list is always
     ...    returned as null, giving 404 on rest call.
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
-    ...    ELSE    BuiltIn.Log    ${resp.content}
+    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.text}
+    ...    ELSE    BuiltIn.Log    ${resp.text}
     BuiltIn.Run Keyword If    "${check_for_null}" == "True"    Builtin.Return From Keyword If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${i}    IN    @{elements}
@@ -304,7 +304,7 @@ Post Elements To URI
     [Arguments]    ${rest_uri}    ${data}    ${headers}=${headers}    ${session}=session
     [Documentation]    Perform a POST rest operation, using the URL and data provided
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${rest_uri}    data=${data}    headers=${headers}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI
@@ -430,7 +430,7 @@ Post Log Check
     [Arguments]    ${uri}    ${body}    ${session}=session    ${status_codes}=200
     [Documentation]    Post body to ${uri}, log response content, and check status
     ${resp}=    RequestsLibrary.Post Request    ${session}    ${uri}    ${body}
-    Log    ${resp.content}
+    Log    ${resp.text}
     TemplatedRequests.Check Status Code    ${resp}    ${status_codes}
     [Return]    ${resp}
 

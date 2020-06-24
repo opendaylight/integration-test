@@ -17,12 +17,12 @@ Post To Controller
     [Arguments]    ${session}    ${path}    ${data}    ${rest_context}=${REST_CONTEXT}
     [Documentation]    Post request to Controller and checks response
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${rest_context}:${path}    data=${data}    headers=${HEADERS_XML}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Log    ${session}
     Log    ${path}
     Log    ${data}
     BuiltIn.Should be Equal As Strings    ${resp.status_code}    200
-    ${content} =    BuiltIn.Evaluate    json.loads('''${resp.content}''')    json
+    ${content} =    BuiltIn.Evaluate    json.loads('''${resp.text}''')    json
     ${output} =    collections.Get From Dictionary    ${content}    output
     ${result} =    collections.Get From Dictionary    ${output}    result
     BuiltIn.Should Be True    ${result}    RPC result is False
@@ -55,7 +55,7 @@ Get Connections
     ${data} =    Sxp.Get Connections From Node Xml    ${node}    ${domain}
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${REST_CONTEXT}:get-connections    data=${data}    headers=${HEADERS_XML}
     BuiltIn.Should be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Delete Connections
     [Arguments]    ${ip}    ${port}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -140,7 +140,7 @@ Get Peer Groups
     ${data} =    Sxp.Get Peer Groups From Node Xml    ${node}
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${REST_CONTEXT}:get-peer-groups    data=${data}    headers=${HEADERS_XML}
     BuiltIn.Should be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Clean Peer Groups
     [Arguments]    ${node}=127.0.0.1    ${session}=session
@@ -365,7 +365,7 @@ Get Routing Configuration From Controller
     [Arguments]    ${session}
     [Documentation]    Get Routing configuration from config DS
     ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
-    ${data} =    BuiltIn.Set Variable If    "${resp.status_code}" == "200"    ${resp.content}    ${EMPTY}
+    ${data} =    BuiltIn.Set Variable If    "${resp.status_code}" == "200"    ${resp.text}    ${EMPTY}
     [Return]    ${data}
 
 Put Routing Configuration To Controller

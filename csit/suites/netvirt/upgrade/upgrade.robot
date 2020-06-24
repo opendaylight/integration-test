@@ -174,7 +174,7 @@ Verify Bundle Active State
         ${body} =    OperatingSystem.Get File    ${COMMIT_ACTIVE_BUNDLE_DIR}/data.json
         ${body} =    Replace String    ${body}    DPNID    ${dpnid}
         ${resp} =    RequestsLibrary.Post Request    session    ${GET_ACTIVE_BUNDLE_URI}    data=${body}
-        BuiltIn.Log    ${resp.content}
-        BuiltIn.Should Contain    ${resp.content}    "result":
+        BuiltIn.Log    ${resp.text}
+        BuiltIn.Should Contain    ${resp.text}    "result":
         BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     END

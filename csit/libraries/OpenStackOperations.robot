@@ -951,34 +951,34 @@ Get L2gw Connection Id
 Neutron Port List Rest
     [Documentation]    Keyword to get all ports details in Neutron (Using REST).
     ${resp} =    RequestsLibrary.Get Request    session    ${PORT_URL}
-    BuiltIn.Log    ${resp.content}
+    BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Get Neutron Port Rest
     [Arguments]    ${port_id}
     [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
-    BuiltIn.Log    ${resp.content}
+    BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Update Port Rest
     [Arguments]    ${port_id}    ${json_data}
     [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
     BuiltIn.Log    ${json_data}
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
-    BuiltIn.Log    ${resp.content}
+    BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Get Neutron Network Rest
     [Arguments]    ${net_id}
     [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
     ${resp} =    RequestsLibrary.Get Request    session    ${NETWORK_URL}/network/${net_id}
-    BuiltIn.Log    ${resp.content}
+    BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Create And Configure Security Group
     [Arguments]    ${sg-name}
@@ -1344,7 +1344,7 @@ Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
-    Utils.Log Content    ${resp.content}
+    Utils.Log Content    ${resp.text}
     ${failed_node_list} =    BuiltIn.Create List
     FOR    ${node_ip}    IN    @{node_ips}
         ${failed_table_list} =    Verify Expected Default Tables    ${node_ip}
