@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "436733c8_77d84f94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-06-24T02:54:17Z",
+      "side": 1,
+      "message": "next time split this up in to smaller individual commits.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 69
+      },
+      "revId": "a4a15305382047d6050800a3a565aa9120da279f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1942b67f_9b247a8d",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-06-24T02:54:17Z",
+      "side": 1,
+      "message": "put this as a variable in our main variables.robot file. Probably like\n${RFC8040_NOTIFICATIONS_STREAMS_URI}\n\nYou\u0027ll see other variables in there with a similar naming convention.",
+      "range": {
+        "startLine": 79,
+        "startChar": 60,
+        "endLine": 79,
+        "endChar": 118
+      },
+      "revId": "a4a15305382047d6050800a3a565aa9120da279f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
