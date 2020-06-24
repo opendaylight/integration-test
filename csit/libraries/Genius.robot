@@ -230,9 +230,9 @@ Get Tunnel
     ${resp} =    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
     ...    ELSE    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:dpn-teps-state/dpns-teps/${src}/remote-dpns/${dst}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    BuiltIn.Log    ${resp.content}
-    ${respjson} =    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    ${json} =    Utils.Json Parse From String    ${resp.content}
+    BuiltIn.Log    ${resp.text}
+    ${respjson} =    RequestsLibrary.To Json    ${resp.text}    pretty_print=True
+    ${json} =    Utils.Json Parse From String    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ${dst}
     BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.text}    ${src}
     ${tunnel_interface_name} =    BuiltIn.Run Keyword If    "tunnel-interface-names" in "${json}"    Genius.Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
