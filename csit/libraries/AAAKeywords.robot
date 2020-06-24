@@ -51,7 +51,7 @@ Get Auth Token
     ${auth_data}=    Create Auth Data    ${USER}    ${PWD}    ${scope}    ${client_id}    ${client_secret}
     ${resp}=    AAA Login    ${ODL_SYSTEM_IP}    ${auth_data}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${auth_token}=    Extract Value From Content    ${resp.content}    /access_token    strip
+    ${auth_token}=    Extract Value From Content    ${resp.text}    /access_token    strip
     [Return]    ${auth_token}
 
 Revoke Auth Token
@@ -73,7 +73,7 @@ Get User From IDM DB
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     ${resp}=    RequestsLibrary.GET Request    httpbin    ${idmurl}/users/${user_id}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Log    ${resp.content}
+    Log    ${resp.text}
     [Return]    ${resp}
 
 Create User
@@ -83,5 +83,5 @@ Create User
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${resp}=    RequestsLibrary.POST Request    httpbin    ${idmurl}/users    headers=${headers}    data=${user_data}
     Should Be Equal As Strings    ${resp.status_code}    201
-    Log    ${resp.content}
+    Log    ${resp.text}
     [Return]    ${resp}
