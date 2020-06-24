@@ -30,7 +30,7 @@ def combine_strings(*strings):
     """
     result = ''
     for s in strings:
-        if isinstance(s, str) or isinstance(s, unicode):
+        if isinstance(s, str) or isinstance(s, str):
             result += s
     if result == '':
         return None
@@ -61,7 +61,7 @@ def num_of_nodes(depth, fanout):
     with particular depth and fanout parameters
     '''
     result = 0
-    for i in xrange(depth):
+    for i in range(depth):
         result += fanout**i
     return result
 
@@ -81,4 +81,4 @@ def num_of_links_for_node(nodeid, leaflist, fanout):
 
 
 if __name__ == '__main__':
-    print(num_of_nodes(3, 4))
+    print((num_of_nodes(3, 4)))
