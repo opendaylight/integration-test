@@ -271,8 +271,8 @@ Verify Learnt IP
     [Arguments]    ${ip}    ${session}
     [Documentation]    Check that sub interface ip has been learnt after ARP request
     ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/operational/odl-l3vpn:learnt-vpn-vip-to-port-data/
-    BuiltIn.Log    ${resp.content}
-    BuiltIn.Should Contain    ${resp.content}    ${ip}
+    BuiltIn.Log    ${resp.text}
+    BuiltIn.Should Contain    ${resp.text}    ${ip}
 
 TODO
     Fail    "Not implemented"

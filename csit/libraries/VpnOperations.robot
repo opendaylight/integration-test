@@ -56,8 +56,8 @@ VPN Get L3VPN ID
     [Arguments]    ${vrf_id}
     [Documentation]    Check that sub interface ip has been learnt after ARP request
     ${resp} =    RequestsLibrary.Get Request    session    ${VPN_REST}
-    BuiltIn.Log    ${resp.content}
-    @{list_any_matches} =    String.Get_Regexp_Matches    ${resp.content}    \"vpn-instance-name\":\"${VPN_INSTANCE_ID}\",.*"vrf-id":"${vrf_id}",\"vpn-id\":(\\d+)    1
+    BuiltIn.Log    ${resp.text}
+    @{list_any_matches} =    String.Get_Regexp_Matches    ${resp.text}    \"vpn-instance-name\":\"${VPN_INSTANCE_ID}\",.*"vrf-id":"${vrf_id}",\"vpn-id\":(\\d+)    1
     ${result} =    Evaluate    ${list_any_matches[0]} * 2
     ${vpn_id_hex} =    BuiltIn.Convert To Hex    ${result}
     [Return]    ${vpn_id_hex.lower()}
@@ -117,17 +117,17 @@ ITM Create Tunnel
 ITM Get Tunnels
     [Documentation]    Get all Tunnels and return the contents
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 ITM Delete Tunnel
     [Arguments]    ${zone-name}
     [Documentation]    Delete Tunnels created under the transport-zone
     ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/${zone-name}/
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Verify Flows Are Present For L3VPN
     [Arguments]    ${ip}    ${vm_ips}
@@ -151,10 +151,10 @@ Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
     [Documentation]    get ODL GWMAC table entry
     ${resp} =    RequestsLibrary.Get Request    session    ${VPN_PORT_DATA_URL}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-        Should Contain    ${resp.content}    ${macAdd}
+        Should Contain    ${resp.text}    ${macAdd}
     END
 
 Verify GWMAC Flow Entry Removed From Flow Table
@@ -221,8 +221,8 @@ Get Fib Entries
     [Arguments]    ${session}
     [Documentation]    Get Fib table entries from ODL session
     ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
-    Log    ${resp.content}
-    [Return]    ${resp.content}
+    Log    ${resp.text}
+    [Return]    ${resp.text}
 
 Get Gateway MAC And IP Address
     [Arguments]    ${router_Name}    ${ip_regex}=${IP_REGEX}

@@ -119,7 +119,7 @@ Print Output Topo
     Log    ---- Output Topo Dump After Cooldown----
     Sleep    2s
     ${resp}    Wait Until Keyword Succeeds    5x    250ms    Basic Request Get    ${OVERLAY_TOPO_URL}
-    Log    ${resp.content}
+    Log    ${resp.text}
 
 Refresh Underlay Topologies And Delete Overlay Topology
     [Documentation]    Deletes given overlay topology from datastore and overwrites the underlaying ones with initial topologies
@@ -138,21 +138,21 @@ Insert Underlay Topologies
     # Network underlay topologies
     FOR    ${index}    IN RANGE    1    7
         ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
-        Log    ${resp.content}
+        Log    ${resp.text}
         Should Match    "${resp.status_code}"    "20?"
         # Openflow underlay nodes
     END
     ${resp}    Put Request    session    ${CONFIG_API}/opendaylight-inventory:nodes    data=${OPENFLOW_UNDERLAY_NODES}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Match    "${resp.status_code}"    "20?"
     # Openflow underlay topologies
     FOR    ${index}    IN RANGE    1    7
         ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
-        Log    ${resp.content}
+        Log    ${resp.text}
         Should Match    "${resp.status_code}"    "20?"
     END
     Issue Command On Karaf Console    log:clear
-    Log    ${resp.content}
+    Log    ${resp.text}
 
 Prepare Unification Inside Topology Request
     [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${underlay_topo1}
@@ -468,16 +468,16 @@ Output Topo Should Be Complete
     ...    ${link-ref_count}=-1
     [Documentation]    Verifies that the output topology contains the expected amount of essential elements
     ${resp}    Wait Until Keyword Succeeds    5x    250ms    Basic Request Get    ${OVERLAY_TOPO_URL}
-    Should Contain    ${resp.content}    <topology-id>${OUTPUT_TOPO_NAME}</topology-id>
-    Run Keyword If    ${node_count}>-1    Should Contain X Times    ${resp.content}    <node>    ${node_count}
-    Run Keyword If    ${supporting-node_count}>-1    Should Contain X Times    ${resp.content}    <supporting-node>    ${supporting-node_count}
-    Run Keyword If    ${node-ref_count}>-1    Should Contain X Times    ${resp.content}    <node-ref>    ${node-ref_count}
-    Run Keyword If    ${link_count}>-1    Should Contain X Times    ${resp.content}    <link>    ${link_count}
-    Run Keyword If    ${link-ref_count}>-1    Should Contain X Times    ${resp.content}    <link-ref>    ${link-ref_count}
-    Run Keyword If    ${tp_count}>-1    Should Contain X Times    ${resp.content}    <termination-point>    ${tp_count}
-    Run Keyword If    ${tp-ref_count}>-1    Should Contain X Times    ${resp.content}    <tp-ref>    ${tp-ref_count}
+    Should Contain    ${resp.text}    <topology-id>${OUTPUT_TOPO_NAME}</topology-id>
+    Run Keyword If    ${node_count}>-1    Should Contain X Times    ${resp.text}    <node>    ${node_count}
+    Run Keyword If    ${supporting-node_count}>-1    Should Contain X Times    ${resp.text}    <supporting-node>    ${supporting-node_count}
+    Run Keyword If    ${node-ref_count}>-1    Should Contain X Times    ${resp.text}    <node-ref>    ${node-ref_count}
+    Run Keyword If    ${link_count}>-1    Should Contain X Times    ${resp.text}    <link>    ${link_count}
+    Run Keyword If    ${link-ref_count}>-1    Should Contain X Times    ${resp.text}    <link-ref>    ${link-ref_count}
+    Run Keyword If    ${tp_count}>-1    Should Contain X Times    ${resp.text}    <termination-point>    ${tp_count}
+    Run Keyword If    ${tp-ref_count}>-1    Should Contain X Times    ${resp.text}    <tp-ref>    ${tp-ref_count}
     Log    ---- Output Topo ----
-    Log    ${resp.content}
+    Log    ${resp.text}
     [Return]    ${resp}
 
 Set Global Variable If It Does Not Exist
