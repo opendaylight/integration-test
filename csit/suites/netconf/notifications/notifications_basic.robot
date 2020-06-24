@@ -82,6 +82,8 @@ Check_Subscribtion
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${location} =    XML.Get Element Text    ${resp.content}
     BuiltIn.Log    ${location}
+    BuiltIn.Log    ${resp.headers["Location"]}
+    Should Contain    ${location}    ${resp.headers["Location"]}
     BuiltIn.Set_Suite_Variable    ${location}
 
 Start_Receiver
