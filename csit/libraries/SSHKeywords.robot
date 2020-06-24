@@ -143,7 +143,7 @@ Assure_Library_Ipaddr
     [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to target_dir if not.
     ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && python -c "import ipaddr"'
     BuiltIn.Return_From_Keyword_If    ${passed}
-    SSHLibrary.Put_File    ${CURDIR}/ipaddr.py    ${target_dir}/
+    Execute_Command_Passes    bash -c 'pip install ipaddr'
 
 Assure_Library_Counter
     [Arguments]    ${target_dir}=.
