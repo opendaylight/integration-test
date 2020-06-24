@@ -48,7 +48,8 @@ ${RESTCONF_SUBSCRIBE_URI}    restconf/operations/sal-remote:create-data-change-e
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
 ${NODES_STREAM_PATH}    opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
 ${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/data-change-event-subscription/${NODES_STREAM_PATH}
-${RFC8040_GET_SUBSCRIPTION_URI}    rests/data/ietf-restconf-monitoring:restconf-state/streams/stream/data-change-event-subscription/${NODES_STREAM_PATH}
+${RFC8040_NOTIFICATIONS_STREAMS_URI}    rests/data/ietf-restconf-monitoring:restconf-state/streams
+${RFC8040_GET_SUBSCRIPTION_URI}    ${RFC8040_NOTIFICATIONS_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_CONFIG_DATA}    config_data.xml
 ${RECEIVER_LOG_FILE}    wsreceiver.log
 ${RECEIVER_OPTIONS}    ${EMPTY}
@@ -62,9 +63,13 @@ Clean_Config
     TemplatedRequests.Delete_From_Uri    uri=${uri}    additional_allowed_status_codes=${DELETED_STATUS_CODES}
     # TODO: Rework also other test cases to use TemplatedRequests.
 
-Create_Subscribtion
+Create_Subscription
     [Documentation]    Subscribe for notifications.
     [Tags]    critical
+    # check get streams url passes prior to creating a subscription
+    ${resp} =    RequestsLibrary.Get_Request    restconf    ${RFC8040_NOTIFICATIONS_STREAMS_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
     BuiltIn.Log    ${RESTCONF_SUBSCRIBE_URI}
     BuiltIn.Log    ${body}
@@ -73,8 +78,21 @@ Create_Subscribtion
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Check_Subscribtion
-    [Documentation]    Get & check subscribtion ...
+Check_Notification_Stream
+    [Documentation]    Check any notification stream via RESTCONF is accessible
+    [Tags]    critical
+    ${resp} =    RequestsLibrary.Get_Request    restconf    ${RFC8040_NOTIFICATIONS_STREAMS_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${root}=    XML.Parse XML    ${resp.content}
+    ${name}=    Get Elements Texts    ${root}    stream/name
+    BuiltIn.Log    ${name[0]}
+    ${resp} =    RequestsLibrary.Get_Request    restconf    ${RFC8040_NOTIFICATIONS_STREAMS_URI}/stream=${name[0]}/access=JSON/location    headers=${SEND_ACCEPT_XML_HEADERS}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Check_Subscription
+    [Documentation]    Get & check subscription ...
     [Tags]    critical
     ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${RESTCONF_GET_SUBSCRIPTION_URI}    ${RFC8040_GET_SUBSCRIPTION_URI}
     ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
