@@ -374,7 +374,7 @@ Get Stats XML
     [Documentation]    Parse the xml output and returns it.
     ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
     ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
-    ${resp_xml}=    Parse XML    ${resp.content}
+    ${resp_xml}=    Parse XML    ${resp.text}
     ${id1}=    Get Element Text    ${resp_xml}    ${xpath}
     Delete All Sessions
     [Return]    ${id1}
@@ -384,7 +384,7 @@ Return all XML matches
     [Documentation]    Returns all the values from xpath
     ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
     ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
-    ${resp_xml}=    Parse XML    ${resp.content}
+    ${resp_xml}=    Parse XML    ${resp.text}
     @{id1}=    Get Elements Texts    ${resp_xml}    ${xpath}
     Delete All Sessions
     [Return]    @{id1}
@@ -466,7 +466,7 @@ Generate TSDR Query
     [Documentation]    Issues TSDR Query and returns the list
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
     ${resp}=    RequestsLibrary.Get Request    session    /tsdr/metrics/query?tsdrkey="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}    headers=${HEADERS_QUERY}
-    @{convert}=    Parse Json    ${resp.content}
+    @{convert}=    Parse Json    ${resp.text}
     Delete All Sessions
     [Return]    @{convert}
 
@@ -476,7 +476,7 @@ Generate TSDR NBI
     [Documentation]    Issues TSDR Query and returns the list
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
     ${resp}=    RequestsLibrary.Get Request    session    /tsdr/nbi/render?target="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}&maxDataPoints=${datapts}    headers=${HEADERS_QUERY}
-    @{convert}=    Parse Json    ${resp.content}
+    @{convert}=    Parse Json    ${resp.text}
     ${dict_convert}=    Convert To Dictionary    @{convert}
     @{dict}=    Get Dictionary Values    ${dict_convert}
     ${datapoints_list}=    Convert to List    ${dict}[0]
@@ -600,7 +600,7 @@ Collect Data from SNMP Agent
     ${snmpagentcreate_json}=    json.dumps    ${snmpagentcreate}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
     ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/snmp:get-interfaces    data=${snmpagentcreate_json}
-    ${convert}=    To Json    ${resp.content}
+    ${convert}=    To Json    ${resp.text}
     @{dict1}=    Get Dictionary Keys    ${convert}
     ${dict1_0}=    Get From List    ${dict1}    0
     ${dict1_val}=    Get From Dictionary    ${convert}    ${dict1_0}
@@ -668,8 +668,8 @@ Retrieve Value From Elasticsearch
     ${els_JSON_request}=    build_elastic_search_JSON_request    ${els_query}
     ${resp}=    RequestsLibrary.Post_Request    session    _search?pretty    data=${els_JSON_request}
     Should Be Equal As Strings    ${resp.status_code}    200
-    @{convert}=    Parse Json    ${resp.content}
-    ${json}=    RequestsLibrary.To Json    ${resp.content}
+    @{convert}=    Parse Json    ${resp.text}
+    ${json}=    RequestsLibrary.To Json    ${resp.text}
     ${result}=    extract_metric_value_search    ${json}
     [Teardown]    Delete All Sessions
     [Return]    ${result}
@@ -682,8 +682,8 @@ Check Available values from Elasticsearch
     ${els_JSON_request}=    build_elastic_search_JSON_request    ${els_query}
     ${resp}=    RequestsLibrary.Post_Request    session    _search?pretty    data=${els_JSON_request}
     Should Be Equal As Strings    ${resp.status_code}    200
-    @{convert}=    Parse Json    ${resp.content}
-    ${json}=    RequestsLibrary.To Json    ${resp.content}
+    @{convert}=    Parse Json    ${resp.text}
+    ${json}=    RequestsLibrary.To Json    ${resp.text}
     ${result}=    extract_metric_value_count    ${json}
     Log To Console    Elasticsearch: Check number of elements
     Should Be True    ${result} > ${number_items}

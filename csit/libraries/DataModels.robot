@@ -19,7 +19,7 @@ Get Model Dump
     Create Session    model_dump_session    http://${controller_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=1    max_retries=0
     FOR    ${model}    IN    @{data_models}
         ${resp}=    RequestsLibrary.Get Request    model_dump_session    restconf/${model}
-        ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
+        ${pretty_output}=    To Json    ${resp.text}    pretty_print=True
         Log    ${pretty_output}
     END
 
