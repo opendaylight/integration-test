@@ -370,7 +370,7 @@ def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, cont
     while loop:
         try:
             flowlist = inqueue.get(timeout=1)
-        except Queue.Empty:
+        except queue.Empty:
             if exitevent.is_set() and inqueue.empty():
                 loop = False
             continue
@@ -452,14 +452,14 @@ def _task_executor(method='', flow_template=None, flow_details=[], controllers=[
     # lets fill the queue with details needed for one http requests
     # we have lists with flow details for particular (switch, table) tupples, now we need to split the lists
     # according to the flows per request (fpr) paramer
-    sendqueue = Queue.Queue()
+    sendqueue = queue.Queue()
     for flowgroup, flow_list in flowgroups.items():
         while len(flow_list) > 0:
             sendqueue.put(flow_list[:int(fpr)])
             flow_list = flow_list[int(fpr):]
 
     # result_gueue
-    resultqueue = Queue.Queue()
+    resultqueue = queue.Queue()
     # creaet exit event
     exitevent = threading.Event()
 

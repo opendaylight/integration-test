@@ -239,7 +239,7 @@ Get_Owner_And_Candidates_For_Device_Old
     ...    ELSE IF    '${device_type}' == 'org.opendaylight.mdsal.ServiceEntityType'    Extract_Service_Entity_Type    ${data}
     ...    ELSE    Fail    Not recognized device type: ${device_type}
     ${json} =    RequestsLibrary.To_Json    ${clear_data}
-    ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_list} =    Collections.Get_From_Dictionary    ${json}[entity-owners]    entity-type
     ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${entity_type}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
     ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
@@ -251,7 +251,7 @@ Get_Owner_And_Candidates_For_Device_Old
     ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
     ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
     FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-        ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+        ${candidate} =    String.Replace_String    ${entity_candidate}[name]    member-    ${EMPTY}
         ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
         Collections.Append_To_List    ${candidate_list}    ${candidate}
     END
@@ -359,7 +359,7 @@ Get_Owner_And_Candidates_For_Type_And_Id
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}    http_timeout=${http_timeout}
     ${candidate_list} =    BuiltIn.Create_List
     ${json} =    RequestsLibrary.To_Json    ${data}
-    ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_list} =    Collections.Get_From_Dictionary    ${json}[entity-owners]    entity-type
     ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${type}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_type_index}    -1    No Entity Owner found for ${type}
     ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
@@ -371,7 +371,7 @@ Get_Owner_And_Candidates_For_Type_And_Id
     ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
     ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
     FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-        ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+        ${candidate} =    String.Replace_String    ${entity_candidate}[name]    member-    ${EMPTY}
         ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
         Collections.Append_To_List    ${candidate_list}    ${candidate}
     END

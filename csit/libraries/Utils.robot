@@ -415,7 +415,7 @@ Get Index From List Of Dictionaries
     ${index}=    Set Variable    -1
     FOR    ${i}    IN RANGE    ${length}
         ${dictionary}=    Get From List    ${dictionary_list}    ${i}
-        Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
+        Run Keyword If    """${dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
     END
     [Return]    ${index}
 
@@ -423,7 +423,7 @@ Check Item Occurrence
     [Arguments]    ${string}    ${dictionary_item_occurrence}
     [Documentation]    Check string for occurrences of items expressed in a list of dictionaries {item=occurrences}. 0 occurences means item is not present.
     FOR    ${item}    IN    @{dictionary_item_occurrence}
-        Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
+        Should Contain X Times    ${string}    ${item}    ${dictionary_item_occurrence}[${item}]
     END
 
 Post Log Check

@@ -22,9 +22,9 @@ Get nodeconnector for the root node
     [Documentation]    Get the inventory for the root node
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:1
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    30s    2s    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.content}
+    Wait Until Keyword Succeeds    30s    2s    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.text}
 
 Get nodeconnector for a node
     [Documentation]    Get the inventory for a node
@@ -46,26 +46,26 @@ Check Every Nodes
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-        Should Contain    ${resp.content}    openflow:${IND}
+        Should Contain    ${resp.text}    openflow:${IND}
     END
 
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
         ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
-        Log    ${resp.content}
+        Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
-        Should Contain    ${resp.content}    flow-capable-node-connector-statistics
-        Should Contain    ${resp.content}    flow-table-statistics
+        Should Contain    ${resp.text}    flow-capable-node-connector-statistics
+        Should Contain    ${resp.text}    flow-table-statistics
     END
 
 Check Every Nodes Nodeconnector
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    2    ${numnodes+1}
         ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
-        Log    ${resp.content}
+        Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
-        Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}
+        Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.text}
     END
 
 Check conn loop
