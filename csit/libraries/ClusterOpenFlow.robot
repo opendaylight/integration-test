@@ -155,18 +155,18 @@ Check Linear Topology On Member
     [Documentation]    Check Linear topology.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
-        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
-        Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
-        Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
-        Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "node-id":"openflow:${switch}"
+        Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:1"
+        Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:2"
+        Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:2"
         ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:3"
+        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:3
     END
 
 Check No Switches On Member
@@ -174,10 +174,10 @@ Check No Switches On Member
     [Documentation]    Check no switch is in topology
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        Should Not Contain    ${resp.content}    openflow:${switch}
+        Should Not Contain    ${resp.text}    openflow:${switch}
     END
 
 Check Number Of Flows On Member
@@ -185,9 +185,9 @@ Check Number Of Flows On Member
     [Documentation]    Check number of flows in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "priority"
+    ${count}=    Get Count    ${resp.text}    "priority"
     Should Be Equal As Integers    ${count}    ${flows}
 
 Check Number Of Groups On Member
@@ -195,7 +195,7 @@ Check Number Of Groups On Member
     [Documentation]    Check number of groups in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${group_count}=    Get Count    ${resp.text}    "group-type"
     Should Be Equal As Integers    ${group_count}    ${groups}

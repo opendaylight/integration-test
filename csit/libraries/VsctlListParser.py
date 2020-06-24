@@ -22,7 +22,7 @@ def _parse_stdout(stdout):
     regroups = re.finditer(pat, text)
     outdict = {}
     for g in regroups:
-        print(g.group())
+        print((g.group()))
         if g.group('key') == '_uuid':
             cntl_uuid = g.group('value')
             outdict[cntl_uuid] = {}
@@ -40,7 +40,7 @@ def _postprocess_data(bridges, controllers):
     cntls = copy.deepcopy(controllers)
 
     # replacing string value of is_connected key with boolean
-    for key, cntl in cntls.iteritems():
+    for key, cntl in cntls.items():
         if cntl['is_connected'] == 'false':
             cntl['is_connected'] = False
         elif cntl['is_connected'] == 'true':
@@ -49,11 +49,11 @@ def _postprocess_data(bridges, controllers):
             cntl['is_connected'] = None
 
     # replacing keys with the same values
-    for key, value in bridges.iteritems():
+    for key, value in bridges.items():
         brs[value['name'][1:-1]] = brs[key]
         del brs[key]
 
-    for key, value in brs.iteritems():
+    for key, value in brs.items():
         # replace string with references with dict of controllers
         ctl_refs = value['controller'][1:-1].split(',')
         value['controller'] = {}
@@ -61,9 +61,9 @@ def _postprocess_data(bridges, controllers):
             if ctl_ref is not '':
                 value['controller'][ctl_ref] = cntls[ctl_ref]
 
-    for brkey, bridge in brs.iteritems():
+    for brkey, bridge in brs.items():
         new_cntls = {}
-        for cnkey, cntl in bridge['controller'].iteritems():
+        for cnkey, cntl in bridge['controller'].items():
             # port 6654 is set by OvsMAnager.robot to disconnect from controller
             if '6653' in cntl['target'] or '6633' in cntl['target'] or '6654' in cntl['target']:
                 new_key = cntl['target'].split(":")[1]     # getting middle from "tcp:ip:6653"
