@@ -258,16 +258,16 @@ Get BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Get bgp configuration
     ${resp} =    RequestsLibrary.Get Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
-    Log    ${resp.content}
-    [Return]    ${resp.content}
+    Log    ${resp.text}
+    [Return]    ${resp.text}
 
 Delete BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Delete BGP
     ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
-    Log    ${resp.content}
+    Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
+    [Return]    ${resp.text}
 
 Create External Tunnel Endpoint Configuration
     [Arguments]    &{Kwargs}
@@ -283,8 +283,8 @@ Get External Tunnel Endpoint Configuration
     [Arguments]    ${ip}
     [Documentation]    Get bgp configuration
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
-    Log    ${resp.content}
-    [Return]    ${resp.content}
+    Log    ${resp.text}
+    [Return]    ${resp.text}
 
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
