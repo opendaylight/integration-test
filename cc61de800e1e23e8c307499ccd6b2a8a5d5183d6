@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08f10414_9708a7ff",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-06-25T05:26:43Z",
+      "side": 1,
+      "message": "Not needed, project is archived",
+      "revId": "cc61de800e1e23e8c307499ccd6b2a8a5d5183d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
