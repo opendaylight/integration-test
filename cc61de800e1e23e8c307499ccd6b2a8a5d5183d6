@@ -16,6 +16,24 @@
       "revId": "cc61de800e1e23e8c307499ccd6b2a8a5d5183d6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d918b86_b229d418",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-06-25T06:24:19Z",
+      "side": 1,
+      "message": "doesn\u0027t hurt, but good point Rangan... we should probably remove all of VTN test code. I did\na similar patch for NIC here: https://git.opendaylight.org/gerrit/c/integration/test/+/90588",
+      "parentUuid": "08f10414_9708a7ff",
+      "revId": "cc61de800e1e23e8c307499ccd6b2a8a5d5183d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
