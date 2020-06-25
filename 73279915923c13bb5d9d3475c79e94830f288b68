@@ -70,6 +70,30 @@
       "revId": "73279915923c13bb5d9d3475c79e94830f288b68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb09bb2e_908dacc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-06-25T00:31:44Z",
+      "side": 1,
+      "message": "Depending who you ask, if you ask Thanh he will tell we should not be installing any python module in the images to avoid version problems, instead every test should install its own dependencies :)",
+      "parentUuid": "c6f08256_8f324c33",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "73279915923c13bb5d9d3475c79e94830f288b68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
