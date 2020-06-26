@@ -45,7 +45,7 @@ def getClusterRoles(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesI
                         dataValue = data['value']
                         print("datavalue RaftState is", dataValue['RaftState'])
                         dict[ip] = dataValue['RaftState']
-                except:
+                except Exception:
                     e = sys.exc_info()[0]
                     print("Try" + str(j) + ":An error occurred when finding leader on" + ip +
                           " for shardName:" + shardMemberName)

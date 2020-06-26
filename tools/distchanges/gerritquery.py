@@ -82,7 +82,7 @@ class GerritQuery:
                 return string.encode(encoding or 'utf-8', 'replace')
             else:
                 return str(string)
-        except:
+        except Exception:
             return str(string)
 
     def run_command_status(self, *argv, **kwargs):

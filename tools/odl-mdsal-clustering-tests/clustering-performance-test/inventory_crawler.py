@@ -133,7 +133,7 @@ class InventoryCrawler(object):
                 for n in range(len(sinv)):
                     try:
                         self.crawl_node(sinv[n])
-                    except:
+                    except Exception:
                         print('Can not crawl %s' % sinv[n]['id'])
 
             except KeyError:
