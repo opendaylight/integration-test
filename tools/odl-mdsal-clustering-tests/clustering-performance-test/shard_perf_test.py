@@ -222,7 +222,7 @@ class TestUrlGenerator(object):
         else:
             try:
                 r_url = self.url_generator(json.loads(r.content))
-            except:
+            except Exception:
                 print("Failed to get json from '%s'. Please make sure you are connected to mininet." % (r_url))
 
         return r_url

@@ -205,7 +205,7 @@ def get_id_by_name(args):
             try:
                 if name == name_record:
                     return node_record
-            except:
+            except Exception:
                 raise
 
 
@@ -282,7 +282,7 @@ def get_attribute_by_id(args):
             try:
                 name_record = jsonobj[blobkey][i]['name']
                 node_record = jsonobj[blobkey][i][typename]
-            except:
+            except Exception:
                 name_record = jsonobj['name']
                 node_record = jsonobj[typename]
 
@@ -319,7 +319,7 @@ def get_role_id_by_rolename(pobject, rolename, number_nodes):
                              'typeval': 'role'})
     try:
         roleid
-    except:
+    except Exception:
         raise
     else:
         return roleid
@@ -355,7 +355,7 @@ def get_role_name_by_roleid(pobject, roleid, number_nodes):
                                     'typeval': 'role'})
     try:
         rolename
-    except:
+    except Exception:
         raise
     else:
         return rolename
@@ -391,7 +391,7 @@ def get_role_description_by_roleid(pobject, roleid, number_nodes):
                                     'typeval': 'role'})
     try:
         roledesc
-    except:
+    except Exception:
         raise
     else:
         return roledesc
@@ -428,7 +428,7 @@ def get_domain_id_by_domainname(pobject, domainname, number_nodes):
 
     try:
         domainid
-    except:
+    except Exception:
         raise
     else:
         return domainid
@@ -465,7 +465,7 @@ def get_domain_name_by_domainid(pobject, domainid, number_nodes):
                                       'typeval': 'domain'})
     try:
         domainname
-    except:
+    except Exception:
         raise
     else:
         return domainname
@@ -502,7 +502,7 @@ def get_domain_description_by_domainid(pobject, domainid, number_nodes):
                                       'typeval': 'domain'})
     try:
         domaindesc
-    except:
+    except Exception:
         raise
     else:
         return domaindesc
@@ -539,7 +539,7 @@ def get_domain_state_by_domainid(pobject, domainid, number_nodes):
                                        'typeval': 'domain'})
     try:
         domainstate
-    except:
+    except Exception:
         raise
     else:
         return domainstate
@@ -578,7 +578,7 @@ def get_user_id_by_username(pobject, username, number_nodes):
                              'typeval': 'user'})
     try:
         userid
-    except:
+    except Exception:
         raise
     else:
         return userid
@@ -618,7 +618,7 @@ def get_user_password_by_userid(pobject, userid, number_nodes):
                                         'typeval': 'user'})
     try:
         userpassword
-    except:
+    except Exception:
         raise
     else:
         return userpassword
@@ -658,7 +658,7 @@ def get_user_name_by_userid(pobject, userid, number_nodes):
                                     'typeval': 'user'})
     try:
         username
-    except:
+    except Exception:
         raise
     else:
         return username
@@ -698,7 +698,7 @@ def get_user_state_by_userid(pobject, userid, number_nodes):
                                      'typeval': 'user'})
     try:
         userstate
-    except:
+    except Exception:
         raise
     else:
         return userstate
@@ -738,7 +738,7 @@ def get_user_email_by_userid(pobject, userid, number_nodes):
                                      'typeval': 'user'})
     try:
         useremail
-    except:
+    except Exception:
         raise
     else:
         return useremail
@@ -778,7 +778,7 @@ def get_user_description_by_userid(pobject, userid, number_nodes):
                                     'typeval': 'user'})
     try:
         userdesc
-    except:
+    except Exception:
         raise
     else:
         return userdesc
