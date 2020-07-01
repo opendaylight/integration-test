@@ -103,7 +103,7 @@ Setup
     CarPeople.Set_Variables_For_Shard    shard_name=car
     CarPeople.Set_Variables_For_Shard    shard_name=people
     CarPeople.Set_Variables_For_Shard    shard_name=car-people
-    ${follower_number} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} / ${NUM_ODL_SYSTEM}
+    ${follower_number} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} // ${NUM_ODL_SYSTEM}
     BuiltIn.Set_Suite_Variable    ${items_per_follower}    ${follower_number}
     ${leader_number} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} - (${NUM_ODL_SYSTEM} - 1) * ${follower_number}
     BuiltIn.Set_Suite_Variable    ${items_per_leader}    ${leader_number}

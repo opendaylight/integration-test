@@ -3,7 +3,7 @@ Python invocation of several parallel publish-notifications RPCs.
 """
 from robot.api import logger
 import time
-import Queue
+import queue
 import requests
 import string
 import threading
@@ -16,7 +16,7 @@ def _send_http_request_thread_impl(rqueue, prefix_id, url, data, http_timeout):
     """Start either publish or write transactions rpc based on input.
 
     :param rqueue: result queue
-    :type rqueue: Queue.Queue
+    :type rqueue: queue.Queue
     :param prefix_id: identifier for prefix, should imply cluster member index
     :type prefix_id: str
     :param url: rpc url
@@ -50,7 +50,7 @@ def _initiate_rpcs(host_list, index_list, url_templ, data_templ, subst_dict):
     :param subst_dict: dictionary with key value pairs to be used with template
     :type subst_dict: dict
     """
-    resqueue = _globals.pop('result_queue', Queue.Queue())
+    resqueue = _globals.pop('result_queue', queue.Queue())
     lthreads = _globals.pop('threads', [])
     for i, host in enumerate(host_list):
         url = url_templ.substitute({'HOST': host})
