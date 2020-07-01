@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d461e5a_39bccf26",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-01T05:37:56Z",
+      "side": 1,
+      "message": "with?",
+      "revId": "43856ddc9941e1fb623b2d2431d56ffec47d08a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
