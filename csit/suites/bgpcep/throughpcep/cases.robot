@@ -57,6 +57,7 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               values as default.
 ...               If both updater VM and pcc-mock VM parameters are specified,
 ...               Mininet(TOOLS_SYSTEM) parameters may be skipped.
+...               Variable ${USE_TOOLS_SYSTEM} decides the pcc-mock running machine.
 ...
 ...               Some launch scripts put restrictions on how pybot options
 ...               can be specified, so there are utility variables to help with
@@ -123,15 +124,24 @@ Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Depl
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*, Flexible_SSH_Login
 
 *** Variables ***
+# This Variable decides the pcc mock to run in ODL system or tools system.
+${USE_TOOLS_SYSTEM}    False
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
+${BLOCKING-THREAD}    1
+${DELAY_TIME}     10
 ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 # ${LOG_FILE} is reserved for location of pybot-created log.html
+${INIT_PCC_DEVICE_COUNT}    ${100}
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
 ${LSPS}           65535
+#Reduced max pcc device count to 100 for BGPCEP-901
+${MAX_PCC_DEVICE_COUNT}    ${200}
 ${ODL_SYSTEM_WORKSPACE}    /tmp
+${PARALLEL_ITERATION}    10
+${PCC_DEVICE_INCREMENT}    ${50}
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
@@ -147,6 +157,7 @@ ${RESTCONF_PASSWORD}    ${PWD}    # from Variables.robot
 ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
 ${RESTCONF_USER}    ${USER}    # from Variables.robot
+${SEQUENTIAL_ITERATION}    15
 ${TOOLS_SYSTEM_WORKSPACE}    /tmp
 ${UPDATER_COLOCATED}    False
 ${UPDATER_ODLADDRESS}    ${ODL_SYSTEM_IP}
@@ -163,6 +174,7 @@ ${UPDATERVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 *** Test Cases ***
 Download_Pcc_Mock
     [Documentation]    SSH login to pcc-mock VM, download latest pcc-mock executable from Nexus.
+    [Setup]    Select_MOCK_Machine
     BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHLibrary.Open_Connection    ${PCCMOCKVM_IP}    alias=pccmock
@@ -208,19 +220,10 @@ Topology_Precondition
     Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    1s    Pcep_Off
     # Yes, timeout is 5 minutes, as this suite might be started eagerly just after ODL starts booting up.
 
-Start_Pcc_Mock
-    [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
-    SSHLibrary.Switch_Connection    pccmock
-    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
-    BuiltIn.Log    ${command}
-    SSHLibrary.Write    ${command}
-    # The pccmock SSH session is left alive, but no data will be exchanged for a while.
-    # We need this connection to stay alive to send ctrl+c later.
-    # SSHLibrary.Start_Command would not do that for us.
-
 Topology_Intercondition
     [Documentation]    Verify that within timeout, PCEP topology contains correct numbers of LSPs.
     [Tags]    critical
+    [Setup]    Start_Pcc_Mock
     ${localsize} =    Evaluate    int(${PCCS})*int(${LSPS})
     Builtin.Set_Suite_Variable    ${size}    ${localsize}
     BuiltIn.Log    ${size}
@@ -342,11 +345,30 @@ Stop_Pcc_Mock
     [Setup]    Run_Even_When_Failing_Fast
     SSHLibrary.Switch_Connection    pccmock
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    [Teardown]    Run Keywords    Kill all pcc mock simulator processes    AND    Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+
+PCEP Sessions Flapped with LSP updates
+    [Documentation]    Flapping PCEP sessions and perform LSP updates within flapping
+    Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'True'    BuiltIn.Pass Execution    Pcc Mock should not run in ODL System
+    FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
+        Flap Pcc Mock sessions continuously with LSP updates    127.1.0.0    ${devices}    150
+    END
+    [Teardown]    Run Keywords    Kill all pcc mock simulator processes    AND    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+
+PCEP Sessions Flapped alongside LSP updates
+    [Documentation]    Flapping PCEP sessions and perform LSP updates alongside flapping
+    Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'True'    BuiltIn.Pass Execution    Pcc Mock should not run in ODL System
+    FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
+        Flap Pcc Mock sessions parallelly with LSP updates    127.1.0.0    ${devices}    150
+        BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    END
+    [Teardown]    Run Keywords    Kill all pcc mock simulator processes    AND    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 Download_Pccmock_Log
     [Documentation]    Transfer pcc-mock output from pcc-mock VM to robot VM.
     [Setup]    Run_Even_When_Failing_Fast
-    SSHLibrary.Get_File    ${LOG_PATH}/${LOG_NAME}    ${LOG_NAME}
+    SSHLibrary.Execute Command    zip ${LOG_PATH}/mock_log.zip /tmp/throughpcep*
+    SSHLibrary.Get_File    ${LOG_PATH}/mock_log.zip    mock_log.zip
 
 Topology_Postcondition
     [Documentation]    Verify that within timeout, PCEP topology contains no PCCs again.
@@ -364,6 +386,22 @@ Restore_Tcp_Rw_Reuse
     BuiltIn.Should_Be_Equal    ${rc}    ${0}
 
 *** Keywords ***
+Select_MOCK_Machine
+    [Documentation]    Check the tools system variable and assigns the PCC Mock
+    Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'False'    Run Keywords    Pccmock_From_Odl_System    AND    Updater_From_Odl_System
+    BuiltIn.Set_Suite_Variable    ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
+
+Start_Pcc_Mock
+    [Arguments]    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${log_name}=${LOG_NAME}
+    [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
+    SSHLibrary.Switch_Connection    pccmock
+    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${mock-ip} --remote-address ${ODL_SYSTEM_IP} --pcc ${pccs} --lsp ${lsps} &> ${LOG_PATH}/${log_name}
+    BuiltIn.Log    ${command}
+    SSHLibrary.Write    ${command}
+    # The pccmock SSH session is left alive, but no data will be exchanged for a while.
+    # We need this connection to stay alive to send ctrl+c later.
+    # SSHLibrary.Start_Command would not do that for us.
+
 Pccmock_From_Odl_System
     [Documentation]    Copy Odl_System values to Pccmock VM variables.
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
@@ -429,7 +467,7 @@ Set_Hop
     BuiltIn.Log    ${hop}
 
 Updater
-    [Arguments]    ${iteration}    ${workers}
+    [Arguments]    ${iteration}    ${workers}    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${parallel}=False
     [Documentation]    Compute number of workers, call updater.py, assert its response.
     SSHLibrary.Switch_Connection    pccmock
     # In some systems, inactive SSH sessions get severed.
@@ -438,14 +476,82 @@ Updater
     # The previous line relies on a fact that Execute_Command spawns separate shels, so running pcc-mock is not affected.
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
-    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${PCCS}' --lsps '${LSPS}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    Check Updater response    ${response}    ${parallel}
+
+Check Updater response
+    [Arguments]    ${response}    ${parallel}
     BuiltIn.Log    ${response}
-    ${expected} =    BuiltIn.Set_Variable    Counter({'pass': ${size}})
-    BuiltIn.Log    ${expected}
-    BuiltIn.Should_Contain    ${response}    ${expected}
+    ${expected_value_continuous_execution} =    BuiltIn.Set_Variable    Counter({'pass': ${size}})
+    ${not_expected_value_for_parallel_execution} =    BuiltIn.Set_Variable    Counter({'pass': 0})
+    BuiltIn.Log    ${expected_value_continuous_execution}
+    Run Keyword If    '${parallel}' == 'False'    BuiltIn.Should_Contain    ${response}    ${expected_value_continuous_execution}
+    ...    ELSE    BuiltIn.Should_Not_Contain    ${response}    ${not_expected_value_for_parallel_execution}
 
 Verify
     [Arguments]    ${iteration}
     [Documentation]    Set hop and verify that within timeout, all LSPs in topology are updated.
     Set_Hop    ${iteration}
     Builtin.Wait_Until_Keyword_Succeeds    30s    1s    Pcep_On
+
+Flap Pcc Mock sessions continuously with LSP updates
+    [Arguments]    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}
+    ${localsize} =    Evaluate    int(${pccs})*int(${lsps})
+    Builtin.Set_Suite_Variable    ${size}    ${localsize}
+    ${workers} =    Set Variable    ${BLOCKING-THREAD}
+    FOR    ${i}    IN RANGE    ${SEQUENTIAL_ITERATION}
+        ${workers} =    Evaluate    ${workers}*${workers}
+        Set_Hop    0
+        Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+        Start_Pcc_Mock    ${mock-ip}    ${pccs}    ${lsps}    serial_execution.log
+        Builtin.Wait_Until_Keyword_Succeeds    60s    5s    Pcep_On
+        ${i} =    Evaluate    ${i}+1
+        Updater    ${i}    ${workers}    127.1.0.0    ${pccs}    ${lsps}
+        Verify    ${i}
+        SSHLibrary.Switch_Connection    pccmock
+        BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    END
+    Check PCEP is stable
+
+Flap Pcc Mock sessions parallelly with LSP updates
+    [Arguments]    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}
+    SSHLibrary.Switch_Connection    pccmock
+    SSHLibrary.Put File    ${CURDIR}/../../../../tools/pcep_updater/mock.sh    /tmp/mock.sh
+    Set_Hop    0
+    Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+    SSHLibrary.Start Command    sh /tmp/mock.sh ${mock_location} ${mock-ip} ${ODL_SYSTEM_IP} ${pccs} ${lsps} parallel_Execution ${DELAY_TIME} &>1
+    FOR    ${i}    IN RANGE    ${PARALLEL_ITERATION}
+        ${pid} =    SSHLibrary.Execute Command    ps -fu ${ODL_SYSTEM_USER} | grep "/home/${ODL_SYSTEM_USER}/${mock_location}" | grep -v "grep" | awk '{print $2}'
+        Run Keyword If    '${pid}'!= ""    Log    ${pid}
+        ${i} =    Evaluate    ${i}+1
+        Run Keyword If    '${pid}'!= ""    Updater    ${i}    1    127.1.0.0    ${pccs}    ${lsps}    True
+    END
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    Kill all pcc mock simulator processes
+    Check PCEP is stable
+
+Check PCEP is stable
+    [Documentation]    Check PCEP topology with default pcc and lsp values
+    ${localsize} =    Evaluate    int(${PCCS})*int(${LSPS})
+    Builtin.Set_Suite_Variable    ${size}    ${localsize}
+    Builtin.Wait_Until_Keyword_Succeeds    90s    5s    Pcep_Off_Again
+    Start_Pcc_Mock
+    Builtin.Wait_Until_Keyword_Succeeds    60s    5s    Pcep_On
+    Updater    2    1
+    Verify    2
+    SSHLibrary.Switch_Connection    pccmock
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+
+Kill all pcc mock simulator processes
+    SSHLibrary.Switch_Connection    pccmock
+    ${mock_pid}    Get pid    /home/${ODL_SYSTEM_USER}/${mock_location}
+    SSHLibrary.Execute_Command    kill -9 ${mock_pid}
+    ${script_pid_1}    Get pid    bash -c sh /tmp/mock.sh
+    SSHLibrary.Execute_Command    kill -9 ${script_pid_1}
+    ${script_pid_2}    Get pid    sh /tmp/mock.sh
+    SSHLibrary.Execute_Command    kill -9 ${script_pid_2}
+
+Get pid
+    [Arguments]    ${process_name}
+    ${pid} =    SSHLibrary.Execute Command    ps -fu ${ODL_SYSTEM_USER} | grep "${process_name}" | grep -v "grep" | awk '{print $2}'
+    [Return]    ${pid}
