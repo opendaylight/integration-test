@@ -22,6 +22,30 @@
       "revId": "e60592d10985ae422539fe0494946ab2d92f0d52",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b80a84b_cd42176c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-02T03:57:55Z",
+      "side": 1,
+      "message": "actually, I forgot it\u0027s really easy to edit commit messages directly from gerrit so I did it. I\u0027ll merge after +verify comes back",
+      "parentUuid": "7057be65_7cfe1ffb",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "e60592d10985ae422539fe0494946ab2d92f0d52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
