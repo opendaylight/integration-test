@@ -36,6 +36,7 @@ import collections  # For deque and Counter.
 import ipaddr
 import threading
 import time
+import json
 try:
     from collections import Counter
 except ImportError:  # Python 2.6 does not have Counter in collections.
@@ -124,6 +125,8 @@ def iterable_msg(pccs, lsps, workers, hop):
             worker = (lsp * pccs + pcc) % workers
             post_kwargs = {"data": whole_data, "headers": headers}
             yield worker, post_kwargs
+            parsed = json.loads(whole_data)
+            print(json.dumps(parsed, indent=4, sort_keys=True))
 
 
 def queued_send(session, queue_messages, queue_responses):
