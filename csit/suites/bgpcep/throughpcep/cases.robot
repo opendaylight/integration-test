@@ -1,41 +1,41 @@
 *** Settings ***
 Documentation     PCEP performance suite, uses restconf with configurable authentication.
-...
+...           
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
-...
+...           
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...
-...
+...           
+...           
 ...               General Overview:
-...
+...           
 ...               This is a suite which has both scale and performance aspects.
 ...               Given scale target, suite reports failures if functional error
 ...               is detected, or if various time limits expire.
 ...               For passing test cases, their duration is the performance metric.
-...
+...           
 ...               ODL acts as a translation layer between PCEP capable devices
 ...               and users employing RESTCONF.
 ...               Performance measurement focuses on two different workflows.
-...
+...           
 ...               The first workflow is initial synchronization, when ODL learns
 ...               the state of PCEP topology as devices connect to it,
 ...               while restconf user reads the state repeatedly.
 ...               The second workflow is mass update, when restconf users issue RPCs
 ...               to updale Layer Switched Paths on Path Computation Clients.
-...
+...           
 ...               This suite uses pcc-mock (downloaded from Nexus) to simulate PCCs.
 ...               It needs segment of bindable IP addresses,
 ...               one for each simulated PCC; so running pcc-mock from remote machine
 ...               is only viable when just single PCC is simulated.
 ...               Testing with multiple PCCs works best when pcc-mock
 ...               runs on the same VM as ODL, so 127.0.0.0/8 subnet can be used.
-...
+...           
 ...               Library AuthStandalone is used directly for restconf reads
 ...               in the first workflow. That library transparently handles several
 ...               http authentication methods, based on credentials and pybot arguments.
-...
+...           
 ...               In the second workflow, updater.py utility is used for issuing
 ...               rapid restconf requests. It can use multiple worker threads,
 ...               as http requests are blocking.
@@ -45,10 +45,10 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               being more limiting factor than CPU).
 ...               This suite starts updater utility bound to single CPU,
 ...               as this setup was the most performant in other tests.
-...
+...           
 ...               In case of failed test case, other tests are skipped (unless
 ...               this is overriden by [Setup]) to finish test run sooner.
-...
+...           
 ...               Variables and test case names refer to Controller(ODL_SYSTEM) and Mininet
 ...               (TOOLS_SYSTEM), those are assumed to be separate remote VMs, one to host ODL,
 ...               other to host tools.
@@ -57,25 +57,25 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               values as default.
 ...               If both updater VM and pcc-mock VM parameters are specified,
 ...               Mininet(TOOLS_SYSTEM) parameters may be skipped.
-...
+...           
 ...               Some launch scripts put restrictions on how pybot options
 ...               can be specified, so there are utility variables to help with
 ...               copying Controller related value to apply fo updater of pccmock.
 ...               Having a tool co-located with ODL reduces network latency,
 ...               but puts more pressure on CPU and memory on Controller VM.
-...
+...           
 ...               In some environments, issues with TIME-WAIT prevent high restconf rates,
 ...               so TCP reuse is temporarily allowed during the suite run, if possible
 ...               (and if not disabled by UPDATERVM_ENABLE_TCP_RW_REUSE option value).
 ...               See http://vincent.bernat.im/en/blog/2014-tcp-time-wait-state-linux.html
 ...               This suite ignores possible failures when changing reuse.
-...
+...           
 ...               Similarly, in some environments, handling of requests.Session object matters
 ...               try changing RESTCONF_REUSE value to see if it helps.
-...
+...           
 ...               Variables to override (only if needed) in pybot command:
 ...               (Look into Variables table to see the default values.)
-...
+...           
 ...               FIRST_PCC_IP: Set in case bind address is different from public pcc-mock VM address.
 ...               LOG_NAME: Filename (without path) to save pcc-mock output into.
 ...               LOG_PATH: Override if not the same as pccmock VM workspace.
@@ -126,12 +126,18 @@ Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Requir
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
+${BLOCKING-THREAD}    1
 ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 # ${LOG_FILE} is reserved for location of pybot-created log.html
+${INIT_PCC_DEVICE_COUNT}    ${100}
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
 ${LSPS}           65535
+#Reduced max pcc device count to 100 for BGPCEP-901
+${MAX_PCC_DEVICE_COUNT}    ${100}
 ${ODL_SYSTEM_WORKSPACE}    /tmp
+${PARALLEL_ITERATION}    10
+${PCC_DEVICE_INCREMENT}    ${50}
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
@@ -147,6 +153,7 @@ ${RESTCONF_PASSWORD}    ${PWD}    # from Variables.robot
 ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
 ${RESTCONF_USER}    ${USER}    # from Variables.robot
+${SEQUENTIAL_ITERATION}    15
 ${TOOLS_SYSTEM_WORKSPACE}    /tmp
 ${UPDATER_COLOCATED}    False
 ${UPDATER_ODLADDRESS}    ${ODL_SYSTEM_IP}
@@ -208,19 +215,10 @@ Topology_Precondition
     Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    1s    Pcep_Off
     # Yes, timeout is 5 minutes, as this suite might be started eagerly just after ODL starts booting up.
 
-Start_Pcc_Mock
-    [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
-    SSHLibrary.Switch_Connection    pccmock
-    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
-    BuiltIn.Log    ${command}
-    SSHLibrary.Write    ${command}
-    # The pccmock SSH session is left alive, but no data will be exchanged for a while.
-    # We need this connection to stay alive to send ctrl+c later.
-    # SSHLibrary.Start_Command would not do that for us.
-
 Topology_Intercondition
     [Documentation]    Verify that within timeout, PCEP topology contains correct numbers of LSPs.
     [Tags]    critical
+    [Setup]    Start_Pcc_Mock
     ${localsize} =    Evaluate    int(${PCCS})*int(${LSPS})
     Builtin.Set_Suite_Variable    ${size}    ${localsize}
     BuiltIn.Log    ${size}
@@ -342,6 +340,26 @@ Stop_Pcc_Mock
     [Setup]    Run_Even_When_Failing_Fast
     SSHLibrary.Switch_Connection    pccmock
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    [Teardown]    Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+
+Flap Pcc Mock Continuously
+    [Documentation]    Flap 150 lsps with different number of pcc sessions continuosly
+    FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
+        Flap Pcc Mock Continuously with given PCC sessions    ${devices}    150
+    END
+
+${EMPTY}
+    [Teardown]    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+
+Flap Pcc Mock sessions parallelly
+    [Documentation]    Flap 150 lsps with different number of pcc sessions parallely
+    FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
+        Flap Pcc Mock parallelly with given PCC sessions    ${devices}    150
+        BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    END
+
+${EMPTY}
+    [Teardown]    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 Download_Pccmock_Log
     [Documentation]    Transfer pcc-mock output from pcc-mock VM to robot VM.
@@ -364,6 +382,17 @@ Restore_Tcp_Rw_Reuse
     BuiltIn.Should_Be_Equal    ${rc}    ${0}
 
 *** Keywords ***
+Start_Pcc_Mock
+    [Arguments]    ${pccs}=${PCCS}    ${lsps}=${LSPS}
+    [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
+    SSHLibrary.Switch_Connection    pccmock
+    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${pccs} --lsp ${lsps} &> ${LOG_PATH}/${LOG_NAME}
+    BuiltIn.Log    ${command}
+    SSHLibrary.Write    ${command}
+    # The pccmock SSH session is left alive, but no data will be exchanged for a while.
+    # We need this connection to stay alive to send ctrl+c later.
+    # SSHLibrary.Start_Command would not do that for us.
+
 Pccmock_From_Odl_System
     [Documentation]    Copy Odl_System values to Pccmock VM variables.
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
@@ -429,7 +458,7 @@ Set_Hop
     BuiltIn.Log    ${hop}
 
 Updater
-    [Arguments]    ${iteration}    ${workers}
+    [Arguments]    ${iteration}    ${workers}    ${parallel}=False    ${pccs}=${PCCS}    ${lsps}=${LSPS}
     [Documentation]    Compute number of workers, call updater.py, assert its response.
     SSHLibrary.Switch_Connection    pccmock
     # In some systems, inactive SSH sessions get severed.
@@ -438,14 +467,68 @@ Updater
     # The previous line relies on a fact that Execute_Command spawns separate shels, so running pcc-mock is not affected.
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
-    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${PCCS}' --lsps '${LSPS}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    Check Updaterresponse    ${response}    ${parallel}
+
+Check Updaterresponse
+    [Arguments]    ${response}    ${parallel}
     BuiltIn.Log    ${response}
-    ${expected} =    BuiltIn.Set_Variable    Counter({'pass': ${size}})
-    BuiltIn.Log    ${expected}
-    BuiltIn.Should_Contain    ${response}    ${expected}
+    ${expected_value_continuous_execution} =    BuiltIn.Set_Variable    Counter({'pass': ${size}})
+    ${not_expected_value_for_parallel_execution} =    BuiltIn.Set_Variable    Counter({'pass': 0})
+    BuiltIn.Log    ${expected_value_continuous_execution}
+    Run Keyword If    '${parallel}' == 'False'    BuiltIn.Should_Contain    ${response}    ${expected_value_continuous_execution}
+    ...    ELSE    BuiltIn.Should_Not_Contain    ${response}    ${not_expected_value_for_parallel_execution}
 
 Verify
     [Arguments]    ${iteration}
     [Documentation]    Set hop and verify that within timeout, all LSPs in topology are updated.
     Set_Hop    ${iteration}
     Builtin.Wait_Until_Keyword_Succeeds    30s    1s    Pcep_On
+
+Flap Pcc Mock Continuously with given PCC sessions
+    [Arguments]    ${pccs}=${PCCS}    ${lsps}=${LSPS}
+    ${localsize} =    Evaluate    int(${pccs})*int(${lsps})
+    Builtin.Set_Suite_Variable    ${size}    ${localsize}
+    ${workers} =    Set Variable    ${BLOCKING-THREAD}
+    FOR    ${i}    IN RANGE    ${SEQUENTIAL_ITERATION}
+        ${workers} =    Evaluate    ${workers}*${workers}
+        Set_Hop    0
+        Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+        Start_Pcc_Mock    ${pccs}    ${lsps}
+        Builtin.Wait_Until_Keyword_Succeeds    60s    5s    Pcep_On
+        ${i} =    Evaluate    ${i}+1
+        Updater    ${i}    ${workers}    ${pccs}    ${lsps}
+        Verify    ${i}
+        SSHLibrary.Switch_Connection    pccmock
+        BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    END
+
+${EMPTY}
+    Check PCEP is stable
+
+Flap Pcc Mock parallelly with given PCC sessions
+    [Arguments]    ${pccs}=${PCCS}    ${lsps}=${LSPS}
+    SSHLibrary.Switch_Connection    pccmock
+    SSHLibrary.Put File    ${CURDIR}/../../../../tools/pcep_updater/mock.sh    /tmp/mock.sh
+    Set_Hop    0
+    Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
+    SSHLibrary.Start Command    sh /tmp/mock.sh ${mock_location} 127.1.0.0 ${CONTROLLER} ${pccs} ${lsps} parallel_Execution ${DELAY_TIME} &>1
+    FOR    ${i}    IN RANGE    ${PARALLEL_ITERATION}
+        ${pid} =    SSHLibrary.Execute Command    ps -fu ${CONTROLLER_USER} | grep "/home/${CONTROLLER_USER}/${mock_location}" | grep -v "grep" | awk '{print $2}'
+        Run Keyword If    '${pid}'!= ""    Log    ${pid}
+        ${i} =    Evaluate    ${i}+1
+        Run Keyword If    '${pid}'!= ""    Updater    ${i}    1    True
+    END
+
+${EMPTY}
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    Check PCEP is stable
+
+Check PCEP is stable
+    Builtin.Wait_Until_Keyword_Succeeds    90s    5s    Pcep_Off_Again
+    Start_Pcc_Mock
+    Builtin.Wait_Until_Keyword_Succeeds    60s    5s    Pcep_On
+    Updater    2    1
+    Verify    2
+    SSHLibrary.Switch_Connection    pccmock
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
