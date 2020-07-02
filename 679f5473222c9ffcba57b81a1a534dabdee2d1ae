@@ -22,6 +22,30 @@
       "revId": "679f5473222c9ffcba57b81a1a534dabdee2d1ae",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "758a9a7a_f6858e87",
+        "filename": "csit/suites/controller/Clustering_Datastore/carpeople_crud.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-07-02T00:54:00Z",
+      "side": 1,
+      "message": "https://stackoverflow.com/questions/1282945/python-integer-division-yields-float",
+      "parentUuid": "2dbbe268_b7447901",
+      "range": {
+        "startLine": 106,
+        "startChar": 67,
+        "endLine": 106,
+        "endChar": 70
+      },
+      "revId": "679f5473222c9ffcba57b81a1a534dabdee2d1ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
