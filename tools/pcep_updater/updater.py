@@ -124,6 +124,7 @@ def iterable_msg(pccs, lsps, workers, hop):
             worker = (lsp * pccs + pcc) % workers
             post_kwargs = {"data": whole_data, "headers": headers}
             yield worker, post_kwargs
+            print(post_kwargs)
 
 
 def queued_send(session, queue_messages, queue_responses):
