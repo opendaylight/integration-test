@@ -39,9 +39,9 @@ Create a Bridge
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    BuiltIn.Should Contain    ${resp.content}    ${BRIDGE}
+    BuiltIn.Should Contain    ${resp.text}    ${BRIDGE}
 
 Get Operational Topology with Bridge
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store
@@ -80,7 +80,7 @@ Get Operational Topology after Deletion of Bridge
 Verify Config Still Has OVS Info
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the node is still in the data store
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
 
@@ -110,7 +110,7 @@ Get Operational Topology After Node Reconnect
 Get Config Topology After Reconnect
     [Documentation]    This will fetch the configuration topology from configuration data store after reconnect
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
 
@@ -137,9 +137,9 @@ Update QOS with a Linked queue entry to a OVSDB Node
 Get QOS Config Topology with port
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the QOS is added to the data store
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    BuiltIn.Should Contain    ${resp.content}    ${QOS}
+    BuiltIn.Should Contain    ${resp.text}    ${QOS}
 
 Get QOS Operational Topology with port
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the QOS is added to the data store
@@ -149,9 +149,9 @@ Get QOS Operational Topology with port
 Get Queue Config Topology with port
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify the Queue is added to the data store
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    BuiltIn.Should Contain    ${resp.content}    ${QUEUE}
+    BuiltIn.Should Contain    ${resp.text}    ${QUEUE}
 
 Get Queue Operational Topology with port
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the Queue is added to the data store
@@ -181,9 +181,9 @@ Delete the OVSDB Node HOST1
 Get Config Topology to verify that deleted configurations are cleaned from config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify OVSDB NODE is deleted frrom the configuration data store
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.content}
+    OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    BuiltIn.Should Not Contain    ${resp.content}    ovsdb:HOST1
+    BuiltIn.Should Not Contain    ${resp.text}    ovsdb:HOST1
 
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
