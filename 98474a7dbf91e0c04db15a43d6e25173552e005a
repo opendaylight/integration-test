@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ffde453_e1c6ccea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-03T10:16:51Z",
+      "side": 1,
+      "message": "Please use this format\n\u003cCommit_MSG\u003e\n\u003cone_line_space\u003e\n\u003cAdditional _information\u003e\n\nJIRA: \u003cODL_JIRAID\u003e",
+      "revId": "98474a7dbf91e0c04db15a43d6e25173552e005a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b852336a_3cfe7ab0",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-03T10:16:51Z",
+      "side": 1,
+      "message": "Please reword documentation and also rename keywords to mean that we are flapping PCEP sessions.",
+      "revId": "98474a7dbf91e0c04db15a43d6e25173552e005a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eed8ec00_2221411e",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-03T10:16:51Z",
+      "side": 1,
+      "message": "Test Case not clear, PCEP Sessions Flapped alongside LSP updates",
+      "revId": "98474a7dbf91e0c04db15a43d6e25173552e005a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83990f4e_7f0d1981",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-03T10:16:51Z",
+      "side": 1,
+      "message": "Is the above line needed?",
+      "revId": "98474a7dbf91e0c04db15a43d6e25173552e005a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
