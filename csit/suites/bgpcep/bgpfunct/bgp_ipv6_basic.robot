@@ -51,8 +51,6 @@ ${IPV6_IP_3}      2607:f0d0:1002:11::2
 ${IPV6_IP_GW}     2607:f0d0:1002:0011:0000:0000:0000:0001
 ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
-${filter_string}    CEASE
-@{message_list}    CEASE
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connections
@@ -132,9 +130,16 @@ Stop_All_Exabgps
     BGPcliKeywords.Store_File_To_Workspace    ${EXABGP_LOG}    ${EXABGP_LOG}
     ExaBgpLib.Stop_ExaBgp
 
+Configure_App_Peer
+    [Documentation]    Configures bgp application peer.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/application_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
 Reconfigure_ODL_To_Accept_Connections_4
     [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
-    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -146,9 +151,10 @@ Start_Exabgp_2
 
 Inject_Ipv6_Route_1
     [Documentation]    Inject the Ipv6 route from controller
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
+    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
 
 Check_Ipv6_Prefix_In_Bgp_Rib_1
     [Documentation]    Check for the presence of Ipv6 Prefix in the BGP RIB
@@ -156,15 +162,16 @@ Check_Ipv6_Prefix_In_Bgp_Rib_1
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    ${BGP_VAR_FOLDER}/bgp_rib    session=${CONFIG_SESSION}    mapping=${mapping}
 
-Karaf_Log_Exceptions_Checks_1
-    [Documentation]    Check for Exceptions in the karaf log
-    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
-
 Delete_Bgp_Peer_Configuration_4
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Delete_Injected_Ipv6_Routes
+    [Documentation]    Delete the injected IPV6 routes
+    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Verify_Ipv6_Topology_Empty_4
@@ -180,19 +187,16 @@ Reconfigure_ODL_To_Accept_Connections_5
 
 Inject_Ipv6_Route_2
     [Documentation]    Inject the Ipv6 route from controller
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
+    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
 
 Check_Ipv6_Prefix_In_Bgp_Rib_2
     [Documentation]    Check for the presence of Ipv6 Prefix in the BGP RIB
     &{mapping}    Create Dictionary    IP=${CONTROLLER_IPV4}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    ${BGP_VAR_FOLDER}/bgp_rib    session=${CONFIG_SESSION}    mapping=${mapping}
-
-Karaf_Log_Exceptions_Checks_2
-    [Documentation]    Check for Exceptions in the karaf log
-    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
 
 Delete_Bgp_Peer_Configuration_delete_ipv6_route_injected
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
