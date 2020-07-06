@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "247ace8c_412ddb6c",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 92
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-06T22:41:35Z",
+      "side": 1,
+      "message": "it seems like the majority of the new test cases added are really not\nchecking anything so not really a test case. Maybe you intend to add\nsome checks in those cases?",
+      "revId": "2de748aab45dd3b516abe66ef7fa2088214b33e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
