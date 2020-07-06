@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8404723f_715d0381",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-06T23:27:41Z",
+      "side": 1,
+      "message": "I think \"Check Updater Response\" is better/more-readable.",
+      "revId": "610537e4fdaa3a52163a2ebc476bb1352bb8c97a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
