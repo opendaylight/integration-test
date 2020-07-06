@@ -12,14 +12,6 @@ Documentation     Functional test for ipv6 connection with bgp.
 ...               Exabgp sends one ipv6 unicast route, which presence is verified in
 ...               example-ipv6-topology. Tests this connection multiple times, with
 ...               different ipv6 accepted formats, e.g. (::1, 0:0:0:0:0:0:0:1, full text)
-...               Enable V4 only on controller, Enable V4 on the router, Insert v6 route on the controller
-...               BGP session should not go down
-...               inserted ipv6 prefix should not be present in http://\controller-ip:restconf-port/restconf/operational/bgp-rib:bgp-rib
-...               catch exceptions in karaf.log
-...               Enable V4+V6 on controller, Enable V4 on the router, insert v6 route on the controller
-...               BGP session should not go down
-...               inserted ipv6 prefix should not be present in adjrib-out of peer in http://\controller-ip:restconf-port/restconf/operational/bgp-rib:bgp-rib
-...               catch exceptions in karaf.log
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -32,6 +24,7 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional/ipv6
@@ -43,6 +36,8 @@ ${EXABGP_CFG}     exaipv6.cfg
 ${EXABGP_LOG}     exaipv6.log
 ${EXABGP2_CFG}    exaipv4.cfg
 ${EXABGP2_LOG}    exaipv4.log
+${EXABGP3_CFG}    exabgp_graceful_restart.cfg
+${EXABGP3_LOG}    exabgp_graceful_restart.log
 ${IPV4_IP}        127.0.0.1
 ${CONTROLLER_IPV4}    ${ODL_SYSTEM_IP}
 ${IPV6_IP}        2607:f0d0:1002:0011:0000:0000:0000:0002
@@ -51,8 +46,6 @@ ${IPV6_IP_3}      2607:f0d0:1002:11::2
 ${IPV6_IP_GW}     2607:f0d0:1002:0011:0000:0000:0000:0001
 ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
-${filter_string}    CEASE
-@{message_list}    CEASE
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connections
@@ -132,84 +125,6 @@ Stop_All_Exabgps
     BGPcliKeywords.Store_File_To_Workspace    ${EXABGP_LOG}    ${EXABGP_LOG}
     ExaBgpLib.Stop_ExaBgp
 
-Reconfigure_ODL_To_Accept_Connections_4
-    [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
-    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Start_Exabgp_2
-    [Documentation]    Start exabgp and Verify BGP connection
-    [Tags]    critical
-    ${cmd}    BuiltIn.Set_Variable    ${EXABGP2_CFG} > ${EXABGP2_LOG}
-    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    127.0.0.1
-
-Inject_Ipv6_Route_1
-    [Documentation]    Inject the Ipv6 route from controller
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Check_Ipv6_Prefix_In_Bgp_Rib_1
-    [Documentation]    Check for the presence of Ipv6 Prefix in the BGP RIB
-    &{mapping}    Create Dictionary    IP=${CONTROLLER_IPV4}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    ${BGP_VAR_FOLDER}/bgp_rib    session=${CONFIG_SESSION}    mapping=${mapping}
-
-Karaf_Log_Exceptions_Checks_1
-    [Documentation]    Check for Exceptions in the karaf log
-    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
-
-Delete_Bgp_Peer_Configuration_4
-    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Verify_Ipv6_Topology_Empty_4
-    [Documentation]    Verifies that example-ipv6-topology is empty after deconfiguring peer for the first time.
-    [Tags]    critical
-    Verify_Rib_Status_Empty
-
-Reconfigure_ODL_To_Accept_Connections_5
-    [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
-    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Inject_Ipv6_Route_2
-    [Documentation]    Inject the Ipv6 route from controller
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/ipv6_route_injection    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Check_Ipv6_Prefix_In_Bgp_Rib_2
-    [Documentation]    Check for the presence of Ipv6 Prefix in the BGP RIB
-    &{mapping}    Create Dictionary    IP=${CONTROLLER_IPV4}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    ${BGP_VAR_FOLDER}/bgp_rib    session=${CONFIG_SESSION}    mapping=${mapping}
-
-Karaf_Log_Exceptions_Checks_2
-    [Documentation]    Check for Exceptions in the karaf log
-    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${False}
-
-Delete_Bgp_Peer_Configuration_delete_ipv6_route_injected
-    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/rib_state    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Verify_Ipv6_Topology_Empty_5
-    [Documentation]    Verifies that example-ipv6-topology is empty after deconfiguring peer for the first time.
-    [Tags]    critical
-    Verify_Rib_Status_Empty
-
-Stop_All_Exabgps_2
-    [Documentation]    Save exabgp logs as exaipv6.log, and stop exabgp with ctrl-c bash signal
-    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP2_LOG}    ${EXABGP2_LOG}
-    ExaBgpLib.Stop_ExaBgp
-
 Reconfigure_ODL_To_Accept_Connections_6
     [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
     &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
@@ -219,24 +134,20 @@ Reconfigure_ODL_To_Accept_Connections_6
 Start_Exabgp_3
     [Documentation]    Start exabgp with
     [Tags]    critical
-    ${cmd}    BuiltIn.Set_Variable    ${EXABGP_CFG} > ${EXABGP_LOG}
+    ${cmd}    BuiltIn.Set_Variable    ${EXABGP3_CFG} > ${EXABGP3_LOG}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${EXABGP_ID}
 
 Stop_All_Exabgps_3
-    [Documentation]    Save exabgp logs as exaipv6.log, and stop exabgp with ctrl-c bash signal
-    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP_LOG}    ${EXABGP_LOG}
+    [Documentation]    Save exabgp logs as exabgp_graceful_restart.log, and stop exabgp with ctrl-c bash signal
+    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP3_LOG}    ${EXABGP3_LOG}
     ExaBgpLib.Stop_ExaBgp
     Sleep    40s
-
-Verify_Controller_Karaf_Log_Has_No_Null_Pointer_Exceptions
-    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
-    [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
-    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
+    KarafKeywords.Fail If Exceptions Found During Test    ${SUITE_NAME}.${TEST_NAME}    fail=${True}
 
 Start_Exabgp_4
     [Documentation]    Start exabgp with
     [Tags]    critical
-    ${cmd}    BuiltIn.Set_Variable    ${EXABGP_CFG} > ${EXABGP_LOG}
+    ${cmd}    BuiltIn.Set_Variable    ${EXABGP3_CFG} > ${EXABGP3_LOG}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${EXABGP_ID}
 
 Delete_Bgp_Peer_Configuration_5
@@ -245,14 +156,9 @@ Delete_Bgp_Peer_Configuration_5
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/graceful_restart    mapping=${mapping}    session=${CONFIG_SESSION}
 
-Verify_Ipv6_Topology_Empty_6
-    [Documentation]    Verifies that example-ipv6-topology is empty after deconfiguring peer for the second time.
-    [Tags]    critical
-    Verify_Rib_Status_Empty
-
 Stop_All_Exabgps_4
-    [Documentation]    Save exabgp logs as exaipv6.log, and stop exabgp with ctrl-c bash signal
-    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP_LOG}    ${EXABGP_LOG}
+    [Documentation]    Save exabgp logs as exabgp_graceful_restart.log, and stop exabgp with ctrl-c bash signal
+    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP3_LOG}    ${EXABGP3_LOG}
     ExaBgpLib.Stop_ExaBgp
 
 *** Keywords ***
@@ -269,6 +175,7 @@ Start_Suite
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
     Upload_Config_Files_exabgp_ipv4
+    Upload_Config_Files_exabgp_graceful_restart
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -314,6 +221,20 @@ Upload_Config_Files_exabgp_ipv4
         SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/127.0.0.1/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ROUTERID/127.0.0.1/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END
+
+Upload_Config_Files_exabgp_graceful_restart
+    [Documentation]    Uploads exabgp config files
+    SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${EXABGP3_CFG}    .
+    @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *restart.cfg
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${IPV6_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${CONTROLLER_IPV6}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTERID/${EXABGP_ID}/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
         ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
