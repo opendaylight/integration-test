@@ -63,19 +63,19 @@ Start Suite
 Stop Suite
     [Documentation]    stops all connections and deletes all the bridges available on OVS
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
-        SSHLibrary.Execute Command    sudo ovs-vsctl del-br ${Bridge}
-        SSHLibrary.Execute Command    sudo ovs-vsctl del-manager
-        SSHLibrary.Write    exit
-        SSHLibrary.Close Connection
+    SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
+    SSHLibrary.Execute Command    sudo ovs-vsctl del-br ${Bridge}
+    SSHLibrary.Execute Command    sudo ovs-vsctl del-manager
+    SSHLibrary.Write    exit
+    SSHLibrary.Close Connection
     END
 
 Check Port Status Is ESTABLISHED
     [Arguments]    ${port}    @{tools_ips}
     [Documentation]    This keyword will check whether ports are established or not on OVS
     FOR    ${tools_ip}    IN    @{tools_ips}
-        ${check_establishment} =    Utils.Run Command On Remote System And Log    ${tools_ip}    netstat -anp | grep ${port}
-        BuiltIn.Should Contain    ${check_establishment}    ESTABLISHED
+    ${check_establishment} =    Utils.Run Command On Remote System And Log    ${tools_ip}    netstat -anp | grep ${port}
+    BuiltIn.Should Contain    ${check_establishment}    ESTABLISHED
     END
     [Return]    ${check_establishment}
 
@@ -98,8 +98,8 @@ Set Json
     ${body} =    BuiltIn.Run Keyword If    ${odl_stream_check }    String.Replace String    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway_ip}"
     ...    ELSE    BuiltIn.Set Variable    ${body}
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        ${body}    String.Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
-        ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
+    ${body}    String.Replace String    ${body}    "dpn-id": 10${tool_system_index}    "dpn-id": ${DPN_ID_LIST[${tool_system_index}]}
+    ${body}    String.Replace String    ${body}    "ip-address": "${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}.${tool_system_index+2}"    "ip-address": "@{tools_ips}[${tool_system_index}]"
     END
     BuiltIn.Log    ${body}
     [Return]    ${body}    # returns complete json that has been updated
@@ -108,9 +108,9 @@ Build Dpn List
     [Documentation]    This keyword builds the list of DPN ids after configuring OVS bridges on each of the TOOLS_SYSTEM_IPs.
     @{DPN_ID_LIST} =    BuiltIn.Create List
     FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-        ${output}    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl show -O Openflow13 ${Bridge} | head -1 | awk -F "dpid:" '{ print $2 }'
-        ${dpn_id}    Utils.Run Command On Remote System And Log    ${tools_ip}    echo \$\(\(16\#${output}\)\)
-        Collections.Append To List    ${DPN_ID_LIST}    ${dpn_id}
+    ${output}    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl show -O Openflow13 ${Bridge} | head -1 | awk -F "dpid:" '{ print $2 }'
+    ${dpn_id}    Utils.Run Command On Remote System And Log    ${tools_ip}    echo \$\(\(16\#${output}\)\)
+    Collections.Append To List    ${DPN_ID_LIST}    ${dpn_id}
     END
     BuiltIn.Set Suite Variable    @{DPN_ID_LIST}
 
@@ -132,7 +132,7 @@ Genius Test Setup
 Genius Test Teardown
     [Arguments]    ${data_models}    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        OVSDB.Get DumpFlows And Ovsconfig    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]    ${Bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]    ${Bridge}
     END
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
     KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
@@ -147,7 +147,7 @@ ITM Direct Tunnels Start Suite
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-        Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     ClusterManagement.Start_Members_From_List_Or_All
     Genius.Genius Suite Setup
@@ -155,14 +155,14 @@ ITM Direct Tunnels Start Suite
 ITM Direct Tunnels Stop Suite
     [Documentation]    Stop suite for ITM Direct Tunnels.
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
-        Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Utils.Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     Genius.Genius Suite Teardown
 
 Ovs Interface Verification
     [Documentation]    Checks whether the created Interface is seen on OVS or not.
     FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-        Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
+    Genius.Ovs Verification For Each Dpn    ${tools_ip}    ${TOOLS_SYSTEM_ALL_IPS}
     END
 
 Get ITM
@@ -175,8 +175,8 @@ Check Tunnel Delete On OVS
     [Arguments]    ${tunnel_list}
     [Documentation]    Verifies the Tunnel is deleted from OVS.
     FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-        ${output} =    Utils.Run Command On Remote System    ${tools_ip}    sudo ovs-vsctl show
-        Genius.Verify Deleted Tunnels on OVS    ${tunnel_list}    ${output}
+    ${output} =    Utils.Run Command On Remote System    ${tools_ip}    sudo ovs-vsctl show
+    Genius.Verify Deleted Tunnels on OVS    ${tunnel_list}    ${output}
     END
 
 Check Table0 Entry In a Dpn
@@ -185,7 +185,7 @@ Check Table0 Entry In a Dpn
     ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${bridgename}
     ${num_ports} =    BuiltIn.Get Length    ${port_numbers}
     FOR    ${port_index}    IN RANGE    ${num_ports}
-        BuiltIn.Should Contain    ${check}    in_port=@{port_numbers}[${port_index}]
+    BuiltIn.Should Contain    ${check}    in_port=@{port_numbers}[${port_index}]
     END
 
 Verify Tunnel Status As Up
@@ -203,9 +203,9 @@ Verify Tunnel Status
     ${tep_result} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     ${number_of_tunnels} =    BuiltIn.Get Length    ${tunnel_names}
     FOR    ${each_tunnel}    IN RANGE    ${number_of_tunnels}
-        ${tunnel} =    Collections.Get From List    ${tunnel_names}    ${each_tunnel}
-        ${tep_output} =    String.Get Lines Containing String    ${tep_result}    ${tunnel}
-        BuiltIn.Should Contain    ${tep_output}    ${tunnel_status}
+    ${tunnel} =    Collections.Get From List    ${tunnel_names}    ${each_tunnel}
+    ${tep_output} =    String.Get Lines Containing String    ${tep_result}    ${tunnel}
+    BuiltIn.Should Contain    ${tep_output}    ${tunnel_status}
     END
 
 Get Tunnels On OVS
@@ -217,8 +217,8 @@ Get Tunnels On OVS
     ${tunnels} =    String.Get Lines Matching Regexp    ${ovs_result}    Interface "tun.*"    True
     @{tunnels_list} =    String.Split To Lines    ${tunnels}
     FOR    ${tun}    IN    @{tunnels_list}
-        ${tun_list}    Get Regexp Matches    ${tun}    tun.*\\w
-        Collections.Append To List    ${tunnel_names}    @{tun_list}
+    ${tun_list}    Get Regexp Matches    ${tun}    tun.*\\w
+    Collections.Append To List    ${tunnel_names}    @{tun_list}
     END
     ${items_in_list} =    BuiltIn.Get Length    ${tunnel_names}
     [Return]    @{tunnel_names}
@@ -273,15 +273,15 @@ Verify Tunnel Monitoring Status
 Set Switch Configuration
     [Documentation]    This keyword will set manager,controller,tap port,bridge on each OVS
     FOR    ${tool_system_index}    IN RANGE    ${NUM_TOOLS_SYSTEM}
-        SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
-        SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-        SSHLibrary.Execute Command    sudo ovs-vsctl add-br ${Bridge}
-        SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
-        SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT_6653}
-        SSHLibrary.Execute Command    sudo ifconfig ${Bridge} up
-        SSHLibrary.Execute Command    sudo ovs-vsctl add-port ${Bridge} tap${tool_system_index}ed70586-6c -- set Interface tap${tool_system_index}ed70586-6c type=tap
-        SSHLibrary.Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
-        SSHLibrary.Execute Command    sudo ovs-vsctl show
+    SSHLibrary.Switch Connection    @{TOOLS_SYSTEM_ALL_CONN_IDS}[${tool_system_index}]
+    SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Execute Command    sudo ovs-vsctl add-br ${Bridge}
+    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${Bridge} protocols=OpenFlow13
+    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${Bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT_6653}
+    SSHLibrary.Execute Command    sudo ifconfig ${Bridge} up
+    SSHLibrary.Execute Command    sudo ovs-vsctl add-port ${Bridge} tap${tool_system_index}ed70586-6c -- set Interface tap${tool_system_index}ed70586-6c type=tap
+    SSHLibrary.Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
+    SSHLibrary.Execute Command    sudo ovs-vsctl show
     END
 
 Ovs Verification For Each Dpn
@@ -293,8 +293,8 @@ Ovs Verification For Each Dpn
     BuiltIn.Log Many    @{updated_tools_ip_list}
     ${num_tool_ips}    BuiltIn.Get Length    ${updated_tools_ip_list}
     FOR    ${num}    IN RANGE    ${num_tool_ips}
-        ${tools_ip} =    Collections.Get From List    ${updated_tools_ip_list}    ${num}
-        BuiltIn.Should Contain    ${ovs_output}    ${tools_ip}
+    ${tools_ip} =    Collections.Get From List    ${updated_tools_ip_list}    ${num}
+    BuiltIn.Should Contain    ${ovs_output}    ${tools_ip}
     END
 
 Get Tunnels List
@@ -307,9 +307,9 @@ Get Tunnels List
 Verify Table0 Entry After fetching Port Number
     [Documentation]    This keyword will get the port number and checks the table0 entry for each dpn
     FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
-        ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -O OpenFlow13 show ${Bridge}
-        ${port_numbers} =    String.Get Regexp Matches    ${check}    (\\d+).tun.*    1
-        Genius.Check Table0 Entry In a Dpn    ${tools_ip}    ${Bridge}    ${port_numbers}
+    ${check} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -O OpenFlow13 show ${Bridge}
+    ${port_numbers} =    String.Get Regexp Matches    ${check}    (\\d+).tun.*    1
+    Genius.Check Table0 Entry In a Dpn    ${tools_ip}    ${Bridge}    ${port_numbers}
     END
 
 Verify Deleted Tunnels On OVS
@@ -317,30 +317,79 @@ Verify Deleted Tunnels On OVS
     [Documentation]    This will verify whether tunnel is deleted.
     BuiltIn.Log    ${resp_data}
     FOR    ${tunnel}    IN    @{tunnel_list}
-        BuiltIn.Should Not Contain    ${resp_data}    ${tunnel}
+    BuiltIn.Should Not Contain    ${resp_data}    ${tunnel}
     END
 
 Verify Response Code Of Dpn End Point Config API
     [Arguments]    ${dpn_list}=${DPN_ID_LIST}
     [Documentation]    This keyword will verify response code from itm-state: dpn endpoints config api for each dpn
     FOR    ${dpn}    IN    @{dpn_list}
-        BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
+    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
     END
 
 Get Tunnel Between DPNs
     [Arguments]    ${tunnel_type}    ${config_api_type}    ${src_dpn_id}    @{dst_dpn_ids}
     [Documentation]    This keyword will Get All the Tunnels available on DPN's
     FOR    ${dst_dpn_id}    IN    @{dst_dpn_ids}
-        ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}
-        ...    ${dst_dpn_id}    ${tunnel_type}    ${config_api_type}
+    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}
+    ...    ${tunnel_type}    ${config_api_type}
     END
 
 Update Dpn id List And Get Tunnels
     [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}    ${dpn_ids}=${DPN_ID_LIST}
     [Documentation]    Update the exisisting dpn id list to form different combination of dpn ids such that tunnel formation between all dpns is verified.
     FOR    ${dpn_id}    IN    @{dpn_ids}
-        @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
-        Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
-        BuiltIn.Log Many    ${dpn_ids_updated}
-        Genius.Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
+    @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
+    Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
+    BuiltIn.Log Many    ${dpn_ids_updated}
+    Genius.Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
+    END
+
+Update Dpnid list and get OfTeps
+    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}    ${dpn_ids}=${DPN_ID_LIST}
+    [Documentation]    Update the exisisting dpn id list to form different combination of dpn ids such that tunnel formation between all dpns is verified.
+    FOR    ${dpn_id}    IN    @{dpn_ids}
+    @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
+    Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
+    BuiltIn.Log Many    ${dpn_ids_updated}
+    Genius.Get Ofteps between Dpns    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
+    END
+
+Get Ofteps between Dpns
+    [Arguments]    ${tunnel_type}    ${config_api_type}    ${src_dpn_id}    @{dst_dpn_ids}
+    [Documentation]    This keyword will Get All the Tunnels available on DPN's
+    FOR    ${dst_dpn_id}    IN    @{dst_dpn_ids}
+    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}
+    ...    ${tunnel_type}    ${config_api_type}
+    END
+
+Get Ofteps
+    [Arguments]    ${src}    ${dst}    ${type}    ${config_api_type}=${EMPTY}
+    [Documentation]    This keyword returns tunnel interface name between source DPN and destination DPN.
+    ...    Statements are executed depending on whether it is itm tunnel state(default) or dpn tep state.
+    ${resp} =    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:dpn-tep-config/dpns-tep/${src}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    BuiltIn.Log    ${resp.content}
+    ${respjson} =    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    ${json} =    Utils.Json Parse From String    ${resp.content}
+    BuiltIn.Should Contain    ${resp.content}    ${dst}
+    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.content}    ${src}
+    ${tunnel_interface_name} =    BuiltIn.Run Keyword If    "tunnel-interface-names" in "${json}"    Genius.Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword Unless    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.content}    "tunnel-name":"(tun[\\w\\d]+)"
+    ${tunnel} =    BuiltIn.Set Variable If    '${config_api_type}' == '${EMPTY}'    ${tunnel_interface_name}    ${tunnel_name}
+    [Return]    ${tunnel}
+
+Verify OFTep status as UP
+    [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
+    [Documentation]    Verify that the number of tunnels are UP
+    ${no_of_tunnels} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_OFPORTS}
+    ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
+    ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
+    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${no_of_switches}
+
+Verify response code of of tep config
+    [Arguments]    ${dpn_list}=${DPN_ID_LIST}
+    [Documentation]    This keyword will verify response code from itm-state: dpn endpoints config api for each dpn
+    FOR    ${dpn}    IN    @{dpn_list}
+    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
     END
