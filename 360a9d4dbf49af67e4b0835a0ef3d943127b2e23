@@ -22,6 +22,29 @@
       "revId": "360a9d4dbf49af67e4b0835a0ef3d943127b2e23",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "796581c6_70a9c659",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 8615
+      },
+      "writtenOn": "2020-07-07T13:53:26Z",
+      "side": 1,
+      "message": "Can we please move this before \u0027Delete_Bgp_Peer_Configuration_4\u0027 and check for exceptions and session reset.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 29
+      },
+      "revId": "360a9d4dbf49af67e4b0835a0ef3d943127b2e23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
