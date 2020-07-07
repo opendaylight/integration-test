@@ -58,7 +58,7 @@ Successful CallHome with correct global credentials
 Successful CallHome with correct per-device credentials
     [Documentation]    Device being in whitelist of the Call Home server along with correct per-device credentials will result to successful mount.
     ...    CONNECTED should be the device status.
-    SSHLibrary.Execute_Command    sed -i -e 's/global/per-device netopeer/g' docker-compose.yaml
+    SSHLibrary.Execute_Command    sed -i -e 's/global/per-device netopeer2/g' docker-compose.yaml
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    CONNECTED

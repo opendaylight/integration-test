@@ -9,12 +9,12 @@ ${mount_point_url}    /restconf/operational/network-topology:network-topology/to
 ${device_status}    /restconf/operational/odl-netconf-callhome-server:netconf-callhome-server
 ${whitelist}      /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
 ${substring1}     "netconf-node-topology:connection-status":"connected"
-${substring2}     "node-id":"netopeer"
+${substring2}     "node-id":"netopeer2"
 ${substring3}     "netconf-node-topology:available-capabilities"
 
 *** Keywords ***
 Check Device status
-    [Arguments]    ${status}    ${id}=netopeer
+    [Arguments]    ${status}    ${id}=netopeer2
     [Documentation]    Checks the operational device status.
     @{expectedValues}    Create List    "unique-id":"${id}"    "callhome-status:device-status":"${status}"
     Run Keyword If    '${status}'=='FAILED_NOT_ALLOWED' or '${status}'=='FAILED_AUTH_FAILURE'    Remove Values From List    ${expectedValues}    "unique-id":"${id}"
@@ -31,9 +31,11 @@ Get Netopeer Ready
 Reset Docker Compose Configuration
     [Documentation]    Resets the docker compose configurations.
     SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/docker-compose.yaml    .
-    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/datastore-server.xml    .
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/import_configuration.sh    .
+    SSHLibrary.Put Directory    ${CURDIR}/../variables/netconf/callhome/configuration-files    .    recursive=True
     SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' docker-compose.yaml
-    SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' datastore-server.xml
+    SSHLibrary.Execute_Command    sed -i -e 's/profile=default/profile=call-home-ssh/g' docker-compose.yaml
+    SSHLibrary.Execute_Command    chmod +x import_configuration.sh
 
 Get Environment Ready
     [Documentation]    Get the scripts ready to set credentials and control whitelist maintained by the CallHome server.
