@@ -11,7 +11,7 @@ import_module()
 {
   local MODULE_NAME=$1
 
-  # Replace placeholders with ENV variables
+  # Replace placeholders in templates with ENV variables
   envsubst < $CONFIG_PATH/$MODULE_NAME.xml > $MODULE_NAME.tmp
   cat $MODULE_NAME.tmp > $CONFIG_PATH/$MODULE_NAME.xml
   rm $MODULE_NAME.tmp
@@ -25,21 +25,24 @@ import_module()
 
 ### Main script starts here ###
 
-# Generate new SSH host-key
+# Remove existing host keys and import new one
 rm -f /etc/ssh/ssh_host_*
-ssh-keygen -q -t rsa -b 2048 -N '' -f /etc/ssh/ssh_host_rsa_key
+cp $CONFIG_PATH/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key
+cp $CONFIG_PATH/ssh_host_rsa_key.pub /etc/ssh/ssh_host_rsa_key.pub
 
 # These variables will replace corresponding placeholders inside configuration templates
 IFS=
-export np_privkey=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d'`
-export np_pubkey=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d'`
+export NP_PRIVKEY=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d'`
+export NP_PUBKEY=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d'`
 
-# Import configuration template for selected modules
-import_module "ietf-netconf-server";
-import_module "ietf-keystore";
+# Import all provided configuration files for netopeer
+for filename in /root/configuration-files/ietf-*.xml; do
+    clean_name=$(basename $filename .xml)
+    import_module "$clean_name"
+done
 
-unset np_privkey
-unset np_pubkey
+unset NP_PRIVKEY
+unset NP_PUBKEY
 
 echo "Netopeer2-server initial configuration completed"
 exit 0
