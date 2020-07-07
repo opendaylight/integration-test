@@ -1,17 +1,20 @@
 *** Settings ***
-Documentation     Test suite to verify callhome functionality where the Call Home Server(CONTROLLER) is provisioned with device
-...               certificates when docker-compose is invoked. Every test case does a SED operation to search and replace words
-...               to cover the happy path and negative scenarios.
+Documentation     Test suite to verify callhome functionality over SSH transport protocol. Registration in OpenDaylight
+...               Controller happens via restconf interface. Netopeer2-server docker container plays a role of the
+...               netconf device with call-home feature. Docker-compose file is used to configure netopeer2 docker
+...               container(netconf configuration templates, host-key).
 Suite Setup       Suite Setup
 Suite Teardown    Suite Teardown
-Test Setup        Reset Docker Compose Configuration
+Test Setup        Test Setup
 Test Teardown     Test Teardown
 Resource          ../../../libraries/NetconfCallHome.robot
 
 *** Test Cases ***
 CallHome with Incorrect global Credentials
     [Documentation]    Incorrect global credentials should result to mount failure. FAILED_AUTH_FAILURE should be the device status.
-    SSHLibrary.Execute_Command    sed -i -e 's/global root/global incorrect/g' docker-compose.yaml
+    Apply SSH-based Call-Home configuration
+    Register global credentials for SSH call-home devices (APIv1)    incorrect    root
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    ${NETOPEER_PUB_KEY}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
@@ -20,7 +23,8 @@ CallHome with Incorrect global Credentials
 
 CallHome with Incorrect per-device Credentials
     [Documentation]    Incorrect per-device credentials should result to mount failure. FAILED_AUTH_FAILURE should be the device status.
-    SSHLibrary.Execute_Command    sed -i -e 's/global root/per-device netopeer incorrect/g' docker-compose.yaml
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    ${NETOPEER_PUB_KEY}    root    incorrect
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
@@ -29,7 +33,9 @@ CallHome with Incorrect per-device Credentials
 
 CallHome with Incorrect Node-id
     [Documentation]    CallHome from device that does not have an entry in per-device credential with result to mount point failure.
-    SSHLibrary.Execute_Command    sed -i -e 's/global/per-device incorrect_hostname/g' docker-compose.yaml    return_rc=True
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv1)    incorrect_hostname    ${EMPTY}    root    root
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    ${NETOPEER_PUB_KEY}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    DISCONNECTED
@@ -39,7 +45,8 @@ CallHome with Incorrect Node-id
 CallHome with Rogue Devices
     [Documentation]    A Rogue Device will fail to callhome and wont be able to mount because the keys are not added in whitelist.
     ...    FAILED_NOT_ALLOWED should be the device status.
-    SSHLibrary.Execute_Command    sed -i -e 's,\/root\/whitelist_add.sh \$\$\{HOSTNAME\}\;,,g' docker-compose.yaml
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    incorrect-key-value    root    root
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     # Next line is commented due to https://jira.opendaylight.org/browse/NETCONF-574
@@ -50,6 +57,9 @@ CallHome with Rogue Devices
 Successful CallHome with correct global credentials
     [Documentation]    Device being in whitelist of the Call Home server along with correct global credentials will result to successful mount.
     ...    CONNECTED should be the device status.
+    Apply SSH-based Call-Home configuration
+    Register global credentials for SSH call-home devices (APIv1)    root    root
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    ${NETOPEER_PUB_KEY}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
@@ -58,7 +68,8 @@ Successful CallHome with correct global credentials
 Successful CallHome with correct per-device credentials
     [Documentation]    Device being in whitelist of the Call Home server along with correct per-device credentials will result to successful mount.
     ...    CONNECTED should be the device status.
-    SSHLibrary.Execute_Command    sed -i -e 's/global/per-device netopeer/g' docker-compose.yaml
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv1)    netopeer2    ${NETOPEER_PUB_KEY}    root    root
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
