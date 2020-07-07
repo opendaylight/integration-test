@@ -9,12 +9,12 @@ ${mount_point_url}    /restconf/operational/network-topology:network-topology/to
 ${device_status}    /restconf/operational/odl-netconf-callhome-server:netconf-callhome-server
 ${whitelist}      /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
 ${substring1}     "netconf-node-topology:connection-status":"connected"
-${substring2}     "node-id":"netopeer"
+${substring2}     "node-id":"netopeer2"
 ${substring3}     "netconf-node-topology:available-capabilities"
 
 *** Keywords ***
 Check Device status
-    [Arguments]    ${status}    ${id}=netopeer
+    [Arguments]    ${status}    ${id}=netopeer2
     [Documentation]    Checks the operational device status.
     @{expectedValues}    Create List    "unique-id":"${id}"    "callhome-status:device-status":"${status}"
     Run Keyword If    '${status}'=='FAILED_NOT_ALLOWED' or '${status}'=='FAILED_AUTH_FAILURE'    Remove Values From List    ${expectedValues}    "unique-id":"${id}"
@@ -22,7 +22,7 @@ Check Device status
 
 Get Netopeer Ready
     [Documentation]    Pulls the netopeer image from the docker repository. Points ODL(CallHome Server) IP in the files used by netopeer(CallHome Client).
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker pull sdnhub/netopeer    return_stdout=True    return_stderr=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker pull sysrepo/sysrepo-netopeer2:latest    return_stdout=True    return_stderr=True
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker images    return_stdout=True    return_stderr=True
     ...    return_rc=True
@@ -30,15 +30,17 @@ Get Netopeer Ready
 
 Reset Docker Compose Configuration
     [Documentation]    Resets the docker compose configurations.
-    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/docker-compose.yaml    .
-    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/datastore-server.xml    .
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/v1/docker-compose.yaml    .
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/v1/init_configuration.sh    .
+    SSHLibrary.Put Directory    ${CURDIR}/../variables/netconf/callhome/v1/configuration-files    .    recursive=True
     SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' docker-compose.yaml
-    SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' datastore-server.xml
+    SSHLibrary.Execute_Command    sed -i -e 's/profile=default/profile=call-home-ssh/g' docker-compose.yaml
+    SSHLibrary.Execute_Command    chmod +x init_configuration.sh
 
 Get Environment Ready
     [Documentation]    Get the scripts ready to set credentials and control whitelist maintained by the CallHome server.
-    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/whitelist_add.sh    .
-    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/credentials_set.sh    .
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/v1/whitelist_add.sh    .
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/v1/credentials_set.sh    .
     SSHLibrary.Execute_Command    chmod +x whitelist_add.sh
     SSHLibrary.Execute_Command    chmod +x credentials_set.sh
     SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' credentials_set.sh

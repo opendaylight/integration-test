@@ -1,0 +1,15 @@
+netopeer2-server:
+  image: sysrepo/sysrepo-netopeer2:latest
+  hostname: netopeer2
+  command: sh -c "
+      /root/init_configuration.sh &&
+      /root/whitelist_add.sh $${HOSTNAME} &&
+      /root/credentials_set.sh -global root root &&
+      exec netopeer2-server -d -v3"
+  environment:
+     - controller_ip=ODL_SYSTEM_IP
+  volumes:
+    - ./configuration-files:/root/configuration-files
+    - ./init_configuration.sh:/root/init_configuration.sh
+    - ./whitelist_add.sh:/root/whitelist_add.sh
+    - ./credentials_set.sh:/root/credentials_set.sh
