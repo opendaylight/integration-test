@@ -72,6 +72,16 @@ Invoke_Yang1.1_Action_Via_Json_Post
     ${template_as_string} =    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
     TemplatedRequests.Post_As_Json_RFC8040_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorigaction    ${template_as_string}
 
+Invoke_Yang1.1_Augmentation_Via_Xml_Post
+    [Documentation]    Send a sample test data label into the device and check that the request went OK.
+    ${template_as_string} =    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment    ${template_as_string}
+
+Invoke_Yang1.1_Augmentation_Via_Json_Post
+    [Documentation]    Send a sample test data label into the device and check that the request went OK.
+    ${template_as_string} =    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    TemplatedRequests.Post_As_Json_RFC8040_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment    ${template_as_string}
+
 Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
