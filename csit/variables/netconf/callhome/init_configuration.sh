@@ -31,12 +31,14 @@ cp $CONFIG_PATH/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key
 cp $CONFIG_PATH/ssh_host_rsa_key.pub /etc/ssh/ssh_host_rsa_key.pub
 
 # These variables will replace corresponding placeholders inside configuration templates
+SAVEIFS=$IFS
 IFS=
 export NP_PRIVKEY=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d'`
 export NP_PUBKEY=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d'`
+IFS=$SAVEIFS
 
 # Import all provided configuration files for netopeer
-for filename in /root/configuration-files/ietf-*.xml; do
+for filename in $(ls -prt /root/configuration-files | grep '.xml$'); do
     clean_name=$(basename $filename .xml)
     import_module "$clean_name"
 done
