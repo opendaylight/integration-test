@@ -35,6 +35,15 @@ SAVEIFS=$IFS
 IFS=
 export NP_PRIVKEY=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d'`
 export NP_PUBKEY=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d'`
+
+if [-d "$CONFIG_PATH/certs"]; then
+    export NP_CA_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/ca.pem`
+    export NP_CLIENT_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/client.crt`
+    export NP_SERVER_PRIVATE_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.key`
+    export NP_SERVER_PUBLIC_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.pub`
+    export NP_SERVER_CERTIFICATE=`sed -u '1d; $d' $CONFIG_PATH/certs/server.crt`
+    export NP_CLIENT_CERT_FINGERPRINT=`openssl x509 -noout -sha1  -fingerprint -in $CONFIG_PATH/certs/client.crt | cut -d'=' -f2-`
+done
 IFS=$SAVEIFS
 
 # Import all provided configuration files for netopeer
