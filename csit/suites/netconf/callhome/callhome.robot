@@ -119,3 +119,14 @@ CallHome over SSH with incorrect global credentials (APIv2)
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
     Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
+
+CallHome over TLS with correct certificate and key (APIv2)
+    [Documentation]    Using correct certificate and key pair should result to successful mount. CONNECTED should be the device status.
+    CompareStream.Run_Keyword_If_Less_Than_Silicon    BuiltIn.Pass_Execution    Test case valid only for versions silicon and above.
+    Apply TLS-based Call-Home configuration
+    Register keys and certificates in ODL controller
+    Register TLS call-home device in ODL controller (APIv2)    netopeer2    tls-device-key    tls-device-certificate
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
+    Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}
