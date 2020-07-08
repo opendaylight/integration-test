@@ -57,6 +57,26 @@ Get create device request without credentials template (APIv1)
     ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V1_HOST_KEY_ONLY}
     Set Test Variable    ${template}
 
+Register SSH call-home device in ODL controller (APIv2)
+    [Arguments]    ${device_name}    ${hostkey}    ${username}=${EMPTY}    ${password}=${EMPTY}
+    [Documentation]    Registration call-home device with SSH transport using latest models
+    Run Keyword If    '${username}' == '${EMPTY}' or '${password}' == '${EMPTY}'    Get create device request without credentials template (APIv2)
+    ...    ELSE    Get create device request template (APIv2)
+    ${body}    Replace String    ${template}    {device_name}    ${device_name}
+    ${body}    Replace String    ${body}    {username}    ${username}
+    ${body}    Replace String    ${body}    {password}    ${password}
+    ${body}    Replace String    ${body}    {hostkey}    ${hostkey}
+    ${resp}    RequestsLibrary.Post Request    session    ${whitelist}    data=${body}    headers=${HEADERS}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Get create device request template (APIv2)
+    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V2}
+    Set Test Variable    ${template}
+
+Get create device request without credentials template (APIv2)
+    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}
+    Set Test Variable    ${template}
+
 Pull Netopeer2 Docker Image
     [Documentation]    Pulls the netopeer image from the docker repository.
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker pull sysrepo/sysrepo-netopeer2:latest    return_stdout=True    return_stderr=True
@@ -110,6 +130,8 @@ Suite Setup
     Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V1}    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_device.json
     Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V1_HOST_KEY_ONLY}    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_device_hostkey_only.json
     Set Suite Variable    ${CREATE_GLOBAL_CREDENTIALS_REQ}    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_global_credentials.json
+    Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V2}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_ssh_device.json
+    Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_device_hostkey_only.json
 
 Suite Teardown
     [Documentation]    Tearing down the setup.
