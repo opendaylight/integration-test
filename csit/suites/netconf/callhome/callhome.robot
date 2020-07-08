@@ -74,3 +74,43 @@ Successful CallHome with correct per-device credentials
     ...    return_rc=True
     Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
     Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}
+
+CallHome over SSH with correct device credentials (APIv2)
+    [Documentation]    Correct credentials should result to successful mount. CONNECTED should be the device status.
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${NETOPEER_PUB_KEY}    root    root
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
+    Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}
+
+CallHome over SSH with incorrect device credentials (APIv2)
+    [Documentation]    Correct credentials should result to successful mount. CONNECTED should be the device status.
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${NETOPEER_PUB_KEY}    root    incorrect
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
+    Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
+    ...    ${netconf_mount_expected_values}
+
+CallHome over SSH with correct global credentials (APIv2)
+    [Documentation]    CallHome SSH device registered via APIv2 with global credentials from APIv1 should result to successful mount.
+    Apply SSH-based Call-Home configuration
+    Register global credentials for SSH call-home devices (APIv1)    root    root
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${NETOPEER_PUB_KEY}
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
+    Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}
+
+CallHome over SSH with incorrect global credentials (APIv2)
+    [Documentation]    CallHome SSH device registered via APIv2 with wrong global credentials from APIv1 should fail.
+    Apply SSH-based Call-Home configuration
+    Register global credentials for SSH call-home devices (APIv1)    root    incorrect
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${NETOPEER_PUB_KEY}
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
+    Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
+    ...    ${netconf_mount_expected_values}
