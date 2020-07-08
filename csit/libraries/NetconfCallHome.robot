@@ -9,6 +9,8 @@ ${mount_point_url}    /restconf/operational/network-topology:network-topology/to
 ${device_status}    /restconf/operational/odl-netconf-callhome-server:netconf-callhome-server
 ${whitelist}      /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
 ${global_config_url}    /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/global/credentials
+${netconf_keystore_url}    /rests/operations/netconf-keystore
+${netconf_keystore_data_url}    /rests/data/netconf-keystore:keystore
 ${substring1}     "netconf-node-topology:connection-status":"connected"
 ${substring2}     "node-id":"netopeer2"
 ${substring3}     "netconf-node-topology:available-capabilities"
@@ -27,6 +29,53 @@ Apply SSH-based Call-Home configuration
     ...    configuration-files/ietf-netconf-server.xml
     SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/configuration-files/ssh/ietf-keystore.xml
     ...    configuration-files/ietf-keystore.xml
+
+Apply TLS-based Call-Home configuration
+    [Documentation]    Upload netopeer2 configuration files needed for TLS transport
+    Generate certificates for TLS configuration
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/configuration-files/tls/ietf-keystore.xml
+    ...    configuration-files/ietf-keystore.xml
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/configuration-files/tls/ietf-truststore.xml
+    ...    configuration-files/ietf-truststore.xml
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/configuration-files/tls/ietf-netconf-server.xml
+    ...    configuration-files/ietf-netconf-server.xml
+
+Generate certificates for TLS configuration
+    [Documentation]    Generates certificates for 2-way TLS authentication (ca, server, client)
+    ${stdout}    SSHLibrary.Execute Command    rm -rf ./certs && mkdir ./certs
+    SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/x509_v3.cfg    ./x509_v3.cfg
+    ${stdout}    SSHLibrary.Execute Command    openssl genrsa -out ./certs/ca.key 2048
+    ${stdout}    SSHLibrary.Execute Command    openssl req -x509 -new -extensions v3_ca -nodes -key ./certs/ca.key -sha256 -days 365 -subj "/C=US/ST=CA/L=Netopeer/O=netopeerCA/CN=netopeerCA" -out ./certs/ca.pem
+    ${stdout}    SSHLibrary.Execute Command    openssl genrsa -out ./certs/server.key 2048
+    ${stdout}    SSHLibrary.Execute Command    openssl req -new -sha256 -key ./certs/server.key -subj "/C=US/ST=CA/L=Netopeer/O=Netopeer2/CN=netopeer2-server" -out ./certs/server.csr
+    ${stdout}    SSHLibrary.Execute Command    openssl x509 -req -in ./certs/server.csr -CA ./certs/ca.pem -CAkey ./certs/ca.key -CAcreateserial -extfile x509_v3.cfg -out ./certs/server.crt -days 365 -sha256
+    ${stdout}    SSHLibrary.Execute Command    openssl rsa -in ./certs/server.key -pubout > ./certs/server.pub
+    ${stdout}    SSHLibrary.Execute Command    openssl genrsa -out ./certs/client.key 2048
+    ${stdout}    SSHLibrary.Execute Command    openssl req -new -sha256 -key ./certs/client.key -subj "/C=US/ST=CA/L=Netopeer/O=Netopeer2/CN=netopeer2-client" -out ./certs/client.csr
+    ${stdout}    SSHLibrary.Execute Command    openssl x509 -req -in ./certs/client.csr -CA ./certs/ca.pem -CAkey ./certs/ca.key -CAcreateserial -extfile x509_v3.cfg -out ./certs/client.crt -days 1024 -sha256
+    ${stdout}    SSHLibrary.Execute Command    mv ./certs ./configuration-files/certs
+
+Register keys and certificates in ODL controller
+    [Documentation]    Register pre-configured netopeer2 certificates and key in ODL-netconf keystore
+    ${base64-client-key}    ${stderr}    SSHLibrary.Execute_Command    openssl enc -base64 -A -in ./configuration-files/certs/client.key    return_stdout=True    return_stderr=True
+    ${template}    OperatingSystem.Get File    ${ADD_KEYSTORE_ENTRY_REQ}
+    ${body}    Replace String    ${template}    {base64-client-key}    ${base64-client-key}
+    ${resp}    RequestsLibrary.Post Request    session    ${netconf_keystore_url}:add-keystore-entry    data=${body}    headers=${HEADERS}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${client-key}    ${stderr}    SSHLibrary.Execute_Command    sed -u '1d; $d' ./configuration-files/certs/client.key | sed -z 's!\\n!\\\\n!g'    return_stdout=True    return_stderr=True
+    ${certificate-chain}    ${stderr}    SSHLibrary.Execute_Command    sed -u '1d; $d' ./configuration-files/certs/client.crt | sed -z 's!\\n!\\\\n!g'    return_stdout=True    return_stderr=True
+    ${template}    OperatingSystem.Get File    ${ADD_PRIVATE_KEY_REQ}
+    ${body}    Replace String    ${template}    {client-key}    ${client-key}
+    ${body}    Replace String    ${body}    {certificate-chain}    ${certificate-chain}
+    ${resp}    RequestsLibrary.Post Request    session    ${netconf_keystore_url}:add-private-key    data=${body}    headers=${HEADERS}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${ca-certificate}    ${stderr}    SSHLibrary.Execute_Command    sed -u '1d; $d' ./configuration-files/certs/ca.pem | sed -z 's!\\n!\\\\n!g'    return_stdout=True    return_stderr=True
+    ${device-certificate}    ${stderr}    SSHLibrary.Execute_Command    sed -u '1d; $d' ./configuration-files/certs/server.crt | sed -z 's!\\n!\\\\n!g'    return_stdout=True    return_stderr=True
+    ${template}    OperatingSystem.Get File    ${ADD_TRUSTED_CERTIFICATE}
+    ${body}    Replace String    ${template}    {ca-certificate}    ${ca-certificate}
+    ${body}    Replace String    ${body}    {device-certificate}    ${device-certificate}
+    ${resp}    RequestsLibrary.Post Request    session    ${netconf_keystore_url}:add-trusted-certificate    data=${body}    headers=${HEADERS}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Register global credentials for SSH call-home devices (APIv1)
     [Arguments]    ${username}    ${password}
@@ -77,6 +126,16 @@ Get create device request without credentials template (APIv2)
     ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}
     Set Test Variable    ${template}
 
+Register TLS call-home device in ODL controller (APIv2)
+    [Arguments]    ${device_name}    ${key_id}    ${certificate_id}
+    [Documentation]    Registration call-home device with TLS transport
+    ${template}    OperatingSystem.Get File    ${CREATE_TLS_DEVICE_REQ}
+    ${body}    Replace String    ${template}    {device_name}    ${device_name}
+    ${body}    Replace String    ${body}    {key_id}    ${key_id}
+    ${body}    Replace String    ${body}    {certificate_id}    ${certificate_id}
+    ${resp}    RequestsLibrary.Post Request    session    ${whitelist}    data=${body}    headers=${HEADERS}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
 Pull Netopeer2 Docker Image
     [Documentation]    Pulls the netopeer image from the docker repository.
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker pull sysrepo/sysrepo-netopeer2:latest    return_stdout=True    return_stderr=True
@@ -114,6 +173,7 @@ Test Teardown
     ...    return_rc=True
     SSHLibrary.Execute_Command    rm -rf ./configuration-files
     ${resp} =    RequestsLibrary.Delete_Request    session    ${whitelist}
+    ${resp} =    RequestsLibrary.Delete_Request    session    ${netconf_keystore_data_url}
 
 Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.
@@ -129,6 +189,10 @@ Suite Setup
     Set Suite Variable    ${CREATE_GLOBAL_CREDENTIALS_REQ}    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_global_credentials.json
     Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V2}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_ssh_device.json
     Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_device_hostkey_only.json
+    Set Suite Variable    ${CREATE_TLS_DEVICE_REQ}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_tls_device.json
+    Set Suite Variable    ${ADD_KEYSTORE_ENTRY_REQ}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_keystore_entry.json
+    Set Suite Variable    ${ADD_PRIVATE_KEY_REQ}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_private_key.json
+    Set Suite Variable    ${ADD_TRUSTED_CERTIFICATE}    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_trusted_certificate.json
 
 Suite Teardown
     [Documentation]    Tearing down the setup.
