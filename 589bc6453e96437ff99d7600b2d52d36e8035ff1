@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e0c7db4_65dd8401",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T03:40:55Z",
+      "side": 1,
+      "message": "you can rearrange these args like this:\n    ${device_name}    ${hostkey}    ${username}\u003d${EMPTY}    ${password}\u003d${EMPTY}\n\nthat will allow the callers of this keyword to just call with device name and hostkey\nand not have to explicitly give ${EMPTY} for username and password.",
+      "revId": "589bc6453e96437ff99d7600b2d52d36e8035ff1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
