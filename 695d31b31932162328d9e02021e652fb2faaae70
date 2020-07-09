@@ -1,0 +1,232 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f847ddd_8303df3a",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "what\u0027s the story here? did you comment out for debugging?",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae3f4bda_112a59c3",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "shouldn\u0027t it be ${type}",
+      "range": {
+        "startLine": 280,
+        "startChar": 73,
+        "endLine": 280,
+        "endChar": 78
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "633c8365_4ff81d6c",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "delete these lines if not needed.",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9229145_e9c4e88b",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "this looks more like a step by step description of what you added, whereas the above\ndescription is more of an overview of the whole suite. I would keep the same sort of\noverview concept with whatever you are adding.",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af03358_681550af",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "make sure this is alphabetized",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a1b1cb_5ae8f73e",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "put this in suite teardown. it\u0027s not a test case and we probably want all steps to be\ntried even if one step fails. in robot if a step fails in a test case, no other steps in\nthat case will run. if it\u0027s a suite teardown, then all steps are run regardless of\npass/fail",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 25
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07195fcd_2123cf2e",
+        "filename": "csit/variables/bgpfunctional/ipv6/bgp_peer/data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "can you pretty print this please? I don\u0027t even know if anything changed in this\nfile besides whitespace?",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e09241_ae135d63",
+        "filename": "csit/variables/bgpfunctional/ipv6/bgp_rib/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "please pretty print",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93224860_a68d577d",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_route_injection/post_data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "pretty print",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aecdcae6_460d7b7e",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_topology_empty/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "pretty print",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62b4889_bdde6e4f",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_topology_filled/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "pretty print",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "888ad5d9_0ee67458",
+        "filename": "csit/variables/bgpfunctional/ipv6/rib_state/data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-09T17:34:00Z",
+      "side": 1,
+      "message": "pretty print",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
