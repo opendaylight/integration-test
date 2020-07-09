@@ -16,6 +16,24 @@
       "revId": "589bc6453e96437ff99d7600b2d52d36e8035ff1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43965afc_f024ba66",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8762
+      },
+      "writtenOn": "2020-07-09T12:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e0c7db4_65dd8401",
+      "revId": "589bc6453e96437ff99d7600b2d52d36e8035ff1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
