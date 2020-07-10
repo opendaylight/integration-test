@@ -22,6 +22,30 @@
       "revId": "d89bf13eb91bbf6460f40f2a4a033b3945770851",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a098ea2b_f2d9be3b",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8762
+      },
+      "writtenOn": "2020-07-10T20:40:28Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t break anything. This file is only used by callhome test suite(which is also updated), so it\u0027s safe.",
+      "parentUuid": "85f4c85a_bb46f795",
+      "range": {
+        "startLine": 18,
+        "startChar": 38,
+        "endLine": 18,
+        "endChar": 47
+      },
+      "revId": "d89bf13eb91bbf6460f40f2a4a033b3945770851",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
