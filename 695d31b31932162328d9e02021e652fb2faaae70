@@ -145,6 +145,24 @@
     },
     {
       "key": {
+        "uuid": "9e11fa08_100f2723",
+        "filename": "csit/variables/bgpfunctional/ipv6/bgp_peer/data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-10T16:00:59Z",
+      "side": 1,
+      "message": "I think you missed my point. the next patch set (128) still looks like this file has\nmassive change in gerrit. Nothing changed in this file right? It should not even show\nup in the review if so. I think you munged the whitespace originally so it showed up\nas a changed file. If you revert it back to exactly how it was before, then it will\nnot be part of this review at all. This probably applies to the other files as well.",
+      "parentUuid": "07195fcd_2123cf2e",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38e09241_ae135d63",
         "filename": "csit/variables/bgpfunctional/ipv6/bgp_rib/data.json",
         "patchSetId": 127
