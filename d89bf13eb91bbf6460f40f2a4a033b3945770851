@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85f4c85a_bb46f795",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-10T20:01:02Z",
+      "side": 1,
+      "message": "does changing this default value break any existing suites?",
+      "range": {
+        "startLine": 18,
+        "startChar": 38,
+        "endLine": 18,
+        "endChar": 47
+      },
+      "revId": "d89bf13eb91bbf6460f40f2a4a033b3945770851",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
