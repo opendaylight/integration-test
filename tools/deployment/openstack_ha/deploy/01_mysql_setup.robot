@@ -82,7 +82,7 @@ Configure Cluster Root Node
     ...    mysql
     Grant Privileges To Mysql Database    ${os_node_cxn}    root    mysql    *.*    ${hostuser}    ${HAPROXY_HOSTNAME}
     ...    mysql    #Grant Process To Mysql Database    ${os_node_cxn}    root    mysql    *.*
-    ...        # clustercheck_user    localhost    # my_clustercheck_password
+    ...    # clustercheck_user    localhost    # my_clustercheck_password
     Execute MySQL STATUS Query    ${os_node_cxn}    root    mysql    wsrep_cluster_size
 
 Enable MySQL non-root nodes
@@ -95,7 +95,7 @@ Enable MySQL non-root nodes
     ...    mysql
     Grant Privileges To Mysql Database    ${os_node_cxn}    root    mysql    *.*    ${hostuser}    ${HAPROXY_HOSTNAME}
     ...    mysql    #Grant Process To Mysql Database    ${os_node_cxn}    root    mysql    *.*
-    ...        # clustercheck_user    localhost    # my_clustercheck_password
+    ...    # clustercheck_user    localhost    # my_clustercheck_password
     Execute MySQL STATUS Query    ${os_node_cxn}    root    mysql    wsrep_cluster_size
 
 Add HAPROXY Entry for DB

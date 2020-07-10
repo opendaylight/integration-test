@@ -1,11 +1,11 @@
 *** Settings ***
 Documentation     Test suite: Authentication Support for Keystone
-...
+...           
 ...               This feature implements the user management for ODL NBI REST APIs integrated with OpenStack, so that
 ...               the authentication functionality provided by Keystone can be used. This allows consuming ODL NBI REST
 ...               APIs using the same authentication procedures as any OpenStack project, such as Nova, Neutron, etc.
 ...               bringing the benefits of a centralized / unified user management framework.
-...
+...           
 ...               As a first step, It shall be possible to authenticate users against Keystone by using passwords
 ...               provided by the users.
 Suite Setup       Init Suite

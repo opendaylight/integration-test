@@ -1,16 +1,16 @@
 *** Settings ***
 Documentation     Basic tests for BGP application peer.
-...
+...           
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
-...
+...           
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...
+...           
 ...               Test suite performs basic BGP functional test cases for
 ...               BGP application peer operations and checks for IP4 topology updates
 ...               and updates towards BGP peer as follows:
-...
+...           
 ...               Test case 1: Initial BGP peer connection with pre-filled topology,
 ...               POST and simple DELETE requests used.
 ...               BGP_Application_Peer_Post_3_Initial_Routes,
@@ -21,7 +21,7 @@ Documentation     Basic tests for BGP application peer.
 ...               Check_Example-IPv4-Topology_Is_Empty,
 ...               Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
 ...               Stop_BGP_Peer.
-...
+...           
 ...               Test case 2: PUT and DELETE all routes requests while BGP peer is connected.
 ...               Reconnect_BGP_Peer,
 ...               BGP_Application_Peer_Put_3_Routes,
@@ -31,7 +31,7 @@ Documentation     Basic tests for BGP application peer.
 ...               Check_Example-IPv4-Topology_Is_Empty,
 ...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
 ...               Stop_BGP_Peer.
-...
+...           
 ...               Test case 3: Repeated BGP peer re-connection with pre-filled topology.
 ...               BGP_Application_Peer_Put_3_Routes,
 ...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
@@ -40,7 +40,7 @@ Documentation     Basic tests for BGP application peer.
 ...               Check_Example-IPv4-Topology_Is_Empty,
 ...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
 ...               Stop_BGP_Peer.
-...
+...           
 ...               Brief description how to configure BGP application peer and
 ...               how to use restconf application peer interface:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Application_Peer

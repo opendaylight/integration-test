@@ -8,7 +8,7 @@ Documentation     OF1.3 Suite for flow actions
 ...               - output NORMAL
 ...               - output FLOOD
 ...               - output ANY
-...
+...           
 ...               NOTE: for OVS, INPORT does not appear to be supported
 Suite Setup       OpenFlow Actions Suite Setup
 Suite Teardown    OpenFlow Actions Suite Teardown

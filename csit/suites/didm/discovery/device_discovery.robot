@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Basic Tests for DIDM in Beryllium.
-...
+...           
 ...               Copyright (c) 2015 Hewlett Packard Enterprise Development LP and others. All rights reserved.
 ...               This program and the accompanying materials are made available under the terms of the Eclipse
 ...               Public License v1.0 which accompanies this distribution, and is available at
