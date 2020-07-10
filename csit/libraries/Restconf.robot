@@ -4,7 +4,6 @@
 ${USE_RFC8040} =    False
 
 *** Keywords ***
-
 Generate URI
     [Arguments]    ${identifier}    ${datastore_flag}=config    @{node_value_list}
     [Documentation]    Returns the proper URI to use depending on if RFC8040 is to be used or not. Variable input
