@@ -7,6 +7,9 @@ repos:
         language_version: python3
         additional_dependencies: ['flake8~=3.5.0']
       - id: trailing-whitespace
+        # this hook will remove any blank lines at the end of a file, whereas the robot hook will add one
+        # so to prevent this conflict we will ignore .robot files in this trailing-whitespace hook
+        exclude: '\.robot'
 
   - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v1.4.4
