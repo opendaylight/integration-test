@@ -97,7 +97,7 @@ Check_Logs_For_Updates
     ${timeout} =    BuiltIn.Set_Variable    ${bgp_filling_timeout}
     FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
         ${bgp_peer_label} =    BuiltIn.Set_Variable    BGP-Dummy-${index}
-        ${expected_prefixcount} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT_MANY_RRC} - ${COUNT_PREFIX_COUNT_MANY_RRC} / ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
+        ${expected_prefixcount} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT_MANY_RRC} - ${COUNT_PREFIX_COUNT_MANY_RRC} // ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
         ${expected_string} =    BuiltIn.Set_Variable    total_received_nlri_prefix_counter: ${expected_prefixcount}
         BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_File_For_Occurence    ${BGP_PEERS_LOG_FILE_NAME}    ${bgp_peer_label}
         ...    ${expected_string}    2
