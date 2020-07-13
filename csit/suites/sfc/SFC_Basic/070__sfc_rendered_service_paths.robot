@@ -142,24 +142,25 @@ Generate RSPs with Shortest Path Schedule Algorithm type
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/2/    ${elements}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${temp_vars}=    BuiltIn.Set Variable    ['rendered-service-path-hop'][0]['service-function-forwarder']
+    ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/1/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/2/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     BuiltIn.Should Be Equal    ${fwd_hop1}    ${fwd_hop2}
     BuiltIn.Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/1/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/2/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
+    ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     BuiltIn.Should Be Equal    ${fwd_hop1}    ${fwd_hop2}
     BuiltIn.Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
 
