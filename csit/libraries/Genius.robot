@@ -344,3 +344,52 @@ Update Dpn id List And Get Tunnels
         BuiltIn.Log Many    ${dpn_ids_updated}
         Genius.Get Tunnel Between DPNs    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
     END
+
+Update Dpnid list and get OfTeps
+    [Arguments]    ${tunnel_type}    ${config_api_type}=${EMPTY}    ${dpn_ids}=${DPN_ID_LIST}
+    [Documentation]    Update the exisisting dpn id list to form different combination of dpn ids such that tunnel formation between all dpns is verified.
+    FOR    ${dpn_id}    IN    @{dpn_ids}
+    @{dpn_ids_updated} =    BuiltIn.Create List    @{dpn_ids}
+    Collections.Remove Values From List    ${dpn_ids_updated}    ${dpn_id}
+    BuiltIn.Log Many    ${dpn_ids_updated}
+    Genius.Get Ofteps between Dpns    ${tunnel_type}    ${config_api_type}    ${dpn_id}    @{dpn_ids_updated}
+    END
+
+Get Ofteps between Dpns
+    [Arguments]    ${tunnel_type}    ${config_api_type}    ${src_dpn_id}    @{dst_dpn_ids}
+    [Documentation]    This keyword will Get All the Tunnels available on DPN's
+    FOR    ${dst_dpn_id}    IN    @{dst_dpn_ids}
+    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    30    10    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}
+    ...    ${tunnel_type}    ${config_api_type}
+    END
+
+Get Ofteps
+    [Arguments]    ${src}    ${dst}    ${type}    ${config_api_type}=${EMPTY}
+    [Documentation]    This keyword returns tunnel interface name between source DPN and destination DPN.
+    ...    Statements are executed depending on whether it is itm tunnel state(default) or dpn tep state.
+    ${resp} =    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:dpn-tep-config/dpns-tep/${src}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    BuiltIn.Log    ${resp.content}
+    ${respjson} =    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    ${json} =    Utils.Json Parse From String    ${resp.content}
+    BuiltIn.Should Contain    ${resp.content}    ${dst}
+    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.content}    ${src}
+    ${tunnel_interface_name} =    BuiltIn.Run Keyword If    "tunnel-interface-names" in "${json}"    Genius.Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword Unless    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.content}    "tunnel-name":"(tun[\\w\\d]+)"
+    ${tunnel} =    BuiltIn.Set Variable If    '${config_api_type}' == '${EMPTY}'    ${tunnel_interface_name}    ${tunnel_name}
+    [Return]    ${tunnel}
+
+Verify OFTep status as UP
+    [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
+    [Documentation]    Verify that the number of tunnels are UP
+    ${no_of_tunnels} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_OFPORTS}
+    ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
+    ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
+    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${no_of_switches}
+
+Verify response code of of tep config
+    [Arguments]    ${dpn_list}=${DPN_ID_LIST}
+    [Documentation]    This keyword will verify response code from itm-state: dpn endpoints config api for each dpn
+    FOR    ${dpn}    IN    @{dpn_list}
+    BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
+    END
