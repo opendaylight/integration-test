@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "38c207ab_654e4072",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "I removed the commented line now. ${fail} has the value set in the arguments, but nowhere through the code flow. is this variable having the value changed to True or is retaining False.\nIt is as good as not using this particular variable. As far as the exception handling is concerned, ${listlength} would take care of it. The line which i have added would check for the length of ${exlist} and then mark the testcase as either pass or fail.",
+      "parentUuid": "0f847ddd_8303df3a",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae3f4bda_112a59c3",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 127
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "afde2f02_eeea4e50",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "yes,it should have been ${type}, i corrected it.",
+      "parentUuid": "ae3f4bda_112a59c3",
+      "range": {
+        "startLine": 280,
+        "startChar": 73,
+        "endLine": 280,
+        "endChar": 78
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "633c8365_4ff81d6c",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 127
@@ -56,6 +98,24 @@
       "revId": "695d31b31932162328d9e02021e652fb2faaae70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd3f79d_3a133413",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "633c8365_4ff81d6c",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "14e83399_466e292b",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9229145_e9c4e88b",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0af03358_681550af",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
         "patchSetId": 127
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "9f356410_383376d5",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0af03358_681550af",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03a1b1cb_5ae8f73e",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
         "patchSetId": 127
@@ -125,6 +233,30 @@
       "revId": "695d31b31932162328d9e02021e652fb2faaae70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37dfb6f2_f286e531",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "I have added Exabgp session termination in the Test Teardown instead of Suite Teardown. This needs to be present as a testcase as well. There are instances in the robot file, where I need to stop Exabgp between two testing scenarios and validate few outputs and log messages. Hence, this approach.",
+      "parentUuid": "03a1b1cb_5ae8f73e",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 25
+      },
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +295,24 @@
     },
     {
       "key": {
+        "uuid": "bbcbf734_bdec07d8",
+        "filename": "csit/variables/bgpfunctional/ipv6/bgp_peer/data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "This file was not added as a part of my automation. You are right. There was a minor change i tried out locally and this got committed by mistake, and it ended up as a part of my PR.\nI reverted back my changes, but it still shows up.\nBut, this is not the case with other files. I have added them as a part of my automation set.",
+      "parentUuid": "07195fcd_2123cf2e",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e09241_ae135d63",
         "filename": "csit/variables/bgpfunctional/ipv6/bgp_rib/data.json",
         "patchSetId": 127
@@ -177,6 +327,24 @@
       "revId": "695d31b31932162328d9e02021e652fb2faaae70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f70fe51_bb181172",
+        "filename": "csit/variables/bgpfunctional/ipv6/bgp_rib/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38e09241_ae135d63",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +365,24 @@
     },
     {
       "key": {
+        "uuid": "25a031db_715e43a9",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_route_injection/post_data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93224860_a68d577d",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aecdcae6_460d7b7e",
         "filename": "csit/variables/bgpfunctional/ipv6/ipv6_topology_empty/data.json",
         "patchSetId": 127
@@ -211,6 +397,24 @@
       "revId": "695d31b31932162328d9e02021e652fb2faaae70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87504b8a_9fc1aa16",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_topology_empty/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aecdcae6_460d7b7e",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +435,24 @@
     },
     {
       "key": {
+        "uuid": "62783c95_093bc94a",
+        "filename": "csit/variables/bgpfunctional/ipv6/ipv6_topology_filled/data.json",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b62b4889_bdde6e4f",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "888ad5d9_0ee67458",
         "filename": "csit/variables/bgpfunctional/ipv6/rib_state/data.xml",
         "patchSetId": 127
@@ -245,6 +467,24 @@
       "revId": "695d31b31932162328d9e02021e652fb2faaae70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38c0928e_8405e268",
+        "filename": "csit/variables/bgpfunctional/ipv6/rib_state/data.xml",
+        "patchSetId": 127
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-13T08:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888ad5d9_0ee67458",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
