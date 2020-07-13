@@ -151,7 +151,7 @@ Clean Up Ovs
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
     [Documentation]    Will take the given response content and return the value at the given index as a string
-    ${value}=    Get Json Value    ${content}    ${index}
+    ${value}=    Get Value From Json    ${content}    ${index}
     ${value}=    Convert To String    ${value}
     ${value}=    Run Keyword If    '${strip}' == 'strip'    Strip Quotes    ${value}
     [Return]    ${value}
