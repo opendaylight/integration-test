@@ -16,7 +16,7 @@ Delete New subnet
     Log    ${data}
     ${resp}    delete request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    204
-    Log    ${resp.content}
+    Log    ${resp.text}
     sleep    2
 
 Check New subnet deleted
@@ -24,7 +24,7 @@ Check New subnet deleted
     [Tags]    Check subnet deleted OpenDaylight
     ${resp}    get request    ODLSession    ${NEUTRON_SUBNETS_API}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${ODLResult}    To Json    ${resp.content}
+    ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
     ${resp}    get request    ODLSession    ${NEUTRON_SUBNETS_API}/${SUBNETID}
     Should be Equal As Strings    ${resp.status_code}    404

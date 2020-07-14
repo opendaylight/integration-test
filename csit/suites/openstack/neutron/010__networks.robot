@@ -17,7 +17,7 @@ Check OpenStack Networks
     Log    ${X-AUTH}
     ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${OSResult}    To Json    ${resp.content}
+    ${OSResult}    To Json    ${resp.text}
     Log    ${OSResult}
 
 Check OpenDaylight Networks
@@ -26,7 +26,7 @@ Check OpenDaylight Networks
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${ODLResult}    To Json    ${resp.content}
+    ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
 
 Create Network
@@ -35,7 +35,7 @@ Create Network
     Log    ${postNet}
     ${resp}    post request    OSSession    ${OSREST}    data=${postNet}
     Should be Equal As Strings    ${resp.status_code}    201
-    ${result}    To JSON    ${resp.content}
+    ${result}    To JSON    ${resp.text}
     ${result}    Get From Dictionary    ${result}    network
     ${NETID}    Get From Dictionary    ${result}    id
     Log    ${result}

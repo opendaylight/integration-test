@@ -107,9 +107,9 @@ Update Security Group Name and Verification
     ${output} =    OpenStackOperations.Neutron Security Group Show    ${sg_id}
     Should Contain    ${output}    ${verify_name}
     ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP_API}
-    BuiltIn.Log    ${resp.content}
+    BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
-    BuiltIn.Should Contain    ${resp.content}    ${verify_name}
+    BuiltIn.Should Contain    ${resp.text}    ${verify_name}
 
 Neutron Rule Creation With Invalid Parameters
     [Arguments]    ${sg_name}    ${additional_args}    ${expected_error}

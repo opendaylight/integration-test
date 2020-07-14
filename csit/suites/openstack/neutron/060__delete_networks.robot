@@ -16,7 +16,7 @@ Delete Network
     Log    ${postNet}
     ${resp}    delete request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    204
-    Log    ${resp.content}
+    Log    ${resp.text}
     sleep    2
 
 Check Network deleted
@@ -24,7 +24,7 @@ Check Network deleted
     [Tags]    Check Network OpenDaylight
     ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${ODLResult}    To Json    ${resp.content}
+    ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
     ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}/${NETID}
     Should be Equal As Strings    ${resp.status_code}    404

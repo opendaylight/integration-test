@@ -17,7 +17,7 @@ Check OpenStack ports
     Log    ${X-AUTH}
     ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${OSResult}    To Json    ${resp.content}
+    ${OSResult}    To Json    ${resp.text}
     Log    ${OSResult}
 
 Check OpenDaylight ports
@@ -26,7 +26,7 @@ Check OpenDaylight ports
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${ODLResult}    To Json    ${resp.content}
+    ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
 
 Create New Port
@@ -35,7 +35,7 @@ Create New Port
     Log    ${data}
     ${resp}    post request    OSSession    ${OSREST}    data=${data}
     Should be Equal As Strings    ${resp.status_code}    201
-    ${result}    To JSON    ${resp.content}
+    ${result}    To JSON    ${resp.text}
     ${result}    Get From Dictionary    ${result}    port
     ${PORTID}    Get From Dictionary    ${result}    id
     Log    ${result}

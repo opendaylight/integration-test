@@ -16,7 +16,7 @@ Delete New Port
     Log    ${data}
     ${resp}    delete request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    204
-    Log    ${resp.content}
+    Log    ${resp.text}
     sleep    2
 
 Check Port Deleted
@@ -24,7 +24,7 @@ Check Port Deleted
     [Tags]    Check port deleted OpenDaylight
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}
     Should be Equal As Strings    ${resp.status_code}    200
-    ${ODLResult}    To Json    ${resp.content}
+    ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}/${PORTID}
     Should be Equal As Strings    ${resp.status_code}    404
