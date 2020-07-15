@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "63485822_43238463",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-15T16:45:19Z",
+      "side": 1,
+      "message": "no, we have it being used here:\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/libraries/OpenStackOperations.robot;h\u003daad16bbcc59abf71bdd5eac85695c3bf2cf78ddf;hb\u003d695d31b31932162328d9e02021e652fb2faaae70#l704\n\nwhich can be passed in to our jobs via jenkins parameter. you can see netvirt using it as\nTrue here:\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dreleng/builder.git;a\u003dblob;f\u003djjb/netvirt/netvirt-csit-multi-openstack.yaml;h\u003d1803640852848a3d1759c6ec669a027a923e3b47;hb\u003db3fb1d5145fd4468d778b0abec05f07fe1ca5370#l30\n\nwe need to keep it as it was please.",
+      "parentUuid": "94c0688c_d18df0dc",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae3f4bda_112a59c3",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 127
