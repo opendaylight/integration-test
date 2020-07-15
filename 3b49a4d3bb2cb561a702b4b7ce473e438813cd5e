@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "274bd69b_3b009f9e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2020-07-15T18:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c1170e_c33ac46e",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b53f7a39_14cf4202",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 8
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "b6745690_9dd4d4e6",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2020-07-15T18:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b53f7a39_14cf4202",
+      "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2b94cf5_6c05fecd",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 8
@@ -56,6 +98,24 @@
       "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0472c9bb_abf35070",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2020-07-15T18:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2b94cf5_6c05fecd",
+      "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +139,30 @@
       "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213a6ce9_04eca043",
+        "filename": "tools/deployment/openstack_ha/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2020-07-15T18:02:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "017f2bb8_54a45994",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "3b49a4d3bb2cb561a702b4b7ce473e438813cd5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
