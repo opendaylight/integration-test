@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "94c0688c_d18df0dc",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 127
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-15T10:52:51Z",
+      "side": 1,
+      "message": "The only robot files which are using the keyword \"Fail If Exceptions Found During Test\" from this robot file are:\nGenius.robot and OpenStackOperations.robot in the same path as KarafKeywords.robot.\nEven in these files, ${fail} is a dummy value which is set to False initially while passing as an argument but nowhere along the TC execution, the value is changed to True.\nSo, I would say it is fine to remove the check for this variable being true.",
+      "parentUuid": "d97ff999_467c03a2",
+      "revId": "695d31b31932162328d9e02021e652fb2faaae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae3f4bda_112a59c3",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 127
