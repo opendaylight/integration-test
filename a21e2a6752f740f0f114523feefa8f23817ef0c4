@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f21dbc4_eaf3d971",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-16T18:03:55Z",
+      "side": 1,
+      "message": "maybe it\u0027s ok to just put the whole directory?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "a21e2a6752f740f0f114523feefa8f23817ef0c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
