@@ -99,6 +99,24 @@
     },
     {
       "key": {
+        "uuid": "fefb6ed5_8d0585e5",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8668
+      },
+      "writtenOn": "2020-07-20T23:29:19Z",
+      "side": 1,
+      "message": "I realized after I created this that its almost the same..... let me re-work this into the other suite.",
+      "parentUuid": "ced78362_1c33b11a",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "263c7174_015378d5",
         "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
         "patchSetId": 2
@@ -127,6 +145,24 @@
       "writtenOn": "2020-07-20T18:26:41Z",
       "side": 1,
       "message": "isn\u0027t this an exact copy of the existing config_data.xml file in the same folder?",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42995f7_cde18bb2",
+        "filename": "csit/suites/netconf/notifications/templates/config_data_updated.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8668
+      },
+      "writtenOn": "2020-07-20T23:29:19Z",
+      "side": 1,
+      "message": "no its not. it\u0027s id value is changed. see \"modified\"",
+      "parentUuid": "ef531a53_85e5b7b0",
       "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
