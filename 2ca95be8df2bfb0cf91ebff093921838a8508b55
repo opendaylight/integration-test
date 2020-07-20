@@ -166,6 +166,24 @@
       "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5f8cf47_983889c7",
+        "filename": "csit/suites/netconf/notifications/templates/config_data_updated.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T23:33:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d42995f7_cde18bb2",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
