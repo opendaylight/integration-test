@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45d5b5b7_e3c60e97",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 2,
+        "startChar": 34,
+        "endLine": 2,
+        "endChar": 37
+      },
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ecf6ef_6e1afc16",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "move down to alphabetize",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92e7375b_7dd7e304",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "same thing exists in the notifications suite. it\u0027s time to move this thing to\na common variable name in the main Variables.robot file (or maybe a netconf related\nvariables file) and share it. Same applies to anything else below that is a\nduplicate",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1199091f_6a1ba898",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "I think this is more of a suite setup step and not a test case.",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ced78362_1c33b11a",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "wait... now that I\u0027m reading further, how different from the notifications suite is this suite? If it\u0027s\nmostly a duplication with some tweaks would it be smarter to just add the additional tests to the existing\nnotifications suite?",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "263c7174_015378d5",
+        "filename": "csit/suites/netconf/notifications/notifications_sse.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "yeah... this is exactly the same as the other suite right?\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/suites/netconf/notifications/notifications_basic.robot;h\u003d6ebe1a88ae2077c472a5fbbe8e7349958353c2f5;hb\u003drefs/changes/59/91459/2#l159\n\nif we have to have the same suite sort of copied to do SSE then all the common code\nshould be shared (move to a lib, etc).",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef531a53_85e5b7b0",
+        "filename": "csit/suites/netconf/notifications/templates/config_data_updated.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:26:41Z",
+      "side": 1,
+      "message": "isn\u0027t this an exact copy of the existing config_data.xml file in the same folder?",
+      "revId": "2ca95be8df2bfb0cf91ebff093921838a8508b55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
