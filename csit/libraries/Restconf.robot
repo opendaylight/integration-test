@@ -34,3 +34,16 @@ Generate RFC8040 URI
     ...    ELSE IF    "${datastore_flag}"=="operational"    Set Variable    rests/data/${identifier}${node_value_path}?content=nonconfig
     ...    ELSE    Set Variable    rests/operations/${identifier}
     [Return]    ${uri}
+
+Teardown_Everything
+    [Documentation]    Close connections.
+    ...    Tear down imported Resources.
+    RequestsLibrary.Delete_All_Sessions
+    SSHLibrary.Close_All_Connections
+
+Log_Response
+    [Arguments]    ${resp}
+    [Documentation]    Log response.
+    BuiltIn.Log    ${resp}
+    BuiltIn.Log    ${resp.headers}
+    BuiltIn.Log    ${resp.content}
