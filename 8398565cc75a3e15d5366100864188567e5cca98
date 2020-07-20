@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb042f80_2c006558",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "can you alphabetize this please?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7133c54c_f8ade931",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "is there no way to re-use (maybe make some backward compatible changes for your needs)\nthe keywords in the NetconfKeywords Library?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc7971d_67045819",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "I think it will be more readable to just call this \"Initialize JSONRPC extension\" and either remove\nthe [Documentation] block or update it to talk about more details of what\u0027s happening in the kw",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 10
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a51ec01_f3607857",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "probably don\u0027t care about this right? you are logging ${data} below",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9acccb85_76c77b9c",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "Unconfigure JSONRPC will read better when it\u0027s being called.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1feae982_9592d65c",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "add the \u003d for consistency.",
+      "range": {
+        "startLine": 171,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 10
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad0e57c_1027ca55",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "here is the example of where slightly more descriptive kw names will help the person reading this suite",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 29
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "617eb46e_53e4077b",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "do you wanna check that the delete worked?",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f918e9ab_18611934",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "more descriptive test case name?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e2a23d_d80073ec",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "what is 120 here?",
+      "range": {
+        "startLine": 53,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a8f880_504e36b7",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "might want to use the ALLOWED_STATUS_CODES and DELETE_STATUS_CODES here.",
+      "range": {
+        "startLine": 169,
+        "startChar": 75,
+        "endLine": 169,
+        "endChar": 85
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3d7930_7f4ae6bc",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "you need some sort of check here, otherwise this kw is not \"ensuring\" anything as it\u0027s name implies.",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe7f0a9_e996a6f3",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-20T18:17:35Z",
+      "side": 1,
+      "message": "same comments I made to above kw apply to this one.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 18
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
