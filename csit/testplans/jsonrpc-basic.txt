@@ -1,1 +1,2 @@
 test/csit/suites/jsonrpc/010-mdsal-jsonrpc-basic.robot
+test/csit/suites/jsonrpc/020-testtool-crud.robot
