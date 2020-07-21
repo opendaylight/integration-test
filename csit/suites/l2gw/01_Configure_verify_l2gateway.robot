@@ -118,7 +118,7 @@ TC11 Dhcp Ip Allocation And Ping Validation Within Second Network
     [Documentation]    Verify that port in namespace got an IP. Verify flow entries, verify IP connectivity between HWVTEP port and VM
     Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS2}    ${NS2_TAP1}    ${port_ip_list[3]}
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[2]}
-    ...    ping -c 3 ${port_ip_list[3]}
+    ...    ping -c 3 ${port_ip_list[3]}    cirros    gocubsgo
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
     ${src_mac_list}=    Create List    ${port_mac_list[2]}
@@ -129,7 +129,7 @@ TC11 Dhcp Ip Allocation And Ping Validation Within Second Network
 TC12 Ping Between Vm In Second Network To Namespace In First Network
     [Documentation]    Verify IP Connectivity between VM in 2nd network to NS in 1st network
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[2]}
-    ...    ping -c 3 ${port_ip_list[1]}
+    ...    ping -c 3 ${port_ip_list[1]}    cirros    gocubsgo
     Log    ${output}
     Should Contain    ${output}    ${PACKET_LOSS}
 
@@ -176,7 +176,7 @@ TC17 Dhcp Ip Allocation For Hwvtep Tap Port
 TC18 Verify Ping From Compute Node Vm To Hwvtep Port 2
     [Documentation]    Verify IP connectivity between VM in net1 and 2nd HWVTEP port in net 1
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
-    ...    ping -c 3 ${port_ip_list[4]}
+    ...    ping -c 3 ${port_ip_list[4]}    cirros    gocubsgo
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
     ${src_mac_list}=    Create List    ${port_mac_list[0]}
