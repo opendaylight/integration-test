@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea5214dc_871f22e7",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 166
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:13:36Z",
+      "side": 1,
+      "message": "what is this ip address? I think it would help to make it a variable (maybe at the top of the suite)\nand use the variable here instead of the magic number ip address. It helps to understand for someone\nnew reading this code.",
+      "range": {
+        "startLine": 132,
+        "startChar": 42,
+        "endLine": 132,
+        "endChar": 52
+      },
+      "revId": "b1ed24ed1530a8d7d63ba85b3826d726da1d0d0e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
