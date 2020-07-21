@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3d963f0_a5ac88c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "can you write the commit message like this:\n\n\u003cbrief 50 char or less summary of the change\u003e\n\u003cblank line\u003e\n\u003clonger summary (if needed) of what this change has in\n it. Each line up to 72 chars\u003e\n\u003cblank line\u003e\nJIRA: BGPCEP-893\n\nit really helps when looking at git log to see what\u0027s going\non.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44acaf3e_2e3b8d44",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "there is white space to clean up here. it\u0027s easy to see in gerrit",
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81724fa0_21d6ee89",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 4,
+        "startChar": 37,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68684bc3_2ecff40a",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "better variable name than CMD.",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd808002_a3ff2bb9",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "So, what is the problem that you have to try ${connection_retries} times for the Verify_GoBgps_Connection is working?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 63
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d8e464_ed013233",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "white space.",
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "affeb0f8_288a1ec1",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "first file was Cisco, this one is AT\u0026T. where is this work coming from?",
+      "range": {
+        "startLine": 4,
+        "startChar": 37,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ba5f48_719e6291",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "with what?",
+      "range": {
+        "startLine": 46,
+        "startChar": 35,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ec44ea_471786ff",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "you probably want this work in your suite teardown.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 23
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7fcaf3_ba877adb",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-21T18:42:36Z",
+      "side": 1,
+      "message": "Upload_Exabgp_Config_Files will read better where this is being used. You can either\nremove the [Documentation] line since it would be duplicate info, or add more details\nto the Docs line if you think they are needed.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 19
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
