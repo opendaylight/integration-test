@@ -391,6 +391,7 @@ Check If Instance Is Ready For Ssh Login Using PublicKey
 Check If Instance Is Ready For Ssh Login Using Password
     [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${console}=cirros
     [Documentation]    Ensure the VM is reachable from ssh as tests would require. This keyword will use password authentication
+    ${password}    BuiltIn.Set Variable    ${PASSWORD_CIRROS_${OPENSTACK_BRANCH}}
     ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig    ${user}    ${password}
     ...    console=${console}
     BuiltIn.Should Contain    ${output}    ${vm_ip}
@@ -542,6 +543,7 @@ Execute Command on VM Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)    ${cmd_timeout}=30s
     ...    ${console}=cirros
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    ${password}    BuiltIn.Set Variable    ${PASSWORD_CIRROS_${OPENSTACK_BRANCH}}
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PreferredAuthentications=password    password:
@@ -574,6 +576,7 @@ Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
     ...    ${ping_should_succeed}=True    ${check_metadata}=True    ${console}=cirros    ${ping_tries}=3
     [Documentation]    Login to the vm instance using ssh in the network.
+    ${password}    BuiltIn.Set Variable    ${PASSWORD_CIRROS_${OPENSTACK_BRANCH}}
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o MACs=hmac-sha1 -o ConnectTimeout=5 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    password:    10s
@@ -598,6 +601,7 @@ Test Netcat Operations From Vm Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${dest_ip}    ${additional_args}=${EMPTY}    ${port}=12345    ${user}=cirros
     ...    ${password}=cubswin:)
     [Documentation]    Use Netcat to test TCP/UDP connections to the controller
+    ${password}    BuiltIn.Set Variable    ${PASSWORD_CIRROS_${OPENSTACK_BRANCH}}
     ${client_data}    BuiltIn.Set Variable    Test Client Data
     ${server_data}    BuiltIn.Set Variable    Test Server Data
     OpenStackOperations.Get ControlNode Connection
