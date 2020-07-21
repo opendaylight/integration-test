@@ -69,7 +69,7 @@ TC06 Dhcp Ip Allocation For Hwvtep Tap Port
 TC07 Verify Ping From Compute Node Vm To Hwvtep
     [Documentation]    Verify that VM on Compute Node can ping HWVTEP port
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
-    ...    ping -c 3 ${port_ip_list[1]}
+    ...    ping -c 3 ${port_ip_list[1]}    cirros    gocubsgo
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
     ${src_mac_list}=    Create List    ${port_mac_list[0]}
