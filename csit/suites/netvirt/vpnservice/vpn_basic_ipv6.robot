@@ -164,26 +164,6 @@ Delete Router With NonExistentRouter Name
     BuiltIn.Should Be True    '${result.rc}' == '1'
     BuiltIn.Should Match Regexp    ${result.stderr}    Failed to delete router with name or ID 'nonExistentRouter': No Router found for nonExistentRouter
 
-Associate L3VPN To Networks
-    ${network1_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
-    ${network2_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[1]
-    VpnOperations.Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    ${network1_id}
-    VpnOperations.Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_IDS}[0]
-    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Contain    ${resp}    ${network2_id}
-
-Dissociate L3VPN From Networks
-    ${network1_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[0]
-    ${network2_id} =    OpenStackOperations.Get Net Id    ${NETWORKS}[1]
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_IDS}[0]
-    ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Not Contain    ${resp}    ${network1_id}
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_IDS}[0]
-    ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Not Contain    ${resp}    ${network2_id}
-
 Delete L3VPN
     VpnOperations.VPN Delete L3VPN    vpnid=${VPN_INSTANCE_IDS}[0]
 
