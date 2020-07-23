@@ -54,7 +54,7 @@ Create and Verify single OFT TEPs
 Delete and Verify single OFT TEPs
     [Documentation]    Delete single TEPs set to use OF based Tunnels and verify.
     CompareStream.Run_Keyword_If_Less_Than_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
-    ${deleted_tools_ip_list} =    BuiltIn.Create List    ${TOOLS_SYSTEM_ALL_IPS}[0]
+    ${deleted_tools_ip_list} =    BuiltIn.Set Variable    ${TOOLS_SYSTEM_ALL_IPS}[0]
     OFT Delete Vteps using Auto Tunnels    ${deleted_tools_ip_list}
     ${deleted_dpn_id_list} =    BuiltIn.CreateList    ${DPN_ID_LIST}[0]
     OFT Verify Vteps Deleted    ${deleted_dpn_id_list}    ${deleted_tools_ip_list}
