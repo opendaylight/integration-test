@@ -54,8 +54,9 @@ Create and Verify single OFT TEPs
 Delete and Verify single OFT TEPs
     [Documentation]    Delete single TEPs set to use OF based Tunnels and verify.
     CompareStream.Run_Keyword_If_Less_Than_Sodium    BuiltIn.Pass Execution    Test case valid only for versions Sodium and above
-    ${deleted_tools_ip_list} =    BuiltIn.Create List    ${TOOLS_SYSTEM_ALL_IPS}[0]
+    ${deleted_tools_ip_list} =    BuiltIn.Set Variable    ${TOOLS_SYSTEM_ALL_IPS}[0]
     OFT Delete Vteps using Auto Tunnels    ${deleted_tools_ip_list}
+    ${deleted_tools_ip_list} =    BuiltIn.CreateList    ${TOOLS_SYSTEM_ALL_IPS}[0]
     ${deleted_dpn_id_list} =    BuiltIn.CreateList    ${DPN_ID_LIST}[0]
     OFT Verify Vteps Deleted    ${deleted_dpn_id_list}    ${deleted_tools_ip_list}
 
@@ -133,6 +134,7 @@ OFT Delete Vteps using Auto Tunnels
 OFT Verify Vteps Deleted
     [Arguments]    ${dpn_id_list}    ${tools_ip_list}
     [Documentation]    Verify if OFT Vteps are created successfully or not for given Tools IPs and DPN-IDs.
+    ${tools_ip_list_len} =    BuiltIn.Get Length    ${tools_ip_list}
     ${deleted_tep_len} =    BuiltIn.Get Length    ${dpn_id_list}
     ${existing_tep_len} =    BuiltIn.Evaluate    ${NUM_TOOLS_SYSTEM}-${deleted_tep_len}
     BuiltIn.Run Keyword If    ${existing_tep_len} > 0    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${existing_tep_len}
@@ -140,17 +142,23 @@ OFT Verify Vteps Deleted
     ${tep_show_state_output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     FOR    ${tools_system_index}    IN RANGE    ${deleted_tep_len}
         ${tep_show_state_output_1} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-        BuiltIn.Should Not Contain    ${tep_show_output}    @{tools_ip_list}[${tools_system_index}]
-        BuiltIn.Should Not Contain    ${tep_show_state_output}    ${tools_ip_list}[${tools_system_index}]
+        Log    ${tools_ip_list}
+        Log    ${tools_ip_list}[${tools_system_index}]
+        BuiltIn.Run Keyword If    ${tools_ip_list_len} == 1    BuiltIn.Should Not Contain    ${tep_show_output}    ${tools_ip_list}
+        ...    ELSE    BuiltIn.Should Not Contain    ${tep_show_output}    ${tools_ip_list}[${tools_system_index}]
+        BuiltIn.Run Keyword If    ${tools_ip_list_len} == 1    BuiltIn.Should Not Contain    ${tep_show_state_output}    ${tools_ip_list}
+        ...    ELSE    BuiltIn.Should Not Contain    ${tep_show_state_output}    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/@{dpn_id_list}[${tools_system_index}]/
         ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
         Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
-        BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Vteps Deleted at Dpn Teps State per Interface    @{dpn_id_list}[${tools_system_index}]    ${dst_dpn_id_list}
+        BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Vteps Deleted at Dpn Teps State per Interface    ${dpn_id_list}[${tools_system_index}]    ${dst_dpn_id_list}
         ${ovs_vsctl_output} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]
         ...    sudo ovs-vsctl show
         BuiltIn.Should Not Contain    ${ovs_vsctl_output}    remote_ip=flow
-        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
-        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
+        BuiltIn.Run Keyword If    ${tools_ip_list_len} == 1    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Deleted per Switch    ${tools_ip_list}
+        ...    ELSE    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
+        BuiltIn.Run Keyword If    ${tools_ip_list_len} == 1    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Deleted per Switch    ${tools_ip_list}
+        ...    ELSE    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
     END
 
 OFT Verify Vteps Deleted at Dpn Teps State per Interface
