@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "192c25db_2cb47219",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-23T16:19:16Z",
+      "side": 1,
+      "message": "how about just this one line or do you want/need both?",
+      "revId": "efb0fe297832923f5cc9f7643f53a09616ca0ec6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
