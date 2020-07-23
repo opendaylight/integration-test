@@ -1,9 +1,9 @@
 # Place the suites in run order:
-integration/test/csit/suites/genius/Interface_manager.robot
-integration/test/csit/suites/genius/ID_manager.robot
-integration/test/csit/suites/genius/Configure_ITM.robot
-integration/test/csit/suites/genius/BFD_monitoring.robot
-integration/test/csit/suites/genius/Service_Recovery.robot
-integration/test/csit/suites/genius/ITM_Direct_Tunnels.robot
-integration/test/csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot
+#integration/test/csit/suites/genius/Interface_manager.robot
+#integration/test/csit/suites/genius/ID_manager.robot
+#integration/test/csit/suites/genius/Configure_ITM.robot
+#integration/test/csit/suites/genius/BFD_monitoring.robot
+#integration/test/csit/suites/genius/Service_Recovery.robot
+#integration/test/csit/suites/genius/ITM_Direct_Tunnels.robot
+#integration/test/csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot
 integration/test/csit/suites/genius/OF_Tunnels.robot
