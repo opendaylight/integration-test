@@ -523,7 +523,7 @@ Check Ping
     [Documentation]    Run Ping command on the IP available as argument
     ${ethertype} =    String.Get Regexp Matches    ${ip_address}    ${IP_REGEX}
     ${ping} =    BuiltIn.Set Variable If    ${ethertype}    ping    ping6
-    ${cmd} =    BuiltIn.Set Variable    rc=0; for count in `seq 1 ${ping_tries}`; do ${ping} -W1 -t${ttl} -c1 ${ip_address}; rc=$?; if [ $rc -eq 0 ]; then break; fi; done; echo ping_rc=$rc
+    ${cmd} =    BuiltIn.Set Variable    rc=0; for count in `seq 1 ${ping_tries}`; do ${ping} -W1 -t${ttl} -c5 ${ip_address}; rc=$?; if [ $rc -eq 0 ]; then break; fi; done; echo ping_rc=$rc
     ${output} =    Utils.Write Commands Until Expected Regexp    ${cmd}    ping_rc=\\d+    120
     BuiltIn.Log    output: ${output}
     BuiltIn.Should Contain    ${output}    64 bytes
