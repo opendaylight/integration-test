@@ -36,6 +36,63 @@
     },
     {
       "key": {
+        "uuid": "c3f3271c_daaf6aad",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "The \"env gobgp.tcp.port\" setting is not used by gobgpd. Can we remove that part?",
+      "revId": "bf29a01733a9e6ac859878857b1ec69f4791f74d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d8891e_7b5af074",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "I presume these line replace the strings in gobgp.cfg?, I am not observing any ODLIP1 in that file. Can you please ensure what is getting replaced",
+      "revId": "bf29a01733a9e6ac859878857b1ec69f4791f74d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326682c2_692d886a",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "This test does not use exabgp, In that case why do we need a virtualenv?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "bf29a01733a9e6ac859878857b1ec69f4791f74d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b2cfc97_8696ce6b",
         "filename": "csit/testplans/bgpcep-userfeatures.txt",
         "patchSetId": 38

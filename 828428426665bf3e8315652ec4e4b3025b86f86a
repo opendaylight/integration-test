@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce045a5c_36caff14",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "Lines 3,5,9 may have space isues an fail in precommit",
+      "revId": "828428426665bf3e8315652ec4e4b3025b86f86a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b76f51a_47d555de",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "828428426665bf3e8315652ec4e4b3025b86f86a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fae05c_67931363",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:36:01Z",
+      "side": 1,
+      "message": "Can\u0027t the BINARYURL be diretly used?, why this \"Set Variable\" is needed?",
+      "revId": "828428426665bf3e8315652ec4e4b3025b86f86a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
