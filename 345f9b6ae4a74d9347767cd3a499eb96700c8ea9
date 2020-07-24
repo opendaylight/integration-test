@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39db20c4_720f6a32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 43
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T19:36:22Z",
+      "side": 1,
+      "message": "Please fix as JIRA: \u003cID\u003e",
+      "revId": "345f9b6ae4a74d9347767cd3a499eb96700c8ea9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
