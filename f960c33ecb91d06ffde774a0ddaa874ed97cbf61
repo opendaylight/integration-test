@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d9e71b5_7d4f3d65",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T19:35:33Z",
+      "side": 1,
+      "message": "is this test specific to IPV6_IP?",
+      "revId": "f960c33ecb91d06ffde774a0ddaa874ed97cbf61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
