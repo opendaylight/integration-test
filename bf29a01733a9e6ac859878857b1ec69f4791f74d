@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b2cfc97_8696ce6b",
+        "filename": "csit/testplans/bgpcep-userfeatures.txt",
+        "patchSetId": 38
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-24T11:22:54Z",
+      "side": 1,
+      "message": "Please revert this and enable all tests",
+      "revId": "bf29a01733a9e6ac859878857b1ec69f4791f74d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
