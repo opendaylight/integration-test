@@ -340,6 +340,13 @@ Verify_10
     [Tags]    critical
     Verify    10
 
+Updater_with delegate
+    [Documentation]    Run updater tool to revoke the delegate for the given hop, using 1 blocking http thread.
+    [Tags]    critical
+    Updater    3    1    127.1.0.0    ${PCCS}    ${LSPS}    True    false    127.1.0.1    2
+    Verify    3
+    [Teardown]    Do_Not_Start_Failing_If_This_Failed
+
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock, see prompt again within timeout.
     [Setup]    Run_Even_When_Failing_Fast
@@ -467,7 +474,7 @@ Set_Hop
     BuiltIn.Log    ${hop}
 
 Updater
-    [Arguments]    ${iteration}    ${workers}    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${parallel}=False
+    [Arguments]    ${iteration}    ${workers}    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${parallel}=False    ${delegate}=true    ${pccip}=${none}    ${tunnel_no}=${none}
     [Documentation]    Compute number of workers, call updater.py, assert its response.
     SSHLibrary.Switch_Connection    pccmock
     # In some systems, inactive SSH sessions get severed.
@@ -476,7 +483,7 @@ Updater
     # The previous line relies on a fact that Execute_Command spawns separate shels, so running pcc-mock is not affected.
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
-    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
     Check Updater response    ${response}    ${parallel}
 
 Check Updater response
