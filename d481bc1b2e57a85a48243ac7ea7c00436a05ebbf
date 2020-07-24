@@ -16,6 +16,24 @@
       "revId": "d481bc1b2e57a85a48243ac7ea7c00436a05ebbf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ff461e6_dfbf7fe4",
+        "filename": "csit/testplans/bgpcep-userfeatures.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-24T13:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda5c608_fffa73a3",
+      "revId": "d481bc1b2e57a85a48243ac7ea7c00436a05ebbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
