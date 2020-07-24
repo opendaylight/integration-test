@@ -42,6 +42,8 @@ ${EXABGP2_CFG}    exaipv4.cfg
 ${EXABGP2_LOG}    exaipv4.log
 ${EXABGP3_CFG}    exabgp_graceful_restart.cfg
 ${EXABGP3_LOG}    exabgp_graceful_restart.log
+${EXABGP4_CFG}    exa4.cfg
+${EXABGP4_LOG}    exa4.log
 ${IPV4_IP}        127.0.0.1
 ${CONTROLLER_IPV4}    ${ODL_SYSTEM_IP}
 ${IPV6_IP}        2607:f0d0:1002:0011:0000:0000:0000:0002
@@ -254,7 +256,7 @@ Start_Exabgp_4
     ${cmd}    BuiltIn.Set_Variable    ${EXABGP3_CFG} > ${EXABGP3_LOG}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${EXABGP_ID}
 
-Delete_Bgp_Peer_Configuration_5
+Delete_Bgp_Peer_Configuration_6
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
@@ -263,6 +265,29 @@ Delete_Bgp_Peer_Configuration_5
 Stop_All_Exabgps_4
     [Documentation]    Save exabgp logs as exabgp_graceful_restart.log, and stop exabgp with ctrl-c bash signal
     BGPcliKeywords.Store_File_To_Workspace    ${EXABGP3_LOG}    ${EXABGP3_LOG}
+    ExaBgpLib.Stop_ExaBgp
+
+Reconfigure_ODL_To_Accept_Connections_7
+    [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
+    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Start_Exabgp_5
+    [Documentation]    Start exabgp with
+    [Tags]    critical
+    ${cmd}    BuiltIn.Set_Variable    ${EXABGP4_CFG} > ${EXABGP4_LOG}
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${EXABGP_ID}
+
+Delete_Bgp_Peer_Configuration_7
+    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Stop_All_Exabgps_5
+    [Documentation]    Save exabgp logs as exabgp_graceful_restart.log, and stop exabgp with ctrl-c bash signal
+    BGPcliKeywords.Store_File_To_Workspace    ${EXABGP4_LOG}    ${EXABGP4_LOG}
     ExaBgpLib.Stop_ExaBgp
 
 *** Keywords ***
@@ -280,6 +305,7 @@ Start_Suite
     Upload_Config_Files
     Upload_Config_Files_exabgp_ipv4
     Upload_Config_Files_exabgp_graceful_restart
+    Upload_Config_Files_Exabgp_AS_Value_Reconfigured
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -336,6 +362,20 @@ Upload_Config_Files_exabgp_graceful_restart
     [Documentation]    Uploads exabgp config files
     SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${EXABGP3_CFG}    .
     @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *restart.cfg
+    FOR    ${cfgfile}    IN    @{cfgfiles}
+        SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${IPV6_IP}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${CONTROLLER_IPV6}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTERID/${EXABGP_ID}/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+        SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        Log    ${stdout}
+    END
+
+Upload_Config_Files_Exabgp_AS_Value_Reconfigured
+    [Documentation]    Uploads exabgp config files
+    SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${EXABGP4_CFG}    .
+    @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *exa4.cfg
     FOR    ${cfgfile}    IN    @{cfgfiles}
         SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${IPV6_IP}/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${CONTROLLER_IPV6}/g' ${cfgfile}
