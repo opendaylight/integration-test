@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c570ce8_fb85c3d1",
+        "filename": "csit/variables/bgpfunctional/gobgp/gobgp.cfg",
+        "patchSetId": 45
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-27T10:52:21Z",
+      "side": 1,
+      "message": "can we add some 3 spaces to make it clar that afi-safi-name belongs to that section?",
+      "revId": "e233ac12fa1c2f3022707ae53e28e853e1fbf900",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
