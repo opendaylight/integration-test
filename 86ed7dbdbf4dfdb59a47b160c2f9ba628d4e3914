@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0806f928_3ef4f772",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-27T10:47:16Z",
+      "side": 1,
+      "message": "Can we modify test name to Start BGP Device And Verify Peering with ODL",
+      "revId": "86ed7dbdbf4dfdb59a47b160c2f9ba628d4e3914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
