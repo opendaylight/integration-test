@@ -136,7 +136,7 @@ ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 ${INIT_PCC_DEVICE_COUNT}    ${100}
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
-${LSPS}           65535
+${LSPS}           10
 #Reduced max pcc device count to 100 for BGPCEP-901
 ${MAX_PCC_DEVICE_COUNT}    ${100}
 ${ODL_SYSTEM_WORKSPACE}    /tmp
@@ -172,17 +172,9 @@ ${UPDATERVM_USER}    ${TOOLS_SYSTEM_USER}
 ${UPDATERVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 
 *** Test Cases ***
-Download_Pcc_Mock
-    [Documentation]    SSH login to pcc-mock VM, download latest pcc-mock executable from Nexus.
+Select_mock_machine_and_Download_PCC_Mock
     [Setup]    Select_MOCK_Machine
-    BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
-    NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
-    SSHLibrary.Open_Connection    ${PCCMOCKVM_IP}    alias=pccmock
-    SSHLibrary.Set_Client_Configuration    timeout=10s
-    SSHLibrary.Set_Client_Configuration    prompt=${PCCMOCKVM_PROMPT}
-    SSHKeywords.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
-    ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
-    BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
+    Download_Pcc_Mock
 
 Put_Updater
     [Documentation]    Open SSH session to updater VM, copy the utility there, including dependencies, also prepare direct http session.
@@ -340,6 +332,22 @@ Verify_10
     [Tags]    critical
     Verify    10
 
+PCEP_sessions_from_multiple_machines
+    Download_Pcc_Mock    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${TOOLS_SYSTEM_PROMPT}    pccmock_toolsvm
+    Set_Hop    0
+    Start_Pcc_Mock    pccmock_toolsvm    ${TOOLS_SYSTEM_IP}    ${PCCS}    ${LSPS}    throughpcep_tools.log
+    # Builtin.Set_Suite_Variable    ${size}    ${30}
+    ${size} =    BuiltIn.Evaluate    int(${size})+int(${LSPS})
+    BuiltIn.Log    ${size}
+    Builtin.Wait_Until_Keyword_Succeeds    120s    1s    Pcep_On
+    ${size} =    BuiltIn.Evaluate    int(${LSPS})
+    Updater    1    1    ${TOOLS_SYSTEM_IP}
+    Verify    1
+    SSHLibrary.Switch_Connection    pccmock_toolsvm
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    Kill all pcc mock simulator processes    pccmock_toolsvm
+    [Teardown]    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock, see prompt again within timeout.
     [Setup]    Run_Even_When_Failing_Fast
@@ -348,6 +356,7 @@ Stop_Pcc_Mock
     [Teardown]    Run Keywords    Kill all pcc mock simulator processes    AND    Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
 
 PCEP Sessions Flapped with LSP updates
+    [Tags]    exclude
     [Documentation]    Flapping PCEP sessions and perform LSP updates within flapping
     Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'True'    BuiltIn.Pass Execution    Pcc Mock should not run in ODL System
     FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
@@ -356,6 +365,7 @@ PCEP Sessions Flapped with LSP updates
     [Teardown]    Run Keywords    Kill all pcc mock simulator processes    AND    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 PCEP Sessions Flapped alongside LSP updates
+    [Tags]    exclude
     [Documentation]    Flapping PCEP sessions and perform LSP updates alongside flapping
     Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'True'    BuiltIn.Pass Execution    Pcc Mock should not run in ODL System
     FOR    ${devices}    IN RANGE    ${INIT_PCC_DEVICE_COUNT}    ${MAX_PCC_DEVICE_COUNT+1}    ${PCC_DEVICE_INCREMENT}
@@ -367,8 +377,7 @@ PCEP Sessions Flapped alongside LSP updates
 Download_Pccmock_Log
     [Documentation]    Transfer pcc-mock output from pcc-mock VM to robot VM.
     [Setup]    Run_Even_When_Failing_Fast
-    SSHLibrary.Execute Command    zip ${LOG_PATH}/mock_log.zip /tmp/throughpcep*
-    SSHLibrary.Get_File    ${LOG_PATH}/mock_log.zip    mock_log.zip
+    SSHLibrary.Get_File    ${LOG_PATH}/${LOG_NAME}    ${LOG_NAME}
 
 Topology_Postcondition
     [Documentation]    Verify that within timeout, PCEP topology contains no PCCs again.
@@ -391,10 +400,22 @@ Select_MOCK_Machine
     Run Keyword If    '${USE_TOOLS_SYSTEM}' == 'False'    Run Keywords    Pccmock_From_Odl_System    AND    Updater_From_Odl_System
     BuiltIn.Set_Suite_Variable    ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 
+Download_Pcc_Mock
+    [Arguments]    ${pcc_ip}=${PCCMOCKVM_IP}    ${pcc_user}=${PCCMOCKVM_USER}    ${pcc_password}=${PCCMOCKVM_PASSWORD}    ${pcc_prompt}=${PCCMOCKVM_PROMPT}    ${ssh_alias}=pccmock
+    [Documentation]    SSH login to pcc-mock VM, download latest pcc-mock executable from Nexus.
+    BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
+    SSHLibrary.Open_Connection    ${pcc_ip}    alias=${ssh_alias}
+    SSHLibrary.Set_Client_Configuration    timeout=10s
+    SSHLibrary.Set_Client_Configuration    prompt=${pcc_prompt}
+    SSHKeywords.Flexible_SSH_Login    ${pcc_user}    ${pcc_password}    delay=4s
+    ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
+    BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
+
 Start_Pcc_Mock
-    [Arguments]    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${log_name}=${LOG_NAME}
+    [Arguments]    ${ssh_alias}=pccmock    ${mock-ip}=${FIRST_PCC_IP}    ${pccs}=${PCCS}    ${lsps}=${LSPS}    ${log_name}=${LOG_NAME}
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
-    SSHLibrary.Switch_Connection    pccmock
+    SSHLibrary.Switch_Connection    ${ssh_alias}
     ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${mock-ip} --remote-address ${ODL_SYSTEM_IP} --pcc ${pccs} --lsp ${lsps} &> ${LOG_PATH}/${log_name}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
@@ -503,7 +524,7 @@ Flap Pcc Mock sessions continuously with LSP updates
         ${workers} =    Evaluate    ${workers}*${workers}
         Set_Hop    0
         Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
-        Start_Pcc_Mock    ${mock-ip}    ${pccs}    ${lsps}    serial_execution.log
+        Start_Pcc_Mock    pccmock    ${mock-ip}    ${pccs}    ${lsps}    serial_execution.log
         Builtin.Wait_Until_Keyword_Succeeds    60s    5s    Pcep_On
         ${i} =    Evaluate    ${i}+1
         Updater    ${i}    ${workers}    127.1.0.0    ${pccs}    ${lsps}
@@ -543,7 +564,8 @@ Check PCEP is stable
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 Kill all pcc mock simulator processes
-    SSHLibrary.Switch_Connection    pccmock
+    [Arguments]    ${ssh_alias}=pccmock
+    SSHLibrary.Switch_Connection    ${ssh_alias}
     ${mock_pid}    Get pid    /home/${ODL_SYSTEM_USER}/${mock_location}
     SSHLibrary.Execute_Command    kill -9 ${mock_pid}
     ${script_pid_1}    Get pid    bash -c sh /tmp/mock.sh
