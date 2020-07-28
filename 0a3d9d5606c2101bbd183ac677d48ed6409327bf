@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "73bd97c1_6ab05531",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-28T21:12:36Z",
+      "side": 1,
+      "message": "line 7 is actually the first line of your commit message. do a \"git commit --amend\" and you will\nsee.\n\nHere is what I just gave to another persons patch, which might make it more clear:\n\n---------------------------------\n\ncan you follow the following format for commit messages please:\n\nline 1: clear concise present tense line summarizing the entire patch. it can be generic so you can fit it all in 52 characters.\nline 2: blank\nlines 3-x: all the gory details you think are necessary to help explain the patch, especially if\n           the changes are complicated and/or not a lot of comments in the code.\none guide that we have shared in the past for commit messages is here (I really like it):\nhttps://chris.beams.io/posts/git-commit/\n\n---------------------------------",
+      "parentUuid": "e5de3026_449cc8be",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67454f12_47f82490",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
