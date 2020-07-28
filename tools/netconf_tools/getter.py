@@ -174,7 +174,7 @@ while request_count > 0:
             print("ERROR|" + result[1] + "|")
             break
         runtime = "%5.3f|%5.3f|%5.3f" % result[1]
-        print("%03d|%s|%s|" % ((result[0], runtime, result[2])))
+        print("%03d|%s|%s|" % (result[0], runtime, str(result[2])))
         request_count -= 1
         continue
     time.sleep(args.refresh)

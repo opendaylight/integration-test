@@ -5,8 +5,8 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
-integration/test/csit/suites/netconf/ready
-integration/test/csit/suites/netconf/restperfclient/performance.robot
-integration/test/csit/suites/netconf/restperfclient/mdsal.robot
+#integration/test/csit/suites/netconf/ready
+#integration/test/csit/suites/netconf/restperfclient/performance.robot
+#integration/test/csit/suites/netconf/restperfclient/mdsal.robot
 integration/test/csit/suites/netconf/scale/getmulti.robot
-integration/test/csit/suites/netconf/scale/getsingle.robot
+#integration/test/csit/suites/netconf/scale/getsingle.robot
