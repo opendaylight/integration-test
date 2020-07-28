@@ -55,21 +55,26 @@ Issue_Requests_On_Devices
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHKeywords.Flexible_Mininet_Login
-    SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
+    SSHLibrary.Set Client Configuration    timeout=60s
+    SSHLibrary.Write    python3 getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
+    run keyword and ignore error    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHLibrary.Write    python3 getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
     FOR    ${number}    IN RANGE    1    ${DEVICE_COUNT}+1
         Read_Python_Tool_Operation_Result    ${number}
     END
-    SSHLibrary.Read_Until_Prompt
+    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT_STRICT}
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
 Deconfigure_Devices
+    [Tags]    exclude
     [Documentation]    Make requests to deconfigure the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 
 Check_Devices_Are_Deconfigured
+    [Tags]    exclude
     [Documentation]    Check there are no netconf connectors or other stuff related to the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Check_Device_Deconfigured    timeout=${timeout}
