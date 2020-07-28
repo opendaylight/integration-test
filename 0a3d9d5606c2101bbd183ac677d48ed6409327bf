@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e5de3026_449cc8be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Line 7 and Line 9 are the details I have already added as a part of the commit message. Please let me know what additional info you would want me to include.",
+      "parentUuid": "3f724b9f_3d12316a",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67454f12_47f82490",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -30,6 +48,42 @@
       "writtenOn": "2020-07-27T20:36:19Z",
       "side": 1,
       "message": "still whitespace to clean up",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c1d8790_f108540d",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67454f12_47f82490",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c9967c2_3315c46e",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "These spaces are introduced when I do robot-tidy.\nIf I don\u0027t do that or remove the white spaces trailing, build fails with robot wrapper.\nHence, I have not removed it. If you are ok with removing those lines itself, then I can do that.",
+      "parentUuid": "67454f12_47f82490",
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
@@ -59,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "9cdeb498_35f7dce8",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bb7fa25_89936238",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c047bd5f_4feda17f",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -79,6 +157,30 @@
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2efd088_d46f0373",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c047bd5f_4feda17f",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "98c5c24d_df9e6073",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60bbaea5_28c4991c",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77c61938_4c303689",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -125,6 +251,30 @@
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e0048d9_f9d4502a",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77c61938_4c303689",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "2897d478_0bc4175c",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1d78911_f1e5b22e",
+      "range": {
+        "startLine": 68,
+        "startChar": 70,
+        "endLine": 68,
+        "endChar": 86
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3bb345d_bb0ba523",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 47
@@ -162,6 +336,24 @@
       "writtenOn": "2020-07-27T20:36:19Z",
       "side": 1,
       "message": "whitespace",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766a5d16_bf3d9056",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "These spaces are introduced when I do robot-tidy.\nIf I don\u0027t do that or remove the white spaces trailing, build fails with robot wrapper.\nHence, I have not removed it. If you are ok with removing those lines itself, then I can do that.",
+      "parentUuid": "c3bb345d_bb0ba523",
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
@@ -191,6 +383,30 @@
     },
     {
       "key": {
+        "uuid": "cd83f3e6_dce4d245",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d30b6500_fec7a614",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6cbe446_621136e1",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 47
@@ -205,6 +421,24 @@
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "173ef2b5_867de5de",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6cbe446_621136e1",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +465,30 @@
     },
     {
       "key": {
+        "uuid": "951eddb2_6255c357",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Stable Version, added the reason as part of documentation",
+      "parentUuid": "1330df44_2056b4d6",
+      "range": {
+        "startLine": 67,
+        "startChar": 59,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b259d9be_978b92c1",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 47
@@ -242,6 +500,24 @@
       "writtenOn": "2020-07-27T20:36:19Z",
       "side": 1,
       "message": "delete lines 96,97 and just put the full command here. They are short enough and only\nused once to making them a variable doesn\u0027t really add any value",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94903c2d_602d66c9",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-28T08:49:46Z",
+      "side": 1,
+      "message": "Line 96, the script downloads the tar file, then line 99, checks for the existence of the particular file and line 100, does untar of the downloaded file. Are you suggesting me to combine downloading and untar in a single command?",
+      "parentUuid": "b259d9be_978b92c1",
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
