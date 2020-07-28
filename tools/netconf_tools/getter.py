@@ -174,7 +174,11 @@ while request_count > 0:
             print("ERROR|" + result[1] + "|")
             break
         runtime = "%5.3f|%5.3f|%5.3f" % result[1]
-        print("%03d|%s|%s|" % ((result[0], runtime, result[2])))
+        # in python3 some library above is munging a byte variable into a
+        # string, but keeping the byte indicator ('b') prepended to the
+        # string, so we need to strip that off here. If it's not there,
+        # it should be a noop and cause no trouble
+        print("%03d|%s|%s|" % (result[0], runtime, result[2].lstrip('b')))
         request_count -= 1
         continue
     time.sleep(args.refresh)
