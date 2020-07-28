@@ -55,11 +55,13 @@ Issue_Requests_On_Devices
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHKeywords.Flexible_Mininet_Login
-    SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
+    SSHLibrary.Write    python3 getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
+    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHLibrary.Write    python3 getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
     FOR    ${number}    IN RANGE    1    ${DEVICE_COUNT}+1
         Read_Python_Tool_Operation_Result    ${number}
     END
-    SSHLibrary.Read_Until_Prompt
+    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT_STRICT}
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
