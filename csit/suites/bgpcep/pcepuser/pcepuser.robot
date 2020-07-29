@@ -19,12 +19,12 @@ Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../variables/Variables.robot
-Variables         ../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
+Variables         ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${CONFIG_SESSION}    session
 ${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
-${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/
+${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/${ODL_STREAM}
 
 *** Test Cases ***
 Topology_Precondition
