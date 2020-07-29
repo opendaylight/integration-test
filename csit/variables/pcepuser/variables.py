@@ -57,9 +57,9 @@ def get_variables(mininet_ip):
   ],
   "state-sync": "synchronized",
   "stateful-tlv": {
-   "odl-pcep-ietf-stateful07:stateful": {
+   "odl-pcep-ietf-stateful:stateful": {
     "lsp-update-capability": true,
-    "odl-pcep-ietf-initiated00:initiation": true
+    "odl-pcep-ietf-initiated:initiation": true
    }
   }
  }
@@ -85,11 +85,11 @@ def get_variables(mininet_ip):
        ]
       },
       "lsp-id": $ID,
-      "odl-pcep-ietf-stateful07:lsp": {
+      "odl-pcep-ietf-stateful:lsp": {
        "administrative": true,
        "delegate": true,
        "ignore": false,
-       "odl-pcep-ietf-initiated00:create": $CREATED,
+       "odl-pcep-ietf-initiated:create": $CREATED,
        "operational": "up",
        "plsp-id": $ID,
        "processing-rule": false,
