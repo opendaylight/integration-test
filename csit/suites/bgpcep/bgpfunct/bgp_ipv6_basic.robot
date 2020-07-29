@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     Functional test for ipv6 connection with bgp.
-...           
+...
 ...               Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
-...           
+...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...           
+...
 ...               This suite tests simple connection between one ibgp peer (exabgp) and Odl.
 ...               Peer is configured with ipv6, and exabgp connectes to odl via ipv6.
 ...               Exabgp sends one ipv6 unicast route, which presence is verified in
@@ -269,7 +269,7 @@ Stop_All_Exabgps_4
 
 Reconfigure_ODL_To_Accept_Connections_7
     [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${IPV4_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 

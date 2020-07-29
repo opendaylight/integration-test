@@ -27,8 +27,8 @@ Resource          ../../../variables/Variables.robot
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf    # used for configuration of bgp peer via openconfig
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer    # used for configuration of bgp peer
-${BGP_VARIABLES_FOLDER_OP}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_operational
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer    # used for configuration of bgp peer
+${BGP_VARIABLES_FOLDER_OP}    ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer_operational
 ${CHECK_PERIOD}    10
 ${HOLDTIME}       180
 ${INSERT}         1
