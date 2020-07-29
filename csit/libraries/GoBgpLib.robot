@@ -27,7 +27,7 @@ Start_GoBgp
     [Arguments]    ${cfg_file}
     [Documentation]    Dump the start command into prompt. It assumes that no gobgp is running. For verified
     ...    start use Start_GoBgp_And_Verify_Connected keyword.
-    ${start_cmd}=    ${GOBGP_EXECUTION_COMMAND} /home/jenkins/${cfg_file}
+    ${start_cmd}    BuiltIn.Set Variable    ${GOBGP_EXECUTION_COMMAND} /home/jenkins/${cfg_file}
     BuiltIn.Log    ${start_cmd}
     ${output}=    SSHLibrary.Write    ${start_cmd}
     BuiltIn.Log    ${output}
