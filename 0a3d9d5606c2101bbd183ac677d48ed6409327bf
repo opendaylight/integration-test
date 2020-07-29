@@ -507,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "11ea0de7_6aab5097",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-07-29T02:27:32Z",
+      "side": 1,
+      "message": "The lines 66 and 67 are not required for GoBGP. Can be removed. GoBGP is Go based binary, does not required Python virtualenv",
+      "parentUuid": "951eddb2_6255c357",
+      "range": {
+        "startLine": 67,
+        "startChar": 59,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b259d9be_978b92c1",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 47
