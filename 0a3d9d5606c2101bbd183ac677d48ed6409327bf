@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "c6d63c7a_2f4ebb27",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-29T22:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c9967c2_3315c46e",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bb7fa25_89936238",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -267,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "b653d59a_5c4c058f",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-29T22:25:20Z",
+      "side": 1,
+      "message": "this applies everywhere, not just this single line.",
+      "parentUuid": "98c5c24d_df9e6073",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77c61938_4c303689",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -302,6 +344,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "77c61938_4c303689",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41a0aa9a_5d3a1e94",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-29T22:25:20Z",
+      "side": 1,
+      "message": "you wrote that gobgp could take more time. if that\u0027s the case, why not just add more iterations or longer wait time on the WUKS instead of the stuff doing a STOP and restarting, etc?",
+      "parentUuid": "9e0048d9_f9d4502a",
       "range": {
         "startLine": 54,
         "startChar": 4,
@@ -393,6 +459,24 @@
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cec7cdb_23fcf147",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-29T22:25:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "766a5d16_bf3d9056",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -602,6 +686,24 @@
       "side": 1,
       "message": "Line 96, the script downloads the tar file, then line 99, checks for the existence of the particular file and line 100, does untar of the downloaded file. Are you suggesting me to combine downloading and untar in a single command?",
       "parentUuid": "b259d9be_978b92c1",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396e2e89_6644d937",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-29T22:25:20Z",
+      "side": 1,
+      "message": "I\u0027m saying to delete lines 96-97 here (they are lines 92-93 in patch set 49) and then modify the\nbelow lines to be like:\n\n    SSHLibrary.Execute Command    wget ${GOBGP_BINARY_URL}\n    SSHLibrary.File Should Exist    ./${FILE_NAME}\n    SSHLibrary.Execute Command    tar -xzf ${FILE_NAME}\n\noh, with the code I just gave, you can delete line 95 as well.",
+      "parentUuid": "94903c2d_602d66c9",
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
