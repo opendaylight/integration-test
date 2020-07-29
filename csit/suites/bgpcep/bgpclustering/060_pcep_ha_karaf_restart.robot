@@ -30,7 +30,7 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180
-${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/bgpclustering/
+${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/bgpclustering/${STREAM}
 ${PCC_LOG_FILE}    pccmock.restart.log
 ${CONFIG_SESSION}    session
 ${OLD_ERROR_ARGS}    \n"last-received-error": {},\n"last-sent-error": {},
