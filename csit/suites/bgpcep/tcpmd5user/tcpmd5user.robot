@@ -38,7 +38,7 @@ Resource          ../../../variables/Variables.robot
 Variables         ../../../variables/tcpmd5user/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
-${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/
+${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/${ODL_STREAM}
 ${CONFIG_SESSION}    session
 ${OLD_ERROR_ARGS}    \n"last-received-error": {},\n"last-sent-error": {},
 ${NEW_ERROR_ARGS}    ${EMPTY}
