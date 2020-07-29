@@ -41,7 +41,7 @@ Reconfigure_ODL_To_Accept_Connections
 
 Start_Gobgp
     [Tags]    critical
-    ${cmd}=    ${GOBGP_CFG} > ${GOBGP_LOG}
+    ${cmd}    BuiltIn.Set Variable    ${GOBGP_CFG} > ${GOBGP_LOG}
     GoBgpLib.Start_GoBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
 
 Delete_Bgp_Peer_Configuration

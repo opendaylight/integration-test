@@ -269,24 +269,27 @@ Stop_All_Exabgps_4
 
 Reconfigure_ODL_To_Accept_Connections_7
     [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
+    [Tags]    exclude
     &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Exabgp_5
     [Documentation]    Start exabgp with
-    [Tags]    critical
+    [Tags]    exclude
     ${cmd}    BuiltIn.Set_Variable    ${EXABGP4_CFG} > ${EXABGP4_LOG}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cmd}    ${CONFIG_SESSION}    ${EXABGP_ID}
 
 Delete_Bgp_Peer_Configuration_7
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+    [Tags]    exclude
     &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Stop_All_Exabgps_5
     [Documentation]    Save exabgp logs as exabgp_graceful_restart.log, and stop exabgp with ctrl-c bash signal
+    [Tags]    exclude
     BGPcliKeywords.Store_File_To_Workspace    ${EXABGP4_LOG}    ${EXABGP4_LOG}
     ExaBgpLib.Stop_ExaBgp
 
