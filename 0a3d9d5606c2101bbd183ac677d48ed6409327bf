@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "1e5dbab4_ce77045f",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-30T06:59:24Z",
+      "side": 1,
+      "message": "Modified another line, line 44 in suites/bgpcep/bgpfunct/bgp_llgr_basic.robot\nI had used BuiltIn.Set_Variable only in these 2 place and I have modified it as per your inputs.",
+      "parentUuid": "b653d59a_5c4c058f",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77c61938_4c303689",
         "filename": "csit/libraries/GoBgpLib.robot",
         "patchSetId": 47
@@ -368,6 +392,30 @@
       "side": 1,
       "message": "you wrote that gobgp could take more time. if that\u0027s the case, why not just add more iterations or longer wait time on the WUKS instead of the stuff doing a STOP and restarting, etc?",
       "parentUuid": "9e0048d9_f9d4502a",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f6a5254_e2c0e56f",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-30T06:59:24Z",
+      "side": 1,
+      "message": "If the BGP session was not established the very first time or if it is failing, it is necessary that we terminate the session, hence stopping the session in within the for loop is needed.\nSay, I have the session established, the BGP session will not be terminated.",
+      "parentUuid": "41a0aa9a_5d3a1e94",
       "range": {
         "startLine": 54,
         "startChar": 4,
@@ -707,6 +755,24 @@
       "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05749c7f_e33dbe68",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-07-30T06:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "396e2e89_6644d937",
+      "revId": "0a3d9d5606c2101bbd183ac677d48ed6409327bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
