@@ -20,10 +20,12 @@ Resource          ../../libraries/VpnOperations.robot
 Resource          ../../variables/Variables.robot
 Variables         ../../variables/genius/Modules.py
 Resource          ../../variables/netvirt/Variables.robot
+Resource          ../../libraries/CompareStream.robot
 
 *** Variables ***
 ${FLOWS_FILTER_TABLE0}    | grep table=0
 ${FLOWS_FILTER_TABLE95}    | grep table=95
+${TEP_SHOW_OF_PORTS}    tep:show-ofports
 
 *** Test Cases ***
 Create and Verify OFT TEPs
@@ -75,8 +77,8 @@ OFT Verify Vteps Created
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Get ITM    ${DEFAULT_TRANSPORT_ZONE}    ${switch_data}
     ${tep_show_output} =    BuiltIn.Wait Until Keyword Succeeds    60    5    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Contain Any    ${tep_show_output}    ${DEFAULT_TRANSPORT_ZONE}    VXLAN    @{switch_data}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Update Dpn id List And Get Tunnels    odl-interface:tunnel-type-vxlan    dpn-teps-state    ${dpn_id_list}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Response Code Of Dpn End Point Config API    ${dpn_id_list}
+    CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Update Dpn id List And Get Tunnels    odl-interface:tunnel-type-vxlan    dpn-teps-state    ${dpn_id_list}
+    CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Response Code Of Dpn End Point Config API    ${dpn_id_list}
     ${num_switches} =    BuiltIn.Get Length    ${dpn_id_list}
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${num_switches}
     BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{tools_ip_list}
@@ -86,9 +88,8 @@ OFT Verify Vteps Created
         Collections.Remove From List    ${tun_ip_list}    ${tools_system_index}
         ${ports_output} =    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
         ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).of.*    ${1}
-        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
-        ...    ${port_numbers}
-        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
+        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}    ${port_numbers}
+        CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
         ...    ${port_numbers}
     END
 
@@ -106,7 +107,7 @@ OFT OVS Verify Ingress Flows Created per Switch
     ${flows_table0_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE0}
     BuiltIn.Should Not Contain    ${flows_table0_output}    tun_src=${tools_ip},
     FOR    ${tun_src}    IN    @{tun_src_list}
-        BuiltIn.Should Contain    ${flows_table0_output}    tun_src=${tun_src},
+        CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Should Contain    ${flows_table0_output}    tun_src=${tun_src},
     END
     FOR    ${port_number}    IN    @{port_numbers}
         BuiltIn.Should Contain    ${flows_table0_output}    in_port=${port_number}
@@ -141,16 +142,14 @@ OFT Verify Vteps Deleted
     ${tep_show_state_output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     FOR    ${tools_system_index}    IN RANGE    ${deleted_tep_len}
         ${tep_show_state_output_1} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-        Log    ${tools_ip_list}
-        Log    ${tools_ip_list}[${tools_system_index}]
+        BuiltIn.Log    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Should Not Contain    ${tep_show_output}    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Should Not Contain    ${tep_show_state_output}    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Wait Until Keyword Succeeds    60    5    Utils.No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn_id_list}[${tools_system_index}]/
         ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
         Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
         BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Vteps Deleted at Dpn Teps State per Interface    ${dpn_id_list}[${tools_system_index}]    ${dst_dpn_id_list}
-        ${ovs_vsctl_output} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]
-        ...    sudo ovs-vsctl show
+        ${ovs_vsctl_output} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]    sudo ovs-vsctl show
         BuiltIn.Should Not Contain    ${ovs_vsctl_output}    remote_ip=flow
         BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
@@ -160,8 +159,7 @@ OFT Verify Vteps Deleted at Dpn Teps State per Interface
     [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}
     [Documentation]    Verify if vteps are deleted for all src-dst intf pair at dpn-teps-state in ODL for a given src intf.
     FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
-        ${status} =    BuiltIn.Run Keyword And Return Status    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}    odl-interface:tunnel-type-vxlan
-        ...    dpn-teps-state
+        ${status} =    BuiltIn.Run Keyword And Return Status    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}    odl-interface:tunnel-type-vxlan    dpn-teps-state
         BuiltIn.Should Be True    ${status} == ${False}
     END
 
@@ -183,7 +181,8 @@ OF Tunnels Start Suite
     ClusterManagement.Stop_Members_From_List_Or_All
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
         Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
-        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
+        CompareStream.Run_Keyword_If_At_Most_Aluminium    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
+        CompareStream.Run_Keyword_If_At_Least_Silicon    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-of-tunnels>false/<itm-of-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
@@ -192,7 +191,8 @@ OF Tunnels Stop Suite
     [Documentation]    Stop suite for OF Tunnels.
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
         Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
-        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
+        CompareStream.Run_Keyword_If_At_Most_Aluminium    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
+        CompareStream.Run_Keyword_If_At_Least_Silicon    Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-of-tunnels>true/<itm-of-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All

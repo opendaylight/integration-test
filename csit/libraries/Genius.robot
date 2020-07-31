@@ -195,7 +195,8 @@ Verify Tunnel Status As Up
     ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
     ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
     ${expected_tunnel_count} =    BuiltIn.Evaluate    ${no_of_switches}*(${no_of_switches}-1)
-    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
+    CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
+    CompareStream.Run_Keyword_If_At_Least_Silicon    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${no_of_switches}
 
 Verify Tunnel Status
     [Arguments]    ${tunnel_status}    ${tunnel_names}
