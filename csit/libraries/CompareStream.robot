@@ -259,6 +259,12 @@ Run_Keyword_If_At_Least_Aluminium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    aluminium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Silicon
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least silicon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    silicon    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
@@ -306,6 +312,12 @@ Run_Keyword_If_At_Most_Aluminium
     [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most aluminium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    aluminium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Silicon
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most silicon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    silicon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
