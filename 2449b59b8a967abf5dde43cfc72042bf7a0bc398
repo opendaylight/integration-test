@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b688b63_bee09150",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-31T15:53:03Z",
+      "side": 1,
+      "message": "better commit message please. Anyone seeing this in a git log would have absolutely no\nidea what this commit is doing.",
+      "revId": "2449b59b8a967abf5dde43cfc72042bf7a0bc398",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
