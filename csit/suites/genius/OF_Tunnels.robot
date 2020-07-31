@@ -24,6 +24,7 @@ Resource          ../../variables/netvirt/Variables.robot
 *** Variables ***
 ${FLOWS_FILTER_TABLE0}    | grep table=0
 ${FLOWS_FILTER_TABLE95}    | grep table=95
+${TEP_SHOW_OF_PORTS}    | tep:show-ofports
 
 *** Test Cases ***
 Create and Verify OFT TEPs
@@ -78,7 +79,7 @@ OFT Verify Vteps Created
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Update Dpn id List And Get Tunnels    odl-interface:tunnel-type-vxlan    dpn-teps-state    ${dpn_id_list}
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Response Code Of Dpn End Point Config API    ${dpn_id_list}
     ${num_switches} =    BuiltIn.Get Length    ${dpn_id_list}
-    BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up    ${num_switches}
+    BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Tunnel Status as UP    ${num_switches}
     BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Tunnels Created    @{tools_ip_list}
     ${tools_system_len} =    BuiltIn.Get Length    ${tools_ip_list}
     FOR    ${tools_system_index}    IN RANGE    ${tools_system_len}
@@ -177,13 +178,22 @@ OFT OVS Verify Egress Flows Deleted per Switch
     ${flows_table95_output} =    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -OOpenFlow13 dump-flows ${Bridge} ${FLOWS_FILTER_TABLE95}
     BuiltIn.Should Not Contain    ${flows_table95_output}    output:
 
+OFT Verify Tunnel Status as UP
+    [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
+    [Documentation]    Verify that the number of tunnels are UP
+    ${no_of_tunnels} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_OF_PORTS}}
+    ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
+    ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
+    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${no_of_switches}
+
+
 OF Tunnels Start Suite
     [Documentation]    Start suite for OF Tunnels.
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
         Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
-        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_ITM_CONFIG_FLAG}
+        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-of-tunnels>false/<use-of-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
@@ -192,7 +202,7 @@ OF Tunnels Stop Suite
     [Documentation]    Stop suite for OF Tunnels.
     FOR    ${controller_index}    IN RANGE    ${NUM_ODL_SYSTEM}
         Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
-        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<use-of-tunnels>true/<use-of-tunnels>false/g' ${GENIUS_ITM_CONFIG_FLAG}
+        Run Command On Remote System And Log    ${ODL_SYSTEM_${controller_index+1}_IP}    sed -i -- 's/<itm-of-tunnels>true/<itm-of-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
     END
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
