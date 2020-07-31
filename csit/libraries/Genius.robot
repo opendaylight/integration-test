@@ -31,6 +31,7 @@ ${DEFAULT_TRANSPORT_ZONE}    default-transport-zone
 ${SET_LOCAL_IP}    sudo ovs-vsctl set O . other_config:local_ip=
 ${REMOVE_LOCAL_IP}    sudo ovs-vsctl remove O . other_config local_ip
 ${odl_stream_check }    ${Stream_dict}[${ODL_STREAM}] <= ${Stream_dict}[neon]
+${TEP_SHOW_OF_PORTS}    tep:show-ofports
 
 *** Keywords ***
 Genius Suite Setup
@@ -191,11 +192,16 @@ Check Table0 Entry In a Dpn
 Verify Tunnel Status As Up
     [Arguments]    ${no_of_switches}=${NUM_TOOLS_SYSTEM}
     [Documentation]    Verify that the number of tunnels are UP
-    ${no_of_tunnels} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    ${lines_of_state_up} =    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
-    ${actual_tunnel_count} =    String.Get Line Count    ${lines_of_state_up}
+    ${no_of_tunnels} =    CompareStream.Run_Keyword_If_At_Most_Aluminium    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    ${no_of_tunnels} =    CompareStream.Run_Keyword_If_At_Least_Silicon    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_OF_PORTS}
+    ${lines_of_state_up_temp1} =    CompareStream.Run_Keyword_If_At_Most_Aluminium    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
+    ${lines_of_state_up_temp2} =    CompareStream.Run_Keyword_If_At_Least_Silicon    String.Get Lines Containing String    ${no_of_tunnels}    Up
+    ${actual_tunnel_count_temp1} =    CompareStream.Run_Keyword_If_At_Most_Aluminium    String.Get Line Count    ${lines_of_state_up_temp1}
+    ${actual_tunnel_count_temp2} =    CompareStream.Run_Keyword_If_At_Most_Aluminium    String.Get Line Count    ${lines_of_state_up_temp2}
+    ${actual_tunnel_count} =    CompareStream.Set_Variable_If_At_Most_Aluminium    ${actual_tunnel_count_temp1}    ${actual_tunnel_count_temp2}
     ${expected_tunnel_count} =    BuiltIn.Evaluate    ${no_of_switches}*(${no_of_switches}-1)
-    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
+    CompareStream.Run_Keyword_If_At_Most_Aluminium    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${expected_tunnel_count}
+    CompareStream.Run_Keyword_If_At_Least_Silicon    BuiltIn.Should Be Equal As Strings    ${actual_tunnel_count}    ${no_of_switches}
 
 Verify Tunnel Status
     [Arguments]    ${tunnel_status}    ${tunnel_names}
