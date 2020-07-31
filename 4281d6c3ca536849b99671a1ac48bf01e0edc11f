@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6053c150_45da31fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-31T15:52:15Z",
+      "side": 1,
+      "message": "Can you write a better commit message please?\n\nsummary line can state a little more clearly \"what\" the change is about.\n\nif you need more details, put a blank line and add those details",
+      "revId": "4281d6c3ca536849b99671a1ac48bf01e0edc11f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d4a060_97a6ba7d",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-31T15:52:15Z",
+      "side": 1,
+      "message": "I don\u0027t think the indents here are right.  applies below as well.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 7
+      },
+      "revId": "4281d6c3ca536849b99671a1ac48bf01e0edc11f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718f9d9e_44e6e87a",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-07-31T15:52:15Z",
+      "side": 1,
+      "message": "can you delete this line since you have 145 below?",
+      "revId": "4281d6c3ca536849b99671a1ac48bf01e0edc11f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
