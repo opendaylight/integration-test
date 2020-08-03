@@ -159,6 +159,7 @@ Check_Delete_Notification
 Setup_Everything
     [Documentation]    SSH-login to mininet machine, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
+    Disable SSE On Controller    ${CONTROLLER}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     TemplatedRequests.Create_Default_Session
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
