@@ -33,6 +33,7 @@ ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
 ${TESTTOOL_BOOT_TIMEOUT}    60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
+${SSE_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.restconf.nb.rfc8040.cfg
 
 *** Keywords ***
 Setup_NetconfKeywords
@@ -271,3 +272,25 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}    log_response=${log_response}
+
+Disable SSE On Controller
+    [Arguments]    ${controller_ip}
+    [Documentation]    Sets the config for using SSE (Server Side Events) to false. Note that
+    ...    this keyword only changes the config. A controller restart is needed for the config to
+    ...    to take effect.
+    SSHLibrary.Open Connection    ${controller_ip}
+    Login With Public Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    ${cmd}=    Set Variable    echo "use-sse=false" > ${SSE_CFG_FILE}
+    SSHLibrary.Execute Command    ${cmd}
+    SSHLibrary.Close Connection
+
+Enable SSE On Controller
+    [Arguments]    ${controller_ip}
+    [Documentation]    Sets the config for using SSE (Server Side Events) to true. Note that
+    ...    this keyword only changes the config. A controller restart is needed for the config to
+    ...    to take effect.
+    SSHLibrary.Open Connection    ${controller_ip}
+    Login With Public Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    ${cmd}=    Set Variable    echo "use-sse=true" > ${SSE_CFG_FILE}
+    SSHLibrary.Execute Command    ${cmd}
+    SSHLibrary.Close Connection
