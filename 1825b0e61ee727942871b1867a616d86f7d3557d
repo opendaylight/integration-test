@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "dad34390_55c2c125",
+        "filename": "tools/pcep_updater/updater.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-08-04T04:42:35Z",
+      "side": 1,
+      "message": "I think the link you gave above is just a link to this exact file. Maybe you meant to paste a different\nlink?\n\nbtw, with a little bit of munging I can see that it sort of does turn in to json, like this (which is\nthe pretty format I was looking for):\n\n{\n  \"input\": {\n    \"node\": \"pcc://\u0027, \u0027\u0027, \u0027\",\n    \"name\": \"pcc_\u0027, \u0027\u0027, \u0027_tunnel_\u0027, \u0027\u0027, \u0027\",\n    \"network-topology-ref\": \"/network-topology:network-topology/network-topology:topology[network-topology:topology-id\u003d\\\\\\\"pcep-topology\\\\\\\"]\",\n    \"arguments\": {\n      \"lsp\": {\n        \"delegate\": \"\u0027, \u0027\u0027, \u0027,\",\n        \"administrative\": true\n      },\n      \"ero\": {\n        \"subobject\": [\n          {\n            \"loose\": false,\n            \"ip-prefix\": {\n              \"ip-prefix\": \"\u0027, \u0027\u0027, \u0027\"\n            }\n          },\n          {\n            \"loose\": false,\n            \"ip-prefix\": {\n              \"ip-prefix\": \"1.1.1.1/32\"\n            }\n          }\n        ]\n      }\n    }\n  }\n}\n\nbut I had to remove some characters to get to this. Do you know how this is being consumed?\nIf there is no good answer to make this more readable and maintainable we can forget about it,\nbut I hope you agree that\u0027s really ugly and cumbersome.",
+      "parentUuid": "7888e9cd_74085312",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 25
+      },
+      "revId": "1825b0e61ee727942871b1867a616d86f7d3557d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e42029d8_d5065f79",
         "filename": "tools/pcep_updater/updater.py",
         "patchSetId": 10
