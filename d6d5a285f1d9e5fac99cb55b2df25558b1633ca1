@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae55ed26_118634c5",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-08-05T18:17:40Z",
+      "side": 1,
+      "message": "Do we need to add both the keywords? what is the default value of use-sse?",
+      "revId": "d6d5a285f1d9e5fac99cb55b2df25558b1633ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
