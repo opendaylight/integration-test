@@ -34,6 +34,24 @@
       "revId": "d6d5a285f1d9e5fac99cb55b2df25558b1633ca1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc5e22d_e697184b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8737
+      },
+      "writtenOn": "2020-08-05T18:48:39Z",
+      "side": 1,
+      "message": "i think about future use. Some cherry pick to previous versions with possible different default ... But it can be removed now",
+      "parentUuid": "5b9c1d98_abeb95d4",
+      "revId": "d6d5a285f1d9e5fac99cb55b2df25558b1633ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
