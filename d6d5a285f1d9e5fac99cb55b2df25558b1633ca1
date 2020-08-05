@@ -16,6 +16,24 @@
       "revId": "d6d5a285f1d9e5fac99cb55b2df25558b1633ca1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b9c1d98_abeb95d4",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-08-05T18:20:40Z",
+      "side": 1,
+      "message": "see commit message, but essentially this is only an Aluminium change and the default is to use SSE, but\nthat does not require a config file initially (Lukas can correct me if I\u0027m wrong). So for Aluminium, since\nwe want the old (non-default) behavior we need to set it false. This KW to enable it is just added for\nfuture use.",
+      "parentUuid": "ae55ed26_118634c5",
+      "revId": "d6d5a285f1d9e5fac99cb55b2df25558b1633ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
