@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7fb8162a_fbb9e7b3",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-08-07T06:17:12Z",
+      "side": 1,
+      "message": "\"${var}\u003d\" I shall use this format throughout my scripting. Made the changes in my script accordingly.",
+      "parentUuid": "ae9c2e06_2df209e1",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "700228ee23262ae833c945c5838a0cefaecd01bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5407073c_9f623513",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 50
@@ -68,6 +92,30 @@
       "revId": "700228ee23262ae833c945c5838a0cefaecd01bf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a24ca068_4d8aafa5",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-08-07T06:17:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5407073c_9f623513",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "700228ee23262ae833c945c5838a0cefaecd01bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }

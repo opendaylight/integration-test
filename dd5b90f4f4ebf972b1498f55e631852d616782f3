@@ -231,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "cd1e46af_b67541ed",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8769
+      },
+      "writtenOn": "2020-08-07T06:17:12Z",
+      "side": 1,
+      "message": "Addressed, using only WUKS.",
+      "parentUuid": "6eea8a3e_100f5e05",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 63
+      },
+      "revId": "dd5b90f4f4ebf972b1498f55e631852d616782f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99d8e464_ed013233",
         "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
         "patchSetId": 1
