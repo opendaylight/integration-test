@@ -8,7 +8,7 @@ Library           Collections
 Library           String
 
 *** Variables ***
-&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}    magnesium=${12}    aluminium=${13}
+&{Stream_dict}    carbon=${6}    nitrogen=${7}    oxygen=${8}    fluorine=${9}    neon=${10}    sodium=${11}    magnesium=${12}    aluminium=${13}    silicium=${14}
 
 *** Keywords ***
 Set_Variable_If_At_Least
