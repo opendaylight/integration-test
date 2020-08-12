@@ -8,6 +8,14 @@ import re
 # Order the list in alphabetical order based on the "issue" key
 _whitelist = [
     {
+        "issue": "https://jira.opendaylight.org/browse/NETVIRT-XXXX",
+        "id": "EncapsulatedValueCodec",
+        "context": [
+            "org.opendaylight.mdsal.binding.dom.codec.impl.EncapsulatedValueCodec@",
+            + "org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev130715.Ipv4Prefix",
+        ],
+    },
+    {
         "issue": "https://jira.opendaylight.org/browse/NETVIRT-972",
         "id": "ConflictingModificationAppliedException",
         "context": [
