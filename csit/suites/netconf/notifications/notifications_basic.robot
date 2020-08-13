@@ -46,46 +46,27 @@ Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${TEMPLATE_FOLDER}    ${CURDIR}/templates
-${RESTCONF_SUBSCRIBE_URI}    restconf/operations/sal-remote:create-data-change-event-subscription
-${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
-${NODES_STREAM_PATH}    opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
-${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/data-change-event-subscription/${NODES_STREAM_PATH}
+${DRAFT_NOTIFICATIONS_STREAMS_URI}    restconf/streams
 ${RFC8040_NOTIFICATIONS_STREAMS_URI}    rests/data/ietf-restconf-monitoring:restconf-state/streams
+${NODES_STREAM_PATH}    opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
+${DRAFT_GET_SUBSCRIPTION_URI}    ${DRAFT_NOTIFICATIONS_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RFC8040_GET_SUBSCRIPTION_URI}    ${RFC8040_NOTIFICATIONS_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
+${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
 ${RESTCONF_CONFIG_DATA}    config_data.xml
 ${RECEIVER_LOG_FILE}    wsreceiver.log
 ${RECEIVER_OPTIONS}    ${EMPTY}
 ${CONTROLLER_LOG_LEVEL}    INFO
 
 *** Test Cases ***
-Clean_Config
-    [Documentation]    Make sure config inventory is empty.
+Subscribe_To_Yang_Notification
+    [Documentation]    Subscribe to notification.
     [Tags]    critical
-    ${uri} =    Restconf.Generate URI    opendaylight-inventory:nodes    config
-    TemplatedRequests.Delete_From_Uri    uri=${uri}    additional_allowed_status_codes=${DELETED_STATUS_CODES}
-    # TODO: Rework also other test cases to use TemplatedRequests.
-
-Create_Subscription
-    [Documentation]    Subscribe for notifications.
-    [Tags]    critical
-    # check get streams url passes prior to creating a subscription
+    Return_From_Keyword_If     "${USE_RFC8040}" == "False"
+    Comment    Check notification streams
     ${resp} =    RequestsLibrary.Get_Request    restconf    ${RFC8040_NOTIFICATIONS_STREAMS_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
-    BuiltIn.Log    ${RESTCONF_SUBSCRIBE_URI}
-    BuiltIn.Log    ${body}
-    ${uri} =    Restconf.Generate URI    sal-remote:create-data-change-event-subscription    rpc
-    ${resp} =    RequestsLibrary.Post_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
-    Log_Response    ${resp}
-    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
-Check_Notification_Stream
-    [Documentation]    Check any notification stream via RESTCONF is accessible
-    [Tags]    critical
-    ${resp} =    RequestsLibrary.Get_Request    restconf    ${RFC8040_NOTIFICATIONS_STREAMS_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
-    Log_Response    ${resp}
-    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    Comment    Subscribe to notification
     ${root}=    XML.Parse XML    ${resp.content}
     ${name}=    Get Elements Texts    ${root}    stream/name
     BuiltIn.Log    ${name[0]}
@@ -93,10 +74,20 @@ Check_Notification_Stream
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Check_Subscription
-    [Documentation]    Get & check subscription ...
+Create_DCN_Subscription
+    [Documentation]    Create DCN Subscription.
     [Tags]    critical
-    ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${RESTCONF_GET_SUBSCRIPTION_URI}    ${RFC8040_GET_SUBSCRIPTION_URI}
+    Comment    Create DCN subscription
+    ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
+    ${uri} =    Restconf.Generate URI    sal-remote:create-data-change-event-subscription    rpc
+    ${resp} =    RequestsLibrary.Post_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
+    Log_Response    ${resp}
+    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Subscribe_To_DCN_Notifications
+    [Documentation]    Subscribe to DCN notifications.
+    [Tags]    critical
+    ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${DRAFT_GET_SUBSCRIPTION_URI}    ${RFC8040_GET_SUBSCRIPTION_URI}
     ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -108,7 +99,8 @@ Check_Subscription
 
 Start_Receiver
     [Documentation]    Start the websocket listener
-    ${output} =    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
+    ${output} =    Run Keyword If    "${USE_RFC8040}" == "False"    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
+    ...    ELSE    SSHLibrary.Write    python3 ssereceiver.py --controller ${ODL_SYSTEM_IP} --logfile ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${output}
     ${output} =    SSHLibrary.Read    delay=2s
     BuiltIn.Log    ${output}
@@ -117,8 +109,7 @@ Change_Config
     [Documentation]    Make a change in configuration.
     [Tags]    critical
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
-    ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${CONFIG_API}    rests/data
-    BuiltIn.Log    ${body}
+    ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    /restconf/config    /rests/data
     ${resp} =    RequestsLibrary.Post_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -162,25 +153,16 @@ Setup_Everything
     [Documentation]    SSH-login to mininet machine, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    Disable SSE On Controller    ${CONTROLLER}
-    ClusterManagement.Stop_Members_From_List_Or_All
-    ClusterManagement.Start_Members_From_List_Or_All
     KarafKeywords.Open_Controller_Karaf_Console_On_Background
-    TemplatedRequests.Create_Default_Session
-    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=receiver
-    SSHKeywords.Flexible_Mininet_Login
+    SSHKeywords.Open_Connection_To_Tools_System
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
-    ${output_log}    ${error_log} =    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
-    BuiltIn.Log    ${output_log}
-    BuiltIn.Log    ${error_log}
-    ${output_log} =    SSHLibrary.Execute_Command    sudo pip install websocket-client
-    BuiltIn.Log    ${output_log}
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/ssereceiver.py
+    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
+    SSHLibrary.Execute Command    sudo python3 -m pip install asyncio aiohttp aiohttp-sse-client coroutine
+    SSHLibrary.Execute_Command    sudo pip install websocket-client
     ${output_log} =    SSHLibrary.Execute_Command    python -c "help('modules')"
-    BuiltIn.Log    ${output_log}
     Should Contain    ${output_log}    websocket
     RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything
