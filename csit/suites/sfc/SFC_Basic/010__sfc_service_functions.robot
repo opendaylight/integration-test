@@ -52,7 +52,7 @@ Delete A Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTION_URI}/dpi-102-1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    dpi-102-1
+    Should Not Contain    ${resp.text}    dpi-102-1
 
 Delete A Non-existing Empty Service Function
     [Documentation]    Delete A Non existing Service Function
@@ -95,7 +95,7 @@ Put Service Function DPL to a Non-existing Service Function
     Add Elements To URI From File    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-101    ${SF_DPL101_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    dpi-102-100
+    Should Contain    ${resp.text}    dpi-102-100
     ${elements}=    Create List    dpl-101    10101
     Check For Elements At URI    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-101    ${elements}
     Check For Elements At URI    ${SF_DPI102100_URI}    ${elements}
@@ -106,7 +106,7 @@ Delete Service Function DPL
     Remove All Elements At URI    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-100
     ${resp}    RequestsLibrary.Get Request    session    ${SF_DPI102100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    dpl-100
+    Should Not Contain    ${resp.text}    dpl-100
 
 *** Keywords ***
 Init Suite

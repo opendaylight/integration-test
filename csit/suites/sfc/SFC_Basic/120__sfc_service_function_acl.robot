@@ -56,4 +56,4 @@ Delete An ACL
     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}/acl/ietf-access-control-list:ipv4-acl/ACL1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_ACLS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    ACL1
+    Should Not Contain    ${resp.text}    ACL1

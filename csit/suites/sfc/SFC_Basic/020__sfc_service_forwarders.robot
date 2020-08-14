@@ -55,7 +55,7 @@ Delete A Service Function Forwarder
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    SF1
+    Should Not Contain    ${resp.text}    SF1
 
 Delete A Non-existing Service Function Forwarder
     [Documentation]    Delete A Non existing Service Function
@@ -99,7 +99,7 @@ Put DPL to a Non-existing Service Function Forwarder
     Add Elements To URI From File    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101    ${SFF_DPL101_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    ovs-100
+    Should Contain    ${resp.text}    ovs-100
     ${elements}=    Create List    dpl-101    6101
     Check For Elements At URI    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101    ${elements}
     Check For Elements At URI    ${SFF_OVS100_URI}    ${elements}
@@ -110,7 +110,7 @@ Delete Service Function Forwarder DPL
     Remove All Elements At URI    ${SFF_OVS100_URI}/sff-data-plane-locator/eth0
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    "name":"eth0"
+    Should Not Contain    ${resp.text}    "name":"eth0"
 
 Get Service Function Forwarder DPL's Locator
     [Documentation]    Get Service Function Data Plane Locator
@@ -138,13 +138,13 @@ Delete Service Function Forwarder DPL's Locator
     Remove All Elements At URI    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101/data-plane-locator
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    dpl-101
-    Should Not Contain    ${resp.content}    6101
-    Should Not Contain    ${resp.content}    service-locator:vxlan-gpe
+    Should Contain    ${resp.text}    dpl-101
+    Should Not Contain    ${resp.text}    6101
+    Should Not Contain    ${resp.text}    service-locator:vxlan-gpe
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    dpl-101
-    Should Not Contain    ${resp.content}    6101
+    Should Contain    ${resp.text}    dpl-101
+    Should Not Contain    ${resp.text}    6101
 
 Get Service Function Dictionary From SFF
     [Documentation]    Get Service Function Dictionary From SFF
@@ -162,8 +162,8 @@ Delete Service Function Dictionary From SFF
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    service-function-dictionary
-    Should Not Contain    ${resp.content}    SF1
+    Should Contain    ${resp.text}    service-function-dictionary
+    Should Not Contain    ${resp.text}    SF1
 
 Put Service Function Dictionary to SFF
     [Documentation]    Put Service Function Dictionary to SFF
@@ -204,7 +204,7 @@ Get Connected SFF Dictionary From SFF
     Check For Elements At URI    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2    ${elements}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDER_URI}/br-int-ovs-2/connected-sff-dictionary/SFF-bootstrap
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    SFF-bootstrap
+    Should Contain    ${resp.text}    SFF-bootstrap
 
 Delete Connected SFF Dictionary From SFF
     [Documentation]    Delete Connected SFF Dictionary From SFF
@@ -216,7 +216,7 @@ Delete Connected SFF Dictionary From SFF
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    br-int-ovs-2
+    Should Not Contain    ${resp.text}    br-int-ovs-2
 
 Put Connected SFF Dictionary to SFF
     [Documentation]    Put Connected SFF Dictionary to SFF

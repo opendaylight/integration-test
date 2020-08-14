@@ -93,7 +93,7 @@ Delete A Service Function From Chain
     Remove All Elements At URI    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/dpi-abstract1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    SFC1
+    Should Contain    ${resp.text}    SFC1
     ${elements}=    Create List    dpi-abstract1    service-function-type:dpi
     Check For Elements Not At URI    ${SERVICE_CHAIN_URI}/SFC1    ${elements}
 

@@ -51,7 +51,7 @@ Delete A Service Node
     Remove All Elements At URI    ${SERVICE_NODE_URI}/node-101
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    node-101
+    Should Not Contain    ${resp.text}    node-101
 
 Delete A Non-existing Service Node
     [Documentation]    Delete A Non existing Service Node

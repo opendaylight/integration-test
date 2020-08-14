@@ -55,7 +55,7 @@ Delete A Service Function Path
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    SFC1-100
+    Should Not Contain    ${resp.text}    SFC1-100
 
 Delete A Non-existing Empty Service Function Path
     [Documentation]    Delete A Non existing Service Function Path
@@ -76,10 +76,10 @@ Put One Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH400_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH400_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    SFC1-400
+    Should Contain    ${resp.text}    SFC1-400
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Contain    ${resp.content}    SFC1-400
+    Should Contain    ${resp.text}    SFC1-400
 
 *** Keywords ***
 Init Suite

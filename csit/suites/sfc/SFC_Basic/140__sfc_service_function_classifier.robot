@@ -56,4 +56,4 @@ Delete a Classifier
     Remove All Elements At URI    ${SERVICE_CLASSIFIERS_URI}/service-function-classifier/Classifier1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CLASSIFIERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    Classifier1
+    Should Not Contain    ${resp.text}    Classifier1

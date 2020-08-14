@@ -59,7 +59,7 @@ Delete A Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTION_URI}/dpi-1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Should Not Contain    ${resp.content}    dpi-1
+    Should Not Contain    ${resp.text}    dpi-1
 
 Delete A Non-existing Empty Service Function
     [Documentation]    Delete A Non existing Service Function. Logical SFF
