@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04375997_40edd910",
+        "filename": "csit/suites/genius/OF_Tunnels.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-08-19T19:48:57Z",
+      "side": 1,
+      "message": "This is fine, but I think you should put another comment line (even # comment is fine) that points\nto GENIUS-130 for the next person that looks at this to help them understand why it\u0027s commented.\n\nanother option would fully remove the comment lines in an additional patch which reduces the clutter\nhere. But make it as it\u0027s own dedicated patch. Put the info of that patch (also add JIRA: GENIUS-130\nto the commit message) in a jira comment. Then when it\u0027s ready, some can just come and revert the\npatch to get the lines back.\n\nyou pick and I\u0027ll merge this when ready. Also, let me know if the sandbox was good for this.",
+      "revId": "2a29d227632384f61f38f0d67ba50a3d13c7d963",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
