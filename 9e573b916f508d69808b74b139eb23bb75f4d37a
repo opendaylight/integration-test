@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1ea8a94_1eb05371",
+        "filename": "csit/libraries/GoBgpLib.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-08-19T16:48:36Z",
+      "side": 1,
+      "message": "need the \u003d here. line 47 too",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "9e573b916f508d69808b74b139eb23bb75f4d37a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34180f57_51be7177",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_llgr_basic.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-08-19T16:48:36Z",
+      "side": 1,
+      "message": "need \u003d here. line 49 too",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "9e573b916f508d69808b74b139eb23bb75f4d37a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
