@@ -27,7 +27,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 &{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
-@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools
+@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
@@ -115,6 +115,7 @@ Deploy_Artifact
     # If we are working with a "release integrated" project, we always will want to look for
     # a released version, not in the snapshots
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
+    CompareStream.Run_Keyword_If_At_Most_Magnesium    BuiltIn.Evaluate    ${RELEASE_INTEGRATED_COMPONENTS}.remove('carpeople')
     ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
