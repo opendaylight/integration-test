@@ -27,7 +27,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 &{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
-@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools
+@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
