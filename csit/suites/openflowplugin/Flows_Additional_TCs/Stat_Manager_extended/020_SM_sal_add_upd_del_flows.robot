@@ -36,8 +36,8 @@ Test Add Flows Group 0
         Log    ${flowfile}
         Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
         Run Keyword And Continue On Failure    Add Flow Via RPC    ${switch_idx}    ${xmlroot}
-        # Lets wait for ofp to collect stats
     END
+    # Lets wait for ofp to collect stats
     ${flows}=    Get Length    ${flowlist0}
     Wait Until Keyword Succeeds    30s    2s    FlowLib.Check Flow Stats Are Available    openflow:1    ${flows}
     # Show switch content (for debug purposes if needed)
@@ -198,8 +198,8 @@ Test Update Flows Group 0
         Log    ${flowfile}
         Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
         Run Keyword And Continue On Failure    Update Flow Via RPC    ${switch_idx}    ${data}    ${upddata}
-        # Lets wait for ofp to collect stats
     END
+    # Lets wait for ofp to collect stats
     Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
@@ -362,8 +362,8 @@ Test Delete Flows Group 0
         Log    ${flowfile}
         Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
         Run Keyword And Continue On Failure    Delete Flow Via RPC    ${switch_idx}    ${xmlroot}
-        # Lets wait for ofp to collect stats
     END
+    # Lets wait for ofp to collect stats
     Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13

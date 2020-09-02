@@ -1,22 +1,22 @@
 *** Settings ***
 Documentation     BGP performance of ingesting from many iBGP rrc peers, iBGPs receive updates.
-...           
+...
 ...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
-...           
+...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...           
+...
 ...               This suite uses play.py processes as iBGP rrc peers.
 ...               This is analogue of single peer performance suite, which uses many peers.
 ...               Each peer is of ibgp rrc type, and they contribute to the same example-bgp-rib,
 ...               and thus to the same single example-ipv4-topology.
 ...               The suite looks at example-ipv4-topology and checks BGP peers log for received updates.
-...           
+...
 ...               ODL distinguishes peers by their IP addresses.
 ...               Currently, this suite requires python utils to be started on ODL System,
 ...               to guarantee IP address block is available for them to bind to.
-...           
+...
 ...               Brief description how to configure BGP peer can be found here:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Peer
 ...               http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#bgp-peering
@@ -102,8 +102,8 @@ Check_Logs_For_Updates
         BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_File_For_Occurence    ${BGP_PEERS_LOG_FILE_NAME}    ${bgp_peer_label}
         ...    ${expected_string}    2
         ${timeout} =    BuiltIn.Set_Variable    20s
-        # FIXME: Calculation of ${expected_prefixcount} correct just when the ${COUNT_PREFIX_COUNT_MANY_RRC} is a multiplication of ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
     END
+    # FIXME: Calculation of ${expected_prefixcount} correct just when the ${COUNT_PREFIX_COUNT_MANY_RRC} is a multiplication of ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}
 
 Kill_Talking_BGP_Speakers
     [Documentation]    Abort the Python speakers. Also, attempt to stop failing fast.

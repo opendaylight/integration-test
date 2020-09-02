@@ -253,8 +253,8 @@ Delete Router And Router Interfaces With L3VPN
         ${subnet_id} =    Get Subnet Id    ${iface}
         ${rt_port_list} =    OpenStackOperations.Show Router Interface    ${ROUTER}
         BuiltIn.Should Not Contain    ${rt_port_list}    ${subnet_id}
-        # Delete Router and Interface to the subnets.
     END
+    # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTER}
     ${router_output} =    OpenStackOperations.List Routers
     BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
@@ -409,8 +409,8 @@ Verify GWMAC Flow Entry On Flow Table
     # Verify GWMAC address present in table ${L3_TABLE}
     FOR    ${macAdd}    IN    @{GW_MAC_ADDRS}
         BuiltIn.Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
-        # Verify Miss entry
     END
+    # Verify Miss entry
     BuiltIn.Should Contain    ${gwmac_table}    actions=resubmit(,17)
     # Verify ARP_CHECK_TABLE - ${ARP_CHECK_TABLE}
     ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}

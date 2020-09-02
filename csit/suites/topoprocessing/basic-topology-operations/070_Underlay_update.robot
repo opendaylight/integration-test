@@ -124,8 +124,8 @@ Filtration Range Number Node Update Inventory Model
     ...    node-ref_count=4    tp_count=0    tp-ref_count=0
     FOR    ${index}    IN RANGE    7    11
         Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
-        #Update a Node so it is filtered out
     END
+    #Update a Node so it is filtered out
     ${request}    Create Openflow Node    openflow:7    192.168.2.3    17
     Basic Request Put    ${request}    opendaylight-inventory:nodes/node/openflow:7
     ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3

@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation     netconf-connector scaling test suite to find max connected devices
-...           
+...
 ...               Copyright (c) 2019 Lumina Networks, Inc. and others. All rights reserved.
-...           
+...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...           
-...           
+...
+...
 ...               Increasing numbers of netconf devices will be connected and cleaned up
 ...               while validating and profiling between each iteration.
 Suite Setup       Setup_Everything
@@ -54,19 +54,23 @@ Find Max Netconf Devices
         ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
-        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
+        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}
+        ...    device-count=${devices}
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}
+        ...    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
         ...    ${NUM_WORKERS}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}
+        ...    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    log_response=False
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
+        ...    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${maximum_devices} =    Set Variable    ${devices}
         Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
@@ -84,9 +88,9 @@ Collect_Data_Points
     OperatingSystem.Append To File    ${DEVICES_RESULT_FILE}    ${devices}\n
 
 Issue_Requests_On_Devices
-    # FIXME: this keyword is nearly duplicated in the getmulti.robot suite. need to move it to a common lib
     [Arguments]    ${client_ip}    ${expected_count}    ${worker_count}
     [Documentation]    Spawn the specified count of worker threads to issue a GET request to each of the devices.
+    # FIXME: this keyword is nearly duplicated in the getmulti.robot suite. need to move it to a common lib
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open_Connection    ${client_ip}
     SSHKeywords.Flexible_Mininet_Login

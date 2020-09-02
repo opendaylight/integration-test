@@ -181,8 +181,8 @@ ${rt_contentInstance}    4
     FOR    ${rcn}    IN    \    1    4    5
     ...    6
         ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=${rcn}
-        # when rcn=7 can be retrieved
     END
+    # when rcn=7 can be retrieved
 
 2.10.2 REQ: Retrieve: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Retrieve REQ with Result Content parameter set to illegal values.

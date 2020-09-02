@@ -233,8 +233,8 @@ ${rt_contentInstance}    4
     FOR    ${conName}    IN    conIn1    conIn2    conIn3
         ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
         Response Is Correct    ${r}
-        # ----------- Delete the parent AE --------------
     END
+    # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
     Response Is Correct    ${r}
     # Delete the resource that does not exist/has been deleted should return error
@@ -376,8 +376,8 @@ ${rt_contentInstance}    4
     FOR    ${conName}    IN    conIn1    conIn2    conIn3
         ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
         Response Is Correct    ${r}
-        # ----------- Delete the parent Container --------------
     END
+    # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
     Response Is Correct    ${r}
     # Delete the resource that does not exist/has been deleted should return error

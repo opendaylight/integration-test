@@ -85,7 +85,8 @@ OFT Verify Vteps Created
         Collections.Remove From List    ${tun_ip_list}    ${tools_system_index}
         ${ports_output} =    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]    sudo ovs-ofctl -Oopenflow13 dump-ports-desc ${Bridge}
         ${port_numbers} =    String.Get Regexp Matches    ${ports_output}    (\\d+).of.*    ${1}
-        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}    ${port_numbers}
+        BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Created per Switch    ${tools_ip_list}[${tools_system_index}]    ${tun_ip_list}
+        ...    ${port_numbers}
     END
 
 OFT OVS Verify Tunnels Created
@@ -141,7 +142,8 @@ OFT Verify Vteps Deleted
         ${dst_dpn_id_list} =    BuiltIn.Create List    @{DPN_ID_LIST}
         Collections.Remove From List    ${dst_dpn_id_list}    ${tools_system_index}
         BuiltIn.Wait Until Keyword Succeeds    60    5    OFT Verify Vteps Deleted at Dpn Teps State per Interface    ${dpn_id_list}[${tools_system_index}]    ${dst_dpn_id_list}
-        ${ovs_vsctl_output} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]    sudo ovs-vsctl show
+        ${ovs_vsctl_output} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Utils.Run Command On Remote System And Log    ${tools_ip_list}[${tools_system_index}]
+        ...    sudo ovs-vsctl show
         BuiltIn.Should Not Contain    ${ovs_vsctl_output}    remote_ip=flow
         BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Ingress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
         BuiltIn.Wait Until Keyword Succeeds    40    10    OFT OVS Verify Egress Flows Deleted per Switch    ${tools_ip_list}[${tools_system_index}]
@@ -151,7 +153,8 @@ OFT Verify Vteps Deleted at Dpn Teps State per Interface
     [Arguments]    ${src_dpn_id}    ${dst_dpn_id_list}
     [Documentation]    Verify if vteps are deleted for all src-dst intf pair at dpn-teps-state in ODL for a given src intf.
     FOR    ${dst_dpn_id}    IN    @{dst_dpn_id_list}
-        ${status} =    BuiltIn.Run Keyword And Return Status    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}    odl-interface:tunnel-type-vxlan    dpn-teps-state
+        ${status} =    BuiltIn.Run Keyword And Return Status    Genius.Get Tunnel    ${src_dpn_id}    ${dst_dpn_id}    odl-interface:tunnel-type-vxlan
+        ...    dpn-teps-state
         BuiltIn.Should Be True    ${status} == ${False}
     END
 

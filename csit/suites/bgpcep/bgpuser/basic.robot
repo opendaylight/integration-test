@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     Basic tests for odl-bgpcep-bgp-all feature.
-...           
+...
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
-...           
+...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...           
+...
 ...               Test suite performs basic BGP functional test cases:
 ...               BGP peer initiated connection
 ...               - introduce and check 3 prefixes in one update message
@@ -16,18 +16,18 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               in another update while the very first prefix is withdrawn
 ...               - introduce 3 prefixes and try to withdraw the first one
 ...               (to be ignored by controller) in a single update message
-...           
+...
 ...               For versions Oxygen and above, there are TC_R (test case reset) which
 ...               test session-reset functionality.
 ...               Resets the session, and than verifies that example-ipv4-topology is empty again.
-...           
+...
 ...               For versions Fluorine and above, there are test cases:
 ...               TC_LA (test case local address)
 ...               test configuration of internal peer with local-address configured
 ...               - configure peer with local-address and connect bgp-speaker to it
 ...               with tools_system_ip
 ...               - check filled topology
-...           
+...
 ...               TC_PG (test case peer group) which
 ...               tests configuration and reconfiguration of peer-groups and neighbors configured by them.
 ...               - configure peer-group, and assign neighbor to this peer-group
@@ -35,7 +35,7 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               - reconfigure peer-group without ipv4 unicast afi-safi
 ...               - check empty topology
 ...               - reconfigre neighbor without peer-group, delete peer-group
-...           
+...
 ...               Brief description how to perform BGP functional test:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
 Suite Setup       Setup_Everything

@@ -135,8 +135,8 @@ Setup SXP Environment Local
     FOR    ${node}    IN RANGE    1    ${node_range}+1
         SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -genkeypair -alias odl-sxp-${node} -keyalg RSA -storepass ${password} -keypass ${password} -dname "CN=www.opendaylight.org, OU=csit, O=ODL, L=N/A, S=N/A, C=N/A" -keystore csit-keystore-${node}
         SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -exportcert -keystore csit-keystore-${node} -alias odl-sxp-${node} -storepass ${password} -file odl-sxp-${node}.cer
-        # Node-1 TRUSTS Node-2, Node-5
     END
+    # Node-1 TRUSTS Node-2, Node-5
     SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -importcert -keystore csit-truststore-1 -alias odl-sxp-2 -storepass ${password} -keypass ${password} -file odl-sxp-2.cer -noprompt
     SSHKeywords.Execute_Command_Should_Pass    ${ODL_SYSTEM_JAVA_HOME}/bin/keytool -importcert -keystore csit-truststore-1 -alias odl-sxp-5 -storepass ${password} -keypass ${password} -file odl-sxp-5.cer -noprompt
     # Node-2 TRUSTS Node-1
