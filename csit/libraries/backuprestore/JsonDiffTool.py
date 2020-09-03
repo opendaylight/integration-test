@@ -23,7 +23,7 @@ __email__ = "diego.jesus.granados.lopez@ericsson.com"
 
 
 def from_path_to_jsonpatch(matchedpath):
-    """ Given a json path (using jsonpath notation), to a json patch (RFC 6902)
+    """Given a json path (using jsonpath notation), to a json patch (RFC 6902)
     which can be used to remove the document fragment pointed by the input path
     Note that such conversion is not formally specified anywhere, so the conversion
     rules are experimentation-based
@@ -62,7 +62,7 @@ def from_path_to_jsonpatch(matchedpath):
 
 
 def apply_filter(json_arg, filtering_line):
-    """ Filters a json document by removing the elements identified by a filtering pattern
+    """Filters a json document by removing the elements identified by a filtering pattern
 
     :param json_arg: the document to filter
     :param filtering_line: The filtering pattern. This is specified using jsonpath notation grammar
@@ -91,7 +91,7 @@ def apply_filter(json_arg, filtering_line):
 
 
 def prefilter(json_arg, initial_prefilter):
-    """ Performs the prefiltering of a json file
+    """Performs the prefiltering of a json file
     :param json_arg: the json document to filter (as string)
         :type json_arg: str
     :param initial_prefilter: a file containing a number of filtering patterns (using jsonpath notation)
@@ -117,7 +117,7 @@ def prefilter(json_arg, initial_prefilter):
 
 
 def prefilter_json_files_then_compare(args):
-    """ Main function. Prefilters the input files using provided prefiltering patterns,
+    """Main function. Prefilters the input files using provided prefiltering patterns,
         then returns number of differences (and the differences themselves, when requested)
 
     :param args: Input arguments, already parsed

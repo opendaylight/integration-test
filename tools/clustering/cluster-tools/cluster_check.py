@@ -25,7 +25,7 @@ authentication = ("admin", "admin")
 
 
 def validate_cluster(ipaddress):
-    """ method to check the cluster status
+    """method to check the cluster status
     Args:
         ipaddress(str): ip address of the ODL controller
     """
@@ -87,7 +87,7 @@ def validate_cluster(ipaddress):
 
 
 def list_entity_owners(ipaddress, entity_owner_list):
-    """ method to list the entity owners
+    """method to list the entity owners
     Args:
         ipaddress(str): ip address of the ODL controller
         entity_owner_list(list): list of member role in cluster

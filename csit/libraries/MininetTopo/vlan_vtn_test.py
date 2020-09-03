@@ -9,7 +9,7 @@ class VLANHost(Host):
 
     def config(self, vlan=100, **params):
         """Configure VLANHost according to (optional) parameters
-           vlan: VLAN ID for default interface"""
+        vlan: VLAN ID for default interface"""
 
         hostid = super(Host, self).config(**params)
 

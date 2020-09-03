@@ -47,11 +47,11 @@ def get_average_of_items(items):
 def get_opposing_mode(mode):
     """Generate string representing opposing SXP peer mode
 
-        :param mode: SXP peer mode
-        :type mode: str
-        :returns: String with opposing SXP peer mode.
+    :param mode: SXP peer mode
+    :type mode: str
+    :returns: String with opposing SXP peer mode.
 
-        """
+    """
     if "speaker" == mode:
         return "listener"
     elif "listener" == mode:

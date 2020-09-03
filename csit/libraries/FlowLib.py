@@ -48,18 +48,18 @@ class Flow:
 
     def set_field(self, field, value):
         """
-           allows for generically setting any attribute in this
-           class based on the 'field' passed in.  In the future,
-           adding a new attribute only requires that single line
-           addition.  no need for additional setter.
+        allows for generically setting any attribute in this
+        class based on the 'field' passed in.  In the future,
+        adding a new attribute only requires that single line
+        addition.  no need for additional setter.
         """
         setattr(self, field, value)
 
 
 def Make_Inventory_Flow():
     """
-        Robot Keyword to create and return an instance of the Flow
-        class.
+    Robot Keyword to create and return an instance of the Flow
+    class.
     """
     flow = Flow()
     flow.xml = flow_xml_skeleton
@@ -68,9 +68,9 @@ def Make_Inventory_Flow():
 
 def Make_Service_Flow():
     """
-        Robot Keyword to create an input XML that can be used to
-        directly send to flow:service for things like accessing
-        the remove-flow RPC via restconf
+    Robot Keyword to create an input XML that can be used to
+    directly send to flow:service for things like accessing
+    the remove-flow RPC via restconf
     """
     flow = Flow()
     flow.xml = input_xml_skeleton
@@ -79,8 +79,8 @@ def Make_Service_Flow():
 
 def Set_Flow_Field(flow, field, value):
     """
-        Robot Keyword to allow the modification (setting) of the
-        flow object attributes
+    Robot Keyword to allow the modification (setting) of the
+    flow object attributes
     """
     flow.set_field(field, value)
     return flow

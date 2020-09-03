@@ -106,7 +106,7 @@ def jsonpath(obj, expr, result_type="VALUE", debug=0, use_eval=True):
 
     def as_path(path):
         """convert internal path representation to
-           "full bracket notation" for PATH output"""
+        "full bracket notation" for PATH output"""
         p = "$"
         for piece in path.split(";")[1:]:
             # make a guess on how to index

@@ -60,7 +60,7 @@ class Service(object):
     @staticmethod
     def _parse_request(request):
         """If `request` passes the most basic checks for a JSON RPC Request,
-           then return its 'id', 'method' and 'params'.
+        then return its 'id', 'method' and 'params'.
         """
         try:
             version = request["jsonrpc"]
@@ -75,8 +75,8 @@ class Service(object):
 
     def read(self, store, entity, path):
         """The implementation of the `read` method for this test. If `store`,
-           `entity` and `path` do not match expected values, then return the
-           configured fixed value: otherwise raise :class:`ValueError`.
+        `entity` and `path` do not match expected values, then return the
+        configured fixed value: otherwise raise :class:`ValueError`.
         """
         if self._store != store or self._entity != entity or self._path != path:
             raise ValueError("unexpected param values")
@@ -84,10 +84,10 @@ class Service(object):
 
     def execute_json(self, string):
         """Execute an encoded JSON RPC Request from `string`. Return a 2-tuple
-           of (code, response), where code is process exit code and `response`
-           is an encoded JSON RPC Response. A zero exit code is returned if the
-           method implementation of this service was invoked successfully:
-           non-zero otherwise.
+        of (code, response), where code is process exit code and `response`
+        is an encoded JSON RPC Response. A zero exit code is returned if the
+        method implementation of this service was invoked successfully:
+        non-zero otherwise.
         """
         try:
             request = json.loads(string)
@@ -130,7 +130,7 @@ def init_logging(level):
 
 def json_or_string(value):
     """If `value` is a JSON-encoded string, then return the decoded value:
-       otherwise return `value` as a string.
+    otherwise return `value` as a string.
     """
     try:
         return json.loads(value)
@@ -141,11 +141,11 @@ def json_or_string(value):
 def main():
     """Run a ZMQ REP socket on `uri` for accepting a single JSON RPC Request.
 
-       To successfully invoke the 'read' method, the Request 'params' must be
-       [`store`, `entity`, `path`] with the exact same values as were specified
-       in the command line args. On success, a JSON RPC Response with 'result'
-       `value` will be returned: otherwise, a JSON RPC Response with 'error'
-       will be returned.
+    To successfully invoke the 'read' method, the Request 'params' must be
+    [`store`, `entity`, `path`] with the exact same values as were specified
+    in the command line args. On success, a JSON RPC Response with 'result'
+    `value` will be returned: otherwise, a JSON RPC Response with 'error'
+    will be returned.
     """
     init_logging(logging.INFO)
 

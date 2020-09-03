@@ -10,10 +10,10 @@ workspace = os.environ["WORKSPACE"] + "/odl-lispflowmapping-yang-files"
 
 
 def Clean_JSON(string_dump):
-    """ Description: clean the pyangbind generated object
-        Return: python dictionary
-        Params:
-         string_dump: string representation of pyangbind generated dictionary
+    """Description: clean the pyangbind generated object
+    Return: python dictionary
+    Params:
+     string_dump: string representation of pyangbind generated dictionary
     """
     string_dump = string_dump.replace("odl-mappingservice:", "")
     string_dump = string_dump.replace("laddr:", "ietf-lisp-address-types:")
@@ -22,42 +22,42 @@ def Clean_JSON(string_dump):
 
 
 def Merge(first, second):
-    """ Description: merge two python dictionaries
-        Return: python dictionary
-        Params:
-         first: python dictionary
-         second: python dictionary
+    """Description: merge two python dictionaries
+    Return: python dictionary
+    Params:
+     first: python dictionary
+     second: python dictionary
     """
     first.update(second)
     return first
 
 
 def Wrap_input(dict_obj):
-    """ Description: Wrap input to python dictionary
-        Return: python dictionary
-        Params:
-         dict_obj: python dictionary
+    """Description: Wrap input to python dictionary
+    Return: python dictionary
+    Params:
+     dict_obj: python dictionary
     """
     out_dump = {"input": dict_obj}
     return out_dump
 
 
 def Merge_And_Wrap_input(first, second):
-    """ Description: Merge two python dictionaries and wrap input
-        Return: python dictionary
-        Params:
-         first: python dictionary
-         second: python dictionary
+    """Description: Merge two python dictionaries and wrap input
+    Return: python dictionary
+    Params:
+     first: python dictionary
+     second: python dictionary
     """
     return Wrap_input(Merge(first, second))
 
 
 def copy_eid(objA, objB):
-    """ Description: Copy value of attributes from one eid object to other
-        Return: None
-        Params:
-         objA: eid object of pyangbind generated class
-         objB: eid object of pyangbind generated class
+    """Description: Copy value of attributes from one eid object to other
+    Return: None
+    Params:
+     objA: eid object of pyangbind generated class
+     objB: eid object of pyangbind generated class
     """
     for name in dir(objB):
         if name[:4] == "_eid":
@@ -69,11 +69,11 @@ def copy_eid(objA, objB):
 
 
 def copy_rloc(objA, objB):
-    """ Description: Copy value of attributes from one rloc object to other
-        Returns: None
-        Params:
-         objA: rloc object of pyangbind generated class
-         objB: rloc object of pyangbind generated class
+    """Description: Copy value of attributes from one rloc object to other
+    Returns: None
+    Params:
+     objA: rloc object of pyangbind generated class
+     objB: rloc object of pyangbind generated class
     """
     for name in dir(objB):
         if name[:5] == "_rloc":
@@ -85,10 +85,10 @@ def copy_rloc(objA, objB):
 
 
 def clean_hops(obj):
-    """ Description: Clean hop-ids and lrs-bits
-        Returns: python dictionary
-        Params:
-         obj: python dictionary for pyangbind generated object
+    """Description: Clean hop-ids and lrs-bits
+    Returns: python dictionary
+    Params:
+     obj: python dictionary for pyangbind generated object
     """
     new_obj = {}
     for key, value in obj.items():
@@ -118,12 +118,12 @@ def clean_hops(obj):
 
 
 def Get_LispAddress_Object(eid_string, vni=None, laddr_obj=None):
-    """ Description: Returns lisp address object from pyangbind generated classes.
-        Returns: lisp address object
-        Params:
-         eid_string: type of lisp address
-         vni: virtual network id
-         laddr_obj: lisp address object
+    """Description: Returns lisp address object from pyangbind generated classes.
+    Returns: lisp address object
+    Params:
+     eid_string: type of lisp address
+     vni: virtual network id
+     laddr_obj: lisp address object
     """
     if laddr_obj is None:
         sys.path.insert(0, workspace)
@@ -236,11 +236,11 @@ def Get_LispAddress_Object(eid_string, vni=None, laddr_obj=None):
 
 
 def Get_LispAddress_JSON(eid_string, vni=None):
-    """ Description: Returns lisp address dictionary with eid wrapped
-        Returns: python dictionary
-        Params:
-         eid_string: type of lisp address
-         vni: virtual network id
+    """Description: Returns lisp address dictionary with eid wrapped
+    Returns: python dictionary
+    Params:
+     eid_string: type of lisp address
+     vni: virtual network id
     """
     pbj_dump = pbJ.dumps(
         Get_LispAddress_Object(eid_string, vni), filter=True, mode="ietf"
@@ -250,11 +250,11 @@ def Get_LispAddress_JSON(eid_string, vni=None):
 
 
 def Get_LispAddress_Noeid_JSON(eid_string, vni=None):
-    """ Description: Returns lisp address dictionary
-        Returns: python dictionary
-        Params:
-         eid_string: type of lisp address
-         vni: virtual network id
+    """Description: Returns lisp address dictionary
+    Returns: python dictionary
+    Params:
+     eid_string: type of lisp address
+     vni: virtual network id
     """
     out_dump = pbJ.dumps(
         Get_LispAddress_Object(eid_string, vni), filter=True, mode="ietf"
@@ -263,23 +263,23 @@ def Get_LispAddress_Noeid_JSON(eid_string, vni=None):
 
 
 def Get_LispAddress_JSON_And_Wrap_input(eid_string, vni=None):
-    """ Description: Returns lisp address dictionary with eid and input wrapped
-        Returns: python dictionary
-        Params:
-         eid_string: type of lisp address
-         vni: virtual network id
+    """Description: Returns lisp address dictionary with eid and input wrapped
+    Returns: python dictionary
+    Params:
+     eid_string: type of lisp address
+     vni: virtual network id
     """
     return Wrap_input(Get_LispAddress_JSON(eid_string, vni))
 
 
 def Get_LocatorRecord_Object(rloc, weights="1/1/255/0", flags=0o01, loc_id="ISP1"):
-    """ Description: Returns locator record object from pyangbind generated classes
-        Returns: locator record object
-        Params:
-         rloc: eid_string for lisp address object
-         weights: priority/weight/multicastPriority/multicastWeight
-         flags: Three bit parameter in the sequence routed->rlocProbed->routed
-         loc_id: id of locator record object
+    """Description: Returns locator record object from pyangbind generated classes
+    Returns: locator record object
+    Params:
+     rloc: eid_string for lisp address object
+     weights: priority/weight/multicastPriority/multicastWeight
+     flags: Three bit parameter in the sequence routed->rlocProbed->routed
+     loc_id: id of locator record object
     """
     sys.path.insert(0, workspace)
     from LISPFlowMappingYANGBindings.odl_mappingservice_rpc.add_mapping.input import (
@@ -304,13 +304,13 @@ def Get_LocatorRecord_Object(rloc, weights="1/1/255/0", flags=0o01, loc_id="ISP1
 
 
 def Get_LocatorRecord_JSON(rloc, weights="1/1/255/0", flags=0o01, loc_id="ISP1"):
-    """ Description: Returns locator record dictionary
-        Returns: python dictionary
-        Params:
-         rloc: eid_string for lisp address object
-         weights: priority/weight/multicastPriority/multicastWeight
-         flags: Three bit parameter in the sequence routed->rlocProbed->routed
-         loc_id: id of locator record object
+    """Description: Returns locator record dictionary
+    Returns: python dictionary
+    Params:
+     rloc: eid_string for lisp address object
+     weights: priority/weight/multicastPriority/multicastWeight
+     flags: Three bit parameter in the sequence routed->rlocProbed->routed
+     loc_id: id of locator record object
     """
     pbj_dump = pbJ.dumps(
         Get_LocatorRecord_Object(rloc, weights, flags, loc_id),
@@ -326,14 +326,14 @@ def Get_LocatorRecord_JSON(rloc, weights="1/1/255/0", flags=0o01, loc_id="ISP1")
 def Get_MappingRecord_Object(
     eid, locators, ttl=1440, authoritative=True, action="NoAction"
 ):
-    """ Description: Returns mapping record object from pyangbind generated classes.
-        Returns: mapping record object
-        Params:
-         eid: lisp address object
-         locators: list of locator record objects
-         ttl: recordTtl
-         authoritative: authoritative
-         action: action
+    """Description: Returns mapping record object from pyangbind generated classes.
+    Returns: mapping record object
+    Params:
+     eid: lisp address object
+     locators: list of locator record objects
+     ttl: recordTtl
+     authoritative: authoritative
+     action: action
     """
     sys.path.insert(0, workspace)
     from LISPFlowMappingYANGBindings.odl_mappingservice_rpc.add_mapping.input import (
@@ -372,14 +372,14 @@ def Get_MappingRecord_Object(
 def Get_MappingRecord_JSON(
     eid, locators, ttl=1440, authoritative=True, action="NoAction"
 ):
-    """ Description: Returns mapping record dictionary
-        Returns: python dictionary
-        Params:
-         eid: lisp address object
-         locators: list of locator record objects
-         ttl: recordTtl
-         authoritative: authoritative
-         action: action
+    """Description: Returns mapping record dictionary
+    Returns: python dictionary
+    Params:
+     eid: lisp address object
+     locators: list of locator record objects
+     ttl: recordTtl
+     authoritative: authoritative
+     action: action
     """
     pbj_dump = pbJ.dumps(
         Get_MappingRecord_Object(eid, locators, ttl, authoritative, action),
@@ -391,11 +391,11 @@ def Get_MappingRecord_JSON(
 
 
 def Get_MappingAuthkey_Object(key_string="password", key_type=1):
-    """ Description: Returns mapping auth key object from pyangbind generated classes.
-        Returns: mapping auth key object
-        Params:
-         key_string: key string
-         key_type: key type
+    """Description: Returns mapping auth key object from pyangbind generated classes.
+    Returns: mapping auth key object
+    Params:
+     key_string: key string
+     key_type: key type
     """
     sys.path.insert(0, workspace)
     from LISPFlowMappingYANGBindings.odl_mappingservice_rpc.add_key.input import (
@@ -410,11 +410,11 @@ def Get_MappingAuthkey_Object(key_string="password", key_type=1):
 
 
 def Get_MappingAuthkey_JSON(key_string="password", key_type=1):
-    """ Description: Returns mapping auth key dictionary
-        Returns: python dictionary
-        Params:
-         key_string: key string
-         key_type: key type
+    """Description: Returns mapping auth key dictionary
+    Returns: python dictionary
+    Params:
+     key_string: key string
+     key_type: key type
     """
     pbj_dump = pbJ.dumps(
         Get_MappingAuthkey_Object(key_string, key_type), filter=True, mode="default"

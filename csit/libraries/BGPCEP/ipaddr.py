@@ -557,8 +557,8 @@ class _BaseNet(_IPAddrBase):
     def iterhosts(self):
         """Generate Iterator over usable hosts in a network.
 
-           This is like __iter__ except it doesn't return the network
-           or broadcast addresses.
+        This is like __iter__ except it doesn't return the network
+        or broadcast addresses.
 
         """
         cur = int(self.network) + 1
@@ -784,9 +784,12 @@ class _BaseNet(_IPAddrBase):
                 s1, s2 = s2.subnet()
             else:
                 # If we got here, there's a bug somewhere.
-                assert False, (
-                    "Error performing exclusion: "
-                    "s1: %s s2: %s other: %s" % (str(s1), str(s2), str(other))
+                assert (
+                    False
+                ), "Error performing exclusion: " "s1: %s s2: %s other: %s" % (
+                    str(s1),
+                    str(s2),
+                    str(other),
                 )
         if s1 == other:
             ret_addrs.append(s2)
@@ -1768,8 +1771,7 @@ class _BaseV6(object):
 
 class IPv6Address(_BaseV6, _BaseIP):
 
-    """Represent and manipulate single IPv6 Addresses.
-    """
+    """Represent and manipulate single IPv6 Addresses."""
 
     def __init__(self, address):
         """Instantiate a new IPv6 address object.

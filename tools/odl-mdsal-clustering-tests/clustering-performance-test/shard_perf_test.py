@@ -58,8 +58,7 @@ class ShardPerformanceTester(object):
     headers = {"Accept": "application/json"}
 
     def __init__(self, host, port, auth, threads, nrequests, plevel):
-        """
-        """
+        """"""
         self.host = host
         self.port = port
         self.auth = auth

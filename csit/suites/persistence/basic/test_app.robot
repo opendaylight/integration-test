@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Basic Tests for Persistence Test APP.
-...           
+...
 ...               Copyright (c) 2015 Hewlett-Packard Development Company, L.P. and others. All rights reserved.
 Suite Setup       Setup Persistence Test App Environment
 Suite Teardown    Cleanup Persistence Test Database

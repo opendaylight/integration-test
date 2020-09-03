@@ -46,7 +46,7 @@ class MBeanNotFoundError(Exception):
 
 class BaseAppender(object):
     """
-        Base Appender from which all appenders should inherit
+    Base Appender from which all appenders should inherit
     """
 
     def _get_index(self, need_all):
@@ -58,9 +58,9 @@ class BaseAppender(object):
 
 class ElasticsearchAppender(BaseAppender):
     """
-        ElasticsearchAppender Class
-        Metrics supported : Memory, ClassLoading, Threading, GarbageCollector
-        Individual resource attributes as defined in attr dictionary object
+    ElasticsearchAppender Class
+    Metrics supported : Memory, ClassLoading, Threading, GarbageCollector
+    Individual resource attributes as defined in attr dictionary object
     """
 
     attr = {

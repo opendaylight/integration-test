@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Karaf library. General utility keywords for interacting with the karaf environment, such as the
 ...               karaf console, karaf.log, karaf features, and karaf config files.
-...           
+...
 ...               This library is useful to deal with controller Karaf console for ssh sessions in cluster.
 ...               Running Setup_Karaf_Keywords is necessary. If SetupUtils initialization is called, this gets initialized as well.
 ...               If this gets initialized, ClusterManagement gets initialized as well.

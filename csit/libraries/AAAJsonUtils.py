@@ -10,7 +10,7 @@ import json
 
 
 def countnodes(args):
-    """ Count the number of nodes in a chunk of JSON.
+    """Count the number of nodes in a chunk of JSON.
 
         Because json blobs come in multiple forms, use node, subnode or
         category to assist in defining what to count.
@@ -44,7 +44,7 @@ def countnodes(args):
 
 
 def fieldcount(pobject, field):
-    """ Helper-func - use countnodes to count the occurences of field in pobject
+    """Helper-func - use countnodes to count the occurences of field in pobject
 
         example
         count the occurences of domainid in this single record...
@@ -69,7 +69,7 @@ def fieldcount(pobject, field):
 
 
 def subnodecount(pobject, subnode):
-    """ Helper-func - use countnodes to count subnode in pobject
+    """Helper-func - use countnodes to count subnode in pobject
 
         example
         count the occurences of domainid in this json.
@@ -102,7 +102,7 @@ def subnodecount(pobject, subnode):
 
 
 def nodecount(pobject, category, node):
-    """ Helper-func - use countnodes function to count node of a category type
+    """Helper-func - use countnodes function to count node of a category type
 
         example
         count the domainid in these properly formatted json blobs...
@@ -140,7 +140,7 @@ def nodecount(pobject, category, node):
 
 
 def get_id_by_name(args):
-    """ Get an ID by the Name field.
+    """Get an ID by the Name field.
 
         Go through the json given, and pull out all ids that are identified
         by the corresponding name argument.
@@ -209,7 +209,7 @@ def get_id_by_name(args):
 
 
 def get_attribute_by_id(args):
-    """ Get an attribute by the id field.
+    """Get an attribute by the id field.
 
         Each json record in the json blob has a unique ID, return
         the corresponding attribute field from that record.  Could be
@@ -290,7 +290,7 @@ def get_attribute_by_id(args):
 
 
 def get_role_id_by_rolename(pobject, rolename, number_nodes):
-    """ Helper-func - use get_id_by_name to obtain role-ids for a role-name
+    """Helper-func - use get_id_by_name to obtain role-ids for a role-name
 
         sample record...
         "roles": [ {
@@ -329,7 +329,7 @@ def get_role_id_by_rolename(pobject, rolename, number_nodes):
 
 
 def get_role_name_by_roleid(pobject, roleid, number_nodes):
-    """ Helper-func - use get_attribute_by_id to get role-name for a role-id
+    """Helper-func - use get_attribute_by_id to get role-name for a role-id
 
         sample record...
         "roles": [ {
@@ -369,7 +369,7 @@ def get_role_name_by_roleid(pobject, roleid, number_nodes):
 
 
 def get_role_description_by_roleid(pobject, roleid, number_nodes):
-    """ Helper-func - get role-description for a role-id
+    """Helper-func - get role-description for a role-id
 
         sample record...
         "roles": [ {
@@ -409,7 +409,7 @@ def get_role_description_by_roleid(pobject, roleid, number_nodes):
 
 
 def get_domain_id_by_domainname(pobject, domainname, number_nodes):
-    """ Helper-func - get all domain-ids corresponding to domain-name
+    """Helper-func - get all domain-ids corresponding to domain-name
 
         sample record...
         "domains": [ {
@@ -450,7 +450,7 @@ def get_domain_id_by_domainname(pobject, domainname, number_nodes):
 
 
 def get_domain_name_by_domainid(pobject, domainid, number_nodes):
-    """ Helper-func - get domain-name for a particular domainid
+    """Helper-func - get domain-name for a particular domainid
 
         sample record...
         "domains": [ {
@@ -491,7 +491,7 @@ def get_domain_name_by_domainid(pobject, domainid, number_nodes):
 
 
 def get_domain_description_by_domainid(pobject, domainid, number_nodes):
-    """ Helper-func - get the domaind descripton for a particular domainid
+    """Helper-func - get the domaind descripton for a particular domainid
 
         sample record...
         "domains": [ {
@@ -532,7 +532,7 @@ def get_domain_description_by_domainid(pobject, domainid, number_nodes):
 
 
 def get_domain_state_by_domainid(pobject, domainid, number_nodes):
-    """ Helper-func - get domain state field  for a particular domainid
+    """Helper-func - get domain state field  for a particular domainid
 
         sample record...
         "domains": [ {
@@ -573,7 +573,7 @@ def get_domain_state_by_domainid(pobject, domainid, number_nodes):
 
 
 def get_user_id_by_username(pobject, username, number_nodes):
-    """ Helper-func - get user-ids corresponding to username
+    """Helper-func - get user-ids corresponding to username
 
         sample record...
         "users": [ {
@@ -616,7 +616,7 @@ def get_user_id_by_username(pobject, username, number_nodes):
 
 
 def get_user_password_by_userid(pobject, userid, number_nodes):
-    """ Helper-func - get user password field for a particular userid
+    """Helper-func - get user password field for a particular userid
 
         sample record...
         "users": [ {
@@ -660,7 +660,7 @@ def get_user_password_by_userid(pobject, userid, number_nodes):
 
 
 def get_user_name_by_userid(pobject, userid, number_nodes):
-    """ Helper-func - get the username field for a particular userid
+    """Helper-func - get the username field for a particular userid
 
         sample record...
         "users": [ {
@@ -704,7 +704,7 @@ def get_user_name_by_userid(pobject, userid, number_nodes):
 
 
 def get_user_state_by_userid(pobject, userid, number_nodes):
-    """ Helper-func - get user state field for a particular userid
+    """Helper-func - get user state field for a particular userid
 
         sample record...
         "users": [ {
@@ -748,7 +748,7 @@ def get_user_state_by_userid(pobject, userid, number_nodes):
 
 
 def get_user_email_by_userid(pobject, userid, number_nodes):
-    """ Helper-func - get user email field for a particular userid
+    """Helper-func - get user email field for a particular userid
 
         sample record...
         "users": [ {
@@ -792,7 +792,7 @@ def get_user_email_by_userid(pobject, userid, number_nodes):
 
 
 def get_user_description_by_userid(pobject, userid, number_nodes):
-    """ Helper-func - get user description field for a particular userid
+    """Helper-func - get user description field for a particular userid
 
         sample record...
         "users": [ {

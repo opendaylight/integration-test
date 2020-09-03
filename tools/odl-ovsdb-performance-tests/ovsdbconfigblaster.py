@@ -77,7 +77,7 @@ class OvsdbConfigBlaster(object):
 
     @staticmethod
     def return_ovsdb_url(vswitch_ip, vswitch_ovsdb_port, url_type="config"):
-        """ Return an ovsdb restconf url
+        """Return an ovsdb restconf url
         Args:
             :param vswitch_ip: The ip of Open vSwitch to use
             :param vswitch_ovsdb_port: The ovsdb port of Open vSwitch to use
@@ -98,7 +98,7 @@ class OvsdbConfigBlaster(object):
     def add_vswitch_to_dict(
         self, vswitch_ip, vswitch_remote_ip, vswitch_ovsdb_port, vswitch_name
     ):
-        """ Add details of an Open vSwitch instance to self.vswitch_dict
+        """Add details of an Open vSwitch instance to self.vswitch_dict
         Args:
             :param vswitch_ip: The ip of Open vSwitch to use
             :param vswitch_remote_ip: The ip of remote Open vSwitch to use
@@ -131,7 +131,7 @@ class OvsdbConfigBlaster(object):
         )
 
     def connect_vswitch(self, vswitch_dict):
-        """ Connect ODL to an Open vSwitch instance using restconf
+        """Connect ODL to an Open vSwitch instance using restconf
         Args:
             :param vswitch_dict: A dictionary detailing
                                  an instance of Open vSwitch
@@ -277,8 +277,8 @@ class OvsdbConfigBlaster(object):
 
     def delete_port(self, num_ports):
         """Delete ports from ODL config
-         Args:
-            :param num_ports: Number of ports to delete
+        Args:
+           :param num_ports: Number of ports to delete
         """
         for port in range(num_ports):
             bridge_name = "br-0-test"

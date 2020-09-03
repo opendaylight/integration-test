@@ -134,7 +134,7 @@ class Counter(dict):
         return result
 
     def __sub__(self, other):
-        """ Subtract count, but keep only results with positive counts.
+        """Subtract count, but keep only results with positive counts.
 
         >>> Counter('abbbc') - Counter('bccd')
         Counter({'b': 2, 'a': 1})
@@ -167,7 +167,7 @@ class Counter(dict):
         return result
 
     def __and__(self, other):
-        """ Intersection is the minimum of corresponding counts.
+        """Intersection is the minimum of corresponding counts.
 
         >>> Counter('abbb') & Counter('bcc')
         Counter({'b': 1})

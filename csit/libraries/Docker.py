@@ -277,11 +277,11 @@ def docker_ping(docker_name, ip, count=3):
 def docker_list_containers(passed_args_dict=None):
     """Return a list of docker containers.
 
-       Returns:
-        :returns list: returns list of docker
-            containers in following format:
-            [{'Id': u'069a56ec06f965f98efa752467737faa58431ebb471bc51e9b2bd485fcc4916c'},
-            {'Id': u'769aff6170eec78e7c502fea4770cfbb7b7e53a2dc44070566d01e18b6d57c14'}]
+    Returns:
+     :returns list: returns list of docker
+         containers in following format:
+         [{'Id': u'069a56ec06f965f98efa752467737faa58431ebb471bc51e9b2bd485fcc4916c'},
+         {'Id': u'769aff6170eec78e7c502fea4770cfbb7b7e53a2dc44070566d01e18b6d57c14'}]
     """
     logger.info("Listing docker containers")
     logger.info(passed_args_dict)
@@ -309,15 +309,15 @@ def docker_list_containers(passed_args_dict=None):
 def docker_create_host_config(passed_args_dict):
     """Return a list of docker create host config for port bindings.
 
-       Parameters:
-        :param passed_args_dict: dictionary of the keyword values to use.
+    Parameters:
+     :param passed_args_dict: dictionary of the keyword values to use.
 
-       Returns:
-        :returns list: returns host config for a container
-            create command in following format:
-            {'PortBindings': {'6640/tcp': [{'HostIp': '', 'HostPort': '6640'}],
-            '6653/tcp': [{'HostIp': '', 'HostPort': '6653'}],
-            '9001/tcp': [{'HostIp': '', 'HostPort': '9001'}]}}
+    Returns:
+     :returns list: returns host config for a container
+         create command in following format:
+         {'PortBindings': {'6640/tcp': [{'HostIp': '', 'HostPort': '6640'}],
+         '6653/tcp': [{'HostIp': '', 'HostPort': '6653'}],
+         '9001/tcp': [{'HostIp': '', 'HostPort': '9001'}]}}
     """
     logger.info("Creating host config.")
 

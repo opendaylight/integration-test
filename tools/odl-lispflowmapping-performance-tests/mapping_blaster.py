@@ -145,8 +145,7 @@ class MappingRPCBlaster(object):
         self.session.close()
 
     def get_n_mappings(self):
-        """Retrieve self.nmappings mappings from ODL
-        """
+        """Retrieve self.nmappings mappings from ODL"""
         rpc = dict(self.get_mapping_template)
         increment = pow(2, 32 - int(self.mask))
         for i in range(self.nmappings):
