@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80c1f54c_d7f1797d",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-09-14T07:25:03Z",
+      "side": 1,
+      "message": "Can we move this to Suite Setup?. Looks like this test does not test any feature",
+      "revId": "cab741e23f5c02aeb3bc9e054e23c0e6fc0a610f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
