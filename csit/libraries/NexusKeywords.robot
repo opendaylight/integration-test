@@ -26,7 +26,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
-&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
+&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl    odl-micro=odlmicro-impl
 @{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
@@ -99,7 +99,7 @@ Deploy_From_Url
     [Return]    ${filename}
 
 Deploy_Artifact
-    [Arguments]    ${component}    ${artifact}    ${name_prefix}=${artifact}-    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Arguments]    ${component}    ${artifact}    ${name_prefix}=${artifact}-    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}    ${build_version}=${EMPTY}    ${build_location}=${EMPTY}
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
     ...    ${component} is a name part of an artifact present in system/ of ODl installation with the same version as ${artifact} should have.
     ...    Must have ${BUNDLE_URL} variable set to the URL from which the
@@ -117,7 +117,10 @@ Deploy_Artifact
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
     CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
     ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
-    ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${build_version}'=='${EMPTY}'    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ...    ELSE    BuiltIn.Set_Variable    ${build_version}    ${build_location}
+    ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${component}'=='odl-micro'    BuiltIn.Set_Variable    ${ODL_MICRO_VERSION}    org/opendaylight/odlmicro
+    ...    ELSE    BuiltIn.Set_Variable    ${version}    ${location}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
@@ -134,7 +137,7 @@ Deploy_Artifact
     [Return]    ${filename}
 
 Deploy_Test_Tool
-    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}    ${build_version}=${EMPTY}    ${build_location}=${EMPTY}
     [Documentation]    Deploy a test tool.
     ...    The test tools have naming convention of the form
     ...    "<repository_url>/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
@@ -144,9 +147,10 @@ Deploy_Test_Tool
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
-    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
+    ${extension} =    BuiltIn.Set_Variable_If    '${component}'=='odl-micro'    tar    jar
+    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.${extension}    .${extension}
     ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${fallback_url}
-    ...    ${explicit_url}
+    ...    ${explicit_url}    ${build_version}    ${build_location}
     [Return]    ${filename}
 
 Install_And_Start_Java_Artifact
