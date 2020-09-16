@@ -39,6 +39,7 @@ ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
 Start_Testtool
+    [Tags]    ODLMICRO_IGN
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
@@ -55,8 +56,7 @@ Configure_Device_On_Netconf
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
     [Tags]    critical
-    ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${device_name}
-    Builtin.Should_Be_Equal_As_Strings    ${count}    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    5 sec    1 sec    Count_Netconf_Connectors
 
 Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.
@@ -243,3 +243,7 @@ Check_Config_Data
     ${data}=    Get_Config_Data
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
+
+Count_Netconf_Connectors
+    ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${device_name}
+    Builtin.Should_Be_Equal_As_Strings    ${count}    1
