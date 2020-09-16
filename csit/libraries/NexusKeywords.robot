@@ -26,7 +26,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
-&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
+&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl    odl-micro=odlmicro-impl
 @{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
@@ -117,7 +117,45 @@ Deploy_Artifact
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
     CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
     ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
-    ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${version} =    BuiltIn.Run_Keyword_If    '${component}'=='odl-micro'    BuiltIn.Set_Variable    ${ODL_MICRO_VERSION}
+    ${location} =    BuiltIn.Run_Keyword_If    '${component}'=='odl-micro'    BuiltIn.Set_Variable    org/opendaylight/odlmicro
+    ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${component}'!='odl-micro'    NexusKeywords__Detect_Version_To_Pull    ${component}
+    # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
+    ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
+    # TODO: Review SSHKeywords for current best keywords to call.
+    ${metadata} =    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
+    ${status}    ${namepart} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
+    ${length} =    BuiltIn.Get_Length    ${namepart}
+    ${namepart} =    BuiltIn.Set_Variable_If    "${status}" != "PASS" or ${length} == 0    ${version}    ${namepart}
+    ${filename} =    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
+    BuiltIn.Log    ${filename}
+    ${url} =    BuiltIn.Set_Variable    ${url}/${filename}
+    ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${url}' 2>&1    return_rc=True
+    BuiltIn.Log    ${response}
+    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
+    [Return]    ${filename}
+
+Deploy_Artifact_for_specific_version
+    [Arguments]    ${component}    ${artifact}    ${version}    ${name_prefix}=${artifact}-    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
+    ...    ${component} is a name part of an artifact present in system/ of ODl installation with the same version as ${artifact} should have.
+    ...    Must have ${BUNDLE_URL} variable set to the URL from which the
+    ...    tested ODL distribution was downloaded and this place must be
+    ...    inside a repository created by a standard distribution
+    ...    construction job. If this is detected to ne be the case, fallback URL is used.
+    ...    If ${explicit_url} is non-empty, Deploy_From_Utrl is called instead.
+    ...    TODO: Allow deploying to a specific directory, we have SSHKeywords.Execute_Command_At_Cwd_Should_Pass now.
+    BuiltIn.Run_Keyword_And_Return_If    """${explicit_url}""" != ""    Deploy_From_Url    ${explicit_url}
+    ${urlbase} =    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
+    # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
+    # ${urlbase} is the whole ${BUNDLE_URL}, in which case we use the ${fallback_url}
+    # If we are working with a "release integrated" project, we always will want to look for
+    # a released version, not in the snapshots
+    ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
+    CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
+    ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
+    # ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${component}'!='odl-micro'    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${location}    BuiltIn.Set_Variable    org/opendaylight/${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
@@ -145,7 +183,24 @@ Deploy_Test_Tool
     ...    work of deploying the artifact.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
     ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
+    ${name_suffix} =    BuiltIn.Set_Variable_If    '${component}'=='odl-micro'    -${suffix}.tar    ${name_suffix}
     ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${fallback_url}
+    ...    ${explicit_url}
+    [Return]    ${filename}
+
+Deploy_Specific_Version_Test_Tool
+    [Arguments]    ${component}    ${artifact}    ${version}    ${suffix}=executable    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Documentation]    Deploy a test tool.
+    ...    The test tools have naming convention of the form
+    ...    "<repository_url>/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
+    ...    where "<tool-name>" is the name of the tool and "<version-tag>" is
+    ...    the version tag that is digged out of the maven metadata. This
+    ...    keyword calculates ${name_prefix} and ${name_suffix} for
+    ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
+    ...    work of deploying the artifact.
+    ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
+    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
+    ${filename} =    Deploy_Artifact_for_specific_version    ${component}    ${artifact}    ${version}    ${name_prefix}    ${name_suffix}    ${fallback_url}
     ...    ${explicit_url}
     [Return]    ${filename}
 
