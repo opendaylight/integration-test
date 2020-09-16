@@ -39,6 +39,7 @@ ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
 Start_Testtool
+    [Tags]    Karaftest
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
@@ -55,6 +56,7 @@ Configure_Device_On_Netconf
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
     [Tags]    critical
+    Sleep    5s
     ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${device_name}
     Builtin.Should_Be_Equal_As_Strings    ${count}    1
 
