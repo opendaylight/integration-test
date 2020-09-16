@@ -26,7 +26,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
-&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
+&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl    odl-micro=odlmicro-impl
 @{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
@@ -117,7 +117,9 @@ Deploy_Artifact
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
     CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
     ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
-    ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${component}'!='odl-micro'    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${version} =    BuiltIn.Run_Keyword_If    '${component}'=='odl-micro'    BuiltIn.Set_Variable    1.0.0-SNAPSHOT
+    ${location} =    BuiltIn.Run_Keyword_If    '${component}'=='odl-micro'    BuiltIn.Set_Variable    org/opendaylight/odlmicro
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
@@ -128,9 +130,9 @@ Deploy_Artifact
     ${filename} =    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
     BuiltIn.Log    ${filename}
     ${url} =    BuiltIn.Set_Variable    ${url}/${filename}
-    ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${url}' 2>&1    return_rc=True
-    BuiltIn.Log    ${response}
-    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
+    # ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${url}' 2>&1    return_rc=True
+    # BuiltIn.Log    ${response}
+    # BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
     [Return]    ${filename}
 
 Deploy_Test_Tool
@@ -144,7 +146,7 @@ Deploy_Test_Tool
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
-    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
+    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.tar    .tar
     ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${fallback_url}
     ...    ${explicit_url}
     [Return]    ${filename}
