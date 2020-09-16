@@ -39,6 +39,7 @@ ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
 Start_Testtool
+    [Tags]    ODLMICRO_IGN
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
