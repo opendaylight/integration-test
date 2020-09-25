@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbf20f55_329ec995",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-09-25T19:54:01Z",
+      "side": 1,
+      "message": "wait, is there no way to get this work in the above keyword? maybe pass another argument to\nindicate you want to use a specific version? lots of duplication otherwise",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 33
+      },
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08accd9b_ca383580",
+        "filename": "csit/libraries/ODLMicroKeywords.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-09-25T19:54:01Z",
+      "side": 1,
+      "message": "double check we don\u0027t have anything like below in other libs. seems some of them should already\nexist.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8bf3bc0_dfa85e14",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2020-09-25T19:54:01Z",
+      "side": 1,
+      "message": "what does IGN mean?",
+      "range": {
+        "startLine": 42,
+        "startChar": 23,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
