@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "229bca2f_870841a4",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-09-27T19:17:20Z",
+      "side": 1,
+      "message": "I think there are 2 different problems here:\n1) Current Detect_Version_To_Pull KW does not work for odlmicro component: why do not simply change that KW instead of this KW?\n2) Current Deploy_Test_Tool does not support an explicit version: Instead of creating a new KW with lot replication, why do not just add a new argument ${version}\u003d${EMPTY}? if it is empty do as today, if it is filled with something then use that instead of Detect_Version_To_Pull.",
+      "parentUuid": "5389f8b1_0872ad81",
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbf20f55_329ec995",
         "filename": "csit/libraries/NexusKeywords.robot",
         "patchSetId": 37
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "for using explicit URL we should give the exact URL of that build file like http://nexus....../1.0.0-SNAPSOT/...*.jar but i want the latest build from that version folder. Is there any other keyword is there for downloading like this. please ping me",
       "parentUuid": "8d1018da_e4141402",
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa6bcd28_2663f574",
+        "filename": "csit/suites/odlmicro/initial_setup.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-09-27T19:17:20Z",
+      "side": 1,
+      "message": "OK I see, you are ignoring the start tool in CRUD suite using a tag and instead using your own implementation for installing an specific version of the tool. Obviously my suggest will not work for SNAPSHOT version of the tool but it will for a release version, anyway if you want to test vs SNAPSHOT I guess it is fine to go ahead with this approach.",
+      "parentUuid": "3673eea9_d30ec84a",
       "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
