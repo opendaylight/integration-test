@@ -267,6 +267,24 @@
     },
     {
       "key": {
+        "uuid": "c845bb2d_7554e41e",
+        "filename": "csit/suites/odlmicro/initial_setup.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-09-28T09:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa6bcd28_2663f574",
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f8ac080_a8b74b60",
         "filename": "csit/testplans/odlmicro-netconf-aluminium.txt",
         "patchSetId": 37
