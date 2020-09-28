@@ -317,6 +317,24 @@
       "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286bd5f0_b1d4dc4a",
+        "filename": "csit/testplans/odlmicro-netconf-aluminium.txt",
+        "patchSetId": 37
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-09-28T17:22:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac0a112c_67205739",
+      "revId": "2adf295d72a71ced345467da11b996af42fb6ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }

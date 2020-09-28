@@ -16,6 +16,24 @@
       "revId": "32a150b557c8902f98b310ec24910295991b7ca8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237766ed_04689e7f",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-09-28T17:22:11Z",
+      "side": 1,
+      "message": "luis i just tried your approch but it failed in odlmicro installation. it again searching version in the machine through search.sh https://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/odlmicro-csit-1node-netconf-manual-aluminium/5/robot-plugin/log.html.gz#s1-s1-t1-k1-k5-k4-k6-k1-k8-k1                                                           \n\nany other way?",
+      "parentUuid": "0d66b41e_9df4d943",
+      "revId": "32a150b557c8902f98b310ec24910295991b7ca8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
