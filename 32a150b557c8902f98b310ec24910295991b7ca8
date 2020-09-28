@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d66b41e_9df4d943",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-09-28T16:18:17Z",
+      "side": 1,
+      "message": "This is better than before but I still do not understand why this could not simply be: IF ${build_version}\u0027\u003d\u003d\u0027${EMPTY} -\u003e NexusKeywords__Detect_Version_To_Pull ELSE set version \u0026 location from arguments. And then modify NexusKeywords__Detect_Version to return desired values for odl-micro component.",
+      "revId": "32a150b557c8902f98b310ec24910295991b7ca8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
