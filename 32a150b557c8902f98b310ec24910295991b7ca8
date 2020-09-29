@@ -34,6 +34,24 @@
       "revId": "32a150b557c8902f98b310ec24910295991b7ca8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b695bd9_5b534f0d",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-09-29T09:41:56Z",
+      "side": 1,
+      "message": "luis, in addition to your approch i just added the \u0027and\u0027condition for avoiding \"NexusKeywords__Detect_Version_To_Pull\" during odlmicro run and specific version run. Is it okay? it was worked fine in both odlmicro and other testplans",
+      "parentUuid": "237766ed_04689e7f",
+      "revId": "32a150b557c8902f98b310ec24910295991b7ca8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
