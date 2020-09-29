@@ -16,6 +16,24 @@
       "revId": "1ce57ad177aedabd733b10ea8ce4fad3c57257c0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fcfb75_8f2876f1",
+        "filename": "csit/libraries/ODLMicroKeywords.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-09-29T12:12:10Z",
+      "side": 1,
+      "message": "no. the default is \"executable\". for odlmicro, it was micro.https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/odlmicro/micro-netconf/1.0.0-SNAPSHOT/micro-netconf-1.0.0-20200928.202125-76-micro.tar",
+      "parentUuid": "c949aafe_2fd6bb1e",
+      "revId": "1ce57ad177aedabd733b10ea8ce4fad3c57257c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
