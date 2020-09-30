@@ -50,7 +50,7 @@ ${OVS_VM2_NAME}    VM2
 ${OVS2_VM1_NAME}    VM3
 ${OVS_VM2_NAME}    VM4
 ${SECURITY_GROUP_L2GW}    sg-l2gateway
-${SECURITY_GROUP_L2GW_NONE}    --no-security-groups
+${SECURITY_GROUP_L2GW_NONE}    --no-security-group
 ${SUBNET_1}       HWV-SUB1
 ${SUBNET_2}       HWV-SUB2
 ${SUBNET_RANGE1}    13.0.0.0/24
@@ -89,7 +89,7 @@ ${L2GW_UPDATE}    neutron l2-gateway-update --device
 ${L2GW_DELETE}    neutron l2-gateway-delete
 ${L2GW_GET_CONN_YAML}    neutron l2-gateway-connection-list -f yaml
 ${L2GW_GET_CONN}    neutron l2-gateway-connection-list
-${L2GW_GET_YAML}    neutron l2-gateway-list -f yaml
+${L2GW_GET_YAML}    openstack l2gw list -f yaml
 ${L2GW_GET}       neutron l2-gateway-list
 ${L2GW_SHOW}      neutron l2-gateway-show
 ${NET_ADDT_ARG}    --provider-network-type vxlan --provider-segment

@@ -850,9 +850,7 @@ Create Allow All SecurityGroup
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
-    BuiltIn.Log    ${output}
-    BuiltIn.Should Be True    '${rc}' == '0'
+    ${output} =    OpenStack CLI    openstack port create --network ${network_name} ${additional_args} ${port_name}
     ${port_id} =    BuiltIn.Should Match Regexp    ${OUTPUT}    ${REGEX_UUID}
     [Return]    ${OUTPUT}    ${port_id}
 
