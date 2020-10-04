@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1ffba3f_64d819f0",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb042f80_2c006558",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7133c54c_f8ade931",
         "filename": "csit/libraries/JsonrpcKeywords.robot",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa8009f0_2561c22f",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "I don\u0027t think so.Despite test tools in netconf and jsonrpc provides similar functionality, they have completely different command line arguments. Common part is how you write command to SSH channel, but that\u0027s just few lines.",
+      "parentUuid": "7133c54c_f8ade931",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ce24de2b_83420941",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bc7971d_67045819",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 10
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a51ec01_f3607857",
         "filename": "csit/libraries/JsonrpcKeywords.robot",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea7da3c_cc94e30c",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Right",
+      "parentUuid": "3a51ec01_f3607857",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "b2868dc8_7ddaddd4",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9acccb85_76c77b9c",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1feae982_9592d65c",
         "filename": "csit/libraries/JsonrpcKeywords.robot",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df05a03_58e20f0f",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1feae982_9592d65c",
+      "range": {
+        "startLine": 171,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 10
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "6d925a2e_10e135fe",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "These are suite-local KWs. As such, they are sufficient descriptive IMHO.",
+      "parentUuid": "3ad0e57c_1027ca55",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 29
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "617eb46e_53e4077b",
         "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
         "patchSetId": 2
@@ -171,6 +333,24 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7652dbd_228fabc3",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Check is done in \"Delete Node\" KW.",
+      "parentUuid": "617eb46e_53e4077b",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "1a058645_41a9ebdd",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f918e9ab_18611934",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6e2a23d_d80073ec",
         "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
         "patchSetId": 2
@@ -217,6 +421,30 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de7a10df_91bad2bc",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Added description/comment",
+      "parentUuid": "f6e2a23d_d80073ec",
+      "range": {
+        "startLine": 53,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "a267a57a_f68ce4f3",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31a8f880_504e36b7",
+      "range": {
+        "startLine": 169,
+        "startChar": 75,
+        "endLine": 169,
+        "endChar": 85
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3d7930_7f4ae6bc",
         "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
         "patchSetId": 2
@@ -257,6 +509,24 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17dc267c_6512d7d6",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3d7930_7f4ae6bc",
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -280,6 +550,30 @@
       "revId": "8398565cc75a3e15d5366100864188567e5cca98",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8eb954b_2b4fa088",
+        "filename": "csit/suites/jsonrpc/020-testtool-crud.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2020-10-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fe7f0a9_e996a6f3",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 18
+      },
+      "revId": "8398565cc75a3e15d5366100864188567e5cca98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
