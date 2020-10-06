@@ -267,7 +267,7 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m    ${log_response}=True
+    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=45m    ${log_response}=True
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
