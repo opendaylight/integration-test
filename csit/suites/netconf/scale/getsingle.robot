@@ -31,7 +31,8 @@ ${device_type}    full-uri-device
 *** Test Cases ***
 Start_Test_Tool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    ...    ELSE    NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=${DEVICE_COUNT}
 
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
