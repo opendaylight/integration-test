@@ -78,6 +78,7 @@ ${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
 Check_Whether_Netconf_Topology_Is_Ready
+    [Tags]    ODLMICROEXCLUDE
     [Documentation]    Checks netconf readiness.
     BuiltIn.Pass_Execution_If    ${USE_NETCONF_CONNECTOR}==${True}    Netconf connector is used. Next testcases do their job in this case.
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    1s    Check_Netconf_Topology_Ready
@@ -122,6 +123,7 @@ Check_Whether_Netconf_Can_Pretty_Print
     Check_Netconf_Up_And_Running    ?prettyPrint=true
 
 Wait_For_MDSAL
+    [Tags]    ODLMICROEXCLUDE
     [Documentation]    Wait for the MDSAL feature to become online
     ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify_Feature_Is_Installed    odl-netconf-mdsal
     BuiltIn.Run_Keyword_If    '${status}' == 'FAIL'    BuiltIn.Pass_Execution    The 'odl-netconf-mdsal' feature is not installed so no need to wait for it.
