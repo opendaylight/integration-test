@@ -48,7 +48,7 @@ Setup_Restperfclient
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient}    ${connection}
     SSHLibrary.Put_File    ${CURDIR}/../variables/netconf/RestPerfClient/request1.json
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
-    ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -jar ${filename}
+    ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx16G -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
 RestPerfClient__Kill
