@@ -37,7 +37,8 @@ ${base_port}      17830
 *** Test Cases ***
 Start_Test_Tool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    ...    ELSE    NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=${DEVICE_COUNT}
 
 Configure_Devices_On_Netconf
     [Documentation]    Make requests to configure the testtool devices.
@@ -106,5 +107,6 @@ Read_Python_Tool_Operation_Result
     ${ellapsed}=    Collections.Get_From_List    ${test}    3
     BuiltIn.Log    DATA REQUEST RESULT: Device=${number} StartTime=${start} StopTime=${stop} EllapsedTime=${ellapsed}
     ${data}=    Collections.Get_From_List    ${test}    4
-    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ${expected}=    Run Keyword If    '${IS_KARAF_APPL}' == 'TRUE'    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ...    ELSE    Set Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}

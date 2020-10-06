@@ -31,7 +31,8 @@ ${device_type}    full-uri-device
 *** Test Cases ***
 Start_Test_Tool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    ...    ELSE    NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=${DEVICE_COUNT}
 
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
@@ -75,4 +76,6 @@ Check_Device_Data
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
     ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/node/${current_name}/yang-ext:mount    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
-    BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    ${expected}=    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ...    ELSE    Set Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
+    Should Be Equal As Strings    '${data}'    ${expected}
