@@ -34,7 +34,7 @@ ${NUM_WORKERS}    10
 ${TIMEOUT_FACTOR}    3
 ${MIN_CONNECT_TIMEOUT}    300
 ${DEVICES_RESULT_FILE}    devices.csv
-${INSTALL_TESTTOOL}    True
+${INSTALL_TESTTOOL}     True
 ${TESTTOOL_EXECUTABLE}    ${EMPTY}
 
 *** Test Cases ***
@@ -46,15 +46,15 @@ Find Max Netconf Devices
     ${start} =    BuiltIn.Convert to Integer    ${INIT_DEVICE_COUNT}
     ${stop} =    BuiltIn.Convert to Integer    ${MAX_DEVICE_COUNT}
     ${increment} =    BuiltIn.Convert to Integer    ${DEVICE_INCREMENT}
-    ${schema_dir} =    Run Keyword If    "${SCHEMA_MODEL}" == "juniper"    Get Juniper Device Schemas
-    ...    ELSE    Set Variable    none
-    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
+    ${INSTALL_TESTTOOL} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'     False     True
+    ${TESTTOOL_EXECUTABLE} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'     ${NETCONF_FILENAME}      ${EMPTY}
+    ${SCHEMAS} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'     ${CURDIR}/../../../variables/netconf/CRUD/schemas      ${schema_dir}
     FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
         ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
         ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
-        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
+        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
