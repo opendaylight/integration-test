@@ -40,6 +40,7 @@ Configure_Devices_Onto_Netconf
     NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device_And_Verify    timeout=${timeout}
 
 Get_Data_From_Devices
+    [Tags]    ODLMICRO
     [Documentation]    Ask testtool devices for data.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Data    timeout=${timeout}
@@ -75,4 +76,5 @@ Check_Device_Data
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
     ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/node/${current_name}/yang-ext:mount    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
-    BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+    Run Keyword If    '${SKIP_KARAF}' == 'TRUE'    BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"/>
+    ...    ELSE    BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>

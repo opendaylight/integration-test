@@ -50,6 +50,7 @@ Wait_For_Devices_To_Connect
     NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}
 
 Issue_Requests_On_Devices
+    [Tags]    ODLMICRO
     # FIXME: this test case is a keyword and nearly duplicated in the max_devices.robot suite. need to move it to a common lib
     [Documentation]    Spawn the specified count of worker threads to issue a GET request to each of the devices.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
@@ -106,5 +107,6 @@ Read_Python_Tool_Operation_Result
     ${ellapsed}=    Collections.Get_From_List    ${test}    3
     BuiltIn.Log    DATA REQUEST RESULT: Device=${number} StartTime=${start} StopTime=${stop} EllapsedTime=${ellapsed}
     ${data}=    Collections.Get_From_List    ${test}    4
-    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ${expected}=    Run Keyword If    '${SKIP_KARAF}' == 'TRUE'    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
+    ...    ELSE    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/></data>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
