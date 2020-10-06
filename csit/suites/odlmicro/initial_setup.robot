@@ -10,7 +10,7 @@ Resource          ${CURDIR}/../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../libraries/ODLMicroKeywords.robot
 
 *** Variables ***
-${BASE_URL}       https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/odlmicro/micro-netconf
+${BASE_URL}       https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/odlmicro/micro-netconf
 ${ORG_URL}        ${BASE_URL}/${ODL_MICRO_VERSION}/
 ${BUNDLE_URL}     ${BASE_URL}
 ${ODL_MICRO_WORKSPACE}    /tmp
