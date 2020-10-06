@@ -39,6 +39,7 @@ ${RestPerfClient__restperfclientlog}    ${EMPTY}
 
 *** Keywords ***
 Setup_Restperfclient
+    [Arguments]    ${build_version}=${EMPTY}    ${build_location}=${EMPTY}
     [Documentation]    Deploy RestPerfClient and determine the Java command to use to call it.
     ...    Open a SSH connection through which the RestPerfClient will be
     ...    invoked, deploy RestPerfClient and the data files it needs to do
@@ -47,8 +48,9 @@ Setup_Restperfclient
     ${connection}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient}    ${connection}
     SSHLibrary.Put_File    ${CURDIR}/../variables/netconf/RestPerfClient/request1.json
-    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
-    ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -jar ${filename}
+    ${filename}=    Run Keyword If    '${IS_KARAF_APPL}' == 'False'    Set Variable    ${RESTPERF_FILENAME}
+    ...    ELSE    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
+    ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx4G -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
 RestPerfClient__Kill

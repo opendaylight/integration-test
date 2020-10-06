@@ -35,7 +35,6 @@ Download and Run ODL Micro
 Download and Run Netconf Testtool
     [Documentation]    Download and Run Netconf Testtool in Tools VM.
     Download Netconf Testtool
-    Run Netconf Testtool
 
 *** Keywords ***
 Teardown
