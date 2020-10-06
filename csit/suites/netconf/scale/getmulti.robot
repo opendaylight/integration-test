@@ -106,5 +106,6 @@ Read_Python_Tool_Operation_Result
     ${ellapsed}=    Collections.Get_From_List    ${test}    3
     BuiltIn.Log    DATA REQUEST RESULT: Device=${number} StartTime=${start} StopTime=${stop} EllapsedTime=${ellapsed}
     ${data}=    Collections.Get_From_List    ${test}    4
-    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ${expected}=    Run Keyword If    '${SKIP_KARAF}' == 'TRUE'    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
+    ...    ELSE    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/></data>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
