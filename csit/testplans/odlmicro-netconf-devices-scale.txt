@@ -1,0 +1,5 @@
+
+# Place the suites in run order:
+integration/test/csit/suites/odlmicro/initial_setup.robot
+integration/test/csit/suites/netconf/ready
+integration/test/csit/suites/netconf/scale/max_devices.robot
