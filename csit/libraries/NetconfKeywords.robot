@@ -211,7 +211,7 @@ Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ...    ${mdsal}=true
     [Documentation]    Install and run testtool.
-    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
     Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}
     ...    ${java_options}    ${mdsal}
 
