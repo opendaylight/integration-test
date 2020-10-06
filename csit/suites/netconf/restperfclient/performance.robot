@@ -91,7 +91,7 @@ Setup_Everything
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    RestPerfClient.Setup_Restperfclient
+    RestPerfClient.Setup_Restperfclient    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
     # Connect to the tools system (testtool)
     ${testtool}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${testtool}    ${testtool}
