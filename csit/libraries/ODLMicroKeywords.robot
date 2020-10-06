@@ -27,7 +27,7 @@ Run ODL Micro
     SSHLibrary.Write    cd ${ODL_MICRO_WORKSPACE}/micro-netconf-${ODL_MICRO_VERSION}
     ${response} =    SSHLibrary.Execute_Command    ls
     BuiltIn.Log    ${response}
-    ${command} =    NexusKeywords.Compose_Full_Java_Command    -Xms128M -Xmx2048m -XX:+UnlockDiagnosticVMOptions -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom -cp "etc/initial/:lib/*" org.opendaylight.netconf.micro.NetconfMain > /tmp/odlmicro.log 2>&1
+    ${command} =    NexusKeywords.Compose_Full_Java_Command    -Xms12G -Xmx12G -XX:+UnlockDiagnosticVMOptions -XX:+HeapDumpOnOutOfMemoryError -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom -cp "etc/initial/:lib/*" org.opendaylight.netconf.micro.NetconfMain > /tmp/odlmicro.log 2>&1
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
 
@@ -63,9 +63,10 @@ Download Netconf Testtool
     SSHLibrary.Set_Client_Configuration    timeout=10s
     SSHLibrary.Set_Client_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHKeywords.Flexible_SSH_Login    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    delay=4s
-    ${file_name} =    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
-    BuiltIn.Set_Suite_Variable    ${NETCONF_FILENAME}    ${filename}
+    ${file_name} =    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    build_version=1.9.2    build_location=org/opendaylight/netconf
+    BuiltIn.Set Global Variable    ${NETCONF_FILENAME}    ${filename}
 
 Run Netconf Testtool
     [Arguments]    ${ssh_alias}=Netconf_System
+    # Pass Execution If    '${SCALE_TESTS}' == 'TRUE'    Scale Tests start the test tool
     NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=1    schemas=${CURDIR}/../variables/netconf/CRUD/schemas

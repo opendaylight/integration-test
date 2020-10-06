@@ -15,7 +15,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           String
-Library           SSHLibrary    timeout=10s
+Library           SSHLibrary    timeout=1000s
 Resource          ../../../libraries/CheckJVMResource.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/NetconfKeywords.robot
@@ -25,12 +25,12 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${INIT_DEVICE_COUNT}    250
-${MAX_DEVICE_COUNT}    5000
-${DEVICE_INCREMENT}    250
+${MAX_DEVICE_COUNT}    100000
+${DEVICE_INCREMENT}    5000
 ${DEVICE_NAME_BASE}    netconf-scaling-device
 ${DEVICE_TYPE}    full-uri-device
 ${BASE_PORT}      17830
-${NUM_WORKERS}    10
+${NUM_WORKERS}    500
 ${TIMEOUT_FACTOR}    3
 ${MIN_CONNECT_TIMEOUT}    300
 ${DEVICES_RESULT_FILE}    devices.csv
@@ -46,15 +46,15 @@ Find Max Netconf Devices
     ${start} =    BuiltIn.Convert to Integer    ${INIT_DEVICE_COUNT}
     ${stop} =    BuiltIn.Convert to Integer    ${MAX_DEVICE_COUNT}
     ${increment} =    BuiltIn.Convert to Integer    ${DEVICE_INCREMENT}
-    ${schema_dir} =    Run Keyword If    "${SCHEMA_MODEL}" == "juniper"    Get Juniper Device Schemas
-    ...    ELSE    Set Variable    none
-    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
+    ${INSTALL_TESTTOOL} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'    False    True
+    ${TESTTOOL_EXECUTABLE} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'    ${NETCONF_FILENAME}    ${EMPTY}
+    ${SCHEMAS} =    Set Variable If    '${SKIP_KARAF}' == 'TRUE'    ${CURDIR}/../../../variables/netconf/CRUD/schemas    ${schema_dir}
     FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
         ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
         ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
-        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${schema_dir}    device-count=${devices}
+        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
@@ -131,7 +131,8 @@ Read_Python_Tool_Operation_Result
     ${ellapsed}=    Collections.Get_From_List    ${test}    3
     BuiltIn.Log    DATA REQUEST RESULT: Device=${number} StartTime=${start} StopTime=${stop} EllapsedTime=${ellapsed}
     ${data}=    Collections.Get_From_List    ${test}    4
-    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    ${expected}=    Run Keyword If    '${SKIP_KARAF}' == 'TRUE'    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
+    ...    ELSE    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/></data>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
 
 Check_Device_Deconfigured
