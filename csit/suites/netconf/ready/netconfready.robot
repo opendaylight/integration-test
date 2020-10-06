@@ -177,7 +177,7 @@ Verify_Netconf_Topology_Ready_For_Node
 Configure_Netconf_Device
     [Arguments]    ${device_name}    ${session}    ${device_ip}
     [Documentation]    Configures the device via REST api.
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=full-uri-device    device_port=${DEVICE_PORT}    device_address=${device_ip}    device_user=admin    device_password=admin
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=full-uri-device    device_port=${DEVICE_PORT}    device_address=${device_ip}    device_user=admin    device_password=topsecret
     ...    session=${session}
 
 Remove_Netconf_Device
