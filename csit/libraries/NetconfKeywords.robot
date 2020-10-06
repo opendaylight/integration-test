@@ -211,7 +211,7 @@ Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     ...    ${mdsal}=true
     [Documentation]    Install and run testtool.
-    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
     Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}
     ...    ${java_options}    ${mdsal}
 
@@ -256,7 +256,7 @@ NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired
     BuiltIn.Return_From_Keyword_If    not ${ENABLE_NETCONF_TEST_TIMEOUT}
     ${current_Date}=    DateTime.Get_Current_Date
     ${ellapsed_seconds}=    DateTime.Subtract_Date_From_Date    ${deadline_Date}    ${current_Date}
-    BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
+    #BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
 
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     [Arguments]    ${operation}    ${deadline_Date}    ${log_response}=True
