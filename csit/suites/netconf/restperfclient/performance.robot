@@ -44,7 +44,8 @@ Start_Testtool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     # Start test tool
     SSHLibrary.Switch_Connection    ${testtool}
-    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    debug=false
+    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    debug=false
+    ...    ELSE    NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    debug=false
 
 Configure_Device_On_Netconf
     [Documentation]    Configure the testtool device on Netconf connector.
@@ -91,7 +92,7 @@ Setup_Everything
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    RestPerfClient.Setup_Restperfclient
+    RestPerfClient.Setup_Restperfclient    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
     # Connect to the tools system (testtool)
     ${testtool}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${testtool}    ${testtool}
