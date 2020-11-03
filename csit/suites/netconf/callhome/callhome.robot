@@ -14,7 +14,7 @@ CallHome with Incorrect global Credentials
     SSHLibrary.Execute_Command    sed -i -e 's/global root/global incorrect/g' docker-compose.yaml
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
     Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
 
@@ -23,7 +23,7 @@ CallHome with Incorrect per-device Credentials
     SSHLibrary.Execute_Command    sed -i -e 's/global root/per-device netopeer incorrect/g' docker-compose.yaml
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_AUTH_FAILURE
     Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
 
@@ -32,7 +32,7 @@ CallHome with Incorrect Node-id
     SSHLibrary.Execute_Command    sed -i -e 's/global/per-device incorrect_hostname/g' docker-compose.yaml    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    DISCONNECTED
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    DISCONNECTED
     Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
 
@@ -43,7 +43,7 @@ CallHome with Rogue Devices
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
     # Next line is commented due to https://jira.opendaylight.org/browse/NETCONF-574
-    #Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    FAILED_NOT_ALLOWED
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_NOT_ALLOWED
     Wait Until Keyword Succeeds    30s    2s    Run Keyword And Expect Error    *    Utils.Check For Elements At URI    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
 
@@ -52,7 +52,7 @@ Successful CallHome with correct global credentials
     ...    CONNECTED should be the device status.
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    CONNECTED
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
     Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}
 
 Successful CallHome with correct per-device credentials
@@ -61,5 +61,5 @@ Successful CallHome with correct per-device credentials
     SSHLibrary.Execute_Command    sed -i -e 's/global/per-device netopeer/g' docker-compose.yaml
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose up -d    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    Wait Until Keyword Succeeds    30s    2s    NetconfCallHome.Check Device Status    CONNECTED
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    CONNECTED
     Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${mount_point_url}    ${netconf_mount_expected_values}

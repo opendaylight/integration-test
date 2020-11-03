@@ -66,6 +66,9 @@ Suite Teardown
 
 Test Teardown
     [Documentation]    Tears down the docker running netopeer and deletes entry from the whitelist.
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose logs    return_stdout=True    return_stderr=True
+    ...    return_rc=True
+    Log    ${stdout}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker-compose down    return_stdout=True    return_stderr=True
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a    return_stdout=True    return_stderr=True
