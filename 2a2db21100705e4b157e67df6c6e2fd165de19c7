@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab7f7e11_3f81a5db",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-11-12T12:04:38Z",
+      "side": 1,
+      "message": "Did you ensure the additional_args usage in all tests match with the Openstack port create command?",
+      "revId": "2a2db21100705e4b157e67df6c6e2fd165de19c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
