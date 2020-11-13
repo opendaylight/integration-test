@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
 # TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
-${LONGEVITY_TEST_DURATION_IN_SECS}    82800
+${LONGEVITY_TEST_DURATION_IN_SECS}    60
 ${NOTIFICATION_RATE}    ${60000}
 
 *** Test Cases ***
