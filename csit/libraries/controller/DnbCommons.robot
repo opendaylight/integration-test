@@ -12,7 +12,7 @@ Resource          ${CURDIR}/../ScalarClosures.robot
 Resource          ${CURDIR}/../WaitUtils.robot
 
 *** Variables ***
-${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    ${5000}
+${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    ${1}
 ${DNB_PUBLISHER_LISTENER_PREFIX}    working-pair-
 ${DNB_TESTED_MEMBER_INDEX}    1
 
