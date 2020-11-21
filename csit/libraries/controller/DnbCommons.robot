@@ -16,6 +16,7 @@ Resource          ${CURDIR}/../WaitUtils.robot
 # Even with check period of 15 seconds that makes more than 2 GB of output,
 # which is too much for processing into log.html (out of memory errors).
 ${DNB_CHECK_PERIOD}    600s
+${DNB_CHECK_TOLERANCE}    ${${DNB_CHECK_PERIOD}*1.2}
 ${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    ${5000}
 ${DNB_PUBLISHER_LISTENER_PREFIX}    working-pair-
 ${DNB_TESTED_MEMBER_INDEX}    1
@@ -40,7 +41,7 @@ Dom_Notification_Broker_Test_Templ
     END
     ${getter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Notifications_Active_Status    ${DNB_TESTED_MEMBER_INDEX}    ${count}
     ${validator} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Check_Notifications_Active_Status    data_holder
-    ${validation_timeout} =    BuiltIn.Evaluate    ${test_duration_in_seconds}+${60}
+    ${validation_timeout} =    BuiltIn.Evaluate    ${test_duration_in_seconds}+${DNB_CHECK_TOLERANCE}
     WaitUtils.Wait_For_Getter_Failure_Or_Stateless_Validator_Pass    timeout=${validation_timeout}    period=${DNB_CHECK_PERIOD}    getter=${getter}    stateless_validator=${validator}
     ${sum_local_number}    BuiltIn.Set_Variable    ${0}
     ${low_limit_pair_rate} =    BuiltIn.Evaluate    0.9*${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}
