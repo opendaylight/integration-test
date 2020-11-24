@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eff3a12_32dd1d55",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2020-11-24T10:50:13Z",
+      "side": 1,
+      "message": "Oh, the previous value contains \"s\", so multiplication will not work.\nSolution: Use numeric values, add _SECONDS to variable names and put \"s\" to line 45.",
+      "range": {
+        "startLine": 19,
+        "startChar": 47,
+        "endLine": 19,
+        "endChar": 48
+      },
+      "revId": "8e15f821003376411258d6e9f2135bd47ec8368e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
