@@ -46,6 +46,30 @@
       "revId": "8e15f821003376411258d6e9f2135bd47ec8368e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2036dd2_e2237485",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2020-11-24T11:07:08Z",
+      "side": 1,
+      "message": "Yes. I see ${test_duration_in_seconds} already uses similar convention, so maybe use _IN_SECONDS etc.",
+      "parentUuid": "6a3abdea_b63ccd94",
+      "range": {
+        "startLine": 19,
+        "startChar": 47,
+        "endLine": 19,
+        "endChar": 48
+      },
+      "revId": "8e15f821003376411258d6e9f2135bd47ec8368e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
