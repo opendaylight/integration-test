@@ -15,7 +15,7 @@ Resource          ${CURDIR}/../WaitUtils.robot
 # There is half a megabyte of output.xml per check.
 # Even with check period of 15 seconds that makes more than 2 GB of output,
 # which is too much for processing into log.html (out of memory errors).
-${DNB_CHECK_PERIOD}    600s
+${DNB_CHECK_PERIOD}    180s
 ${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    ${5000}
 ${DNB_PUBLISHER_LISTENER_PREFIX}    working-pair-
 ${DNB_TESTED_MEMBER_INDEX}    1

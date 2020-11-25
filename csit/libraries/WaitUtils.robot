@@ -92,7 +92,7 @@ Wait_For_Getter_Failure_Or_Stateless_Validator_Pass
     ...    If getter fails, fail. If validator fails, repeat in WUKS fashion (fail when timeout is exceeded).
     ...    FIXME: Cover this keyword in WaitUtilTest.robot
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}
-    ${iterations} =    BuiltIn.Evaluate    ${timeout_in_seconds} / ${period_in_seconds}
+    ${iterations} =    BuiltIn.Evaluate    ${timeout_in_seconds} // ${period_in_seconds}
     FOR    ${i}    IN RANGE    ${iterations}
         ${data} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
         ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${stateless_validator}
