@@ -22,6 +22,30 @@
       "revId": "e83ebabe266744b1e263499906992c44f4279f53",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432e3eaf_087e24bd",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2020-11-25T08:02:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7574b7b_ed7112ea",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "e83ebabe266744b1e263499906992c44f4279f53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
