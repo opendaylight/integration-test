@@ -16,7 +16,7 @@ Resource          ${CURDIR}/../WaitUtils.robot
 # Even with check period of 15 seconds that makes more than 2 GB of output,
 # which is too much for processing into log.html (out of memory errors).
 ${DNB_CHECK_PERIOD_IN_SECONDS}    600
-${DNB_CHECK_TOLERANCE_IN_SECONDS}    ${${DNB_CHECK_PERIOD}*1.2}
+${DNB_CHECK_TOLERANCE_IN_SECONDS}    ${${DNB_CHECK_PERIOD_IN_SECONDS}*1.2}
 ${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    ${5000}
 ${DNB_PUBLISHER_LISTENER_PREFIX}    working-pair-
 ${DNB_TESTED_MEMBER_INDEX}    1
