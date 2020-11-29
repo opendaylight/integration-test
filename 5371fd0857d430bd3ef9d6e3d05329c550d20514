@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b180af6_74668849",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-11-29T21:24:27Z",
+      "side": 1,
+      "message": "I think this should be DNB_CHECK_PERIOD_IN_SECONDS vs DNB_CHECK_PERIOD. Also a variable adjustment is required in JJB after this change: https://git.opendaylight.org/gerrit/c/releng/builder/+/93933/1/jjb/controller/controller-csit-rest-cars-perf.yaml",
+      "revId": "5371fd0857d430bd3ef9d6e3d05329c550d20514",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
