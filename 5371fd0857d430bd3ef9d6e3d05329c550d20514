@@ -16,6 +16,24 @@
       "revId": "5371fd0857d430bd3ef9d6e3d05329c550d20514",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d960b3_b9a4915f",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2020-11-30T10:03:00Z",
+      "side": 1,
+      "message": "Then should this \u0027${DNB_CHECK_PERIOD_IN_SECONDS}    600\u0027 from line 18 be removed from the test?",
+      "parentUuid": "4b180af6_74668849",
+      "revId": "5371fd0857d430bd3ef9d6e3d05329c550d20514",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
