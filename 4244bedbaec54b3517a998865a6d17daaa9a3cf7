@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67ec164e_28433ae1",
+        "filename": "csit/libraries/ODLMicroKeywords.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-05T08:55:01Z",
+      "side": 1,
+      "message": "The JAva Min and Max should be set to 12G only for scale job. Can you please fix this using some varaible which can identify the scale job.",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ec81cc_8ad436a3",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-05T08:55:01Z",
+      "side": 1,
+      "message": "Please set the memory values in such a way the regular and scale job is different",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82bf8bda_914f5002",
+        "filename": "csit/suites/netconf/restperfclient/performance.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-05T08:55:01Z",
+      "side": 1,
+      "message": "Many jobs use this file, Does this change not affect other jobs?",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7331971_5e6838be",
+        "filename": "csit/suites/odlmicro/initial_setup.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-05T08:55:01Z",
+      "side": 1,
+      "message": "Can you please revert to snapshot?",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828ff902_a6e58baf",
+        "filename": "csit/testplans/odlmicro-netconf-general-scale.txt",
+        "patchSetId": 47
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-05T08:55:01Z",
+      "side": 1,
+      "message": "Can you please remove this commented line?",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
