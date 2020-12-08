@@ -72,6 +72,23 @@
     },
     {
       "key": {
+        "uuid": "c48bf1f2_6a395e5d",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2020-12-08T20:16:48Z",
+      "side": 1,
+      "message": "Please use IGNORE_FOR_ODLMICRO instead",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82bf8bda_914f5002",
         "filename": "csit/suites/netconf/restperfclient/performance.robot",
         "patchSetId": 47
