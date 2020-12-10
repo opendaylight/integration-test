@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e3b70281_5f9b9b90",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2020-12-10T04:19:50Z",
+      "side": 1,
+      "message": "changed venkat. but sandbox does not recognise the exclude parameter",
+      "parentUuid": "c48bf1f2_6a395e5d",
+      "revId": "4244bedbaec54b3517a998865a6d17daaa9a3cf7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82bf8bda_914f5002",
         "filename": "csit/suites/netconf/restperfclient/performance.robot",
         "patchSetId": 47
