@@ -113,6 +113,7 @@ Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Library           ${CURDIR}/norm_json.py
+Library           ${CURDIR}/XmlDiff.py
 Resource          ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
@@ -364,6 +365,8 @@ Verify_Response_Templated
     ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_And_Return_If    """${expected_text}""" == """${EMPTY}"""    BuiltIn.Should_Be_Equal    ${EMPTY}    ${response}
+    #BuiltIn.Run_Keyword_If    """${extension}""" == """xml"""    Compare_XML    ${expected_text}    ${response}
+    #...    ELSE IF    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
@@ -485,7 +488,6 @@ Resolve_Text_From_Template_File
     ${file_stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${file_path_stream}
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
-    BuiltIn.Log    ${template}
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}
@@ -505,3 +507,10 @@ Normalize_Jsons_With_Bits_And_Compare
     ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    keys_with_bits=${keys_with_bits}
     ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    keys_with_bits=${keys_with_bits}
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
+
+#Compare_XML
+#    [Arguments]    ${xml_text1}    ${xml_text2}    ${strict}=False
+#    [Documentation]    Compares two XML documents for differences.
+#    ${same} =    XmlDiff.are_same    ${xml_text1}    ${xml_text2}    strict=${strict}
+#    BuiltIn.Log_Variables
+#    BuiltIn.Should_Be_True    ${same}
