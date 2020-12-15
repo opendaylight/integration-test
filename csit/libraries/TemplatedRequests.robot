@@ -486,6 +486,10 @@ Resolve_Text_From_Template_File
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
+    BuiltIn.Log    ${mapping}
+    ${pokus0} =    BuiltIn.Evaluate    '''${template}'''.rstrip()
+    ${pokus1} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip())
+    ${pokus2} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}
