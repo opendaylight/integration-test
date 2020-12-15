@@ -1,0 +1,11 @@
+{
+  "node": {
+    "node-id": "$DEVICE_NAME",
+    "host":  "$DEVICE_IP",
+    "port": $DEVICE_PORT,
+    "username": "$DEVICE_USER",
+    "password": "$DEVICE_PASSWORD",
+    "tcp-only": false,
+    "keepalive-delay": 0
+  }
+}
