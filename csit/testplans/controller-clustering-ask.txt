@@ -1,4 +1,5 @@
 # Place the suites in run order:
+integration/test/csit/suites/mdsal/netty_replicate/netty-replicate.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
 integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
