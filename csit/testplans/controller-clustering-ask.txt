@@ -28,3 +28,4 @@ integration/test/csit/suites/controller/Clustering_Datastore/entity_isolate.robo
 integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_outage_corners.robot
+integration/test/csit/suites/mdsal/netty_replicate/netty-replicate.robot
