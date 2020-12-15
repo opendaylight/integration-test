@@ -1,7 +1,7 @@
    {
     "id": "localhost/people/person_id_$i",
-    "gender": "gender_$i",
-    "age": $i,
+    "gender": "gender_$j",
+    "age": $j,
     "address": "address_$i",
     "contactNo": "contact_$i"
    }
