@@ -136,7 +136,7 @@ Create_Default_Session
 
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${http_timeout}=${EMPTY}    ${log_response}=True
+    ...    ${http_timeout}=${EMPTY}    ${log_response}=True    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
     ...    Only subset of JSON data is verified and returned if JMES path is specified in
@@ -144,48 +144,50 @@ Get_As_Json_Templated
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
     ...    http_timeout=${http_timeout}    log_response=${log_response}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Get_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${http_timeout}=${EMPTY}
+    ...    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for XML data, return Get_Templated response text.
     ...    Optionally, verification against XML data (may be iterated) is called.
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False
     ...    http_timeout=${http_timeout}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Put_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${http_timeout}=${EMPTY}
+    ...    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for JSON data, return Put_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
     ...    Only subset of JSON data is verified and returned if JMES path is specified in
     ...    file ${folder}${/}jmespath.expr.
     ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
-    ...    http_timeout=${http_timeout}
-    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    http_timeout=${http_timeout}    iter_j_offset=${iter_j_offset}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}
+    ...    base_name=response    mapping=${mapping}    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Put_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${http_timeout}=${EMPTY}
+    ...    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for XML data, return Put_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
     ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
-    ...    http_timeout=${http_timeout}
-    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    http_timeout=${http_timeout}    iter_j_offset=${iter_j_offset}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}
+    ...    base_name=response    mapping=${mapping}    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Post_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
     ...    Only subset of JSON data is verified and returned if JMES path is specified in
@@ -195,12 +197,14 @@ Post_As_Json_Templated
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
-    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    iter_j_offset=${iter_j_offset}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}
+    ...    base_name=response    mapping=${mapping}    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Post_As_Json_Rfc8040_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
     ...    Only subset of JSON data is verified and returned if JMES path is specified in
@@ -212,19 +216,23 @@ Post_As_Json_Rfc8040_Templated
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_RFC8040_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
+    ...    iter_j_offset=${iter_j_offset}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Add arguments sensible for XML data, return Post_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
+    ...    iter_j_offset=${iter_j_offset}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    iter_j_offset=${iter_j_offset}
     [Return]    ${response_text}
 
 Delete_Templated
@@ -235,18 +243,18 @@ Delete_Templated
     [Return]    ${response_text}
 
 Verify_Response_As_Json_Templated
-    [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1    ${iter_j_offset}=0
     [Documentation]    Resolve expected JSON data, should be equal to provided \${response}.
     ...    JSON normalization is used, endlines enabled for readability.
     Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json    mapping=${mapping}    normalize_json=True
-    ...    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
 
 Verify_Response_As_Xml_Templated
-    [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1    ${iter_j_offset}=0
     [Documentation]    Resolve expected XML data, should be equal to provided \${response}.
     ...    Endline set to empty, as this Resource does not support indented XML comparison.
     Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=xml    mapping=${mapping}    normalize_json=False
-    ...    endline=${EMPTY}    iterations=${iterations}    iter_start=${iter_start}
+    ...    endline=${EMPTY}    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
 
 Get_As_Json_From_Uri
     [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}    ${log_response}=True
@@ -332,11 +340,11 @@ Get_Templated
 
 Put_Templated
     [Arguments]    ${folder}    ${base_name}    ${extension}    ${content_type}    ${accept}    ${mapping}={}
-    ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${http_timeout}=${EMPTY}
+    ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Resolve URI and data from folder, call Put_To_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
     ...    http_timeout=${http_timeout}    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
@@ -345,11 +353,11 @@ Put_Templated
 Post_Templated
     [Arguments]    ${folder}    ${base_name}    ${extension}    ${content_type}    ${accept}    ${mapping}={}
     ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${additional_allowed_status_codes}=${NO_STATUS_CODES}
-    ...    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    ...    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Resolve URI and data from folder, call Post_To_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    name_prefix=post_    base_name=${base_name}    extension=${extension}    mapping=${mapping}
-    ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}
+    ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
     ...    jmes_path=${jmes_expression}    normalize_json=${normalize_json}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
@@ -357,12 +365,12 @@ Post_Templated
 
 Verify_Response_Templated
     [Arguments]    ${response}    ${folder}    ${base_name}    ${extension}    ${mapping}={}    ${normalize_json}=False
-    ...    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${iter_j_offset}=0
     [Documentation]    Resolve expected text from template, provided response shuld be equal.
     ...    If \${normalize_json}, perform normalization before comparison.
     # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
     ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     BuiltIn.Run_Keyword_And_Return_If    """${expected_text}""" == """${EMPTY}"""    BuiltIn.Should_Be_Equal    ${EMPTY}    ${response}
     BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
@@ -453,10 +461,12 @@ Join_Two_Headers
 
 Resolve_Text_From_Template_Folder
     [Arguments]    ${folder}    ${name_prefix}=${EMPTY}    ${base_name}=data    ${extension}=json    ${mapping}={}    ${iterations}=${EMPTY}
-    ...    ${iter_start}=1    ${endline}=${\n}
+    ...    ${iter_start}=1    ${iter_j_offset}=0    ${endline}=${\n}
     [Documentation]    Read a template from folder, strip endline, make changes according to mapping, return the result.
     ...    If \${iterations} value is present, put text together from "prolog", "item" and "epilog" parts,
     ...    where additional template variable ${i} goes from ${iter_start}, by one ${iterations} times.
+    ...    Template variable ${j} is calculated as ${i} incremented by offset ${iter_j_offset} ( j = i + iter_j_offset )
+    ...    used to create non uniform data in order to be able to validate UPDATE operations.
     ...    POST (as opposed to PUT) needs slightly different data, \${name_prefix} may be used to distinguish.
     ...    (Actually, it is GET who formats data differently when URI is a top-level container.)
     BuiltIn.Run_Keyword_And_Return_If    not "${iterations}"    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.${extension}    mapping=${mapping}
@@ -468,7 +478,8 @@ Resolve_Text_From_Template_Folder
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
     FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
         BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
-        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
+        ${j} =    BuiltIn.Evaluate    ${iteration}+${iter_j_offset}
+        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}", "j":${j}})    modules=string
         Collections.Append_To_List    ${items}    ${item}
         # TODO: The following makes ugly result for iterations=0. Should we fix that?
     END
