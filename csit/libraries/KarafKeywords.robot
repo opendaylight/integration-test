@@ -24,7 +24,9 @@ Setup_Karaf_Keywords
     ClusterManagement.Run_Bash_Command_On_List_Or_All    iptables -I INPUT -p tcp --dport ${KARAF_SHELL_PORT} -j ACCEPT; iptables-save
     BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
     FOR    ${index}    IN    @{ClusterManagement__member_index_list}
+        BuiltIn.Log_Variables
         BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3s    1s    Open_Controller_Karaf_Console_On_Background    member_index=${index}
+        BuiltIn.Log_Variables
     END
 
 Verify_Feature_Is_Installed
