@@ -561,15 +561,16 @@ Count_Running_Karafs_On_Member
     [Return]    ${count}
 
 Isolate_Member_From_List_Or_All
-    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${port}=${EMPTY}
+    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${sport}=${EMPTY}    ${dport}=${EMPTY}
     [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
     ...    The KW will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
-    ${dport} =    BuiltIn.Set_Variable_If    '${port}' != '${EMPTY}'    --dport ${port}    ${EMPTY}
+    ${sport} =    BuiltIn.Set_Variable_If    '${sport}' != '${EMPTY}'    --sport ${sport}    ${EMPTY}
+    ${dport} =    BuiltIn.Set_Variable_If    '${dport}' != '${EMPTY}'    --dport ${dport}    ${EMPTY}
     FOR    ${index}    IN    @{index_list}
         ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-        ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
+        ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p ${protocol} ${sport} --source ${source} --destination ${destination} ${dport} -j DROP
         BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     END
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
