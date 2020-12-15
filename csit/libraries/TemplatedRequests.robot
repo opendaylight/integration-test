@@ -468,7 +468,7 @@ Resolve_Text_From_Template_Folder
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
     FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
         BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
-        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
+        ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}", "j":${iteration}+1})    modules=string
         Collections.Append_To_List    ${items}    ${item}
         # TODO: The following makes ugly result for iterations=0. Should we fix that?
     END
