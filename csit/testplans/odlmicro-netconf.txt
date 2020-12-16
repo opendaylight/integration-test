@@ -1,3 +1,3 @@
 # Place the suites in run order:
 integration/test/csit/suites/odlmicro/initial_setup.robot
-integration/test/csit/suites/netconf/CRUD/CRUD.robot
+integration/test/csit/suites/netconf/CRUD
