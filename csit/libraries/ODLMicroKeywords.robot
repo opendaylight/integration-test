@@ -64,7 +64,7 @@ Download Netconf Testtool
     SSHLibrary.Set_Client_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHKeywords.Flexible_SSH_Login    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    delay=4s
     ${file_name} =    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
-    BuiltIn.Set_Suite_Variable    ${NETCONF_FILENAME}    ${filename}
+    Set Global Variable    ${NETCONF_FILENAME}    ${filename}
 
 Run Netconf Testtool
     [Arguments]    ${ssh_alias}=Netconf_System
