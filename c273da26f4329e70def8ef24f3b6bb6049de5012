@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74701864_722b9a32",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2020-12-25T00:46:52Z",
+      "side": 1,
+      "message": "This seems the only change to the original. I guess you already tested it.",
+      "revId": "c273da26f4329e70def8ef24f3b6bb6049de5012",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
