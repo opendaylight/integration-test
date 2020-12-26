@@ -165,7 +165,7 @@ Open_Controller_Karaf_Console_On_Background
     ${karaf_connection_object} =    SSHLibrary.Get_Connection
     Collections.Set_To_Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
-    [Teardown]    Run Keyword If    '${IS_KARAF_APPL}' == 'TRUE'    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_ssh_connection_object.index}
+    [Teardown]    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_ssh_connection_object.index}
 
 Open_Controller_Karaf_Console_With_Timeout
     [Arguments]    ${member_index}=${1}    ${timeout}=3s
