@@ -117,7 +117,7 @@ Verify_Bgp_Peer_Connection
     [Documentation]    Checks peer presence in operational datastore
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
+    ${rsp}=    RequestsLibrary.GET On Session    ${session}    ${PEER_CHECK_URL}${peer_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

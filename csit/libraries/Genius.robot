@@ -83,7 +83,7 @@ Create Vteps
     [Arguments]    ${vlan_id}    ${gateway_ip}
     [Documentation]    This keyword creates VTEPs between OVS
     ${body} =    Genius.Set Json    ${vlan_id}    ${gateway_ip}    ${SUBNET}    @{TOOLS_SYSTEM_ALL_IPS}
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/itm:transport-zones/transport-zone/TZA    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Set Json
@@ -121,7 +121,7 @@ BFD Suite Teardown
 
 Delete All Vteps
     [Documentation]    This will delete vtep.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    30    5    Genius.Verify Tunnel Delete on DS    tun
 
@@ -227,8 +227,8 @@ Get Tunnel
     [Arguments]    ${src}    ${dst}    ${type}    ${config_api_type}=${EMPTY}
     [Documentation]    This keyword returns tunnel interface name between source DPN and destination DPN.
     ...    Statements are executed depending on whether it is itm tunnel state(default) or dpn tep state.
-    ${resp} =    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
-    ...    ELSE    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:dpn-teps-state/dpns-teps/${src}/remote-dpns/${dst}/
+    ${resp} =    BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    RequestsLibrary.GET On Session    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    ...    ELSE    RequestsLibrary.GET On Session    session    ${CONFIG_API}/itm-state:dpn-teps-state/dpns-teps/${src}/remote-dpns/${dst}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
     BuiltIn.Log    ${resp.text}
     ${respjson} =    RequestsLibrary.To Json    ${resp.text}    pretty_print=True

@@ -106,7 +106,7 @@ Update Security Group Name and Verification
     OpenStackOperations.Neutron Security Group Update    ${sg_id}    ${name_update}
     ${output} =    OpenStackOperations.Neutron Security Group Show    ${sg_id}
     Should Contain    ${output}    ${verify_name}
-    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SEC_GROUP_API}
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
     BuiltIn.Should Contain    ${resp.text}    ${verify_name}

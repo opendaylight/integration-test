@@ -19,7 +19,7 @@ Add Tenant to one node
     Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${GBP_TENANT1_FILE}
     Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}    headers=${HEADERS_YANG_JSON}
-    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -27,7 +27,7 @@ Add Tenant to one node
 Read Tenant from other node
     Create Session    session    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${GBP_TENANT1_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}

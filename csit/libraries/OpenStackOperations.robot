@@ -955,7 +955,7 @@ Get L2gw Connection Id
 
 Neutron Port List Rest
     [Documentation]    Keyword to get all ports details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${PORT_URL}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${PORT_URL}
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -963,7 +963,7 @@ Neutron Port List Rest
 Get Neutron Port Rest
     [Arguments]    ${port_id}
     [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -972,7 +972,7 @@ Update Port Rest
     [Arguments]    ${port_id}    ${json_data}
     [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
     BuiltIn.Log    ${json_data}
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -980,7 +980,7 @@ Update Port Rest
 Get Neutron Network Rest
     [Arguments]    ${net_id}
     [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${NETWORK_URL}/network/${net_id}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${NETWORK_URL}/network/${net_id}
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -1348,7 +1348,7 @@ Verify Expected Default Tunnels
 Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_NODES_API}
     Utils.Log Content    ${resp.text}
     ${failed_node_list} =    BuiltIn.Create List
     FOR    ${node_ip}    IN    @{node_ips}

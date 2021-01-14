@@ -25,7 +25,7 @@ Read Records
     [Arguments]    ${controller_ip}    ${node}
     [Documentation]    GETs records from a shard on a controller's data store.
     Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get Request    session    ${node}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${node}
     [Return]    ${resp.json()}
 
 Update Records
@@ -40,7 +40,7 @@ Update Records
         ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
         Log    ${payload}
         Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-        ${resp}=    RequestsLibrary.Put Request    session    ${node}/${INDEX}    ${payload}
+        ${resp}=    RequestsLibrary.PUT On Session    session    ${node}/${INDEX}    ${payload}
         Log    ${resp}
         Should Be Equal As Strings    ${resp}    <Response [200]>
     END
@@ -51,7 +51,7 @@ Delete Records
     ${last}    Convert to Integer    ${last}
     FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
         Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-        ${resp}=    RequestsLibrary.Delete Request    session    ${node}/${INDEX}
+        ${resp}=    RequestsLibrary.DELETE On Session    session    ${node}/${INDEX}
         Should Be Equal As Strings    ${resp}    <Response [200]>
     END
 
@@ -59,7 +59,7 @@ Delete All Records
     [Arguments]    ${controller_ip}    ${node}
     [Documentation]    DELETEs all records from a shard on a controller's data store.
     Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Delete Request    session    ${node}
+    ${resp}=    RequestsLibrary.DELETE On Session    session    ${node}
     Should Be Equal As Strings    ${resp}    <Response [200]>
 
 Assemble Payload

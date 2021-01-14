@@ -22,7 +22,7 @@ Add Service Function Path referencing a non-existing SF
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add Service Function Path referencing a non-existing SFC
@@ -33,7 +33,7 @@ Add Service Function Path referencing a non-existing SFC
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
 
@@ -46,7 +46,7 @@ Add Service Function Path where SFC types size and hop sizes differ
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
@@ -60,7 +60,7 @@ Add Service Function Path where SFC types size and types for SFs in hops differ
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_WITH_HOP_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
@@ -73,7 +73,7 @@ Add Service Function Path where SFC types size and types for SFs in hops match
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${path}    Get From Dictionary    ${result}    service-function-paths

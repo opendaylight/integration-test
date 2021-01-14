@@ -84,7 +84,7 @@ Initialize the Tsdr Suite
 Verify TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Verify Configuration interval of TSDR Collection
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_INTERVAL}
+    ${resp}    RequestsLibrary.GET On Session    session    ${CONFIG_INTERVAL}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${interval}
 

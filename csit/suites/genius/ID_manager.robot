@@ -58,7 +58,7 @@ Allocate IDs of size 3 from the pool
     ${body} =    String.Replace string    ${body}    5    3
     BuiltIn.Log    ${body}
     Utils.Post Elements To URI    ${OPERATIONS_API}/id-manager:allocateIdRange    ${body}
-    ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
+    ${get_resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
     ${respjson} =    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Contain    ${get_resp.text}    17
@@ -70,13 +70,13 @@ Release a block of IDs allocated using releaseIds RPC
     BuiltIn.Log    ${body}
     ${body} =    String.Replace String    ${body}    test-key    ${test_keys[2]}
     Utils.Post Elements To URI    ${OPERATIONS_API}/id-manager:releaseId    ${body}
-    ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/
+    ${get_resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/
     ${respjson} =    RequestsLibrary.To Json    ${get_resp.text}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Be Equal As Strings    ${get_resp.status_code}    200
     ${child-pool-name} =    BuiltIn.Should Match Regexp    ${get_resp.text}    ${pool-name}\.[-]?[0-9]+
     BuiltIn.Log    ${child-pool-name}
-    ${get_releasedIds} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/
+    ${get_releasedIds} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/
     ${respjson} =    RequestsLibrary.To Json    ${get_releasedIds.text}    pretty_print=True
     BuiltIn.Log    ${respjson}
     Should Be Equal As Strings    ${get_releasedIds.status_code}    200
@@ -94,7 +94,7 @@ Delete the ID Pool using deleteIdPool RPC
 *** Keywords ***
 get Id pool
     [Documentation]    This keyword checks the created ID pool by doing GET.
-    ${get_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
+    ${get_resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
     ${respjson} =    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Contain    ${get_resp.text}    14

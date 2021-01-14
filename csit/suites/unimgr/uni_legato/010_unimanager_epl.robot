@@ -25,7 +25,7 @@ Create epl service
     ${interface}    Create List    s1-eth1    s1-eth2
     Wait Until Keyword Succeeds    12s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
     ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_epl.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth1    eth2
@@ -38,7 +38,7 @@ Check ping between h1-h2 after service creation
 
 Delete epl service
     [Documentation]    Delete the evc point to point & verify no ping
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 

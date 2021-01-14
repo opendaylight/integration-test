@@ -835,7 +835,7 @@ Get L2gw Connection Id
 
 Neutron Port List Rest
     [Documentation]    Keyword to get all ports details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${PORT_URL}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${PORT_URL}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
@@ -843,7 +843,7 @@ Neutron Port List Rest
 Get Neutron Port Rest
     [Arguments]    ${port_id}
     [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
@@ -852,7 +852,7 @@ Update Port Rest
     [Arguments]    ${port_id}    ${json_data}
     [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
     BuiltIn.Log    ${json_data}
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}

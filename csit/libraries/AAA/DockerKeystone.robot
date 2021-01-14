@@ -67,14 +67,14 @@ Grant Admin Role
     [Arguments]    ${domain}    ${user}    ${roleid}    ${HEADERS}
     [Documentation]    Grant a role to an user in a domain in \ Keystone
     Set Suite Variable    ${GRANT_ADMIN_ROLE_URI}    /v3/domains/${domain}/users/${user}/roles/${roleid}
-    ${resp}    RequestsLibrary.Put Request    session_keystone    ${GRANT_ADMIN_ROLE_URI}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.PUT On Session    session_keystone    ${GRANT_ADMIN_ROLE_URI}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Admin Role Id
     [Arguments]    ${HEADERS}
     [Documentation]    Get admin role id from Keystone
     Set Suite Variable    ${GET_ADMIN_ROLE_URI}    /v3/roles?name=admin
-    ${resp}=    RequestsLibrary.Get Request    session_keystone    ${GET_ADMIN_ROLE_URI}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session_keystone    ${GET_ADMIN_ROLE_URI}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${admin_role_id}    Convert To String    ${resp.json()['roles'][0]['id']}
     Log    ${admin_role_id}
@@ -113,7 +113,7 @@ Delete Keystone Domain
     [Arguments]    ${domain}    ${HEADERS}
     [Documentation]    Delete domain in \ Keystone
     Set Suite Variable    ${DELETE_DOMAIN_URI}    /v3/domains/${domain}
-    ${resp}    RequestsLibrary.Delete Request    session_keystone    ${DELETE_DOMAIN_URI}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.DELETE On Session    session_keystone    ${DELETE_DOMAIN_URI}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Set Keystone Certificate into ODL

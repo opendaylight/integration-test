@@ -25,7 +25,7 @@ Add Service Functions
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${function}    Get From Dictionary    ${result}    service-functions
@@ -35,10 +35,10 @@ Delete All Service Functions
     [Documentation]    Delete all Service Functions. Logical SFF
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function
@@ -50,14 +50,14 @@ Get one Service Function
 Get A Non-existing Service Function
     [Documentation]    Get A Non-existing Service Function. Logical SFF
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function
     [Documentation]    Delete A Service Function. Logical SFF
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Remove All Elements At URI    ${SERVICE_FUNCTION_URI}/dpi-1
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.text}    dpi-1
 
@@ -67,9 +67,9 @@ Delete A Non-existing Empty Service Function
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_FUNCTION_URI}/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${function}    Get From Dictionary    ${result}    service-functions

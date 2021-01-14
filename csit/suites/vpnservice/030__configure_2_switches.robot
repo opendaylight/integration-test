@@ -104,8 +104,8 @@ Verify ping
 Delete vpn interfaces
     [Documentation]    Deletes the vpn interfaces
     [Tags]    Delete
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-interfaces/
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}/l3vpn:vpn-interfaces/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vpn interfaces
@@ -118,7 +118,7 @@ Verify after deleting vpn interfaces
 Delete ietf interfaces
     [Documentation]    Deletes the ietf interfaces
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/ietf-interfaces:interfaces/
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}/ietf-interfaces:interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting ietf interfaces
@@ -130,8 +130,8 @@ Verify after deleting ietf interfaces
 Delete VPN Instances
     [Documentation]    Deletes the VPN Instances
     [Tags]    Delete
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn:vpn-instances/
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}/l3vpn:vpn-instances/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instances

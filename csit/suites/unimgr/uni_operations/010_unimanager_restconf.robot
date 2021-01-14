@@ -29,10 +29,10 @@ Create source and destination UNIs at the OVS instances using Restconf API
     [Tags]    UniMgr UNIs Create
     ${uniSource}    Get Add Uni Json    ${Mininet1_IP}    ${UNI1_MAC}
     ${uniDest}    Get Add Uni Json    ${Mininet2_IP}    ${UNI2_MAC}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}    data=${uniSource}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}    data=${uniSource}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}    data=${uniDest}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}    data=${uniDest}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    ${Mininet1_IP}    ${Mininet2_IP}
@@ -42,10 +42,10 @@ Update UNI Speed
     [Documentation]    Update the Unis source and destenation speed
     [Tags]    UniMgr UNIs Speed
     ${speedJson}    OperatingSystem.Get File    ${UniMgr_variables_DIR}/uni_speed.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}/cl-unimgr-mef:speed    data=${speedJson}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}/cl-unimgr-mef:speed    data=${speedJson}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}/cl-unimgr-mef:speed    data=${speedJson}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}/cl-unimgr-mef:speed    data=${speedJson}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    speed-10G
@@ -55,7 +55,7 @@ Create EVC tunnel between the Unis
     [Documentation]    Create EVC between Unis
     [Tags]    UniMgr EVC Create
     ${evc}    Get Add Evc Json    ${Mininet1_IP}    ${Mininet2_IP}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Evc_topo_API}    data=${evc}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Evc_topo_API}    data=${evc}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    evc://1
@@ -66,10 +66,10 @@ Update EVC Ingress and Egress Speed
     [Tags]    UniMgr EVC Speed
     ${ingressJson}    OperatingSystem.Get File    ${UniMgr_variables_DIR}/evc_ingress_speed.json
     ${egressJson}    OperatingSystem.Get File    ${UniMgr_variables_DIR}/evc_egress_speed.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Evc_topo_API}/cl-unimgr-mef:ingress-bw    data=${ingressJson}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Evc_topo_API}/cl-unimgr-mef:ingress-bw    data=${ingressJson}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Evc_topo_API}/cl-unimgr-mef:egress-bw    data=${egressJson}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_TOPO_API}/${Evc_topo_API}/cl-unimgr-mef:egress-bw    data=${egressJson}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    speed-1G
@@ -78,7 +78,7 @@ Update EVC Ingress and Egress Speed
 Delete EVC tunnel between the Unis
     [Documentation]    Delete EVC
     [Tags]    UniMgr EVC Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/${Evc_topo_API}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/${Evc_topo_API}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    evc://1
@@ -87,10 +87,10 @@ Delete EVC tunnel between the Unis
 Delete UNIs source and destination
     [Documentation]    Delete both UNIs source and destination
     [Tags]    UniMgr UNI Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet1_IP}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    ${Mininet1_IP}    ${Mininet2_IP}

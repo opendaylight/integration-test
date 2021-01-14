@@ -26,7 +26,7 @@ Create multiple emulators
     [Tags]    get node
     ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
     ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Multiple    number=${NODE_AMOUNT+1}
-    ${resp}    Get Request    session    ${NODE_ID}TST-${NODE_AMOUNT}
+    ${resp}    GET On Session    session    ${NODE_ID}TST-${NODE_AMOUNT}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get param from emulators

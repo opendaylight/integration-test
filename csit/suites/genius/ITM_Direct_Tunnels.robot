@@ -31,7 +31,7 @@ Create and Verify VTEP
     Genius.Update Dpn id list and get tunnels    ${type}    dpn-teps-state
     Genius.Verify Response Code Of Dpn Endpointconfig API
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Ovs Interface Verification
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status As Up
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Table0 Entry After fetching Port Number

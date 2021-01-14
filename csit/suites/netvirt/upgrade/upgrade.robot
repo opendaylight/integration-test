@@ -68,7 +68,7 @@ Wait For Full Sync
     Wait Until Keyword Succeeds    90s    5s    Canary Network Should Exist
 
 Set Upgrade Flag
-    ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":true}}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":true}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Set OVS Manager And Controller
@@ -88,7 +88,7 @@ Set OVS Manager And Controller
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
 UnSet Upgrade Flag
-    ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":false}}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":false}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Check Connectivity With Previously Created Resources And br-int Info

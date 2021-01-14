@@ -11,5 +11,5 @@ Variables         ../../../variables/alto/Variables.py
 *** Test Cases ***
 Check the resource pool status
     [Documentation]    If default resource pool is ready, the resource pool has loaded sucessfully
-    ${resp}    RequestsLibrary.Get Request    session    /${RESOURCE_POOL_BASE}/${DEFAULT_CONTEXT_ID}
+    ${resp}    RequestsLibrary.GET On Session    session    /${RESOURCE_POOL_BASE}/${DEFAULT_CONTEXT_ID}
     Should Be Equal As Strings    ${resp.status_code}    200

@@ -53,7 +53,7 @@ Final Phase
 
 Delete Flow
     [Documentation]    Removes used flow
-    ${resp}=    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    RequestsLibrary.DELETE On Session    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
     Log    ${resp.content}
     ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}

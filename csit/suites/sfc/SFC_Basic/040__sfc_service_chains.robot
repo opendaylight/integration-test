@@ -18,7 +18,7 @@ Put Service Function Chains
     ${body}    OperatingSystem.Get File    ${SERVICE_CHAINS_FILE}
     ${jsonbody}    To Json    ${body}
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${chain}    Get From Dictionary    ${result}    service-function-chains
@@ -27,10 +27,10 @@ Put Service Function Chains
 Delete All Service Function Chains
     [Documentation]    Delete all Service Function Chains
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAINS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function Chain
@@ -42,13 +42,13 @@ Get one Service Function Chain
 Get A Non-existing Service Function Chain
     [Documentation]    Get A Non-existing Service Function Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Chain
     [Documentation]    Delete A Service Function Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/SFC1
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAIN_URI}/SFC1
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_CHAIN_URI}/SFC1
     ${elements}=    Create List    SFC1    dpi-abstract1    napt44-abstract1    firewall-abstract1
@@ -60,9 +60,9 @@ Delete A Non-existing Service Function Chain
     ${body}    OperatingSystem.Get File    ${SERVICE_CHAINS_FILE}
     ${jsonbody}    To Json    ${body}
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${chain}    Get From Dictionary    ${result}    service-function-chains
@@ -84,14 +84,14 @@ Get one Service Function From Chain
 Get A Non-existing Service Function From Chain
     [Documentation]    Get A Non-existing Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function From Chain
     [Documentation]    Delete A Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Remove All Elements At URI    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/dpi-abstract1
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    SFC1
     ${elements}=    Create List    dpi-abstract1    service-function-type:dpi
@@ -100,7 +100,7 @@ Delete A Service Function From Chain
 Delete A Non-existing Service Function From Chain
     [Documentation]    Delete A Non existing Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
     Should Be Equal As Strings    ${resp.status_code}    404
     ${elements}=    Create List    dpi-abstract1    napt44-abstract1    firewall-abstract1
     Check For Elements At URI    ${SERVICE_CHAIN_URI}/SFC1    ${elements}

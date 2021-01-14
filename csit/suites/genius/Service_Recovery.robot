@@ -49,7 +49,7 @@ IFM Service Recovery
     ...    odl-interface:tunnel-type-vxlan
     SSHLibrary.Switch Connection    ${TOOLS_SYSTEM_ALL_CONN_IDS[0]}
     ${uuid}    ${bridge} =    OVSDB.Get Bridge Data
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${uuid}%2Fbridge%2F${bridge}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${uuid}%2Fbridge%2F${bridge}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Delete on DS    ${tunnel}
     KarafKeywords.Issue Command On Karaf Console    srm:recover SERVICE IFM

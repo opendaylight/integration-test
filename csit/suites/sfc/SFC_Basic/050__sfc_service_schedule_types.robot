@@ -18,7 +18,7 @@ Add Service Function Schedule Algorithm Types
     ${body}    OperatingSystem.Get File    ${SERVICE_SCHED_TYPES_FILE}
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_SCHED_TYPES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types
@@ -27,10 +27,10 @@ Add Service Function Schedule Algorithm Types
 Delete All Service Function Schedule Algorithm Types
     [Documentation]    Delete Service Function Schedule Algorithm Types
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_SCHED_TYPES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get Ramdom Schedule Algorithm Type
@@ -38,12 +38,12 @@ Get Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
     ${elements}=    Create List    random    "enabled":false    service-function-scheduler-type:random
     Check For Elements At URI    ${SERVICE_RANDOM_SCHED_TYPE_URI}    ${elements}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_RANDOM_SCHED_TYPE_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_RANDOM_SCHED_TYPE_URI}
 
 Get A Non-existing Service Function Schedule Algorithm Type
     [Documentation]    Get A Non-existing Service Function Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete Ramdom Schedule Algorithm Type
@@ -59,9 +59,9 @@ Delete A Non-existing Service Function Schedule Algorithm Type
     ${body}    OperatingSystem.Get File    ${SERVICE_SCHED_TYPES_FILE}
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_SCHED_TYPE_URI_BASE}user-defined
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_SCHED_TYPES_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types

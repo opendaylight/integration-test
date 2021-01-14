@@ -26,7 +26,7 @@ Get Rendered Service Path By Name
     [Documentation]    Get The Rendered Service Path Created in "Basic Environment Setup Tests" By Name Via RESTConf APIs
     ${sfp_name} =    BuiltIn.Set Variable    SFC1-100
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${sfp_name}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp_name}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp_name}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     # The RSP should not be symetric, so only 1 should be created for the SFP
     Utils.Check For Specific Number Of Elements At URI    ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}    "sfp-rendered-service-path"    1
@@ -38,7 +38,7 @@ Get Rendered Service Path Hop
     [Documentation]    Check Rendered Service Path Hops Created in "Basic Environment Setup Tests"
     ${sfp_name} =    BuiltIn.Set Variable    SFC1-100
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${sfp_name}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/0/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements} =    BuiltIn.Create List    "hop-number":0    "service-index":255    "service-function-name":"dpi
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/0/    ${elements}
@@ -46,7 +46,7 @@ Get Rendered Service Path Hop
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/1/    ${elements}
     ${elements} =    BuiltIn.Create List    "hop-number":2    "service-index":253    "service-function-name":"firewall
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/2/    ${elements}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/3/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/3/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete one Rendered Service Path By Name
@@ -55,7 +55,7 @@ Delete one Rendered Service Path By Name
     ${sfp_name} =    BuiltIn.Set Variable    SFC2-200
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${sfp_name}
     # First verify that the RSP exists
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp_name}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp_name}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     SfcKeywords.Delete Sfp And Wait For Rsps Deletion    ${sfp_name}
 
@@ -140,25 +140,25 @@ Generate RSPs with Shortest Path Schedule Algorithm type
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/1/    ${elements}
     ${elements} =    BuiltIn.Create List    "hop-number":2    "service-index":253    "service-function-name":"firewall
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/2/    ${elements}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/0/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${temp_vars} =    BuiltIn.Set Variable    ['rendered-service-path-hop'][0]['service-function-forwarder']
     ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/1/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/1/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/2/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp1_name}/rendered-service-path-hop/2/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     BuiltIn.Should Be Equal    ${fwd_hop1}    ${fwd_hop2}
     BuiltIn.Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/0/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${fwd_hop1} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/1/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/1/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${fwd_hop2} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/2/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp2_name}/rendered-service-path-hop/2/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${fwd_hop3} =    Utils.Extract Value From Content    ${resp.content}    ${temp_vars}
     BuiltIn.Should Be Equal    ${fwd_hop1}    ${fwd_hop2}

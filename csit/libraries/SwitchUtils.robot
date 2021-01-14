@@ -22,14 +22,14 @@ Get Switch Datapath ID
 Verify Switch In Operational Data Store
     [Arguments]    ${switch}
     [Documentation]    Verifies the existence of the switch.datapath_id in the operational datastore.
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CONTEXT}
     Log    ${resp.text}
     Should Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 
 Verify Switch Not In Operational Data Store
     [Arguments]    ${switch}
     [Documentation]    Verifies that the given switch.datapath_id is not in the operational datastore.
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CONTEXT}
     Log    ${resp.text}
     Should Not Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 

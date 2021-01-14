@@ -48,7 +48,7 @@ Bug 7414 Same Endpoint Name
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}    data=${body}
 
 Bug 7414 Different Endpoint Name
     [Documentation]    This test case is supplemental to the other test case for bug 7414. Even when the other
@@ -74,7 +74,7 @@ Bug 7414 Different Endpoint Name
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}    data=${body}
 
 Bug 5221
     [Documentation]    In the case that an ovs node is rebooted, or the ovs service is
@@ -96,8 +96,8 @@ Bug 5221
     # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
     BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${bridge}
-    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${bridge}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634
 
 Bug 5177
     [Documentation]    This test case will recreate the bug using the same basic steps as
@@ -114,7 +114,7 @@ Bug 5177
     BuiltIn.Set Suite Variable    ${OVSDB_UUID}
     ${node} =    BuiltIn.Set Variable    uuid/${OVSDB_UUID}
     OVSDB.Add Bridge To Ovsdb Node    ${node}    ${TOOLS_SYSTEM_IP}    ${BRIDGE}    0000000000005177
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Should Contain    ${resp.text}    ${node}/bridge/${BRIDGE}
@@ -139,8 +139,8 @@ Bug 4794
     Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Utils.Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     # TODO: Bug 5178
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_id}%2Fbridge%2F${BRIDGE}
-    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_id}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_CONFIG_API}${node_id}%2Fbridge%2F${BRIDGE}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_CONFIG_API}${node_id}
 
 Bug 8280
     [Documentation]    Any config created for a bridge (e.g. added ports) should be reconciled when a bridge is
@@ -168,8 +168,8 @@ Bug 8280
     Utils.Check For Elements At URI    ${CONFIG_TOPO_API}    ${config_store_elements}    pretty_print_json=True
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Ovs-vsctl Output    show    Port "port2"
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
-    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
+    ...    AND    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}
 
 Bug 7160
     [Documentation]    If this bug is reproduced, it's possible that the operational store will be
@@ -188,17 +188,17 @@ Bug 7160
     OVSDB.Log Config And Operational Topology
     OVSDB.Create Qos Linked Queue
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/queue-list/0/
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/queue-list/0/
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${queue}/
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${queue}/
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
     OVSDB.Log Config And Operational Topology
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
     ${node}    BuiltIn.Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
     OVSDB.Log Config And Operational Topology
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Config and Operational Topology Should Be Empty
 
@@ -218,14 +218,14 @@ Suite Teardown
     Clean All Ovs Nodes
     # Best effort to clean config store, by deleting all the types of nodes that are used in this suite
     ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2Fuuid%2F${OVSDB_UUID}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
     ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2Fuuid%2F${OVSDB_UUID2}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
     ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
     OVSDB.Log Config And Operational Topology
     Delete All Sessions
 

@@ -20,7 +20,7 @@ Check if node exist
     [Tags]    get node
     OcpAgentKeywords.Install Agent
     ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Single
-    ${resp}    Get Request    session    ${NODE_ID}TST-100
+    ${resp}    GET On Session    session    ${NODE_ID}TST-100
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get param from emulator

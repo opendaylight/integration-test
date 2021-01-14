@@ -154,7 +154,7 @@ Check Linear Topology On Member
     [Arguments]    ${switches}    ${member_index}=1
     [Documentation]    Check Linear topology.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    ${session}    ${OPERATIONAL_TOPO_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -173,7 +173,7 @@ Check No Switches On Member
     [Arguments]    ${switches}    ${member_index}=1
     [Documentation]    Check no switch is in topology
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    ${session}    ${OPERATIONAL_TOPO_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -184,7 +184,7 @@ Check Number Of Flows On Member
     [Arguments]    ${flows}    ${member_index}=1
     [Documentation]    Check number of flows in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "priority"
@@ -194,7 +194,7 @@ Check Number Of Groups On Member
     [Arguments]    ${groups}    ${member_index}=1
     [Documentation]    Check number of groups in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.text}    "group-type"

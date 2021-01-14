@@ -19,7 +19,7 @@ Add Service Function Paths
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${path}    Get From Dictionary    ${result}    service-function-paths
@@ -28,10 +28,10 @@ Add Service Function Paths
 Delete All Service Function Paths
     [Documentation]    Delete all Service Function Paths
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function Path
@@ -43,18 +43,18 @@ Get one Service Function Path
 Get A Non-existing Service Function Path
     [Documentation]    Get A Non-existing Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Path
     [Documentation]    Delete A Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.text}    SFC1-100
 
@@ -64,9 +64,9 @@ Delete A Non-existing Empty Service Function Path
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_FUNCTION_PATH_URI}/non-existing-sfp
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${path}    Get From Dictionary    ${result}    service-function-paths
@@ -75,10 +75,10 @@ Delete A Non-existing Empty Service Function Path
 Put one Service Function
     [Documentation]    Put one Service Function
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH400_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH400_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATH400_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    SFC1-400
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    SFC1-400
 

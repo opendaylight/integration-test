@@ -59,7 +59,7 @@ Retrieve Resource
 Delete Resource
     [Arguments]    ${resourceUri}
     [Documentation]    Delete resource, verify response and return the response
-    ${primitive} =    New Delete Request Primitive    ${resourceUri}
+    ${primitive} =    New DELETE On Session Primitive    ${resourceUri}
     Log Primitive    ${primitive}
     ${rsp_primitive} =    Send Primitive    ${primitive}
     Log Primitive    ${rsp_primitive}

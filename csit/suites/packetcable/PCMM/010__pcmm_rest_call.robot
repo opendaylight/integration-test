@@ -25,21 +25,21 @@ Add CCAP
     ${Data}    Replace String    ${Data}    {ccapIp-1}    ${CCAP_IP1}
     log    ${Data}
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}    data=${Data}
+    ${resp}    RequestsLibrary.PUT On Session    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}    data=${Data}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get CCAP
     [Documentation]    Get Single CCAP
     [Tags]    PacketCable PCMM Reset Call
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    ${resp}    RequestsLibrary.Get Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
+    ${resp}    RequestsLibrary.GET On Session    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete CAPP
     [Documentation]    Delete Single CCAP
     [Tags]    PacketCable PCMM Reset Call
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    ${resp}    RequestsLibrary.Delete Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
+    ${resp}    RequestsLibrary.DELETE On Session    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Add Multiple.CCAPs
@@ -51,17 +51,17 @@ Add Multiple.CCAPs
     ${Data}    Replace String    ${Data}    {ccapId-2}    ${CCAP_ID2}
     ${Data}    Replace String    ${Data}    {ccapIp-2}    ${CCAP_IP2}
     log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}    data=${Data}
+    ${resp}    RequestsLibrary.PUT On Session    ODLSession    ${ODLREST_CCAPS}    data=${Data}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get ALL.CCAPs
     [Documentation]    Get ALL CCAPs
     [Tags]    PacketCable PCMM Reset Call
-    ${resp}    RequestsLibrary.Get Request    ODLSession    ${ODLREST_CCAPS}
+    ${resp}    RequestsLibrary.GET On Session    ODLSession    ${ODLREST_CCAPS}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete All.CCAPs
     [Documentation]    Delete ALL CCAPs
     [Tags]    PacketCable PCMM Reset Call
-    ${resp}    RequestsLibrary.Delete Request    ODLSession    ${ODLREST_CCAPS}
+    ${resp}    RequestsLibrary.DELETE On Session    ODLSession    ${ODLREST_CCAPS}
     Should be Equal As Strings    ${resp.status_code}    200

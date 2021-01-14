@@ -43,7 +43,7 @@ Start Http Session
 Are Switches Connected
     [Arguments]    ${switches}
     [Documentation]    Checks Topology Contains a fix number ${switches} of switces.
-    ${resp}=    RequestsLibrary.Get Request    tcsession    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    RequestsLibrary.GET On Session    tcsession    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${switches}

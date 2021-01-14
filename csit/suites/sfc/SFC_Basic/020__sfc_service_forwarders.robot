@@ -18,7 +18,7 @@ Put Service Function Forwarders
     ${body}    OperatingSystem.Get File    ${SERVICE_FORWARDERS_FILE}
     ${jsonbody}    To Json    ${body}
     ${forwarders}    Get From Dictionary    ${jsonbody}    service-function-forwarders
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${forwarder}    Get From Dictionary    ${result}    service-function-forwarders
@@ -27,10 +27,10 @@ Put Service Function Forwarders
 Delete All Service Function Forwarders
     [Documentation]    Delete all Service Function Forwarders
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function Forwarder
@@ -42,18 +42,18 @@ Get one Service Function Forwarder
 Get A Non-existing Service Function Forwarder
     [Documentation]    Get A Non-existing Service Function Forwarder
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDER_URI}/non-existing-sff
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDER_URI}/non-existing-sff
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Forwarder
     [Documentation]    Delete A Service Function Forwarder
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SFF_BOOTSTRAP_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.text}    SF1
 
@@ -63,9 +63,9 @@ Delete A Non-existing Service Function Forwarder
     ${body}    OperatingSystem.Get File    ${SERVICE_FORWARDERS_FILE}
     ${jsonbody}    To Json    ${body}
     ${forwarders}    Get From Dictionary    ${jsonbody}    service-function-forwarders
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FORWARDER_URI}/non-existing-sff
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${SERVICE_FORWARDER_URI}/non-existing-sff
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${forwarder}    Get From Dictionary    ${result}    service-function-forwarders
@@ -74,7 +74,7 @@ Delete A Non-existing Service Function Forwarder
 Put one Service Function Forwarder
     [Documentation]    Put one Service Function Forwarder
     Add Elements To URI From File    ${SFF_OVS100_URI}    ${SFF_OVS100_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_OVS100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}=    Create List    ovs-100    SF7
     Check For Elements At URI    ${SFF_OVS100_URI}    ${elements}
@@ -97,7 +97,7 @@ Put Service Function Forwarder DPL
 Put DPL to a Non-existing Service Function Forwarder
     [Documentation]    Put Service Function DPL to a Non-existing Service Function
     Add Elements To URI From File    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101    ${SFF_DPL101_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    ovs-100
     ${elements}=    Create List    dpl-101    6101
@@ -108,7 +108,7 @@ Delete Service Function Forwarder DPL
     [Documentation]    Delete Service Function Forwarder Data Plane Locator
     Add Elements To URI From File    ${SFF_OVS100_URI}    ${SFF_OVS100_FILE}
     Remove All Elements At URI    ${SFF_OVS100_URI}/sff-data-plane-locator/eth0
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_OVS100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.text}    "name":"eth0"
 
@@ -136,12 +136,12 @@ Delete Service Function Forwarder DPL's Locator
     Add Elements To URI From File    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101    ${SFF_DPL101_FILE}
     Add Elements To URI From File    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101/data-plane-locator    ${SFF_DPL_LOCATOR_FILE}
     Remove All Elements At URI    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101/data-plane-locator
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_OVS100_URI}/sff-data-plane-locator/dpl-101
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    dpl-101
     Should Not Contain    ${resp.text}    6101
     Should Not Contain    ${resp.text}    service-locator:vxlan-gpe
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_OVS100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    dpl-101
     Should Not Contain    ${resp.text}    6101
@@ -155,12 +155,12 @@ Get Service Function Dictionary From SFF
 Delete Service Function Dictionary From SFF
     [Documentation]    Delete Service Function Dictionary From SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    service-function-dictionary
     Should Not Contain    ${resp.text}    SF1
@@ -183,10 +183,10 @@ Get Service Function Dictionary's DPL From SFF
 Delete Service Function Dictionary's DPL From SFF
     [Documentation]    Delete Service Function Dictionary From SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}/sff-sf-data-plane-locator
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}/sff-sf-data-plane-locator
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}/sff-sf-data-plane-locator
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}/sff-sf-data-plane-locator
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/${SF_DICT_SF1_URI}/sff-sf-data-plane-locator
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Put DPL of Service Function Dictionary to SFF
@@ -202,19 +202,19 @@ Get Connected SFF Dictionary From SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${elements}=    create list    connected-sff-dictionary    br-int-ovs-2    sff-sff-data-plane-locator
     Check For Elements At URI    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2    ${elements}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDER_URI}/br-int-ovs-2/connected-sff-dictionary/SFF-bootstrap
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDER_URI}/br-int-ovs-2/connected-sff-dictionary/SFF-bootstrap
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    SFF-bootstrap
 
 Delete Connected SFF Dictionary From SFF
     [Documentation]    Delete Connected SFF Dictionary From SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}/connected-sff-dictionary/br-int-ovs-2
     Should Be Equal As Strings    ${resp.status_code}    404
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_BOOTSTRAP_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_BOOTSTRAP_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.text}    br-int-ovs-2
 

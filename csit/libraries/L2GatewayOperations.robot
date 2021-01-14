@@ -206,11 +206,11 @@ Get L2gw Debug Info
     [Documentation]    Keyword to collect the general debug information required for HWVTEP Test Suite.
     Exec Command    ${hwvtep_conn_id}    ${OVSDB_CLIENT_DUMP}
     OpenStackOperations.Get Test Teardown Debugs
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:external-tunnel-list/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/itm-state:external-tunnel-list/
     Log    ${resp.text}
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/topology/hwvtep:1
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/network-topology:network-topology/topology/hwvtep:1
     Log    ${resp.text}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
     Log    ${resp.text}
     Exec Command    ${OS_CNTL_CONN_ID}    cat /etc/neutron/neutron.conf
     Exec Command    ${OS_CNTL_CONN_ID}    cat /etc/neutron/l2gw_plugin.ini

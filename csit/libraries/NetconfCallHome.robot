@@ -34,7 +34,7 @@ Register global credentials for SSH call-home devices (APIv1)
     ${template}    OperatingSystem.Get File    ${CREATE_GLOBAL_CREDENTIALS_REQ}
     ${body}    Replace String    ${template}    {username}    ${username}
     ${body}    Replace String    ${body}    {password}    ${password}
-    ${resp}    RequestsLibrary.Put Request    session    ${global_config_url}    data=${body}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${global_config_url}    data=${body}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Register SSH call-home device in ODL controller (APIv1)

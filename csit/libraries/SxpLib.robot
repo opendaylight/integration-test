@@ -332,7 +332,7 @@ Setup SXP Environment
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data writen to Operational datastore and is running
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    ${resp} =    RequestsLibrary.GET On Session    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}    ${session}    ${ip}
     BuiltIn.Should Be Equal As Strings    ${rc}    0
@@ -340,7 +340,7 @@ Check Node Started
 Check Node Stopped
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data removed from Operational datastore and is not running
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    ${resp} =    RequestsLibrary.GET On Session    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
     ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}    ${session}    ${ip}
     BuiltIn.Should Be Equal As Strings    ${rc}    1
@@ -364,19 +364,19 @@ Clean SXP Environment
 Get Routing Configuration From Controller
     [Arguments]    ${session}
     [Documentation]    Get Routing configuration from config DS
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
+    ${resp} =    RequestsLibrary.GET On Session    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
     ${data} =    BuiltIn.Set Variable If    "${resp.status_code}" == "200"    ${resp.text}    ${EMPTY}
     [Return]    ${data}
 
 Put Routing Configuration To Controller
     [Arguments]    ${data}    ${session}
     [Documentation]    Put Routing configuration to Config DS
-    ${resp} =    RequestsLibrary.Put Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    data=${data}    headers=${HEADERS_XML}
+    ${resp} =    RequestsLibrary.PUT On Session    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    data=${data}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp}
     BuiltIn.Should Match    "${resp.status_code}"    "20?"
 
 Clean Routing Configuration To Controller
     [Arguments]    ${session}
     [Documentation]    Delete Routing configuration from Config DS
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
-    BuiltIn.Run Keyword If    "${resp.status_code}" == "200"    RequestsLibrary.Delete Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/
+    ${resp} =    RequestsLibrary.GET On Session    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
+    BuiltIn.Run Keyword If    "${resp.status_code}" == "200"    RequestsLibrary.DELETE On Session    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/

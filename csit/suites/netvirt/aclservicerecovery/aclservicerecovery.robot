@@ -39,7 +39,7 @@ ACL Service Recovery CLI
     [Documentation]    This test case covers ACL service recovery.
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
     ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/flow-node-inventory:table/${INGRESS_ACL_REMOTE_ACL_TABLE}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/flow-node-inventory:table/${INGRESS_ACL_REMOTE_ACL_TABLE}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     OpenStackOperations.Ping From DHCP Should Not Succeed    ${acl_sr_networks}[0]    ${ACL_SR_NET_1_VM_IPS}[0]
     ${flow_after_delete} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}

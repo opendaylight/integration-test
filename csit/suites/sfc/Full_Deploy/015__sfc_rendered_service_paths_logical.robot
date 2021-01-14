@@ -64,7 +64,7 @@ Get Rendered Service Path Hop
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/0/    ${elements}
     ${elements} =    BuiltIn.Create List    "hop-number":1    "service-index":254    "service-function-name":"firewall-1
     Utils.Check For Elements At URI    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/1/    ${elements}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/2/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSP_URI}/${rsp_name}/rendered-service-path-hop/2/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
 
 *** Keywords ***

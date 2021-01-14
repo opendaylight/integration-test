@@ -15,7 +15,7 @@ Resource          ../../../libraries/Utils.robot
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_TOPO_API}
     Log    ${resp.text}
 
 List all the links
@@ -82,7 +82,7 @@ Add Port
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_TOPO_API}/topology/flow:1
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.text}

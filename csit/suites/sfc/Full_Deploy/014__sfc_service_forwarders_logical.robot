@@ -27,7 +27,7 @@ Put Service Function Forwarders
     ${body}    OperatingSystem.Get File    ${SERVICE_FORWARDERS_FILE}
     ${jsonbody}    To Json    ${body}
     ${forwarders}    Get From Dictionary    ${jsonbody}    service-function-forwarders
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${forwarder}    Get From Dictionary    ${result}    service-function-forwarders
@@ -37,10 +37,10 @@ Delete All Service Function Forwarders
     [Documentation]    Delete all Service Function Forwarders. Logical SFF
     [Tags]    include
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function Forwarder
@@ -54,17 +54,17 @@ Delete A Service Function Forwarder
     [Documentation]    Delete A Service Function Forwarder. Logical SFF
     [Tags]    include
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_SFFLOG_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SFF_SFFLOG_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_SFFLOG_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Put one Service Function Forwarder
     [Documentation]    Put one Service Function Forwarder. Logical SFF
     [Tags]    include
     Add Elements To URI From File    ${SFF_SFFLOG_URI}    ${SFF_SFFLOG_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SFF_SFFLOG_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}=    Create List    sfflogical1
     Check For Elements At URI    ${SFF_SFFLOG_URI}    ${elements}

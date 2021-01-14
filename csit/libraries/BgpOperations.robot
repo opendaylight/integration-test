@@ -257,14 +257,14 @@ AddNeighbor To BGP Configuration On ODL
 Get BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Get bgp configuration
-    ${resp} =    RequestsLibrary.Get Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.GET On Session    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
     Log    ${resp.text}
     [Return]    ${resp.text}
 
 Delete BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Delete BGP
-    ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.DELETE On Session    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -282,7 +282,7 @@ Delete External Tunnel Endpoint Configuration
 Get External Tunnel Endpoint Configuration
     [Arguments]    ${ip}
     [Documentation]    Get bgp configuration
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
     Log    ${resp.text}
     [Return]    ${resp.text}
 
@@ -296,7 +296,7 @@ Teardown_Everything
 Check_Example_Bgp_Rib_Content
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    RequestsLibrary.GET On Session    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -304,7 +304,7 @@ Check_Example_Bgp_Rib_Content
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    RequestsLibrary.GET On Session    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -312,7 +312,7 @@ Check_Example_Bgp_Rib_Does_Not_Contain
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    RequestsLibrary.GET On Session    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
@@ -320,7 +320,7 @@ Check_Example_IPv4_Topology_Content
 Check_Example_IPv4_Topology_Does_Not_Contain
     [Arguments]    ${session}    ${string_to_check}
     [Documentation]    Check the example-ipv4-topology does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    RequestsLibrary.GET On Session    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}

@@ -42,7 +42,7 @@ Successful Authentication Including Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Successful Authentication Without Domain
@@ -61,7 +61,7 @@ Successful Authentication Without Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong User
@@ -78,7 +78,7 @@ Unsuccessful Authentication Wrong User
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_INVALID}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 UnSuccessful Authentication Without Domain
@@ -96,7 +96,7 @@ UnSuccessful Authentication Without Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong Domain
@@ -115,7 +115,7 @@ Unsuccessful Authentication Wrong Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_WRONG_DOM}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Basic Authorization
@@ -130,7 +130,7 @@ Unsuccessful Basic Authorization
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp_ok}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_ok}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp_ok.status_code}
     ${resp_nook}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
@@ -147,7 +147,7 @@ Unsuccessful Dynamic Authorization
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-2.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp_nook}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_nook}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
     ${resp_nook}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
@@ -174,10 +174,10 @@ Unsuccessful Dynamic Authorization 2
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -193,10 +193,10 @@ Unsuccessful No Keystone Connection
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -294,9 +294,9 @@ Provision MDSAL
     Create Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_URI}    /restconf/config/aaa:http-authorization
     ${body_dyn}    OperatingSystem.Get File    ${PUT_DYNAMIC_AUTH_FILE}
-    ${resp}    RequestsLibrary.Put Request    session_admin    ${PUT_DYNAMIC_AUTH_URI}    data=${body_dyn}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.PUT On Session    session_admin    ${PUT_DYNAMIC_AUTH_URI}    data=${body_dyn}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Delete Request    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    DELETE On Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 
 Restart Controller
     [Documentation]    Controller restart is needed in order the new shiro.ini config takes effect

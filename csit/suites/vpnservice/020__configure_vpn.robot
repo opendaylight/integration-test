@@ -29,8 +29,8 @@ Create VPN Instance
 Verify VPN instance
     [Documentation]    Verifies the vpn instance is created
     [Tags]    Get
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     FOR    ${value}    IN    @{vpn_inst_values}
@@ -47,7 +47,7 @@ Create ietf vm interface
 Verify ietf vm interface
     [Documentation]    Verifies ietf interface created
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     FOR    ${value}    IN    @{vm_int_values}
@@ -65,8 +65,8 @@ Create VPN interface
 Verify VPN interface
     [Documentation]    Verifies the vpn interface created
     [Tags]    Get
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     FOR    ${value}    IN    @{vm_vpnint_values}
@@ -81,22 +81,22 @@ Verify FIB entry after create
 Delete vm vpn interface
     [Documentation]    Deletes the vpn interface
     [Tags]    Delete
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}l3vpn:vpn-interfaces/
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}l3vpn:vpn-interfaces/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleteing vm vpn interface
     [Documentation]    Verifies vpn interface after delete
     [Tags]    Verify after delete
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete VPN Instance
     [Documentation]    Deletes the VPN Instance
     [Tags]    Delete
-    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
-    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.Delete Requestt    session    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    CompareStream.Run_Keyword_If_Less_Than_Magnesium    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    CompareStream.Run_Keyword_If_At_Least_Magnesium    ${resp}    RequestsLibrary.DELETE On Sessiont    session    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instance
@@ -109,13 +109,13 @@ Verify after deleting the vpn instance
 Delete vm ietf interface
     [Documentation]    Deletes the ietf interface
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vm ietf interface
     [Documentation]    Verifies ietf interface after delete
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Verify FIB entry after delete
@@ -127,7 +127,7 @@ Verify FIB entry after delete
 Ensure The Fib Entry Is Present
     [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is present for the vpn
-    ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    ${prefix}
@@ -136,6 +136,6 @@ Ensure The Fib Entry Is Present
 Ensure the Fib Entry Is Removed
     [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is removed for the vpn
-    ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${prefix}

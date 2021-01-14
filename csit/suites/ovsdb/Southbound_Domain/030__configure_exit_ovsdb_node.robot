@@ -77,7 +77,7 @@ Get Operational Topology with Port
 
 Delete the Port1
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT1}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT1}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after deletion of Port1
@@ -87,7 +87,7 @@ Get Operational Topology after deletion of Port1
 
 Delete the Port2
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT2}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT2}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after Deletion of Port2
@@ -97,7 +97,7 @@ Get Operational Topology after Deletion of Port2
 
 Delete the Bridge
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after Deletion of Bridge
@@ -107,7 +107,7 @@ Get Operational Topology after Deletion of Bridge
 
 Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after Deletion of OVSDB Node

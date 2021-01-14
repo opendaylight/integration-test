@@ -63,5 +63,5 @@ Register Endpoints
     FOR    ${endpoint_file}    IN    @{endpoint_files}
         Post Elements To URI From File    ${ENDPOINT_REG_PATH}    ${endpoint_file}    ${HEADERS_YANG_JSON}
     END
-    ${resp}    RequestsLibrary.Get Request    session    ${ENDPOINTS_OPER_PATH}
+    ${resp}    RequestsLibrary.GET On Session    session    ${ENDPOINTS_OPER_PATH}
     Log    ${resp.content}

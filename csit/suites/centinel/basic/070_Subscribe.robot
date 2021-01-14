@@ -18,9 +18,9 @@ Set SubscribeUser
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Subscription
-    ${resp}    RequestsLibrary.Get Request    session    ${SUBSCRIPTION}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SUBSCRIPTION}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete Subscription
-    ${delresp}    RequestsLibrary.Delete Request    session    ${SUBSCRIPTION}
+    ${delresp}    RequestsLibrary.DELETE On Session    session    ${SUBSCRIPTION}
     Should Be Equal As Strings    ${delresp.status_code}    200

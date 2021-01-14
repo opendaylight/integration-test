@@ -70,9 +70,9 @@ Rejoin_Isolated_Member
 Delete Cars
     [Documentation]    Remove cars from the datastore
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
-    ${rsp}=    RequestsLibrary.Delete Request    ${session}    ${CARURL}
+    ${rsp}=    RequestsLibrary.DELETE On Session    ${session}    ${CARURL}
     Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${CARURL}
+    ${rsp}=    RequestsLibrary.GET On Session    ${session}    ${CARURL}
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 *** Keywords ***
@@ -96,7 +96,7 @@ Stop Suite
     Stop_Tool
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
     # best effort to make sure cars are deleted in case more suites will run after this and the delete test case had trouble
-    ${rsp}=    RequestsLibrary.Delete Request    ${session}    ${CARURL}
+    ${rsp}=    RequestsLibrary.DELETE On Session    ${session}    ${CARURL}
     BuiltIn.Log    ${rsp.status_code} : ${rsp.text}
     SSHKeywords.Virtual_Env_Delete
     Store_File_To_Workspace    ${out_file}    ${out_file}

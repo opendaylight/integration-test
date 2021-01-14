@@ -25,7 +25,7 @@ Get Specific WTP
 
 *** Keywords ***
 Run Test Get Discovered WTP
-    ${resp}    RequestsLibrary.Get Request    session    ${DISC_WTP_REST}
+    ${resp}    RequestsLibrary.GET On Session    session    ${DISC_WTP_REST}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    TO JSON    ${resp.content}
@@ -44,7 +44,7 @@ Run Test Get Specifc WTP
     ${expected_ip_addr}    get simulated wtpip    ${ODL_SYSTEM_IP}
     ${DISC_SPECIFIC_WTP}    catenate    SEPARATOR=    ${DISC_WTP_REST}    discovered-wtps\/    ${expected_ip_addr}    \/
     Log    ${DISC_SPECIFIC_WTP}
-    ${resp}    RequestsLibrary.Get Request    session    ${DISC_SPECIFIC_WTP}
+    ${resp}    RequestsLibrary.GET On Session    session    ${DISC_SPECIFIC_WTP}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    TO JSON    ${resp.content}

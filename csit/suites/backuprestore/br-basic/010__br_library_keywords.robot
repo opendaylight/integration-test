@@ -20,7 +20,7 @@ ConditionalBackupRestoreCheck keyword
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${function}    Get From Dictionary    ${result}    service-functions
@@ -31,10 +31,10 @@ BackupRestoreCheck keyword
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Run Keyword And Expect Error    *    BackupRestoreCheck    exclusionsOperationalBefore=../variables/backuprestore/json_prefilter.conf
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 *** Keywords ***

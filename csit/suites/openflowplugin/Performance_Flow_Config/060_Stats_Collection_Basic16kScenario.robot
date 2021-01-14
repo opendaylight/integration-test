@@ -111,7 +111,7 @@ Delete Http Session
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    GET On Session    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}
@@ -122,6 +122,6 @@ Check Flows Inventory
     Should Be True    ${res}
 
 Check No Switches Inventory
-    ${resp}=    Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    GET On Session    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
     Should Be Equal As Strings    '${resp.content}'    '{"nodes":{}}'

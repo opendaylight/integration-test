@@ -66,7 +66,7 @@ Verify_ExaBgps_Connection
     [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
+    ${rsp}=    RequestsLibrary.GET On Session    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

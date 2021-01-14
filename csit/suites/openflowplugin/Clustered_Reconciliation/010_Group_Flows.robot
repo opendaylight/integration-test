@@ -375,7 +375,7 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Run_Bash_Command_On_List_Or_All    ${command}
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
 
 Add Groups And Flows On Member
@@ -398,9 +398,9 @@ Remove Single Group And Flow On Member
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+        RequestsLibrary.DELETE On Session    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+        RequestsLibrary.DELETE On Session    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+        RequestsLibrary.DELETE On Session    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
     END
 
 Check Flow Stats Are Not Frozen
@@ -417,7 +417,7 @@ Extract Flow Duration
     [Arguments]    ${member_index}
     [Documentation]    Extract duration for flow 1 in switch 1.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    headers=${headers}
+    ${resp}    RequestsLibrary.GET On Session    ${session}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    headers=${headers}
     Log    ${resp.content}
     ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
     ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow

@@ -18,6 +18,6 @@ Set Configurations
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Configurations
-    ${resp}    RequestsLibrary.Get Request    session    ${GET_CONFIGURATION_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${GET_CONFIGURATION_URI}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200

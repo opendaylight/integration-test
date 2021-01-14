@@ -34,7 +34,7 @@ Create and Verify VTEP -No Vlan
     Verify Network Topology
     Verify Ietf Interface State
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Table0 Entry After fetching Port Number
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${OPERATIONAL_NODES_API}
     ${respjson} =    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     BuiltIn.Log    ${respjson}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200

@@ -145,6 +145,6 @@ Compare_Topology
     ...    Error codes and normalized jsons should match exactly.
     # TODO: Add Node Session State Check For Oxygen, see tcpmd5user
     # TODO: Possibly remake all tests with TemplatedRequests
-    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${OPERATIONAL_TOPO_API}/topology/pcep-topology/${uri}
+    ${response}=    RequestsLibrary.GET On Session    ${CONFIG_SESSION}    ${OPERATIONAL_TOPO_API}/topology/pcep-topology/${uri}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp}    ${response.text}

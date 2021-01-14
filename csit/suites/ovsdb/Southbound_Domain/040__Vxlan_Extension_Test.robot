@@ -106,6 +106,6 @@ Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions

@@ -71,7 +71,7 @@ BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
-    ${oper_int} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
+    ${oper_int} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
     ${Bfd_updated_value}=    BuiltIn.Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
@@ -99,7 +99,7 @@ BFD_TC07 Set BFD monitoring To Default Value
 Verify Config Ietf Interface Output
     [Arguments]    ${state}    ${interval}    ${proto}
     [Documentation]    This keyword will get request from config ietf interface and verifies state, interval and proto are present
-    ${int_resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
+    ${int_resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/ietf-interfaces:interfaces/
     ${respjson} =    RequestsLibrary.To Json    ${int_resp.content}    pretty_print=True
     BuiltIn.Should Contain    ${respjson}    ${state}
     BuiltIn.Should Contain    ${respjson}    ${interval}
@@ -123,7 +123,7 @@ Verify Tunnel Monitoring Params
 Enable BFD And Verify
     [Arguments]    ${interface_ds_moni_int}
     [Documentation]    Enable BFD Monitoring And Verify On Controller.
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    201
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_ON}
@@ -132,7 +132,7 @@ Enable BFD And Verify
 
 Disable BFD And Verify
     [Documentation]    Disable BFD Monitoring And Verify On Controller.
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${DISABLE_MONITORING}
+    ${resp} =    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${DISABLE_MONITORING}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_FALSE}
     BuiltIn.Wait Until Keyword Succeeds    10s    2s    Genius.Verify Tunnel Monitoring Status    ${TUNNEL_MONITOR_OFF}

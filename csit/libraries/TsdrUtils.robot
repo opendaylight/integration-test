@@ -373,7 +373,7 @@ Get Stats XML
     [Arguments]    ${query}    ${xpath}
     [Documentation]    Parse the xml output and returns it.
     ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
     ${resp_xml}=    Parse XML    ${resp.text}
     ${id1}=    Get Element Text    ${resp_xml}    ${xpath}
     Delete All Sessions
@@ -383,7 +383,7 @@ Return all XML matches
     [Arguments]    ${query}    ${xpath}
     [Documentation]    Returns all the values from xpath
     ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
     ${resp_xml}=    Parse XML    ${resp.text}
     @{id1}=    Get Elements Texts    ${resp_xml}    ${xpath}
     Delete All Sessions
@@ -465,7 +465,7 @@ Generate TSDR Query
     [Arguments]    ${DC}=    ${MN}=    ${NID}=    ${RK}=    ${from}=0    ${until}=now
     [Documentation]    Issues TSDR Query and returns the list
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
-    ${resp}=    RequestsLibrary.Get Request    session    /tsdr/metrics/query?tsdrkey="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}    headers=${HEADERS_QUERY}
+    ${resp}=    RequestsLibrary.GET On Session    session    /tsdr/metrics/query?tsdrkey="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}    headers=${HEADERS_QUERY}
     @{convert}=    Parse Json    ${resp.text}
     Delete All Sessions
     [Return]    @{convert}
@@ -475,7 +475,7 @@ Generate TSDR NBI
     ...    ${datapts}=1000000
     [Documentation]    Issues TSDR Query and returns the list
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
-    ${resp}=    RequestsLibrary.Get Request    session    /tsdr/nbi/render?target="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}&maxDataPoints=${datapts}    headers=${HEADERS_QUERY}
+    ${resp}=    RequestsLibrary.GET On Session    session    /tsdr/nbi/render?target="[NID=${NID}][DC=${DC}][MN=${MN}][RK=${RK}]"&from=${from}&until=${until}&maxDataPoints=${datapts}    headers=${HEADERS_QUERY}
     @{convert}=    Parse Json    ${resp.text}
     ${dict_convert}=    Convert To Dictionary    @{convert}
     @{dict}=    Get Dictionary Values    ${dict_convert}

@@ -30,30 +30,30 @@ Show GBPSFC3 Status
 Read Tenants Confing From ODL
     [Documentation]    Logs ODL data store.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
-    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${GBP_TENANTS_API}
     Log    ${resp.content}
 
 Read Tenants Operational From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_GBP_TENANTS_API}
     Log    ${resp.content}
 
 Read Nodes Config From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${CONFIG_NODES_API}
     Log    ${resp.content}
 
 Read Nodes Operational From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
 
 Read Topology Config From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     Log    ${resp.content}
 
 Read Topology Operational From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_TOPO_API}
     Log    ${resp.content}
 
 Read Endpoints From ODL
-    ${resp}    RequestsLibrary.Get Request    session    ${GBP_ENDPOINTS_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${GBP_ENDPOINTS_API}
     Log    ${resp.content}
     Delete All Sessions

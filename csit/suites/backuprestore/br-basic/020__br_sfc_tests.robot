@@ -23,7 +23,7 @@ Basic Environment Setup Tests
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSPS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254    "hop-number":2    "service-index":253
@@ -34,7 +34,7 @@ Create and Get Rendered Service Path
 Create Get Rendered Service Path Failure
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_RSPS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254    "hop-number":2    "service-index":253
@@ -58,7 +58,7 @@ Post Elements To URI As JSON
 
 Get JSON Elements From URI
     [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${resp}    RequestsLibrary.GET On Session    session    ${uri}
     ${value}    To Json    ${resp.content}
     [Return]    ${value}
 

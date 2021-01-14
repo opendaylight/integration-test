@@ -23,7 +23,7 @@ ${RESTCONF_MONITORING_URL}    https://${ODL_SYSTEM_IP}:${RESTCONFPORT_TLS}${REST
 Basic Unsecure Restconf Request
     [Documentation]    Tests a basic HTTP request, just to ensure that system is working fine with normal, unsecure reqs
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${RESTCONF_MONITORING_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${RESTCONF_MONITORING_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Delete All Sessions
 
@@ -41,7 +41,7 @@ Activate TLS
     Enable TLS in ODL
     # Check ODL was restarted properly
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${RESTCONF_MONITORING_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${RESTCONF_MONITORING_URI}
     Delete All Sessions
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
@@ -81,7 +81,7 @@ Activate Client Authentication
     Enable Client TLS Authentication in ODL
     # Check ODL was restarted properly
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${RESTCONF_MONITORING_URI}
+    ${resp}    RequestsLibrary.GET On Session    session    ${RESTCONF_MONITORING_URI}
     Delete All Sessions
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 

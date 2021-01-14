@@ -24,7 +24,7 @@ ${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/${OUTPUT_TOPO_NAME}
 Basic Request Put
     [Arguments]    ${request}    ${overlay_topology_url}
     [Documentation]    Send a simple HTTP PUT request to Configurational datastore
-    ${resp}    Put Request    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
+    ${resp}    PUT On Session    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
     Log    ${CONFIG_API}/${overlay_topology_url}
     Should Match    "${resp.status_code}"    "20?"
     Wait For Karaf Log    Correlation configuration successfully read
@@ -33,33 +33,33 @@ Basic Request Put
 Basic Request Get
     [Arguments]    ${overlay_topology_url}
     [Documentation]    Send a simple HTTP GET request to a given URL
-    ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
+    ${resp}    GET On Session    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp}
 
-Send Basic Delete Request
+Send Basic DELETE On Session
     [Arguments]    ${url}
     [Documentation]    Sends a HTTP/DELETE request to a given URL
-    ${resp}    Delete Request    session    ${CONFIG_API}/${url}
+    ${resp}    DELETE On Session    session    ${CONFIG_API}/${url}
     Log    Deleting ${CONFIG_API}/${url}
     [Return]    ${resp}
 
 Delete Underlay Node
     [Arguments]    ${topology-id}    ${node-id}
     [Documentation]    Deletes a node from an underlay topology
-    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}
+    ${resp}    Send Basic DELETE On Session    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}
     [Return]    ${resp}
 
 Delete Underlay Termination Point
     [Arguments]    ${topology-id}    ${node-id}    ${tp-id}
     [Documentation]    Deletes a termination point from an underlay topology
-    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}/termination-point/${tp-id}
+    ${resp}    Send Basic DELETE On Session    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}/termination-point/${tp-id}
     [Return]    ${resp}
 
 Delete Underlay Link
     [Arguments]    ${topology-id}    ${link-id}
     [Documentation]    Deletes a link from an underlay topology
-    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/link/${link-id}
+    ${resp}    Send Basic DELETE On Session    ${TOPOLOGY_URL}/${topology-id}/link/${link-id}
     [Return]    ${resp}
 
 Setup Environment
@@ -111,7 +111,7 @@ Delete Overlay Topology
     Run Keyword If Test Failed    Print Output Topo
     Log    ---- Test Teardown ----
     Log    Deleting overlay topology from ${CONFIG_API}/${OVERLAY_TOPO_URL}
-    ${resp}    Delete Request    session    ${CONFIG_API}/${OVERLAY_TOPO_URL}
+    ${resp}    DELETE On Session    session    ${CONFIG_API}/${OVERLAY_TOPO_URL}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Print Output Topo
@@ -128,8 +128,8 @@ Refresh Underlay Topologies And Delete Overlay Topology
 
 Prepare New Feature Installation
     [Documentation]    Clears karaf logs and CONFIGURATION datastore
-    ${resp}    Delete Request    session    ${CONFIG_API}/network-topology:network-topology
-    ${resp}    Delete Request    session    ${CONFIG_API}/opendaylight-inventory:nodes
+    ${resp}    DELETE On Session    session    ${CONFIG_API}/network-topology:network-topology
+    ${resp}    DELETE On Session    session    ${CONFIG_API}/opendaylight-inventory:nodes
     Issue Command On Karaf Console    log:clear
 
 Insert Underlay Topologies
@@ -137,17 +137,17 @@ Insert Underlay Topologies
     Log    Inserting underlay topologies
     # Network underlay topologies
     FOR    ${index}    IN RANGE    1    7
-        ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
+        ${resp}    PUT On Session    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
         Log    ${resp.text}
         Should Match    "${resp.status_code}"    "20?"
         # Openflow underlay nodes
     END
-    ${resp}    Put Request    session    ${CONFIG_API}/opendaylight-inventory:nodes    data=${OPENFLOW_UNDERLAY_NODES}
+    ${resp}    PUT On Session    session    ${CONFIG_API}/opendaylight-inventory:nodes    data=${OPENFLOW_UNDERLAY_NODES}
     Log    ${resp.text}
     Should Match    "${resp.status_code}"    "20?"
     # Openflow underlay topologies
     FOR    ${index}    IN RANGE    1    7
-        ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
+        ${resp}    PUT On Session    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
         Log    ${resp.text}
         Should Match    "${resp.status_code}"    "20?"
     END

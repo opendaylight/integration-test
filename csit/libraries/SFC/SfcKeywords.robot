@@ -9,7 +9,7 @@ Resource          ../Utils.robot
 *** Keywords ***
 Get JSON Elements From URI
     [Arguments]    ${uri}
-    ${resp} =    RequestsLibrary.Get Request    session    ${uri}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${uri}
     [Return]    ${resp.json()}
 
 Check Classifier Flows
@@ -48,7 +48,7 @@ Check Rendered Service Path Deleted
 Get Rendered Service Path Name
     [Arguments]    ${sfp_name}    ${get_reverse}=False
     [Documentation]    Given an SFP name, do a get on ${SERVICE_FUNCTION_PATH_STATE_URI} to get the RSP name
-    ${resp} =    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${SERVICE_FUNCTION_PATH_STATE_URI}/${sfp_name}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     # should be like this: {"service-function-path-state":[{"name":"SFC1-100","sfp-rendered-service-path":[{"name":"SFC1-100-Path-183"}]}]}
     ${sfp_rendered_service_path_list} =    Collections.Get_From_Dictionary    ${resp.json()}    service-function-path-state

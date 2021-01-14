@@ -25,7 +25,7 @@ Create epl service
     ${interface}    Create List    s1-eth1    s1-eth2
     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
     ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_eplan.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
+    ${resp}    RequestsLibrary.PUT On Session    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth3    eth4    eth5
@@ -48,7 +48,7 @@ Check ping between h3-h5 after service creation
 
 Delete epl service
     [Documentation]    Delete the evc multi point to multi point & verify no ping
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.DELETE On Session    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 

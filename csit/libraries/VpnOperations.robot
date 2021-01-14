@@ -55,7 +55,7 @@ VPN Get L3VPN
 VPN Get L3VPN ID
     [Arguments]    ${vrf_id}
     [Documentation]    Check that sub interface ip has been learnt after ARP request
-    ${resp} =    RequestsLibrary.Get Request    session    ${VPN_REST}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${VPN_REST}
     BuiltIn.Log    ${resp.text}
     @{list_any_matches} =    String.Get_Regexp_Matches    ${resp.text}    \"vpn-instance-name\":\"${VPN_INSTANCE_ID}\",.*"vrf-id":"${vrf_id}",\"vpn-id\":(\\d+)    1
     ${result} =    Evaluate    ${list_any_matches[0]} * 2
@@ -116,7 +116,7 @@ ITM Create Tunnel
 
 ITM Get Tunnels
     [Documentation]    Get all Tunnels and return the contents
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_API}/itm:transport-zones/
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -124,7 +124,7 @@ ITM Get Tunnels
 ITM Delete Tunnel
     [Arguments]    ${zone-name}
     [Documentation]    Delete Tunnels created under the transport-zone
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/${zone-name}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_API}/itm:transport-zones/transport-zone/${zone-name}/
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.text}
@@ -150,7 +150,7 @@ Verify Flows Are Present For L3VPN On All Compute Nodes
 Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
     [Documentation]    get ODL GWMAC table entry
-    ${resp} =    RequestsLibrary.Get Request    session    ${VPN_PORT_DATA_URL}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${VPN_PORT_DATA_URL}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
@@ -220,7 +220,7 @@ Verify VXLAN interface
 Get Fib Entries
     [Arguments]    ${session}
     [Documentation]    Get Fib table entries from ODL session
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
+    ${resp}    RequestsLibrary.GET On Session    ${session}    ${FIB_ENTRIES_URL}
     Log    ${resp.text}
     [Return]    ${resp.text}
 

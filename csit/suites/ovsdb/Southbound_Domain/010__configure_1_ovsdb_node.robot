@@ -38,7 +38,7 @@ Create a Bridge
 
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Should Contain    ${resp.text}    ${BRIDGE}
@@ -59,7 +59,7 @@ Get Operational Topology with Port
 
 Delete the Port
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT}/
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after Deletion of Port
@@ -69,7 +69,7 @@ Get Operational Topology after Deletion of Port
 
 Delete the Bridge
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology after Deletion of Bridge
@@ -79,14 +79,14 @@ Get Operational Topology after Deletion of Bridge
 
 Verify Config Still Has OVS Info
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the node is still in the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
 
 Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${SOUTHBOUND_NODE_CONFIG_API}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Operational Topology to make sure the connection has been deleted
@@ -109,7 +109,7 @@ Get Operational Topology After Node Reconnect
 
 Get Config Topology After Reconnect
     [Documentation]    This will fetch the configuration topology from configuration data store after reconnect
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
@@ -136,7 +136,7 @@ Update QOS with a Linked queue entry to a OVSDB Node
 
 Get QOS Config Topology with port
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the QOS is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Contain    ${resp.text}    ${QOS}
@@ -148,7 +148,7 @@ Get QOS Operational Topology with port
 
 Get Queue Config Topology with port
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify the Queue is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Contain    ${resp.text}    ${QUEUE}
@@ -160,27 +160,27 @@ Get Queue Operational Topology with port
 
 Delete a Queue entry from a Qos entry
     [Documentation]    This request will Delete a Queue entry from a Qos entry
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete a QoS entry from a node
     [Documentation]    This request will Delete a QoS entry from a node.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete a Queue entry from an ovsdb node
     [Documentation]    This request will Delete a Queue entry from an ovsdb node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete the OVSDB Node HOST1
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    ${resp} =    RequestsLibrary.DELETE On Session    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Config Topology to verify that deleted configurations are cleaned from config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify OVSDB NODE is deleted frrom the configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Not Contain    ${resp.text}    ovsdb:HOST1

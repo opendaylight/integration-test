@@ -78,7 +78,7 @@ Check Flows Are Operational Again
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
-    ${resp}=    Delete Request    session    ${CONFIG_NODES_API}
+    ${resp}=    DELETE On Session    session    ${CONFIG_NODES_API}
     Should Be Equal As Numbers    ${resp.status_code}    200
 
 Check No Flows In Operational Last
@@ -130,7 +130,7 @@ Delete Http Session And Store Plot Data
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    GET On Session    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}

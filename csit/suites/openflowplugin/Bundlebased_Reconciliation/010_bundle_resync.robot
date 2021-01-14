@@ -80,7 +80,7 @@ Start Suite
 
 End Suite
     [Documentation]    Run at end of the suite
-    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    RequestsLibrary.DELETE On Session    session    ${CONFIG_NODES_API}
     KarafKeywords.Issue_Command_On_Karaf_Console    log:set INFO org.opendaylight.openflowplugin.applications.frm.impl.FlowNodeReconciliationImpl
     SSHLibrary.Close All Connections
 

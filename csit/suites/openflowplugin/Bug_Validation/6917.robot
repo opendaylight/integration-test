@@ -66,4 +66,4 @@ Add Flow
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Datastore Presence    ${flowfile}    ${True}    ${True}
     ...    ${False}    ${True}
     Sleep    8
-    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    ${CONFIG_NODES_API}

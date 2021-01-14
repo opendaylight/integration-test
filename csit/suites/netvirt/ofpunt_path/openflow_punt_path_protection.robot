@@ -353,7 +353,7 @@ Get SNAT NAPT Switch DPID
     [Arguments]    ${router_name}
     [Documentation]    Returns the SNAT NAPT switch dpnid from odl rest call.
     ${router_id} =    OpenStackOperations.Get Router Id    ${router_name}
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/odl-nat:napt-switches/router-to-napt-switch/${router_id}
+    ${resp}    RequestsLibrary.GET On Session    session    ${CONFIG_API}/odl-nat:napt-switches/router-to-napt-switch/${router_id}
     Log    ${resp.content}
     @{matches} =    BuiltIn.Should Match Regexp    ${resp.content}    switch.id.*?([0-9]+)
     ${dpnid} =    BuiltIn.Convert To Integer    ${matches}[1]

@@ -82,13 +82,13 @@ Stop SuiteVtnMaTest
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn:vtns
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn:vtns
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Fetch vtn switch inventory
     [Arguments]    ${sw_name}
     [Documentation]    Check if Switch is detected.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Collect Debug Info
@@ -102,7 +102,7 @@ Collect Debug Info
 Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
-    ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
+    ${resp}=    RequestsLibrary.PUT On Session    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add a Vtn
@@ -180,7 +180,7 @@ Add a pathmap
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-map:global-path-maps
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-path-map:global-path-maps
     FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
         should Contain    ${resp.text}    ${pathElement}
     END
@@ -194,7 +194,7 @@ Add a pathpolicy
 Get a pathpolicy
     [Arguments]    ${pathpolicy_id}
     [Documentation]    Get a pathpolicy for a vtn.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
     FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
         should Contain    ${resp.text}    ${pathpolicyElement}
     END
@@ -261,7 +261,7 @@ Start vlan_topo
 Get flow
     [Arguments]    ${vtn_name}
     [Documentation]    Get data flow.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Remove a portmap
@@ -390,14 +390,14 @@ Add a flowcondition
 
 Get flowconditions
     [Documentation]    Retrieve the list of flowconditions created
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get flowcondition
     [Arguments]    ${flowcond_name}    ${retrieve}
     [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition we added "retrieve" argument to differentiate the status code,
     ...    since after removing flowcondition name the status will be different compare to status code when the flowcondition name is present.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
     Run Keyword If    '${retrieve}' == 'retrieve'    Should Be Equal As Strings    ${resp.status_code}    200
     ...    ELSE    Should Not Be Equal As Strings    ${resp.status_code}    200
 

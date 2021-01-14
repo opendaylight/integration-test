@@ -63,7 +63,7 @@ Stop Switches
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    GET On Session    session    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}
