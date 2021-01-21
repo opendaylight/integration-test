@@ -26,7 +26,7 @@ Resource          RemoteBash.robot
 
 *** Variables ***
 ${MAX_HEAP}       1G
-${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx${MAX_HEAP}
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx${MAX_HEAP} -Djava.security.egd=file:/dev/./urandom
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
