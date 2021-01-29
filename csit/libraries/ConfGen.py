@@ -35,7 +35,7 @@ def generate_akka(original_file, node_idx=1, nodes_ip_list=["127.0.0.1"]):
     """
 
     conf = _parse_input(original_file)
-    conf["odl-cluster-data"]["akka"]["remote"]["netty"]["tcp"][
+    conf["odl-cluster-data"]["akka"]["remote"]["classic"]["netty"]["tcp"][
         "hostname"
     ] = nodes_ip_list[node_idx - 1]
     seed_nodes = [

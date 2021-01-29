@@ -39,7 +39,7 @@ odl-cluster-data {
     }
     remote {
       log-remote-lifecycle-events = off
-      netty.tcp {
+      classic.netty.tcp {
         hostname = "{{HOST}}"
         port = 2550
         maximum-frame-size = 419430400
@@ -80,7 +80,7 @@ odl-cluster-rpc {
     }
     remote {
       log-remote-lifecycle-events = off
-      netty.tcp {
+      classic.netty.tcp {
         hostname = "{{HOST}}"
         port = 2551
         maximum-frame-size = 419430400
