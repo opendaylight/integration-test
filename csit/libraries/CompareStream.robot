@@ -69,6 +69,11 @@ Set_Variable_If_At_Least_Aluminium
     [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast aluminium, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    aluminium    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Silicon
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast silicon, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    silicon    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
