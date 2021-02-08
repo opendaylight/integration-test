@@ -69,6 +69,11 @@ Set_Variable_If_At_Least_Aluminium
     [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast aluminium, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    aluminium    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Silicon
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast silicon, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    silicon    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
@@ -258,6 +263,12 @@ Run_Keyword_If_At_Least_Aluminium
     [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least aluminium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    aluminium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Least_Silicon
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least silicon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    silicon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
