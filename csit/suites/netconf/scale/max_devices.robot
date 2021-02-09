@@ -16,7 +16,6 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           String
 Library           SSHLibrary    timeout=1000s
-Resource          ../../../libraries/CheckJVMResource.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/NetconfKeywords.robot
 Resource          ../../../libraries/SetupUtils.robot
@@ -55,28 +54,25 @@ Find Max Netconf Devices
         ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
         ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
-        Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}
-        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}
+        Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}    log_response=False
+        ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}    log_response=False
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}
-        ...    ${NUM_WORKERS}
+        ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}    ${NUM_WORKERS}
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}
+        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${maximum_devices} =    Set Variable    ${devices}
-        Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
         NetconfKeywords.Stop_Testtool
     END
     [Teardown]    Run Keywords    NetconfKeywords.Stop_Testtool
     ...    AND    Collect_Data_Points    ${maximum_devices}
-    ...    AND    Run Keyword And Ignore Error    CheckJVMResource.Get JVM Memory
 
 *** Keywords ***
 Collect_Data_Points

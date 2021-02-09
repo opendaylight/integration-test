@@ -209,15 +209,15 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
 
 Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
-    ...    ${mdsal}=true
+    ...    ${mdsal}=true    ${log_response}=True
     [Documentation]    Install and run testtool.
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
     Start_Testtool    ${filename}    ${device-count}    ${debug}    ${schemas}    ${rpc_config}    ${tool_options}
-    ...    ${java_options}    ${mdsal}
+    ...    ${java_options}    ${mdsal}    log_response=${log_response}
 
 Start_Testtool
     [Arguments]    ${filename}    ${device-count}=10    ${debug}=true    ${schemas}=none    ${rpc_config}=none    ${tool_options}=${EMPTY}
-    ...    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
+    ...    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true    ${log_response}=True
     [Documentation]    Arrange to collect tool's output into a log file.
     ...    Will use specific ${schemas} unless argument resolves to 'none',
     ...    which signifies that there are no additional schemas to be deployed.
@@ -233,7 +233,7 @@ Start_Testtool
     # Store information needed by other keywords.
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
     # Wait for the testtool to boot up.
-    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running
+    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running    log_response=${log_response}
 
 Check_Device_Up_And_Running
     [Arguments]    ${device-number}
