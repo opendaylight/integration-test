@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e9bc681_305f5ba4",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-02-11T18:23:01Z",
+      "side": 1,
+      "message": "Cool, never used this KW before.",
+      "revId": "b50665f0684ff1fae30b4dae31f1038250b8d3dd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
