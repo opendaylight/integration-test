@@ -21,18 +21,18 @@ Run Read Service Python Script on Controller Vm
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ${cmd}    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Log    ${stdout}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install --upgrade pip    return_stdout=True    return_stderr=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo python3 -m pip install --upgrade pip    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Log    ${stdout}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install zmq pyzmq    return_stdout=True    return_stderr=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo python3 -m pip install zmq pyzmq    return_stdout=True    return_stderr=True
     ...    return_rc=True
     Log    ${stdout}
     ${module}    OperatingSystem.Get File    ${JSONRPCCONFIG_MODULE_JSON}
     ${data}    OperatingSystem.Get File    ${JSONRPCCONFIG_DATA_JSON}
-    ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
+    ${cmd}    Builtin.Set Variable    nohup python3 ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
     Log    ${cmd}
     ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
-    ${stdout}    SSHLibrary.Write    echo | nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
+    ${stdout}    SSHLibrary.Write    echo | nohup python3 ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
     ${stdout}    SSHLibrary.Write    echo
     Log    ${stdout}
     ${stdout}    SSHLibrary.Execute Command    cat nohup.out
