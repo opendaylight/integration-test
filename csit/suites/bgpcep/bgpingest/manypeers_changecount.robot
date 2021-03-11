@@ -69,10 +69,10 @@ Resource          ../../../variables/Variables.robot
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    60
+${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_CHANGE_COUNT_MANY}    ${CHECK_PERIOD_CHANGE_COUNT}
-${COUNT}          600000
+${COUNT}          1000000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${COUNT_CHANGE_COUNT_MANY}    ${COUNT_CHANGE_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
