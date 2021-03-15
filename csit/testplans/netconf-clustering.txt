@@ -16,9 +16,8 @@ integration/test/csit/suites/netconf/clustering/entity.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
 integration/test/csit/suites/netconf/clustering/outages.robot
 
-# Next suite is commented because of NETCONF-454
-#integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
-#integration/test/csit/suites/netconf/clustering/entity-isolation-rejoin.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
+integration/test/csit/suites/netconf/clustering/entity-isolation-rejoin.robot
 
 # Repeat some suites again to try to detect breakage caused by
 # the intrusive tests that survived a "device deconfigure" - "device
