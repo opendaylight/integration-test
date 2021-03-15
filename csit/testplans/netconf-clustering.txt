@@ -8,6 +8,7 @@
 
 # Run non intrusive cluster tests first.
 integration/test/csit/suites/netconf/clustering/CRUD.robot
+integration/test/csit/suites/netconf/clustering/CRUD.robot
 integration/test/csit/suites/netconf/clustering/bug8086.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
@@ -16,7 +17,6 @@ integration/test/csit/suites/netconf/clustering/entity.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
 integration/test/csit/suites/netconf/clustering/outages.robot
 
-# Next suite is commented because of NETCONF-454
 #integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
 #integration/test/csit/suites/netconf/clustering/entity-isolation-rejoin.robot
 
@@ -24,4 +24,5 @@ integration/test/csit/suites/netconf/clustering/outages.robot
 # the intrusive tests that survived a "device deconfigure" - "device
 # reconfigure" cycle.
 integration/test/csit/suites/netconf/clustering/entity.robot
+integration/test/csit/suites/netconf/clustering/CRUD.robot
 integration/test/csit/suites/netconf/clustering/CRUD.robot
