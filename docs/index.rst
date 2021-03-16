@@ -11,6 +11,7 @@ Contents:
 
    system-test-guide
    cluster/index
+   run-test-locally
 
 External resources:
 
