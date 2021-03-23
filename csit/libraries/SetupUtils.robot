@@ -20,6 +20,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${SetupUtils__Known_Bug_ID}    ${EMPTY}
+@{loggers_list}   org.opendaylight.protocol.bgp    org.opendaylight.bgpcep
 
 *** Keywords ***
 Setup_Utils_For_Setup_And_Teardown
@@ -48,7 +49,7 @@ Setup_Logging_For_Debug_Purposes_On_List_Or_All
     [Arguments]    ${log_level}    ${loggers_list}    ${member_index_list}=${EMPTY}
     [Documentation]    Set the log level for given loggers on node nodes of the cluster
     FOR    ${logger}    IN    @{loggers_list}
-        ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${log_level} ${logger}    member_index_list=${member_index_list}
+        ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set trace ${logger}    member_index_list=${member_index_list}
     END
 
 Set_Known_Bug_Id
