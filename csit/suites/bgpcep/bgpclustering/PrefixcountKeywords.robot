@@ -99,12 +99,13 @@ Start_Bgp_Peer
     BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${peerip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Start_Bgp_Peer_And_Verify_Connected
-    [Arguments]    ${connection_retries}=${1}    ${peerip}=${rib_owner_node_id}
+    [Arguments]    ${connection_retries}=${1}    ${peerip}=${rib_owner_node_id}    ${delay_after_start}=0s
     [Documentation]    Starts the peer and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     FOR    ${idx}    IN RANGE    ${connection_retries}
         Start_Bgp_Peer    peerip=${peerip}
+        BuiltIn.Sleep    10s
         ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
         ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
         BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
