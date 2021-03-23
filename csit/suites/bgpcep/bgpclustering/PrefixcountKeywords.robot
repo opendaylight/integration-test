@@ -105,6 +105,7 @@ Start_Bgp_Peer_And_Verify_Connected
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     FOR    ${idx}    IN RANGE    ${connection_retries}
         Start_Bgp_Peer    peerip=${peerip}
+        BuiltIn.Sleep	10s
         ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
         ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
         BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
