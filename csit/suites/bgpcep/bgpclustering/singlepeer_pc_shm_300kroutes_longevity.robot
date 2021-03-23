@@ -34,9 +34,9 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
-${COUNT}          300000
+${COUNT}          3000
 # TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
-${LONGEVITY_TEST_DURATION_IN_SECS}    82800
+${LONGEVITY_TEST_DURATION_IN_SECS}    600
 
 *** Test Cases ***
 Configure_Prefixes_Longevity
