@@ -20,6 +20,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${SetupUtils__Known_Bug_ID}    ${EMPTY}
+@{loggers_list}   org.opendaylight.protocol.bgp    org.opendaylight.bgpcep
 
 *** Keywords ***
 Setup_Utils_For_Setup_And_Teardown
@@ -35,6 +36,9 @@ Setup_Test_With_Logging_And_Fast_Failing
     [Documentation]    Test case setup which skips on previous failure. If not, logs test case name to Karaf log.
     ...    Recommended to be used as the default test case setup.
     FailFast.Fail_This_Fast_On_Previous_Error
+    FOR    ${logger}    IN    @{loggers_list}
+        ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set DEBUG ${logger}    member_index_list=${member_index_list}
+    END
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf    member_index_list=${member_index_list}
 
 Setup_Test_With_Logging_And_Without_Fast_Failing
