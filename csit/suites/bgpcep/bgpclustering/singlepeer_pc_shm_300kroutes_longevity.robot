@@ -34,9 +34,9 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
-${COUNT}          300000
+${COUNT}          3000
 # TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
-${LONGEVITY_TEST_DURATION_IN_SECS}    82800
+${LONGEVITY_TEST_DURATION_IN_SECS}    300
 
 *** Test Cases ***
 Configure_Prefixes_Longevity
@@ -50,6 +50,8 @@ Configure_Prefixes_Longevity
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${rib_owner}
     BuiltIn.Set_Suite_Variable    ${config_session}    ${session}
     # TODO: Either define BGP_VARIABLES_FOLDER in this file, or create a Resource with the definition and wrapping keywords
+    # Wait for 10s, just to make sure example-bgp-rib-service-group is up and running
+    BuiltIn.Sleep    10s
     TemplatedRequests.Put_As_Json_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${session}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${LONGEVITY_TEST_DURATION_IN_SECS}    1s    Test_Scenario    ${rib_owner}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${session}
@@ -59,6 +61,7 @@ Test_Scenario
     [Arguments]    ${rib_owner_id}
     [Documentation]    Connect bgp peer, advertize prefixes and disconnect. Check correct count of prefixes on odl.
     PrefixcountKeywords.Start_Bgp_Peer_And_Verify_Connected    connection_retries=${3}    peerip=${ODL_SYSTEM_${rib_owner_id}_IP}
+    ...    delay_after_start=10s
     Wait_For_Stable_Talking_Ipv4_Topology_On_All_Nodes    excluded_count=0
     Check_Talking_Ipv4_Topology_Count_On_All_Nodes
     BGPSpeaker.Kill_BGP_Speaker
