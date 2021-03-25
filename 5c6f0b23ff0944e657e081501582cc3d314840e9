@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca20c191_821f6106",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-25T15:14:31Z",
+      "side": 1,
+      "message": "please create ODL JIRA task",
+      "revId": "5c6f0b23ff0944e657e081501582cc3d314840e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f90054_9b71494d",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-25T15:14:31Z",
+      "side": 1,
+      "message": "I believe we could reuse the installation steps from here: https://github.com/opendaylight/releng-builder/blob/master/jjb/integration/integration-install-robotframework.sh\n\nMaybe create link from here to there?",
+      "revId": "5c6f0b23ff0944e657e081501582cc3d314840e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b6fc2f9_456cd4f2",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-25T15:14:31Z",
+      "side": 1,
+      "message": "good, but please add note that every test suite can have different options - and the place to get it all is to look to Jenkins configuration",
+      "revId": "5c6f0b23ff0944e657e081501582cc3d314840e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efad4473_b985eef4",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-25T15:14:31Z",
+      "side": 1,
+      "message": "in fact we get output.xml, too",
+      "revId": "5c6f0b23ff0944e657e081501582cc3d314840e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
