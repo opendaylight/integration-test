@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef54569c_ca26694f",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-26T12:52:05Z",
+      "side": 1,
+      "message": "For example CentOS that is used also on Jenkins instances or Ubuntu.",
+      "revId": "47755138974cfa48c2312860a9b9b95d21c9c2ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f919e06_c5e12c4f",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2021-03-26T12:52:05Z",
+      "side": 1,
+      "message": ".. user with name \u0027jenkins\u0027 to",
+      "revId": "47755138974cfa48c2312860a9b9b95d21c9c2ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
