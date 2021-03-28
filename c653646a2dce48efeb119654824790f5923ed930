@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "391ae3d9_d03b804a",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-03-28T20:45:05Z",
+      "side": 1,
+      "message": "I think this one is already included in the link above",
+      "revId": "c653646a2dce48efeb119654824790f5923ed930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fef9ce8_c56102ad",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-03-28T20:45:05Z",
+      "side": 1,
+      "message": "by default jenkins is the user for everything but you can change that by passing some arguments in the robot command line: https://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/variables/Variables.robot;h\u003d8e4ddd3f822598a3380656aecf9ac724d8b44226;hb\u003dHEAD#l65",
+      "revId": "c653646a2dce48efeb119654824790f5923ed930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b8ab557_a9d0d0c8",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-03-28T20:45:05Z",
+      "side": 1,
+      "message": "You can maybe point to this to see all parameters we are passing today: https://git.opendaylight.org/gerrit/gitweb?p\u003dreleng/builder.git;a\u003dblob;f\u003djjb/integration/integration-run-test.sh;h\u003df2762481076e45aae1eaa43e4e53a9eb02d26c87;hb\u003dHEAD#l40\nCONTROLLER \u0026 MININET are obsolete.",
+      "revId": "c653646a2dce48efeb119654824790f5923ed930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc837cf1_bb328d55",
+        "filename": "docs/run-test-locally.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-03-28T20:45:05Z",
+      "side": 1,
+      "message": "I do not think you need this if you are using port 8181",
+      "revId": "c653646a2dce48efeb119654824790f5923ed930",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
