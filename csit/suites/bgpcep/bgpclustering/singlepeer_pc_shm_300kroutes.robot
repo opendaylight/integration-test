@@ -34,7 +34,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
-${COUNT}          300000
+${COUNT}          1000000
 
 *** Test Cases ***
 Get Example Bgp Rib Owner

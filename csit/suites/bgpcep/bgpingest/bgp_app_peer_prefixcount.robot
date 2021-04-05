@@ -26,6 +26,7 @@ Documentation     BGP performance of ingesting from 1 BGP application peer
 ...               Reported bugs:
 ...               Bug 4689 - Not a reasonable duration of 1M prefix introduction from BGP application peer via restconf
 ...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
+...               // FIXME: increate prefixes number
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -47,7 +48,7 @@ Resource          ../../../variables/Variables.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_APP_PEER_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          200000
+${COUNT}          1000000
 ${PREFILL}        100000
 ${COUNT_APP_PEER_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    10
