@@ -26,6 +26,7 @@ Documentation     BGP performance of ingesting from 1 BGP application peer
 ...               Reported bugs:
 ...               Bug 4689 - Not a reasonable duration of 1M prefix introduction from BGP application peer via restconf
 ...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
+...               // FIXME: increate prefixes number
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -47,7 +48,7 @@ Resource          ../../../variables/Variables.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_APP_PEER_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          180000
+${COUNT}          1000000
 ${PREFILL}        100000
 ${COUNT_APP_PEER_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    10
@@ -115,8 +116,9 @@ BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
     BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
-    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
+    ${status}    ${message} =    Builtin.Run Keyword And Ignore Error    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
+    Builtin.Run Keyword If    "${status}" == "FAIL"    Builtin.Fail    ${message}
 
 Wait_For_Ipv4_Topology_Is_Filled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
@@ -142,7 +144,8 @@ Reconnect_BGP_Peer
 Check_Bgp_Peer_Updates_For_Reintroduced_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    3s    Check_For_String_In_File    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
+    Builtin.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    3s    Check_For_String_In_File    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
+    BGPcliKeywords.Store_File_To_Workspace    bgp_peer.log    bgp_peer_csit.log
 
 BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and delete all routes.
