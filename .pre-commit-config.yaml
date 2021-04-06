@@ -11,8 +11,8 @@ repos:
         # so to prevent this conflict we will ignore .robot files in this trailing-whitespace hook
         exclude: '\.robot'
 
-  - repo: https://github.com/ambv/black
-    rev: stable
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
     hooks:
       - id: black
 
