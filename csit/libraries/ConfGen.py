@@ -39,7 +39,7 @@ def generate_akka(original_file, node_idx=1, nodes_ip_list=["127.0.0.1"]):
         "hostname"
     ] = nodes_ip_list[node_idx - 1]
     seed_nodes = [
-        u"akka.tcp://opendaylight-cluster-data@{}:2550".format(ip)
+        u"akka://opendaylight-cluster-data@{}:2550".format(ip)
         for ip in nodes_ip_list
     ]
     conf["odl-cluster-data"]["akka"]["cluster"]["seed-nodes"] = seed_nodes
