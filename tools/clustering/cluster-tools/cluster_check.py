@@ -55,7 +55,7 @@ def validate_cluster(ipaddress):
     for member in members:
         # spliting the ip address of the node from json object
         # sample json data
-        # "akka.tcp://opendaylight-cluster-data@10.106.138.137:2550"
+        # "akka://opendaylight-cluster-data@10.106.138.137:2550"
         ip = re.search("@(.+?):", member["address"]).group(1)
         node_status = ip + "-" + member["status"]
         member_list.append(node_status)
