@@ -35,18 +35,33 @@ def generate_akka(original_file, node_idx=1, nodes_ip_list=["127.0.0.1"]):
     """
 
     conf = _parse_input(original_file)
-    conf["odl-cluster-data"]["akka"]["remote"]["netty"]["tcp"][
-        "hostname"
-    ] = nodes_ip_list[node_idx - 1]
-    seed_nodes = [
-        u"akka.tcp://opendaylight-cluster-data@{}:2550".format(ip)
-        for ip in nodes_ip_list
-    ]
+
+    # There might be two different transport configuration for Akka networking
+    # let's try to guess the correct one by checking configuration values from
+    # the original file.
+    isArteryEnabled = conf.get('odl-cluster-data.akka.remote.artery.enabled',
+                               False)
+    if (isArteryEnabled):
+        conf["odl-cluster-data"]["akka"]["remote"]["artery"]["canonical"][
+            "hostname"
+        ] = nodes_ip_list[node_idx - 1]
+        seed_nodes = [
+            u"akka://opendaylight-cluster-data@{}:2550".format(ip)
+            for ip in nodes_ip_list
+        ]
+    else:
+        conf["odl-cluster-data"]["akka"]["remote"]["netty"]["tcp"][
+            "hostname"
+        ] = nodes_ip_list[node_idx - 1]
+        seed_nodes = [
+            u"akka.tcp://opendaylight-cluster-data@{}:2550".format(ip)
+            for ip in nodes_ip_list
+        ]
     conf["odl-cluster-data"]["akka"]["cluster"]["seed-nodes"] = seed_nodes
     conf["odl-cluster-data"]["akka"]["cluster"]["roles"] = [
         "member-{}".format(node_idx)
     ]
-    return pyhocon.tool.HOCONConverter.to_hocon(conf)
+    return pyhocon.HOCONConverter.to_hocon(conf)
 
 
 def generate_modules(original_file, name="", namespace=""):
