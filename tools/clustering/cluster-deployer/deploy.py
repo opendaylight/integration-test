@@ -304,10 +304,8 @@ def main():
     replicas = {}
 
     for x in range(0, len(hosts)):
-        ds_seed_nodes.append(
-            "akka.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550"
-        )
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
+        ds_seed_nodes.append("akka://opendaylight-cluster-data@" + hosts[x] + ":2550")
+        rpc_seed_nodes.append("akka://odl-cluster-rpc@" + hosts[x] + ":2551")
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):
