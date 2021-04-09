@@ -8,43 +8,16 @@
 # those suites. Note that every suite is commented out with it's
 # accompanying "restart_with_tell_based_true" setup suite.
 
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/ddb-sanity-prefix-based.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/clean_leader_shutdown_prefbasedshard.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement_prefbasedshard.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/leader_isolation_prefbasedshard.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/client_isolation_prefbasedshard.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/listener_stability_prefbasedshard.robot
 
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/ddb-sanity-prefix-based.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/ddb-sanity-module-based.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/clean_leader_shutdown.robot
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/clean_leader_shutdown_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement.robot
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/leader_isolation.robot
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/leader_isolation_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/client_isolation.robot
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/client_isolation_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/listener_stability.robot
-# integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-# integration/test/csit/suites/controller/dom_data_broker/listener_stability_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/cluster_singleton/master_stability.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/cluster_singleton/partition_and_heal.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/cluster_singleton/chasing_the_leader.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/Clustering_Datastore/carpeople_crud.robot
-integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud.robot
-integration/test/csit/suites/controller/Clustering_Datastore/car_persistence_recovery.robot
-integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover.robot
-integration/test/csit/suites/controller/Clustering_Datastore/entity_isolate.robot
-integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
-integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
-integration/test/csit/suites/controller/Clustering_Datastore/car_outage_corners.robot
