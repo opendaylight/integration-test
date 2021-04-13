@@ -202,5 +202,5 @@ Check_Owner_Reconfigured
     Log    Original Owner Index: ${original_device_owner}
     Log    Follower 1: node${follower1}
     Log    Follower 2: node${follower2}
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Candidates_For_Device    ${DEVICE_NAME}    netconf    ${follower1}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    ${DEVICE_NAME}    netconf    ${follower1}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${owner}    ${original_device_owner}
