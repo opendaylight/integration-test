@@ -115,8 +115,9 @@ BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
     BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
-    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
+    ${status}    ${message} =    Builtin.Run Keyword And Ignore Error    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
+    Builtin.Run Keyword If    "${status}" == "FAIL"    Builtin.Fail    ${message}
 
 Wait_For_Ipv4_Topology_Is_Filled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
