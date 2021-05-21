@@ -47,7 +47,7 @@ Resource          ../../../variables/Variables.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_APP_PEER_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          200000
+${COUNT}          180000
 ${PREFILL}        100000
 ${COUNT_APP_PEER_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    10
