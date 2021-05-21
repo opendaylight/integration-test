@@ -8,7 +8,7 @@ Resource          ../../../libraries/WorkflowsOpenFlow.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-@{SWITCH_LIST}    ${16}    ${32}    ${40}    ${48}    ${52}    ${56}    ${60}
+@{SWITCH_LIST}    ${16}    ${32}    ${40}    ${48}    ${52}
 ${LINKS_RESULT_FILE}    links.csv
 ${TIME_RESULT_FILE}    time.csv
 
