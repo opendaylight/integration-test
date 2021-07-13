@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf08d9e6_bda3366c",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2021-07-13T12:48:17Z",
+      "side": 1,
+      "message": "Our style checker wants 4 spaces here.",
+      "range": {
+        "startLine": 120,
+        "startChar": 48,
+        "endLine": 120,
+        "endChar": 54
+      },
+      "revId": "eb5c41fe640707d56d49525f95a8833de9f80202",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
