@@ -36,6 +36,7 @@ Shards_Stability_Get_Details
     [Documentation]    Return shard details stored in dictionary.
     ...    ${shard_list} should be initialized as @{list} shard_name1:shard_type1 shard_name2:shard..
     &{shards_details}    BuiltIn.Create_Dictionary
+    CompareStream.Run_Keyword_If_At_Least_Phosphorus    Collections.Remove_Values_From_List    ${shard_list}    entity-ownership:operational
     FOR    ${shard_details}    IN    @{shard_list}
         ${shard_name}    ${shard_type}    String.Split_String    ${shard_details}    separator=:
         ${leader}    ${followers}    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
