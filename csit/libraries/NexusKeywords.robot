@@ -27,7 +27,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 &{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl    odl-micro=odlmicro-impl
-@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople    netconf
+@{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople    netconf    bgpcep
 ${JDKVERSION}     None
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
@@ -117,6 +117,7 @@ Deploy_Artifact
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
     CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
     CompareStream.Run_Keyword_If_At_Most_Aluminium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    netconf
+    CompareStream.Run_Keyword_If_At_Most_Silicon    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    bgpcep
     ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${build_version}'=='${EMPTY}'    NexusKeywords__Detect_Version_To_Pull    ${component}
     ...    ELSE    BuiltIn.Set_Variable    ${build_version}    ${build_location}
