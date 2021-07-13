@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2624d2c_b75dab90",
+        "filename": "csit/libraries/ShardStability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2021-07-13T14:14:44Z",
+      "side": 1,
+      "message": "Usually I prefer to do extra actions for earlier streams (At_Most_Silicon), but adding to a list without creating duplicates is a more complicated code, so this is fine.",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "9289a0f0c7bfd8af0612fd0d9fab13be95d45579",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
