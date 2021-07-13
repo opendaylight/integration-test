@@ -316,23 +316,18 @@ Get_Latest_ODL_Previous_Stream_Release
     ...    Note: If specified stream is not found on nexus, then it is taken as new one (not released yet).
     ...    So in this case, latest release version is return.
     ...
-    ...    NOTE: the below logic is stripping the initial 0. values from the 0.x.x version string that is
-    ...    the current (and future) version numbering scheme. There is always a leading 0. to the version
-    ...    strings and stripping it makes is easier to do int comparison to find the largest version in the
-    ...    list. Comparing as strings does not work. There are some python libs like distutils.version
-    ...    or packaging that can do a better job comparing versions, but since ODL version numbering is simple
-    ...    at this point, this convention will suffice. The leading 0. will be added back after the the latest
-    ...    version is found from the list. The CompareStream.robot library keeps a mapping of major version
+    ...    NOTE: The CompareStream.robot library keeps a mapping of major version
     ...    numbers to the global variable ${ODL_STREAM} so that is used to ensure we get a major version that is
     ...    older than the current running major version.
     ${latest}    @{versions}=    Get_ODL_Versions_From_Nexus
     ${current_version}=    BuiltIn.Set_Variable    ${Stream_dict}[${ODL_STREAM}].0
-    ${latest_version}=    BuiltIn.Set_Variable    0.0
+    ${current_version_list}=    BuiltIn.Evaluate    map(int, """${current_version}""".split("."))
+    ${latest_version_list}=    BuiltIn.Evaluate    [0, 0, 0]
     FOR    ${version}    IN    @{versions}
-        ${version} =    String.Replace String Using Regexp    ${version}    ^0\.    ${EMPTY}
-        ${latest_version}=    Set Variable If    ${version} > ${latest_version} and ${version} < ${current_version}    ${version}    ${latest_version}
+        ${version_list}=    BuiltIn.Evaluate    map(int, """${version}""".split("."))
+        ${latest_version_list}=    BuiltIn.Set_Variable_If    ${version_list} > ${latest_version_list} and ${version_list} < ${current_version_list}    ${version_list}    ${latest_version_list}
     END
-    ${latest_version}=    Set Variable    0.${latest_version}
+    ${latest_version}=    BuiltIn.Evaluate    ".".join(${latest_version_list})
     BuiltIn.Run_Keyword_If    '${latest_version}'=='0.0.0'    BuiltIn.Fail    Could not find latest previous release for stream ${stream}
     BuiltIn.Log    ${latest_version}
     [Return]    ${latest_version}
