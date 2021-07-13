@@ -330,10 +330,13 @@ Get_Latest_ODL_Previous_Stream_Release
     ${latest_version}=    BuiltIn.Set_Variable    0.0
     FOR    ${version}    IN    @{versions}
         ${version} =    String.Replace String Using Regexp    ${version}    ^0\.    ${EMPTY}
+        # Hotfix for 14.0.0
+        ${version} =    String.Replace String    ${version}    .0.0    .0
         ${latest_version}=    Set Variable If    ${version} > ${latest_version} and ${version} < ${current_version}    ${version}    ${latest_version}
     END
     ${latest_version}=    Set Variable    0.${latest_version}
     BuiltIn.Run_Keyword_If    '${latest_version}'=='0.0.0'    BuiltIn.Fail    Could not find latest previous release for stream ${stream}
+    ${latest_version}=    BuiltIn.Set_Variable_If    '${latest_version}'=='0.14'    14.0.0    ${latest_version}
     BuiltIn.Log    ${latest_version}
     [Return]    ${latest_version}
 
