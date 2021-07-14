@@ -307,7 +307,7 @@ Get_Latest_ODL_Stream_Release_URL
     [Arguments]    ${stream}=latest    ${format}=.zip
     [Documentation]    Returns URL for last release for specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/opendaylight-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/karaf-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
 
@@ -342,6 +342,6 @@ Get_Latest_ODL_Previous_Stream_Release_URL
     [Arguments]    ${stream}=${ODL_STREAM}    ${format}=.zip
     [Documentation]    Returns URL for last release for previous stream of specified stream. Default format is .zip.
     ${latest_version}=    Get_Latest_ODL_Previous_Stream_Release    ${stream}
-    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/opendaylight-${latest_version}${format}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/karaf-${latest_version}${format}
     BuiltIn.Log    ${url}
     [Return]    ${url}
