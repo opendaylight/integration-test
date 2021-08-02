@@ -95,7 +95,7 @@ Check_Config_Data_After_Data_Creation
 
 Find_And_Isolate_Device_Entity_Owner
     [Documentation]    Simulate a failure of the owner of the entity that represents the device.
-    ${owner}    ${followers}=    ClusterManagement.Get_Owner_And_Successors_For_device    ${DEVICE NAME}    netconf    1
+    ${owner}    ${followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    validate=True
     Log    ${followers}
     Length Should Be    ${followers}    2    Wrong count of followers returned
     BuiltIn.Set_Suite_Variable    ${original_device_owner}    ${owner}
@@ -202,5 +202,5 @@ Check_Owner_Reconfigured
     Log    Original Owner Index: ${original_device_owner}
     Log    Follower 1: node${follower1}
     Log    Follower 2: node${follower2}
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    ${DEVICE_NAME}    netconf    ${follower1}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    validate=False
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${owner}    ${original_device_owner}
