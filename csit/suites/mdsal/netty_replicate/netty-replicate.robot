@@ -53,11 +53,11 @@ Replicate_Multiple_Changes_to_Multiple_Sinks
     [Documentation]    CRUD configuration changes done on source node should be replicated on multiple sink nodes.
     NettyReplication.Setup_Netty_Replication    source_memeber_index=${DEFAULT_NETTY_SOURCE_NODE_INDEX}    sink_members_indexes=@{MULTIPLE_SINK_NODES_INDEXES}
     &{mapping_1} =    BuiltIn.Create_Dictionary
-    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=@{MULTIPLE_SINK_NODES_INDEXES}    iterations=${5}    iter_j_offset=${0}
+    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=${MULTIPLE_SINK_NODES_INDEXES}    iterations=${5}    iter_j_offset=${0}
     &{mapping_2} =    BuiltIn.Create_Dictionary
-    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=@{MULTIPLE_SINK_NODES_INDEXES}    iterations=${7}    iter_j_offset=${0}
+    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=${MULTIPLE_SINK_NODES_INDEXES}    iterations=${7}    iter_j_offset=${0}
     &{mapping_2_updated} =    BuiltIn.Create_Dictionary
-    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=@{MULTIPLE_SINK_NODES_INDEXES}    iterations=${8}    iter_j_offset=${2}
+    Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    sink_node_indexes=${MULTIPLE_SINK_NODES_INDEXES}    iterations=${8}    iter_j_offset=${2}
     Delete_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people
 
 Sink_Catch_Up_To_Changes_After_Opening_Connection
@@ -136,7 +136,7 @@ Clear_Data_On_All_Nodes_And_Restart
     ClusterManagement.Start_Members_From_List_Or_All
 
 Put_Config_And_Verify
-    [Arguments]    ${template_folder}    ${mapping}={}    ${source_node_index}=${DEFAULT_NETTY_SOURCE_NODE_INDEX}    @{sink_node_indexes}=${DEFAULT_NETTY_SINK_NODE_INDEXES}
+    [Arguments]    ${template_folder}    ${mapping}={}    ${source_node_index}=${DEFAULT_NETTY_SOURCE_NODE_INDEX}    ${sink_node_indexes}=${DEFAULT_NETTY_SINK_NODE_INDEXES}
     ...    ${iterations}=${1}    ${iter_j_offset}=${0}
     [Documentation]    Request put config on netty replicate source and verify changes has been made on both source and sinks.
     ${netty_source_session_alias} =    Resolve_Http_Session_For_Member    member_index=${source_node_index}
@@ -155,7 +155,7 @@ Verify_Config_Is_Present
     ...    verify=True    session=${session}    iterations=${iterations}    iter_j_offset=${iter_j_offset}
 
 Delete_Config_And_Verify
-    [Arguments]    ${template_folder}    ${mapping}={}    ${source_node_index}=${DEFAULT_NETTY_SOURCE_NODE_INDEX}    @{sink_node_indexes}=${DEFAULT_NETTY_SINK_NODE_INDEXES}
+    [Arguments]    ${template_folder}    ${mapping}={}    ${source_node_index}=${DEFAULT_NETTY_SOURCE_NODE_INDEX}    ${sink_node_indexes}=${DEFAULT_NETTY_SINK_NODE_INDEXES}
     ...    ${iterations}=${1}
     [Documentation]    Request delete config on netty replicate source and verify changes has been made on both source and sink.
     ${netty_source_session_alias} =    Resolve_Http_Session_For_Member    member_index=${source_node_index}
