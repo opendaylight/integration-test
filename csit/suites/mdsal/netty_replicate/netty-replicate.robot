@@ -21,25 +21,25 @@ ${ADDITIONAL_SOURCE_NODE_INDEX}    ${3}
 
 *** Test Cases ***
 Replicate_Config_Addition
-    [Documentation]    Adding new configuration on source node shoudl be replicated on sink node.
+    [Documentation]    Adding new configuration on source node should be replicated on sink node.
     NettyReplication.Setup_Netty_Replication
     Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    iterations=${5}
 
 Replicate_Config_Update
-    [Documentation]    Updating existing configuration on source node shoudl be replicated on sink node.
+    [Documentation]    Updating existing configuration on source node should be replicated on sink node.
     NettyReplication.Setup_Netty_Replication
     Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    iterations=${5}    iter_j_offset=${0}
     Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    iterations=${5}    iter_j_offset=${5}
 
 Replicte_Config_Deletion
-    [Documentation]    Updating existing configuration on source node shoudl be replicated on sink node.
+    [Documentation]    Updating existing configuration on source node should be replicated on sink node.
     NettyReplication.Setup_Netty_Replication
     &{mapping} =    BuiltIn.Create_Dictionary
     Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    iterations=${5}
     Delete_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people
 
 Replicate_Multiple_Changes_to_Config
-    [Documentation]    CRUD configuration changes done on source node shoudl be replicated on sink node.
+    [Documentation]    CRUD configuration changes done on source node should be replicated on sink node.
     NettyReplication.Setup_Netty_Replication
     &{mapping_1} =    BuiltIn.Create_Dictionary
     Put_Config_And_Verify    ${CARPEOPLE_DEV_FOLDER}/people    iterations=${5}    iter_j_offset=${0}
