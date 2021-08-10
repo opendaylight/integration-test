@@ -118,9 +118,10 @@ Deploy_Artifact
     CompareStream.Run_Keyword_If_At_Most_Magnesium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    carpeople
     CompareStream.Run_Keyword_If_At_Most_Aluminium    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    netconf
     CompareStream.Run_Keyword_If_At_Most_Silicon    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    bgpcep
-    ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${build_version}'=='${EMPTY}'    NexusKeywords__Detect_Version_To_Pull    ${component}
     ...    ELSE    BuiltIn.Set_Variable    ${build_version}    ${build_location}
+    BuiltIn.Run_Keyword_If    'SNAPSHOT' in '${version}'    Collections.Remove_Values_From_List    netconf
+    ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
