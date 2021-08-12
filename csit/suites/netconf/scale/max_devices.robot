@@ -16,6 +16,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           String
 Library           SSHLibrary    timeout=1000s
+Library           ../../../libraries/TopologyNetconfNodes.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/NetconfKeywords.robot
 Resource          ../../../libraries/SetupUtils.robot
@@ -50,23 +51,17 @@ Find Max Netconf Devices
     ${INSTALL_TESTTOOL} =    Set Variable If    '${IS_KARAF_APPL}' == 'False'    False    True
     ${TESTTOOL_EXECUTABLE} =    Set Variable If    '${IS_KARAF_APPL}' == 'False'    ${NETCONF_FILENAME}    ${EMPTY}
     ${SCHEMAS} =    Set Variable If    '${IS_KARAF_APPL}' == 'False'    ${CURDIR}/../../../variables/netconf/CRUD/schemas    ${schema_dir}
+    ${restconf_url} =   BuiltIn.Set_Variable    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests
     FOR    ${devices}    IN RANGE    ${start}    ${stop+1}    ${increment}
         ${timeout} =    BuiltIn.Evaluate    ${devices}*${TIMEOUT_FACTOR}
         ${timeout} =    Set Variable If    ${timeout} > ${MIN_CONNECT_TIMEOUT}    ${timeout}    ${MIN_CONNECT_TIMEOUT}
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}    log_response=False
         ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}    log_response=False
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
-        Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
-        Exit For Loop If    '${status}' == 'FAIL'
+        ${device_names} =    TopologyNetconfNodes.Configure Device Range    restconf_url=${restconf_url}    device_name_prefix=${DEVICE_NAME_BASE}
+        ...    device_ipaddress=${TOOLS_SYSTEM_IP}    device_port=17830    device_count=${devices}
+        TopologyNetconfNodes.Await Devices Connected    restconf_url=""    device_names=${device_names} deadline_seconds=${timeout}
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}    ${NUM_WORKERS}
-        Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
-        Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Deconfigure_Device    timeout=${timeout}    log_response=False
-        Exit For Loop If    '${status}' == 'FAIL'
-        ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${maximum_devices} =    Set Variable    ${devices}
         NetconfKeywords.Stop_Testtool
