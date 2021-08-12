@@ -56,8 +56,10 @@ Find Max Netconf Devices
         Log To Console    Starting Iteration with ${devices} devices
         Run Keyword If    "${INSTALL_TESTTOOL}"=="True"    NetconfKeywords.Install_And_Start_Testtool    debug=false    schemas=${schema_dir}    device-count=${devices}    log_response=False
         ...    ELSE    NetconfKeywords.Start_Testtool    ${TESTTOOL_EXECUTABLE}    debug=false    schemas=${SCHEMAS}    device-count=${devices}    log_response=False
+        # FIXME: ${devices} = NetconfKeywordsPy.Configure Device Range
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Configure_Device    timeout=${timeout}
         Exit For Loop If    '${status}' == 'FAIL'
+        # FIXME: NetconfKeywordsPy.Await Devices Connected devices=${devices}
         ${status}    ${result} =    Run Keyword And Ignore Error    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Connected    timeout=${timeout}    log_response=False
         Exit For Loop If    '${status}' == 'FAIL'
         ${status}    ${result} =    Run Keyword And Ignore Error    Issue_Requests_On_Devices    ${TOOLS_SYSTEM_IP}    ${devices}    ${NUM_WORKERS}
