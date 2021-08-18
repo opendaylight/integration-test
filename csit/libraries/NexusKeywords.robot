@@ -121,7 +121,12 @@ Deploy_Artifact
     ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${build_version}'=='${EMPTY}'    NexusKeywords__Detect_Version_To_Pull    ${component}
     ...    ELSE    BuiltIn.Set_Variable    ${build_version}    ${build_location}
     BuiltIn.Run_Keyword_If    'SNAPSHOT' in '${version}'    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    netconf
-    ${urlbase} =    BuiltIn.Set_Variable_If    '${component}' in @{RELEASE_INTEGRATED_COMPONENTS}    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
+    # check if the bundle url is pointing to a staging artifact
+    # when we are pointing at a staged artifact we need to use the staging repo instead of release/snapshot artifacts
+    ${is_staged} =    BuiltIn.Set_Variable_If    "opendaylight.release" not in '${urlbase}' and "opendaylight.snapshot" not in '${urlbase}'    "TRUE"    "FALSE"
+    # if we have a staged artifact we need to use the urlbase given to us in the job params
+    ${is_mri_component} =    BuiltIn.Set_Variable_If    '${component}' in ${RELEASE_INTEGRATED_COMPONENTS}    "TRUE"    "FALSE"
+    ${urlbase} =    BuiltIn.Set_Variable_If    ${is_mri_component} == "TRUE" and ${is_staged} == "FALSE"    ${NEXUS_RELEASE_BASE_URL}    ${urlbase}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
