@@ -16,6 +16,24 @@
       "revId": "2a7c7d733f123a608a8bc379dae8af136513eecf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d76d71_5bb6e258",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2021-08-18T11:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "939f194e_44c1763a",
+      "revId": "2a7c7d733f123a608a8bc379dae8af136513eecf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
