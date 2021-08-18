@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "939f194e_44c1763a",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2021-08-18T11:37:27Z",
+      "side": 1,
+      "message": "I think the reference to the python script as library or resource is missing.",
+      "revId": "2a7c7d733f123a608a8bc379dae8af136513eecf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
