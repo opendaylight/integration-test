@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c75d572_ac174c3f",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2021-08-28T00:50:59Z",
+      "side": 1,
+      "message": "this method will definitely free-up a lot robot login.",
+      "revId": "4cc22c25be7ebd7b38500151e35a9f5cf326c3f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
