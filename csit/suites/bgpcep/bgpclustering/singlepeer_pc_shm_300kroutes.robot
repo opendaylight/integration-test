@@ -40,7 +40,7 @@ ${COUNT}          300000
 Get Example Bgp Rib Owner
     [Documentation]    Find an odl node which is able to accept incomming connection. It is a node, which is the owner of bgp rib, as it is a singleton service.
     ...    This node should be used for bgp peer to connect to.
-    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
+    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib-service-group    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set_Suite_Variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set_Suite_Variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${rib_owner}
