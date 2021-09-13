@@ -31,6 +31,7 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
+Library           ClusterEntities.py
 Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/KarafKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
@@ -40,6 +41,7 @@ Resource          ../variables/Variables.robot
 
 *** Variables ***
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
+${RESTCONF_URI}    rests
 ${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
@@ -230,28 +232,19 @@ Get_Owner_And_Candidates_For_Device_Old
     ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
     ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
     BuiltIn.Comment    TODO: Can this implementation be changed to call Get_Owner_And_Candidates_For_Type_And_Id?
-    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}    http_timeout=${http_timeout}
-    ${candidate_list} =    BuiltIn.Create_List
+    ${index} =    BuiltIn.Convert_To_Integer    ${member_index}
+    ${ip} =    Resolve_IP_Address_For_Member    member_index=${index}
     ${entity_type} =    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    netconf-node/${device_name}    ${device_type}
-    ${clear_data} =    BuiltIn.Run_Keyword_If    '${device_type}' == 'openflow' or '${device_type}' == 'netconf'    Extract_OpenFlow_Device_Data    ${data}
-    ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract_Ovsdb_Device_Data    ${data}
-    ...    ELSE IF    '${device_type}' == 'org.opendaylight.mdsal.ServiceEntityType'    Extract_Service_Entity_Type    ${data}
-    ...    ELSE    Fail    Not recognized device type: ${device_type}
-    ${json} =    RequestsLibrary.To_Json    ${clear_data}
-    ${entity_type_list} =    Collections.Get_From_Dictionary    ${json}[entity-owners]    entity-type
-    ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${entity_type}
-    BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
-    ${entity_list} =    Collections.Get_From_Dictionary    ${entity_type_list}[${entity_type_index}]    entity
-    ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${device_name}
-    BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_index}    -1    Device ${device_name} not found in Entity Owner ${device_type}
-    ${entity_owner} =    Collections.Get_From_Dictionary    ${entity_list}[${entity_index}]    owner
+    ${url} =    BuiltIn.Catenate    SEPARATOR=    http://    ${ip}    :8181/    ${RESTCONF_URI}
+    ${entity_result} =    ClusterEntities.get entity    ${url}    ${entity_type}    ${device_name}
+    ${entity_candidates} =    Collections.Get_From_Dictionary    ${entity_result}    "candidates"
+    ${entity_owner} =    Collections.Get_From_Dictionary    ${entity_result}    "owner"
     BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for ${device_name}
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
     ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
-    ${entity_candidates_list} =    Collections.Get_From_Dictionary    ${entity_list}[${entity_index}]    candidate
-    FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-        ${candidate} =    String.Replace_String    ${entity_candidate}[name]    member-    ${EMPTY}
+    ${candidate_list} =    BuiltIn.Create_List
+    FOR    ${entity_candidate}    IN    @{entity_candidates}
+        ${candidate} =    String.Replace_String    ${entity_candidate}    member-    ${EMPTY}
         ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
         Collections.Append_To_List    ${candidate_list}    ${candidate}
     END
@@ -328,7 +321,7 @@ Get_Owner_And_Candidates_For_Device
     ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Old    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     ...    http_timeout=${http_timeout}
     # previous 3 lines (BuilIn.Return.., # If singleton..., ${status}....) could be deleted when old way will not be supported anymore
-    BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail    Could not parse owner and candidates for device ${device_name}
+    BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail   Could not parse owner and candidates for device ${device_name}
     [Return]    @{results}
 
 Check_Old_Owner_Stays_Elected_For_Device
