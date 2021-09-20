@@ -139,7 +139,11 @@ Deploy_Artifact
     ${url} =    BuiltIn.Set_Variable    ${url}/${filename}
     ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${url}' 2>&1    return_rc=True
     BuiltIn.Log    ${response}
-    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
+    BuiltIn.Return_From_Keyword_If    ${result} == 0
+    # staged autorelease for non-mri project might not contain the artifact we need so we need to fallback to grabbing it from the release repo
+    ${release_url} =    BuiltIn.Replace_String_Using_Regexp    ${url}    autorelease-[0-9]{4}    opendaylight.release
+    ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${release_url}' 2>&1    return_rc=True
+    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${release_url} nor ${url}
     [Return]    ${filename}
 
 Deploy_Test_Tool
