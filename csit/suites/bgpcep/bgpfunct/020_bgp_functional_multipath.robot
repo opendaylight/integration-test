@@ -41,7 +41,7 @@ ${N_PATHS_VALUE}    2
 &{DEFAULT_MAPPING}    ODLIP=${ODL_SYSTEM_IP}    EXAIP=${TOOLS_SYSTEM_IP}    NPATHS=${N_PATHS_VALUE}
 @{PATH_ID_LIST}    1    2    3
 ${NEXT_HOP_PREF}    100.100.100.
-${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
+${OPENCONFIG_RIB_URI}    /rests/data/openconfig-network-instance:network-instances/network-instance=global-bgp/openconfig-network-instance:protocols/protocol=openconfig-policy-types%3ABGP,example-bgp-rib
 ${NPATHS_SELM}    n-paths
 ${ALLPATHS_SELM}    all-paths
 ${ADDPATHCAP_SR}    send\\/receive
@@ -151,7 +151,7 @@ Configure_Odl_Peer_With_Path_Selection_Mode
 
 Store_Rib_Configuration
     [Documentation]    Stores rib configuration
-    ${rib_old}=    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${DEFAULT_MAPPING}    session=${CONFIG_SESSION}
+    ${rib_old}=    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib_config    mapping=${DEFAULT_MAPPING}    session=${CONFIG_SESSION}
     BuiltIn.Set_Suite_Variable    ${rib_old}
 
 Log_Loc_Rib_Operational
