@@ -360,8 +360,8 @@ Odl_To_Play_Template
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
     ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    &{adj_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
-    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{adj_rib_in}    BuiltIn.Create_Dictionary    PATH=peer\=bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer\=bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
