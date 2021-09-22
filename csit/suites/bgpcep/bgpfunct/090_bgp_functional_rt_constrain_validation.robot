@@ -49,7 +49,7 @@ ${NEW_AS_PATH}    ${EMPTY}
 @{ODL_IP_INDICES_ALL}    2    3    4
 @{L3VPN_RT_CHECK}    false    true    false
 &{RT_CONSTRAIN_APP_PEER}    IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
-&{ADJ_RIB_OUT}    PATH=peer/bgp:%2F%2F${ODL_3_IP}/adj-rib-out    BGP_RIB=${RIB_NAME}
+&{ADJ_RIB_OUT}    PATH=peer\=bgp:%2F%2F${ODL_3_IP}/adj-rib-out    BGP_RIB=${RIB_NAME}
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connection
@@ -75,7 +75,7 @@ Play_To_Odl_ext_l3vpn_rt_arg
     [Documentation]    This TC sends route-target route containing route-target argument from node 1 to odl
     ...    so odl can identify this peer as appropriate for advertizement when it recieves such route.
     Play_To_Odl_Non_Removal_BgpRpcClient2    ext_l3vpn_rt_arg    ${RT_CONSTRAIN_DIR}
-    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${ODL_2_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${AS_PATH}
+    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer\=bgp:%2F%2F${ODL_2_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${AS_PATH}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${RT_CONSTRAIN_DIR}/ext_l3vpn_rt_arg/rib    mapping=${effective_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
 
@@ -101,7 +101,7 @@ Play_To_Odl_rt_constrain_type_1
     [Documentation]    Sends RT route from node 3 to odl and then checks that odl does not advertize l3vpn route from previous TC,
     ...    that is that update message is empty.
     Play_To_Odl_Non_Removal_BgpRpcClient4    rt_constrain_type_1    ${RT_CONSTRAIN_DIR}
-    &{effective_rib_in} =    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${ODL_4_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${AS_PATH}
+    &{effective_rib_in} =    BuiltIn.Create_Dictionary    PATH=peer\=bgp:%2F%2F${ODL_4_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${AS_PATH}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${RT_CONSTRAIN_DIR}/rt_constrain_type_1/rib    mapping=${effective_rib_in}    session=${CONFIG_SESSION}
     ...    verify=True
     ${update} =    BgpRpcClient4.play_get
