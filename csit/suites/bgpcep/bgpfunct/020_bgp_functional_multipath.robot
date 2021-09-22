@@ -41,7 +41,6 @@ ${N_PATHS_VALUE}    2
 &{DEFAULT_MAPPING}    ODLIP=${ODL_SYSTEM_IP}    EXAIP=${TOOLS_SYSTEM_IP}    NPATHS=${N_PATHS_VALUE}
 @{PATH_ID_LIST}    1    2    3
 ${NEXT_HOP_PREF}    100.100.100.
-${RIB_URI}        /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-bgp-rib-impl-cfg:rib-impl/example-bgp-rib
 ${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
 ${NPATHS_SELM}    n-paths
 ${ALLPATHS_SELM}    all-paths
@@ -140,13 +139,6 @@ Verify_Expected_Update_Count
     ${tool_count}=    BgpRpcClient.exa_get_received_update_count
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_count}    ${tool_count}
 
-Configure_Path_Selection_Mode
-    [Arguments]    ${psm}
-    [Documentation]    Configure path selection mode and get rib information for potential debug purposes
-    &{mapping}    BuiltIn.Create_Dictionary    PATHSELMODE=${psm}
-    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/module_psm    mapping=${mapping}    session=${CONFIG_SESSION}
-
 Configure_Odl_Peer_With_Path_Selection_Mode
     [Arguments]    ${psm}
     [Documentation]    Configures odl peer with path selection mode
@@ -156,17 +148,6 @@ Configure_Odl_Peer_With_Path_Selection_Mode
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
     CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib_policies    mapping=${mapping}    session=${CONFIG_SESSION}
     TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
-
-Configure_Odl_With_Multipaths
-    [Documentation]    Configures odl to support n-paths or all-paths selection
-    ${mapping}=    BuiltIn.Set Variable    ${DEFAULT_MAPPING}
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/module_n_paths    mapping=${mapping}    session=${CONFIG_SESSION}
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/module_all_paths    mapping=${mapping}    session=${CONFIG_SESSION}
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/service_psmf    mapping=${mapping}    session=${CONFIG_SESSION}
-    Configure_Path_Selection_Mode    n-paths
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/service_bpsm    mapping=${mapping}    session=${CONFIG_SESSION}
-    Store_Rib_Configuration
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Store_Rib_Configuration
     [Documentation]    Stores rib configuration
