@@ -488,7 +488,7 @@ Resolve_Text_From_Template_Folder
     [Return]    ${final_text}
 
 Resolve_Text_From_Template_File
-    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}    ${percent_encode}=FALSE
     [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read and Log contents of file ${folder}.${ODL_STREAM}/${file_name},
     ...    remove endline, perform safe substitution, return result.
     ...    If no do it with the default ${folder}/${file_name}.
@@ -497,7 +497,9 @@ Resolve_Text_From_Template_File
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
-    ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
+    ${mapping_to_use} =    BuiltIn.Run_Keyword_If    ${percent_encode}==TRUE    Encode_Mapping    ${mapping}
+    ...    BuiltIn.Set_Variable    ${mapping}
+    ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping_to_use})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}
 
@@ -516,3 +518,18 @@ Normalize_Jsons_With_Bits_And_Compare
     ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    keys_with_bits=${keys_with_bits}
     ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    keys_with_bits=${keys_with_bits}
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
+
+Encode_Mapping
+    [Arguments]    ${mapping}
+    ${encoded_mapping} =    BuiltIn.Create Dictionary
+    FOR    ${key}    ${value}    IN    &{mapping}
+        ${encoded_value} =    Percent_Encode_String    ${value}
+        Collections.Set_To_Dictionary    ${encoded_mapping}    ${key}    ${encoded_value}
+    END
+    [Return]    ${encoded_mapping}
+
+Percent_Encode_String
+    [Arguments]    ${value}
+    [Documentation]    Percent encodes reserved characters in the given string so it can be used as part of url.
+    ${encoded} =    String.Replace_String_Using_Regexp    ${value}    :    %3A
+    [Return]    ${encoded}
