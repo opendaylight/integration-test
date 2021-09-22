@@ -41,7 +41,7 @@ ${N_PATHS_VALUE}    2
 &{DEFAULT_MAPPING}    ODLIP=${ODL_SYSTEM_IP}    EXAIP=${TOOLS_SYSTEM_IP}    NPATHS=${N_PATHS_VALUE}
 @{PATH_ID_LIST}    1    2    3
 ${NEXT_HOP_PREF}    100.100.100.
-${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
+${OPENCONFIG_RIB_URI}    /rests/data/openconfig-network-instance:network-instances/network-instance=global-bgp/openconfig-network-instance:protocols/protocol=openconfig-policy-types%3ABGP,example-bgp-rib
 ${NPATHS_SELM}    n-paths
 ${ALLPATHS_SELM}    all-paths
 ${ADDPATHCAP_SR}    send\\/receive
