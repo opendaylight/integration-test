@@ -238,7 +238,7 @@ Post_As_Xml_Templated
 Delete_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${location}=location
     [Documentation]    Resolve URI from folder, issue DELETE request.
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${location}    extension=uri    mapping=${mapping}
+    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${location}    extension=uri    mapping=${mapping}    percent_encode=True
     ${response_text} =    Delete_From_Uri    uri=${uri}    session=${session}    additional_allowed_status_codes=${additional_allowed_status_codes}    http_timeout=${http_timeout}
     [Return]    ${response_text}
 
@@ -331,7 +331,7 @@ Resolve_Volatiles_Path
 Get_Templated
     [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False    ${http_timeout}=${EMPTY}    ${log_response}=True
     [Documentation]    Resolve URI from folder, call Get_From_Uri, return response text.
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
+    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}    percent_encode=True
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${volatiles_list}=    Resolve_Volatiles_Path    ${folder}
     ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
@@ -342,7 +342,7 @@ Put_Templated
     [Arguments]    ${folder}    ${base_name}    ${extension}    ${content_type}    ${accept}    ${mapping}={}
     ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Resolve URI and data from folder, call Put_To_Uri, return response text.
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
+    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}    percent_encode=True
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
@@ -355,7 +355,7 @@ Post_Templated
     ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${additional_allowed_status_codes}=${NO_STATUS_CODES}
     ...    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${iter_j_offset}=0
     [Documentation]    Resolve URI and data from folder, call Post_To_Uri, return response text.
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
+    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}    percent_encode=True
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    name_prefix=post_    base_name=${base_name}    extension=${extension}    mapping=${mapping}
     ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}    iter_j_offset=${iter_j_offset}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
@@ -461,7 +461,7 @@ Join_Two_Headers
 
 Resolve_Text_From_Template_Folder
     [Arguments]    ${folder}    ${name_prefix}=${EMPTY}    ${base_name}=data    ${extension}=json    ${mapping}={}    ${iterations}=${EMPTY}
-    ...    ${iter_start}=1    ${iter_j_offset}=0    ${endline}=${\n}
+    ...    ${iter_start}=1    ${iter_j_offset}=0    ${endline}=${\n}    ${percent_encode}=False
     [Documentation]    Read a template from folder, strip endline, make changes according to mapping, return the result.
     ...    If \${iterations} value is present, put text together from "prolog", "item" and "epilog" parts,
     ...    where additional template variable ${i} goes from ${iter_start}, by one ${iterations} times.
@@ -469,9 +469,9 @@ Resolve_Text_From_Template_Folder
     ...    used to create non uniform data in order to be able to validate UPDATE operations.
     ...    POST (as opposed to PUT) needs slightly different data, \${name_prefix} may be used to distinguish.
     ...    (Actually, it is GET who formats data differently when URI is a top-level container.)
-    BuiltIn.Run_Keyword_And_Return_If    not "${iterations}"    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.${extension}    mapping=${mapping}
-    ${prolog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.prolog.${extension}    mapping=${mapping}
-    ${epilog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.epilog.${extension}    mapping=${mapping}
+    BuiltIn.Run_Keyword_And_Return_If    not "${iterations}"    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.${extension}    mapping=${mapping}    percent_encode=${percent_encode}
+    ${prolog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.prolog.${extension}    mapping=${mapping}    percent_encode=${percent_encode}
+    ${epilog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.epilog.${extension}    mapping=${mapping}    percent_encode=${percent_encode}
     # Even POST uses the same item template (except indentation), so name prefix is ignored.
     ${item_template} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${base_name}.item.${extension}    mapping=${mapping}
     ${items} =    BuiltIn.Create_List
@@ -488,7 +488,7 @@ Resolve_Text_From_Template_Folder
     [Return]    ${final_text}
 
 Resolve_Text_From_Template_File
-    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}    ${percent_encode}=False
     [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read and Log contents of file ${folder}.${ODL_STREAM}/${file_name},
     ...    remove endline, perform safe substitution, return result.
     ...    If no do it with the default ${folder}/${file_name}.
@@ -497,7 +497,9 @@ Resolve_Text_From_Template_File
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
-    ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
+    ${mapping_to_use} =    BuiltIn.Run_Keyword_If    ${percent_encode} == True    Encode_Mapping    ${mapping}
+    ...    ELSE    BuiltIn.Set_Variable    ${mapping}
+    ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping_to_use})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}
 
@@ -516,3 +518,19 @@ Normalize_Jsons_With_Bits_And_Compare
     ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    keys_with_bits=${keys_with_bits}
     ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    keys_with_bits=${keys_with_bits}
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
+
+Encode_Mapping
+    [Arguments]    ${mapping}
+    BuiltIn.Log    mapping: ${mapping}
+    ${encoded_mapping} =    BuiltIn.Create_Dictionary
+    FOR    ${key}    ${value}    IN    &{mapping}
+        ${encoded_value} =    Percent_Encode_String    ${value}
+        Collections.Set_To_Dictionary    ${encoded_mapping}    ${key}    ${encoded_value}
+    END
+    [Return]    ${encoded_mapping}
+
+Percent_Encode_String
+    [Arguments]    ${value}
+    [Documentation]    Percent encodes reserved characters in the given string so it can be used as part of url.
+    ${encoded} =    String.Replace_String_Using_Regexp    ${value}    :    %3A
+    [Return]    ${encoded}
