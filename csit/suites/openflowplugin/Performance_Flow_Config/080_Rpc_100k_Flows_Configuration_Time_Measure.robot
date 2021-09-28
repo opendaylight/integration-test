@@ -99,7 +99,7 @@ Delete Http Session And Store Plot Data
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    Get Request    session    ${RFC8040_TOPOLOGY_API=flow%3A1${RFC8040_OPERATIONAL_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}

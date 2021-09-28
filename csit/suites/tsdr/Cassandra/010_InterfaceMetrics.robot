@@ -38,34 +38,34 @@ Storing Statistics from Openflow REST
     [Documentation]    Store openflow PortStats metrics using REST.
     FOR    ${item}    IN    @{xpath}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A1    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:2    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A2    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:LOCAL    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3ALOCAL    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:1    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A2/node-connector=openflow%3A2%3A1    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:2    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A2/node-connector=openflow%3A2%3A2    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:3    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A2/node-connector=openflow%3A2%3A3    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/node-connector/openflow:2:LOCAL    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A2/node-connector=openflow%3A2%3ALOCAL    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:1    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A3/node-connector=openflow%3A3%3A1    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:2    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A3/node-connector=openflow%3A3%3A2    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
-        ${ret_val}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/node-connector/openflow:3:LOCAL    ${item}
+        ${ret_val}=    Get Stats XML    ${RFC8040_NODES_API}/node=openflow%3A3/node-connector=openflow%3A3%3ALOCAL    ${item}
         Append To List    ${xml_list}    ${ret_val}
         ${ret_val}=    Set Variable    -1
     END
@@ -75,25 +75,25 @@ Verification of InterfaceMetrics-Attributes on Cassandra Client
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
     FOR    ${list}    IN    @{INTERFACE_METRICS}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:1
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A1,NodeConnector:openflow%3A1%3A1
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:2
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A1,NodeConnector:openflow%3A1%3A2
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:LOCAL
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A1,NodeConnector:openflow%3A1%3ALOCAL
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:1
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A2,NodeConnector:openflow%3A2%3A1
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:2
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A2,NodeConnector:openflow%3A2%3A2
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:3
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A2,NodeConnector:openflow%3A2%3A3
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:2,NodeConnector:openflow:2:LOCAL
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A2 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A2,NodeConnector:openflow%3A2%3ALOCAL
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:1
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A3,NodeConnector:openflow%3A3%3A1
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:2
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A3,NodeConnector:openflow%3A3%3A2
         Append To List    ${tsdr_list}    ${ret_val1}
-        ${ret_val1}=    Extract From DB Table    grep NID=openflow:3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:3,NodeConnector:openflow:3:LOCAL
+        ${ret_val1}=    Extract From DB Table    grep NID=openflow%3A3 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow%3A3,NodeConnector:openflow%3A3%3ALOCAL
         Append To List    ${tsdr_list}    ${ret_val1}
     END
 

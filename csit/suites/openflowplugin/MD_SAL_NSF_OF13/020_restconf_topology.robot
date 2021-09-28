@@ -9,32 +9,32 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-@{node_list}      openflow:1    openflow:2    openflow:3
+@{node_list}      openflow%3A1    openflow%3A2    openflow%3A3
 
 *** Test Cases ***
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${node_list}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
     Log    ${resp.text}
 
 List all the links
     [Documentation]    List all the links in the topology.
-    ${body1}    Create Dictionary    dest-node=openflow:1    dest-tp=openflow:1:2
-    ${body2}    Create Dictionary    source-node=openflow:3    source-tp=openflow:3:3
-    ${link2}    Create Dictionary    link-id=openflow:3:3    destination=${body1}    source=${body2}
+    ${body1}    Create Dictionary    dest-node=openflow%3A1    dest-tp=openflow%3A1%3A2
+    ${body2}    Create Dictionary    source-node=openflow%3A3    source-tp=openflow%3A3%3A3
+    ${link2}    Create Dictionary    link-id=openflow%3A3%3A3    destination=${body1}    source=${body2}
     Set Suite Variable    ${link2}
-    ${body1}    Create Dictionary    dest-node=openflow:1    dest-tp=openflow:1:1
-    ${body2}    Create Dictionary    source-node=openflow:2    source-tp=openflow:2:3
-    ${link1}    Create Dictionary    link-id=openflow:2:3    destination=${body1}    source=${body2}
+    ${body1}    Create Dictionary    dest-node=openflow%3A1    dest-tp=openflow%3A1%3A1
+    ${body2}    Create Dictionary    source-node=openflow%3A2    source-tp=openflow%3A2%3A3
+    ${link1}    Create Dictionary    link-id=openflow%3A2%3A3    destination=${body1}    source=${body2}
     Set Suite Variable    ${link1}
-    ${body1}    Create Dictionary    dest-node=openflow:3    dest-tp=openflow:3:3
-    ${body2}    Create Dictionary    source-node=openflow:1    source-tp=openflow:1:2
-    ${link4}    Create Dictionary    link-id=openflow:1:2    destination=${body1}    source=${body2}
+    ${body1}    Create Dictionary    dest-node=openflow%3A3    dest-tp=openflow%3A3%3A3
+    ${body2}    Create Dictionary    source-node=openflow%3A1    source-tp=openflow%3A1%3A2
+    ${link4}    Create Dictionary    link-id=openflow%3A1%3A2    destination=${body1}    source=${body2}
     Set Suite Variable    ${link4}
-    ${body1}    Create Dictionary    dest-node=openflow:2    dest-tp=openflow:2:3
-    ${body2}    Create Dictionary    source-node=openflow:1    source-tp=openflow:1:1
-    ${link3}    Create Dictionary    link-id=openflow:1:1    destination=${body1}    source=${body2}
+    ${body1}    Create Dictionary    dest-node=openflow%3A2    dest-tp=openflow%3A2%3A3
+    ${body2}    Create Dictionary    source-node=openflow%3A1    source-tp=openflow%3A1%3A1
+    ${link3}    Create Dictionary    link-id=openflow%3A1%3A1    destination=${body1}    source=${body2}
     Set Suite Variable    ${link3}
     ${links}    Create List    ${link1}    ${link2}    ${link3}    ${link4}
     Wait Until Keyword Succeeds    10s    2s    Verify Links    ${links}
@@ -68,21 +68,21 @@ Remove Port
     [Tags]    exclude
     Write    sh ovs-vsctl del-port s2 s2-eth2
     Read Until    mininet>
-    @{list}    Create List    openflow:2:2
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    @{list}    Create List    openflow%3A2%3A2
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
 
 Add Port
     [Documentation]    Add port s2-eth2, new id 5
     [Tags]    exclude
     Write    sh ovs-vsctl add-port s2 s2-eth2
     Read Until    mininet>
-    @{list}    Create List    openflow:2:5
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    @{list}    Create List    openflow%3A2%3A5
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
 
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_TOPOLOGY_API=flow%3A1${RFC8040_OPERATIONAL_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.text}

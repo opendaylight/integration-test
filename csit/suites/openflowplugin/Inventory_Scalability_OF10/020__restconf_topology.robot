@@ -9,7 +9,7 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/network-topology:network-topology/topology/flow:1
+${REST_CONTEXT}    ${RFC8040_TOPOLOGY_API}=flow%3A1${RFC8040_OPERATIONAL_API}
 
 *** Test Cases ***
 Get Nodes Count

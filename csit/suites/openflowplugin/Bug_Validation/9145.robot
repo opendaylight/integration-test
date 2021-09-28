@@ -19,7 +19,7 @@ Start Mininet Multiple Connections
 
 Check Entity Owner Status And Find Owner and Successor
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_successor_list}
     [Teardown]    Report_Failure_Due_To_Bug    9145

@@ -22,7 +22,7 @@ Start Mininet Multiple Connections
 
 Check Entity Owner Status And Find Owner and Successor Before Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
     ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${original_successor_list}
@@ -102,7 +102,7 @@ Check Shards Status After Stop
 
 Check Entity Owner Status And Find Owner and Successor After Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor.
-    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    ${original_successor}    ${new_cluster_list}    after_stop=True
     ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
     BuiltIn.Set Suite Variable    ${new_owner}
     BuiltIn.Set Suite Variable    ${new_successor}
@@ -169,7 +169,7 @@ Check Shards Status After Start
 
 Check Entity Owner Status After Start
     [Documentation]    Check Entity Owner Status and identify owner and successor.
-    ${new_owner}    ${new_successors_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${new_owner}    ${new_successors_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
     BuiltIn.Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Start

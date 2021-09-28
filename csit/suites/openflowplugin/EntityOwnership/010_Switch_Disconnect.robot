@@ -82,11 +82,11 @@ Reconnecting Switch Scenario
 
 Disconnect Switchs Old Master
     [Arguments]    ${switch_name}
-    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
+    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}
     ${old_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_owner}_IP}
     OvsManager.Disconnect Switch From Controller And Verify Disconnected    ${switch_name}    ${old_master}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_master}
-    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}    after_stop=True
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}    ${old_successors}    after_stop=True
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -99,19 +99,19 @@ Reconnect Switchs Old Master
     [Arguments]    ${switch_name}
     OvsManager.Reconnect Switch To Controller And Verify Connected    ${switch_name}    ${old_master}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${Empty}
-    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
+    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
 
 Disconnect Switchs Slave
     [Arguments]    ${switch_name}
-    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
+    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}
     ${old_successor}=    Collections.Get From List    ${old_successors}    0
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_successor}_IP}
     OvsManager.Disconnect Switch From Controller And Verify Disconnected    ${switch_name}    ${old_slave}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_slave}
     ${tmp_candidates}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
     Collections.Remove Values From List    ${tmp_candidates}    ${old_successor}
-    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}    after_stop=True
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}    ${tmp_candidates}    after_stop=True
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -124,14 +124,14 @@ Reconnect Switchs Slave
     [Arguments]    ${switch_name}
     OvsManager.Reconnect Switch To Controller And Verify Connected    ${switch_name}    ${old_slave}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${Empty}
-    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
+    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A${idx}    ${active_member}
     BuiltIn.Should Be Equal    ${old_owner}    ${new_owner}
 
 Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
     [Documentation]    Checks if given node is different from actual master
     ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${successors}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
+    ${owner}    ${successors}=    ClusterManagement.Get Owner And Candidates For Device    openflow%3A${idx}    openflow    ${active_member}
     ${new_master}    BuiltIn.Set Variable    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Should Not Be Equal    ${old_master}    ${new_master}
     Return From Keyword    ${new_master}

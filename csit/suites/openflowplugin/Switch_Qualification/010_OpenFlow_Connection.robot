@@ -17,7 +17,7 @@ ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${TOOLS_SYSTEM_IP}
 ${SWITCH_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${ODL_SYSTEM_IP}    null
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
+${REST_CONTEXT}    ${RFC8040_NODES_API}
 
 *** Test Cases ***
 OF1.3 Connection Between Switch and Controller

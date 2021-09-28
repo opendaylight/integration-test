@@ -16,8 +16,8 @@ ${swnr}           17
 ${flnr}           17000
 ${swspread}       linear
 ${tabspread}      first
-${topourl}        /restconf/operational/network-topology:network-topology/topology/flow:1
-${invurl}         /restconf/operational/opendaylight-inventory:nodes
+${topourl}        ${RFC8040_TOPOLOGY_API=flow%3A1${RFC8040_OPERATIONAL_API}
+${invurl}         ${RFC8040_OPERATIONAL_NODES_API}
 @{cntls}          ${ODL_SYSTEM_IP}
 
 *** Test Cases ***
@@ -63,7 +63,7 @@ Stop Switches
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    Get Request    session    ${RFC8040_TOPOLOGY_API=flow%3A1${RFC8040_OPERATIONAL_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}

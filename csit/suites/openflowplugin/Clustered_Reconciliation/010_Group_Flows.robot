@@ -13,6 +13,7 @@ Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OvsManager.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${SWITCHES}       3
@@ -54,7 +55,7 @@ Check Flows In Switch
 
 Check Entity Owner Status And Find Owner and Successor Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_successor_list}
 
@@ -66,7 +67,7 @@ Disconnect Mininet From Owner
 
 Check Entity Owner Status And Find Owner and Successor After Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${new_owner}    ${new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ${new_owner}    ${new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1
     ...    1    ${new_cluster_list}    after_stop=True
     ${owner_list}=    BuiltIn.Create List    ${original_owner}    ${new_owner}
     BuiltIn.Set Suite Variable    ${owner_list}
@@ -108,7 +109,7 @@ Reconnect Mininet To Owner
 
 Check Entity Owner Status And Find Owner and Successor After Reconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
 
 Add Flows And Groups After Owner Reconnect
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
@@ -144,7 +145,7 @@ Disconnect Mininet From Successor
 
 Check Entity Owner Status And Find New Owner and Successor After Disconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${current_owner}    ${current_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ${current_owner}    ${current_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1
     ...    1    ${owner_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${current_owner}
     BuiltIn.Set Suite Variable    ${current_successor_list}
@@ -156,7 +157,7 @@ Disconnect Mininet From Current Owner
 
 Check Entity Owner Status And Find Current Owner and Successor After Disconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${current_new_owner}    ${current_new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ${current_new_owner}    ${current_new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1
     ...    1    ${original_owner_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${current_new_owner}
     BuiltIn.Set Suite Variable    ${current_new_successor_list}
@@ -232,7 +233,7 @@ Check Flows In Switch After Mininet Reconnects
 
 Check Entity Owner Status And Find Owner and Successor Before Owner Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    1
     ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${original_successor_list}
@@ -258,7 +259,7 @@ Check Shards Status After Stop
 
 Check Entity Owner Status And Find Owner and Successor After Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor.
-    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1    ${original_successor}    ${new_cluster_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${new_owner}
 
 Check Stats Are Not Frozen After Owner Stop
@@ -287,7 +288,7 @@ Start Old Owner Instance
 
 Check Entity Owner Status And Find Owner and Successor After Start Owner
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${owner}    ${successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ${owner}    ${successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow%3A1
     ...    1
 
 Check Linear Topology After Owner Restart
@@ -375,7 +376,7 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Run_Bash_Command_On_List_Or_All    ${command}
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     RequestsLibrary.Delete All Sessions
 
 Add Groups And Flows On Member
@@ -398,9 +399,9 @@ Remove Single Group And Flow On Member
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-        RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/table=0/flow=1
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1000
     END
 
 Check Flow Stats Are Not Frozen
@@ -417,7 +418,7 @@ Extract Flow Duration
     [Arguments]    ${member_index}
     [Documentation]    Extract duration for flow 1 in switch 1.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    headers=${headers}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0/flow=1?content=nonconfig    headers=${headers}
     Log    ${resp.content}
     ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
     ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow
