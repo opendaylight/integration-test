@@ -93,10 +93,10 @@ Create And Remove Flow
     Call Method    ${test_switch}    create_flow_match_elements    ${flow.xml}
     Log    ${test_switch.flow_validations}
     ${dpid_id}=    Get Switch Datapath ID    ${test_switch}
-    Wait Until Keyword Succeeds    3s    1s    Add Flow To Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}
+    Wait Until Keyword Succeeds    3s    1s    Add Flow To Controller And Verify    ${flow.xml}    openflow%3A${dpid_id}    ${flow.table_id}
     ...    ${flow.id}
     Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
-    Wait Until Keyword Succeeds    3s    1s    Remove Flow From Controller And Verify    openflow:${dpid_id}    ${flow.table_id}    ${flow.id}
+    Wait Until Keyword Succeeds    3s    1s    Remove Flow From Controller And Verify    openflow%3A${dpid_id}    ${flow.table_id}    ${flow.id}
     Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
     ...    false
 
