@@ -41,7 +41,6 @@ Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 Resource          ../variables/Variables.robot
 
 *** Variables ***
-${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
 ${RESTCONF_URI}    rests
 ${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value

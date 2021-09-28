@@ -39,7 +39,7 @@ Test Add Flows Group 0
         # Lets wait for ofp to collect stats
     END
     ${flows}=    Get Length    ${flowlist0}
-    Wait Until Keyword Succeeds    30s    2s    FlowLib.Check Flow Stats Are Available    openflow:1    ${flows}
+    Wait Until Keyword Succeeds    30s    2s    FlowLib.Check Flow Stats Are Available    openflow%3A1    ${flows}
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>

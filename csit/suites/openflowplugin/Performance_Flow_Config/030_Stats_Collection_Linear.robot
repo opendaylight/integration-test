@@ -6,18 +6,17 @@ Library           OperatingSystem
 Library           Collections
 Library           XML
 Library           SSHLibrary
-Variables         ../../../../csit/variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../../csit/libraries/Common.py
 Library           ../../../../csit/libraries/ScaleClient.py
+Variables         ../../../../csit/variables/Variables.py
+Resource          ../../../../csit/variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${swnr}           17
 ${flnr}           17000
 ${swspread}       linear
 ${tabspread}      linear
-${topourl}        /restconf/operational/network-topology:network-topology/topology/flow:1
-${invurl}         /restconf/operational/opendaylight-inventory:nodes
 @{cntls}          ${ODL_SYSTEM_IP}
 
 *** Test Cases ***
@@ -63,7 +62,7 @@ Stop Switches
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}

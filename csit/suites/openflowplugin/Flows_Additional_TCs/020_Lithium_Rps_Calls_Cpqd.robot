@@ -10,7 +10,7 @@ Resource          ../../../libraries/FlowLib.robot
 Variables         ../../../variables/ofplugin/RpcVariables.py
 
 *** Variables ***
-${send_update_table_url}    /restconf/operations/sal-table:update-table
+${send_update_table_url}    /rests/operations/sal-table:update-table
 ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch user
 
 *** Test Cases ***
