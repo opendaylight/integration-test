@@ -7,6 +7,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 @{node_list}      openflow:1    openflow:2    openflow:3
@@ -14,16 +15,16 @@ Resource          ../../../libraries/Utils.robot
 *** Test Cases ***
 Get Stats for all nodes
     [Documentation]    Get the stats for all nodes
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}    ${node_list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${node_list}
 
 Get Stats for node 1
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:1
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A1
 
 Get Stats for node 2
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:2
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A2
 
 Get Stats for node 3
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:3
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A3

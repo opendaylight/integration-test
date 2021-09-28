@@ -9,7 +9,7 @@ Resource          ../variables/netvirt/Variables.robot
 
 *** Keywords ***
 Get Model Dump
-    [Arguments]    ${controller_ip}    ${data_models}=@{internal_data_models}
+    [Arguments]    ${controller_ip}    ${data_models}=@{internal_data_models}    ${restconf_root}=restconf
     [Documentation]    Will output a list of mdsal models using ${data_models} list
     # while feature request in bug 7892 is not done, we will quickly timeout and not retry the model dump get
     # request. This is because when it's done in a failed cluster state, it could take 20s for the reesponse to
@@ -18,7 +18,7 @@ Get Model Dump
     # pass a timeout to restconf
     Create Session    model_dump_session    http://${controller_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=1    max_retries=0
     FOR    ${model}    IN    @{data_models}
-        ${resp}=    RequestsLibrary.Get Request    model_dump_session    restconf/${model}
+        ${resp}=    RequestsLibrary.Get Request    model_dump_session    ${restconf_root}/${model}
         ${pretty_output}=    To Json    ${resp.text}    pretty_print=True
         Log    ${pretty_output}
     END
