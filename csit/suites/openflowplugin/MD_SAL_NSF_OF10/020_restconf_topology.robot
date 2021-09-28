@@ -6,6 +6,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
@@ -14,8 +15,8 @@ Resource          ../../../libraries/Utils.robot
 *** Test Cases ***
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${node_list}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
     Log    ${resp.text}
 
 List all the links
@@ -69,7 +70,7 @@ Remove Port
     Write    sh ovs-vsctl del-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:2
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
 
 Add Port
     [Documentation]    Add port s2-eth2, new id 5
@@ -77,12 +78,12 @@ Add Port
     Write    sh ovs-vsctl add-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:5
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
 
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.text}
