@@ -20,6 +20,7 @@ ${SWITCHES}       1
 ${START_CMD}      sudo mn --topo linear,${SWITCHES}
 @{CONTROLLER_NODES}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
 @{cntls_idx_list}    ${1}    ${2}    ${3}
+${ENTITY_OWNER_URI}    rests/data/entity-owners:entity-owners
 
 *** Test Cases ***
 Start Mininet To All Nodes
@@ -158,6 +159,7 @@ Isolate Controller From The Cluster
 Check No Device Owners In Controller
     [Documentation]    Check there is no owners in controllers
     ${session} =    Resolve_Http_Session_For_Member    member_index=${active_member}
+    # FIXME: The URI only works for Silicon & earlier versions. This should be replaced with new RPC calls for Phosphorus.
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
     #ofp-topology-manager entity is introduced in the OPNFLWPLUG-1022 bug fix, and this entity will
     #always be present in the EOS output. All 3 controller nodes will be candidate, so EOS output will

@@ -11,6 +11,7 @@ Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../libraries/DataModels.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${XMLSDIR}        ${CURDIR}/../../../../csit/variables/openflowplugin
@@ -19,7 +20,7 @@ ${XMLSDIR}        ${CURDIR}/../../../../csit/variables/openflowplugin
 @{GROUP_ID}       1    2    3
 ${FLAG_MSG}       "bundle-based-reconciliation-enabled configuration property was changed to 'true'"
 ${STATIC_FLOW}    table=91
-@{DATA_MODELS}    config/opendaylight-inventory:nodes    operational/opendaylight-inventory:nodes
+@{DATA_MODELS}    data/opendaylight-inventory:nodes?${RFC8040_CONFIG_CONTENT}    data/opendaylight-inventory:nodes?${RFC8040_OPERATIONAL_CONTENT}
 
 *** Test Cases ***
 TC01_Reconciliation check after switch restart
@@ -80,7 +81,7 @@ Start Suite
 
 End Suite
     [Documentation]    Run at end of the suite
-    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     KarafKeywords.Issue_Command_On_Karaf_Console    log:set INFO org.opendaylight.openflowplugin.applications.frm.impl.FlowNodeReconciliationImpl
     SSHLibrary.Close All Connections
 
@@ -91,7 +92,7 @@ Configure DPN
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-controller ${INTEGRATION_BRIDGE} tcp:${ODL_SYSTEM_IP}:6653
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set bridge ${INTEGRATION_BRIDGE} protocols=OpenFlow13
-    Wait Until Keyword Succeeds    20s    2s    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${DATA_MODELS}
+    Wait Until Keyword Succeeds    20s    2s    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${DATA_MODELS}    ${RFC8040_RESTCONF_ROOT}
 
 Push Static Flow
     [Arguments]    ${ip}
@@ -111,7 +112,7 @@ Push Flow Via Restcall
 Push Groups Via Restcall
     [Arguments]    ${switch_idx}    ${index}
     ${GROUP_BODY}    OperatingSystem.Get File    ${XMLSDIR}/${GROUPFILE[${index}]}
-    ${node_id}    BuiltIn.Set Variable    openflow:${switch_idx}
+    ${node_id}    BuiltIn.Set Variable    openflow%3A${switch_idx}
     ${group_id}    BuiltIn.Set Variable    ${GROUP_ID[${index}]}
     FlowLib.Add Group To Controller And Verify    ${GROUP_BODY}    ${node_id}    ${group_id}
-    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${OPERATIONAL_NODES_API}/node/${node_id}/group/${group_id}
+    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}?content=nonconfig
