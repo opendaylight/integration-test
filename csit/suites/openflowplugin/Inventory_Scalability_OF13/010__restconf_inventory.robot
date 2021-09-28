@@ -6,9 +6,9 @@ Library           Collections
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
 *** Test Cases ***
 Get list of nodes
@@ -21,7 +21,7 @@ Get list of nodes
 Get nodeconnector for the root node
     [Documentation]    Get the inventory for the root node
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:1
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A1?${RFC8040_OPERATIONAL_CONTENT}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    30s    2s    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.text}
@@ -43,7 +43,7 @@ Get Stats for a node
 *** Keywords ***
 Check Every Nodes
     [Arguments]    ${numnodes}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
         Should Contain    ${resp.text}    openflow:${IND}
@@ -52,7 +52,7 @@ Check Every Nodes
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${IND}?${RFC8040_OPERATIONAL_CONTENT}
         Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
         Should Contain    ${resp.text}    flow-capable-node-connector-statistics
@@ -62,7 +62,7 @@ Check Every Nodes Stats
 Check Every Nodes Nodeconnector
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    2    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A1${IND}?${RFC8040_OPERATIONAL_CONTENT}
         Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
         Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.text}
