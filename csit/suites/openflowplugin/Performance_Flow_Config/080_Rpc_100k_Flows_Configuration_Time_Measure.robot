@@ -5,10 +5,11 @@ Suite Teardown    Delete Http Session And Store Plot Data
 Library           OperatingSystem
 Library           XML
 Library           SSHLibrary
-Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/ScaleClient.py
+Variables         ../../../variables/Variables.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${swnr}           63
@@ -99,7 +100,7 @@ Delete Http Session And Store Plot Data
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}

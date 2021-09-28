@@ -91,7 +91,7 @@ ${GET_CONFIGURATION_URI}    /restconf/operational/configuration:configurationRec
 ${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
 &{HEADERS}        Content-Type=application/json    # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
-&{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. TODO: Hide into more specific Resource if possible.
+&{HEADERS_YANG_JSON}    Content-Type=application/json    # Content type for JSON data, used to work around Requests auto-serialization. FIXME: keep it as 'application/json' to make it work for both Bierman02 & RFC8040 URLs. Change it to RFC8040 media type once RFC8040 migration is completed.
 &{HEADERS_YANG_RFC8040_JSON}    Content-Type=application/yang-data+json
 &{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
 ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console login.
