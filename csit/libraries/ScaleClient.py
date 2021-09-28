@@ -171,8 +171,8 @@ def _prepare_add(cntl, method, flows, template=None):
     fl1 = flows[0]
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
-    url += "/restconf/config/opendaylight-inventory:nodes/node/openflow:" + str(sw)
-    url += "/table/" + str(tab) + "/flow/" + str(fl)
+    url += "/rests/data/opendaylight-inventory:nodes/node/openflow%3A" + str(sw)
+    url += "/table=" + str(tab) + "/flow=" + str(fl)
     flow = copy.deepcopy(template["flow"][0])
     flow["cookie"] = fl
     flow["flow-name"] = "TestFlow-%d" % fl
@@ -211,9 +211,9 @@ def _prepare_table_add(cntl, method, flows, template=None):
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
     url += (
-        "/restconf/config/opendaylight-inventory:nodes/node/openflow:"
+        "/rests/data/opendaylight-inventory:nodes/node/openflow%3A"
         + str(sw)
-        + "/table/"
+        + "/table="
         + str(tab)
     )
     fdets = []
@@ -256,8 +256,8 @@ def _prepare_delete(cntl, method, flows, template=None):
     fl1 = flows[0]
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
-    url += "/restconf/config/opendaylight-inventory:nodes/node/openflow:" + str(sw)
-    url += "/table/" + str(tab) + "/flow/" + str(fl)
+    url += "/rests/data/opendaylight-inventory:nodes/node/openflow%3A" + str(sw)
+    url += "/table=" + str(tab) + "/flow=" + str(fl)
     req = requests.Request(
         "DELETE",
         url,
@@ -284,7 +284,7 @@ def _prepare_rpc_item(cntl, method, flows, template=None):
     """
     f1 = flows[0]
     sw, tab, fl, ip = f1
-    url = "http://" + cntl + ":" + "8181/restconf/operations/sal-bulk-flow:" + method
+    url = "http://" + cntl + ":" + "8181/rests/operations/sal-bulk-flow:" + method
     fdets = []
     for sw, tab, fl, ip in flows:
         flow = copy.deepcopy(template["input"]["bulk-flow-item"][0])
@@ -326,7 +326,7 @@ def _prepare_ds_item(cntl, method, flows, template=None):
     """
     f1 = flows[0]
     sw, tab, fl, ip = f1
-    url = "http://" + cntl + ":" + "8181/restconf/operations/sal-bulk-flow:" + method
+    url = "http://" + cntl + ":" + "8181/rests/operations/sal-bulk-flow:" + method
     fdets = []
     for sw, tab, fl, ip in flows:
         flow = copy.deepcopy(template["input"]["bulk-flow-item"][0])
@@ -686,7 +686,7 @@ def _get_operational_inventory_of_switches(controller):
     url = (
         "http://"
         + controller
-        + ":8181/restconf/operational/opendaylight-inventory:nodes"
+        + ":8181/rests/data/opendaylight-inventory:nodes?content=nonconfig"
     )
     rsp = requests.get(
         url,
@@ -697,11 +697,11 @@ def _get_operational_inventory_of_switches(controller):
     if rsp.status_code != 200:
         return None
     inv = json.loads(rsp.content)
-    if "nodes" not in inv:
+    if "opendaylight-inventory:nodes" not in inv:
         return None
-    if "node" not in inv["nodes"]:
+    if "node" not in inv["opendaylight-inventory:nodes"]:
         return []
-    inv = inv["nodes"]["node"]
+    inv = inv["opendaylight-inventory:nodes"]["node"]
     switches = [sw for sw in inv if "openflow:" in sw["id"]]
     return switches
 
