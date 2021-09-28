@@ -10,6 +10,7 @@ Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/ScaleClient.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${swnr}           16
@@ -122,6 +123,6 @@ Check Flows Inventory
     Should Be True    ${res}
 
 Check No Switches Inventory
-    ${resp}=    Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.content}
     Should Be Equal As Strings    '${resp.content}'    '{"nodes":{}}'

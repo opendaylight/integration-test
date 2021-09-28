@@ -8,6 +8,7 @@ Library           ../../../libraries/ScaleClient.py
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -86,7 +87,7 @@ Stop Mininet And Verify
 Delete All Flows
     [Documentation]    100K Flows deleted and verify.
     ${config_datastore_delete_start_time}=    DateTime.Get Current Date    result_format=timestamp
-    ClusterManagement.Delete From Member    ${CONFIG_NODES_API}    1
+    ClusterManagement.Delete From Member    ${RFC8040_NODES_API}    1
     ${config_datastore_delete_end_time}=    Get Current Date    result_format=timestamp
     ${config_datastore_delete_time}=    Subtract Date From Date    ${config_datastore_delete_end_time}    ${config_datastore_delete_start_time}
     ${config_datastore_delete_rate}=    Evaluate    ${flow_count} / ${config_datastore_delete_time}

@@ -15,7 +15,7 @@ import traceback
 
 
 def _parse_stdout(stdout):
-    """ Transforms stdout to dict """
+    """Transforms stdout to dict"""
     text = stdout.replace(" ", "")
     text = text.replace("\r", "")
     pat = re.compile(r"(?P<key>\w+):(?P<value>.+)")

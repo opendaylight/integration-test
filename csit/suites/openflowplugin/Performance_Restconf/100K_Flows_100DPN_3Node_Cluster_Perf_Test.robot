@@ -101,7 +101,7 @@ Stop Mininet Connected To Follower Node1 After Reconcilliation
 Delete All Flows From Follower Node2
     [Documentation]    100K Flows deleted via Follower Node2 and verify it gets applied in all instances.
     ${config_datastore_delete_start_time}=    Get Current Date    result_format=timestamp
-    ClusterManagement.Delete From Member    ${CONFIG_NODES_API}    ${Follower_Node_2}
+    ClusterManagement.Delete From Member    ${RFC8040_NODES_API}    ${Follower_Node_2}
     ${config_datastore_delete_end_time}=    Get Current Date    result_format=timestamp
     ${config_datastore_delete_time}=    Subtract Date From Date    ${config_datastore_delete_end_time}    ${config_datastore_delete_start_time}
     ${config_datastore_delete_rate}=    Evaluate    ${flow_count} / ${config_datastore_delete_time}

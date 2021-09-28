@@ -6,13 +6,14 @@ Resource          ClusterManagement.robot
 Resource          MininetKeywords.robot
 Resource          Utils.robot
 Variables         ../variables/Variables.py
+Resource          ../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
 @{SHARD_CONF_LIST}    inventory    topology    default
-${config_table_0}    ${CONFIG_NODES_API}/node/openflow:1/table/0
-${operational_table_0}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0
-${operational_port_1}    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1
+${config_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0
+${operational_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0
+${operational_port_1}    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector/openflow%3A1%3A1
 
 *** Keywords ***
 Get InventoryConfig Shard Status
@@ -53,7 +54,7 @@ Check OpenFlow Network Operational Information For Sample Topology
     ...    Inventory should show 1x node_id per device 1x node_id per connector. Topology should show 2x node_id per device + 3x node_id per connector
     ...    + 5x node_id per link termination. TODO: A Keyword that can calculate this based on mininet topology.
     ${dictionary}    Create Dictionary    openflow:1=4    openflow:2=5    openflow:3=5
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_NODES_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_NODES_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
@@ -61,8 +62,8 @@ Check No OpenFlow Network Operational Information
     [Arguments]    ${controller_index_list}=${EMPTY}
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances in ${controller_index_list}.
     ${dictionary}    Create Dictionary    openflow=0
-    CompareStream.Run_Keyword_If_At_Least_Neon    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_No_Content_Member_List_Or_All    uri=${OPERATIONAL_NODES_API}    member_index_list=${controller_index_list}
-    CompareStream.Run_Keyword_If_At_Most_Fluorine    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_NODES_API}    dictionary=${dictionary}
+    CompareStream.Run_Keyword_If_At_Least_Neon    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_No_Content_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_NODES_API}    member_index_list=${controller_index_list}
+    CompareStream.Run_Keyword_If_At_Most_Fluorine    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_NODES_API}    dictionary=${dictionary}
     ...    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow=0
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
@@ -184,7 +185,7 @@ Check Number Of Flows On Member
     [Arguments]    ${flows}    ${member_index}=1
     [Documentation]    Check number of flows in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "priority"
@@ -194,7 +195,7 @@ Check Number Of Groups On Member
     [Arguments]    ${groups}    ${member_index}=1
     [Documentation]    Check number of groups in the inventory.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.text}    "group-type"
