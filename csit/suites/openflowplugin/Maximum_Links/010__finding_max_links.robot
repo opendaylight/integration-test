@@ -6,6 +6,7 @@ Library           OperatingSystem
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/WorkflowsOpenFlow.robot
 Resource          ../../../libraries/KarafKeywords.robot
+Test Timeout      15 minutes    # Added for testing
 
 *** Variables ***
 @{SWITCH_LIST}    ${16}    ${32}    ${40}    ${48}    ${52}

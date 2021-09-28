@@ -10,8 +10,8 @@ Resource          ../../../libraries/FlowLib.robot
 Variables         ../../../variables/ofplugin/RpcVariables.py
 
 *** Variables ***
-${send_barrier_url}    /restconf/operations/flow-capable-transaction:send-barrier
-${send_echo_url}    /restconf/operations/sal-echo:send-echo
+${send_barrier_url}    /rests/operations/flow-capable-transaction:send-barrier
+${send_echo_url}    /rests/operations/sal-echo:send-echo
 
 *** Test Cases ***
 Sending Barrier
