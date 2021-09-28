@@ -41,7 +41,6 @@ Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 Resource          ../variables/Variables.robot
 
 *** Variables ***
-${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
 ${RESTCONF_URI}    rests
 ${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
@@ -673,6 +672,15 @@ Put_As_Json_And_Check_Member_List_Or_All
     ...    Then check data is replicated in all or some members defined in ${member_index_list}.
     ${response_text} =    Put_As_Json_To_Member    uri=${uri}    data=${data}    member_index=${member_index}
     Wait Until Keyword Succeeds    5s    1s    Check_Json_Member_List_Or_All    uri=${uri}    expected_data=${data}    member_index_list=${member_index_list}
+    [Return]    ${response_text}
+
+Put_As_Json_And_Check_Member_List_Or_All_RFC8040
+    # FIXME: merge this keyword with Bierman02 version above when OVSDB test is migrated to RFC8040
+    [Arguments]    ${uri}    ${data}    ${member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    Send a PUT with the supplied uri ${uri} and body ${data} to member ${member_index}.
+    ...    Then check data is replicated in all or some members defined in ${member_index_list}.
+    ${response_text} =    Put_As_Json_To_Member    uri=${uri}    data=${data}    member_index=${member_index}
+    Wait Until Keyword Succeeds    5s    1s    Check_Json_Member_List_Or_All    uri=${uri}?content=config    expected_data=${data}    member_index_list=${member_index_list}
     [Return]    ${response_text}
 
 Put_As_Json_To_Member
