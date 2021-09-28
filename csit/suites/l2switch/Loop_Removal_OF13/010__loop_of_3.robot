@@ -4,6 +4,7 @@ Suite Setup       Start Suite
 Suite Teardown    Utils.Stop Mininet
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -13,31 +14,31 @@ ${DISCARD}        "stp-status-aware-node-connector:status":"discarding"
 *** Test Cases ***
 Check Stats for node 1
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:1
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A1
 
 Check Stats for node 2
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:2
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A2
 
 Check Stats for node 3
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:3
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A3
 
 Check Ports
     [Documentation]    Check all ports are present
     @{list}    Create List    openflow:1:1    openflow:1:2    openflow:1:3    openflow:2:1    openflow:2:2
     ...    openflow:2:3    openflow:3:1    openflow:3:2    openflow:3:3
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${list}
 
 Check Ports STP status
     [Documentation]    Check the stp status of the ports (forwarding/discarding)
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${DISCARD}    2
 
 Check Flows
     [Documentation]    Check all flows are present
     [Tags]    bug 6984    bug
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    "output-node-connector"    16
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    "output-node-connector"    16
     [Teardown]    Report_Failure_Due_To_Bug    6984
 
 Ping Test
@@ -50,7 +51,7 @@ Link Down
     Write    link s1 s2 down
     Read Until    mininet>
     @{list}    Create List    ${DISCARD}
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${list}
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Up
@@ -58,8 +59,8 @@ Link Up
     [Tags]    exclude
     Write    link s1 s2 up
     Read Until    mininet>
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${DISCARD}    2
     # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
     # it produces a packet storm in mininet that makes the test unresponsive.
     Sleep    1
@@ -77,8 +78,8 @@ Add Port
     [Tags]    exclude
     Write    sh ovs-vsctl add-port s1 s1-eth2 -- set interface s1-eth2 ofport=2
     Read Until    mininet>
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    ${DISCARD}    2
     # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
     # it produces a packet storm in mininet that makes the test unresponsive.
     Sleep    1

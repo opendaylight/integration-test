@@ -11,6 +11,7 @@ Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../libraries/DataModels.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${XMLSDIR}        ${CURDIR}/../../../../csit/variables/openflowplugin
@@ -80,7 +81,7 @@ Start Suite
 
 End Suite
     [Documentation]    Run at end of the suite
-    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     KarafKeywords.Issue_Command_On_Karaf_Console    log:set INFO org.opendaylight.openflowplugin.applications.frm.impl.FlowNodeReconciliationImpl
     SSHLibrary.Close All Connections
 
@@ -111,7 +112,7 @@ Push Flow Via Restcall
 Push Groups Via Restcall
     [Arguments]    ${switch_idx}    ${index}
     ${GROUP_BODY}    OperatingSystem.Get File    ${XMLSDIR}/${GROUPFILE[${index}]}
-    ${node_id}    BuiltIn.Set Variable    openflow:${switch_idx}
+    ${node_id}    BuiltIn.Set Variable    openflow%3A${switch_idx}
     ${group_id}    BuiltIn.Set Variable    ${GROUP_ID[${index}]}
     FlowLib.Add Group To Controller And Verify    ${GROUP_BODY}    ${node_id}    ${group_id}
-    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${OPERATIONAL_NODES_API}/node/${node_id}/group/${group_id}
+    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}?content=nonconfig

@@ -4,6 +4,7 @@ Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCON
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -17,15 +18,15 @@ ${IP_3}           10.0.0.3
 *** Test Cases ***
 Check Stats for node 1
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:1
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A1
 
 Check Stats for node 2
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:2
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A2
 
 Check Stats for node 3
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:3
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow%3A3
 
 Check Switch Links
     [Documentation]    Get the topology and check links
@@ -63,7 +64,7 @@ Link Down
     Write    link s1 h1 down
     Read Until    mininet>
     @{list}    Create List    "link-down":true
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A1?content=nonconfig   ${list}
     @{list}    Create List    ${MAC_1}
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
@@ -73,7 +74,7 @@ Link Up
     Write    link s1 h1 up
     Read Until    mininet>
     @{list}    Create List    "link-down":false
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A1?content=nonconfig   ${list}
     Write    pingall
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
@@ -92,7 +93,7 @@ Add Port
     Write    sh ovs-vsctl add-port s1 s1-eth1 -- set interface s1-eth1 ofport=1
     Read Until    mininet>
     @{list}    Create List    "link-down":false
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A1?content=nonconfig   ${list}
     Write    pingall
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1

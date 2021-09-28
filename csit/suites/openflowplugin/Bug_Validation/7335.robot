@@ -7,6 +7,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
@@ -28,7 +29,8 @@ Update Flow With Invalid Match And Check It Is Not In Operational DS
     FlowLib.Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile2}
     FlowLib.Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${data}
     FlowLib.Check Config Flow    ${True}    ${data}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}?content=nonconfig
     [Teardown]    Report_Failure_Due_To_Bug    7335
 
 *** Keywords ***
@@ -41,6 +43,6 @@ Initialization Phase
 
 Final Phase
     [Documentation]    Stops mininet.
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     RequestsLibrary.Delete All Sessions

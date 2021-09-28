@@ -10,6 +10,7 @@ Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${ODL_OF_PORT1}    6653
@@ -46,7 +47,7 @@ Initialization Phase
 
 Final Phase
     [Documentation]    Stops mininet.
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     RequestsLibrary.Delete All Sessions
 
