@@ -11,6 +11,7 @@ Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 Resource          ${CURDIR}/../variables/Variables.robot
+Resource          ${CURDIR}/../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
@@ -85,7 +86,7 @@ Check Nodes Stats
     [Arguments]    ${node}    ${session}=session
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/${node}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${RFC8040_NODES_API}/node=${node}?${RFC8040_OPERATIONAL_CONTENT}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.text}    flow-capable-node-connector-statistics
     Should Contain    ${resp.text}    flow-table-statistics
@@ -269,6 +270,11 @@ Verify Controller Has No Null Pointer Exceptions
     [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
+
+Verify Controller Has No Runtime Exceptions
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Will execute any tests to verify the controller is not having any runtime eceptions.
+    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.RuntimeException
 
 Get Epoch Time
     [Arguments]    ${time}

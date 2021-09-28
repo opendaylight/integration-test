@@ -6,8 +6,9 @@ Library           OperatingSystem
 Library           XML
 Library           Process
 Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${switches}       25
@@ -43,7 +44,7 @@ Start Http Session
 Are Switches Connected
     [Arguments]    ${switches}
     [Documentation]    Checks Topology Contains a fix number ${switches} of switces.
-    ${resp}=    RequestsLibrary.Get Request    tcsession    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    RequestsLibrary.Get Request    tcsession    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${switches}
