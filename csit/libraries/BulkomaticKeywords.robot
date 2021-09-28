@@ -6,9 +6,9 @@ Resource          Utils.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
-${ADD_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:flow-test
-${GET_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:read-flow-test
-${ADD_TABLE_NODEs_API}    /restconf/operations/sal-bulk-flow:table-test
+${ADD_BULK_CONFIG_NODES_API}    /rests/operations/sal-bulk-flow:flow-test
+${GET_BULK_CONFIG_NODES_API}    /rests/operations/sal-bulk-flow:read-flow-test
+${ADD_TABLE_NODEs_API}    /rests/operations/sal-bulk-flow:table-test
 ${jolokia_write_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/WriteOpStatus
 ${jolokia_read_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/ReadOpStatus
 ${jolokia_flow_count_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/FlowCount

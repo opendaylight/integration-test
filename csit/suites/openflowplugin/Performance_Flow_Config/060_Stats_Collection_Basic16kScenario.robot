@@ -10,6 +10,7 @@ Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/ScaleClient.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${swnr}           16
@@ -111,7 +112,7 @@ Delete Http Session
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}
@@ -122,6 +123,6 @@ Check Flows Inventory
     Should Be True    ${res}
 
 Check No Switches Inventory
-    ${resp}=    Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.content}
     Should Be Equal As Strings    '${resp.content}'    '{"nodes":{}}'
