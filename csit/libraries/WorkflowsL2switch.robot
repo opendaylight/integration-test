@@ -36,6 +36,8 @@ Workflow Single Switch Multiple Hosts
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller is dead    ${host_discover_time}
     ${status}    ${result}    BuiltIn.Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${host_discover_time}
+    ${status}    ${result}    BuiltIn.Run Keyword And Ignore Error    Utils.Verify Controller Has No Runtime Exceptions    ${ODL_SYSTEM_IP}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has RuntimeException    ${topology_discover_time}
     Log To Console    Check number of hosts in topology is ${hosts}
     ${status}    ${result}    BuiltIn.Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${hosts}    2s    FlowLib.Check Number Of Hosts
     ...    ${hosts}

@@ -32,29 +32,27 @@ class Counter(object):
 
 _spreads = ["gauss", "linear", "first"]  # possible defined spreads at the moment
 _default_flow_template_json = {  # templease used for config datastore
-    u"flow": [
+    "flow": [
         {
-            u"hard-timeout": 65000,
-            u"idle-timeout": 65000,
-            u"cookie_mask": 4294967295,
-            u"flow-name": u"FLOW-NAME-TEMPLATE",
-            u"priority": 2,
-            u"strict": False,
-            u"cookie": 0,
-            u"table_id": 0,
-            u"installHw": False,
-            u"id": u"FLOW-ID-TEMPLATE",
-            u"match": {
-                u"ipv4-destination": u"0.0.0.0/32",
-                u"ethernet-match": {u"ethernet-type": {u"type": 2048}},
+            "hard-timeout": 65000,
+            "idle-timeout": 65000,
+            "cookie_mask": 4294967295,
+            "flow-name": "FLOW-NAME-TEMPLATE",
+            "priority": 2,
+            "strict": False,
+            "cookie": 0,
+            "table_id": 0,
+            "installHw": False,
+            "id": "FLOW-ID-TEMPLATE",
+            "match": {
+                "ipv4-destination": "0.0.0.0/32",
+                "ethernet-match": {"ethernet-type": {"type": 2048}},
             },
-            u"instructions": {
-                u"instruction": [
+            "instructions": {
+                "instruction": [
                     {
-                        u"order": 0,
-                        u"apply-actions": {
-                            u"action": [{u"drop-action": {}, u"order": 0}]
-                        },
+                        "order": 0,
+                        "apply-actions": {"action": [{"drop-action": {}, "order": 0}]},
                     }
                 ]
             },
@@ -171,8 +169,8 @@ def _prepare_add(cntl, method, flows, template=None):
     fl1 = flows[0]
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
-    url += "/restconf/config/opendaylight-inventory:nodes/node/openflow:" + str(sw)
-    url += "/table/" + str(tab) + "/flow/" + str(fl)
+    url += "/rests/data/opendaylight-inventory:nodes/node=openflow%3A" + str(sw)
+    url += "/table=" + str(tab) + "/flow=" + str(fl)
     flow = copy.deepcopy(template["flow"][0])
     flow["cookie"] = fl
     flow["flow-name"] = "TestFlow-%d" % fl
@@ -185,7 +183,7 @@ def _prepare_add(cntl, method, flows, template=None):
     req = requests.Request(
         "PUT",
         url,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/yang-data+json"},
         data=req_data,
         auth=("admin", "admin"),
     )
@@ -211,9 +209,9 @@ def _prepare_table_add(cntl, method, flows, template=None):
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
     url += (
-        "/restconf/config/opendaylight-inventory:nodes/node/openflow:"
+        "/rests/data/opendaylight-inventory:nodes/node=openflow%3A"
         + str(sw)
-        + "/table/"
+        + "/table="
         + str(tab)
     )
     fdets = []
@@ -231,7 +229,7 @@ def _prepare_table_add(cntl, method, flows, template=None):
     req = requests.Request(
         "POST",
         url,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/yang-data+json"},
         data=req_data,
         auth=("admin", "admin"),
     )
@@ -256,12 +254,12 @@ def _prepare_delete(cntl, method, flows, template=None):
     fl1 = flows[0]
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
-    url += "/restconf/config/opendaylight-inventory:nodes/node/openflow:" + str(sw)
-    url += "/table/" + str(tab) + "/flow/" + str(fl)
+    url += "/rests/data/opendaylight-inventory:nodes/node=openflow%3A" + str(sw)
+    url += "/table=" + str(tab) + "/flow=" + str(fl)
     req = requests.Request(
         "DELETE",
         url,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/yang-data+json"},
         auth=("admin", "admin"),
     )
     return req
@@ -284,7 +282,7 @@ def _prepare_rpc_item(cntl, method, flows, template=None):
     """
     f1 = flows[0]
     sw, tab, fl, ip = f1
-    url = "http://" + cntl + ":" + "8181/restconf/operations/sal-bulk-flow:" + method
+    url = "http://" + cntl + ":" + "8181/rests/operations/sal-bulk-flow:" + method
     fdets = []
     for sw, tab, fl, ip in flows:
         flow = copy.deepcopy(template["input"]["bulk-flow-item"][0])
@@ -300,7 +298,7 @@ def _prepare_rpc_item(cntl, method, flows, template=None):
     req = requests.Request(
         "POST",
         url,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/yang-data+json"},
         data=req_data,
         auth=("admin", "admin"),
     )
@@ -326,7 +324,7 @@ def _prepare_ds_item(cntl, method, flows, template=None):
     """
     f1 = flows[0]
     sw, tab, fl, ip = f1
-    url = "http://" + cntl + ":" + "8181/restconf/operations/sal-bulk-flow:" + method
+    url = "http://" + cntl + ":" + "8181/rests/operations/sal-bulk-flow:" + method
     fdets = []
     for sw, tab, fl, ip in flows:
         flow = copy.deepcopy(template["input"]["bulk-flow-item"][0])
@@ -344,7 +342,7 @@ def _prepare_ds_item(cntl, method, flows, template=None):
     req = requests.Request(
         "POST",
         url,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": "application/yang-data+json"},
         data=req_data,
         auth=("admin", "admin"),
     )
@@ -407,8 +405,17 @@ def _wt_request_sender(
         try:
             rsp = ses.send(prep, timeout=5)
         except requests.exceptions.Timeout:
+            print(f"*WARN* Timeout: {req.method} {req.url}")
             counter[99] += 1
+            if counter[99] > 10:
+                print("*ERROR* Too many timeouts.")
+                break
             continue
+        else:
+            if rsp.status_code not in [200, 201, 204]:
+                print(
+                    f"*WARN* Status code {rsp.status_code}: {req.method} {req.url}\n{rsp.text}"
+                )
         counter[rsp.status_code] += 1
     res = {}
     for i, v in enumerate(counter):
@@ -686,22 +693,22 @@ def _get_operational_inventory_of_switches(controller):
     url = (
         "http://"
         + controller
-        + ":8181/restconf/operational/opendaylight-inventory:nodes"
+        + ":8181/rests/data/opendaylight-inventory:nodes?content=nonconfig"
     )
     rsp = requests.get(
         url,
-        headers={"Accept": "application/json"},
+        headers={"Accept": "application/yang-data+json"},
         stream=False,
         auth=("admin", "admin"),
     )
     if rsp.status_code != 200:
         return None
     inv = json.loads(rsp.content)
-    if "nodes" not in inv:
+    if "opendaylight-inventory:nodes" not in inv:
         return None
-    if "node" not in inv["nodes"]:
+    if "node" not in inv["opendaylight-inventory:nodes"]:
         return []
-    inv = inv["nodes"]["node"]
+    inv = inv["opendaylight-inventory:nodes"]["node"]
     switches = [sw for sw in inv if "openflow:" in sw["id"]]
     return switches
 
