@@ -9,6 +9,7 @@ Library           ../../../libraries/XmlComparator.py
 Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${switch_idx}     1
@@ -48,25 +49,25 @@ Logging Initial Cluster Information
 Add Flow 1 To Controller1
     Init Flow Variables    1    1    1
     Log    ${data}
-    ${resp}=    Put Request    session1    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    data=${data}
+    ${resp}=    Put Request    session1    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}    data=${data}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Add Flow 2 To Controller2
     Init Flow Variables    1    2    2
     Log    ${data}
-    ${resp}=    Put Request    session2    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    data=${data}
+    ${resp}=    Put Request    session2    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}    data=${data}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Add Flow 3 To Controller3
     Init Flow Variables    1    3    3
     Log    ${data}
-    ${resp}=    Put Request    session3    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    data=${data}
+    ${resp}=    Put Request    session3    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}    data=${data}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Show Switch Content After Add
@@ -78,7 +79,7 @@ Show Switch Content After Add
 
 Check Flow 1 Configured On Controller1
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -87,7 +88,7 @@ Check Flow 1 Configured On Controller1
 
 Check Flow 1 Operational On Controller1
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -96,7 +97,7 @@ Check Flow 1 Operational On Controller1
 
 Check Flow 1 Configured On Controller2
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -105,7 +106,7 @@ Check Flow 1 Configured On Controller2
 
 Check Flow 1 Operational On Controller2
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -114,7 +115,7 @@ Check Flow 1 Operational On Controller2
 
 Check Flow 1 Configured On Controller3
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -123,7 +124,7 @@ Check Flow 1 Configured On Controller3
 
 Check Flow 1 Operational On Controller3
     Init Flow Variables    1    1    1
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -132,7 +133,7 @@ Check Flow 1 Operational On Controller3
 
 Check Flow 2 Configured On Controller1
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -141,7 +142,7 @@ Check Flow 2 Configured On Controller1
 
 Check Flow 2 Operational On Controller1
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -150,7 +151,7 @@ Check Flow 2 Operational On Controller1
 
 Check Flow 2 Configured On Controller2
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -159,7 +160,7 @@ Check Flow 2 Configured On Controller2
 
 Check Flow 2 Operational On Controller2
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -168,7 +169,7 @@ Check Flow 2 Operational On Controller2
 
 Check Flow 2 Configured On Controller3
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -177,7 +178,7 @@ Check Flow 2 Configured On Controller3
 
 Check Flow 2 Operational On Controller3
     Init Flow Variables    1    2    2
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -186,7 +187,7 @@ Check Flow 2 Operational On Controller3
 
 Check Flow 3 Configured On Controller1
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -195,7 +196,7 @@ Check Flow 3 Configured On Controller1
 
 Check Flow 3 Operational On Controller1
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -204,7 +205,7 @@ Check Flow 3 Operational On Controller1
 
 Check Flow 3 Configured On Controller2
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -213,7 +214,7 @@ Check Flow 3 Configured On Controller2
 
 Check Flow 3 Operational On Controller2
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -222,7 +223,7 @@ Check Flow 3 Operational On Controller2
 
 Check Flow 3 Configured On Controller3
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
@@ -231,7 +232,7 @@ Check Flow 3 Configured On Controller3
 
 Check Flow 3 Operational On Controller3
     Init Flow Variables    1    3    3
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -240,23 +241,23 @@ Check Flow 3 Operational On Controller3
 
 Delete Flow 1 On Controller1
     Init Flow Variables    1    1    1
-    ${resp}=    Delete Request    session1    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    Delete Request    session1    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow 2 On Controller2
     Init Flow Variables    1    2    2
-    ${resp}=    Delete Request    session2    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    Delete Request    session2    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow 3 On Controller3
     Init Flow Variables    1    3    3
-    ${resp}=    Delete Request    session3    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    Delete Request    session3    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Show Switch Content After Delete
@@ -265,12 +266,12 @@ Show Switch Content After Delete
     Read Until    mininet>
 
 Check Flow 1 Not Configured On Controller1
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 1 Not Operational On Controller1
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -278,12 +279,12 @@ Check Flow 1 Not Operational On Controller1
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 1 Not Configured On Controller2
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 1 Not Operational On Controller2
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -291,12 +292,12 @@ Check Flow 1 Not Operational On Controller2
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 1 Not Configured On Controller3
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=1?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 1 Not Operational On Controller3
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -304,12 +305,12 @@ Check Flow 1 Not Operational On Controller3
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 2 Not Configured On Controller1
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 2 Not Operational On Controller1
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -317,12 +318,12 @@ Check Flow 2 Not Operational On Controller1
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 2 Not Configured On Controller2
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 2 Not Operational On Controller2
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -330,12 +331,12 @@ Check Flow 2 Not Operational On Controller2
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 2 Not Configured On Controller3
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/2
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=2?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 2 Not Operational On Controller3
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -343,12 +344,12 @@ Check Flow 2 Not Operational On Controller3
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 3 Not Configured On Controller1
-    ${resp}=    Get Controller Response    session1    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 3 Not Operational On Controller1
-    ${resp}=    Get Controller Response    session1    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session1    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -356,12 +357,12 @@ Check Flow 3 Not Operational On Controller1
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 3 Not Configured On Controller2
-    ${resp}=    Get Controller Response    session2    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 3 Not Operational On Controller2
-    ${resp}=    Get Controller Response    session2    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session2    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
@@ -369,12 +370,12 @@ Check Flow 3 Not Operational On Controller2
     Should Be Equal    ${False}    ${pres}    msg=${msg}
 
 Check Flow 3 Not Configured On Controller3
-    ${resp}=    Get Controller Response    session3    ${CONFIG_NODES_API}/node/openflow:1/table/1/flow/3
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1/flow=3?content=config
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Check Flow 3 Not Operational On Controller3
-    ${resp}=    Get Controller Response    session3    ${OPERATIONAL_NODES_API}/node/openflow:1/table/1
+    ${resp}=    Get Controller Response    session3    ${RFC8040_NODES_API}/node=openflow%3A1/table=1?content=nonconfig
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}

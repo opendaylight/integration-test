@@ -11,12 +11,13 @@ Library           FlowLib.py
 Library           XmlComparator.py
 Library           Common.py
 Variables         ../variables/Variables.py
+Resource          ../variables/openflowplugin/Variables.robot
 
 *** Keywords ***
 Check No Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Not Contain    ${resp.text}    "openflow:${switch}"
@@ -36,7 +37,7 @@ Check Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check all switches and stats in operational inventory
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
+        ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}
         Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
         Should Contain    ${resp.text}    flow-capable-node-connector-statistics
@@ -88,7 +89,7 @@ Check Flows Operational Datastore
 Check Number Of Flows
     [Arguments]    ${flows}
     [Documentation]    Check number of flows in the inventory.
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "priority"
@@ -97,7 +98,7 @@ Check Number Of Flows
 Check Number Of Groups
     [Arguments]    ${groups}
     [Documentation]    Check number of groups in the inventory.
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.text}    "group-type"
@@ -105,8 +106,8 @@ Check Number Of Groups
 
 Check Flow Stats Are Available
     [Arguments]    ${node_id}    ${flows}
-    [Documentation]    A GET on the /node/${node_id} inventory API is made and flow stats string is checked for existence.
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node_id}/table/2
+    [Documentation]    A GET on the /node=${node_id} inventory API is made and flow stats string is checked for existence.
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=${node_id}/table=2
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.text}    priority    ${flows}
@@ -132,7 +133,7 @@ Add Table Miss Flows
     ${switches}=    Convert To Integer    ${switches}
     ${data}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/table_miss_flow.json
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Put As Json To Uri    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/default    ${data}    session
+        TemplatedRequests.Put As Json To Uri    ${RFC8040_NODES_API}/node=openflow%3A${switch}/table=0/flow=default    ${data}    session
     END
 
 Check Table Miss Flows
@@ -140,7 +141,7 @@ Check Table Miss Flows
     [Documentation]    Check table miss flows in switches.
     ${switches}=    Convert To Integer    ${switches}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Get As Json From Uri    ${OPERATIONAL_NODES_API}/node/openflow:${switch}/table/0/flow/default    session
+        TemplatedRequests.Get As Json From Uri    ${RFC8040_NODES_API}/node=openflow%3A${switch}/table=0/flow=default    session
     END
 
 Create Inventory Flow
@@ -274,10 +275,10 @@ Remove Flow XML Element
 Add Group To Controller And Verify
     [Arguments]    ${group_body}    ${node_id}    ${group_id}
     [Documentation]    Push group through REST-API and verify in data-store
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${HEADERS_XML}    data=${group_body}
+    ${resp}    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}    headers=${HEADERS_XML}    data=${group_body}
     Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}?content=config    headers=${ACCEPT_XML}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Compare Xml    ${group_body}    ${resp.text}
@@ -285,10 +286,10 @@ Add Group To Controller And Verify
 Add Flow To Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Push flow through REST-API and verify in data-store
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
+    ${resp}    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=${node_id}/table=${table_id}/flow=${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
     Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=${node_id}/table=${table_id}/flow=${flow_id}?content=config    headers=${ACCEPT_XML}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Compare Xml    ${flow_body}    ${resp.text}
@@ -306,10 +307,10 @@ Verify Flow On Mininet Switch
 Remove Group From Controller And Verify
     [Arguments]    ${node_id}    ${group_id}
     [Documentation]    Remove group and verify
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
+    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}?content=config
     Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
@@ -317,10 +318,10 @@ Remove Group From Controller And Verify
 Remove Flow From Controller And Verify
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Remove flow and verify
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=${node_id}/table=${table_id}/flow=${flow_id}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=${node_id}/table=${table_id}/flow=${flow_id}?content=config
     Builtin.Return_From_Keyword_If    ${resp.status_code} == 404 or ${resp.status_code} == 409
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
@@ -352,7 +353,7 @@ Remove Default Flows
     ${resp}    RequestsLibrary.Post Request    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Not Contain    ${resp.text}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER
@@ -390,7 +391,7 @@ Flow Presence In Config Store
     [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}?content=config    headers=${headers}
     Log    ${resp}
     Log    ${resp.text}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -403,7 +404,7 @@ Flow Presence In Operational Store
     [Documentation]    Checks the operational store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.text}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -457,9 +458,9 @@ Add Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_body}
     [Documentation]    Configures a flow specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using POST method
     Log    ${flow_body}
-    ${resp}=    RequestsLibrary.Post Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}    data=${flow_body}
+    ${resp}=    RequestsLibrary.Post Request    session    ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id}    data=${flow_body}
     Log    ${resp.text}
-    ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    204    msg=${msg}
 
 Update Flow Via RPC
@@ -493,9 +494,9 @@ Update Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}    ${flow_body}
     [Documentation]    Updates a flow configuration by given flow details (${node_id}, ${table_id}, ${flow_body}) using PUT method
     Log    ${flow_body}
-    ${resp}=    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    ${resp}=    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id}/flow=${flow_id}    data=${flow_body}
     Log    ${resp.text}
-    ${msg}=    Set Variable    Updating flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Updating flow for ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow Via RPC
@@ -518,15 +519,15 @@ Delete Flow Via RPC
 Delete Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Deletes a flow from configuration datastore specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using DELETE method
-    ${resp}=    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id}/flow=${flow_id}
     Log    ${resp.text}
-    ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${node_id}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Get Flow Id
     [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
     [Documentation]    This verifies specific flow-id for particular table-id matching from the flow element
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${dpnid}/table=${table_id}?content=config
     BuiltIn.Log    ${resp.text}
     @{flow_id} =    String.Get Regexp Matches    ${resp.text}    id\":\"(\\d+${flow_element})    1
     [Return]    @{flow_id}[0]

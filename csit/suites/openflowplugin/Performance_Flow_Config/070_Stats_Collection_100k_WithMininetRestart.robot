@@ -11,6 +11,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/ScaleClient.py
 Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${swnr}           32
@@ -78,7 +79,7 @@ Check Flows Are Operational Again
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
-    ${resp}=    Delete Request    session    ${CONFIG_NODES_API}
+    ${resp}=    Delete Request    session    ${RFC8040_NODES_API}
     Should Be Equal As Numbers    ${resp.status_code}    200
 
 Check No Flows In Operational Last

@@ -7,6 +7,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
@@ -66,4 +67,4 @@ Add Flow
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Datastore Presence    ${flowfile}    ${True}    ${True}
     ...    ${False}    ${True}
     Sleep    8
-    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
