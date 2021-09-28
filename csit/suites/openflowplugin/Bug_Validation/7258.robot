@@ -7,6 +7,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
@@ -33,6 +34,6 @@ Initialization Phase
 
 Final Phase
     [Documentation]    Stops mininet.
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     RequestsLibrary.Delete All Sessions
