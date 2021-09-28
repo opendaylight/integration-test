@@ -17,6 +17,7 @@ Resource          SSHKeywords.robot
 Resource          Tcpdump.robot
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/openflowplugin/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
@@ -1348,7 +1349,7 @@ Verify Expected Default Tunnels
 Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_NODES_API}
     Utils.Log Content    ${resp.text}
     ${failed_node_list} =    BuiltIn.Create List
     FOR    ${node_ip}    IN    @{node_ips}

@@ -11,6 +11,7 @@ Resource          CompareStream.robot
 Resource          MininetKeywords.robot
 Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${log_level}      ERROR
@@ -46,6 +47,8 @@ Workflow Linear Topology
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller is dead    ${topology_discover_time}
     ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${topology_discover_time}
+    ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Runtime Exceptions    ${ODL_SYSTEM_IP}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has RuntimeException    ${topology_discover_time}
     Log To Console    Checking ${switches} switches
     ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    2s    FlowLib.Check Switches In Inventory
     ...    ${switches}
@@ -126,6 +129,8 @@ Workflow Full Mesh Topology
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller is dead    ${topology_discover_time}
     ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${topology_discover_time}
+    ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Runtime Exceptions    ${ODL_SYSTEM_IP}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has RuntimeException    ${topology_discover_time}
     Log To Console    Checking ${switches} switches
     ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    30s    2s    FlowLib.Check Switches In Inventory
     ...    ${switches}
@@ -178,6 +183,6 @@ Workflow Setup
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt
-    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     Utils.Clean Mininet System
     RequestsLibrary.Delete All Sessions
