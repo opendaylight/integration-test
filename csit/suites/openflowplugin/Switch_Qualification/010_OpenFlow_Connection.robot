@@ -5,19 +5,20 @@ Suite Teardown    Switch Qualification Suite Teardown
 Test Timeout      5m
 Library           Collections
 Library           OperatingSystem
-Resource          ../../../libraries/SwitchUtils.robot
-Resource          ../../../libraries/Utils.robot
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/SwitchClasses/${SWITCH_CLASS}.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/SwitchUtils.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${TOOLS_SYSTEM_IP}
 ${SWITCH_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${ODL_SYSTEM_IP}    null
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
+${REST_CONTEXT}    ${RFC8040_NODES_API}
 
 *** Test Cases ***
 OF1.3 Connection Between Switch and Controller
