@@ -11,6 +11,7 @@ Resource          CompareStream.robot
 Resource          MininetKeywords.robot
 Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${log_level}      ERROR
@@ -178,6 +179,6 @@ Workflow Setup
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt
-    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
+    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
     Utils.Clean Mininet System
     RequestsLibrary.Delete All Sessions
