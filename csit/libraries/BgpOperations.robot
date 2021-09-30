@@ -13,7 +13,9 @@ Resource          TemplatedRequests.robot
 ${BGP_BMP_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/empty_structure
 ${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
+${RFC8040_BGP_RIB_URI}    rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib
 ${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
+${RFC8040_BGP_TOPOLOGY_URI}    rests/data/network-topology:network-topology/topology=example-ipv4-topology?content=nonconfig
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}       example-bgp-rib
 ${OLD_AS_PATH}    \n"as-path": {},
@@ -24,6 +26,7 @@ ${OLD_IPV4_ROUTES_LINE}    \n"bgp-inet:ipv4-routes": {},
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${VPNV4_ADDR_FAMILY}    vpnv4
 ${DISPLAY_VPN4_ALL}    show-bgp --cmd "ip bgp ${VPNV4_ADDR_FAMILY} all"
+${USE_RFC8040}    False
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -296,7 +299,10 @@ Teardown_Everything
 Check_Example_Bgp_Rib_Content
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    RequestsLibrary.Get Request    ${session}    ${RFC8040_BGP_RIB_URI}
+    ...    ELSE
+    ...    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -304,7 +310,10 @@ Check_Example_Bgp_Rib_Content
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    RequestsLibrary.Get Request    ${session}    ${RFC8040_BGP_RIB_URI}
+    ...    ELSE
+    ...    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -312,7 +321,10 @@ Check_Example_Bgp_Rib_Does_Not_Contain
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    RequestsLibrary.Get Request    ${session}    ${RFC8040_BGP_TOPOLOGY_URI}
+    ...    ELSE
+    ...    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
@@ -320,7 +332,10 @@ Check_Example_IPv4_Topology_Content
 Check_Example_IPv4_Topology_Does_Not_Contain
     [Arguments]    ${session}    ${string_to_check}
     [Documentation]    Check the example-ipv4-topology does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    RequestsLibrary.Get Request    ${session}    ${RFC8040_BGP_TOPOLOGY_URI}
+    ...    ELSE
+    ...    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
@@ -360,8 +375,14 @@ Odl_To_Play_Template
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
     ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    &{adj_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
-    &{effective_rib_in}    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{adj_rib_in} =    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    BuiltIn.Create_Dictionary    PATH=peer=bgp%253A%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    ...    ELSE
+    ...    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    &{effective_rib_in} =    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    BuiltIn.Create_Dictionary    PATH=peer=bgp%253A%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
+    ...    ELSE
+    ...    BuiltIn.Create_Dictionary    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     &{loc_rib}    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex

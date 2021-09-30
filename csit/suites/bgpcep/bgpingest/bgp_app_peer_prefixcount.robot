@@ -97,7 +97,10 @@ Connect_BGP_Peer
 BGP_Application_Peer_Prefill_Routes
     [Documentation]    Start BGP application peer tool and prefill routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${rfc8040_script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_prefill.log
 
@@ -114,7 +117,10 @@ Check_Bgp_Peer_Updates_For_Prefilled_Routes
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${rfc8040_script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
 
@@ -147,7 +153,10 @@ Check_Bgp_Peer_Updates_For_Reintroduced_Routes
 BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and delete all routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} --stream=${ODL_STREAM} ${rfc8040_script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_emptying_timeout}
     BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all.log
 
@@ -209,8 +218,10 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-    ${script_uri_opt}=    Set Variable    --uri config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    ${script_uri_opt}=    Set Variable    --uri /restconf/config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    ${rfc8040_script_uri_opt}=    Set Variable    --uri /rests/data/bgp-rib:application-rib=${BGP_APP_PEER_ID}/tables=bgp-types%253Aipv4-address-family,bgp-types%253Aunicast-subsequent-address-family
     BuiltIn.Set_Suite_Variable    ${script_uri_opt}
+    BuiltIn.Set_Suite_Variable    ${rfc8040_script_uri_opt}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
