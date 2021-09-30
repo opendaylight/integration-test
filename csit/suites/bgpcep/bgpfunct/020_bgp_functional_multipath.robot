@@ -43,6 +43,7 @@ ${N_PATHS_VALUE}    2
 ${NEXT_HOP_PREF}    100.100.100.
 ${RIB_URI}        /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-bgp-rib-impl-cfg:rib-impl/example-bgp-rib
 ${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
+${RFC8040_OPENCONFIG_RIB_URI}    /rests/data/openconfig-network-instance:network-instances/network-instance=global-bgp/protocols/protocol=openconfig-policy-types%3ABGP,example-bgp-rib
 ${NPATHS_SELM}    n-paths
 ${ALLPATHS_SELM}    all-paths
 ${ADDPATHCAP_SR}    send\\/receive
@@ -97,7 +98,10 @@ Start_Suite
 Stop_Suite
     [Documentation]    Suite teardown keyword with old rib restoration
     SSHKeywords.Virtual_Env_Delete
-    TemplatedRequests.Put_As_Xml_To_Uri    ${OPENCONFIG_RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    TemplatedRequests.Put_As_Xml_To_Uri    ${RFC8040_OPENCONFIG_RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
+    ...    ELSE
+    ...    TemplatedRequests.Put_As_Xml_To_Uri    ${OPENCONFIG_RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
     SSHLibrary.Close_All_Connections
     RequestsLibrary.Delete_All_Sessions
 
