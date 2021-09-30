@@ -24,14 +24,20 @@ Variables         ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TO
 *** Variables ***
 ${CONFIG_SESSION}    session
 ${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
+${RFC8040_PATH_SESSION_URI}    /node=pcc%3A%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
 ${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/${ODL_STREAM}
+${USE_RFC8040}    False
 
 *** Test Cases ***
 Topology_Precondition
     [Documentation]    Compare current pcep-topology to off_json variable.
     ...    Timeout is long enough to ODL boot, to see that pcep is ready, with no PCC is connected.
     [Tags]    critical
-    Wait_Until_Keyword_Succeeds    300s    1s    Compare_Topology    ${off_json}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_Succeeds    300s    1s    Compare_Topology    ${rfc8040_off_json}
+    ...  ELSE
+    ...  Wait_Until_Keyword_Succeeds    300s    1s    Compare_Topology    ${off_json}
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
@@ -53,7 +59,11 @@ Topology_Default
     [Documentation]    Compare pcep-topology to default_json, which includes a tunnel from pcc-mock.
     ...    Timeout is lower than in Precondition, as state from pcc-mock should be updated quickly.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${default_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${default_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${default_json}    ${PATH_SESSION_URI}
 
 Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
@@ -63,7 +73,11 @@ Update_Delegated
 Topology_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
 
 Refuse_Remove_Delegated
     [Documentation]    Perform remove-lsp on the mocked tunnel, check that mock-pcc has refused to remove it.
@@ -74,7 +88,11 @@ Refuse_Remove_Delegated
 Topology_Still_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel, to verify that refusal did not break topology.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
 
 Add_Instantiated
     [Documentation]    Perform add-lsp to create new tunnel, check that response is success.
@@ -84,7 +102,11 @@ Add_Instantiated
 Topology_Second_Default
     [Documentation]    Compare pcep-topology to default_json, which includes the updated delegated and default instantiated tunnel.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_default_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_default_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_default_json}    ${PATH_SESSION_URI}
 
 Update_Instantiated
     [Documentation]    Perform update-lsp on the newly instantiated tunnel, check that response is success.
@@ -94,7 +116,11 @@ Update_Instantiated
 Topology_Second_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated delegated and updated instantiated tunnel.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_updated_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_updated_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_updated_json}    ${PATH_SESSION_URI}
 
 Remove_Instantiated
     [Documentation]    Perform remove-lsp on the instantiated tunnel, check that response is success.
@@ -104,7 +130,11 @@ Remove_Instantiated
 Topology_Again_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel, to verify that instantiated tunnel was removed.
     [Tags]    critical
-    Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${RFC8040_PATH_SESSION_URI}
+    ...  ELSE
+    ...  Wait_Until_Keyword_succeeds    10s    1s    Compare_Topology    ${updated_json}    ${PATH_SESSION_URI}
 
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock, fails if no prompt is seen
@@ -116,7 +146,11 @@ Stop_Pcc_Mock
 Topology_Postcondition
     [Documentation]    Compare curent pcep-topology to "off_json" again.
     [Tags]    critical
-    Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${off_json}
+    Run Keyword If
+    ...  "${USE_RFC8040}" == "True"
+    ...  Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${rfc8040_off_json}
+    ...  ELSE
+    ...  Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${off_json}
 
 *** Keywords ***
 Set_It_Up
@@ -145,6 +179,7 @@ Compare_Topology
     ...    Error codes and normalized jsons should match exactly.
     # TODO: Add Node Session State Check For Oxygen, see tcpmd5user
     # TODO: Possibly remake all tests with TemplatedRequests
-    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${OPERATIONAL_TOPO_API}/topology/pcep-topology/${uri}
+    ${OPERATIONAL_TOPO_API2}=  BuiltIn.Set Variable If  "${USE_RFC8040}" == "True"   /rests/data/network-topology:network-topology/topology=pcep-topology${uri}?content=nonconfig   ${OPERATIONAL_TOPO_API}/topology/pcep-topology/${uri}
+    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${OPERATIONAL_TOPO_API2}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp}    ${response.text}

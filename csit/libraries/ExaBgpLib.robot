@@ -21,6 +21,8 @@ Resource          ${CURDIR}/BGPcliKeywords.robot
 ${EXABGP_KILL_COMMAND}    ps axf | grep exabgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${RFC8040_PEER_CHECK_URL}       /rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp%253A%2F%2F
+${USE_RFC8040}    False
 
 *** Keywords ***
 Start_ExaBgp
@@ -66,7 +68,10 @@ Verify_ExaBgps_Connection
     [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
+    ${rsp}=    BuiltIn.Run_Keyword_If  "${USE_RFC8040}" == "True"
+    ...  RequestsLibrary.Get Request    ${session}    ${RFC8040_PEER_CHECK_URL}${exabgp_ip}
+    ...  ELSE
+    ...  RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

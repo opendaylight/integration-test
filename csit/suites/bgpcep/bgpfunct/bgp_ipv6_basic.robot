@@ -56,7 +56,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false with short ipv6 address.
-    &{mapping}    Create Dictionary    IP=${IPV6_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${IPV6_IP}  HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
