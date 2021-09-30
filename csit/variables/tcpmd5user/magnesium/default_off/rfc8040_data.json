@@ -1,0 +1,28 @@
+{
+ "network-topology:topology": [
+  {
+   "network-pcep-topology-config:session-config": {
+    "dead-timer-value": 120,
+    "keep-alive-timer-value": 30,
+    "listen-address": "0.0.0.0",
+    "listen-port": 4189,
+    "rpc-timeout": 30
+   },
+   "node": [
+    {
+     "network-pcep-topology-config:session-config": {
+      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA==",
+      "password": "topsecret"
+     },
+     "node-id": "43.43.43.43"
+    },
+    $ODL_NODE
+    $TOOLS_NODE
+   ],
+   "topology-id": "pcep-topology",
+   "topology-types": {
+    "network-topology-pcep:topology-pcep": {}
+   }
+  }
+ ]
+}
