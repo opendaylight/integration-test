@@ -353,9 +353,21 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    BuiltIn.Set_Suite_Variable    ${EVPN_FAMILY_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/
+    ${EVPN_CONF_URL}=  BuiltIn.Set_Variable_If  "${USE_RFC8040}" == "True"
+    ...  /rests/data/bgp-rib:application-rib=${ODL_SYSTEM_IP}/tables=odl-bgp-evpn%253Al2vpn-address-family,odl-bgp-evpn%253Aevpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    ...  /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    BuiltIn.Set_Suite_Variable  ${EVPN_CONF_URL}
+
+    ${EVPN_LOC_RIB}=  BuiltIn.Set_Variable_If  "${USE_RFC8040}" == "True"
+    ...  /rests/data/bgp-rib:bgp-rib/rib=${RIB_NAME}/loc-rib/tables=odl-bgp-evpn%253Al2vpn-address-family,odl-bgp-evpn%253Aevpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    ...  /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    BuiltIn.Set_Suite_Variable  ${EVPN_LOC_RIB}
+
+    ${EVPN_FAMILY_LOC_RIB}=  BuiltIn.Set_Variable_If  "${USE_RFC8040}" == "True"
+    ...  /rests/data/bgp-rib:bgp-rib/rib=${RIB_NAME}/loc-rib/tables=odl-bgp-evpn%253Al2vpn-address-family,odl-bgp-evpn%253Aevpn-subsequent-address-family
+    ...  /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/
+    BuiltIn.Set_Suite_Variable  ${EVPN_FAMILY_LOC_RIB}
+
     ${evpn_routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_EVPN_ROUTES_LINE}    ${OLD_EVPN_ROUTES_LINE}
     &{mapping}    BuiltIn.Create_Dictionary    EVPN_ROUTES=${evpn_routes_line}
     ${EMPTY_ROUTES} =    TemplatedRequests.Resolve_Text_From_Template_File    ${EVPN_DIR}/empty_routes    empty_routes.json    ${mapping}
@@ -388,7 +400,10 @@ Odl_To_Play_Template
     BgpRpcClient.play_clean
     ${resp} =    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${post_data_xml}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
+    BuiltIn.Run Keyword If  "${USE_RFC8040}" == "True"
+    ...   BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    201
+    ...   ELSE
+    ...   BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
     ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
     ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
@@ -436,7 +451,10 @@ Remove_Configured_Routes
     Log    ${rsp.content}
     BuiltIn.Return_From_Keyword_If    ${rsp.status_code} in ${DELETED_STATUS_CODES}
     ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
+    BuiltIn.Run Keyword If  "${USE_RFC8040}" == "True"
+    ...   BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
+    ...   ELSE
+    ...   BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
 
 Withdraw_Route_And_Verify
     [Arguments]    ${withdraw_hex}
