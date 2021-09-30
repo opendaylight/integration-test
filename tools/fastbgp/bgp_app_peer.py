@@ -29,13 +29,13 @@ def _build_url(odl_ip, port, uri):
 
         :param port: controller's restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI begin with /restconf/ or /rests/ to complete URL
 
     Returns:
         :returns url: full restconf url corresponding to params
     """
 
-    url = "http://" + str(odl_ip) + ":" + port + "/restconf/" + uri
+    url = "http://" + str(odl_ip) + ":" + port + uri
     return url
 
 
@@ -413,6 +413,8 @@ def delete_prefixes(
         uri,
     )
     partkey = "/0"
+    if "rests/" in uri:
+        partkey = ",0"
     uri_del_prefix = uri + _uri_suffix_ipv4_routes + _uri_suffix_ipv4_route
     prefix_gap = 2 ** (32 - prefix_len)
     for prefix_index in range(count):
@@ -577,6 +579,12 @@ if __name__ == "__main__":
     uri = args.uri
     stream = args.stream
     xml_template = args.xml
+
+    if "rests/" in uri:
+        _uri_suffix_ipv4_routes = "/bgp-inet:ipv4-routes"
+        _uri_suffix_ipv4_route = (
+            "/bgp-inet:ipv4-route="  # followed by IP address like 1.1.1.1%2F32
+        )
 
     # From Fluorine onward route-key argument is mandatory for identification.
     route_key_stream = ["oxygen"]
