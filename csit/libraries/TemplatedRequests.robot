@@ -126,6 +126,7 @@ Resource          ${CURDIR}/../variables/Variables.robot
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 @{NO_STATUS_CODES}
 @{UNAUTHORIZED_STATUS_CODES}    ${401}    # List of integers, not strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
+${USE_RFC8040} =    False
 
 *** Keywords ***
 Create_Default_Session
@@ -487,6 +488,13 @@ Resolve_Text_From_Template_Folder
     ...    ${epilog}
     [Return]    ${final_text}
 
+Encode_IPv6
+    [Arguments]    ${mapping}={}
+    [Documentation]    Extract IP key from mapping dictionary and perform URL encode then return modified IPv6 string.
+    ${IPV6} =  Get From Dictionary  ${mapping}  IP
+    ${IPV6} =  Replace String  ${IPV6}  :  %3A
+    set to dictionary   ${mapping}   IPV6_ENCODED  ${IPV6}
+
 Resolve_Text_From_Template_File
     [Arguments]    ${folder}    ${file_name}    ${mapping}={}
     [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read and Log contents of file ${folder}.${ODL_STREAM}/${file_name},
@@ -495,8 +503,33 @@ Resolve_Text_From_Template_File
     ${file_path_stream}=    BuiltIn.Set Variable    ${folder}.${ODL_STREAM}${/}${file_name}
     ${file_stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${file_path_stream}
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
+
+    ${rfc8040_file_path_stream}=  BuiltIn.Run Keyword And Return Status  OperatingSystem.File Should Exist    ${folder}.${ODL_STREAM}${/}rfc8040_${file_name}
+    ${rfc8040_file_path}=  BuiltIn.Run Keyword And Return Status  OperatingSystem.File Should Exist    ${folder}.${/}rfc8040_${file_name}
+    ${rfc8040_file_path}=  BuiltIn.Set Variable If   "${rfc8040_file_path_stream}" == "True"   ${rfc8040_file_path_stream}   ${rfc8040_file_path}
+
+    ${test_rfc8040_stream}=  BuiltIn.Run Keyword And Return Status  OperatingSystem.File Should Exist    ${folder}.${ODL_STREAM}${/}rfc8040_${file_name}
+    ${test_rfc8040}=  BuiltIn.Run Keyword And Return Status  OperatingSystem.File Should Exist  ${folder}${/}rfc8040_${file_name}
+    ${rfc8040_file_path}=  BuiltIn.Run Keyword If
+    ...  "${test_rfc8040_stream}" == "True"
+    ...  Set Variable  ${folder}.${ODL_STREAM}${/}rfc8040_${file_name}
+    ...  ELSE IF
+    ...  "${test_rfc8040}" == "True"
+    ...  Set Variable  ${folder}${/}rfc8040_${file_name}
+    ...  ELSE
+    ...  Set Variable  ${None}
+
     ${template} =    OperatingSystem.Get_File    ${file_path}
+    # use RFC8040 files (rfc8040_location.uri, rfc8040_data.json) nly if USE_RFC8040 = True and file exists
+    ${template} =    BuiltIn.Run_Keyword_If   "${USE_RFC8040}" == "True" and ("${file_name}" == "location.uri" or "${file_name}" == "data.json" or "${file_name}" == "empty_routes.json") and "${rfc8040_file_path}" != "${None}"
+    ...  OperatingSystem.Get_File    ${rfc8040_file_path}
+    ...  ELSE
+    ...  OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
+
+    BuiltIn.Run_Keyword_If   ("${file_name}" == "location.uri" and "IP" in ${mapping} )
+    ...  Encode_IPv6    ${mapping}
+
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}

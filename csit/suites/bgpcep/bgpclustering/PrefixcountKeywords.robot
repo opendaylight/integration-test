@@ -52,6 +52,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${RFC8040_PEER_CHECK_URL}       /rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp%3A%2F%2F
 @{SHARD_MONITOR_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
 
 *** Keywords ***
@@ -117,7 +118,10 @@ Verify_Bgp_Peer_Connection
     [Documentation]    Checks peer presence in operational datastore
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
+    ${rsp}=  Run Keyword If "${USE_RFC8040}" == "True"
+    ...  RequestsLibrary.Get Request    ${session}    ${RFC8040_PEER_CHECK_URL}${peer_ip}
+    ...  ELSE
+    ...  RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

@@ -48,7 +48,8 @@ Topology_Precondition
     [Documentation]    Compare current pcep-topology to empty one.
     ...    Timeout is long enough to see that pcep is ready, with no PCC connected.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    session=${CONFIG_SESSION}    verify=True
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=topsecret    IP_ODL=${ODL_SYSTEM_IP}   ODL_NODE={ "network-pcep-topology-config:session-config": { "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA==" }, "node-id": "${ODL_SYSTEM_IP}" }  TOOLS_NODE=
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    ${mapping}   session=${CONFIG_SESSION}    verify=True
 
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
@@ -57,7 +58,7 @@ Start_Secure_Pcc_Mock
 Topology_Unauthorized_1
     [Documentation]    Try to catch a glimpse of pcc-mock in pcep-topology. Pass if no change from Precondition is detected over 10 seconds.
     [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized   { "network-pcep-topology-config:session-config": { "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA==" }, "node-id": "${ODL_SYSTEM_IP}" }  ${Empty}   PASSWD=topsecret
 
 Set_Wrong_Password
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
@@ -67,7 +68,21 @@ Set_Wrong_Password
 Topology_Unauthorized_2
     [Documentation]    The same logic as Topology_Unauthorized_1 as incorrect password was provided to ODL.
     [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+    ${ODL_NODE}=  catenate  SEPARATOR=
+    ...    {\n
+    ...     "network-pcep-topology-config:session-config": {\n
+    ...      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA=="\n
+    ...     },\n
+    ...     "node-id": "${ODL_SYSTEM_IP}"\n
+    ...    }\n
+    ${TOOLS_NODE}=  catenate  SEPARATOR=
+    ...    ,{\n
+    ...       "network-pcep-topology-config:session-config": {\n
+    ...          "password": "changeme"\n
+    ...       },\n
+    ...       "node-id": "${TOOLS_SYSTEM_IP}"\n
+    ...    }
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized  ${ODL_NODE}   ${TOOLS_NODE}  changeme
 
 Set_Correct_Password
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
@@ -76,7 +91,7 @@ Set_Correct_Password
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}   PASSWD=topsecret
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
 
@@ -91,7 +106,21 @@ Stop_Pcc_Mock_1
 Topology_Unauthorized_3
     [Documentation]    The same logic as Topology_Unauthorized_1, with no pcc-mock running.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Test_Unauthorized
+    ${ODL_NODE}=  catenate  SEPARATOR=
+    ...    {\n
+    ...     "network-pcep-topology-config:session-config": {\n
+    ...      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA=="\n
+    ...     },\n
+    ...     "node-id": "${ODL_SYSTEM_IP}"\n
+    ...    }\n
+    ${TOOLS_NODE}=  catenate  SEPARATOR=
+    ...    ,{\n
+    ...       "network-pcep-topology-config:session-config": {\n
+    ...          "password": "topsecret"\n
+    ...       },\n
+    ...       "node-id": "${TOOLS_SYSTEM_IP}"\n
+    ...    }
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Test_Unauthorized   ${ODL_NODE}   ${TOOLS_NODE}  topsecret
 
 Start_Secure_Pcc_Mock_2
     [Documentation]    Execute pcc-mock on Mininet with new password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
@@ -100,7 +129,21 @@ Start_Secure_Pcc_Mock_2
 Topology_Unauthorized_4
     [Documentation]    The same logic as Topology_Unauthorized_1, but ODL password became incorrect with new pcc-mock running.
     [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+    ${ODL_NODE}=  catenate  SEPARATOR=
+    ...    {\n
+    ...     "network-pcep-topology-config:session-config": {\n
+    ...      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA=="\n
+    ...     },\n
+    ...     "node-id": "${ODL_SYSTEM_IP}"\n
+    ...    }\n
+    ${TOOLS_NODE}=  catenate  SEPARATOR=
+    ...    ,{\n
+    ...       "network-pcep-topology-config:session-config": {\n
+    ...          "password": "topsecret"\n
+    ...       },\n
+    ...       "node-id": "${TOOLS_SYSTEM_IP}"\n
+    ...    }
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized   ${ODL_NODE}   ${TOOLS_NODE}
 
 Set_Correct_Password_2
     [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
@@ -109,7 +152,7 @@ Set_Correct_Password_2
 
 Topology_Intercondition_2
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}   PASSWD=newtopsecret
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
 
@@ -137,7 +180,18 @@ Unset_Password
 Topology_Unauthorized_5
     [Documentation]    Wait for pcep-topology to become empty again.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Test_Unauthorized
+    ${ODL_NODE}=  catenate  SEPARATOR=
+    ...    {\n
+    ...     "network-pcep-topology-config:session-config": {\n
+    ...      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA=="\n
+    ...     },\n
+    ...     "node-id": "${ODL_SYSTEM_IP}"\n
+    ...    }\n
+    ${TOOLS_NODE}=  catenate  SEPARATOR=
+    ...    ,{\n
+    ...      "node-id": "${TOOLS_SYSTEM_IP}"\n
+    ...    }
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Test_Unauthorized    ${ODL_NODE}   ${TOOLS_NODE}
 
 Stop_Pcc_Mock_2
     [Documentation]    Stops second instance of pcc-mock
@@ -150,7 +204,18 @@ Stop_Pcc_Mock_2
 Topology_Postcondition
     [Documentation]    Verify that pcep-topology stays empty.
     [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+    ${ODL_NODE}=  catenate  SEPARATOR=
+    ...    {\n
+    ...     "network-pcep-topology-config:session-config": {\n
+    ...      "odl-pcep-topology-sync-optimizations-config:speaker-entity-id-value": "AQIDBA=="\n
+    ...     },\n
+    ...     "node-id": "${ODL_SYSTEM_IP}"\n
+    ...    }\n
+    ${TOOLS_NODE}=  catenate  SEPARATOR=
+    ...    ,{\n
+    ...      "node-id": "${TOOLS_SYSTEM_IP}"\n
+    ...    }
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized     ${ODL_NODE}   ${TOOLS_NODE}
 
 Delete_Pcep_Client_Module
     [Documentation]    Delete Pcep client module.
@@ -188,8 +253,11 @@ Tear_It_Down
     SSHLibrary.Close_All_Connections
 
 Test_Unauthorized
+    [Arguments]    ${ODL_NODE}=${Empty}  ${TOOLS_NODE}=${Empty}   ${PASSWD}=${Empty}
     [Documentation]    Try to access pcep topology with wrong password, should get empty topology
-    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    session=${CONFIG_SESSION}    verify=True
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${PASSWD}    IP_ODL=${ODL_SYSTEM_IP}   ODL_NODE=${ODL_NODE}  TOOLS_NODE=${TOOLS_NODE}
+
+    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off   ${mapping}  session=${CONFIG_SESSION}    verify=True
 
 Read_Text_Before_Prompt
     [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
