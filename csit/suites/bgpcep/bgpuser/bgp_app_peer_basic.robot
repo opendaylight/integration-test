@@ -84,7 +84,8 @@ ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
-${SCRIPT_URI_OPT}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+${SCRIPT_URI_OPT}    --uri /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+${RFC8040_SCRIPT_URI_OPT}    --uri /rests/data/bgp-rib:application-rib=${ODL_SYSTEM_IP}/tables=bgp-types%253Aipv4-address-family,bgp-types%253Aunicast-subsequent-address-family
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_BGP_Peer_Connection
@@ -109,7 +110,10 @@ TC1_BGP_Application_Peer_Post_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give it ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_POST_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_POST_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_POST_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_initial_post_tc1.log
 
@@ -139,7 +143,10 @@ TC1_BGP_Application_Peer_Delete_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_tc1.log
 
@@ -178,7 +185,10 @@ TC2_BGP_Application_Peer_Put_3_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_put_tc2.log
 
@@ -201,7 +211,10 @@ TC2_BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all_tc2.log
 
@@ -231,7 +244,10 @@ TC3_BGP_Application_Peer_Put_3_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_put_tc3.log
 
@@ -257,7 +273,10 @@ TC3_BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    Run Keyword If    "${USE_RFC8040}" == "True"
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${RFC8040_SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
+    ...    ELSE
+    ...    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all_tc3.log
 

@@ -48,6 +48,18 @@ def get_variables(mininet_ip):
   }
  ]
 }"""
+    variables[
+        "rfc8040_off_json"
+    ] = """{
+ "network-topology:topology": [
+  {
+   "topology-id": "pcep-topology",
+   "topology-types": {
+    "network-topology-pcep:topology-pcep": {}
+   }
+  }
+ ]
+}"""
     # Ok, other _json strings will have more regular structure and some variable data,
     # so we will be using templates heavily.
     # First off, there is segment describing PCC which conatins IP address but is otherwise constant.
