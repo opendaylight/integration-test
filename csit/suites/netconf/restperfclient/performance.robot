@@ -57,12 +57,12 @@ Wait_For_Device_To_Become_Connected
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Post_As_Xml_Templated    ${directory_with_crud_templates}${/}cars    ${template_as_string}
 
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
-    ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
+    ${url}=    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${DEVICE_NAME}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    async=false
 
 Check_For_Failed_Requests
