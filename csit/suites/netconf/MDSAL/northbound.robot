@@ -423,7 +423,7 @@ Close_ODL_Netconf_Connection_Gracefully
 Setup_Everything
     [Documentation]    Setup resources and create session for Restconf checking.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    config    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    config    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${REST_API}    auth=${AUTH}
 
 Teardown_Everything
     [Documentation]    Close the Netconf connection and destroy all sessions in the requests library.
