@@ -44,7 +44,7 @@ Create_Test_Data_For_Direct_Access
 
 Run_RestPerfClient_Directly_On_MDSAL
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the MDSAL via Restconf.
-    ${url}=    BuiltIn.Set_Variable    /restconf/config/car:cars
+    ${url}=    BuiltIn.Set_Variable    /rests/data/car:cars
     RestPerfClient.Invoke_Restperfclient    ${DIRECT_MDSAL_TIMEOUT}    ${url}    testcase=direct
 
 Check_For_Failed_Direct_MDSAL_Requests
@@ -78,7 +78,7 @@ Configure_ODL_As_A_Device_On_Netconf
 
 Run_RestPerfClient_Through_Netconf_Connector
     [Documentation]    Ask RestPerfClient to send the requests to the MDSAL mapped via netconf topology device.
-    ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${test_device}/yang-ext:mount/car:cars
+    ${url}=    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${test_device}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    ${url}    testcase=netconf-connector
 
 Check_For_Failed_Netconf_Connector_Requests
