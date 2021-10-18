@@ -196,7 +196,7 @@ Check_Config_Data
     ...    TODO: Needs to be extracted into a suitable Resource as there is
     ...    the same code in at least two other suites (CRUD and clustered
     ...    CRUD).
-    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
+    ${url}=    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${session}
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
