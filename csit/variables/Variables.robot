@@ -171,6 +171,7 @@ ${REGISTER_TENANT_URI}    /restconf/operations/nemo-intent:register-user    # FI
 ${RESTCONFPORT}    8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}    8443    # Port for ODL RESTCONF Secure (TLS) operations
 ${RESTPORT}       8282    # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
+${REST_API}     /rests/data
 ${REVOKE_TOKEN_API}    /oauth2/revoke    # FIXME: Move to a separate AAA-related Resource and add description.
 ${SCOPE}          sdn    # Scope, used for some types of HTTP requests agains ODL RESTCONF. TODO: Migrate most suites to TemplatedRequests or AuthStandalone, then chose a more descriptive name.
 &{SEND_ACCEPT_XML_HEADERS}    Content-Type=application/xml    Accept=application/xml    # Accept and Content type for XML data. TODO: Hide into more specific Resource if possible.
