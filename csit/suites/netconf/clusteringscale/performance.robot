@@ -66,13 +66,13 @@ Wait_For_Device_Data_To_Be_Seen
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device through node 2 and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Post_As_Xml_Templated    ${directory_with_crud_templates}${/}cars    ${template_as_string}    session=node2
 
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device through node 3.
     ...    The duration of this test case is the main performance metric.
-    ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
+    ${url}=    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${DEVICE_NAME}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    ip=${ODL_SYSTEM_3_IP}
 
 Check_For_Failed_Requests
@@ -113,7 +113,7 @@ Setup_Everything
     RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
 
 Check_Data_Present
-    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
+    ${url}=    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node2
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 

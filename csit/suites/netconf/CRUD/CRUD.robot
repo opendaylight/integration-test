@@ -222,7 +222,7 @@ Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup everything needed for the test cases.
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${REST_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     ${device_type}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type}
     BuiltIn.Set_Suite_Variable    ${device_type}
@@ -234,7 +234,7 @@ Teardown_Everything
 
 Get_Config_Data
     [Documentation]    Get and return the config data from the device.
-    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
+    ${url}=    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${device_name}/yang-ext:mount?content=config
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}
     [Return]    ${data}
 
