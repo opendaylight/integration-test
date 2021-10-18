@@ -195,7 +195,7 @@ Wait_Netconf_Device_Mounted
 Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
-    ${response}=    RequestsLibrary.Get_Request    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
+    ${response}=    RequestsLibrary.Get_Request    ses    rests/data/network-topology:network-topology/topology\=topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}
     ${status}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Should_Contain    ${response.text}    data model content does not exist
     BuiltIn.Run_Keyword_If    ${status}    BuiltIn.Set_Suite_Variable    ${netconf_not_ready_cause}    5832

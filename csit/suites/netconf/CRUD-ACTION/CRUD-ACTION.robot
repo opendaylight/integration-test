@@ -105,7 +105,7 @@ Check_Device_Going_To_Be_Gone_After_Deconfiguring
 Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup everything needed for the test cases.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${REST_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     ${DEVICE_TYPE_RPC} =    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${DEVICE_TYPE_RPC}
     ${DEVICE_TYPE} =    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${DEVICE_TYPE_RPC}    ${DEVICE_TYPE_RPC_CREATE}
@@ -120,7 +120,7 @@ Teardown_Everything
 
 Get_Config_Data
     [Documentation]    Get and return the config data from the device.
-    ${url} =    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
+    ${url} =    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
     ${data} =    TemplatedRequests.Get_As_Xml_From_Uri    ${url}
     [Return]    ${data}
 
