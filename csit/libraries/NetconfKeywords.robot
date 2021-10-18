@@ -123,7 +123,7 @@ Remove_Device_From_Netconf
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
     [Documentation]    Tell Netconf to deconfigure the specified device
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
 
 Deconfigure_Device

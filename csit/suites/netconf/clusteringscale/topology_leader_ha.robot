@@ -147,12 +147,12 @@ Count_Substring_Occurence
 
 Get_Config_Device_Count
     [Documentation]    Count number of items in config netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf    session=${entity_ownership_leader_http_session}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${REST_API}/network-topology:network-topology/topology=topology-netconf    session=${entity_ownership_leader_http_session}
     BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
 
 Get_Operational_Device_Count
     [Documentation]    Count number of items in operational netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${entity_ownership_leader_http_session}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${REST_API}/network-topology:network-topology/topology=topology-netconf?content=nonconfig    session=${entity_ownership_leader_http_session}
     BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
 
 Check_Config_Items_Lower_Bound

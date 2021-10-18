@@ -192,9 +192,9 @@ Setup_Everything
     BuiltIn.Set_Suite_Variable    ${empty_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
     BuiltIn.Set_Suite_Variable    ${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
     BuiltIn.Set_Suite_Variable    ${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
-    ${url}=    Builtin.Set_Variable    /network-topology:network-topology/topology/topology-netconf
-    BuiltIn.Set_Suite_Variable    ${config_topology_url}    ${CONFIG_API}${url}
-    BuiltIn.Set_Suite_Variable    ${operational_topology_url}    ${OPERATIONAL_API}${url}
+    ${url}=    Builtin.Set_Variable    /network-topology:network-topology/topology=topology-netconf
+    BuiltIn.Set_Suite_Variable    ${config_topology_url}    ${REST_API}${url}
+    BuiltIn.Set_Suite_Variable    ${operational_topology_url}    ${REST_API}${url}
 
 Get_Topology_Core
     [Arguments]    ${session}
@@ -225,7 +225,7 @@ Check_Device_Instance_Count
 Check_Config_Data
     [Arguments]    ${node}    ${expected}    ${contains}=False
     [Documentation]    Check that the specified session sees the specified data in the test tool device.
-    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
+    ${url}=    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${node}
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
