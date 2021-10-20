@@ -222,5 +222,5 @@ Install Certificates In Mininet
     Comment    Install Certificates
     SSHLibrary.Execute Command    sudo mv ${switch_private_key} /etc/openvswitch && sudo mv ${switch_certificate} /etc/openvswitch && sudo mv ${controller_ca_list} /etc/openvswitch
     SSHLibrary.Execute Command    sudo ovs-vsctl set-ssl /etc/openvswitch/${switch_private_key} /etc/openvswitch/${switch_certificate} /etc/openvswitch/${controller_ca_list}
-    ${std_out}=    SSHLibrary.Execute Command    .    sudo ovs-vsctl get-ssl
+    ${std_out}=    SSHLibrary.Execute Command    sudo ovs-vsctl get-ssl
     Log    ${std_out}
