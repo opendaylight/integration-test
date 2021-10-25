@@ -16,6 +16,24 @@
       "revId": "2d7fe8c69810d256a0844ee396f77134e2b9838d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402a0bbe_ed7321fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-10-25T15:58:41Z",
+      "side": 1,
+      "message": "It\u0027s not a typo, but maybe the message is not clear. Rephrase the sentence to make it a little clearer.",
+      "parentUuid": "9ddeb415_fa00ada2",
+      "revId": "2d7fe8c69810d256a0844ee396f77134e2b9838d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
