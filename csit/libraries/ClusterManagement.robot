@@ -31,6 +31,7 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
+Library           String
 Library           ClusterEntities.py
 Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/KarafKeywords.robot
@@ -52,14 +53,11 @@ ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 # Bug 9044 workaround: delete etc/host.key before restart.
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    segmented-journal/    etc/opendaylight/current/    etc/host.key
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
-${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
-${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}    ]]]]}']
 ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey{_topologyId=Uri{_value=topology-netconf}}], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey{_nodeId=Uri{_value=
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    }}]]}
-${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
-${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group']
-${SINGLETON_SXP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
-${SINGLETON_SXP_DEVICE_ID_SUFFIX}    ']
+${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group
+&{SINGLETON_DEVICE_ID_PREFIX}    bgpcep=${EMPTY}    netconf=${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    openflow=${EMPTY}    sxp=${EMPTY}
+&{SINGLETON_DEVICE_ID_SUFFIX}    bgpcep=${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    netconf=${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    openflow=${EMPTY}    sxp=${EMPTY}
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_ROLE_INDEX_START}    1
@@ -254,52 +252,24 @@ Get_Owner_And_Candidates_For_Device_Rpc
 Get_Owner_And_Candidates_For_Device_Singleton
     [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
-    ...    Parsing method is selected by device type
-    ...    Separate kw for every supported device type must be defined
-    BuiltIn.Keyword_Should_Exist    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}
-    BuiltIn.Run_Keyword_And_Return    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}    ${device_name}    ${member_index}    http_timeout=${http_timeout}
-
-Get_Owner_And_Candidates_For_Device_Singleton_Netconf
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
-    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type netconf. Request is sent to member ${member_index}.
-    ...    Parsing method is set as netconf (using netconf device id prefix and suffix)
+    # Normalize device type to the lowercase as in ${SINGLETON_DEVICE_ID_PREFIX} & ${SINGLETON_DEVICE_ID_SUFFIX}
+    ${device_type} =    String.Convert To Lower Case    ${device_type}
+    # Set device ID prefix
+    Collection.Dictionary Should Contain Key    ${SINGLETON_DEVICE_ID_PREFIX}    ${device_type}
+    ${device_id_prefix} =    Collections.Get From Dictionary    ${SINGLETON_DEVICE_ID_PREFIX}    ${device_type}
+    Log    ${device_id_prefix}
+    # Set device ID suffix
+    Collection.Dictionary Should Contain Key    ${SINGLETON_DEVICE_ID_SUFFIX}    ${device_type}
+    ${device_id_suffix} =    Collections.Get From Dictionary    ${SINGLETON_DEVICE_ID_SUFFIX}    ${device_type}
+    Log    ${device_id_suffix}
+    # Set device ID
+    ${id} =    BuiltIn.Set_Variable    ${device_id_prefix}${device_name}${device_id_suffix}
+    Log    ${id}
     # Get election entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
-    ${id} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}
     ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Get change ownership entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
-    ${id} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX_OLD}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX_OLD}
-    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
-    # Owners must be same, if not, there is still some election or change ownership in progress
-    BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
-    [Return]    ${owner_1}    ${candidate_list_1}
-
-Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
-    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
-    # Get election entity type results
-    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
-    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
-    # Get change ownership entity type results
-    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
-    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
-    # Owners must be same, if not, there is still some election or change ownership in progress
-    BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
-    [Return]    ${owner_1}    ${candidate_list_1}
-
-Get_Owner_And_Candidates_For_Device_Singleton_Sxp
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
-    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
-    # Get election entity type results
-    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_SXP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_SXP_DEVICE_ID_SUFFIX}
-    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
-    # Get change ownership entity type results
-    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
-    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_SXP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_SXP_DEVICE_ID_SUFFIX}
     ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Owners must be same, if not, there is still some election or change ownership in progress
     BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
