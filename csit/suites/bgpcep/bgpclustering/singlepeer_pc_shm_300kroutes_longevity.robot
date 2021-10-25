@@ -41,7 +41,7 @@ ${LONGEVITY_TEST_DURATION_IN_SECS}    82800
 *** Test Cases ***
 Configure_Prefixes_Longevity
     [Documentation]    Configure bgp peer, repeat the test scenario for 24h and deconfigure it.
-    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
+    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    1
     PrefixcountKeywords.Set_Shard_Leaders_Location_And_Verify    ${rib_owner}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${INITIAL_RESTCONF_TIMEOUT}    1s    Check_For_Empty_Ipv4_Topology_On_All_Nodes
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
