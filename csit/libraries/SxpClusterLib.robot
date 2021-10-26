@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Library containing Keywords used for SXP cluster testing
+Library           Collections
 Library           RequestsLibrary
 Resource          ./ClusterManagement.robot
+Resource          ./CompareStream.robot
 Resource          ./SetupUtils.robot
 Resource          ./SxpLib.robot
 
@@ -46,6 +48,8 @@ Clean SXP Cluster Session
 Check Shards Status
     [Documentation]    Check Status for all shards in SXP application.
     ClusterManagement.Check_Cluster_Is_In_Sync
+    CompareStream.Run_Keyword_If_At_Least_Phosphorus    Collections.Remove Values From List    ${SHARD_OPER_LIST}    entity-ownership
+    Log    ${SHARD_OPER_LIST}
     ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_OPER_LIST}    shard_type=operational
     ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_CONF_LIST}    shard_type=config
 

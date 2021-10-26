@@ -1,8 +1,10 @@
 *** Settings ***
 Documentation     Cluster OpenFlow library. So far this library is only to be used by OpenFlow cluster test as it is very specific for this test.
+Library           Collections
 Library           RequestsLibrary
 Library           ${CURDIR}/ScaleClient.py
 Resource          ClusterManagement.robot
+Resource          CompareStream.robot
 Resource          MininetKeywords.robot
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -26,6 +28,8 @@ Get InventoryConfig Shard Status
 Check OpenFlow Shards Status
     [Arguments]    ${controller_index_list}=${EMPTY}
     [Documentation]    Check Status for all shards in OpenFlow application.
+    CompareStream.Run_Keyword_If_At_Least_Phosphorus    Collections.Remove Values From List    ${SHARD_OPER_LIST}    entity-ownership
+    Log    ${SHARD_OPER_LIST}
     ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_OPER_LIST}    shard_type=operational    member_index_list=${controller_index_list}
     ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_CONF_LIST}    shard_type=config    member_index_list=${controller_index_list}
 
