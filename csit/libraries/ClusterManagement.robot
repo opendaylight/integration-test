@@ -56,8 +56,8 @@ ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey{_topologyId=Uri{_value=topology-netconf}}], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey{_nodeId=Uri{_value=
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    }}]]}
 ${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group
-&{SINGLETON_DEVICE_ID_PREFIX}    bgpcep=${EMPTY}    netconf=${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    openflow=${EMPTY}    sxp=${EMPTY}
-&{SINGLETON_DEVICE_ID_SUFFIX}    bgpcep=${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    netconf=${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    openflow=${EMPTY}    sxp=${EMPTY}
+&{SINGLETON_DEVICE_ID_PREFIX}    bgpcep=${EMPTY}    netconf=${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    openflow=${EMPTY}    ovsdb=${EMPTY}    sxp=${EMPTY}
+&{SINGLETON_DEVICE_ID_SUFFIX}    bgpcep=${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    netconf=${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    openflow=${EMPTY}    ovsdb=${EMPTY}    sxp=${EMPTY}
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_ROLE_INDEX_START}    1
