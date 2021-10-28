@@ -141,6 +141,15 @@ def get_entity_type_data(restconf_url, e_type):
         auth=("admin", "admin"),
     )
 
+    info(
+        "Response %s ",
+        resp,
+    )
+    info(
+        "Entity json %s",
+        resp.json(),
+    )
+
     return resp.json()["entity-owners:entity-type"][0]
 
 
