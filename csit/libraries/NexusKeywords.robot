@@ -120,7 +120,7 @@ Deploy_Artifact
     CompareStream.Run_Keyword_If_At_Most_Silicon    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    bgpcep
     ${version}    ${location} =    BuiltIn.Run_Keyword_If    '${build_version}'=='${EMPTY}'    NexusKeywords__Detect_Version_To_Pull    ${component}
     ...    ELSE    BuiltIn.Set_Variable    ${build_version}    ${build_location}
-    BuiltIn.Run_Keyword_If    'SNAPSHOT' in '${version}'    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    netconf
+    BuiltIn.Run_Keyword_If    'SNAPSHOT' in '${version}'    Collections.Remove_Values_From_List    ${RELEASE_INTEGRATED_COMPONENTS}    netconf    bgpcep
     # check if the bundle url is pointing to a staging artifact
     # when we are pointing at a staged artifact we need to use the staging repo instead of release/snapshot artifacts
     ${is_staged} =    BuiltIn.Set_Variable_If    "opendaylight.release" not in '${urlbase}' and "opendaylight.snapshot" not in '${urlbase}'    "TRUE"    "FALSE"
