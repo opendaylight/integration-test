@@ -29,11 +29,11 @@ Run Read Service Python Script on Controller Vm
     Log    ${stdout}
     ${module}    OperatingSystem.Get File    ${JSONRPCCONFIG_MODULE_JSON}
     ${data}    OperatingSystem.Get File    ${JSONRPCCONFIG_DATA_JSON}
-    ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
+    ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module.replace("\n","").replace(" ","")}' '${data.replace("\n","").replace(" ","")}'
     Log    ${cmd}
-    ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
-    ${stdout}    SSHLibrary.Write    echo | nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
-    ${stdout}    SSHLibrary.Write    echo
+    ${stdout}    SSHLibrary.Execute Command    rm -rf nohup.out
+    SSHLibrary.Start Command    ${cmd}
+    ${stdout}    ${stderr}    SSHLibrary.Read Command Output    return_stderr=True
     Log    ${stdout}
     ${stdout}    SSHLibrary.Execute Command    cat nohup.out
     Log    ${stdout}
