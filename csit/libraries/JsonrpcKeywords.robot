@@ -6,34 +6,33 @@ Library           RequestsLibrary
 Resource          ClusterManagement.robot
 Resource          ../variables/jsonrpc/JsonrpcVariables.robot
 Resource          ../variables/Variables.robot
+Resource          SSHKeywords.robot
 Resource          Utils.robot
 
 *** Keywords ***
 Run Read Service Python Script on Controller Vm
-    [Arguments]    ${host_index}=${FIRST_CONTROLLER_INDEX}    ${ub_system}=${FALSE}
-    [Documentation]    This keyword installs pip,zmq,pyzmq and starts the read service on controller vm
-    ${cmd}    Builtin.Set Variable If    ${ub_system}    ${UB_PIP}    ${CENTOS_PIP}
+    [Arguments]    ${host_index}=${FIRST_CONTROLLER_INDEX}
+    [Documentation]    This keyword creates a new virtual environment, installs pyzmq & zmq and starts the read service on controller vm
     ${host_index}    Builtin.Convert To Integer    ${host_index}
     ${host}    ClusterManagement.Resolve IP Address For Member    ${host_index}
     ${connections}    SSHKeywords.Open_Connection_To_ODL_System    ${host}
     SSHLibrary.Switch Connection    ${connections}
     SSHLibrary.Put File    ${READ_SERVICE_SCRIPT}    ${WORKSPACE}/${BUNDLEFOLDER}/    mode=664
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ${cmd}    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    Log    ${stdout}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install --upgrade pip    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    Log    ${stdout}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install zmq pyzmq    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    Log    ${stdout}
     ${module}    OperatingSystem.Get File    ${JSONRPCCONFIG_MODULE_JSON}
     ${data}    OperatingSystem.Get File    ${JSONRPCCONFIG_DATA_JSON}
-    ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
+    ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module.replace("\n","").replace(" ","")}' '${data.replace("\n","").replace(" ","")}'
     Log    ${cmd}
-    ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
-    ${stdout}    SSHLibrary.Write    echo | nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
+    SSHKeywords.Virtual_Env_Set_Path    /tmp/jsonrpc_venv
+    SSHKeywords.Virtual_Env_Create_Python3    True
+    SSHKeywords.Virtual_Env_Install_Package    pyzmq
+    SSHKeywords.Virtual_Env_Install_Package    zmq
+    SSHKeywords.Virtual_Env_Activate_On_Current_Session    True
+    ${stdout}    SSHLibrary.Write    rm -rf nohup.out
+    ${stdout}    SSHLibrary.Write    ${cmd} &
     ${stdout}    SSHLibrary.Write    echo
+    Log    ${stdout}
+    BuiltIn.Sleep    2s
+    ${stdout}    SSHLibrary.Execute Command    /usr/sbin/ss -nlt
     Log    ${stdout}
     ${stdout}    SSHLibrary.Execute Command    cat nohup.out
     Log    ${stdout}
