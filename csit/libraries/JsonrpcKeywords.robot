@@ -32,7 +32,7 @@ Run Read Service Python Script on Controller Vm
     ${cmd}    Builtin.Set Variable    nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}'
     Log    ${cmd}
     ${stdout}    SSHLibrary.Write    echo | rm -rf nohup.out
-    ${stdout}    SSHLibrary.Write    echo | nohup python ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
+    ${stdout}    SSHLibrary.Write    echo | nohup python3 ${WORKSPACE}/${BUNDLEFOLDER}/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
     ${stdout}    SSHLibrary.Write    echo
     Log    ${stdout}
     ${stdout}    SSHLibrary.Execute Command    cat nohup.out
