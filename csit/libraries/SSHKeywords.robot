@@ -170,6 +170,12 @@ Virtual_Env_Create
     Execute_Command_At_Cwd_Should_Pass    virtualenv ${SSHKeywords__current_venv_path}
     BuiltIn.Run_Keyword_And_Return_If    ${upgrade_pip}    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip    stderr_must_be_empty=False
 
+Virtual_Env_Create_Python3
+    [Arguments]    ${upgrade_pip}=True
+    [Documentation]    Creates virtual env. If not to use the default name, use Virtual_Env_Set_Path kw. Returns stdout.
+    Execute_Command_At_Cwd_Should_Pass    python3 -m venv ${SSHKeywords__current_venv_path}
+    BuiltIn.Run_Keyword_And_Return_If    ${upgrade_pip}    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip    stderr_must_be_empty=False
+
 Virtual_Env_Delete
     [Documentation]    Deletes a directory with virtual env.
     Execute_Command_At_Cwd_Should_Pass    rm -rf ${SSHKeywords__current_venv_path}
