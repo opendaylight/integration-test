@@ -166,7 +166,7 @@ def main():
     logging.info(">%s", request)
     (code, response) = service.execute_json(request)
     logging.info("<%s", response)
-    zock.send(response)
+    zock.send_string(response)
     logging.info("exiting with code %d", code)
     zock.close()
     sys.exit(code)
