@@ -7,6 +7,7 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Library           XML
+Resource          KarafKeywords.robot
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
@@ -79,34 +80,27 @@ Get_Singleton_Constant
 Register_Constant
     [Arguments]    ${member_index}    ${constant}
     [Documentation]    Register the get-constant rpc on the requested node with given constant.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
-    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:register-contact ${constant}    member_index=${member_index}
 
 Unregister_Constant
     [Arguments]    ${member_index}
     [Documentation]    Unregister the get-constant rpc on the given node.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:unregister-contact    member_index=${member_index}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
-    [Documentation]    Register singleton application on given node by invoking register-singleton-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
-    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_SINGLETON_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Register singleton application on given node by executing register-singleton-constant command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:register-singleton-constant ${constant}     member_index=${member_index}
 
 Unregister_Singleton_Constant
     [Arguments]    ${member_index}
-    [Documentation]    Unregister singleton application on given node by invoking unregister-singleton-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_SINGLETON_CONSTANT_DIR}    session=${session}
+    [Documentation]    Unregister singleton application on given node by executing unregister-singleton-constant command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:unregister-singleton-constant    member_index=${member_index}
 
 Register_Flapping_Singleton
     [Arguments]    ${member_index}
-    [Documentation]    Activate flapping application on given node by invoking register-flapping-singleton rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_FLAPPING_SINGLETON_DIR}    session=${session}
+    [Documentation]    Activate flapping application on given node by executing register-flapping-singleton command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:register-flapping-singleton    member_index=${member_index}
 
 Unregister_Flapping_Singleton
     [Arguments]    ${member_index}
@@ -121,9 +115,7 @@ Unregister_Flapping_Singleton
 Write_Transactions
     [Arguments]    ${member_index}    ${identifier}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
     [Documentation]    Create transactions with given rate for given time for module-based shards.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    ID=${identifier}    DURATION=${seconds}    RATE=${trans_per_sec}    CHAINED_FLAG=${chained_trans}
-    TemplatedRequests.Post_As_Xml_Templated    ${WRITE_TRANSACTIONS_DIR}    mapping=${mapping}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:write-transactions ${identifier} ${seconds} ${trans_per_sec} ${chained_trans}    member_index=${member_index}
 
 Produce_Transactions
     [Arguments]    ${member_index}    ${seconds}    ${trans_per_sec}    ${isolated_trans}=${True}
@@ -159,13 +151,12 @@ Become_Prefix_Leader
 
 Subscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    Subscribe a listener for data changes. Invoke subscribe-dtcl rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_DTCL_DIR}    session=${session}
+    [Documentation]    Subscribe a listener for data changes. Execute subscribe-dtcl command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:subscribe-dtcl    member_index=${member_index}
 
 Unsubscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    Invoke unsubscribe-dtcl rpc, return copy-matches field as boolean.
+    [Documentation]    Execute unsubscribe-dtcl command, return copy-matches field as boolean.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
     BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Matches    ${text}
@@ -180,8 +171,7 @@ Unsubscribe_Dtcl_No_Tx
 Subscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Subscribe DOMDataTreeListener to listen for the data changes.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_DDTL_DIR}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:subscribe-ddtl    member_index=${member_index}
 
 Unsubscribe_Ddtl
     [Arguments]    ${member_index}
@@ -218,10 +208,8 @@ MdsalLowLevel__Parse_Maybe_No_Tx
 
 Start_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
-    [Documentation]    Start publishing notifications by invoking publish-notifications rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}    DURATION=${seconds}    RATE=${notif_per_sec}
-    TemplatedRequests.Post_As_Xml_Templated    ${START_PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Start publishing notifications by executing publish-notifications command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:start-publish-notifications ${gid} ${seconds} ${notif_per_sec}    member_index=${member_index}
 
 Check_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}
@@ -243,9 +231,7 @@ Check_Publish_Notifications
 Subscribe_Ynl
     [Arguments]    ${member_index}    ${gid}
     [Documentation]    Subscribe listener for the notifications with identifier ${gid}.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
-    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app ${gid}    member_index=${member_index}
 
 Unsubscribe_Ynl
     [Arguments]    ${member_index}    ${gid}
@@ -262,26 +248,20 @@ Unsubscribe_Ynl
 
 Register_Bound_Constant
     [Arguments]    ${member_index}    ${context}    ${constant}
-    [Documentation]    Invoke register-bound-constant rpc and register get-contexted-constant rpc. The argument ${context} is only the string part
+    [Documentation]    Execute register-bound-constant command and register get-contexted-constant rpc. The argument ${context} is only the string part
     ...    of the whole instance identifier.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}    CONSTANT=${constant}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:register-bound-constant ${context} ${constant}    member_index=${member_index}
 
 Unregister_Bound_Constant
     [Arguments]    ${member_index}    ${context}
-    [Documentation]    Invoke unregister-bound-constant rpc and unregister get-contexted-constant rpc. The argument ${context} is only the string part
+    [Documentation]    Execute unregister-bound-constant command and unregister get-contexted-constant rpc. The argument ${context} is only the string part
     ...    of the whole instance identifier.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
-    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:unregister-bound-constant ${context}    member_index=${member_index}
 
 Shutdown_Shard_Replica
     [Arguments]    ${member_index}    ${shard_name}
-    [Documentation]    Invoke shutdown-shard-replica rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Execute shutdown-shard-replica command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    test-app:shutdown-shard-replica ${shard_name}    member_index=${member_index}
 
 Shutdown_Prefix_Shard_Replica
     [Arguments]    ${member_index}    ${shard_prefix}
