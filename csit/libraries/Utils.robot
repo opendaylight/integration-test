@@ -592,3 +592,12 @@ Download File On Openstack Node
     [Documentation]    Download a file from web to the node. the input will be a session ID with established SSH connection.
     SSHLibrary.Switch Connection    ${conn_id}
     Utils.Write Commands Until Expected Prompt    wget -O /tmp/${save_file_name} ${url}    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Get_Parameter_Value_From_Output
+    [Arguments]    ${output}    ${param}
+    [Documentation]    When an implementation of RPC is invoked by karaf CLI command, output of the RPC is printed on console.
+    ...    This keyword returns value for specified name of paramater from the output.
+    BuiltIn.Should_Contain    ${output}    ${param}
+    ${fetch} =    String.Fetch From Right    ${output}    ${param}
+    ${value} =    String.Get Line    ${fetch}    0
+    [Return]    ${value.strip()}
