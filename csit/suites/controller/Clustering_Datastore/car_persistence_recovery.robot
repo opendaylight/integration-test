@@ -38,7 +38,8 @@ Add_Cars_On_Leader_And_Verify
 
 Stop_All_Members
     [Documentation]    Stop all controllers.
-    ClusterManagement.Stop_Members_From_List_Or_All    confirm=True
+    ${status} =    BuiltIn.Run Keyword And Return Status    ClusterManagement.Stop_Members_From_List_Or_All    confirm=True
+    BuiltIn.Run Keyword If    '${status}' != 'True'    ClusterManagement.Kill_Members_From_List_Or_All
 
 Start_All_Members
     [Documentation]    Start all controllers (should restore the persisted data).
