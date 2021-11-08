@@ -66,6 +66,9 @@ ${NODE_KARAF_COUNT_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | w
 ${NODE_KILL_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${NODE_FREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -STOP \" $1}' | sh
 ${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -CONT \" $1}' | sh
+${CLUSTER_TEST_APP_CMD_SCOPE}    test-app
+${CLUSTER_ADMIN_CMD_SCOPE}    cluster-admin
+${INVOCATION_FAILED}    Invocation failed:    # string that indicates invocation failed after test-app or cluster-admin command execution
 
 *** Keywords ***
 ClusterManagement_Setup
