@@ -11,36 +11,49 @@ Documentation     Resource housing Keywords common to tests which interact with 
 ...               This resource is tightly coupled with "crud" cluster suite,
 ...               as it is not straightforward to allow ${VAR_DIR} customization.
 Resource          ${CURDIR}/TemplatedRequests.robot
+Resource          ${CURDIR}/KarafKeywords.robot
 
 *** Variables ***
 ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
+${CLUSTER_TEST_APP_CMD_SCOPE}    test-app
+@{ERROR_INDICATIONS}    Error executing command:    Invocation failed:    # strings that indicate an error occured after test-app command execution
 
 *** Keywords ***
 Add_Several_People
-    [Arguments]    ${session}    ${iterations}    ${iter_start}=1
+    [Arguments]    ${member_index}    ${iterations}    ${iter_start}=1
     [Documentation]    Simple loop for issuing add-person RPCs to session, one by one.
     ...    People need to be added via RPC, otherwise buy-car routed RPC will not find registered path.
     ...    See javadocs in RpcProviderRegistry.java
     FOR    ${i}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i": "${i}"}    session=${session}
+        ${person_id} =    BuiltIn.Set_Variable    localhost/people/person_id_${i}
+        ${gender} =    BuiltIn.Set_Variable    gender_${i}
+        ${age} =    BuiltIn.Set_Variable    ${i}
+        ${address} =    BuiltIn.Set_Variable    address_${i}
+        ${constact} =    BuiltIn.Set_Variable    contact_${i}
+        ${command} =    BuiltIn.Set_Variable    ${CLUSTER_TEST_APP_CMD_SCOPE}:add-person ${person_id} ${gender} ${age} ${address} ${constact}
+        KarafKeywords.Check_For_No_Elements_On_Karaf_Command_Output_Message    ${command}    ${ERROR_INDICATIONS}    ${member_index}
     END
 
 Buy_Several_Cars
-    [Arguments]    ${session}    ${iterations}    ${iter_start}=1    ${registration_delay}=20s
+    [Arguments]    ${member_index}    ${iterations}    ${iter_start}=1    ${registration_delay}=20s
     [Documentation]    Simple loop for issuing buy-car RPCs to session, one by one.
     ...    This needs to be a separate Keyword mostly just because nested FOR loops are not allowed.
     ...    Actual fact of buying one car is done by inner Keyword.
     FOR    ${iter}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-        Buy_Single_Car    session=${session}    iteration=${iter}    registration_delay=${registration_delay}
+        Buy_Single_Car    member_index=${member_index}    iteration=${iter}    registration_delay=${registration_delay}
     END
 
 Buy_Single_Car
-    [Arguments]    ${session}    ${iteration}=1    ${registration_delay}=20s
+    [Arguments]    ${member_index}    ${iteration}=1    ${registration_delay}=20s
     [Documentation]    Each buy-car RPC is routed, which means there is a delay between
     ...    the time add-car RPC is executed and the time member in question registers the route.
     ...    To distinguish functional bugs from performance ones, this Keyword waits up to 20 seconds
     ...    while retrying buy-car requests.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${registration_delay}    1s    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/buy-car    mapping={"i": "${iteration}"}    session=${session}
+    ${person_ref} =    BuiltIn.Set_Variable    /people:people/people:person\\[people:id=\\'localhost/people/person_id_${iteration}\\'\\]
+    ${car_id} =    BuiltIn.Set_Variable    localhost/cars/car_id_${iteration}
+    ${person_id} =    BuiltIn.Set_Variable    localhost/people/person_id_${iteration}
+    ${command} =    BuiltIn.Set_Variable    ${CLUSTER_TEST_APP_CMD_SCOPE}:buy-car ${person_ref} ${car_id} ${person_id}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${registration_delay}    1s    KarafKeywords.Check_For_No_Elements_On_Karaf_Command_Output_Message    ${command}    ${ERROR_INDICATIONS}    ${member_index}
 
 Set_Variables_For_Shard
     [Arguments]    ${shard_name}    ${shard_type}=config

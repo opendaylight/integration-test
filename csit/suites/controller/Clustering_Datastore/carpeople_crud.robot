@@ -25,6 +25,7 @@ Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
@@ -34,67 +35,14 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
 *** Test Cases ***
 Add_Cars_To_Leader
     [Documentation]    Add ${CARPEOPLE_ITEMS} cars to car Leader by one big PUT.
+    ${index_list} =    List_Indices_Or_All    given_list=${EMPTY}
+    FOR    ${index}    IN    @{index_list}
+        ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
+        KarafKeywords.Issue_Command_On_Karaf_Console    feature:list -i    ${member_ip}
+        KarafKeywords.Install_A_Feature    odl-restconf-nb-bierman02    ${member_ip}
+        KarafKeywords.Issue_Command_On_Karaf_Console    feature:list -i    ${member_ip}
+    END
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CARPEOPLE_ITEMS}
-
-See_Added_Cars_On_Leader
-    [Documentation]    GET response from Leader should match the PUT data.
-    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-
-See_Added_Cars_On_Followers
-    [Documentation]    The same check on other members.
-    FOR    ${session}    IN    @{car_follower_sessions}
-        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-    END
-
-Add_People_To_First_Follower
-    [Documentation]    Add ${CARPEOPLE_ITEMS} people to people first Follower, loop of add-person.
-    CarPeople.Add_Several_People    session=${people_first_follower_session}    iterations=${CARPEOPLE_ITEMS}
-
-See_Added_People_On_Leader
-    [Documentation]    GET response from Leader should match the added people.
-    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${people_leader_session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-
-See_Added_People_On_Followers
-    [Documentation]    The same check on other members.
-    FOR    ${session}    IN    @{people_follower_sessions}
-        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-    END
-
-Buy_Cars_On_Leader
-    [Documentation]    Buy some cars on car-people Leader, loop of buy-car, ending segment of IDs.
-    # Cars are numbered, leader gets chunk at the end, as that is few keypresses shorter.
-    ${start_id} =    BuiltIn.Evaluate    (${NUM_ODL_SYSTEM} - 1) * ${items_per_follower} + 1
-    CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${items_per_leader}    iter_start=${start_id}
-
-Buy_Cars_On_Followers
-    [Documentation]    On each Follower buy corresponding ID segment of cars in buy-car loop.
-    ${start_id} =    BuiltIn.Set_Variable    1
-    FOR    ${session}    IN    @{car-people_follower_sessions}
-        CarPeople.Buy_Several_Cars    session=${session}    iterations=${items_per_follower}    iter_start=${start_id}
-        ${start_id} =    BuiltIn.Evaluate    ${start_id} + ${items_per_follower}
-    END
-
-See_Added_CarPeople_On_Leader
-    [Documentation]    GET car-person mappings from Leader to see all entries.
-    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${car-people_leader_session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-
-See_Added_CarPeople_On_Followers
-    [Documentation]    The same check on other members.
-    FOR    ${session}    IN    @{car-people_follower_sessions}
-        TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
-    END
-
-Delete_All_CarPeople_On_Leader
-    [Documentation]    DELETE car-people container. No verification beyond http status.
-    TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/car-people    session=${car-people_leader_session}
-
-Delete_All_People_On_Leader
-    [Documentation]    DELETE people container. No verification beyond http status.
-    TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/people    session=${people_leader_session}
-
-Delete_All_Cars_On_Leader
-    [Documentation]    DELETE cars container. No verification beyond http status.
-    TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}
 
 *** Keywords ***
 Setup
