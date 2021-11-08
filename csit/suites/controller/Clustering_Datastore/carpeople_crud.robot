@@ -64,13 +64,13 @@ Buy_Cars_On_Leader
     [Documentation]    Buy some cars on car-people Leader, loop of buy-car, ending segment of IDs.
     # Cars are numbered, leader gets chunk at the end, as that is few keypresses shorter.
     ${start_id} =    BuiltIn.Evaluate    (${NUM_ODL_SYSTEM} - 1) * ${items_per_follower} + 1
-    CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${items_per_leader}    iter_start=${start_id}
+    CarPeople.Buy_Several_Cars    member_index=${car-people_leader_index}    iterations=${items_per_leader}    iter_start=${start_id}
 
 Buy_Cars_On_Followers
     [Documentation]    On each Follower buy corresponding ID segment of cars in buy-car loop.
     ${start_id} =    BuiltIn.Set_Variable    1
-    FOR    ${session}    IN    @{car-people_follower_sessions}
-        CarPeople.Buy_Several_Cars    session=${session}    iterations=${items_per_follower}    iter_start=${start_id}
+    FOR    ${member_index}    IN    @{car-people_follower_indices}
+        CarPeople.Buy_Several_Cars    member_index=${member_index}    iterations=${items_per_follower}    iter_start=${start_id}
         ${start_id} =    BuiltIn.Evaluate    ${start_id} + ${items_per_follower}
     END
 
