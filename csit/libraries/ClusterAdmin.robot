@@ -7,6 +7,8 @@ Documentation     Keywords wrapping controller's cluster-admin yang model rpcs.
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Library           XML
+Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
@@ -23,10 +25,8 @@ ${GET_PREFIX_SHARD_ROLE_DIR}    ${CLUSTERADMIN_RPC_DIR}/get_prefix_shard_role
 *** Keywords ***
 Make_Leader_Local
     [Arguments]    ${member_index}    ${shard_name}    ${shard_type}
-    [Documentation]    Makes the node to be a shard leader by invoking make-leader-local rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    SHARD_TYPE=${shard_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${MAKE_LEADER_LOCAL_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Makes the node to be a shard leader by executing make-leader-local command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    cluster-admin:make-leader-local ${shard_name} ${shard_type}    member_index=${member_index}
 
 Add_Prefix_Shard_Replica
     [Arguments]    ${member_index}    ${shard_prefix}    ${ds_type}
@@ -44,27 +44,19 @@ Remove_Prefix_Shard_Replica
 
 Add_Shard_Replica
     [Arguments]    ${member_index}    ${shard_name}    ${ds_type}
-    [Documentation]    Add shard replica to given member by invoking add-shard-replica rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    DATA_STORE_TYPE=${ds_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${ADD_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Add shard replica to given member by executing add-shard-replica command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    cluster-admin:add-shard-replica ${shard_name} ${ds_type}    member_index=${member_index}
 
 Remove_Shard_Replica
     [Arguments]    ${member_index}    ${shard_name}    ${member_name}    ${ds_type}
-    [Documentation]    Remove shard replica from the given member by invoking remove-shard-replica rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    MEMBER_NAME=${member_name}    DATA_STORE_TYPE=${ds_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REMOVE_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
+    [Documentation]    Remove shard replica from the given member by executing remove-shard-replica command.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    cluster-admin:remove-shard-replica ${shard_name} ${ds_type} ${member_name}    member_index=${member_index}
 
 Get_Shard_Role
     [Arguments]    ${member_index}    ${shard_name}    ${ds_type}
     [Documentation]    Get shard member role.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    DATA_STORE_TYPE=${ds_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_SHARD_ROLE_DIR}    mapping=${mapping}    session=${session}
-    ${xml} =    XML.Parse_Xml    ${text}
-    ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
-    BuiltIn.Return_From_Keyword    ${role}
+    ${output} =    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    cluster-admin:get-shard-role ${shard_name} ${ds_type}    member_index=${member_index}
+    BuiltIn.Run_Keyword_And_Return    Utils.Get_Parameter_Value_From_Output    ${output}    role
 
 Get_Prefix_Shard_Role
     [Arguments]    ${member_index}    ${shard_prefix}    ${ds_type}
