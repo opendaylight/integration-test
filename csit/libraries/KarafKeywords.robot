@@ -214,6 +214,14 @@ Execute_Controller_Karaf_Command_With_Retry_On_Background
     ${message} =    Execute_Controller_Karaf_Command_On_Background    ${command}    ${member_index}
     [Return]    ${message}
 
+Check_For_No_Elements_On_Karaf_Command_Output_Message
+    [Arguments]    ${command}    ${elements}    ${member_index}
+    [Documentation]    This will execute the karaf command using Execute_Controller_Karaf_Command_On_Background and then
+    ...    check the command output message does not contain the given elements.
+    ${output} =    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    command=${command}    member_index=${member_index}
+    BuiltIn.Should_Not_Contain_Any    ${output}    ${elements}
+    [Return]    ${output}
+
 Log_Message_To_Controller_Karaf
     [Arguments]    ${message}    ${member_index_list}=${EMPTY}    ${tolerate_failure}=True
     [Documentation]    Make sure this resource is initialized. Send a message into the controller's karaf log file on every node listed (or all).
