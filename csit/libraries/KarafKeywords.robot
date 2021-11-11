@@ -45,7 +45,7 @@ Issue_Command_On_Karaf_Console
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    ${cmd}
     ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
-    SSHLibrary.Write    logout
+    SSHLibrary.Write_Bare    logout\n
     SSHLibrary.Close_Connection
     BuiltIn.Log    ${output}
     [Return]    ${output}
