@@ -23,7 +23,7 @@ Create Two Active Switch Connections To Controller And Check OVS Connections
     ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT1}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
     BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Master Connection
+    Check Master Connection    30
     [Teardown]    Report_Failure_Due_To_Bug    8723
 
 Restore original Connection To Controller And Check OVS Connection
@@ -32,7 +32,7 @@ Restore original Connection To Controller And Check OVS Connection
     ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
     BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Master Connection
+    Check Master Connection    20
     FlowLib.Check Number Of Flows    1
     [Teardown]    Report_Failure_Due_To_Bug    8723
 
@@ -51,8 +51,9 @@ Final Phase
     RequestsLibrary.Delete All Sessions
 
 Check Master Connection
+    [Arguments]    ${timeout}=20
     [Documentation]    Execute OvsVsctl List Controllers Command and check for master connection.
-    ${output} =    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl list CONTROLLER
+    ${output} =    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    timeout --signal=KILL ${timeout} sudo ovsdb-client monitor Controller target,role
     BuiltIn.Set Suite Variable    ${output}
     Should Contain    ${output}    master
     Log    ${output}
