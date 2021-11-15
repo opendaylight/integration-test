@@ -16,6 +16,24 @@
       "message": "Some of the csit-1node-flow-services jobs failed because of the test for Bug 8723, 4 out of 10 for Phosphorus \u0026 3 out of 10 for Sulfur, and it\u0027s not very clear whether it\u0027s really because of controller issue or just fail to detect the role assignment:\n\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-1node-flow-services-all-phosphorus/\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-1node-flow-services-all-sulfur/\n\nWith this patch the chance of false test failure is very low, if any. Out of total 20 test runs, there is only test failure where controller role is stuck at \u0027other\u0027:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-phosphorus/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-sulfur/\n",
       "revId": "cde1c4287ee19f25df5b00c3d0c81ceff9213a2c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2425f3a_a1518869",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-15T16:27:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "620246e4_f0eda66d",
+      "revId": "cde1c4287ee19f25df5b00c3d0c81ceff9213a2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
