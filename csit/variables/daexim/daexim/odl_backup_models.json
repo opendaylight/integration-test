@@ -47,10 +47,6 @@
     "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:entity-ownership-service",
     "revision-date": "2015-08-10"
 }, {
-    "module": "prefix-shard-configuration",
-    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:clustering:prefix-shard-configuration",
-    "revision-date": "2017-01-10"
-}, {
     "module": "ietf-yang-types",
     "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
     "revision-date": "2013-07-15"
