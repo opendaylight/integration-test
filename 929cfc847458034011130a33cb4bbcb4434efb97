@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45731c22_5a6673fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 48
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3127
+      },
+      "writtenOn": "2021-11-19T16:05:58Z",
+      "side": 1,
+      "message": "Run on sandbox: https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-sulfur/6/\n\nLooks like same failures remaining as in releng, so none due to the migration.",
+      "revId": "929cfc847458034011130a33cb4bbcb4434efb97",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
