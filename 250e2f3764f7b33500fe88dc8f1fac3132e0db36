@@ -16,6 +16,24 @@
       "message": "jjb-deploy daexim-csit-1node-basic-only-phosphorus",
       "revId": "250e2f3764f7b33500fe88dc8f1fac3132e0db36",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5dbf18_10f272a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2021-11-19T05:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9761b055_b7d81245",
+      "revId": "250e2f3764f7b33500fe88dc8f1fac3132e0db36",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
