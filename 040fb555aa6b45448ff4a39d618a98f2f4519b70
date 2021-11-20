@@ -16,6 +16,23 @@
       "message": "integration/distribution test jobs for Silicon are all passing:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-cbench-only-silicon/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-silicon/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-bulkomatic-only-silicon/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-stats-collection-only-silicon/5/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-link-only-silicon/15/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-only-silicon/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-switch-only-silicon/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-silicon/5/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-silicon/6/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-perf-bulkomatic-only-silicon/5/\n\nFocused on the Silicon test jobs because there are some failing test cases with Phosphorus/Sulfur.\n\nInterestingly, openflowplugin-csit-1node-scale-link-only-silicon triggered CONTROLLER-2026 when the number of switches is increased to 48 and RFC8040 URL is used: search for \u0027Circuit Breaker\u0027 in the Karaf log\n\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/openflowplugin-csit-1node-scale-link-only-silicon/15/odl_1/odl1_karaf.log.gz\n",
       "revId": "040fb555aa6b45448ff4a39d618a98f2f4519b70",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2e7a46_8a6872d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-20T17:43:25Z",
+      "side": 1,
+      "message": "Sandbox was reset, so here are new test runs:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-cbench-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-bulkomatic-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-stats-collection-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-link-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-switch-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-perf-bulkomatic-only-silicon/1/",
+      "revId": "040fb555aa6b45448ff4a39d618a98f2f4519b70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
