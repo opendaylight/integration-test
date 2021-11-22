@@ -16,6 +16,23 @@
       "message": "jjb-deploy openflowplugin-csit-1node-sanity-only-silicon",
       "revId": "e0b288d46c0415e927e01f66a259ed03ca013777",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72d42b2_42e4de93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-22T22:43:42Z",
+      "side": 1,
+      "message": "After the change in TemplatedRequests.robot\n\nhttps://git.opendaylight.org/gerrit/c/integration/test/+/97595/49/csit/libraries/TemplatedRequests.robot\n\nSeveral openflowplugin test jobs failed:\n\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-1node-sanity-only-silicon/451/\nhttps://jenkins.opendaylight.org/releng/view/integration/job/openflowplugin-csit-1node-flow-services-all-silicon/503/\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-3node-clustering-only-silicon/503/\n\nThis patch addresses the incompatibility:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-sanity-only-silicon/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-silicon/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-silicon/2/",
+      "revId": "e0b288d46c0415e927e01f66a259ed03ca013777",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
