@@ -1,1 +1,1 @@
-/restconf/config/opendaylight-inventory:nodes/node/openflow:$SWITCH
+/rests/data/opendaylight-inventory:nodes/node=$NODE

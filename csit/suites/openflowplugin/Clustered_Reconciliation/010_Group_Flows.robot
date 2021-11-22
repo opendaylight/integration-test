@@ -384,9 +384,10 @@ Add Groups And Flows On Member
     [Documentation]    Add ${ITER} groups type 1 & 2 and flows in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+        &{mapping}    BuiltIn.Create_Dictionary    NODE=openflow:${switch}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping=${mapping}    session=${session}    iterations=${iter}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping=${mapping}    session=${session}    iterations=${iter}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping=${mapping}    session=${session}    iterations=${iter}
     END
 
 Add Single Group And Flow On Member
