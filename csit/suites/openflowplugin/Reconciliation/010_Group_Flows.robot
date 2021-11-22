@@ -20,19 +20,22 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 Add Group 1 In Every Switch
     [Documentation]    Add ${ITER} groups of type 1 in every switch.
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+        &{mapping}    BuiltIn.Create_Dictionary    NODE=openflow:${switch}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping=${mapping}    session=session    iterations=${iter}
     END
 
 Add Group 2 In Every Switch
     [Documentation]    Add ${ITER} groups of type 2 in every switch.
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+        &{mapping}    BuiltIn.Create_Dictionary    NODE=openflow:${switch}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping=${mapping}    session=session    iterations=${iter}
     END
 
 Add Flow to Group 2 In Every Switch
     [Documentation]    Add ${ITER} flows to group type 2 in every switch.
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+        &{mapping}    BuiltIn.Create_Dictionary    NODE=openflow:${switch}
+        TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping=${mapping}    session=session    iterations=${ITER}
     END
 
 Start Mininet Linear
