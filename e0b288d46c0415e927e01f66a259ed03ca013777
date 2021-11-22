@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6a2771_600de50c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-22T21:58:07Z",
+      "side": 1,
+      "message": "jjb-deploy openflowplugin-csit-1node-sanity-only-silicon",
+      "revId": "e0b288d46c0415e927e01f66a259ed03ca013777",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
