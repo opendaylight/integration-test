@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f82c07_507763fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-23T20:42:49Z",
+      "side": 1,
+      "message": "Phosphorus tests are back to the baseline and all the integration/distribution test jobs are passing except for 2 clustering jobs affected by the EOS issue:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-cbench-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-bulkomatic-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-stats-collection-only-phosphorus/8/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-link-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-switch-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-perf-bulkomatic-only-phosphorus/2/\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-phosphorus/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-phosphorus/4/",
+      "revId": "744758a2a996c3921faed61dfcbcf2589b3e150b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
