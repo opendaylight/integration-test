@@ -7,20 +7,21 @@ Test Template     Isolating Node Scenario
 Library           SSHLibrary
 Library           RequestsLibrary
 Library           XML
+Library           Collections
+Library           ${CURDIR}/../../../libraries/ClusterEntities.py
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/FlowLib.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
-Library           Collections
+Resource          ${CURDIR}/../../../variables/openflowplugin/Variables.robot
 
 *** Variables ***
 ${SWITCHES}       1
 ${START_CMD}      sudo mn --topo linear,${SWITCHES}
 @{CONTROLLER_NODES}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
 @{cntls_idx_list}    ${1}    ${2}    ${3}
-${ENTITY_OWNER_URI}    rests/data/entity-owners:entity-owners
 
 *** Test Cases ***
 Start Mininet To All Nodes
@@ -158,9 +159,10 @@ Isolate Controller From The Cluster
 
 Check No Device Owners In Controller
     [Documentation]    Check there is no owners in controllers
-    ${session} =    Resolve_Http_Session_For_Member    member_index=${active_member}
-    # FIXME: The URI only works for Silicon & earlier versions. This should be replaced with new RPC calls for Phosphorus.
-    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    ${ip} =    Resolve_IP_Address_For_Member    member_index=${active_member}
+    ${url} =    BuiltIn.Catenate    SEPARATOR=    http://    ${ip}    :8181    ${RFC8040_RESTCONF_ROOT}
+    ${data} =    ClusterEntities.Get_Entities    ${url}
+    ${data} =    BuiltIn.Convert_To_String    ${data}
     #ofp-topology-manager entity is introduced in the OPNFLWPLUG-1022 bug fix, and this entity will
     #always be present in the EOS output. All 3 controller nodes will be candidate, so EOS output will
     #contain 6 members (members show 2 times).

@@ -233,7 +233,7 @@ Get_Owner_And_Candidates_For_Device_Rpc
     ${ip} =    Resolve_IP_Address_For_Member    member_index=${index}
     ${entity_type} =    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    netconf-node/${device_name}    ${device_type}
     ${url} =    BuiltIn.Catenate    SEPARATOR=    http://    ${ip}    :8181/    ${RESTCONF_URI}
-    ${entity_result} =    ClusterEntities.get entity    ${url}    ${entity_type}    ${device_name}
+    ${entity_result} =    ClusterEntities.Get_Entity    ${url}    ${entity_type}    ${device_name}
     ${entity_candidates} =    Collections.Get_From_Dictionary    ${entity_result}    candidates
     ${entity_owner} =    Collections.Get_From_Dictionary    ${entity_result}    owner
     BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for ${device_name}
