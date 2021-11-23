@@ -21,11 +21,24 @@ def get_entities(restconf_url):
     )
 
     info(
-        "Response %s ",
+        "Response %s",
         resp,
     )
+    info(
+        "Response JSON %s",
+        resp.json(),
+    )
 
-    return resp.json()
+    if resp.status_code == status_codes["bad_request"]:
+        info(
+            "Status code is '%s' - trying operational data instead.",
+            resp.status_code,
+        )
+        result = get_entities_data(restconf_url)
+    else:
+        result = resp.json()
+
+    return result
 
 
 def get_entity_name(e_type, e_name):
@@ -79,7 +92,11 @@ def get_entity(restconf_url, e_type, e_name):
     )
 
     info(
-        "Entity json %s",
+        "Response %s",
+        resp,
+    )
+    info(
+        "Response JSON %s",
         resp.json(),
     )
 
@@ -125,8 +142,12 @@ def get_entity_owner(restconf_url, e_type, e_name):
     )
 
     info(
-        "Response %s ",
+        "Response %s",
         resp,
+    )
+    info(
+        "Response JSON %s",
+        resp.json(),
     )
 
     if resp.status_code == status_codes["bad_request"]:
@@ -139,6 +160,33 @@ def get_entity_owner(restconf_url, e_type, e_name):
         result = resp.json()["odl-entity-owners:output"]["owner-node"]
 
     return result
+
+
+def get_entities_data(restconf_url):
+    """
+    Get the entity information from the datastore for Silicon
+    or earlier versions.
+    :param restconf_url: RESTCONF URL up to the RESTCONF root
+    """
+    resp = get(
+        url=restconf_url + "/data/entity-owners:entity-owners",
+        headers={
+            "Accept": "application/yang-data+json",
+            "User-Agent": "csit agent",
+        },
+        auth=("admin", "admin"),
+    )
+
+    info(
+        "Response %s",
+        resp,
+    )
+    info(
+        "Response JSON %s",
+        resp.json(),
+    )
+
+    return resp.json()
 
 
 def get_entity_type_data(restconf_url, e_type):
@@ -161,11 +209,11 @@ def get_entity_type_data(restconf_url, e_type):
     )
 
     info(
-        "Response %s ",
+        "Response %s",
         resp,
     )
     info(
-        "Entity json %s",
+        "Response JSON %s",
         resp.json(),
     )
 
