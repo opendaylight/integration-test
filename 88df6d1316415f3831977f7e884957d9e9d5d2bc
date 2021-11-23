@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c1897a_a9fcfe7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2021-11-23T23:29:16Z",
+      "side": 1,
+      "message": "Test \"Check No Device Owners In Controller\" in EntityOwnership/030_Cluster_Sync_Problems.robot works for both Silicon \u0026 Phosphorus:\n\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/openflowplugin-csit-3node-clustering-only-silicon/5/robot-plugin/log.html.gz\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/openflowplugin-csit-3node-clustering-only-phosphorus/6/robot-plugin/log.html.gz",
+      "revId": "88df6d1316415f3831977f7e884957d9e9d5d2bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
