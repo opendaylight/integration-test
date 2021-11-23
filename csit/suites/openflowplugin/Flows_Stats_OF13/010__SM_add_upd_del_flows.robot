@@ -217,7 +217,7 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -237,7 +237,7 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -247,13 +247,13 @@ Flow Presence Operational Table
 
 Add Flow
     Log    ${data}
-    ${resp}=    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}    headers=${HEADERS_XML}    data=${data}
-    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
+    ${resp}=    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}    headers=${HEADERS_XML}    data=${data}
+    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow
-    ${resp}=    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id}
-    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
+    ${resp}=    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete All Flows
