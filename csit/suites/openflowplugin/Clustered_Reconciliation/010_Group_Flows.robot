@@ -400,9 +400,9 @@ Remove Single Group And Flow On Member
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/table=0/flow=1
-        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1
-        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1000
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:table=0/flow=1
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1
+        RequestsLibrary.Delete Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1000
     END
 
 Check Flow Stats Are Not Frozen
@@ -419,7 +419,7 @@ Extract Flow Duration
     [Arguments]    ${member_index}
     [Documentation]    Extract duration for flow 1 in switch 1.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0/flow=1?content=nonconfig    headers=${headers}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=1?content=nonconfig    headers=${headers}
     Log    ${resp.content}
     ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
     ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow

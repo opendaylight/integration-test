@@ -115,4 +115,4 @@ Push Groups Via Restcall
     ${node_id}    BuiltIn.Set Variable    openflow%3A${switch_idx}
     ${group_id}    BuiltIn.Set Variable    ${GROUP_ID[${index}]}
     FlowLib.Add Group To Controller And Verify    ${GROUP_BODY}    ${node_id}    ${group_id}
-    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${RFC8040_NODES_API}/node=${node_id}/group=${group_id}?content=nonconfig
+    Wait Until Keyword Succeeds    5s    1s    Utils.Get URI And Verify    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:group=${group_id}?content=nonconfig

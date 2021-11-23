@@ -1,1 +1,1 @@
-/rests/data/opendaylight-inventory:nodes/node=$NODE/table=0
+/rests/data/opendaylight-inventory:nodes/node=$NODE/flow-node-inventory:table=0
