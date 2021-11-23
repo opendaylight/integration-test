@@ -29,13 +29,13 @@ Add a group
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${GROUP}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/group=1    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/flow-node-inventory:group=1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding group config
     [Documentation]    Get the group stat in config
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/group=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/flow-node-inventory:group=1?${RFC8040_CONFIG_CONTENT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${GROUP_NAME}
@@ -44,21 +44,21 @@ Verify after adding group operational
     [Documentation]    Get the group stat in operational
     ${elements}=    Create List    group-statistics    ref-count    packet-count    byte-count    buckets
     ...    weight    group-select
-    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT}/group=1?${RFC8040_OPERATIONAL_CONTENT}    ${elements}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT}/flow-node-inventory:group=1?${RFC8040_OPERATIONAL_CONTENT}    ${elements}
 
 Add a flow that includes a group
     [Documentation]    Push a flow through RESTCONF
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FLOW}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/table=0/flow=1    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/table=0/flow=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1?${RFC8040_CONFIG_CONTENT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
@@ -66,28 +66,28 @@ Verify after adding flow config
 Verify after adding flow operational
     [Documentation]    Verify the flow
     ${elements}=    Create List    group-action    group-id
-    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT}/table=0/flow=1?${RFC8040_OPERATIONAL_CONTENT}    ${elements}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1?${RFC8040_OPERATIONAL_CONTENT}    ${elements}
 
 Remove the flow
     [Documentation]    Remove the flow
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/table=0/flow=1
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/table=0/flow=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
 
 Delete the group
     [Documentation]    Remove the group
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/group=1
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/flow-node-inventory:group=1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting group
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/group=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/flow-node-inventory:group=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${GROUP_NAME}

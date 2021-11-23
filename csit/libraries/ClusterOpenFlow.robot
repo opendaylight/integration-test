@@ -13,8 +13,8 @@ Resource          ../variables/openflowplugin/Variables.robot
 *** Variables ***
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
 @{SHARD_CONF_LIST}    inventory    topology    default
-${config_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0
-${operational_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/table=0?${RFC8040_OPERATIONAL_CONTENT}
+${config_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0
+${operational_table_0}    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?${RFC8040_OPERATIONAL_CONTENT}
 ${operational_port_1}    ${RFC8040_NODES_API}/node=openflow%3A1/node-connector=openflow%3A1%3A1?${RFC8040_OPERATIONAL_CONTENT}
 
 *** Keywords ***

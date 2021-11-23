@@ -61,18 +61,28 @@ Set_Variable_If_At_Least_Sodium
 
 Set_Variable_If_At_Least_Magnesium
     [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast magnesium, return ${value_if_false} otherwise.
+    [Documentation]    Compare magnesium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least magnesium, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    magnesium    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Least_Aluminium
     [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast aluminium, return ${value_if_false} otherwise.
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least aluminium, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    aluminium    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Least_Silicon
     [Arguments]    ${value_if_true}    ${value_if_false}
-    [Documentation]    Compare silicon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is atleast silicon, return ${value_if_false} otherwise.
+    [Documentation]    Compare silicon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least silicon, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    silicon    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Least_Phosphorus
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare phosphorus to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least phosphorus, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    phosphorus    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Least_Sulfur
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least sulfur, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    sulfur    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
@@ -121,6 +131,24 @@ Set_Variable_If_At_Most_Aluminium
     [Documentation]    Compare aluminium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most aluminium,
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    aluminium    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Silicon
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most silicon,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    silicon    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Phosphorus
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare phosphorus to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most phosphorus,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    phosphorus    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Sulfur
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most sulfur,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    sulfur    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Arguments]    @{arguments}
@@ -276,6 +304,12 @@ Run_Keyword_If_At_Least_Phosphorus
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    phosphorus    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Sulfur
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is at least sulfur,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    sulfur    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
@@ -330,6 +364,18 @@ Run_Keyword_If_At_Most_Silicon
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    silicon    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Most_Phosphorus
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare phosphorus to ${ODL_STREAM} and in case ${ODL_STREAM} is at most phosphorus,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    phosphorus    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Sulfur
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is at most sulfur,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    sulfur    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_More_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than carbon,
@@ -378,6 +424,24 @@ Run_Keyword_If_More_Than_Aluminium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    aluminium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Silicon
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare silicon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than silicon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    silicon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_More_Than_Phosphorus
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare phosphorus to ${ODL_STREAM} and in case ${ODL_STREAM} is more than phosphorus,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    phosphorus    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_More_Than_Sulfur
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is more than sulfur,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    sulfur    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
@@ -420,8 +484,26 @@ Run_Keyword_If_Less_Than_Magnesium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    magnesium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_Less_Than_Aluminium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare aluminium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than aluminium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    aluminium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Silicon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare silicon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than silicon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    silicon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Phosphorus
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare phosphorus to ${ODL_STREAM} and in case ${ODL_STREAM} is less than phosphorus,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    phosphorus    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Sulfur
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sulfur,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    sulfur    ${kw_name}    @{varargs}    &{kwargs}

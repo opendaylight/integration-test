@@ -77,9 +77,9 @@ Check Linear Topology After Mininet Reconnects
 Remove Flows And Groups After Mininet Reconnects
     [Documentation]    Remove some groups and flows while network is down.
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/table=0/flow=1
-        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1
-        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/group=1000
+        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:table=0/flow=1
+        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1
+        RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1000
     END
 
 Check Flows In Operational DS After Mininet Reconnects
