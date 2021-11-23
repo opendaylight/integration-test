@@ -170,7 +170,7 @@ def _prepare_add(cntl, method, flows, template=None):
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
     url += "/rests/data/opendaylight-inventory:nodes/node=openflow%3A" + str(sw)
-    url += "/table=" + str(tab) + "/flow=" + str(fl)
+    url += "/flow-node-inventory:table=" + str(tab) + "/flow=" + str(fl)
     flow = copy.deepcopy(template["flow"][0])
     flow["cookie"] = fl
     flow["flow-name"] = "TestFlow-%d" % fl
@@ -211,7 +211,7 @@ def _prepare_table_add(cntl, method, flows, template=None):
     url += (
         "/rests/data/opendaylight-inventory:nodes/node=openflow%3A"
         + str(sw)
-        + "/table="
+        + "/flow-node-inventory:table="
         + str(tab)
     )
     fdets = []
@@ -255,7 +255,7 @@ def _prepare_delete(cntl, method, flows, template=None):
     sw, tab, fl, ip = fl1
     url = "http://" + cntl + ":" + "8181"
     url += "/rests/data/opendaylight-inventory:nodes/node=openflow%3A" + str(sw)
-    url += "/table=" + str(tab) + "/flow=" + str(fl)
+    url += "/flow-node-inventory:table=" + str(tab) + "/flow=" + str(fl)
     req = requests.Request(
         "DELETE",
         url,
@@ -391,8 +391,11 @@ def _wt_request_sender(
     cntl = controllers[0]
     counter = [0 for i in range(600)]
     loop = True
+    req_no = 0
+    num_errors = 0
 
     while loop:
+        req_no += 1
         try:
             flowlist = inqueue.get(timeout=1)
         except queue.Empty:
@@ -405,7 +408,7 @@ def _wt_request_sender(
         try:
             rsp = ses.send(prep, timeout=5)
         except requests.exceptions.Timeout:
-            print(f"*WARN* Timeout: {req.method} {req.url}")
+            print(f"*WARN* [{req_no}] Timeout: {req.method} {req.url}")
             counter[99] += 1
             if counter[99] > 10:
                 print("*ERROR* Too many timeouts.")
@@ -414,8 +417,13 @@ def _wt_request_sender(
         else:
             if rsp.status_code not in [200, 201, 204]:
                 print(
-                    f"*WARN* Status code {rsp.status_code}: {req.method} {req.url}\n{rsp.text}"
+                    f"*WARN* [{req_no}] Status code {rsp.status_code}:"
+                    f" {req.method} {req.url}\n{rsp.text}"
                 )
+                num_errors += 1
+                if num_errors > 10:
+                    print("*ERROR* Too many errors.")
+                    break
         counter[rsp.status_code] += 1
     res = {}
     for i, v in enumerate(counter):
