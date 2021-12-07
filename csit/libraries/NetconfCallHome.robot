@@ -185,6 +185,9 @@ Suite Setup
     SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/docker-compose.yaml    .
     SSHLibrary.Put File    ${CURDIR}/../variables/netconf/callhome/init_configuration.sh    .
     SSHLibrary.Execute_Command    sed -i -e 's/ODL_SYSTEM_IP/${ODL_SYSTEM_IP}/g' docker-compose.yaml
+    ${netconf_cl_ssh_port}    Set_Variable_If_At_Least_Chlorine    4334    6666
+    SSHLibrary.Execute_Command    sed -i -e 's/NETCONF_CH_SSH/${netconf_cl_ssh_port}/g' docker-compose.yaml
+    SSHLibrary.Execute_Command    sed -i -e 's/NETCONF_CH_TLS/4335/g' docker-compose.yaml
     ${netconf_mount_expected_values}    Create list    ${substring1}    ${substring2}    ${substring3}
     Set Suite Variable    ${netconf_mount_expected_values}
     Set Suite Variable    ${CREATE_SSH_DEVICE_REQ_V1}    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_device.json
