@@ -42,7 +42,7 @@ Check OpenFlow Shards Status After Cluster Event
 Get OpenFlow Entity Owner Status For One Device
     [Arguments]    ${device}    ${controller_index}    ${controller_index_list}=${EMPTY}    ${after_stop}=False
     [Documentation]    Check Entity Owner Status and identify owner and successors for the device ${device}. Request is sent to controller ${controller_index}.
-    ${owner}    ${successor_list}    Wait Until Keyword Succeeds    10s    1s    ClusterManagement.Verify_Owner_And_Successors_For_Device    device_name=${device}
+    ${owner}    ${successor_list}    Wait Until Keyword Succeeds    30s    1s    ClusterManagement.Verify_Owner_And_Successors_For_Device    device_name=${device}
     ...    device_type=openflow    member_index=${controller_index}    candidate_list=${controller_index_list}    after_stop=${after_stop}
     [Return]    ${owner}    ${successor_list}
 
@@ -70,7 +70,7 @@ Check No OpenFlow Network Operational Information
     CompareStream.Run_Keyword_If_At_Most_Fluorine    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_NODES_API}    dictionary=${dictionary}
     ...    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow=0
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    40s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${RFC8040_OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Add Sample Flow And Verify
     [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}
@@ -132,7 +132,7 @@ Take OpenFlow Device Link Down and Verify
     ${ouput}=    MininetKeywords.Send Mininet Command    ${mininet_conn_id}    link s1 s2 down
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_port_1}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=16    openflow:2=14    openflow:3=19
-    Wait Until Keyword Succeeds    20s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    40s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Take OpenFlow Device Link Up and Verify
     [Arguments]    ${controller_index_list}=${EMPTY}
