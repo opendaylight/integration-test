@@ -84,6 +84,11 @@ Set_Variable_If_At_Least_Sulfur
     [Documentation]    Compare sulfur to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least sulfur, return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    sulfur    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Chlorine
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least chlorine, return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    chlorine    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Carbon
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
@@ -149,6 +154,12 @@ Set_Variable_If_At_Most_Sulfur
     [Documentation]    Compare sulfur to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most sulfur,
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    sulfur    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Chlorine
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most chlorine,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    chlorine    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Arguments]    @{arguments}
@@ -310,6 +321,12 @@ Run_Keyword_If_At_Least_Sulfur
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    sulfur    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Chlorine
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and in case ${ODL_STREAM} is at least chlorine,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    chlorine    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
@@ -375,6 +392,12 @@ Run_Keyword_If_At_Most_Sulfur
     [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is at most sulfur,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    sulfur    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Chlorine
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and in case ${ODL_STREAM} is at most chlorine,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    chlorine    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
@@ -442,6 +465,12 @@ Run_Keyword_If_More_Than_Sulfur
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    sulfur    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Chlorine
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and in case ${ODL_STREAM} is more than chlorine,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Carbon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
@@ -507,3 +536,9 @@ Run_Keyword_If_Less_Than_Sulfur
     [Documentation]    Compare sulfur to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sulfur,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    sulfur    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Chlorine
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare chlorine to ${ODL_STREAM} and in case ${ODL_STREAM} is less than chlorine,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
