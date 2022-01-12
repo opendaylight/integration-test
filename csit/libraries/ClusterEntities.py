@@ -90,7 +90,7 @@ def get_entity(restconf_url, e_type, e_name):
         },
         data=data,
         auth=("admin", "admin"),
-        timeout=5.0,
+        timeout=10.0,
     )
 
     info(
