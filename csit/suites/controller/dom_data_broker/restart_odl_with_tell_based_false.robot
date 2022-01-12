@@ -16,7 +16,9 @@ Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
@@ -24,7 +26,8 @@ ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controlle
 *** Test Cases ***
 Stop_All_Members
     [Documentation]    Stop every odl node.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Stop_Members_From_List_Or_All    timeout=60s
+    BuiltIn.Run Keyword If    '${status}' != 'PASS'    ClusterManagement.Kill_Members_From_List_Or_All
 
 Unset_Tell_Based_Protocol_Usage
     [Documentation]    Comment out the flag usage in config file. Also clean most data except data/log/.
@@ -35,14 +38,14 @@ Unset_Tell_Based_Protocol_Usage
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
     ClusterManagement.Start_Members_From_List_Or_All
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ClusterManagement.Run_Bash_Command_On_List_Or_All    netstat -punta
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    5s    ClusterManagement.Run_Bash_Command_On_List_Or_All    netstat -punta
     ${index_list} =    List_Indices_Or_All
     FOR    ${index}    IN    @{index_list}
         ${output} =    ClusterManagement.Check_Bash_Command_On_Member    command=sudo netstat -punta | grep 2550 | grep LISTEN    member_index=${index}
         ${listening} =    Get Match    ${output}    LISTEN
         BuiltIn.Run Keyword If    '${listening}' == 'None'    ClusterManagement.Check_Bash_Command_On_Member    command=pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    member_index=${index}
     END
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    5s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
 
 *** Keywords ***
 Get Match
