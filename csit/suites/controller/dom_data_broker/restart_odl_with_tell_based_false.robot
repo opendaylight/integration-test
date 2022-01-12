@@ -16,15 +16,18 @@ Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
 
 *** Test Cases ***
 Stop_All_Members
-    [Documentation]    Stop every odl node.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    [Documentation]    Stop every odl node. If fail then generate thread dump.
+    ClusterManagement.Stop_Members_From_List_Or_All    timeout=900s
+    [Teardown]    Run Keyword If Test Failed    Generate Thread Dump    ${ODL_SYSTEM_3_IP}    java.*karaf    ${ODL_SYSTEM_USER}
 
 Unset_Tell_Based_Protocol_Usage
     [Documentation]    Comment out the flag usage in config file. Also clean most data except data/log/.
@@ -53,3 +56,15 @@ Get Match
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
     BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    ${matches}[${index}]
     [Return]    ${OS_MATCH}
+
+Generate Thread Dump
+    [Arguments]    ${system}    ${regex_string_to_match_on}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Documentation]    Find out process ID based on regex and generate its thread dump.
+    ${pid} =    Utils.Get Process ID Based On Regex On Remote System    ${system}    ${regex_string_to_match_on}    ${user}    ${password}    ${prompt}    ${prompt_timeout}
+    ${output} =    Utils.Run Command On Remote System    ${system}    cat /etc/passwd    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    Log    ${output}
+    ${output} =    Utils.Run Command On Remote System    ${system}    whoami    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    Log    Current user is "${output}"
+    ${output} =    Utils.Run Command On Remote System    ${system}    ps -o user= -p ${pid}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    Log    Owner of process is "${output}"
+    Utils.Run Command On Remote System And Log    ${system}    sudo -u root /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
