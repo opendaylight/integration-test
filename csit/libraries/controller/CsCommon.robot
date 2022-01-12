@@ -26,7 +26,7 @@ Resource          ${CURDIR}/../ShardStability.robot
 Resource          ${CURDIR}/../WaitForFailure.robot
 
 *** Variables ***
-${CS_DEVICE_NAME}    get-singleton-constant-service']
+${CS_DEVICE_NAME}    get-singleton-constant-service
 ${CS_DEVICE_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${CS_CONSTANT_PREFIX}    constant-
 
