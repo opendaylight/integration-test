@@ -27,7 +27,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 *** Variables ***
 ${SHARD_NAME}     default
 ${SHARD_TYPE}     config
-${TRANSACTION_RATE_1K}    ${1000}
+${TRANSACTION_RATE_1K}    ${300}
 ${DURATION}       ${60}
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}

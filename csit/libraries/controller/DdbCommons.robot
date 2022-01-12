@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../WaitForFailure.robot
 *** Variables ***
 ${SHARD_NAME}     default
 ${SHARD_TYPE}     config
-${TRANSACTION_RATE_1K}    ${1000}
+${TRANSACTION_RATE_1K}    ${300}
 ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${2*${REQUEST_TIMEOUT}}
 ${TRANSACTION_PRODUCTION_TIME}    ${40}
 ${SLEEP_AFTER_TRANSACTIONS_INIT}    5s
@@ -152,9 +152,9 @@ Leader_Isolation_Test_Templ
     BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
     BuiltIn.Sleep    ${sleep_to_heal}
     KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
-    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
+    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}    timeout=120s
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
-    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    180s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}    verify_restconf=False
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
     BuiltIn.Run_Keyword_If    ${heal_timeout} < ${REQUEST_TIMEOUT}    Leader_Isolation_Heal_Within_Rt
@@ -258,7 +258,7 @@ Client_Isolation_Test_Templ
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${rpc_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
-    ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
+    ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}    timeout=120s
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
 
@@ -384,7 +384,8 @@ Verify_Shard_Replica_Not_Present
 
 Restart_Test_Templ
     [Documentation]    Stop every odl node and start again.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    ${status} =    BuiltIn.Run Keyword And Return Status    ClusterManagement.Stop_Members_From_List_Or_All
+    BuiltIn.Run Keyword If    '${status}' != 'True'    ClusterManagement.Kill_Members_From_List_Or_All
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
