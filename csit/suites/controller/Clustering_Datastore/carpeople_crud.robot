@@ -107,3 +107,7 @@ Setup
     BuiltIn.Set_Suite_Variable    ${items_per_follower}    ${follower_number}
     ${leader_number} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} - (${NUM_ODL_SYSTEM} - 1) * ${follower_number}
     BuiltIn.Set_Suite_Variable    ${items_per_leader}    ${leader_number}
+    ${operational} =    TemplatedRequests.Get_As_Json_From_Uri    uri=/jolokia/read/org.opendaylight.controller:type=DistributedOperationalDatastore,Category=ShardManager,name=shard-manager-operational    session=ClusterManagement__session_1
+    Log    ${operational}
+    ${coonfig} =    TemplatedRequests.Get_As_Json_From_Uri    uri=/jolokia/read/org.opendaylight.controller:type=DistributedConfigDatastore,Category=ShardManager,name=shard-manager-config    session=ClusterManagement__session_1
+    Log    ${config}
