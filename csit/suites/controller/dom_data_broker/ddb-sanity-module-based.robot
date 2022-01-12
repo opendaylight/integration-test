@@ -102,30 +102,30 @@ Remove_Follower_Shard_Replica_And_Add_It_Back
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
     ...    verify_restconf=False
 
-Write_Transactions_One_Node_Leader
-    [Documentation]    Write transactions.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
-    ${leader_idx_as_list} =    BuiltIn.Create_List    ${leader}
-    ${leader_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${leader_idx_as_list}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    ${resp}[2]
-    END
-
-Write_Transactions_One_Node_Follower
-    [Documentation]    Write transactions.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
-    ${follower_idx_as_list} =    BuiltIn.Create_List    ${follower_idx}
-    ${follower_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${follower_idx_as_list}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    FOR    ${resp}    IN    @{resp_list}
-        TemplatedRequests.Check_Status_Code    ${resp}[2]
-    END
+#Write_Transactions_One_Node_Leader
+#    [Documentation]    Write transactions.
+#    ${all_indices} =    ClusterManagement.List_All_Indices
+#    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+#    ${leader_idx_as_list} =    BuiltIn.Create_List    ${leader}
+#    ${leader_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${leader_idx_as_list}
+#    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+#    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+#    FOR    ${resp}    IN    @{resp_list}
+#    TemplatedRequests.Check_Status_Code    ${resp}[2]
+#    END
+#
+#Write_Transactions_One_Node_Follower
+#    [Documentation]    Write transactions.
+#    ${all_indices} =    ClusterManagement.List_All_Indices
+#    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+#    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
+#    ${follower_idx_as_list} =    BuiltIn.Create_List    ${follower_idx}
+#    ${follower_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${follower_idx_as_list}
+#    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${MODULE_SHARD_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+#    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+#    FOR    ${resp}    IN    @{resp_list}
+#    TemplatedRequests.Check_Status_Code    ${resp}[2]
+#    END
 
 Write_Transactions_All_Nodes
     [Documentation]    Write transactions.
