@@ -21,7 +21,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
 ${TEST_DURATION}    1m
-${ACCEPTED_PER_SEC_RATE}    5
+${ACCEPTED_PER_SEC_RATE}    3.5
 # NOTE: The shared infra that we use can sometimes be sluggish and we get false failures.
 # There are cases when the rate will be under 20 as well as over 100. Normally it is over
 # 50, but in order to stabilize our tests and avoid false failures this rate has been set
