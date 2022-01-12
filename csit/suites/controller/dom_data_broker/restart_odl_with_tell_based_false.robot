@@ -16,15 +16,18 @@ Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
 
 *** Test Cases ***
 Stop_All_Members
-    [Documentation]    Stop every odl node.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    [Documentation]    Stop every odl node. If fail then generate thread dump.
+    ClusterManagement.Stop_Members_From_List_Or_All    timeout=60s
+    [Teardown]    Run Keyword If Test Failed    Generate Thread Dump    ${ODL_SYSTEM_3_IP}    java.*karaf    ${ODL_SYSTEM_USER}
 
 Unset_Tell_Based_Protocol_Usage
     [Documentation]    Comment out the flag usage in config file. Also clean most data except data/log/.
@@ -40,7 +43,7 @@ Start_All_And_Sync
     FOR    ${index}    IN    @{index_list}
         ${output} =    ClusterManagement.Check_Bash_Command_On_Member    command=sudo netstat -punta | grep 2550 | grep LISTEN    member_index=${index}
         ${listening} =    Get Match    ${output}    LISTEN
-        BuiltIn.Run Keyword If    '${listening}' == 'None'    ClusterManagement.Check_Bash_Command_On_Member    command=pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    member_index=${index}
+        BuiltIn.Run Keyword If    '${listening}' != 'None'    ClusterManagement.Check_Bash_Command_On_Member    command=pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    member_index=${index}
     END
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
 
@@ -53,3 +56,9 @@ Get Match
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
     BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    ${matches}[${index}]
     [Return]    ${OS_MATCH}
+
+Generate Thread Dump
+    [Arguments]    ${system}    ${regex_string_to_match_on}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Documentation]    Find out process ID based on regex and generate its thread dump.
+    ${pid} =    Utils.Get Process ID Based On Regex On Remote System    ${system}    ${regex_string_to_match_on}    ${user}    ${password}    ${prompt}    ${prompt_timeout}
+    Utils.Run Command On Remote System And Log    ${system}    sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
