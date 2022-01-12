@@ -26,7 +26,7 @@ Resource          ${CURDIR}/../ShardStability.robot
 Resource          ${CURDIR}/../WaitForFailure.robot
 
 *** Variables ***
-${CS_DEVICE_NAME}    get-singleton-constant-service']
+${CS_DEVICE_NAME}    get-singleton-constant-service
 ${CS_DEVICE_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${CS_CONSTANT_PREFIX}    constant-
 
@@ -112,7 +112,7 @@ Isolate_Owner_And_Verify_Isolated
     ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
     ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
     BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
+    BuiltIn.Wait_Until_Keyword_Succeeds    20 min    5s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
     ...    ${node_to_ask}    http_timeout=125
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_During_Isolation
