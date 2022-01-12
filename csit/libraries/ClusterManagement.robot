@@ -426,8 +426,8 @@ Start_Members_From_List_Or_All
     ${gc_filepath} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/data/log/gc_${epoch}.log    ${GC_LOG_PATH}/gc_${epoch}.log
     ${gc_options} =    BuiltIn.Set_Variable_If    "docker" not in """${node_start_command}"""    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}    ${EMPTY}
     Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Verify_Members_Are_Ready    ${member_index_list}    ${wait_for_sync}    ${verify_restconf}
-    ...    ${check_system_status}    ${service_list}
+#    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Verify_Members_Are_Ready    ${member_index_list}    ${wait_for_sync}    ${verify_restconf}
+#    ...    ${check_system_status}    ${service_list}
     [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
 
 Verify_Members_Are_Ready
