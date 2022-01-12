@@ -11,6 +11,7 @@ Suite Teardown    SSHLibrary.Close_All_Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Default Tags      critical
+Library           ${CURDIR}/../../../libraries/ClusterEntities.py
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -22,11 +23,12 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 *** Variables ***
 ${RPC_URL}        /restconf/operations/basic-rpc-test:basic-global
 &{EMPTY_DICT}
-${SERVICE}        Basic-rpc-test']
+${SERVICE}        Basic-rpc-test
 ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.remote.rpc
 ${EOS_URL}        /restconf/operational/entity-owners:entity-owners
 ${RPC_STATUS_ISOLATED}    501
+${RESTCONF_URI}    rests
 
 *** Test Cases ***
 Get_Basic_Rpc_Test_Owner
@@ -53,13 +55,13 @@ Verify_New_Basic_Rpc_Test_Owner_Elected
     [Documentation]    Verify new owner of the service is elected.
     ${idx}=    Collections.Get_From_List    ${old_brt_successors}    0
     BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${old_brt_successors}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    30s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
     Get_Present_Brt_Owner_And_Successors    ${idx}    store=${True}
 
 Rpc_On_Isolated_Node
     [Documentation]    Run rpc on isolated cluster node.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${old_brt_owner}
-    BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
+    BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${old_brt_owner}
     BuiltIn.Pass_Execution    Rpc on isolated node may work for some time(bug 8207), then will fail (bug 8214)
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${RPC_URL}    data=${EMPTY}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    ${RPC_STATUS_ISOLATED}
@@ -100,8 +102,8 @@ Run_Rpc
     [Arguments]    ${node_idx}
     [Documentation]    Run rpc and log the entity ownership service details to karaf log.
     ...    Logging the details was a developer's request during the implementation to improve debugging.
+    Get_And_Log_EOS_Output_To_Karaf_Log    ${node_idx}
     ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
-    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${HEADERS_XML}    ${ACCEPT_XML}    session=${session}
 
 Verify_Owner_Elected
@@ -120,7 +122,9 @@ Get_Present_Brt_Owner_And_Successors
     BuiltIn.Return_From_Keyword    ${brt_owner}    ${brt_successors}
 
 Get_And_Log_EOS_Output_To_Karaf_Log
-    [Arguments]    ${session}
+    [Arguments]    ${member_index}
     [Documentation]    Log the entity ownership service details to karaf.log
-    ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
+    ${ip} =    Resolve_IP_Address_For_Member    member_index=${member_index}
+    ${url} =    BuiltIn.Catenate    SEPARATOR=    http://    ${ip}    :8181/    ${RESTCONF_URI}
+    ${out} =    ClusterEntities.Get_Entities    ${url}
     KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
