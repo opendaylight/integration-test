@@ -38,7 +38,7 @@ integration/test/csit/suites/controller/cluster_singleton/master_stability.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
 integration/test/csit/suites/controller/cluster_singleton/partition_and_heal.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/cluster_singleton/chasing_the_leader.robot
+# integration/test/csit/suites/controller/cluster_singleton/chasing_the_leader.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
 integration/test/csit/suites/controller/Clustering_Datastore/carpeople_crud.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud.robot
