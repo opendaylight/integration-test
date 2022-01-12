@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../WaitForFailure.robot
 *** Variables ***
 ${SHARD_NAME}     default
 ${SHARD_TYPE}     config
-${TRANSACTION_RATE_1K}    ${1000}
+${TRANSACTION_RATE_1K}    ${200}
 ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${2*${REQUEST_TIMEOUT}}
 ${TRANSACTION_PRODUCTION_TIME}    ${40}
 ${SLEEP_AFTER_TRANSACTIONS_INIT}    5s
@@ -384,7 +384,8 @@ Verify_Shard_Replica_Not_Present
 
 Restart_Test_Templ
     [Documentation]    Stop every odl node and start again.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    ${status} =    BuiltIn.Run Keyword And Return Status    ClusterManagement.Stop_Members_From_List_Or_All
+    BuiltIn.Run Keyword If    '${status}' != 'True'    ClusterManagement.Kill_Members_From_List_Or_All
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
