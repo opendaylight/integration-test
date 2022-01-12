@@ -11,6 +11,7 @@ Suite Teardown    SSHLibrary.Close_All_Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Default Tags      critical
+Library           ${CURDIR}/../../../libraries/ClusterEntities.py
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
@@ -22,10 +23,11 @@ Resource          ${CURDIR}/../../../variables/Variables.robot
 *** Variables ***
 ${RPC_URL}        /restconf/operations/basic-rpc-test:basic-global
 &{EMPTY_DICT}
-${SERVICE}        Basic-rpc-test']
+${SERVICE}        Basic-rpc-test
 ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.remote.rpc
-${EOS_URL}        /restconf/operational/entity-owners:entity-owners
+${EOS_URL}        /restconf/operational/odl-entity-owners:get-entities
+${RESTCONF_URI}    rests
 
 *** Test Cases ***
 Get_Basic_Rpc_Test_Owner
@@ -94,9 +96,11 @@ Run_Rpc
     [Arguments]    ${node_idx}
     [Documentation]    Run rpc and log the entity ownership service details to karaf log.
     ...    Logging the details was a developer's request during the implementation to improve debugging.
-    ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
-    ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
+    ${ip} =    Resolve_IP_Address_For_Member    member_index=${node_idx}
+    ${url} =    BuiltIn.Catenate    SEPARATOR=    http://    ${ip}    :8181/    ${RESTCONF_URI}
+    ${out} =    ClusterEntities.Get_Entities    ${url}
     KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
     TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${HEADERS_XML}    ${ACCEPT_XML}    session=${session}
 
 Verify_Owner_Elected

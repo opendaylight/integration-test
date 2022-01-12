@@ -22,7 +22,8 @@ Add_Several_People
     ...    People need to be added via RPC, otherwise buy-car routed RPC will not find registered path.
     ...    See javadocs in RpcProviderRegistry.java
     FOR    ${i}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i": "${i}"}    session=${session}
+        &{mapping}    Create Dictionary    i=${i}
+        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping=${mapping}    session=${session}
     END
 
 Buy_Several_Cars
@@ -40,7 +41,8 @@ Buy_Single_Car
     ...    the time add-car RPC is executed and the time member in question registers the route.
     ...    To distinguish functional bugs from performance ones, this Keyword waits up to 20 seconds
     ...    while retrying buy-car requests.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${registration_delay}    1s    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/buy-car    mapping={"i": "${iteration}"}    session=${session}
+    &{mapping}    Create Dictionary    i=${iteration}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${registration_delay}    1s    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/buy-car    mapping=${mapping}    session=${session}
 
 Set_Variables_For_Shard
     [Arguments]    ${shard_name}    ${shard_type}=config
