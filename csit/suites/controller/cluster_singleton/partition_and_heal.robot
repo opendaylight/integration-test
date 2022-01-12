@@ -44,7 +44,7 @@ Verify_Singleton_Constant_On_Each_Node
 Isolate_Owner_Node
     [Documentation]    Isolate the cluster node which is the owner. Wait until the new owner is elected and store
     ...    new values of owner and candidates.
-    CsCommon.Isolate_Owner_And_Verify_Isolated
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    CsCommon.Isolate_Owner_And_Verify_Isolated
 
 Monitor_Stability_While_Isolated
     [Documentation]    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring.
