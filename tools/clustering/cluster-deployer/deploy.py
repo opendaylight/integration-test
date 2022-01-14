@@ -72,6 +72,11 @@ parser.add_argument(
     help="clean the deployment on the remote host",
 )
 parser.add_argument(
+    "--clean_old",
+    default=False,
+    help="Clean the old distributions from the deploy directory"
+)
+parser.add_argument(
     "--template",
     default="openflow",
     help="the name of the template to be used. "
@@ -176,6 +181,13 @@ class Deployer:
     def kill_controller(self):
         self.remote.copy_file("kill_controller.sh", self.rootdir + "/")
         self.remote.exec_cmd(self.rootdir + "/kill_controller.sh")
+
+    def clean_old(self, dir_name):
+        self.remote.clean_old(dir_name)
+
+    def set_logger(self):
+        self.remote.exec_cmd(
+            '/root/deploy/current/odl/bin/client log:set DEBUG org.opendaylight.controller.eos')
 
     def deploy(self):
         # Determine distribution version
@@ -305,9 +317,9 @@ def main():
 
     for x in range(0, len(hosts)):
         ds_seed_nodes.append(
-            "akka.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550"
+            "akka://opendaylight-cluster-data@" + hosts[x] + ":2550"
         )
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
+        # rpc_seed_nodes.append("akka://odl-cluster-rpc@" + hosts[x] + ":2551")
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):
@@ -342,8 +354,16 @@ def main():
     for x in range(0, len(hosts)):
         deployers[x].kill_controller()
 
+    if args.clean_old:
+        for x in range(0, len(hosts)):
+            deployers[x].clean_old(args.rootdir)
+
     for x in range(0, len(hosts)):
         deployers[x].deploy()
+
+    time.sleep(20)
+    for x in range(0, len(hosts)):
+        deployers[x].set_logger()
 
 
 # Run the script

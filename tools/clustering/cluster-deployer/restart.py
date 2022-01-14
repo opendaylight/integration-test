@@ -31,6 +31,11 @@ parser.add_argument(
     help="clean the persistent data for the current deployment",
 )
 parser.add_argument(
+    "--clean_old",
+    default=False,
+    help="Clean the old distributions fromthe deploy directory"
+)
+parser.add_argument(
     "--user", default="root", help="the SSH username for the remote host(s)"
 )
 parser.add_argument(
@@ -45,10 +50,13 @@ def main():
         # Connect to the remote host and start doing operations
         remote = RemoteHost(hosts[x], args.user, args.password, args.rootdir)
         remote.kill_controller()
-        if args.clean:
-            remote.exec_cmd("rm -rf " + args.rootdir + "/deploy/current/odl/*journal")
-            remote.exec_cmd("rm -rf " + args.rootdir + "/deploy/current/odl/snapshots")
-        remote.start_controller(args.rootdir + "/deploy/current")
+        if args.clean_old:
+            remote.exec_cmd("rm -r " + args.rootdir + "/deploy/*")
+        else:
+            if args.clean:
+                remote.exec_cmd("rm -rf " + args.rootdir + "/deploy/current/odl/*journal")
+                remote.exec_cmd("rm -rf " + args.rootdir + "/deploy/current/odl/snapshots")
+            remote.start_controller(args.rootdir + "/deploy/current")
 
 
 main()

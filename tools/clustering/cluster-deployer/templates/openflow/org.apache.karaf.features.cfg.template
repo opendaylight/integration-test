@@ -18,31 +18,62 @@
 ################################################################################
 
 #
-# Defines if the startlvl should be respected during feature startup. The default value is true. The default
-# behavior for 2.x is false (!) for this property
-#
-# Be aware that this property is deprecated and will be removed in Karaf 4.0. So, if you need to
-# set this to false, please use this only as a temporary solution!
-#
-#respectStartLvlDuringFeatureStartup=true
-
-#
-# Defines if the startlvl should be respected during feature uninstall. The default value is true.
-# If true, means stop bundles respecting the descend order of start level in a certain feature.
-#
-#respectStartLvlDuringFeatureUninstall=true
-
-#
 # Comma separated list of features repositories to register by default
 #
-featuresRepositories = mvn:org.apache.karaf.features/standard/3.0.3/xml/features,mvn:org.apache.karaf.features/enterprise/3.0.3/xml/features,mvn:org.ops4j.pax.web/pax-web-features/3.1.4/xml/features,mvn:org.apache.karaf.features/spring/3.0.3/xml/features,mvn:org.opendaylight.integration/features-integration-index/{{ODL_DISTRIBUTION}}/xml/features
+featuresRepositories = file:${karaf.etc}/9c1563a9-49fd-426c-b94d-275e6de2542c.xml
 
 #
 # Comma separated list of features to install at startup
 #
-featuresBoot=config,standard,region,package,kar,ssh,management,odl-openflowplugin-flow-services,odl-restconf-noauth,odl-mdsal-clustering,odl-clustering-test-app,odl-netconf-connector-ssh
+featuresBoot = 406dad8b-3178-4f67-8b9a-1887feaeb910, odl-clustering-test-app, odl-restconf
+#featuresBoot = 406dad8b-3178-4f67-8b9a-1887feaeb910, odl-openflowplugin-flow-services-rest, odl-openflowplugin-app-table-miss-enforcer
+
+#
+# Resource repositories (OBR) that the features resolver can use
+# to resolve requirements/capabilities
+#
+# The format of the resourceRepositories is
+# resourceRepositories=[xml:url|json:url],...
+# for Instance:
+#
+#resourceRepositories=xml:http://host/path/to/index.xml
+# or
+#resourceRepositories=json:http://host/path/to/index.json
+#
 
 #
 # Defines if the boot features are started in asynchronous mode (in a dedicated thread)
 #
 featuresBootAsynchronous=false
+
+#
+# Service requirements enforcement
+#
+# By default, the feature resolver checks the service requirements/capabilities of
+# bundles for new features (xml schema >= 1.3.0) in order to automatically installs
+# the required bundles.
+# The following flag can have those values:
+#   - disable: service requirements are completely ignored
+#   - default: service requirements are ignored for old features
+#   - enforce: service requirements are always verified
+#
+#serviceRequirements=default
+
+#
+# Store cfg file for config element in feature
+#
+#configCfgStore=true
+
+#
+# Define if the feature service automatically refresh bundles
+#
+#autoRefresh=true
+
+#
+# Configuration of features processing mechanism (overrides, blacklisting, modification of features)
+# XML file defines instructions related to features processing
+# versions.properties may declare properties to resolve placeholders in XML file
+# both files are relative to ${karaf.etc}
+#
+#featureProcessing=org.apache.karaf.features.xml
+#featureProcessingVersions=versions.properties

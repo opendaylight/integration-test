@@ -56,3 +56,6 @@ class RemoteHost:
 
     def start_controller(self, dir_name):
         self.exec_cmd(dir_name + "/odl/bin/start")
+
+    def clean_old(self, dir_name):
+        self.exec_cmd("rm -r " + dir_name + "/deploy/*")
