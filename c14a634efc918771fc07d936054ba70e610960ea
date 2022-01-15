@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f951aa0_be9c8207",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-01-15T04:15:17Z",
+      "side": 1,
+      "message": "Is there a sandbox job to look at?\nI have some suggestions to move common url for config to some variables file imported in all the tests and use the common variable. I know it is a legacy issue, but just wanted to ask if it can be taken up with this patch?",
+      "revId": "c14a634efc918771fc07d936054ba70e610960ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f51f401_fc63fb93",
+        "filename": "csit/suites/netconf/clustering/entity-isolation-rejoin.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-01-15T04:15:17Z",
+      "side": 1,
+      "message": "is this \"node\u003d\" part working without any issues?",
+      "revId": "c14a634efc918771fc07d936054ba70e610960ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a59f48d_6c0af318",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-01-15T04:15:17Z",
+      "side": 1,
+      "message": "Is this escape character needed? Should it be done on all files?",
+      "revId": "c14a634efc918771fc07d936054ba70e610960ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
