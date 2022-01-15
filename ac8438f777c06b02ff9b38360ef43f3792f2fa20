@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55651917_54655c40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-01-15T04:32:15Z",
+      "side": 1,
+      "message": "Is this still required? Do we have a sandbox job to check this fix?",
+      "revId": "ac8438f777c06b02ff9b38360ef43f3792f2fa20",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
