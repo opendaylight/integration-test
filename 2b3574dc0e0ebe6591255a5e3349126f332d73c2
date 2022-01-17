@@ -50,6 +50,24 @@
       "message": "Is it too early for chlorine jobs?.",
       "revId": "2b3574dc0e0ebe6591255a5e3349126f332d73c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82909b0b_58c1835c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2022-01-17T14:32:00Z",
+      "side": 1,
+      "message": "Yes, we are waiting for Netconf 3 to be released.",
+      "parentUuid": "736fd224_b8fd1ab3",
+      "revId": "2b3574dc0e0ebe6591255a5e3349126f332d73c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
