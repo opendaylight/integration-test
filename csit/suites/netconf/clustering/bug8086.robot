@@ -100,7 +100,7 @@ Check_Device_Data_Is_Seen_As_Empty_On_Setter
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=${NODE_SETTER}
 
 Check_New_Device_Data_Is_Visible_On_Setter
@@ -117,7 +117,7 @@ Check_New_Device_Data_Is_Visible_On_Configurer
 
 Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
 
 Check_Device_Data_Is_Modified
@@ -134,7 +134,7 @@ Check_Modified_Device_Data_Is_Visible_On_Configurer
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
     TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
 
 Check_Device_Data_Is_Deleted

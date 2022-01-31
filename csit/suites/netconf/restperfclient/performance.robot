@@ -57,7 +57,7 @@ Wait_For_Device_To_Become_Connected
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}'}
     TemplatedRequests.Post_As_Xml_Templated    ${directory_with_crud_templates}${/}cars    ${template_as_string}
 
 Run_Restperfclient
