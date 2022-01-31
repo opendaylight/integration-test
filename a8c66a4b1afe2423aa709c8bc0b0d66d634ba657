@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18affa46_fbf7cba4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3127
+      },
+      "writtenOn": "2022-01-31T12:50:54Z",
+      "side": 1,
+      "message": "Should be good to go, can be seen as part this job:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/1/",
+      "revId": "a8c66a4b1afe2423aa709c8bc0b0d66d634ba657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
