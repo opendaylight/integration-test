@@ -16,6 +16,23 @@
       "message": "This should be good to go now, run with the chain included is here:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/3/\n\nThe ready and keyauth suites both look to be failing in the same way as in releng so these need to be looked at as part of another patch and the notification suite seems to be missing a model in the sandbox run, it seems to be working for me locally when the model is included.",
       "revId": "c78951947995a7a1e6df298e4efab4082e8fb014",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dbe90d6_4ad0ebf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-02-04T02:52:30Z",
+      "side": 1,
+      "message": "Based on the sandbox run. We can go ahead.",
+      "revId": "c78951947995a7a1e6df298e4efab4082e8fb014",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
