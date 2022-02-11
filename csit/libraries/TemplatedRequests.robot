@@ -532,5 +532,7 @@ Encode_Mapping
 Percent_Encode_String
     [Arguments]    ${value}
     [Documentation]    Percent encodes reserved characters in the given string so it can be used as part of url.
-    ${encoded} =    String.Replace_String_Using_Regexp    ${value}    :    %3A
+    ${str_value} =    BuiltIn.Convert To String    ${value}
+    ${encoded} =    String.Replace_String_Using_Regexp    ${str_value}    :    %3A
     [Return]    ${encoded}
+
