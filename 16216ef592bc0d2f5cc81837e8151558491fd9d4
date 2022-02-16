@@ -16,6 +16,23 @@
       "message": "Is this ready for review?\nDo we some sandbox tests done?",
       "revId": "16216ef592bc0d2f5cc81837e8151558491fd9d4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d33e1415_67c02934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-02-16T18:10:39Z",
+      "side": 1,
+      "message": "This change is necessary to make the OpenFlow Plugin clustering test stable.\n\nAfter controller version was bumped to 4.0.10, 3-node clustering test started to pass\nhttps://jenkins.opendaylight.org/releng/job/openflowplugin-csit-3node-clustering-only-phosphorus/313/\n\nBut the next one failed because timeout was too short:\nhttps://jenkins.opendaylight.org/releng/job/openflowplugin-csit-3node-clustering-only-phosphorus/314/\n\n3 test runs (#1 - #3) in the sandbox all passed with this patch:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-phosphorus/",
+      "revId": "16216ef592bc0d2f5cc81837e8151558491fd9d4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
