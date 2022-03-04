@@ -74,6 +74,16 @@ committers:
       company: 'Ericsson'
       id: 'Karthika_rp'
       timezone: 'Asia/Kolkata'
+    - name: 'Sangwook Ha'
+      email: 'sangwook.ha@verizon.com'
+      company: 'Verizon'
+      id: 'sangwookha'
+      timezone: 'Americas/Los_Angeles'
+    - name: 'Tomas Cere'
+      email: 'tomas.cere@pantheon.tech'
+      company: 'pantheon'
+      id: 'tcere'
+      timezone: 'Unknown/Unknown'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://meetings.opendaylight.org/meetings/opendaylight-meeting/2015/tsc/opendaylight-meeting-tsc.2015-08-20-17.00.html'
