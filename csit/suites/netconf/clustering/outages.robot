@@ -85,7 +85,8 @@ Create_Device_Data_With_node1_Down
     ...    the action is retried few times.
     ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${MASTER_CONNECT_TIMEOUT}    1s    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node2
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${MASTER_CONNECT_TIMEOUT}    1s    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=node2
 
 Check_New_Device_Data_Is_Visible_On_Nodes_Without_node1
     [Documentation]    Check that the new device data is propagated in the cluster even when node 1 is down.
