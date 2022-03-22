@@ -16,6 +16,23 @@
       "message": "Is this ready for merge now?\nDo we have the sandbox job?",
       "revId": "995720da8c8cef6f3af3242dabcbb45348aebcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a61406_2ffd55f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2022-03-22T14:44:40Z",
+      "side": 1,
+      "message": "jjb-deploy netconf-csit-1node-callhome-only-master",
+      "revId": "995720da8c8cef6f3af3242dabcbb45348aebcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
