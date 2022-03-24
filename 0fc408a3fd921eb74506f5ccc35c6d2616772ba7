@@ -16,6 +16,24 @@
       "message": "The patch is fine. \nJust a question, As per the https://pypi.org/project/robotframework-tidy/#installation. Can we install tidy separately?",
       "revId": "0fc408a3fd921eb74506f5ccc35c6d2616772ba7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "097b7799_d9cc06e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-03-24T07:46:24Z",
+      "side": 1,
+      "message": "We can replace robotframework-tidy-wrapper with robotidy for pre-commit:\n\nhttps://github.com/MarketSquare/robotframework-tidy\n\nBut it requires Python 3.7+ and Jenkins appears to use Python 3.6.",
+      "parentUuid": "290db835_2c75dc72",
+      "revId": "0fc408a3fd921eb74506f5ccc35c6d2616772ba7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
