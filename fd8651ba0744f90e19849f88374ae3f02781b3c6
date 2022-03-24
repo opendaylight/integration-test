@@ -16,6 +16,24 @@
       "message": "PTL is added with *odl_integration_test_ptl at the top, so can be removed from here.",
       "revId": "fd8651ba0744f90e19849f88374ae3f02781b3c6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8698c44d_929b1883",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-03-24T18:17:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7942778d_0d02937f",
+      "revId": "fd8651ba0744f90e19849f88374ae3f02781b3c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
