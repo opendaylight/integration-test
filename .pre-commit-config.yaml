@@ -16,11 +16,13 @@ repos:
     hooks:
       - id: black
 
+  # FIXME: replace pre-commit-robotframework-tidy with robotidy once Python 3.7 is available
+  # https://github.com/MarketSquare/robotframework-tidy
   - repo: https://github.com/guykisel/pre-commit-robotframework-tidy
     rev: master
     hooks:
     - id: robotframework-tidy-wrapper
-      additional_dependencies: ['robotframework']
+      additional_dependencies: ['robotframework~=4.1.0']
 
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.11.0
