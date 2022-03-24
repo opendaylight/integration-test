@@ -25,7 +25,7 @@ repos:
       additional_dependencies: ['robotframework~=4.1.0']
 
   - repo: https://github.com/jorisroovers/gitlint
-    rev: v0.11.0
+    rev: v0.17.0
     hooks:
     - id: gitlint
 
