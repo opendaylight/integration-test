@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "290db835_2c75dc72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-03-24T06:46:21Z",
+      "side": 1,
+      "message": "The patch is fine. \nJust a question, As per the https://pypi.org/project/robotframework-tidy/#installation. Can we install tidy separately?",
+      "revId": "0fc408a3fd921eb74506f5ccc35c6d2616772ba7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
