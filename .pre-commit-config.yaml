@@ -20,7 +20,7 @@ repos:
     rev: master
     hooks:
     - id: robotframework-tidy-wrapper
-      additional_dependencies: ['robotframework']
+      additional_dependencies: ['robotframework~=4.1.0']
 
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.11.0
