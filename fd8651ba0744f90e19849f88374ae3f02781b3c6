@@ -34,6 +34,24 @@
       "parentUuid": "7942778d_0d02937f",
       "revId": "fd8651ba0744f90e19849f88374ae3f02781b3c6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff5f839_64b89560",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-03-24T21:40:55Z",
+      "side": 1,
+      "message": "good point",
+      "parentUuid": "7942778d_0d02937f",
+      "revId": "fd8651ba0744f90e19849f88374ae3f02781b3c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
