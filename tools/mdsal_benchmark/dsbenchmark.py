@@ -174,7 +174,7 @@ def send_test_request(
     r = requests.post(
         url, data, headers=postheaders, stream=False, auth=("admin", "admin")
     )
-    result = {u"http-status": r.status_code}
+    result = {"http-status": r.status_code}
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)["output"].items())
     else:
@@ -197,11 +197,11 @@ def print_results(run_type, idx, res):
         % (
             run_type,
             idx,
-            res[u"status"],
-            res[u"listBuildTime"],
-            res[u"execTime"],
-            res[u"txOk"],
-            res[u"txError"],
+            res["status"],
+            res["listBuildTime"],
+            res["execTime"],
+            res["txOk"],
+            res["txError"],
         )
     )
 

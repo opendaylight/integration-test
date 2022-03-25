@@ -112,7 +112,7 @@ class TemplateRenderer:
         with open(self.template_root + template_path, "r") as myfile:
             data = myfile.read()
 
-        parsed = pystache.parse(u"%(data)s" % locals())
+        parsed = pystache.parse("%(data)s" % locals())
         renderer = pystache.Renderer()
 
         output = renderer.render(parsed, variables)

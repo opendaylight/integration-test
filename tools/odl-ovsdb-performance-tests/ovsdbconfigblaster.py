@@ -137,12 +137,12 @@ class OvsdbConfigBlaster(object):
                                  an instance of Open vSwitch
         """
         connect_ovs_body = {
-            u"network-topology:node": [
+            "network-topology:node": [
                 {
-                    u"node-id": unicode(vswitch_dict["node-id"]),
-                    u"connection-info": {
-                        u"ovsdb:remote-port": unicode(vswitch_dict["ovsdb-port"]),
-                        u"ovsdb:remote-ip": unicode(vswitch_dict["ip"]),
+                    "node-id": unicode(vswitch_dict["node-id"]),
+                    "connection-info": {
+                        "ovsdb:remote-port": unicode(vswitch_dict["ovsdb-port"]),
+                        "ovsdb:remote-ip": unicode(vswitch_dict["ip"]),
                     },
                 }
             ]
@@ -160,30 +160,30 @@ class OvsdbConfigBlaster(object):
         for i in range(num_instances):
             bridge_name = unicode("br-" + str(i) + "-test")
             add_bridge_body = {
-                u"network-topology:node": [
+                "network-topology:node": [
                     {
-                        u"node-id": u"%s/bridge/%s"
+                        "node-id": "%s/bridge/%s"
                         % (
                             unicode(self.vswitch_dict[vswitch_name].get("node-id")),
                             unicode(bridge_name),
                         ),
-                        u"ovsdb:bridge-name": unicode(bridge_name),
-                        u"ovsdb:datapath-id": u"00:00:b2:bf:48:25:f2:4b",
-                        u"ovsdb:protocol-entry": [
-                            {u"protocol": u"ovsdb:ovsdb-bridge-protocol-openflow-13"}
+                        "ovsdb:bridge-name": unicode(bridge_name),
+                        "ovsdb:datapath-id": "00:00:b2:bf:48:25:f2:4b",
+                        "ovsdb:protocol-entry": [
+                            {"protocol": "ovsdb:ovsdb-bridge-protocol-openflow-13"}
                         ],
-                        u"ovsdb:controller-entry": [
+                        "ovsdb:controller-entry": [
                             {
-                                u"target": u"tcp:%s:%s"
+                                "target": "tcp:%s:%s"
                                 % (self.controller_ip, self.controller_port)
                             }
                         ],
-                        u"ovsdb:managed-by": u"/network-topology:network-topology/"
-                        u"network-topology:topology"
-                        u"[network-topology:topology-id"
-                        u"='ovsdb:1']/network-topology:node"
-                        u"[network-topology:node-id="
-                        u"'%s']"
+                        "ovsdb:managed-by": "/network-topology:network-topology/"
+                        "network-topology:topology"
+                        "[network-topology:topology-id"
+                        "='ovsdb:1']/network-topology:node"
+                        "[network-topology:node-id="
+                        "'%s']"
                         % unicode(self.vswitch_dict[vswitch_name].get("node-id")),
                     }
                 ]
@@ -230,22 +230,22 @@ class OvsdbConfigBlaster(object):
                 port_name = port_prefix + str(instance) + "-test-" + vswitch.get("ip")
                 body = {
                     "tp-body": {
-                        u"network-topology:termination-point": [
+                        "network-topology:termination-point": [
                             {
-                                u"ovsdb:options": [
+                                "ovsdb:options": [
                                     {
-                                        u"ovsdb:option": u"remote_ip",
-                                        u"ovsdb:value": unicode(
+                                        "ovsdb:option": "remote_ip",
+                                        "ovsdb:value": unicode(
                                             vswitch.get("remote-ip")
                                         ),
                                     }
                                 ],
-                                u"ovsdb:name": unicode(port_name),
-                                u"ovsdb:interface-type": unicode(port_type),
-                                u"tp-id": unicode(port_name),
-                                u"vlan-tag": unicode(instance + 1),
-                                u"trunks": [{u"trunk": u"5"}],
-                                u"vlan-mode": u"access",
+                                "ovsdb:name": unicode(port_name),
+                                "ovsdb:interface-type": unicode(port_type),
+                                "tp-id": unicode(port_name),
+                                "vlan-tag": unicode(instance + 1),
+                                "trunks": [{"trunk": "5"}],
+                                "vlan-mode": "access",
                             }
                         ]
                     },

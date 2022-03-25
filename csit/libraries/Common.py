@@ -62,7 +62,7 @@ def num_of_nodes(depth, fanout):
     """
     result = 0
     for i in range(depth):
-        result += fanout ** i
+        result += fanout**i
     return result
 
 
