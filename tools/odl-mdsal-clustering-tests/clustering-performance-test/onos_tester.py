@@ -433,7 +433,7 @@ def main(*argv):
             print(flow_stats)
             try:
                 pending_adds = int(
-                    flow_stats[u"PENDING_ADD"]
+                    flow_stats["PENDING_ADD"]
                 )  # noqa  # FIXME: Print this somewhere.
             except KeyError:
                 break
@@ -524,7 +524,7 @@ def main(*argv):
             print(flow_stats)
             try:
                 pending_rems = int(
-                    flow_stats[u"PENDING_REMOVE"]
+                    flow_stats["PENDING_REMOVE"]
                 )  # noqa  # FIXME: Print this somewhere.
             except KeyError:
                 break

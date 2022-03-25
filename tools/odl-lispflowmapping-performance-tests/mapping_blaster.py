@@ -33,28 +33,28 @@ class MappingRPCBlaster(object):
 
     # Template for adding mappings
     add_mapping_template = {
-        u"input": {
-            u"mapping-record": {
-                u"recordTtl": 60,
-                u"action": u"NoAction",
-                u"authoritative": True,
-                u"eid": {
-                    u"address-type": u"ietf-lisp-address-types:ipv4-prefix-afi",
-                    u"ipv4-prefix": u"10.0.0.0/32",
+        "input": {
+            "mapping-record": {
+                "recordTtl": 60,
+                "action": "NoAction",
+                "authoritative": True,
+                "eid": {
+                    "address-type": "ietf-lisp-address-types:ipv4-prefix-afi",
+                    "ipv4-prefix": "10.0.0.0/32",
                 },
-                u"LocatorRecord": [
+                "LocatorRecord": [
                     {
-                        u"locator-id": u"ipv4:172.16.0.0",
-                        u"priority": 1,
-                        u"weight": 1,
-                        u"multicastPriority": 255,
-                        u"multicastWeight": 0,
-                        u"localLocator": True,
-                        u"rlocProbed": False,
-                        u"routed": True,
-                        u"rloc": {
-                            u"address-type": u"ietf-lisp-address-types:ipv4-afi",
-                            u"ipv4": u"172.16.0.0",
+                        "locator-id": "ipv4:172.16.0.0",
+                        "priority": 1,
+                        "weight": 1,
+                        "multicastPriority": 255,
+                        "multicastWeight": 0,
+                        "localLocator": True,
+                        "rlocProbed": False,
+                        "routed": True,
+                        "rloc": {
+                            "address-type": "ietf-lisp-address-types:ipv4-afi",
+                            "ipv4": "172.16.0.0",
                         },
                     }
                 ],
@@ -63,7 +63,7 @@ class MappingRPCBlaster(object):
     }
 
     # Template for getting mappings
-    get_mapping_template = {u"input": {u"eid": {u"ipv4-prefix": u"10.0.0.0"}}}
+    get_mapping_template = {"input": {"eid": {"ipv4-prefix": "10.0.0.0"}}}
 
     def __init__(self, host, port, start_eid, mask, start_rloc, nmappings, v):
         """

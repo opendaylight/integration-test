@@ -64,28 +64,28 @@ class FlowConfigBlaster(object):
 
     # The "built-in" flow template
     flow_mode_template = {
-        u"flow": [
+        "flow": [
             {
-                u"hard-timeout": 65000,
-                u"idle-timeout": 65000,
-                u"cookie_mask": 4294967295,
-                u"flow-name": u"FLOW-NAME-TEMPLATE",
-                u"priority": 2,
-                u"strict": False,
-                u"cookie": 0,
-                u"table_id": 0,
-                u"installHw": False,
-                u"id": u"FLOW-ID-TEMPLATE",
-                u"match": {
-                    u"ipv4-destination": u"0.0.0.0/32",
-                    u"ethernet-match": {u"ethernet-type": {u"type": 2048}},
+                "hard-timeout": 65000,
+                "idle-timeout": 65000,
+                "cookie_mask": 4294967295,
+                "flow-name": "FLOW-NAME-TEMPLATE",
+                "priority": 2,
+                "strict": False,
+                "cookie": 0,
+                "table_id": 0,
+                "installHw": False,
+                "id": "FLOW-ID-TEMPLATE",
+                "match": {
+                    "ipv4-destination": "0.0.0.0/32",
+                    "ethernet-match": {"ethernet-type": {"type": 2048}},
                 },
-                u"instructions": {
-                    u"instruction": [
+                "instructions": {
+                    "instruction": [
                         {
-                            u"order": 0,
-                            u"apply-actions": {
-                                u"action": [{u"drop-action": {}, u"order": 0}]
+                            "order": 0,
+                            "apply-actions": {
+                                "action": [{"drop-action": {}, "order": 0}]
                             },
                         }
                     ]
@@ -583,12 +583,12 @@ def get_json_from_file(filename):
             ft = json.load(f)
             keys = ft["flow"][0].keys()
             if (
-                (u"cookie" in keys)
-                and (u"flow-name" in keys)
-                and (u"id" in keys)
-                and (u"match" in keys)
+                ("cookie" in keys)
+                and ("flow-name" in keys)
+                and ("id" in keys)
+                and ("match" in keys)
             ):
-                if u"ipv4-destination" in ft[u"flow"][0]["match"].keys():
+                if "ipv4-destination" in ft["flow"][0]["match"].keys():
                     print('File "%s" ok to use as flow template' % filename)
                     return ft
         except ValueError:

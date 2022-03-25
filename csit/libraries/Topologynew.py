@@ -17,11 +17,11 @@ class Topologynew(object):
 
     topo_nodes_db = [
         [],
-        [{u"type": u"MD_SAL", u"id": u"openflow:1"}],
+        [{"type": "MD_SAL", "id": "openflow:1"}],
         [
-            {u"type": u"MD_SAL", u"id": u"openflow:1"},
-            {u"type": u"MD_SAL", u"id": u"openflow:2"},
-            {u"type": u"MD_SAL", u"id": u"openflow:3"},
+            {"type": "MD_SAL", "id": "openflow:1"},
+            {"type": "MD_SAL", "id": "openflow:2"},
+            {"type": "MD_SAL", "id": "openflow:3"},
         ],
     ]
 

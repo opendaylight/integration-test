@@ -57,7 +57,7 @@ def send_test_request(operation, clients, servers, payload_size, iterations):
     r = requests.post(
         url, data, headers=postheaders, stream=False, auth=("admin", "admin")
     )
-    result = {u"http-status": r.status_code}
+    result = {"http-status": r.status_code}
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)["output"].items())
     else:
@@ -80,10 +80,10 @@ def print_results(run_type, idx, res):
         % (
             run_type,
             idx,
-            res[u"global-rtc-client-ok"],
-            res[u"global-rtc-client-error"],
-            res[u"rate"],
-            res[u"exec-time"],
+            res["global-rtc-client-ok"],
+            res["global-rtc-client-error"],
+            res["rate"],
+            res["exec-time"],
         )
     )
 

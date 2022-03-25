@@ -57,7 +57,7 @@ def send_test_request(producer_type, producers, listeners, payload_size, iterati
     r = requests.post(
         url, data, headers=postheaders, stream=False, auth=("admin", "admin")
     )
-    result = {u"http-status": r.status_code}
+    result = {"http-status": r.status_code}
     if r.status_code == 200:
         result = dict(result.items() + json.loads(r.content)["output"].items())
     else:
@@ -80,13 +80,13 @@ def print_results(run_type, idx, res):
         % (
             run_type,
             idx,
-            res[u"producer-ok"],
-            res[u"producer-error"],
-            res[u"listener-ok"],
-            res[u"producer-rate"],
-            res[u"listener-rate"],
-            res[u"producer-elapsed-time"],
-            res[u"listener-elapsed-time"],
+            res["producer-ok"],
+            res["producer-error"],
+            res["listener-ok"],
+            res["producer-rate"],
+            res["listener-rate"],
+            res["producer-elapsed-time"],
+            res["listener-elapsed-time"],
         )
     )
 
