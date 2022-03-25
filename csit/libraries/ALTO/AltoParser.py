@@ -66,11 +66,11 @@ def check_ird_configuration_entry(response, ird_resource_id, context_id, resourc
                 if "dependency" in tag:
                     for one_dependency in tag["dependency"]:
                         _context_id = re.findall(
-                            "\d{8}-\d{4}-\d{4}-\d{4}-\d{12}", one_dependency
+                            r"\d{8}-\d{4}-\d{4}-\d{4}-\d{12}", one_dependency
                         )[0]
                         if _context_id == context_id:
                             long_resource_id = re.findall(
-                                "resource-id='[a-zA-Z\-]*'", one_dependency
+                                r"resource-id='[a-zA-Z\-]*'", one_dependency
                             )[0]
                             short_resource_id = re.findall("'.*'", long_resource_id)[0]
                             _resource_id = short_resource_id.replace("'", "")

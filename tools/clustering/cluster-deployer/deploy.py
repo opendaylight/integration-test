@@ -181,11 +181,11 @@ class Deployer:
         # Determine distribution version
         distribution_name = os.path.splitext(os.path.basename(self.distribution))[0]
         distribution_ver = re.search(
-            "(\d+\.\d+\.\d+-\w+\Z)|"
-            "(\d+\.\d+\.\d+-\w+)(-RC\d+\Z)|"
-            "(\d+\.\d+\.\d+-\w+)(-RC\d+(\.\d+)\Z)|"
-            "(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|"
-            "(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)",
+            r"(\d+\.\d+\.\d+-\w+\Z)|"
+            r"(\d+\.\d+\.\d+-\w+)(-RC\d+\Z)|"
+            r"(\d+\.\d+\.\d+-\w+)(-RC\d+(\.\d+)\Z)|"
+            r"(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|"
+            r"(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)",
             distribution_name,
         )  # noqa
 

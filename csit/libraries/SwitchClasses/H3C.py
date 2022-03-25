@@ -113,7 +113,7 @@ class H3C(BaseSwitch):
             # |---------------------------------(0)---------------------------------|
             # |------(1)-------||------(2)-----|
             matches = re.search(
-                "(.*0x)(\w+) +Connected", self.datapath_id_output_string
+                r"(.*0x)(\w+) +Connected", self.datapath_id_output_string
             )
             datapath_id_hex = matches.group(2)
             self.datapath_id = self.convert_hex_to_decimal_as_string(datapath_id_hex)

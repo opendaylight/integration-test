@@ -155,6 +155,6 @@ class ProVision(BaseSwitch):
             # Datapath ID              : 000af0921c22bac0
             # |-----------------(0)---------------------|
             # |-----------(1)----------| |------(2)-----|
-            matches = re.search("(.*: )(\w+)", self.datapath_id_output_string)
+            matches = re.search(r"(.*: )(\w+)", self.datapath_id_output_string)
             datapath_id_hex = matches.group(2)
             self.datapath_id = self.convert_hex_to_decimal_as_string(datapath_id_hex)

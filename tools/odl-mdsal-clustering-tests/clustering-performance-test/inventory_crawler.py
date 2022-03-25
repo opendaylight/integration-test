@@ -130,7 +130,7 @@ class InventoryCrawler(object):
                     if re.search("openflow", inv[n]["id"]) is not None:
                         sinv.append(inv[n])
 
-                sinv = sorted(sinv, key=lambda k: int(re.findall("\d+", k["id"])[0]))
+                sinv = sorted(sinv, key=lambda k: int(re.findall(r"\d+", k["id"])[0]))
 
                 for n in range(len(sinv)):
                     try:
