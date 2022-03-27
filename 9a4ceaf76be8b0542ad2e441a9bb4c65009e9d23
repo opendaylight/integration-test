@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5082211e_c20069e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-03-27T08:08:26Z",
+      "side": 1,
+      "message": "jjb-deploy netconf-csit-1node-callhome-only-master",
+      "revId": "9a4ceaf76be8b0542ad2e441a9bb4c65009e9d23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
