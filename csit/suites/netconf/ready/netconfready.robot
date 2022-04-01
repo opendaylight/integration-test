@@ -120,7 +120,7 @@ Check_Whether_Netconf_Can_Pretty_Print
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    critical
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
-    Check_Netconf_Up_And_Running    ?prettyPrint=true
+    Check_Netconf_Up_And_Running    ?odl-pretty-print=true
 
 Wait_For_MDSAL
     [Tags]    ODLMICRO_IGN
