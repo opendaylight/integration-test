@@ -236,7 +236,7 @@ Get Tunnel
     BuiltIn.Should Contain    ${resp.text}    ${dst}
     BuiltIn.Run Keyword If    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Contain    ${resp.text}    ${src}
     ${tunnel_interface_name} =    BuiltIn.Run Keyword If    "tunnel-interface-names" in "${json}"    Genius.Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
-    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword Unless    '${config_api_type}' == '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.text}    "tunnel-name":"(tun[\\w\\d]+)"
+    ${tunnel_name_output}    ${tunnel_name} =    BuiltIn.Run Keyword If    '${config_api_type}' != '${EMPTY}'    BuiltIn.Should Match Regexp    ${resp.text}    "tunnel-name":"(tun[\\w\\d]+)"
     ${tunnel} =    BuiltIn.Set Variable If    '${config_api_type}' == '${EMPTY}'    ${tunnel_interface_name}    ${tunnel_name}
     [Return]    ${tunnel}
 

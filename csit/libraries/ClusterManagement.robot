@@ -183,7 +183,7 @@ Verify_Shard_Leader_Elected
     ...    new leader is elected or should remained the same as ${old_leader}
     ${leader}    ${followers}=    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
     BuiltIn.Run_Keyword_If    ${new_elected}    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_leader}    ${leader}
-    BuiltIn.Run_Keyword_Unless    ${new_elected}    BuiltIn.Should_Be_Equal_As_numbers    ${old_leader}    ${leader}
+    BuiltIn.Run_Keyword_If    not ${new_elected}    BuiltIn.Should_Be_Equal_As_numbers    ${old_leader}    ${leader}
     BuiltIn.Return_From_Keyword    ${leader}    ${followers}
 
 Verify_Owner_And_Successors_For_Device

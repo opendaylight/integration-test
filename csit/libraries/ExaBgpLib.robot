@@ -57,7 +57,7 @@ Start_ExaBgp_And_Verify_Connected
         Start_ExaBgp    ${cfg_file}
         ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
         ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}
-        BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    Stop_ExaBgp
+        BuiltIn.Run_Keyword_If    "${status}" != "PASS"    Stop_ExaBgp
         BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
     END
     BuiltIn.Fail    Unable to connect ExaBgp to ODL

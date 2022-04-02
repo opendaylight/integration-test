@@ -198,7 +198,7 @@ Check_Config_Data
     ...    CRUD).
     ${url}=    Builtin.Set_Variable    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${session}
-    BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    BuiltIn.Run_Keyword_If    not ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
 
 Check_Owner_Reconfigured

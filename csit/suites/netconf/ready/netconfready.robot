@@ -92,7 +92,7 @@ Check_Whether_Netconf_Connector_Is_Up_And_Running
 Wait_For_Netconf_Connector
     [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
+    BuiltIn.Run_Keyword_If    not ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
 
 Wait_Even_Longer
@@ -119,7 +119,7 @@ Check_For_Bug_5014
 Check_Whether_Netconf_Can_Pretty_Print
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
+    BuiltIn.Run_Keyword_If    not ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
     Check_Netconf_Up_And_Running    ?odl-pretty-print=true
 
 Wait_For_MDSAL

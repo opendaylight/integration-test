@@ -93,7 +93,7 @@ Open Virtual Display
     Process.Start Process    Xvfb    :${XVFB_PORT}    -ac    -screen    0    1280x1024x16
     ...    alias=xvfb
     ${display}=    OperatingSystem.Get Environment Variable    DISPLAY    ${EMPTY}
-    BuiltIn.Run Keyword Unless    "${display}"==":${XVFB_PORT}"    Set Display Port
+    BuiltIn.Run Keyword If    "${display}"!=":${XVFB_PORT}"    Set Display Port
 
 Close DLUX And Terminate XVFB Process If Running
     [Documentation]    Closes all browser instances and terminates Xvfb if the process is running.
@@ -110,7 +110,7 @@ Launch DLUX
     ...    3. Go to DLUX login URL and wait until the HTML page contains a specific element.
     ${status}=    BuiltIn.Run Keyword And Return Status    Run Keywords    Open Virtual Display
     ...    AND    Selenium2Library.Open Browser    ${LOGIN_URL}    ${BROWSER}
-    BuiltIn.Run Keyword Unless    ${status}    Open Headless Browser    ${LOGIN_URL}
+    BuiltIn.Run Keyword If    not ${status}    Open Headless Browser    ${LOGIN_URL}
     Selenium2Library.Wait Until Page Contains Element    css=div.container
 
 Open DLUX Login Page
@@ -163,7 +163,7 @@ Navigate To URL
     [Arguments]    ${url}
     [Documentation]    Goes to the defined URL provided in an argument.
     ${status}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Location Should Be    ${url}
-    BuiltIn.Run Keyword Unless    ${status}    Selenium2Library.Go To    ${url}
+    BuiltIn.Run Keyword If    not ${status}    Selenium2Library.Go To    ${url}
 
 Focus And Click Element
     [Arguments]    ${element}
