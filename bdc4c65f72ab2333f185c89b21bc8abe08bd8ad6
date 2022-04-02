@@ -50,6 +50,23 @@
       "message": "jjb-deploy netconf-csit-1node-userfeatures-all-master",
       "revId": "bdc4c65f72ab2333f185c89b21bc8abe08bd8ad6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7233802_4cb71ca4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-02T23:40:19Z",
+      "side": 1,
+      "message": "jjb-deploy openflowplugin-csit-1node-flow-services-all-phosphorus",
+      "revId": "bdc4c65f72ab2333f185c89b21bc8abe08bd8ad6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
