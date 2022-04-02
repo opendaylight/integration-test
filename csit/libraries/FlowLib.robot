@@ -76,9 +76,9 @@ Check Linear Topology
         Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:2"
         Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:2"
         ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:3"
-        Run Keyword Unless    ${edge}    Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:3"
+        Run Keyword If    not ${edge}    Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:3"
+        Run Keyword If    not ${edge}    Should Contain    ${resp.text}    "source-tp":"openflow:${switch}:3"
+        Run Keyword If    not ${edge}    Should Contain    ${resp.text}    "dest-tp":"openflow:${switch}:3"
     END
 
 Check Flows Operational Datastore

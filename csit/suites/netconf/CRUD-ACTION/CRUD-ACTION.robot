@@ -127,5 +127,5 @@ Get_Config_Data
 Check_Config_Data
     [Arguments]    ${expected}    ${contains}=False
     ${data} =    Get_Config_Data
-    BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    BuiltIn.Run_Keyword_If    not ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}

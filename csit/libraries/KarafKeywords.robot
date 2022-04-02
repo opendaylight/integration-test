@@ -222,7 +222,7 @@ Log_Message_To_Controller_Karaf
     ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
     FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
         ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
-        BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
+        BuiltIn.Run_Keyword_If    not ${tolerate_failure} and "${status}" != "PASS"    BuiltIn.Fail    ${output}
     END
 
 Log_Test_Suite_Start_To_Controller_Karaf

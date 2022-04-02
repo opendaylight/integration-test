@@ -386,7 +386,7 @@ Get_From_Uri
     ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
     ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
     Check_Status_Code    ${response}    log_response=${log_response}
-    BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
+    BuiltIn.Run_Keyword_If    not ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}    keys_with_volatiles=${keys_with_volatiles}
     [Return]    ${text_normalized}
 
@@ -406,7 +406,7 @@ Put_To_Uri
     ...    ELSE    RequestsLibrary.Put_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
     ...    timeout=${http_timeout}
     Check_Status_Code    ${response}
-    BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
+    BuiltIn.Run_Keyword_If    not ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
 
@@ -426,7 +426,7 @@ Post_To_Uri
     ...    ELSE    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
     ...    timeout=${http_timeout}
     Check_Status_Code    ${response}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
-    BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
+    BuiltIn.Run_Keyword_If    not ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
 

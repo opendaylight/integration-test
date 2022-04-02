@@ -54,7 +54,7 @@ Start_GoBgp_And_Verify_Connected
     Start_GoBgp    ${cfg_file}
     ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    ${connection_retries}x    15s
     ...    Verify_GoBgps_Connection    ${session}    ${gobgp_ip}    connected=${True}
-    BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    Stop_GoBgp
+    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    Stop_GoBgp
     BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
 
 Verify_GoBgps_Connection

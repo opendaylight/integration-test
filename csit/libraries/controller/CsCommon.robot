@@ -102,7 +102,7 @@ Verify_Singleton_Constant_During_Isolation
     [Documentation]    Iterate over all non-isolated cluster nodes. They should return the correct constant.
     FOR    ${index}    IN    @{cs_all_indices}
         BuiltIn.Run_Keyword_If    "${index}" == "${cs_isolated_index}"    BuiltIn.Log    Node not triggered, behavior not well described, see bugs 8207, 8214.
-        BuiltIn.Run_Keyword_Unless    "${index}" == "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+        BuiltIn.Run_Keyword_If    "${index}" != "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
     END
 
 Isolate_Owner_And_Verify_Isolated

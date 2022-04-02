@@ -107,7 +107,7 @@ Start_Bgp_Peer_And_Verify_Connected
         Start_Bgp_Peer    peerip=${peerip}
         ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
         ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
-        BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
+        BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BGPSpeaker.Kill_BGP_Speaker
         BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
     END
     BuiltIn.Fail    Unable to connect bgp peer to ODL
