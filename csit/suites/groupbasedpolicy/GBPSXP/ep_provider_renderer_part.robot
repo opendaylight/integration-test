@@ -70,7 +70,7 @@ Setup_Http_And_Netconf
     BuiltIn.Run_Keyword_If    ${run_netconf_testtool_manually}    BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
     FOR    ${ssh_session}    IN    @{TOOLS_SESSIONS}
         SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${ssh_session}
-        BuiltIn.Run_Keyword_Unless    ${run_netconf_testtool_manually}    Install_And_Start_Testtool    device-count=1    debug=false    schemas=${IOS_XE_SCHEMAS_FOLDER}
+        BuiltIn.Run_Keyword_If    not ${run_netconf_testtool_manually}    Install_And_Start_Testtool    device-count=1    debug=false    schemas=${IOS_XE_SCHEMAS_FOLDER}
         ...    mdsal=true
     END
 
