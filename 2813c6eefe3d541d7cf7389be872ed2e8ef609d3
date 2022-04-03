@@ -16,6 +16,23 @@
       "message": "jjb-deploy bgpcep-csit-1node-bgp-ingest-all-phosphorus",
       "revId": "2813c6eefe3d541d7cf7389be872ed2e8ef609d3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2884958_03b59168",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-03T09:33:13Z",
+      "side": 1,
+      "message": "Tests of the change in the sandbox:\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-phosphorus/3/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-phosphorus/4/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/5/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-all-phosphorus/2/\n\nThe test results are consistent with the latest ones in the production:\n\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-1node-flow-services-all-phosphorus/360/\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-3node-clustering-only-phosphorus/360/\nhttps://jenkins.opendaylight.org/releng/view/netconf/job/netconf-csit-1node-userfeatures-all-master/63/\nhttps://jenkins.opendaylight.org/releng/view/bgpcep/job/bgpcep-csit-1node-bgp-ingest-all-phosphorus/362/",
+      "revId": "2813c6eefe3d541d7cf7389be872ed2e8ef609d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
