@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2104141a_2de1ab00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-03T06:24:32Z",
+      "side": 1,
+      "message": "jjb-deploy bgpcep-csit-1node-bgp-ingest-all-phosphorus",
+      "revId": "2813c6eefe3d541d7cf7389be872ed2e8ef609d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
