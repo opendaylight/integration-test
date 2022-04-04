@@ -51,6 +51,24 @@
       "parentUuid": "cefe911c_884b5ad9",
       "revId": "1e34629ab552630cede50af3f52cb15c4f8dd377",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f7e79b_729aa867",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-04T07:23:53Z",
+      "side": 1,
+      "message": "Right, it\u0027s still running. But the test case which failed in the production because of the Bierman02 URL, e.g. \u0027Check Shards Status And Initialize Variables\u0027, seems to have passed.",
+      "parentUuid": "ec582044_0a6b2c62",
+      "revId": "1e34629ab552630cede50af3f52cb15c4f8dd377",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
