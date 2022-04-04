@@ -69,6 +69,24 @@
       "parentUuid": "ec582044_0a6b2c62",
       "revId": "1e34629ab552630cede50af3f52cb15c4f8dd377",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "482f327b_90292803",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-04T07:27:59Z",
+      "side": 1,
+      "message": "Test just finished:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-sulfur/1/\n\nThere are some test failures but they are not related to this change. And most of the test failures have been fixed:\nhttps://s3-logs.opendaylight.org/logs/releng/vex-yul-odl-jenkins-1/openflowplugin-csit-3node-clustering-bulkomatic-only-sulfur/188/robot-plugin/log.html.gz#s1-s1",
+      "parentUuid": "80f7e79b_729aa867",
+      "revId": "1e34629ab552630cede50af3f52cb15c4f8dd377",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
