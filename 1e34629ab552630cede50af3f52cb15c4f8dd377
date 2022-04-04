@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2935ce_b4843314",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-04T06:41:23Z",
+      "side": 1,
+      "message": "jjb-deploy openflowplugin-csit-3node-clustering-bulkomatic-only-sulfur",
+      "revId": "1e34629ab552630cede50af3f52cb15c4f8dd377",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
