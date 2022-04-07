@@ -22,7 +22,7 @@ Add_Several_People
     ...    People need to be added via RPC, otherwise buy-car routed RPC will not find registered path.
     ...    See javadocs in RpcProviderRegistry.java
     FOR    ${i}    IN RANGE    ${iter_start}    ${iter_start}+${iterations}
-        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i": "${i}"}    session=${session}
+        TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/add-person    mapping={"i":"${i}"}    session=${session}
     END
 
 Buy_Several_Cars
