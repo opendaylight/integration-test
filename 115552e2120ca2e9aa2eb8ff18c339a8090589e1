@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17e7bcc8_841e7760",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-08T20:28:54Z",
+      "side": 1,
+      "message": "Sandbox test:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/jsonrpc-csit-1node-basic-only-sulfur/4/\n\nThis change addresses test failure in the production test for Sulfur:\nhttps://jenkins.opendaylight.org/releng/view/integration/job/jsonrpc-csit-1node-basic-only-sulfur/193/",
+      "revId": "115552e2120ca2e9aa2eb8ff18c339a8090589e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
