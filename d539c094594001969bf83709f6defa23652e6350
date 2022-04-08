@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77406b62_00acbcc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-08T22:17:12Z",
+      "side": 1,
+      "message": "Sandbox tests without odl-restconf-nb-bierman02:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-sulfur/3/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-3node-clustering-basic-only-sulfur/3/\n\ndaexim-csit-1node-basic-only-sulfur currently has a failed test case even with the original Bierman02 RESTCONF, caused by a controller issue:\nhttps://jenkins.opendaylight.org/releng/job/daexim-csit-1node-basic-only-sulfur/194/",
+      "revId": "d539c094594001969bf83709f6defa23652e6350",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
