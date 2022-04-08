@@ -183,17 +183,17 @@ Mount Netconf Endpoint
     ${json}    OperatingSystem.Get File    ${CURDIR}/${NETCONF_PAYLOAD_JSON}
     ${json}    Builtin.Replace Variables    ${json}
     Builtin.Log    ${json}
-    ${resp}    ClusterManagement.Put As Json To Member    ${NETCONF_MOUNT_URL}${endpoint}    ${json}    ${host_index}
+    ${resp}    ClusterManagement.Put As Json To Member    ${NETCONF_NODE_URL}=${endpoint}    ${json}    ${host_index}
     Builtin.Log    ${resp}
 
 Fetch Status Information From Netconf Endpoint
     [Arguments]    ${endpoint}    ${host_index}
     [Documentation]    This keyword fetches netconf endpoint information
-    ${resp}    ClusterManagement.Get From Member    ${NTCF_TPLG_OPR_URL}${endpoint}    ${host_index}
+    ${resp}    ClusterManagement.Get From Member    ${NETCONF_NODE_URL}=${endpoint}    ${host_index}
     ${output1}    Builtin.Set Variable    ${resp}
     ${output}    RequestsLibrary.To Json    ${output1}
     Builtin.Log    ${output}
-    ${status}    Collections.Get From Dictionary    ${output['node'][0]}    netconf-node-topology:connection-status
+    ${status}    Collections.Get From Dictionary    ${output['network-topology:node'][0]}    netconf-node-topology:connection-status
     [Return]    ${status}    ${output}
 
 Verify Status Information
