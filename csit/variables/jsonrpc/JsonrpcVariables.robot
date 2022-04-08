@@ -4,10 +4,9 @@ Documentation     Resource consisting purely of variable definitions useful for 
 *** Variables ***
 ${JSONRPCCONFIG_MODULE_JSON}    ${CURDIR}/jsonrpcconfig_module.json
 ${JSONRPCCONFIG_DATA_JSON}    ${CURDIR}/jsonrpcconfig_data.json
-${READ_SERVICE_PEER_PUT_URL}    /restconf/config/jsonrpc:config/configured-endpoints/
+${READ_SERVICE_PEER_URL}    /rests/data/jsonrpc:config/configured-endpoints/
 ${READ_SERVICE_PEER_PAYLOAD}    ${CURDIR}/readservice_peer_payload.json
-${READ_SERVICE_PEER_GET_1}    /restconf/config/jsonrpc:config/configured-endpoints/
-${READ_SERVICE_PEER_GET_2}    /yang-ext:mount/jsonrpc:config/
+${READ_SERVICE_PEER_MOUNT_PATH}    /yang-ext:mount/jsonrpc:config/
 ${DEFAULT_ENDPOINT}    foo
 ${DEFAULT_PORT}    4444
 ${FIRST_CONTROLLER_INDEX}    1
