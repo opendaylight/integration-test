@@ -43,13 +43,13 @@ Mount Read Service Endpoint
     [Documentation]    This keyword mounts an endpoint after starting service
     ${JSON1}    OperatingSystem.Get File    ${file}
     Log    ${JSON1}
-    ${response_json}    ClusterManagement.Put_As_Json_To_Member    ${READ_SERVICE_PEER_PUT_URL}${endpoint}    ${JSON1}    ${controller_index}
+    ${response_json}    ClusterManagement.Put_As_Json_To_Member    ${READ_SERVICE_PEER_URL}${endpoint}    ${JSON1}    ${controller_index}
     Builtin.Log    ${response_json}
 
 Verify Data On Mounted Endpoint
     [Arguments]    ${controller_index}=${FIRST_CONTROLLER_INDEX}    ${endpoint}=${DEFAULT_ENDPOINT}
     [Documentation]    This keyword verifies if the data we get on the mount point is same as what we put
-    ${resp}    ClusterManagement.Get_From_Member    ${READ_SERVICE_PEER_GET_1}${endpoint}${READ_SERVICE_PEER_GET_2}    ${controller_index}
+    ${resp}    ClusterManagement.Get_From_Member    ${READ_SERVICE_PEER_URL}${endpoint}${READ_SERVICE_PEER_MOUNT_PATH}?content=config    ${controller_index}
     ${response_json}    Builtin.Convert To String    ${resp}
     Log    ${response_json}
     Verify Restconf Get On Mounted Endpoint    ${response_json}    ${READSERVICE_NAME}

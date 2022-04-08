@@ -1,14 +1,22 @@
 {
- "configured-endpoints": {
-  "name": "foo",
-  "modules": ["jsonrpc"],
-  "data-config-endpoints": [{
-   "path": "{}",
-   "endpoint-uri": "zmq://127.0.0.1:4444"
-  }],
-  "data-operational-endpoints": [{
-   "path": "{}",
-   "endpoint-uri": "zmq://127.0.0.1:4444"
-  }]
- }
+    "configured-endpoints": [
+        {
+            "name": "foo",
+            "modules": [
+                "jsonrpc"
+            ],
+            "data-config-endpoints": [
+                {
+                    "path": "{}",
+                    "endpoint-uri": "zmq://127.0.0.1:4444"
+                }
+            ],
+            "data-operational-endpoints": [
+                {
+                    "path": "{}",
+                    "endpoint-uri": "zmq://127.0.0.1:4444"
+                }
+            ]
+        }
+    ]
 }
