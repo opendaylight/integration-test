@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43dde68d_2b97f793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-09T20:16:41Z",
+      "side": 1,
+      "message": "Test results for patch set 7:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-1node-upstream-southbound-all-sulfur/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-3node-upstream-clustering-only-sulfur/2/\n\nAnd also ran a clustering test plan for openflowplugin to make sure the changes in ClusterManagement.robot \u0026 ClusterOpenFlow.robot, although minor, do not affect the tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-phosphorus/3/",
+      "revId": "20078330665a59096524f83dbde9387087108416",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
