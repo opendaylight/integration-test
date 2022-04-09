@@ -7,8 +7,8 @@ Resource          ClusterManagement.robot
 Resource          CompareStream.robot
 Resource          MininetKeywords.robot
 Resource          Utils.robot
-Variables         ../variables/Variables.py
 Resource          ../variables/openflowplugin/Variables.robot
+Variables         ../variables/Variables.py
 
 *** Variables ***
 @{SHARD_OPER_LIST}    inventory    topology    default    entity-ownership
@@ -80,7 +80,7 @@ Add Sample Flow And Verify
     # replicating some of the matches in the flows section. Same comment applies for further keywords.
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2    "output-node-connector":"1"=1
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1    "output-node-connector":"1"=1
-    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All_RFC8040    ${config_table_0}/flow=1    ${body}    ${controller_index}    ${controller_index_list}
+    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${config_table_0}/flow=1    ${body}    ${controller_index}    ${controller_index_list}
     Wait Until Keyword Succeeds    15s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_table_0}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Verify Sample Flow
@@ -98,7 +98,7 @@ Modify Sample Flow And Verify
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/sample_flow_2.json
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2    "output-node-connector":"2"=1
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1    "output-node-connector":"2"=1
-    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All_RFC8040    ${config_table_0}/flow=1    ${body}    ${controller_index}    ${controller_index_list}
+    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${config_table_0}/flow=1    ${body}    ${controller_index}    ${controller_index_list}
     Wait Until Keyword Succeeds    15s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_table_0}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Delete Sample Flow And Verify
