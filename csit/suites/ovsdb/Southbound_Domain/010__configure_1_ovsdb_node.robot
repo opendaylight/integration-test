@@ -10,6 +10,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/ovsdb/Variables.robot
 
 *** Variables ***
 ${BRIDGE}         ovsconf_br
@@ -30,7 +31,7 @@ Connect to OVSDB Node
 
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${NODE_LIST}    pretty_print_json=True
 
 Create a Bridge
     [Documentation]    This will create bridge on the specified OVSDB node.
@@ -38,7 +39,7 @@ Create a Bridge
 
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Should Contain    ${resp.text}    ${BRIDGE}
@@ -46,7 +47,7 @@ Get Config Topology with Bridge
 Get Operational Topology with Bridge
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store
     @{list} =    BuiltIn.Create List    ${BRIDGE}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Create Port and Attach to a Bridge
     [Documentation]    This request will creates port/interface and attach it to the specific bridge
@@ -55,49 +56,49 @@ Create Port and Attach to a Bridge
 Get Operational Topology with Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
     @{list} =    BuiltIn.Create List    ${BRIDGE}    ${PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Delete the Port
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/${PORT}/
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}/termination-point=${PORT}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
 
 Get Operational Topology after Deletion of Port
     [Documentation]    This request will fetch the operational topology after the Port is deleted
     @{list} =    BuiltIn.Create List    ${PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Delete the Bridge
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}%2Fbridge%2F${BRIDGE}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
 
 Get Operational Topology after Deletion of Bridge
     [Documentation]    This request will fetch the operational topology after the Bridge is deleted
     @{list} =    BuiltIn.Create List    ${BRIDGE}    ${PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Verify Config Still Has OVS Info
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the node is still in the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${NODE_LIST}    pretty_print_json=True
 
 Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_NODE_CONFIG_API}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
 
 Get Operational Topology to make sure the connection has been deleted
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Get Configuration Topology to make sure the connection has been deleted
     [Documentation]    This request will fetch the configuration topology from the connected OVSDB nodes
     @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${CONFIG_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_CONFIG_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Reconnect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
@@ -105,14 +106,14 @@ Reconnect to OVSDB Node
 
 Get Operational Topology After Node Reconnect
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${NODE_LIST}    pretty_print_json=True
 
 Get Config Topology After Reconnect
     [Documentation]    This will fetch the configuration topology from configuration data store after reconnect
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${NODE_LIST}    pretty_print_json=True
 
 Create OVSDB NODE HOST1
     [Documentation]    This request will create OVSDB NODE HOST1
@@ -136,7 +137,7 @@ Update QOS with a Linked queue entry to a OVSDB Node
 
 Get QOS Config Topology with port
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the QOS is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Contain    ${resp.text}    ${QOS}
@@ -144,11 +145,11 @@ Get QOS Config Topology with port
 Get QOS Operational Topology with port
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the QOS is added to the data store
     @{list} =    BuiltIn.Create List    ${QOS}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Get Queue Config Topology with port
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify the Queue is added to the data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Contain    ${resp.text}    ${QUEUE}
@@ -156,31 +157,31 @@ Get Queue Config Topology with port
 Get Queue Operational Topology with port
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the Queue is added to the data store
     @{list} =    BuiltIn.Create List    ${QUEUE}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
 
 Delete a Queue entry from a Qos entry
     [Documentation]    This request will Delete a Queue entry from a Qos entry
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${QOS}/queue-list=0
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete a QoS entry from a node
     [Documentation]    This request will Delete a QoS entry from a node.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${QOS}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete a Queue entry from an ovsdb node
     [Documentation]    This request will Delete a Queue entry from an ovsdb node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${QUEUE}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete the OVSDB Node HOST1
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Config Topology to verify that deleted configurations are cleaned from config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store to verify OVSDB NODE is deleted frrom the configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     BuiltIn.Should Not Contain    ${resp.text}    ovsdb:HOST1
@@ -200,5 +201,5 @@ Check For Bug 4794
 *** Keywords ***
 Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
-    @{uris} =    Builtin.Create List    ${SOUTHBOUND_NODE_CONFIG_API}
+    @{uris} =    Builtin.Create List    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
     OVSDB.Suite Teardown    ${uris}
