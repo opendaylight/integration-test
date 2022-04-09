@@ -10,6 +10,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/ovsdb/Variables.robot
 
 *** Variables ***
 @{NODE_LIST}      ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_2_IP}
@@ -33,7 +34,7 @@ Connect controller to OVSDB Node2
 
 Get Operational Topology from OVSDB Node1 and OVSDB Node2
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${NODE_LIST}    pretty_print_json=True
 
 Start the Mininet and create custom topology
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
@@ -43,7 +44,7 @@ Start the Mininet and create custom topology
 Get Operational Topology with custom topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to make sure the mininet created custom topology
     @{list} =    BuiltIn.Create List    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
 
 Add the bridge s1 in the config datastore of OVSDB Node1
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
@@ -56,7 +57,7 @@ Add the bridge s2 in the config datastore of OVSDB Node2
 Get Config Topology with s1 and s2 Bridges
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the config data store
     @{list} =    BuiltIn.Create List    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${CONFIG_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_CONFIG_TOPO_API}    ${list}    pretty_print_json=True
 
 Create Vxlan Port and attach to s1 Bridge
     [Documentation]    This request will create vxlan port/interface for vxlan tunnel and attach it to the specific bridge s1 of OVSDB node 1
@@ -69,7 +70,7 @@ Create Vxlan Port and attach to s2 Bridge
 Get Operational Topology with vxlan tunnel
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify that the vxlan tunnel is created
     @{list} =    BuiltIn.Create List    s1-s2    s2-s1    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
 
 Delete Bridges from config datastore
     [Documentation]    This request will delete the bridges from config data store.
@@ -87,7 +88,7 @@ Verify that the operational topology is clean
     [Documentation]    This request will verify the operational toplogy after the mininet is cleaned.
     [Tags]    Southbound
     @{list} =    BuiltIn.Create List    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
 
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
@@ -106,6 +107,6 @@ Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions
