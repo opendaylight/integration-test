@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0639e883_6f21ce8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-09T13:31:47Z",
+      "side": 1,
+      "message": "Sandbox tests without odl-restconf-nb-bierman02:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-1node-upstream-southbound-all-sulfur/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-3node-upstream-clustering-only-sulfur/1/",
+      "revId": "eb85449d027e9d43e8bf47949601e31b080e41c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
