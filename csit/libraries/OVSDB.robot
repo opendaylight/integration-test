@@ -9,13 +9,11 @@ Resource          ClusterManagement.robot
 Resource          Utils.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/ovsdb/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
-${OVSDB_NODE_PORT}    6634
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
-${SOUTHBOUND_NODE_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
 
 *** Keywords ***
 Log Request
@@ -30,7 +28,7 @@ Create OVSDB Node
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_node.json
     ${body} =    Replace String    ${body}    127.0.0.1    ${node_ip}
     ${body} =    Replace String    ${body}    61644    ${port}
-    ${uri} =    Builtin.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/
+    ${uri} =    Builtin.Set Variable    ${RFC8040_TOPO_OVSDB1_API}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Post Request    session    ${uri}    data=${body}
@@ -43,7 +41,7 @@ Connect To Ovsdb Node
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
     ${body} =    String.Replace String    ${body}    127.0.0.1    ${node_ip}
     ${body} =    String.Replace String    ${body}    61644    ${port}
-    ${uri} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_API}${node_ip}%3A${port}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
@@ -53,8 +51,8 @@ Connect To Ovsdb Node
 Disconnect From Ovsdb Node
     [Arguments]    ${node_ip}    ${port}=${OVSDB_NODE_PORT}
     [Documentation]    This request will disconnect the OVSDB node from the controller
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}${node_ip}%3A${port}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
 
 Add Bridge To Ovsdb Node
     [Arguments]    ${node_id}    ${node_ip}    ${bridge}    ${datapath_id}    ${port}=${OVSDB_NODE_PORT}
@@ -66,8 +64,8 @@ Add Bridge To Ovsdb Node
     ${body} =    String.Replace String    ${body}    br01    ${bridge}
     ${body} =    String.Replace String    ${body}    61644    ${port}
     ${body} =    String.Replace String    ${body}    0000000000000001    ${datapath_id}
-    ${node_id_} =    BuiltIn.Evaluate    """${node_id}""".replace("/","%2F")
-    ${uri} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_id_}%2Fbridge%2F${bridge}
+    ${node_id_} =    BuiltIn.Evaluate    """${node_id}""".replace("/","%2F").replace(":","%3A")
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_API}${node_id_}%2Fbridge%2F${bridge}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
@@ -77,8 +75,8 @@ Add Bridge To Ovsdb Node
 Delete Bridge From Ovsdb Node
     [Arguments]    ${node_id}    ${bridge}
     [Documentation]    This request will delete the bridge node from the OVSDB
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_id}%2Fbridge%2F${bridge}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}${node_id}%2Fbridge%2F${bridge}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
 
 Add Termination Point
     [Arguments]    ${node_id}    ${bridge}    ${tp_name}    ${remote_ip}=${TOOLS_SYSTEM_IP}
@@ -88,9 +86,9 @@ Add Termination Point
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
     ${body} =    String.Replace String    ${body}    192.168.0.21    ${remote_ip}
     ${body} =    String.Replace String    ${body}    vxlanport    ${tp_name}
-    ${node_id_} =    BuiltIn.Evaluate    """${node_id}""".replace("/","%2F")
-    ${uri} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_id_}%2Fbridge%2F${bridge}
-    ${resp} =    RequestsLibrary.Put Request    session    ${uri}/termination-point/${tp_name}/    data=${body}
+    ${node_id_} =    BuiltIn.Evaluate    """${node_id}""".replace("/","%2F").replace(":","%3A")
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_API}${node_id_}%2Fbridge%2F${bridge}
+    ${resp} =    RequestsLibrary.Put Request    session    ${uri}/termination-point=${tp_name}    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Vxlan To Bridge
@@ -121,11 +119,11 @@ Get OVSDB UUID
     ...    the ${ovs_system_ip} argument as the "remote-ip". If found, the value returned will be the value of
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
     ${uuid} =    Set Variable    ${EMPTY}
-    ${resp} =    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
+    ${resp} =    RequestsLibrary.Get Request    ${controller_http_session}    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json} =    RequestsLibrary.To Json    ${resp.text}
-    ${topologies} =    Collections.Get From Dictionary    ${resp_json}    topology
+    ${topologies} =    Collections.Get From Dictionary    ${resp_json}    network-topology:topology
     ${topology} =    Collections.Get From List    ${topologies}    0
     ${node_list} =    Collections.Get From Dictionary    ${topology}    node
     BuiltIn.Log    ${node_list}
@@ -247,16 +245,16 @@ Get Port Metadata
 
 Log Config And Operational Topology
     [Documentation]    For debugging purposes, this will log both config and operational topo data stores
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
-    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
     OVSDB.Log Request    ${resp.text}
 
 Config and Operational Topology Should Be Empty
     [Documentation]    This will check that only the expected output is there for both operational and config
     ...    topology data stores. Empty probably means that only ovsdb:1 is there.
-    ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    ${config_resp}    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
+    ${operational_resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
     BuiltIn.Should Contain    ${config_resp.text}    {"topology-id":"ovsdb:1"}
     BuiltIn.Should Contain    ${operational_resp.text}    {"topology-id":"ovsdb:1"}
 
@@ -274,7 +272,7 @@ Modify Multi Port Body
     ${body} =    Replace String    ${body}    OVS_2_IP    ${TOOLS_SYSTEM_2_IP}
     ${body} =    Replace String    ${body}    OVS_1_PORT_NAME    ${ovs_1_port_name}
     ${body} =    Replace String    ${body}    OVS_2_PORT_NAME    ${ovs_2_port_name}
-    ${uri} =    Builtin.Set Variable    ${CONFIG_TOPO_API}
+    ${uri} =    Builtin.Set Variable    ${RFC8040_TOPO_API}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
@@ -285,7 +283,7 @@ Modify Multi Port Body
 Create Qos
     [Arguments]    ${qos}
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qos.json
-    ${uri} =    BuiltIn.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}
     ${body} =    Replace String    ${body}    QOS-1    ${qos}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
@@ -297,7 +295,7 @@ Create Queue
     [Arguments]    ${queue}
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qoslinkedqueue.json
     ${body} =    Replace String    ${body}    QUEUE-1    ${queue}
-    ${uri} =    BuiltIn.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${queue}/
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${queue}
     BuiltIn.Log    URI is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
@@ -307,7 +305,7 @@ Create Queue
 Update Qos
     [Arguments]    ${qos}
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/update_existingqos.json
-    ${uri} =    BuiltIn.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    ${uri} =    BuiltIn.Set Variable    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${QOS}
     BuiltIn.Log    URL is ${uri}
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}    data=${body}
@@ -316,7 +314,7 @@ Update Qos
 
 Create Qos Linked Queue
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7160/create_qoslinkedqueue.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}    data=${body}
     OVSDB.Log Request    ${resp.text}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
@@ -350,7 +348,7 @@ Suite Teardown
     FOR    ${uri}    IN    @{uris}
         RequestsLibrary.Delete Request    session    ${uri}
     END
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions
 

@@ -1,15 +1,15 @@
 {
-   "network-topology:termination-point": [
-      {
-             "ovsdb:options": [
-                    {
-                  "ovsdb:option": "remote_ip",
-                  "ovsdb:value" : "192.168.0.21"
-                        }
-                        ],
-                   "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
-                        "ovsdb:name": "vxlanport",
-                        "tp-id": "vxlanport"
-             }
-     ]
+    "network-topology:termination-point": [
+        {
+            "ovsdb:options": [
+                {
+                    "ovsdb:option": "remote_ip",
+                    "ovsdb:value": "192.168.0.21"
+                }
+            ],
+            "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+            "ovsdb:name": "vxlanport",
+            "tp-id": "vxlanport"
+        }
+    ]
 }
