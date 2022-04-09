@@ -16,6 +16,23 @@
       "message": "jjb-deploy ovsdb-csit-1node-upstream-southbound-all-sulfur",
       "revId": "417d8da42ad795774bc5eec00bb3e33983d62110",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c137a444_b8e81ebc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-09T03:35:48Z",
+      "side": 1,
+      "message": "jjb-deploy ovsdb-csit-3node-upstream-clustering-only-sulfur",
+      "revId": "417d8da42ad795774bc5eec00bb3e33983d62110",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
