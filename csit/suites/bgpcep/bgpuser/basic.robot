@@ -367,8 +367,10 @@ Configure_Peer_Group
     ...    peer-groups. This case is specific to versions Fluorine and above.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    ${verify_peer_group_folder}    CompareStream.Run_Keyword_If_At_Least_Else    sulfur    BuiltIn.Set Variable    verify_${peer_group_folder}.sulfur
+    ...    ELSE    BuiltIn.Set Variable    verify_${peer_group_folder}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}${peer_group_folder}    mapping=${mapping}    session=${CONFIG_SESSION}
-    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}verify_${peer_group_folder}    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}${verify_peer_group_folder}    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
 
 Deconfigure_Peer_Group
     [Documentation]    Deconfigures peer group which is template for all the neighbors
