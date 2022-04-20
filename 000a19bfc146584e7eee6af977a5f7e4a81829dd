@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "926ffd23_4b19363b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-20T04:26:03Z",
+      "side": 1,
+      "message": "The change affecting \u0027Reconfigure_ODL_To_Accept_Connections\u0027 in \u0027manypeers_changecount.robot\u0027, couldn\u0027t be verified for Sulfur because it was skipped after the previous test case failed:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-all-sulfur/2/\n\nBut it works for Phosphorus:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-all-phosphorus/2/\n\nThe change affecting \u0027TC_PG_Reconfigure_ODL_With_Peer_Group_To_Accept_Connection\u0027 \u0026 \u0027TC_PG_Reconfigure_ODL_With_Peer_Group_Without_Ipv4_Unicast\u0027 in \u0027basic.robot\u0027 was verified for both Sulfur \u0026 Phosphorus:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-sulfur/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-phosphorus/2/",
+      "revId": "000a19bfc146584e7eee6af977a5f7e4a81829dd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
