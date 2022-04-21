@@ -107,7 +107,7 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
-    ...    In Versions Fluorine and above, it sets peer-group as template, and than sets all neighbors using it.
+    ...    It sets peer-group as template, and than sets all neighbors using it.
     Configure_Peer_Group
     FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
         ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
@@ -233,7 +233,7 @@ Store_Change_Count
 Configure_Peer_Group
     [Documentation]    Configures peer group which is template for all the neighbors which are going
     ...    to be configured. Also after PUT, this case verifies presence of peer group within
-    ...    peer-groups. This test case is specific to versions Fluorine and above.
+    ...    peer-groups.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     ${verify_peer_group_folder}    CompareStream.Run_Keyword_If_At_Least_Else    sulfur    BuiltIn.Set Variable    verify_peer_group.sulfur
@@ -243,7 +243,6 @@ Configure_Peer_Group
 
 Deconfigure_Peer_Group
     [Documentation]    Deconfigures peer group which is template for all the neighbors.
-    ...    This test case is specific to versions Fluorine and above.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}

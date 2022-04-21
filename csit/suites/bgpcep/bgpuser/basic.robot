@@ -17,19 +17,17 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               - introduce 3 prefixes and try to withdraw the first one
 ...               (to be ignored by controller) in a single update message
 ...
-...               For versions Oxygen and above, there are TC_R (test case reset) which
-...               test session-reset functionality.
+...               TC_R (test case reset) tests session-reset functionality.
 ...               Resets the session, and than verifies that example-ipv4-topology is empty again.
 ...
-...               For versions Fluorine and above, there are test cases:
-...               TC_LA (test case local address)
-...               test configuration of internal peer with local-address configured
+...               TC_LA (test case local address) tests configuration of internal peer
+...               with local-address configured
 ...               - configure peer with local-address and connect bgp-speaker to it
 ...               with tools_system_ip
 ...               - check filled topology
 ...
-...               TC_PG (test case peer group) which
-...               tests configuration and reconfiguration of peer-groups and neighbors configured by them.
+...               TC_PG (test case peer group) tests configuration and reconfiguration
+...               of peer-groups and neighbors configured by them.
 ...               - configure peer-group, and assign neighbor to this peer-group
 ...               - check filled topology
 ...               - reconfigure peer-group without ipv4 unicast afi-safi
@@ -78,7 +76,6 @@ Check_For_Empty_Topology_Before_Talking
 
 TC_LA_Reconfigure_Odl_To_Initiate_Connection
     [Documentation]    Configure ibgp peer with local-address.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${RIB_NAME}
     ...    LOCAL=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -87,7 +84,6 @@ TC_LA_Reconfigure_Odl_To_Initiate_Connection
 TC_LA_Start_Bgp_Speaker_And_Verify_Connected
     [Documentation]    Verify that peer is present in odl's rib under local-address ip.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     ${speaker_args}    BuiltIn.Set_Variable    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --debug
     ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    session=${CONFIG_SESSION}    speaker_ip=${TOOLS_SYSTEM_IP}
     BuiltIn.Log    ${output}
@@ -96,7 +92,6 @@ TC_LA_Kill_Bgp_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
@@ -104,7 +99,6 @@ TC_LA_Kill_Bgp_Speaker
 
 TC_LA_Delete_Bgp_Peer_Configuration
     [Documentation]    Delete peer configuration.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -134,19 +128,16 @@ Check_Talking_Topology_Is_Filled
 TC_R_Reset_Bgp_Peer_Session
     [Documentation]    Reset Peer Session
     [Tags]    Critical
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
     &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_NAME}
     TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_session/restart    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC_R_Check_For_Empty_Topology_After_Resetting
     [Documentation]    See example-ipv4-topology empty after resetting session
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
     Wait_For_Topology_To_Change_To    empty_topology
 
 TC_PG_Reconfigure_ODL_With_Peer_Group_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     Configure_Peer_Group
@@ -159,31 +150,26 @@ TC_PG_Restart_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     Restart_Talking_BGP_Speaker
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 TC_PG_Check_Talking_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     Wait_For_Topology_To_Change_To    filled_topology
 
 TC_PG_Reconfigure_ODL_With_Peer_Group_Without_Ipv4_Unicast
-    [Documentation]    Configure BGP peer module with initiate-connection set to false. (Fluorine only)
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
     Configure_Peer_Group    peer_group_folder=peer_group_without_ipv4
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 TC_PG_Check_For_Empty_Topology_After_Deconfiguration
-    [Documentation]    See example-ipv4-topology empty after resetting session (Fluorine only)
+    [Documentation]    See example-ipv4-topology empty after resetting session.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     Wait_For_Topology_To_Change_To    empty_topology
 
 TC_PG_Reconfigure_ODL_To_Accept_Connection
-    [Documentation]    Configure BGP peer module with initiate-connection set to false. (Fluorine only)
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -364,7 +350,7 @@ Configure_Peer_Group
     [Arguments]    ${peer_group_folder}=peer_group
     [Documentation]    Configures peer group which is template for all the neighbors which are going
     ...    to be configured. Also after PUT, this case verifies presence of peer group within
-    ...    peer-groups. This case is specific to versions Fluorine and above.
+    ...    peer-groups.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     ${verify_peer_group_folder}    CompareStream.Run_Keyword_If_At_Least_Else    sulfur    BuiltIn.Set Variable    verify_${peer_group_folder}.sulfur
@@ -374,7 +360,6 @@ Configure_Peer_Group
 
 Deconfigure_Peer_Group
     [Documentation]    Deconfigures peer group which is template for all the neighbors
-    ...    This test case is specific to versions Fluorine and above.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}
     ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
