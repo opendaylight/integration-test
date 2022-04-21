@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72719e50_1a774015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-04-21T19:33:50Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-sulfur/3/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-phosphorus/3/\n\nTests are all passing - test failures in Sulfur are in a different suite and no test issues were introduced by this change.",
+      "revId": "e6d18999b60ee719d626df0ac6a3545358b99bf9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
