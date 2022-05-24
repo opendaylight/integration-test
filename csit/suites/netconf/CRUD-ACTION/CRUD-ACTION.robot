@@ -111,7 +111,7 @@ Setup_Everything
     ${DEVICE_TYPE} =    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${DEVICE_TYPE_RPC}    ${DEVICE_TYPE_RPC_CREATE}
     BuiltIn.Set_Suite_Variable    ${DEVICE_TYPE}
     OperatingSystem.File Should Exist    ${RPC_FILE}
-    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    rpc_config=${RPC_FILE}
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    rpc_config=${RPC_FILE}    mdsal=false
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
