@@ -17,6 +17,23 @@
       "message": "sanbox run: https://jenkins.opendaylight.org/sandbox/me/my-views/view/all/job/netconf-csit-1node-userfeatures-rfc8040-all-master/3/\ndid not break MDSAL test cases.",
       "revId": "43ab5271f9b3dfde1a6f6c1d9dd924e8e0e96634",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe448955_3c785e64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9020
+      },
+      "writtenOn": "2022-05-31T21:22:15Z",
+      "side": 1,
+      "message": "Please approve this bug fixes",
+      "revId": "43ab5271f9b3dfde1a6f6c1d9dd924e8e0e96634",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
