@@ -73,15 +73,14 @@ ${USE_NETCONF_CONNECTOR}    False
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
 ${DEVICE_NAME}    test-device
-${DEVICE_PORT}    2830
+${DEVICE_PORT}    17830
 ${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
-Check_Whether_Netconf_Topology_Is_Ready
+Start_Testtool
     [Tags]    ODLMICRO_IGN
-    [Documentation]    Checks netconf readiness.
-    BuiltIn.Pass_Execution_If    ${USE_NETCONF_CONNECTOR}==${True}    Netconf connector is used. Next testcases do their job in this case.
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    1s    Check_Netconf_Topology_Ready
+    [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    mdsal=false
 
 Check_Whether_Netconf_Connector_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
@@ -130,6 +129,16 @@ Wait_For_MDSAL
     SSHKeywords.Open_Connection_To_ODL_System
     BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT_MDSAL}    1s    Check_Netconf_MDSAL_Up_And_Running
     SSHLibrary.Close_Connection
+
+Check_Whether_Netconf_Topology_Is_Ready
+    [Tags]    ODLMICRO_IGN
+    [Documentation]    Checks netconf readiness.
+    BuiltIn.Pass_Execution_If    ${USE_NETCONF_CONNECTOR}==${True}    Netconf connector is used. Next testcases do their job in this case.
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    1s    Check_Netconf_Topology_Ready
+
+Stop_Testtool
+    [Documentation]    Stop the TestTool
+    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
 
 *** Keywords ***
 Setup_Everything
@@ -190,7 +199,7 @@ Remove_Netconf_Device
 Wait_Netconf_Device_Mounted
     [Arguments]    ${device_name}    ${session}    ${mapping}    ${timeout}=30s
     [Documentation]    Checks weather the device was mounted.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount    mapping=${mapping}    session=${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount    mapping=${mapping}    session=${session}
 
 Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
