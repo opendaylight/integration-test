@@ -73,10 +73,15 @@ ${USE_NETCONF_CONNECTOR}    False
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
 ${DEVICE_NAME}    test-device
-${DEVICE_PORT}    2830
+${DEVICE_PORT}    17830
 ${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
+Start_Testtool
+    [Tags]    ODLMICRO_IGN
+    [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    mdsal=false
+
 Check_Whether_Netconf_Topology_Is_Ready
     [Tags]    ODLMICRO_IGN
     [Documentation]    Checks netconf readiness.
@@ -147,6 +152,7 @@ Setup_Everything
 Teardown_Everything
     [Documentation]    Destroy all sessions in the requests library and log into karaf.log that the netconf readiness wait is over.
     KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
+    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
     RequestsLibrary.Delete_All_Sessions
 
 Set_Netconf_Connector
