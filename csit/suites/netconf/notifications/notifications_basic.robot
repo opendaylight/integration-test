@@ -48,7 +48,7 @@ Resource          ${CURDIR}/../../../variables/Variables.robot
 ${TEMPLATE_FOLDER}    ${CURDIR}/templates
 ${DRAFT_STREAMS_URI}    restconf/streams
 ${RFC8040_STREAMS_URI}    rests/data/ietf-restconf-monitoring:restconf-state/streams
-${NODES_STREAM_PATH}    opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
+${NODES_STREAM_PATH}    network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${DRAFT_DCN_STREAM_URI}    ${DRAFT_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RFC8040_DCN_STREAM_URI}    ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
@@ -94,7 +94,7 @@ List_DCN_Streams
 Start_Receiver
     [Documentation]    Start the websocket listener
     ${output} =    BuiltIn.Run_Keyword_If    "${USE_RFC8040}" == "False"    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
-    ...    ELSE    SSHLibrary.Write    python3 ssereceiver.py --controller ${ODL_SYSTEM_IP} --logfile ${RECEIVER_LOG_FILE}
+    ...    ELSE    SSHLibrary.Write    python3 ssereceiver.py --uri ${location} --logfile ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${output}
     ${output} =    SSHLibrary.Read    delay=2s
     BuiltIn.Log    ${output}
@@ -103,11 +103,13 @@ Change_DS_Config
     [Documentation]    Make a change in DS configuration.
     [Tags]    critical
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
-    ${uri} =    BuiltIn.Set_Variable_If    "${USE_RFC8040}" == "False"    /restconf/config    /rests/data
-    ${resp} =    RequestsLibrary.Post_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
+    ${uri} =    BuiltIn.Set_Variable_If    "${USE_RFC8040}" == "False"    /restconf/config/network-topology:network-topology
+    ...    /rests/data/network-topology:network-topology
+    ${resp} =    RequestsLibrary.Put_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${uri} =    Restconf.Generate URI    opendaylight-inventory:nodes    config
+    ${uri} =    BuiltIn.Set_Variable_If    "${USE_RFC8040}" == "False"    /restconf/config/network-topology:network-topology/topology/netconf-notif
+    ...    /rests/data/network-topology:network-topology/topology=netconf-notif
     ${resp} =    RequestsLibrary.Delete_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -121,7 +123,7 @@ Check_Notification
     BuiltIn.Should_Contain    ${notification}    <notification xmlns=
     BuiltIn.Should_Contain    ${notification}    <eventTime>
     BuiltIn.Should_Contain    ${notification}    <data-changed-notification xmlns=
-    BuiltIn.Should_Contain    ${notification}    <operation>created</operation>
+    BuiltIn.Should_Contain    ${notification}    <operation>updated</operation>
     BuiltIn.Should_Contain    ${notification}    </data-change-event>
     BuiltIn.Should_Contain    ${notification}    </data-changed-notification>
     BuiltIn.Should_Contain    ${notification}    </notification>
