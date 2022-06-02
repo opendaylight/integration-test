@@ -48,7 +48,7 @@ Resource          ${CURDIR}/../../../variables/Variables.robot
 ${TEMPLATE_FOLDER}    ${CURDIR}/templates
 ${DRAFT_STREAMS_URI}    restconf/streams
 ${RFC8040_STREAMS_URI}    rests/data/ietf-restconf-monitoring:restconf-state/streams
-${NODES_STREAM_PATH}    opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
+${NODES_STREAM_PATH}    network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${DRAFT_DCN_STREAM_URI}    ${DRAFT_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RFC8040_DCN_STREAM_URI}    ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
@@ -107,7 +107,7 @@ Change_DS_Config
     ${resp} =    RequestsLibrary.Post_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${uri} =    Restconf.Generate URI    opendaylight-inventory:nodes    config
+    ${uri} =    Restconf.Generate URI    network-topology:network-topology    config
     ${resp} =    RequestsLibrary.Delete_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
