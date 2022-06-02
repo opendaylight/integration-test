@@ -20,9 +20,10 @@ ${device_name}    netconf-test-device
 ${device_type_passw}    full-uri-device
 ${device_type_key}    full-uri-device-key
 ${netopeer_port}    830
-${netopeer_user}    root
+${netopeer_user}    netconf
 ${netopeer_pwd}    wrong
 ${netopeer_key}    device-key
+${netopeer_image}    sysrepo/sysrepo-netopeer2:latest
 ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
@@ -31,10 +32,12 @@ Check_Device_Is_Not_Configured_At_Beginning
     Wait Until Keyword Succeeds    5x    20    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${device_name}
 
 Configure_Device_On_Netconf
-    [Documentation]    Make request to configure netconf netopeer with wrong password. Correct auth is root/root
+    [Documentation]    Make request to configure netconf netopeer with wrong password. Correct auth is netconf/netconf
     ...    ODL should connect to device using public key auth as password auth will fail.
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}    http_timeout=2    device_user=${netopeer_user}    device_password=${netopeer_pwd}    device_port=${netopeer_port}
-    ...    device_key=${netopeer_key}
+    Log    ${netopeer_user}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}
+    ...    device_port=${netopeer_port}    device_user=${netopeer_user}    device_password=${netopeer_pwd}
+    ...    device_key=${netopeer_key}    http_timeout=2
 
 Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.
@@ -61,13 +64,14 @@ Check_Device_Going_To_Be_Gone_After_Deconfiguring
 Run Netopeer Docker Container
     [Documentation]    Start a new docker container for netopeer server.
     ${netopeer_conn_id} =    SSHKeywords.Open_Connection_To_Tools_System
-    SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/datastore.xml    .
+    Log    ${netopeer_user}
     SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key.pub    .
     Builtin.Set Suite Variable    ${netopeer_conn_id}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/datastore.xml:/usr/local/etc/netopeer/cfgnetopeer/datastore.xml -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/root/RSA.pub sdnhub/netopeer netopeer-server -v 3    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps    return_stdout=True    return_stderr=True
-    ...    return_rc=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command
+    ...    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/home/${netopeer_user}/.ssh/authorized_keys ${netopeer_image} netopeer2-server -d -v 2
+    ...    return_stdout=True    return_stderr=True    return_rc=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a
+    ...    return_stdout=True    return_stderr=True    return_rc=True
     Log    ${stdout}
 
 Configure ODL with Key config
