@@ -19,8 +19,9 @@ ${pkPassphrase}    topsecret
 ${device_name}    netconf-test-device
 ${device_type_passw}    full-uri-device
 ${device_type_key}    full-uri-device-key
+${netopper_image}    sysrepo/sysrepo-netopeer2:latest
 ${netopeer_port}    830
-${netopeer_user}    root
+${netopeer_user}    netconf
 ${netopeer_pwd}    wrong
 ${netopeer_key}    device-key
 ${USE_NETCONF_CONNECTOR}    ${False}
@@ -61,13 +62,13 @@ Check_Device_Going_To_Be_Gone_After_Deconfiguring
 Run Netopeer Docker Container
     [Documentation]    Start a new docker container for netopeer server.
     ${netopeer_conn_id} =    SSHKeywords.Open_Connection_To_Tools_System
-    SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/datastore.xml    .
     SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key.pub    .
     Builtin.Set Suite Variable    ${netopeer_conn_id}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/datastore.xml:/usr/local/etc/netopeer/cfgnetopeer/datastore.xml -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/root/RSA.pub sdnhub/netopeer netopeer-server -v 3    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps    return_stdout=True    return_stderr=True
-    ...    return_rc=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command
+    ...    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/home/${netopeer_user}/.ssh/authorized_keys ${netopper_image} netopeer2-server -d -v 2
+    ...    return_stdout=True    return_stderr=True    return_rc=True
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a
+    ...    return_stdout=True    return_stderr=True    return_rc=True
     Log    ${stdout}
 
 Configure ODL with Key config
