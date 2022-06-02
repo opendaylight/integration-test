@@ -16,6 +16,23 @@
       "message": "Sandbox test: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-userfeatures-rfc8040-all-master/8/robot-plugin/log.html.gz#s1-s6\n\nAll the tests in the Notifications suite are passing with KARAF_VERSION set to \u0027netconf\u0027, hence without any feature that includes opendaylight-inventory data model.\n\n---\n\nThe notification tests in production typically pass, e.g.\nhttps://s3-logs.opendaylight.org/logs/releng/vex-yul-odl-jenkins-1/netconf-csit-1node-userfeatures-rfc8040-all-master/85/robot-plugin/log.html.gz\n\nThat\u0027s because it\u0027s run with KARAF_VERSION set to \u0027karaf4\u0027, and so \u0027odl-integration-compatible-with-all\u0027 is enabled.",
       "revId": "5f293f3ceef2c366e4bb8f684501ef73a9a7c440",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "838fcaef_806cb41c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-06-02T08:55:45Z",
+      "side": 1,
+      "message": "Good patch, much needed to make Netconf CSIT stable. thanks!!!",
+      "revId": "5f293f3ceef2c366e4bb8f684501ef73a9a7c440",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
