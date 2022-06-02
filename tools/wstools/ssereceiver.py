@@ -14,8 +14,7 @@ async def get_events():
     auth = aiohttp.BasicAuth(args.user, args.password)
     client = aiohttp.ClientSession(connector=conn, auth=auth)
     async with sse_client.EventSource(
-        "http://" + args.controller + ":8181" + args.uri, session=client
-    ) as event_source:
+            args.uri, session=client) as event_source:
         try:
             async for event in event_source:
                 logger.info(event)
@@ -30,10 +29,12 @@ def parse_arguments():
         :return: args object
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--controller", default="127.0.0.1", help="Controller IP")
     parser.add_argument(
         "--uri",
-        default="/rests/notif/data-change-event-subscription/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE",
+        default="http://127.0.0.1:8181/rests/notif"
+                "/data-change-event-subscription"
+                "/network-topology:network-topology"
+                "/datastore=CONFIGURATION/scope=BASE",
         help="URI endpoint to connect",
     )
     parser.add_argument(
