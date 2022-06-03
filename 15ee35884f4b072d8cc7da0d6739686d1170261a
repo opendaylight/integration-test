@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58604d96_f48c93d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-06-03T04:51:31Z",
+      "side": 1,
+      "message": "Sandbox test: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-userfeatures-rfc8040-all-master/18/robot-plugin/log.html.gz#s1-s7-s1\n\nAll tests in the KeyAuth test suite are passing.\n\n---\n\nFor some strange reason, variable \u0027netopeer_user\u0027 always returned \u0027root\u0027 even if it was changed to \u0027netconf\u0027 , default user in the Netopeer2 container. So had to use a different variable name instead.",
+      "revId": "15ee35884f4b072d8cc7da0d6739686d1170261a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
