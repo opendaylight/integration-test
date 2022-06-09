@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73e5c251_601ed8ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-06-09T18:31:26Z",
+      "side": 1,
+      "message": "There are 4 failing test cases in CRUD:\nhttps://s3-logs.opendaylight.org/logs/releng/vex-yul-odl-jenkins-1/netconf-csit-1node-userfeatures-rfc8040-all-master/96/robot-plugin/log.html.gz\n\nAll the tests are passing:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-rfc8040-all-master/4/\n\nNote that testing was done with KARAF_VERSION set to \u0027netconf\u0027. The mdsal-netconf fix has not been fully integrated yet.",
+      "revId": "ea4b52ace0238d3eb703ea2f26e87de733387df6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
