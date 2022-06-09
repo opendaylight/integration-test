@@ -33,6 +33,23 @@
       "message": "In future you could have used the revert option in the old patch.",
       "revId": "ea4b52ace0238d3eb703ea2f26e87de733387df6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1c42866_ef95c5f5",
+        "filename": "csit/suites/netconf/CRUD-ACTION/CRUD-ACTION.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-06-09T19:03:20Z",
+      "side": 1,
+      "message": "this option mdsal\u003dtrue is not needed as it is default. but its okay.same comment for all the 3 files.",
+      "revId": "ea4b52ace0238d3eb703ea2f26e87de733387df6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
