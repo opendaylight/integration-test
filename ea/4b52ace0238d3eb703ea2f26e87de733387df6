@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng ODL
+Code-Review+1: Robert Varga <nite@hq.sk>
+Code-Review+2: Venkatrangan <gvrangan@gmail.com>
+Submitted-by: Venkatrangan <gvrangan@gmail.com>
+Submitted-at: Thu, 09 Jun 2022 19:03:32 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/101550
+Project: integration/test
+Branch: refs/heads/master
