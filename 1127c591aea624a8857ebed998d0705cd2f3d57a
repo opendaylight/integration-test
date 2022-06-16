@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e23ccda_223c70b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-06-16T18:29:37Z",
+      "side": 1,
+      "message": "Also if you look at the tox job logs, there are some failures in the python formatting, do you normally use an IDE for python://jenkins.opendaylight.org/releng/job/integration-test-tox-verify-master/8633/console",
+      "revId": "1127c591aea624a8857ebed998d0705cd2f3d57a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cfa3bb3_1ce02b2e",
