@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d23b0411_047ed231",
+        "filename": "csit/suites/integration/basic/test_basic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-06-16T18:41:25Z",
+      "side": 1,
+      "message": "you do not need these variables, right?",
+      "revId": "1127c591aea624a8857ebed998d0705cd2f3d57a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae946023_46b740f4",
+        "filename": "csit/suites/integration/basic/test_basic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-06-16T18:41:25Z",
+      "side": 1,
+      "message": "These are just method parameters, should not this be in lower letter?",
+      "revId": "1127c591aea624a8857ebed998d0705cd2f3d57a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cfa3bb3_1ce02b2e",
         "filename": "csit/suites/integration/basic/test_basic.py",
         "patchSetId": 1
