@@ -15,6 +15,7 @@ def create_session(auth, header):
     session.headers.update(header)
     return session
 
+
 # Function to make a get request
 
 
@@ -23,7 +24,9 @@ def make_get_request(auth, headers, odl_system_ip, restconfport, modules_api):
 
     # Making get request
     try:
-        resp = session.get("http://{}:{}/{}".format(odl_system_ip, restconfport, modules_api))
+        resp = session.get(
+            "http://{}:{}/{}".format(odl_system_ip, restconfport, modules_api)
+        )
         logging.info(self.resp.json())
         return resp
     except Exception(e):
@@ -33,11 +36,16 @@ def make_get_request(auth, headers, odl_system_ip, restconfport, modules_api):
 class TestBasic:
 
     # Make api call
-    resp = make_get_request(('admin', 'admin'), {'Content-Type': 'application/xml'},
-                            '127.0.0.1', 8181, '/rests/data/ietf-yang-library:modules-state')
+    resp = make_get_request(
+        ("admin", "admin"),
+        {"Content-Type": "application/xml"},
+        "127.0.0.1",
+        8181,
+        "/rests/data/ietf-yang-library:modules-state",
+    )
 
     def test_get_restconf_module(self):
-        assert isinstance(self.resp, requests.models.Response) == True
+        assert isinstance(self.resp, requests.models.Response) is True
 
     def test_check_status(self):
         assert self.resp.status_code == 200
