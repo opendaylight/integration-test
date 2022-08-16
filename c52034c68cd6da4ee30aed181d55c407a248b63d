@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "070ae8f0_eacdac72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-08-16T23:07:32Z",
+      "side": 1,
+      "message": "Sandbox currently has an issue with CentOS 8 robot image and need to wait until it\u0027s resolved.",
+      "revId": "c52034c68cd6da4ee30aed181d55c407a248b63d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
