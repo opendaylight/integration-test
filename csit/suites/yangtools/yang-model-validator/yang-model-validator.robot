@@ -35,7 +35,6 @@ Default Tags      1node    yang-model-validator    critical
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -65,10 +64,11 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
     ${dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang
     ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
+    ${yang_path_option} =    YangCollection.Get_Yang_Model_Validator_Path_Option
     FOR    ${yang_file}    IN    @{yang_files_to_validate}
         Log To Console    working on: ${yang_file}
         ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}
-        ...    suffix=jar-with-dependencies    tool_options=${PARSING_PATHS} ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
+        ...    suffix=jar-with-dependencies    tool_options=${yang_path_option} -- ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
         Wait_Until_Utility_Finishes
         Check_Return_Code
     END
