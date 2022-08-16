@@ -23,11 +23,122 @@ ${YANGMODELS_REPO}    https://github.com/YangModels/yang
 ${OPENCONFIG_REPO}    https://github.com/openconfig/public
 ${YANGMODELS_REPO_COMMIT_HASH}    cdd14114cdaf130be2b6bfce92538c05f6d7c07d    # TODO: update docs with new date when changing
 ${OPENCONFIG_REPO_COMMIT_HASH}    8062b1b45208b952598ad3c3aa9e5ebc4f03cc67    # TODO: update docs with new date when changing
-# ${PARSING_PATHS} is needed to explicitly tell which paths to find yang files to build dependencies from to validate the
+# ${YANG_PATHS_*} is needed to explicitly tell which paths to find yang files to build dependencies from to validate the
 # yang file being validated. There is an option (-r) to recursively parse so that you don't have to pass all of these
 # paths with the -p argument, but the recursive option makes the tool so slow that it would not work when testing so
 # many files
-${PARSING_PATHS}    -p /home/jenkins/src/main/yang/experimental/ietf-extracted-YANG-modules -p /home/jenkins/src/main/yang/experimental/openconfig/release/models -p /home/jenkins/src/main/yang/standard/ietf/DRAFT -p /home/jenkins/src/main/yang/standard/ietf/RFC -p /home/jenkins/src/main/yang/experimental/ieee -p /home/jenkins/src/main/yang/experimental/ieee/1588 -p /home/jenkins/src/main/yang/experimental/ieee/1906.1 -p /home/jenkins/src/main/yang/experimental/ietf -p /home/jenkins/src/main/yang/experimental/mano-models -p /home/jenkins/src/main/yang/experimental/odp -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/acl -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/aft -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/bfd -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/bgp -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/catalog -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/interfaces -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/isis -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/lacp -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/lldp -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/local-routing -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/macsec -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/mpls -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/multicast -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/network-instance -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/openflow -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/optical-transport -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/ospf -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/platform -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy-forwarding -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/probes -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/qos -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/relay-agent -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/rib -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/segment-routing -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/stp -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/system -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/telemetry -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/types -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/vlan -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/wifi -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/ABcu -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/AEdk -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBcv -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBdb -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcr -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcw -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcx -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcz -p /home/jenkins/src/main/yang/standard/ieee/draft/1906.1 -p /home/jenkins/src/main/yang/standard/ieee/published/802.1 -p /home/jenkins/src/main/yang/standard/ieee/published/802.3 -p /home/jenkins/src/main/yang/vendor/ciena -p /home/jenkins/src/main/yang/vendor/fujitsu -p /home/jenkins/src/main/yang/vendor/huawei -p /home/jenkins/src/main/yang/vendor/nokia
+${YANG_PATHS_COMMONS_CLI}    -p /home/jenkins/src/main/yang/experimental/ietf-extracted-YANG-modules
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models
+...               -p /home/jenkins/src/main/yang/standard/ietf/DRAFT
+...               -p /home/jenkins/src/main/yang/standard/ietf/RFC
+...               -p /home/jenkins/src/main/yang/experimental/ieee
+...               -p /home/jenkins/src/main/yang/experimental/ieee/1588
+...               -p /home/jenkins/src/main/yang/experimental/ieee/1906.1
+...               -p /home/jenkins/src/main/yang/experimental/ietf
+...               -p /home/jenkins/src/main/yang/experimental/mano-models
+...               -p /home/jenkins/src/main/yang/experimental/odp
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/acl
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/aft
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/bfd
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/bgp
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/catalog
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/interfaces
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/isis
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/lacp
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/lldp
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/local-routing
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/macsec
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/mpls
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/multicast
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/network-instance
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/openflow
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/optical-transport
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/ospf
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/platform
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy-forwarding
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/probes
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/qos
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/relay-agent
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/rib
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/segment-routing
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/stp
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/system
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/telemetry
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/types
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/vlan
+...               -p /home/jenkins/src/main/yang/experimental/openconfig/release/models/wifi
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/ABcu
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/AEdk
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBcv
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBdb
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcr
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcw
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcx
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcz
+...               -p /home/jenkins/src/main/yang/standard/ieee/draft/1906.1
+...               -p /home/jenkins/src/main/yang/standard/ieee/published/802.1
+...               -p /home/jenkins/src/main/yang/standard/ieee/published/802.3
+...               -p /home/jenkins/src/main/yang/vendor/ciena
+...               -p /home/jenkins/src/main/yang/vendor/fujitsu
+...               -p /home/jenkins/src/main/yang/vendor/huawei
+...               -p /home/jenkins/src/main/yang/vendor/nokia
+${YANG_PATHS_ARGPARSE4J}    -p /home/jenkins/src/main/yang/experimental/ietf-extracted-YANG-modules
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models
+...               /home/jenkins/src/main/yang/standard/ietf/DRAFT
+...               /home/jenkins/src/main/yang/standard/ietf/RFC
+...               /home/jenkins/src/main/yang/experimental/ieee
+...               /home/jenkins/src/main/yang/experimental/ieee/1588
+...               /home/jenkins/src/main/yang/experimental/ieee/1906.1
+...               /home/jenkins/src/main/yang/experimental/ietf
+...               /home/jenkins/src/main/yang/experimental/mano-models
+...               /home/jenkins/src/main/yang/experimental/odp
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/acl
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/aft
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/bfd
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/bgp
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/catalog
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/interfaces
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/isis
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/lacp
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/lldp
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/local-routing
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/macsec
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/mpls
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/multicast
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/network-instance
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/openflow
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/optical-transport
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/ospf
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/platform
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/policy-forwarding
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/probes
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/qos
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/relay-agent
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/rib
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/segment-routing
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/stp
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/system
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/telemetry
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/types
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/vlan
+...               /home/jenkins/src/main/yang/experimental/openconfig/release/models/wifi
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/ABcu
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/AEdk
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBcv
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/CBdb
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcr
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcw
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcx
+...               /home/jenkins/src/main/yang/standard/ieee/draft/802.1/Qcz
+...               /home/jenkins/src/main/yang/standard/ieee/draft/1906.1
+...               /home/jenkins/src/main/yang/standard/ieee/published/802.1
+...               /home/jenkins/src/main/yang/standard/ieee/published/802.3
+...               /home/jenkins/src/main/yang/vendor/ciena
+...               /home/jenkins/src/main/yang/vendor/fujitsu
+...               /home/jenkins/src/main/yang/vendor/huawei
+...               /home/jenkins/src/main/yang/vendor/nokia
 
 *** Keywords ***
 Static_Set_As_Src

@@ -65,10 +65,11 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
     ${dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang
     ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
+    ${yang_paths} =    CompareStream.Set_Variable_If_At_Most_Sulfur    ${YANG_PATHS_COMMONS_CLI}    ${YANG_PATHS_ARGPARSE4J}
     FOR    ${yang_file}    IN    @{yang_files_to_validate}
         Log To Console    working on: ${yang_file}
         ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}
-        ...    suffix=jar-with-dependencies    tool_options=${PARSING_PATHS} ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
+        ...    suffix=jar-with-dependencies    tool_options=${yang_paths} -- ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
         Wait_Until_Utility_Finishes
         Check_Return_Code
     END
