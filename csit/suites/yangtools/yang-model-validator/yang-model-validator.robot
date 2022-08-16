@@ -65,10 +65,11 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
     ${dirs_to_process} =    Get_Recursive_Dirs    root=src/main/yang
     ${yang_files_to_validate} =    Get_Yang_Files_From_Dirs    ${dirs_to_process}
+    ${yang_path_option} =    Get_Yang_Model_Validator_Path_Option    ${YANG_MODEL_PATHS}
     FOR    ${yang_file}    IN    @{yang_files_to_validate}
         Log To Console    working on: ${yang_file}
         ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}
-        ...    suffix=jar-with-dependencies    tool_options=${PARSING_PATHS} ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
+        ...    suffix=jar-with-dependencies    tool_options=${yang_path_option} -- ${yang_file}    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
         Wait_Until_Utility_Finishes
         Check_Return_Code
     END
@@ -110,6 +111,14 @@ Get_Yang_Files_From_Dirs
         ${collected_yang_files} =    Collections.Combine_Lists    ${collected_yang_files}    ${yang_files_in_dir}
     END
     [Return]    ${collected_yang_files}
+
+Get_Yang_Model_Validator_Path_Option
+    [Arguments]    ${yang_paths}
+    [Documentation]    Return the path option for yang-model-validator from the provided list of YANG paths.
+    ${separator} =    CompareStream.Set_Variable_If_At_Most_Sulfur    :    ${SPACE}
+    ${path_option} =    Evaluate    "${separator}".join(${yang_paths})
+    ${path_option} =    Catenate    SEPARATOR=${SPACE}    --path    ${path_option}
+    [Return]    ${path_option}
 
 Wait_Until_Utility_Finishes
     [Documentation]    Repeatedly send endline to keep session alive; pass on prompt, fail on timeout.
