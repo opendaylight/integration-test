@@ -20,7 +20,7 @@ Resource          ${CURDIR}/WaitUtils.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 
 *** Variables ***
-${PC_NW_TOPOLOGY}    ${OPERATIONAL_API}/network-topology:network-topology/topology
+${PC_NW_TOPOLOGY}    ${REST_API}/network-topology:network-topology/topology
 
 *** Keywords ***
 PC_Setup
@@ -32,7 +32,7 @@ Get_Ipv4_Topology
     [Documentation]    GET the ${topology} data, check status is 200, return the topology data.
     ...
     ...    Contrary to Utils.Get_Data_From_URI, this does not Log the (potentially huge) content.
-    ${response} =    RequestsLibrary.Get_Request    ${session}    ${PC_NW_TOPOLOGY}/${topology}
+    ${response} =    RequestsLibrary.Get_Request    ${session}    ${PC_NW_TOPOLOGY}=${topology}?content=nonconfig
     Run_Keyword_If    ${response.status_code} != 200    Fail    Get on ${topology} returned status code ${response.status_code} with message: ${response.text}
     [Return]    ${response.text}
 
