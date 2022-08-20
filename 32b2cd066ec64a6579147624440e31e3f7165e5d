@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c665335b_394187ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-08-20T22:25:35Z",
+      "side": 1,
+      "message": "jjb-deploy bgpcep-csit-1node-bgp-ingest-all-chlorine",
+      "revId": "32b2cd066ec64a6579147624440e31e3f7165e5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
