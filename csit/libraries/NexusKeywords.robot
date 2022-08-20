@@ -33,6 +33,8 @@ ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
 ${JAVA_11_HOME_CENTOS}    /usr/lib/jvm/java-11-openjdk
 ${JAVA_11_HOME_UBUNTU}    /usr/lib/jvm/java-11-openjdk-amd64
+${JAVA_17_HOME_CENTOS}    /usr/lib/jvm/java-17-openjdk
+${JAVA_17_HOME_UBUNTU}    /usr/lib/jvm/java-17-openjdk-amd64
 ${JAVA_OPTIONS}    -Xmx2560m    # Note that '-Xmx=3g' is wrong syntax. Also 3GB heap may not fit in 4GB RAM.
 ${MAVEN_DEFAULT_OUTPUT_FILENAME}    default_maven.log
 ${MAVEN_OPTIONS}    -Pq -Djenkins
@@ -192,6 +194,7 @@ Compose_Base_Java_Command
     # Check whether the user set the override and return it if yes.
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk11"    Compose_Dilemma_Filepath    ${JAVA_11_HOME_CENTOS}/bin/java    ${JAVA_11_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk17"    Compose_Dilemma_Filepath    ${JAVA_17_HOME_CENTOS}/bin/java    ${JAVA_17_HOME_UBUNTU}/bin/java
     # Attempt to call plain "java" command directly. If it works, return it.
     ${out}    ${rc} =    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    java
