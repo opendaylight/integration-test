@@ -18,7 +18,7 @@ Resource          ${CURDIR}/WaitUtils.robot
 
 *** Variables ***
 ${CHANGE_COUNTER_TEMPLATE_FOLDER}    ${CURDIR}/../variables/bgpuser
-${CC_DATA_CHANGE_COUNTER_URL}    /restconf/operational/data-change-counter:data-change-counter
+${CC_DATA_CHANGE_COUNTER_URL}    ${REST_API}/data-change-counter:data-change-counter?content=nonconfig
 
 *** Keywords ***
 CC_Setup
@@ -36,7 +36,7 @@ Get_Change_Count
     # CompareStream.Set_Variable_If_At_Least_Else cannot be used direcly, because ${response.text}["data-change-counter"]["count"] would be
     # evaluated before the stream comparison and it causes failures
     BuiltIn.Log    ${response.text}
-    ${count} =    BuiltIn.Evaluate    json.loads('${response.text}')["data-change-counter"]["counter"][0]["count"]    modules=json
+    ${count} =    BuiltIn.Evaluate    json.loads('${response.text}')["data-change-counter:data-change-counter"]["counter"][0]["count"]    modules=json
     [Return]    ${count}
 
 Reconfigure_Topology_Name
