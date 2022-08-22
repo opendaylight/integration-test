@@ -20,7 +20,7 @@ Resource          ${CURDIR}/BGPcliKeywords.robot
 *** Variables ***
 ${EXABGP_KILL_COMMAND}    ps axf | grep exabgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${PEER_CHECK_URL}    {$REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
 
 *** Keywords ***
 Start_ExaBgp
@@ -66,7 +66,7 @@ Verify_ExaBgps_Connection
     [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
+    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}?content=nonconfig
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 
