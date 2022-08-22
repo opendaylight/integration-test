@@ -18,7 +18,7 @@ Resource          ${CURDIR}/WaitUtils.robot
 
 *** Variables ***
 ${CHANGE_COUNTER_TEMPLATE_FOLDER}    ${CURDIR}/../variables/bgpuser
-${CC_DATA_CHANGE_COUNTER_URL}    /restconf/operational/data-change-counter:data-change-counter
+${CC_DATA_CHANGE_COUNTER_URL}    ${REST_API}/data-change-counter:data-change-counter?content=nonconfig
 
 *** Keywords ***
 CC_Setup
