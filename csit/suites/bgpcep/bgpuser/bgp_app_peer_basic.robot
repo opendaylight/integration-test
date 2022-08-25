@@ -67,14 +67,14 @@ ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
 ${BGP_APP_PEER_LOG_LEVEL}    debug
-${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
+${BGP_PEER_COMMAND}    python3 play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    ${EMPTY}
 ${BGP_APP_PEER_ID}    ${ODL_SYSTEM_IP}
-${BGP_APP_PEER_POST_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_PUT_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_DELETE_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_DELETE_ALL_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_GET_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_POST_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_PUT_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_DELETE_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_DELETE_ALL_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_GET_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
 ${BGP_APP_PEER_OPTIONS}    &>/dev/null
 ${BGP_APP_PEER_TIMEOUT}    30s
 ${BGP_PEER_APP_NAME}    example-bgp-peer-app
@@ -84,7 +84,7 @@ ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
-${SCRIPT_URI_OPT}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+${SCRIPT_URI_OPT}    --uri data/bgp-rib:application-rib=${ODL_SYSTEM_IP}/tables=bgp-types%3Aipv4-address-family,bgp-types%3Aunicast-subsequent-address-family/
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_BGP_Peer_Connection
