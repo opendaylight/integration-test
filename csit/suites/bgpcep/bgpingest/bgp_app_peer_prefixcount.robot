@@ -60,10 +60,10 @@ ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    &>bgp_peer.log
 ${BGP_APP_PEER_ID}    10.0.0.10
-${BGP_APP_PEER_INITIAL_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_PUT_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_DELETE_ALL_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
-${BGP_APP_PEER_GET_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_INITIAL_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_PUT_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_DELETE_ALL_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
+${BGP_APP_PEER_GET_COMMAND}    python3 bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}
 ${BGP_APP_PEER_OPTIONS}    &>bgp_app_peer.log
 ${TEST_DURATION_MULTIPLIER}    30
 ${last_prefix_count}    -1
@@ -209,7 +209,7 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-    ${script_uri_opt}=    Set Variable    --uri config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    ${script_uri_opt}=    Set Variable    --uri data/bgp-rib:application-rib=${BGP_APP_PEER_ID}/tables=bgp-types:ipv4-address-family,bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${script_uri_opt}
 
 Teardown_Everything
