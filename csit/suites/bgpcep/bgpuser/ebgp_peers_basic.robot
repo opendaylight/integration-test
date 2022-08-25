@@ -69,9 +69,9 @@ ${eBGP_PEER2_AS}    ${eBGP_PEERS_AS}
 ${iBGP_PEER1_LOG_FILE}    bgp_peer1.log
 ${eBGP_PEER1_LOG_FILE}    ebgp_peer1.log
 ${eBGP_PEER2_LOG_FILE}    ebgp_peer2.log
-${iBGP_PEER1_COMMAND}    python play.py --firstprefix ${iBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${iBGP_PEER1_PREFIX_LEN} --amount ${iBGP_PEER1_PREFIX_COUNT} --myip=${iBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${iBGP_PEER1_LOG_FILE}
-${eBGP_PEER1_COMMAND}    python play.py --firstprefix ${eBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${eBGP_PEER1_PREFIX_LEN} --amount ${eBGP_PEER1_PREFIX_COUNT} --myip=${eBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --nexthop ${eBGP_PEER1_NEXT_HOP} --asnumber ${eBGP_PEER1_AS} --${BGP_PEER_LOG_LEVEL} --logfile ${eBGP_PEER1_LOG_FILE}
-${eBGP_PEER2_COMMAND}    python play.py --firstprefix ${eBGP_PEER2_FIRST_PREFIX_IP} --prefixlen ${eBGP_PEER2_PREFIX_LEN} --amount ${eBGP_PEER2_PREFIX_COUNT} --myip=${eBGP_PEER2_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --nexthop ${eBGP_PEER2_NEXT_HOP} --asnumber ${eBGP_PEER2_AS} --${BGP_PEER_LOG_LEVEL} --logfile ${eBGP_PEER2_LOG_FILE}
+${iBGP_PEER1_COMMAND}    python3 play.py --firstprefix ${iBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${iBGP_PEER1_PREFIX_LEN} --amount ${iBGP_PEER1_PREFIX_COUNT} --myip=${iBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${iBGP_PEER1_LOG_FILE}
+${eBGP_PEER1_COMMAND}    python3 play.py --firstprefix ${eBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${eBGP_PEER1_PREFIX_LEN} --amount ${eBGP_PEER1_PREFIX_COUNT} --myip=${eBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --nexthop ${eBGP_PEER1_NEXT_HOP} --asnumber ${eBGP_PEER1_AS} --${BGP_PEER_LOG_LEVEL} --logfile ${eBGP_PEER1_LOG_FILE}
+${eBGP_PEER2_COMMAND}    python3 play.py --firstprefix ${eBGP_PEER2_FIRST_PREFIX_IP} --prefixlen ${eBGP_PEER2_PREFIX_LEN} --amount ${eBGP_PEER2_PREFIX_COUNT} --myip=${eBGP_PEER2_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --nexthop ${eBGP_PEER2_NEXT_HOP} --asnumber ${eBGP_PEER2_AS} --${BGP_PEER_LOG_LEVEL} --logfile ${eBGP_PEER2_LOG_FILE}
 ${iBGP_PEER1_OPTIONS}    &>${iBGP_PEER1_LOG_FILE}
 ${eBGP_PEER1_OPTIONS}    &>${eBGP_PEER1_LOG_FILE}
 ${eBGP_PEER2_OPTIONS}    &>${eBGP_PEER2_LOG_FILE}

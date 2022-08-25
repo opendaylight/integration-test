@@ -12,16 +12,15 @@ EXABGP in this type of scenario."""
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 from copy import deepcopy
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from xmlrpc.server import SimpleXMLRPCServer
 import argparse
 import binascii
 import ipaddr
 import logging
-import Queue
+import queue
 import select
 import socket
 import struct
-import thread
 import threading
 import time
 
@@ -2245,7 +2244,7 @@ class StateTracker(object):
             logger.info("Received message: {}".format(msg))
             msgbin = binascii.unhexlify(msg)
             self.writer.enqueue_message_for_sending(msgbin)
-        except Queue.Empty:
+        except queue.Empty:
             pass
         # Now we know what our priorities are, we have to check
         # which actions are available.
@@ -2448,7 +2447,7 @@ def threaded_job(arguments):
     myip_current = arguments.myip
     port = arguments.port
     thread_args = []
-    rpcqueue = Queue.Queue()
+    rpcqueue = queue.Queue()
     storage = SafeDict()
 
     while 1:
@@ -2470,7 +2469,7 @@ def threaded_job(arguments):
     try:
         # Create threads
         for t in thread_args:
-            thread.start_new_thread(job, (t, rpcqueue, storage))
+            threading.Thread(target=job, args=(t, rpcqueue, storage)).start()
     except Exception:
         print("Error: unable to start thread.")
         raise SystemExit(2)
