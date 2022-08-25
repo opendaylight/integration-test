@@ -51,7 +51,6 @@ ${DEVICE_CHECK_TIMEOUT}    60s
 ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
-${PEER_CHECK_URL}    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
 @{SHARD_MONITOR_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
 
 *** Keywords ***
@@ -116,8 +115,9 @@ Verify_Bgp_Peer_Connection
     [Arguments]    ${session}    ${peer_ip}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
+    ${peer_check_url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}?content=nonconfig
+    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${peer_ip}?content=nonconfig
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 
