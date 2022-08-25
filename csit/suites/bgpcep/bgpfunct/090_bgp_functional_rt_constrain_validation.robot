@@ -161,7 +161,7 @@ Stop_Suite
 Start_Bgp_Peer
     [Arguments]    ${ip}    ${as_number}    ${port}    ${filename}
     [Documentation]    Starts bgp peer.
-    ${command} =    BuiltIn.Set_Variable    python play.py --amount 0 --myip=${ip} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --asnumber=${as_number} --peerport=${ODL_BGP_PORT} --port=${port} --usepeerip --debug --allf --wfr 1 &> ${filename} &
+    ${command} =    BuiltIn.Set_Variable    python3 play.py --amount 0 --myip=${ip} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --asnumber=${as_number} --peerport=${ODL_BGP_PORT} --port=${port} --usepeerip --debug --allf --wfr 1 &> ${filename} &
     BuiltIn.Log    ${command}
     ${output} =    SSHLibrary.Write    ${command}
 

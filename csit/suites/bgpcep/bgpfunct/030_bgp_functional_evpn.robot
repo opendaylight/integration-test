@@ -353,9 +353,9 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-    BuiltIn.Set_Suite_Variable    ${EVPN_FAMILY_LOC_RIB}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/
+    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /rests/data/bgp-rib:application-rib=${ODL_SYSTEM_IP}/tables=odl-bgp-evpn%3Al2vpn-address-family,odl-bgp-evpn%3Aevpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB}    /rests/data/bgp-rib:bgp-rib/rib=${RIB_NAME}/loc-rib/tables=odl-bgp-evpn%3Al2vpn-address-family,odl-bgp-evpn%3Aevpn-subsequent-address-family/odl-bgp-evpn:evpn-routes?content=nonconfig
+    BuiltIn.Set_Suite_Variable    ${EVPN_FAMILY_LOC_RIB}    /rests/data/bgp-rib:bgp-rib/rib=${RIB_NAME}/loc-rib/tables=odl-bgp-evpn%3Al2vpn-address-family,odl-bgp-evpn%3Aevpn-subsequent-address-family?content=nonconfig
     ${evpn_routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_EVPN_ROUTES_LINE}    ${OLD_EVPN_ROUTES_LINE}
     &{mapping}    BuiltIn.Create_Dictionary    EVPN_ROUTES=${evpn_routes_line}
     ${EMPTY_ROUTES} =    TemplatedRequests.Resolve_Text_From_Template_File    ${EVPN_DIR}/empty_routes    empty_routes.json    ${mapping}
@@ -388,8 +388,8 @@ Odl_To_Play_Template
     BgpRpcClient.play_clean
     ${resp} =    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${post_data_xml}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
-    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS_XML}
+    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    201
+    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}?content=config    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
     ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${aupdate}
@@ -423,7 +423,7 @@ Play_To_Odl_Template
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
 
 Verify_Test_Preconditions
-    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
+    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}?content=config
     BuiltIn.Should_Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_FAMILY_LOC_RIB}    headers=${HEADERS}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${EMPTY_ROUTES}    ${rsp.content}
@@ -432,11 +432,11 @@ Remove_Configured_Routes
     [Documentation]    Removes the route if present. First GET is for debug purposes.
     ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS}
     Log    ${rsp.content}
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}?content=config    headers=${HEADERS}
     Log    ${rsp.content}
     BuiltIn.Return_From_Keyword_If    ${rsp.status_code} in ${DELETED_STATUS_CODES}
     ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
+    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
 
 Withdraw_Route_And_Verify
     [Arguments]    ${withdraw_hex}
