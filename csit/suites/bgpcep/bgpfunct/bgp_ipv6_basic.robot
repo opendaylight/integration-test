@@ -323,7 +323,7 @@ Configure_Ipv6_Network
     SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6INIT=yes" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
     SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6ADDR=${IPV6_IP}" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
     SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6_DEFAULTGW=${IPV6_IP_GW}" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
-    SSHLibrary.Execute_Command    sudo /etc/init.d/network restart
+    SSHLibrary.Execute_Command    sudo systemctl restart network
 
 Verify_Rib_Status_Empty
     [Documentation]    Verifies that example-ipv6-topology is empty
