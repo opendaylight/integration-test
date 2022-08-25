@@ -93,7 +93,7 @@ List_DCN_Streams
 
 Start_Receiver
     [Documentation]    Start the websocket listener
-    ${output} =    BuiltIn.Run_Keyword_If    "${USE_RFC8040}" == "False"    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
+    ${output} =    BuiltIn.Run_Keyword_If    "${USE_RFC8040}" == "False"    SSHLibrary.Write    python3 wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
     ...    ELSE    SSHLibrary.Write    python3 ssereceiver.py --uri ${location} --logfile ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${output}
     ${output} =    SSHLibrary.Read    delay=2s
