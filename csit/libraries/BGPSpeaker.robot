@@ -30,7 +30,6 @@ Resource          ../variables/Variables.robot
 
 *** Variables ***
 ${BGPSpeaker__OUTPUT_LOG}    play.py.out
-${PEER_URL}       restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
 *** Keywords ***
 Start_BGP_Speaker
@@ -56,7 +55,7 @@ Verify_BGP_Speaker_Connection
     [Arguments]    ${session}    ${ip}    ${connected}=${True}
     [Documentation]    Verifies peer's presence in bgp rib.
     ${exp_status_code}    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${url}    BuiltIn.Set_Variable    ${PEER_URL}${ip}
+    ${url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F${ip}?content=nonconfig
     ${response}    RequestsLibrary.Get_Request    ${session}    ${url}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${response.status_code}
     [Return]    ${response.content}
