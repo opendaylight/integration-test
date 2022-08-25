@@ -21,7 +21,7 @@ ${PCEP_VAR_FOLDER}    ${CURDIR}/../variables/tcpmd5user
 Setup_Pcep_Operations
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    Create_Session    pcep_session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/restconf/operations    headers=${HEADERS_XML}    auth=${AUTH}
+    Create_Session    pcep_session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations    headers=${HEADERS_XML}    auth=${AUTH}
 
 Teardown_Pcep_Operations
     [Documentation]    Teardown to pair with Setup (otherwise no-op).
@@ -65,7 +65,7 @@ Pcep_Json_Is_Success
 Pcep_Json_Is_Refused
     [Arguments]    ${actual_raw}
     [Documentation]    Given text should be equal to json response when device refuses tunnel removal.
-    ${expected_raw}=    BuiltIn.Set_Variable    {"output":{"error":[{"error-object":{"ignore":false,"processing-rule":false,"type":19,"value":9}}],"failure":"failed"}}
+    ${expected_raw}=    BuiltIn.Set_Variable    {"network-topology-pcep:output":{"error":[{"error-object":{"ignore":false,"processing-rule":false,"type":19,"value":9}}],"failure":"failed"}}
     # TODO: Is that JSON worth referencing pcepuser variables from this library?
     ${expected_normalized}=    norm_json.normalize_json_text    ${expected_raw}
     ${actual_normalized}=    norm_json.normalize_json_text    ${actual_raw}
