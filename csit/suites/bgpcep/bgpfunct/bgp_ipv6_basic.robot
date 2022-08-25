@@ -50,6 +50,7 @@ ${IPV6_IP}        2607:f0d0:1002:0011:0000:0000:0000:0002
 ${IPV6_IP_2}      2607:f0d0:1002:11:0:0:0:2
 ${IPV6_IP_3}      2607:f0d0:1002:11::2
 ${IPV6_IP_GW}     2607:f0d0:1002:0011:0000:0000:0000:0001
+${IPV6_PREFIX_LENGTH}    64
 ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
 
@@ -319,11 +320,12 @@ Stop_Suite
 
 Configure_Ipv6_Network
     [Documentation]    Reconfigures basic network settings on controller
-    SSHLibrary.Execute_Command    sudo sh -c 'echo "NETWORKING_IPV6=yes" >> /etc/sysconfig/network'
-    SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6INIT=yes" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
-    SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6ADDR=${IPV6_IP}" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
-    SSHLibrary.Execute_Command    sudo sh -c 'echo "IPV6_DEFAULTGW=${IPV6_IP_GW}" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
-    SSHLibrary.Execute_Command    sudo /etc/init.d/network restart
+    SSHLibrary.Execute_Command    sudo ip -6 addr add ${IPV6_IP}/${IPV6_PREFIX_LENGTH} dev eth0
+    SSHLibrary.Execute_Command    sudo ip -6 route add default via ${IPV6_IP_GW}
+    ${stdout}=    SSHLibrary.Execute_Command    sudo ip -6 addr show
+    Log    ${stdout}
+    ${stdout}=    SSHLibrary.Execute_Command    sudo ip -6 route show
+    Log    ${stdout}
 
 Verify_Rib_Status_Empty
     [Documentation]    Verifies that example-ipv6-topology is empty
