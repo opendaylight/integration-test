@@ -221,7 +221,7 @@ Start_Bgp_Peer
     [Arguments]    ${prefix}=${FIRST_PREFIX}    ${amount}=1    ${myip}=${PEER1_IP}    ${port}=${PEER1_PORT}    ${as_number}=${PEER1_AS}    ${grace}=0
     ...    ${log_name}=play.py.out    ${multiple}=&    ${ipv6}=${EMPTY}
     [Documentation]    Starts bgp peer.
-    ${command} =    BuiltIn.Set_Variable    python play.py${ipv6} --firstprefix ${prefix} --prefixlen ${PREFIX_LEN} --amount ${amount} --myip ${myip} --myport ${BGP_TOOL_PORT} --peerip ${ODL_SYSTEM_IP} --peerport ${ODL_BGP_PORT} --port ${port} --usepeerip --nexthop ${NEXT_HOP} --asnumber ${as_number} --debug --grace ${grace} --wfr 1 &> ${log_name} ${multiple}
+    ${command} =    BuiltIn.Set_Variable    python3 play.py${ipv6} --firstprefix ${prefix} --prefixlen ${PREFIX_LEN} --amount ${amount} --myip ${myip} --myport ${BGP_TOOL_PORT} --peerip ${ODL_SYSTEM_IP} --peerport ${ODL_BGP_PORT} --port ${port} --usepeerip --nexthop ${NEXT_HOP} --asnumber ${as_number} --debug --grace ${grace} --wfr 1 &> ${log_name} ${multiple}
     BuiltIn.Log    ${command}
     ${output} =    SSHLibrary.Write    ${command}
 

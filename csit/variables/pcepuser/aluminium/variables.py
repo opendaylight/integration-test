@@ -39,7 +39,7 @@ def get_variables(mininet_ip):
     variables[
         "off_json"
     ] = """{
- "topology": [
+ "network-topology:topology": [
   {
    "topology-id": "pcep-topology",
    "topology-types": {

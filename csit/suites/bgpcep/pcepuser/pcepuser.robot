@@ -23,7 +23,7 @@ Variables         ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TO
 
 *** Variables ***
 ${CONFIG_SESSION}    session
-${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
+${PATH_SESSION_URI}    node=pcc:%2F%2F${TOOLS_SYSTEM_IP}/network-topology-pcep:path-computation-client
 ${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/${ODL_STREAM}
 
 *** Test Cases ***
@@ -145,6 +145,8 @@ Compare_Topology
     ...    Error codes and normalized jsons should match exactly.
     # TODO: Add Node Session State Check For Oxygen, see tcpmd5user
     # TODO: Possibly remake all tests with TemplatedRequests
-    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${OPERATIONAL_TOPO_API}/topology/pcep-topology/${uri}
+    ${topology_uri}=    BuiltIn.Set_Variable_If    '${uri}'=='${EMPTY}'
+    ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology?content=nonconfig    ${REST_API}/${TOPOLOGY_URL}=pcep-topology/${uri}?content=nonconfig
+    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${topology_uri}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp}    ${response.text}

@@ -20,7 +20,6 @@ Resource          ${CURDIR}/SSHKeywords.robot
 *** Variables ***
 ${GOBGP_KILL_COMMAND}    ps axf | grep gobgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${GOBGP_EXECUTION_COMMAND}    /home/jenkins/gobgpd -l debug -f
-${PEER_CHECK_URL}    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
 
 *** Keywords ***
 Start_GoBgp
@@ -60,7 +59,8 @@ Start_GoBgp_And_Verify_Connected
 Verify_GoBgps_Connection
     [Arguments]    ${session}    ${gobgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
+    ${peer_check_url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${ALLOWED_STATUS_CODES}    ${DELETED_STATUS_CODES}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${gobgp_ip}?content=nonconfig
+    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${gobgp_ip}?content=nonconfig
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}

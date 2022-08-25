@@ -12,8 +12,8 @@ Resource          TemplatedRequests.robot
 *** Variables ***
 ${BGP_BMP_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/empty_structure
-${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
-${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
+${BGP_RIB_URI}    bgp-rib:bgp-rib/rib=example-bgp-rib
+${BGP_TOPOLOGY_URI}    ${TOPOLOGY_URL}=example-ipv4-topology
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}       example-bgp-rib
 ${OLD_AS_PATH}    \n"as-path": {},
@@ -296,7 +296,7 @@ Teardown_Everything
 Check_Example_Bgp_Rib_Content
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -304,7 +304,7 @@ Check_Example_Bgp_Rib_Content
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -312,7 +312,7 @@ Check_Example_Bgp_Rib_Does_Not_Contain
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
@@ -320,7 +320,7 @@ Check_Example_IPv4_Topology_Content
 Check_Example_IPv4_Topology_Does_Not_Contain
     [Arguments]    ${session}    ${string_to_check}
     [Documentation]    Check the example-ipv4-topology does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
