@@ -33,6 +33,23 @@
       "message": "Sandbox was reset and here is a new test set:\n- Phosphorus: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-phosphorus/1/robot-plugin/log.html.gz\n- Sulfur: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-sulfur/1/robot-plugin/log.html.gz\n- Chlorine: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-chlorine/1/robot-plugin/log.html.gz",
       "revId": "ac22f7d635141195444e0ccaebddd34a3e161239",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3eedac8_53d07d2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6731
+      },
+      "writtenOn": "2022-08-27T18:52:49Z",
+      "side": 1,
+      "message": "LGTM AFAIK",
+      "revId": "ac22f7d635141195444e0ccaebddd34a3e161239",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
