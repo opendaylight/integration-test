@@ -16,6 +16,23 @@
       "message": "Sandbox tests:\n- Phosphorus: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-phosphorus/14/robot-plugin/log.html.gz\n- Sulfur: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-sulfur/2/robot-plugin/log.html.gz\n- Chlorine: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-chlorine/2/robot-plugin/log.html.gz\n\nAll the tests are passing for Phosphorus now - in production there are 77 failed test  cases because Python 2 is not available on CentOS 8 VM.\n\nhttps://s3-logs.opendaylight.org/logs/releng/vex-yul-odl-jenkins-1/bgpcep-csit-1node-bgp-ingest-all-phosphorus/507/robot-plugin/log.html.gz\n\nThere are 31 failed test cases for Sulfur \u0026 Chlorine with this patch. But this probably is because of CONTROLLER-2043:\n\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-sulfur/2/odl_1/odl1_karaf.log.gz\n\n```\n2022-08-26T22:40:53,027 | ERROR | opendaylight-cluster-data-akka.actor.default-dispatcher-18 | Shard                            | 245 - org.opendaylight.controller.repackaged-akka - 5.0.5 | Failed to persist event type [org.opendaylight.controller.cluster.raft.persisted.SimpleReplicatedLogEntry] with sequence number [262186] for persistenceId [member-1-shard-default-config].\nakka.pattern.CircuitBreaker$$anon$13: Circuit Breaker Timed out.\n```",
       "revId": "ac22f7d635141195444e0ccaebddd34a3e161239",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d892a0_06d3f5f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-08-27T18:01:09Z",
+      "side": 1,
+      "message": "Sandbox was reset and here is a new test set:\n- Phosphorus: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-phosphorus/1/robot-plugin/log.html.gz\n- Sulfur: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-sulfur/1/robot-plugin/log.html.gz\n- Chlorine: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-bgp-ingest-all-chlorine/1/robot-plugin/log.html.gz",
+      "revId": "ac22f7d635141195444e0ccaebddd34a3e161239",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
