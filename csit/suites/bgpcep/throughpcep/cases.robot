@@ -460,7 +460,7 @@ Disconnect
 
 Get_Pcep_Topology_Data
     [Documentation]    Use session object to download PCEP topology JSON. Check status and return Response object.
-    ${resp} =    AuthStandalone.Get_Using_Session    ${rest_session}    operational/network-topology:network-topology/topology/pcep-topology
+    ${resp} =    AuthStandalone.Get_Using_Session    ${rest_session}    data/${TOPOLOGY_URL}\=pcep-topology?content\=nonconfig
     # Not Logging content, as it may be huge.
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     [Return]    ${resp}
@@ -479,7 +479,7 @@ Pcep_Off
     ${resp} =    Get_Pcep_Topology_Data
     # Used before topology had chance to grow huge. Be aware when creating a longevity suite from this.
     BuiltIn.Log    ${resp.text}
-    BuiltIn.Should_Be_Equal    ${resp.text}    {"topology":[{"topology-id":"pcep-topology","topology-types":{"network-topology-pcep:topology-pcep":{}}}]}
+    BuiltIn.Should_Be_Equal    ${resp.text}    {"network-topology:topology":[{"topology-id":"pcep-topology","topology-types":{"network-topology-pcep:topology-pcep":{}}}]}
 
 Pcep_On
     [Documentation]    Get topology count of current hop, assert the number of matches.
@@ -512,7 +512,7 @@ Updater
     # The previous line relies on a fact that Execute_Command spawns separate shels, so running pcc-mock is not affected.
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
-    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
+    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
     Check Updater response    ${response}    ${parallel}
 
 Check Updater response
