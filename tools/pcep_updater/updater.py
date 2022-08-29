@@ -37,10 +37,7 @@ import ipaddr
 import threading
 import time
 
-try:
-    from collections import Counter
-except ImportError:  # Python 2.6 does not have Counter in collections.
-    from Counter import Counter  # Assumes that user copies Counter.py around.
+from collections import Counter
 import AuthStandalone
 
 
@@ -237,9 +234,9 @@ def classify(resp_tuple):
     status = resp_tuple[0]
     if (status != 200) and (status != 204):  # is it int?
         prepend = "status: " + str(status) + " "
-    content = resp_tuple[1]
+    content = resp_tuple[1].decode()
     if prepend or (content != expected and content != ""):
-        return prepend + "content: " + str(content)
+        return prepend + "content: " + content
     return "pass"
 
 
