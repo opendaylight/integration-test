@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdecca95_1512bbde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-08-29T07:34:17Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- Phosphorus: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-userfeatures-all-phosphorus/13/robot-plugin/log.html.gz\n- Sulfur: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-userfeatures-all-sulfur/7/robot-plugin/log.html.gz\n- Chlrorine: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-userfeatures-all-chlorine/7/robot-plugin/log.html.gz\n\nTests are all passing for Phosphorus \u0026 Sulfur.\n\nSome of test failures with Chlorine are because of JDK 17 not being available on the tools VM (Ubuntu).\nAnd controller returns this error for PCEP password update:\n```\n\u003cerrors xmlns\u003d\"urn:ietf:params:xml:ns:yang:ietf-restconf\"\u003e\n    \u003cerror\u003e\n        \u003cerror-tag\u003emalformed-message\u003c/error-tag\u003e\n        \u003cerror-info\u003eParseError at [row,col]:[-1,-1]\nMessage: Schema for node with name session-config and namespace urn:opendaylight:params:xml:ns:yang:topology:pcep:config does not exist in parent EmptyListEffectiveStatement{argument\u003d(urn:TBD:params:xml:ns:yang:network-topology?revision\u003d2013-10-21)node}\u003c/error-info\u003e\n        \u003cerror-message\u003eError parsing input: ParseError at [row,col]:[-1,-1]\nMessage: Schema for node with name session-config and namespace urn:opendaylight:params:xml:ns:yang:topology:pcep:config does not exist in parent EmptyListEffectiveStatement{argument\u003d(urn:TBD:params:xml:ns:yang:network-topology?revision\u003d2013-10-21)node}\u003c/error-message\u003e\n        \u003cerror-type\u003eprotocol\u003c/error-type\u003e\n    \u003c/error\u003e\n\u003c/errors\u003e\n```\n",
+      "revId": "b6e65eac5db0ec0342b2958934ba2fdc4e97b47f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
