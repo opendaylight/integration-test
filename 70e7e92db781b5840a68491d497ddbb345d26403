@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3a93ac_e21405fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-08-30T00:52:11Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- Phosphorus: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-throughpcep-all-phosphorus/5/robot-plugin/log.html.gz\n- Sulfur: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-throughpcep-all-sulfur/7/robot-plugin/log.html.gz\n- Chlorine: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-throughpcep-all-chlorine/2/robot-plugin/log.html.gz\n\nAll the tests passed for Phosphorus \u0026 Sulur.\nOne failed test with Chlorine is because Java 17, required for pcep-pcc-mock, is not available in the tools VM.",
+      "revId": "70e7e92db781b5840a68491d497ddbb345d26403",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
