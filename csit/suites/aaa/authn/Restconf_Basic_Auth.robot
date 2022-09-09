@@ -1,3 +1,4 @@
+*** Comments ***
 #
 # Copyright (c) Lumina Networks 2020 and others.
 # All rights reserved.
@@ -7,26 +8,31 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 #
 
+
 *** Settings ***
-Documentation     Test Basic Authentication support in RESTCONF
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           String
-Resource          ../../../variables/Variables.robot
+Documentation       Test Basic Authentication support in RESTCONF
+
+Library             RequestsLibrary
+Library             String
+Resource            ../../../variables/Variables.robot
+
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${ADMIN_USER}     ${ODL_RESTCONF_USER}
-${ADMIN_PW}       ${ODL_RESTCONF_PASSWORD}
+${ADMIN_USER}           ${ODL_RESTCONF_USER}
+${ADMIN_PW}             ${ODL_RESTCONF_PASSWORD}
 ${RESTCONF_TEST_URL}    ${MODULES_API}
-${JOLOKIA_TEST_URL}    jolokia
-${JOLOKIA_USER}    ${ODL_RESTCONF_USER}
-${JOLOKIA_PW}     ${ODL_RESTCONF_PASSWORD}
-${BAD_USER}       bad_user
-${BAD_PW}         bad_pw
-${JOLOKIA_BAD_USER}    ${BAD_USER}
-${USERS_REST_URL}    auth/v1/users
-${USER_USER}      user
-${USER_PW}        user
+${JOLOKIA_TEST_URL}     jolokia
+${JOLOKIA_USER}         ${ODL_RESTCONF_USER}
+${JOLOKIA_PW}           ${ODL_RESTCONF_PASSWORD}
+${BAD_USER}             bad_user
+${BAD_PW}               bad_pw
+${JOLOKIA_BAD_USER}     ${BAD_USER}
+${USERS_REST_URL}       auth/v1/users
+${USER_USER}            user
+${USER_PW}              user
+
 
 *** Test Cases ***
 No RESTCONF Credentials
@@ -63,15 +69,16 @@ Correct Jolokia REST Credentials
 
 IDM Endpoints Only Available To admin Role
     [Documentation]    A user with a non-"admin" role should not have access to AAA endpoints
-    ${auth}    Create List    ${USER_USER}    ${USER_PW}
+    ${auth} =    Create List    ${USER_USER}    ${USER_PW}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
     ${resp} =    RequestsLibrary.Get Request    httpbin    ${USERS_REST_URL}
     Should Be Equal As Numbers    ${resp.status_code}    401
 
+
 *** Keywords ***
 Auth Should Fail
-    [Arguments]    ${url}    ${user}    ${password}
     [Documentation]    Checks the given HTTP RESTCONF response for authentication failure
+    [Arguments]    ${url}    ${user}    ${password}
     @{auth} =    Create List    ${user}    ${password}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
     ${resp} =    RequestsLibrary.Get Request    httpbin    ${url}
@@ -81,8 +88,8 @@ Auth Should Fail
     Log    ${resp.content}
 
 Auth Should Pass
-    [Arguments]    ${url}    ${user}    ${password}
     [Documentation]    Checks the given HTTP RESTCONF response for authentication failure
+    [Arguments]    ${url}    ${user}    ${password}
     @{auth} =    Create List    ${user}    ${password}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
     ${resp} =    RequestsLibrary.Get Request    httpbin    ${url}
