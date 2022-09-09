@@ -1,74 +1,95 @@
 *** Settings ***
-Library           Collections
-Library           RequestsLibrary
-Variables         ../variables/Variables.py
+Library         Collections
+Library         RequestsLibrary
+Variables       ../variables/Variables.py
+
 
 *** Keywords ***
 Create Records
-    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
-    ...    ${postfix}
     [Documentation]    POSTs records to a controller's data store. First and last index numbers are specified
     ...    as is a dictionary called field_bases containing the base name for the field contents
     ...    onto which will be appended the index number. Prefix and postfix are used to complete
     ...    the JSON payload. The keyword passes if return code is correct.
-    ${last}    Convert to Integer    ${last}
+    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
+    ${last}=    Convert to Integer    ${last}
     FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
         ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
         Log    ${payload}
-        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-        ${resp}    RequestsLibrary.Post Request    session    ${node}    ${payload}
+        Create_Session
+        ...    session
+        ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
+        ...    headers=${HEADERS}
+        ...    auth=${AUTH}
+        ${resp}=    RequestsLibrary.Post Request    session    ${node}    ${payload}
         Log    ${resp}
         Should Be Equal As Strings    ${resp}    <Response [204]>
     END
 
 Read Records
-    [Arguments]    ${controller_ip}    ${node}
     [Documentation]    GETs records from a shard on a controller's data store.
-    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+    [Arguments]    ${controller_ip}    ${node}
+    Create_Session
+    ...    session
+    ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
+    ...    headers=${HEADERS}
+    ...    auth=${AUTH}
     ${resp}=    RequestsLibrary.Get Request    session    ${node}
-    [Return]    ${resp.json()}
+    RETURN    ${resp.json()}
 
 Update Records
-    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
-    ...    ${postfix}
     [Documentation]    PUTs records to shard on a controller's data store. First and last index numbers are specified
     ...    as is a dictionary called field_bases containing the base name for the field contents
     ...    onto which will be appended the index number. Prefix and postfix are used to complete
     ...    the JSON payload. The keyword passes if return code is correct.
-    ${last}    Convert to Integer    ${last}
+    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
+    ${last}=    Convert to Integer    ${last}
     FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
         ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
         Log    ${payload}
-        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+        Create_Session
+        ...    session
+        ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
+        ...    headers=${HEADERS}
+        ...    auth=${AUTH}
         ${resp}=    RequestsLibrary.Put Request    session    ${node}/${INDEX}    ${payload}
         Log    ${resp}
         Should Be Equal As Strings    ${resp}    <Response [200]>
     END
 
 Delete Records
-    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}
     [Documentation]    DELETEs specified range of records from a shard on a contrsoller's data store.
-    ${last}    Convert to Integer    ${last}
+    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}
+    ${last}=    Convert to Integer    ${last}
     FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
-        Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+        Create_Session
+        ...    session
+        ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
+        ...    headers=${HEADERS}
+        ...    auth=${AUTH}
         ${resp}=    RequestsLibrary.Delete Request    session    ${node}/${INDEX}
         Should Be Equal As Strings    ${resp}    <Response [200]>
     END
 
 Delete All Records
-    [Arguments]    ${controller_ip}    ${node}
     [Documentation]    DELETEs all records from a shard on a controller's data store.
-    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
+    [Arguments]    ${controller_ip}    ${node}
+    Create_Session
+    ...    session
+    ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
+    ...    headers=${HEADERS}
+    ...    auth=${AUTH}
     ${resp}=    RequestsLibrary.Delete Request    session    ${node}
     Should Be Equal As Strings    ${resp}    <Response [200]>
 
 Assemble Payload
-    [Arguments]    ${id}    ${prefix}    ${field bases}    ${postfix}
     [Documentation]    Populates a payload for creating or updating a shard record.
     ...    id: The record number and is also appended onto each field to uniquely identify it.
     ...    prefix: The portion of the json payload before the records.
     ...    field bases: A dictionary of records onto which the id is appended.
     ...    prefix: The portion of the json payload after the records.
+    [Arguments]    ${id}    ${prefix}    ${field bases}    ${postfix}
     ${length}=    Get Length    ${field bases}
     ${keys}=    Get Dictionary Keys    ${field bases}
     ${payload}=    Set Variable    ${prefix}
@@ -78,4 +99,4 @@ Assemble Payload
     END
     ${payload}=    Get Substring    ${payload}    ${EMPTY}    -1
     ${payload}=    Catenate    ${payload}    ${postfix}
-    [Return]    ${payload}
+    RETURN    ${payload}

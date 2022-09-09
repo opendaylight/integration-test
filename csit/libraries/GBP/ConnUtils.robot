@@ -1,9 +1,11 @@
 *** Settings ***
-Library           SSHLibrary
-Resource          ../SSHKeywords.robot
+Library     SSHLibrary
+Resource    ../SSHKeywords.robot
+
 
 *** Variables ***
-${VE_DIR}         ${WORKSPACE}/GBPSFC_VE
+${VE_DIR}       ${WORKSPACE}/GBPSFC_VE
+
 
 *** Keywords ***
 Connect and Login
@@ -12,9 +14,12 @@ Connect and Login
     SSHKeywords.Flexible Mininet Login
 
 Execute in VE
-    [Arguments]    ${cmd}    ${virt_env_path}=${VE_DIR}    ${timeout}=10s
     [Documentation]    Wrapper method for executing commands in python virtual environment.
+    [Arguments]    ${cmd}    ${virt_env_path}=${VE_DIR}    ${timeout}=10s
     Set Client Configuration    timeout=${timeout}
-    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    source ${virt_env_path}/bin/activate;${cmd}    return_stderr=True    return_stdout=True
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command
+    ...    source ${virt_env_path}/bin/activate;${cmd}
+    ...    return_stderr=True
+    ...    return_stdout=True
     ...    return_rc=True
-    [Return]    ${stdout}    ${stderr}    ${rc}
+    RETURN    ${stdout}    ${stderr}    ${rc}
