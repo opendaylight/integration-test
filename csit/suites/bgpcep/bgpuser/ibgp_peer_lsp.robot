@@ -1,59 +1,76 @@
 *** Settings ***
-Documentation     Basic tests for iBGP peers.
+Documentation       Basic tests for iBGP peers.
 ...
-...               Copyright (c) 2015-2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015-2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               Test suite performs basic iBGP functional test case for
-...               carrying LSP State Information in BGP as described in
-...               http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
-Suite Setup       Setup_Everything
-Suite Teardown    BgpOperations.Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           DateTime
-Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/BgpOperations.robot
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../variables/Variables.robot
+...                 Test suite performs basic iBGP functional test case for
+...                 carrying LSP State Information in BGP as described in
+...                 http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
+
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             DateTime
+Resource            ../../../libraries/BGPcliKeywords.robot
+Resource            ../../../libraries/BgpOperations.robot
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/WaitForFailure.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Setup_Everything
+Suite Teardown      BgpOperations.Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 *** Variables ***
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${COUNT}          1
-${HOLDTIME}       180
-${BGP_PEER_LOG_FILE}    bgp_peer.log
-${BGP_PEER_COMMAND}    python3 play.py --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${BGP_PEER_LOG_FILE} --bgpls True
-${BGP_PEER_OPTIONS}    &>${BGP_PEER_LOG_FILE}
-${DEFAULT_RIB_CHECK_PERIOD}    1s
+${BGP_VARIABLES_FOLDER}         ${CURDIR}/../../../variables/bgpuser/
+${COUNT}                        1
+${HOLDTIME}                     180
+${BGP_PEER_LOG_FILE}            bgp_peer.log
+${BGP_PEER_COMMAND}
+...                             python3 play.py --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${BGP_PEER_LOG_FILE} --bgpls True
+${BGP_PEER_OPTIONS}             &>${BGP_PEER_LOG_FILE}
+${DEFAULT_RIB_CHECK_PERIOD}     1s
 ${DEFAULT_RIB_CHECK_TIMEOUT}    10s
-${BGP_PEER_LOG_LEVEL}    debug
-${JSONKEYSTR}     "linkstate-route"
-${BGP_PEER_NAME}    example-bgp-peer
-${DEVICE_NAME}    controller-config
-${CONFIG_SESSION}    config-session
-${SKIP_PARAMS}    --skipattr
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${OLD_ROUTE_KEY}    [0, 5, 0, 21, 7, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 0, 1, 0, 1, 5, 6, 7, 8]
-${NEW_ROUTE_KEY}    AAUAFQcAAAAAAAAAAQECAwQAAQABBQYHCA==
+${BGP_PEER_LOG_LEVEL}           debug
+${JSONKEYSTR}                   "linkstate-route"
+${BGP_PEER_NAME}                example-bgp-peer
+${DEVICE_NAME}                  controller-config
+${CONFIG_SESSION}               config-session
+${SKIP_PARAMS}                  --skipattr
+${RIB_INSTANCE}                 example-bgp-rib
+${PROTOCOL_OPENCONFIG}          ${RIB_INSTANCE}
+${OLD_ROUTE_KEY}                [0, 5, 0, 21, 7, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 0, 1, 0, 1, 5, 6, 7, 8]
+${NEW_ROUTE_KEY}                AAUAFQcAAAAAAAAAAQECAwQAAQABBQYHCA==
+
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Tags]    critical
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    Create Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    BGP_NAME=${BGP_PEER_NAME}
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    HOLDTIME=${HOLDTIME}
+    ...    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false
+    ...    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated
+    ...    ${BGP_VARIABLES_FOLDER}${/}bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
 
 TC1_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
@@ -63,14 +80,21 @@ TC1_Check_Example_Bgp_Rib_Is_Empty
 TC1_Connect_BGP_Peer
     [Documentation]    Connect BGP peer with advertising the routes without mandatory params like LOC_PREF.
     [Tags]    critical
-    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Log_Message_To_Controller_Karaf    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
+    BuiltIn.Run_Keyword_And_Ignore_Error
+    ...    KarafKeywords.Log_Message_To_Controller_Karaf
+    ...    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND} ${SKIP_PARAMS}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 TC1_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for not containig linkstate-route(s), because update messages were not good.
     [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${CONFIG_SESSION}    ${JSONKEYSTR}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout
+    ...    ${DEFAULT_RIB_CHECK_TIMEOUT}
+    ...    ${DEFAULT_RIB_CHECK_PERIOD}
+    ...    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain
+    ...    ${CONFIG_SESSION}
+    ...    ${JSONKEYSTR}
 
 TC1_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -80,14 +104,32 @@ TC1_Disconnect_BGP_Peer
 
 TC1_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    BGP_NAME=${BGP_PEER_NAME}
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
 
 TC2_Configure_iBGP_Peer
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    BGP_NAME=${BGP_PEER_NAME}
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    HOLDTIME=${HOLDTIME}
+    ...    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false
+    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
 
 TC2_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
@@ -103,9 +145,15 @@ TC2_Connect_BGP_Peer
 TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s) and check all of their attributes.
     [Tags]    critical
-    ${route_key} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${NEW_ROUTE_KEY}    ${OLD_ROUTE_KEY}
+    ${route_key}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${NEW_ROUTE_KEY}    ${OLD_ROUTE_KEY}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    ROUTE_KEY=${route_key}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}/lsp/effective_rib_in    mapping=${mapping}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    ${DEFAULT_RIB_CHECK_TIMEOUT}
+    ...    ${DEFAULT_RIB_CHECK_PERIOD}
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/lsp/effective_rib_in
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
     ...    verify=True
 
 TC2_Disconnect_BGP_Peer
@@ -116,8 +164,16 @@ TC2_Disconnect_BGP_Peer
 
 TC2_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    BGP_NAME=${BGP_PEER_NAME}
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
+
 
 *** Keywords ***
 Setup_Everything
