@@ -1,55 +1,61 @@
 *** Settings ***
-Documentation     RestPerfClient handling singleton resource.
+Documentation       RestPerfClient handling singleton resource.
 ...
-...               Copyright (c) 2016,2017 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016,2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This singleton manages RestPerfClient invocation, tracks the log file
-...               produced by the invocation, allows the test suite to easily search this
-...               log file and collect it once done.
+...                 This singleton manages RestPerfClient invocation, tracks the log file
+...                 produced by the invocation, allows the test suite to easily search this
+...                 log file and collect it once done.
 ...
-...               TODO: RemoteBash.robot contains logic which could be reused here.
+...                 TODO: RemoteBash.robot contains logic which could be reused here.
 ...
-...               TODO: Currently only one RestPerfClient invocation running at a time is
-...               supported. Support for multiple concurrently running RestPerfClient
-...               invocations might be needed for example when performance testing cluster
-...               nodes. However no such suites are planned for now.
+...                 TODO: Currently only one RestPerfClient invocation running at a time is
+...                 supported. Support for multiple concurrently running RestPerfClient
+...                 invocations might be needed for example when performance testing cluster
+...                 nodes. However no such suites are planned for now.
 ...
-...               FIXME: There may be suites which want to use this Resource without
-...               NetconfKeywords, in which case NexusKeywords will not be initialized
-...               and Setup_Restperfclient will fail. Fixing this problem will require
-...               updating NexusKeywords initialization (which may break other suites)
-...               and currently all suites using this use also NetconfKeywords so this
-...               was postponed. Workaround for the problem: Initialize NexusKeywords
-...               manually before initializing this resource.
-Library           DateTime
-Library           SSHLibrary
-Resource          ${CURDIR}/NexusKeywords.robot
-Resource          ${CURDIR}/SetupUtils.robot
-Resource          ${CURDIR}/SSHKeywords.robot
-Resource          ${CURDIR}/Utils.robot
-Resource          ${CURDIR}/RemoteBash.robot
+...                 FIXME: There may be suites which want to use this Resource without
+...                 NetconfKeywords, in which case NexusKeywords will not be initialized
+...                 and Setup_Restperfclient will fail. Fixing this problem will require
+...                 updating NexusKeywords initialization (which may break other suites)
+...                 and currently all suites using this use also NetconfKeywords so this
+...                 was postponed. Workaround for the problem: Initialize NexusKeywords
+...                 manually before initializing this resource.
+
+Library             DateTime
+Library             SSHLibrary
+Resource            ${CURDIR}/NexusKeywords.robot
+Resource            ${CURDIR}/SetupUtils.robot
+Resource            ${CURDIR}/SSHKeywords.robot
+Resource            ${CURDIR}/Utils.robot
+Resource            ${CURDIR}/RemoteBash.robot
+
 
 *** Variables ***
 ${RestPerfClient__restperfclientlog}    ${EMPTY}
 
+
 *** Keywords ***
 Setup_Restperfclient
-    [Arguments]    ${build_version}=${EMPTY}    ${build_location}=${EMPTY}
     [Documentation]    Deploy RestPerfClient and determine the Java command to use to call it.
     ...    Open a SSH connection through which the RestPerfClient will be
     ...    invoked, deploy RestPerfClient and the data files it needs to do
     ...    its work and initialize the internal state for the remaining
     ...    keywords.
+    [Arguments]    ${build_version}=${EMPTY}    ${build_location}=${EMPTY}
     ${connection}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient}    ${connection}
     SSHLibrary.Put_File    ${CURDIR}/../variables/netconf/RestPerfClient/request1.json
-    ${filename}=    Run Keyword If    '${IS_KARAF_APPL}' == 'False'    Set Variable    ${RESTPERF_FILENAME}
-    ...    ELSE    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
+    IF    '${IS_KARAF_APPL}' == 'False'
+        ${filename}=    Set Variable    ${RESTPERF_FILENAME}
+    ELSE
+        ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
+    END
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx4G -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
@@ -73,12 +79,12 @@ Restperfclient__Invoke_With_Timeout
     Execute_Command_Passes    cat ${RestPerfClient__restperfclientlog}
 
 Invoke_Restperfclient
-    [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}
-    ...    ${async}=false    ${user}=${ODL_RESTCONF_USER}    ${password}=${ODL_RESTCONF_PASSWORD}
     [Documentation]    Invoke RestPerfClient on the specified URL with the specified timeout.
     ...    Assemble the RestPerfClient invocation commad, setup the specified
     ...    timeout for the SSH connection, invoke the assembled command and
     ...    then check that RestPerfClient finished its run correctly.
+    [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}
+    ...    ${async}=false    ${user}=${ODL_RESTCONF_USER}    ${password}=${ODL_RESTCONF_PASSWORD}
     ${restperfclient_running}=    Set_Variable    False
     ${logname}=    Utils.Get_Log_File_Name    restperfclient    ${testcase}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclientlog}    ${logname}
@@ -101,11 +107,11 @@ Invoke_Restperfclient
     [Teardown]    BuiltIn.Run_Keyword_If    ${restperfclient_running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
 
 Grep_Restperfclient_Log
-    [Arguments]    ${pattern}
     [Documentation]    Search for the specified string in the log file produced by latest invocation of RestPerfClient
+    [Arguments]    ${pattern}
     BuiltIn.Should_Not_Be_Equal    '${RestPerfClient__restperfclientlog}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep '${pattern}' ${RestPerfClient__restperfclientlog}
-    [Return]    ${result}
+    RETURN    ${result}
 
 Collect_From_Restperfclient
     [Documentation]    Collect useful data produced by restperfclient

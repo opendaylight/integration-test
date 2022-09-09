@@ -1,11 +1,13 @@
 *** Settings ***
-Documentation     Keywords for DIDM suites
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Variables         ../variables/Variables.py
-Resource          ./Utils.robot
-Resource          ../variables/openflowplugin/Variables.robot
+Documentation       Keywords for DIDM suites
+
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Variables           ../variables/Variables.py
+Resource            ./Utils.robot
+Resource            ../variables/openflowplugin/Variables.robot
+
 
 *** Keywords ***
 Check DIDM Registered With Device
@@ -14,7 +16,7 @@ Check DIDM Registered With Device
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.text}
     Should Contain    ${resp.text}    didm
-    [Return]    ${resp.text}
+    RETURN    ${resp.text}
 
 Find Device Data
     [Documentation]    Extract device information
@@ -25,7 +27,7 @@ Find Device Data
     ${node_data}=    Get From List    ${node_resp}    0
     Log    ${node_data}
     Set Suite Variable    ${node_data}
-    [Return]    ${node_data}
+    RETURN    ${node_data}
 
 Check Device IP
     [Documentation]    Check for the device IP address
@@ -38,7 +40,7 @@ Check Device IP
         ${line}=    Get From List    ${device_keys}    ${index}
         Run Keyword And Return If    '${dev_ip}' == '${line}'    Get From Dictionary    ${node_data}    ${dev_ip}
     END
-    [Return]    ${dev_ip}
+    RETURN    ${dev_ip}
 
 Find Device Type
     [Documentation]    Look for the device type
@@ -50,9 +52,13 @@ Find Device Type
     ${length}=    Get Length    ${device_keys}
     FOR    ${index}    IN RANGE    0    ${length}
         ${line}=    Get From List    ${device_keys}    ${index}
-        Run Keyword And Return If    '${device_type}' == '${line}'    Get From Dictionary    ${node_data}    ${device_type}
+        Run Keyword And Return If
+        ...    '${device_type}' == '${line}'
+        ...    Get From Dictionary
+        ...    ${node_data}
+        ...    ${device_type}
     END
-    [Return]    ${device_type}
+    RETURN    ${device_type}
 
 Find Device Hardware
     [Documentation]    Look for the device hardware information
@@ -64,7 +70,7 @@ Find Device Hardware
         ${line}=    Get From List    ${device_keys}    ${index}
         Run Keyword And Return If    '${device_hw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_hw}
     END
-    [Return]    ${device_hw}
+    RETURN    ${device_hw}
 
 Find Device Software
     [Documentation]    Look for the device software information
@@ -76,7 +82,7 @@ Find Device Software
         ${line}=    Get From List    ${device_keys}    ${index}
         Run Keyword And Return If    '${device_sw}' == '${line}'    Get From Dictionary    ${node_data}    ${device_sw}
     END
-    [Return]    ${device_sw}
+    RETURN    ${device_sw}
 
 Find Device Manufacturer
     [Documentation]    Look for the device manufacture
@@ -86,9 +92,13 @@ Find Device Manufacturer
     ${length}=    Get Length    ${device_keys}
     FOR    ${index}    IN RANGE    0    ${length}
         ${line}=    Get From List    ${device_keys}    ${index}
-        Run Keyword And Return If    '${manufacture}' == '${line}'    Get From Dictionary    ${node_data}    ${manufacture}
+        Run Keyword And Return If
+        ...    '${manufacture}' == '${line}'
+        ...    Get From Dictionary
+        ...    ${node_data}
+        ...    ${manufacture}
     END
-    [Return]    ${manufacture}
+    RETURN    ${manufacture}
 
 Find Serial Number
     [Documentation]    Look for the device serial number
@@ -98,9 +108,13 @@ Find Serial Number
     ${length}=    Get Length    ${device_keys}
     FOR    ${index}    IN RANGE    0    ${length}
         ${line}=    Get From List    ${device_keys}    ${index}
-        Run Keyword And Return If    '${serial_number}' == '${line}'    Get From Dictionary    ${node_data}    ${serial_number}
+        Run Keyword And Return If
+        ...    '${serial_number}' == '${line}'
+        ...    Get From Dictionary
+        ...    ${node_data}
+        ...    ${serial_number}
     END
-    [Return]    ${serial_number}
+    RETURN    ${serial_number}
 
 Find Device Description
     [Documentation]    Look for the device description
@@ -110,6 +124,10 @@ Find Device Description
     ${length}=    Get Length    ${device_keys}
     FOR    ${index}    IN RANGE    0    ${length}
         ${line}=    Get From List    ${device_keys}    ${index}
-        Run Keyword And Return If    '${description}' == '${line}'    Get From Dictionary    ${node_data}    ${description}
+        Run Keyword And Return If
+        ...    '${description}' == '${line}'
+        ...    Get From Dictionary
+        ...    ${node_data}
+        ...    ${description}
     END
-    [Return]    ${description}
+    RETURN    ${description}
