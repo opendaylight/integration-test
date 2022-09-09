@@ -1,6 +1,8 @@
 *** Settings ***
-Documentation     Library containing Keywords used for SXP filtering test checks
-Resource          ../SxpLib.robot
+Documentation       Library containing Keywords used for SXP filtering test checks
+
+Resource            ../SxpLib.robot
+
 
 *** Keywords ***
 Setup Nodes
@@ -119,7 +121,7 @@ Check One Group 2-5
     ...    permit ACL 10.10.0.0 0.0.255.0
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    @{list}    Create List    127.0.0.2    127.0.0.5
+    @{list} =    Create List    127.0.0.2    127.0.0.5
     FOR    ${node}    IN    @{list}
         ${resp} =    SxpLib.Get Bindings    ${node}
         BuiltIn.Log    ${resp}

@@ -1,77 +1,78 @@
 *** Settings ***
-Documentation     Robot keyword library (Resource) for supporting functional programming via "scalar closures".
+Documentation       Robot keyword library (Resource) for supporting functional programming via "scalar closures".
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Python has fist-class functions. It is possible to perform partial application
-...               and have the resulting anonymous function passed around as an object.
-...               Robot Framework has second class Keywords. Keyword has to be specified by its name,
-...               and ordering between positional and named arguments limit their usage.
+...                 Python has fist-class functions. It is possible to perform partial application
+...                 and have the resulting anonymous function passed around as an object.
+...                 Robot Framework has second class Keywords. Keyword has to be specified by its name,
+...                 and ordering between positional and named arguments limit their usage.
 ...
-...               There are several different ways how to overcame these limitations
-...               to offer something resembling functional programming in Robot.
-...               This library does everything via "scalar closures".
+...                 There are several different ways how to overcame these limitations
+...                 to offer something resembling functional programming in Robot.
+...                 This library does everything via "scalar closures".
 ...
-...               Closure is a function together with values for some seemingly free variables.
-...               This library encodes closure as a scalar value (that is in fact a list).
-...               Scalars cannot be run in Robot directly, so a method to run them as closure is provided.
-...               Instead of alowing arguments, methods to run with substituted values are used.
-...               For substitution to work, the original closure has to be defined with (placeholder) arguments.
-...               TODO: Look once again for a way to remove this limitation.
+...                 Closure is a function together with values for some seemingly free variables.
+...                 This library encodes closure as a scalar value (that is in fact a list).
+...                 Scalars cannot be run in Robot directly, so a method to run them as closure is provided.
+...                 Instead of alowing arguments, methods to run with substituted values are used.
+...                 For substitution to work, the original closure has to be defined with (placeholder) arguments.
+...                 TODO: Look once again for a way to remove this limitation.
 ...
-...               For Keywords of this library to be easily wrappable (and runable with substitution),
-...               their arguments are usually positional.
-...               TODO: Look once again if adding/substituting named arguments is doable.
+...                 For Keywords of this library to be easily wrappable (and runable with substitution),
+...                 their arguments are usually positional.
+...                 TODO: Look once again if adding/substituting named arguments is doable.
 ...
-...               Current limitation: Keywords inside closures may detect there were given @{args} list, even if it is empty.
+...                 Current limitation: Keywords inside closures may detect there were given @{args} list, even if it is empty.
 ...
-...               There are convenience closures defined, but SC_Setup has to be called to make them available.
-Library           Collections
+...                 There are convenience closures defined, but SC_Setup has to be called to make them available.
+
+Library             Collections
+
 
 *** Keywords ***
 Closure_From_Keyword_And_Arguments
-    [Arguments]    ${keyword}    @{args}    &{kwargs}
     [Documentation]    Turn keyword with given arguments into a scalar closure.
     ...
     ...    Implemented as triple of keyword name, args as scalar and kwargs as scalar.
-    [Return]    ${keyword}    ${args}    ${kwargs}
+    [Arguments]    ${keyword}    @{args}    &{kwargs}
+    RETURN    ${keyword}    ${args}    ${kwargs}
 
 Run_Closure_As_Is
-    [Arguments]    ${closure}
     [Documentation]    Run the keyword from closure without affecting arguments.
+    [Arguments]    ${closure}
     ${keyword}    ${args}    ${kwargs} =    BuiltIn.Set_Variable    ${closure}
     ${result} =    BuiltIn.Run_Keyword    ${keyword}    @{args}    &{kwargs}
-    [Return]    ${result}
+    RETURN    ${result}
 
 Run_Closure_After_Replacing_First_Argument
-    [Arguments]    ${closure}    ${argument}
     [Documentation]    Run the keyword from closure with replaced first positional argument.
     ...
     ...    Note, this will currently fail if the closure was created with less than 1 positional argument.
+    [Arguments]    ${closure}    ${argument}
     ${keyword}    ${args}    ${kwargs} =    BuiltIn.Set_Variable    ${closure}
     Collections.Set_List_Value    ${args}    0    ${argument}
     # TODO: Catch failure and use Collections.Append_To_List to overcome current limitation.
     ${result} =    BuiltIn.Run_Keyword    ${keyword}    @{args}    &{kwargs}
-    [Return]    ${result}
+    RETURN    ${result}
 
 Run_Closure_After_Replacing_First_Two_Arguments
-    [Arguments]    ${closure}    ${arg1}    ${arg2}
     [Documentation]    Run the keyword from closure with replaced first two positional arguments.
     ...
     ...    Note, this will currently fail if the closure was created with less than 2 positional arguments.
+    [Arguments]    ${closure}    ${arg1}    ${arg2}
     ${keyword}    ${args}    ${kwargs} =    BuiltIn.Set_Variable    ${closure}
     Collections.Set_List_Value    ${args}    0    ${arg1}
     Collections.Set_List_Value    ${args}    1    ${arg2}
     ${result} =    BuiltIn.Run_Keyword    ${keyword}    @{args}    &{kwargs}
-    [Return]    ${result}
+    RETURN    ${result}
 
 Run_Keyword_And_Collect_Garbage
-    [Arguments]    ${keyword_to_gc}=BuiltIn.Fail    @{args}    &{kwargs}
     [Documentation]    Runs Keyword, but performs garbage collection before pass/fail.
     ...
     ...    TODO: Move to more appropriate Resource.
@@ -95,21 +96,23 @@ Run_Keyword_And_Collect_Garbage
     ...    "sudden death syndrome" (OOM killer invocation) of the Robot process
     ...    before Python decides to collect the multi-megabyte pieces of the
     ...    garbage on its own.
+    [Arguments]    ${keyword_to_gc}=BuiltIn.Fail    @{args}    &{kwargs}
     # Execute Keyword but postpone failing.
-    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    ${keyword_to_gc}    @{args}    &{kwargs}
+    ${status}    ${message} =    BuiltIn.Run Keyword And Ignore Error    ${keyword_to_gc}    @{args}    &{kwargs}
     # Collect garbage.
     BuiltIn.Evaluate    gc.collect()    modules=gc
     # Resume possible failure state
     Propagate_Fail    status=${status}    message=${message}
+    RETURN    ${message}
+
     # So we have passed, return value.
-    [Return]    ${message}
 
 Propagate_Fail
-    [Arguments]    ${status}=PASS    ${message}=Message unknown.
     [Documentation]    If ${status} is PASS do nothing. Otherwise Fail with ${message}.
     ...
     ...    TODO: Move to more appropriate Resource.
-    BuiltIn.Return_From_Keyword_If    '''${status}''' == '''PASS'''
+    [Arguments]    ${status}=PASS    ${message}=Message unknown.
+    IF    '''${status}''' == '''PASS'''    RETURN
     BuiltIn.Fail    ${message}
 
 SC_Setup

@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Library for the tools system nodes.
-Library           Collections
-Library           SSHLibrary
-Resource          Utils.robot
-Resource          ../variables/Variables.robot
+Documentation       Library for the tools system nodes.
+
+Library             Collections
+Library             SSHLibrary
+Resource            Utils.robot
+Resource            ../variables/Variables.robot
+
 
 *** Variables ***
-@{TOOLS_SYSTEM_ALL_IPS}    @{EMPTY}
+@{TOOLS_SYSTEM_ALL_IPS}         @{EMPTY}
 @{TOOLS_SYSTEM_ALL_CONN_IDS}    @{EMPTY}
+
 
 *** Keywords ***
 Get Tools System Nodes Data
@@ -19,8 +22,8 @@ Get Tools System Nodes Data
     END
 
 Run Command On All Tools Systems
-    [Arguments]    ${cmd}
     [Documentation]    Run command on all tools systems
+    [Arguments]    ${cmd}
     FOR    ${ip}    IN    @{TOOLS_SYSTEM_ALL_IPS}
         Utils.Run Command On Remote System    ${ip}    ${cmd}
     END
