@@ -1,38 +1,43 @@
 *** Settings ***
-Documentation     Functional test for bgp flowspec.
+Documentation       Functional test for bgp flowspec.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
-Suite Setup       Start_Suite
-Suite Teardown    Stop_Suite
-Library           RequestsLibrary
-Library           SSHLibrary
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/ExaBgpLib.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../variables/Variables.robot
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/ExaBgpLib.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Start_Suite
+Suite Teardown      Stop_Suite
+
 
 *** Variables ***
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpflowspec/
-${CMD}            env exabgp.tcp.port=1790 exabgp --debug
-${HOLDTIME}       180
-${OLD_AS_PATH}    \n"as-path": {},
-${NEW_AS_PATH}    ${EMPTY}
-${EXP0}           {"bgp-flowspec:flowspec-routes": {}}
-${CFG1}           bgp-flowspec.cfg
-${EXP1}           bgp_flowspec
-${CFG2}           bgp-flowspec-redirect.cfg
-${EXP2}           bgp_flowspec_redirect
-${FLOWSPEC_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes
-${CONFIG_SESSION}    session
-${DEVICE_NAME}    controller-config
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${BGP_VARIABLES_FOLDER}     ${CURDIR}/../../../variables/bgpflowspec/
+${CMD}                      env exabgp.tcp.port=1790 exabgp --debug
+${HOLDTIME}                 180
+${OLD_AS_PATH}              \n"as-path": {},
+${NEW_AS_PATH}              ${EMPTY}
+${EXP0}                     {"bgp-flowspec:flowspec-routes": {}}
+${CFG1}                     bgp-flowspec.cfg
+${EXP1}                     bgp_flowspec
+${CFG2}                     bgp-flowspec-redirect.cfg
+${EXP2}                     bgp_flowspec_redirect
+${FLOWSPEC_URL}
+...                         /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes
+${CONFIG_SESSION}           session
+${DEVICE_NAME}              controller-config
+${RIB_INSTANCE}             example-bgp-rib
+${PROTOCOL_OPENCONFIG}      ${RIB_INSTANCE}
 @{EMPTY_LIST}
+
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -42,9 +47,17 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    HOLDTIME=${HOLDTIME}
+    ...    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     ...    PASSIVE_MODE=true
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
 
 FlowSpec_Test_1
     [Documentation]    Testing flowspec values for ${CFG1}
@@ -61,7 +74,11 @@ FlowSpec_Test_2
 Deconfigure_ODL_To_Accept_Connection
     [Documentation]    Deconfigure BGP peer.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated
+    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
+
 
 *** Keywords ***
 Start_Suite
@@ -73,7 +90,7 @@ Start_Suite
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files    ${BGP_VARIABLES_FOLDER}
-    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    ${AS_PATH}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
     BuiltIn.Set_Suite_Variable    ${AS_PATH}
 
 Stop_Suite
@@ -82,21 +99,25 @@ Stop_Suite
     RequestsLibrary.Delete_All_Sessions
 
 Upload_Config_Files
-    [Arguments]    ${dir_name}
     [Documentation]    Uploads exabgp config files
+    [Arguments]    ${dir_name}
     SSHLibrary.Put_Directory    ${BGP_VARIABLES_FOLDER}    .
-    @{cfgfiles} =    SSHLibrary.List_Files_In_Directory    .    *.cfg
+    @{cfgfiles}    SSHLibrary.List_Files_In_Directory    .    *.cfg
     FOR    ${cfgfile}    IN    @{cfgfiles}
         SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
         SSHLibrary.Execute_Command    sed -i -e 's/ODLIP/${ODL_SYSTEM_IP}/g' ${cfgfile}
-        ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+        ${stdout}    SSHLibrary.Execute_Command    cat ${cfgfile}
         Log    ${stdout}
     END
 
 Setup_Testcase
     [Arguments]    ${cfg_file}
     Verify_Empty_Flowspec_Data
-    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected
+    ...    ${cfg_file}
+    ...    ${CONFIG_SESSION}
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    connection_retries=${3}
 
 Verify_Empty_Flowspec_Data
     [Documentation]    Verify expected response.
@@ -104,16 +125,26 @@ Verify_Empty_Flowspec_Data
     CompareStream.Run_Keyword_If_At_Least_Neon    Verify_Empty_Flowspec_Data_Neon
 
 Verify_Flowspec_Data
-    [Arguments]    ${exprspdir}
     [Documentation]    Verify expected response
+    [Arguments]    ${exprspdir}
     &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
-    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}${exprspdir}    session=${CONFIG_SESSION}    mapping=${mapping}    verify=True
+    TemplatedRequests.Get_As_Json_Templated
+    ...    ${BGP_VARIABLES_FOLDER}${/}${exprspdir}
+    ...    session=${CONFIG_SESSION}
+    ...    mapping=${mapping}
+    ...    verify=True
 
 Normalize_And_Compare
     [Documentation]    Verify empty flowspec data
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${FLOWSPEC_URL}
-    TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare    ${EXP0}    ${rsp.content}    keys_with_bits=${EMPTY_LIST}
+    ${rsp}    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${FLOWSPEC_URL}
+    TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare
+    ...    ${EXP0}
+    ...    ${rsp.content}
+    ...    keys_with_bits=${EMPTY_LIST}
 
 Verify_Empty_Flowspec_Data_Neon
     [Documentation]    Verify empty flowspec data on neon
-    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}empty_route    session=${CONFIG_SESSION}    verify=True
+    TemplatedRequests.Get_As_Json_Templated
+    ...    ${BGP_VARIABLES_FOLDER}${/}empty_route
+    ...    session=${CONFIG_SESSION}
+    ...    verify=True
