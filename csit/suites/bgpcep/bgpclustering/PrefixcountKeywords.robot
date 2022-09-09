@@ -1,57 +1,70 @@
 *** Settings ***
-Documentation     BGP performance of ingesting from 1 iBGP peer, data change counter is NOT used.
+Documentation       BGP performance of ingesting from 1 iBGP peer, data change counter is NOT used.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               For propper usage of this resource ${config_session} varaible has to be set.
-...               It should point to http://<ip-addr>:${RESTCONFPORT}.
-Library           SSHLibrary    timeout=10s
-Library           RequestsLibrary
-Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/ClusterAdmin.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/FailFast.robot
-Resource          ../../../libraries/KillPythonTool.robot
-Resource          ../../../libraries/PrefixCounting.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/ShardStability.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../variables/Variables.robot
+...                 For propper usage of this resource ${config_session} varaible has to be set.
+...                 It should point to http://<ip-addr>:${RESTCONFPORT}.
+
+Library             SSHLibrary    timeout=10s
+Library             RequestsLibrary
+Resource            ../../../libraries/BGPcliKeywords.robot
+Resource            ../../../libraries/BGPSpeaker.robot
+Resource            ../../../libraries/ClusterAdmin.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/FailFast.robot
+Resource            ../../../libraries/KillPythonTool.robot
+Resource            ../../../libraries/PrefixCounting.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/ShardStability.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../variables/Variables.robot
+
 
 *** Variables ***
-${BGP_TOOL_LOG_LEVEL}    info
-${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf    # used for configuration of bgp peer via openconfig
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer    # used for configuration of bgp peer
-${BGP_VARIABLES_FOLDER_OP}    ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer_operational
-${CHECK_PERIOD}    10
-${HOLDTIME}       180
-${INSERT}         1
-${KARAF_LOG_LEVEL}    INFO
-${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
-${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
-${PREFILL}        0
-${REPETITIONS}    1
-${RESULTS_FILE_NAME}    bgp.csv
-${TEST_DURATION_MULTIPLIER}    1
-${UPDATE}         single
-${WITHDRAW}       0
-${INITIAL_RESTCONF_TIMEOUT}    30s
-${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
-${SHARD_DEFAULT_CONFIG}    shard-default-config
+${BGP_TOOL_LOG_LEVEL}           info
+# used for configuration of bgp peer via openconfig
+${BGP_PEER_FOLDER}
+...                             ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
+# used for configuration of bgp peer
+${BGP_VARIABLES_FOLDER}
+...                             ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer
+${BGP_VARIABLES_FOLDER_OP}      ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}/bgp_peer_operational
+${CHECK_PERIOD}                 10
+${HOLDTIME}                     180
+${INSERT}                       1
+${KARAF_LOG_LEVEL}              INFO
+${KARAF_BGPCEP_LOG_LEVEL}       ${KARAF_LOG_LEVEL}
+${KARAF_PROTOCOL_LOG_LEVEL}     ${KARAF_BGPCEP_LOG_LEVEL}
+${PREFILL}                      0
+${REPETITIONS}                  1
+${RESULTS_FILE_NAME}            bgp.csv
+${TEST_DURATION_MULTIPLIER}     1
+${UPDATE}                       single
+${WITHDRAW}                     0
+${INITIAL_RESTCONF_TIMEOUT}     30s
+${KARAF_HOME}                   ${WORKSPACE}/${BUNDLEFOLDER}
+${SHARD_DEFAULT_CONFIG}         shard-default-config
 ${SHARD_DEFAULT_OPERATIONAL}    shard-default-operational
-${EXAMPLE_IPV4_TOPOLOGY}    example-ipv4-topology
-${DEVICE_NAME}    peer-controller-config
-${DEVICE_CHECK_TIMEOUT}    60s
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${BGP_PEER_NAME}    example-bgp-peer
-@{SHARD_MONITOR_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
+${EXAMPLE_IPV4_TOPOLOGY}        example-ipv4-topology
+${DEVICE_NAME}                  peer-controller-config
+${DEVICE_CHECK_TIMEOUT}         60s
+${RIB_INSTANCE}                 example-bgp-rib
+${PROTOCOL_OPENCONFIG}          ${RIB_INSTANCE}
+${BGP_PEER_NAME}                example-bgp-peer
+@{SHARD_MONITOR_LIST}
+...                             default:config
+...                             default:operational
+...                             topology:config
+...                             topology:operational
+...                             inventory:config
+...                             inventory:operational
+
 
 *** Keywords ***
 Setup_Everything
@@ -92,40 +105,52 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Start_Bgp_Peer
-    [Arguments]    ${peerip}=${rib_owner_node_id}
     [Documentation]    Starts bgp peer and verifies that the peer runs.
+    [Arguments]    ${peerip}=${rib_owner_node_id}
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${peerip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker
+    ...    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${peerip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Start_Bgp_Peer_And_Verify_Connected
-    [Arguments]    ${connection_retries}=${1}    ${peerip}=${rib_owner_node_id}
     [Documentation]    Starts the peer and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
+    [Arguments]    ${connection_retries}=${1}    ${peerip}=${rib_owner_node_id}
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     FOR    ${idx}    IN RANGE    ${connection_retries}
         Start_Bgp_Peer    peerip=${peerip}
-        ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
-        ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
-        BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BGPSpeaker.Kill_BGP_Speaker
-        BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
+        ${status}    ${value} =    BuiltIn.Run_Keyword_And_Ignore_Error
+        ...    BuiltIn.Wait_Until_Keyword_Succeeds
+        ...    3x
+        ...    3s
+        ...    Verify_Bgp_Peer_Connection
+        ...    ${config_session}
+        ...    ${TOOLS_SYSTEM_IP}
+        ...    connected=${True}
+        IF    "${status}" != "PASS"    BGPSpeaker.Kill_BGP_Speaker
+        IF    "${status}" == "PASS"    RETURN
     END
     BuiltIn.Fail    Unable to connect bgp peer to ODL
 
 Verify_Bgp_Peer_Connection
-    [Arguments]    ${session}    ${peer_ip}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
+    [Arguments]    ${session}    ${peer_ip}    ${connected}=${True}
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
-    ${peer_check_url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${peer_ip}?content=nonconfig
+    ${peer_check_url} =    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
+    ${exp_status_code} =    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
+    ${rsp} =    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${peer_ip}?content=nonconfig
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 
 Set_Shard_Leaders_Location_And_Verify
-    [Arguments]    ${requested_shard_localtion_idx}
     [Documentation]    Move default/topology config/operational shard location to local or remote node as requested
     ...    towards the given rib singleton instance location.
+    [Arguments]    ${requested_shard_localtion_idx}
     ShardStability.Set_Shard_Location    ${requested_shard_localtion_idx}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ShardStability.Verify_Shard_Leader_Located_As_Expected    ${requested_shard_localtion_idx}    http_timeout=125
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    30s
+    ...    5s
+    ...    ShardStability.Verify_Shard_Leader_Located_As_Expected
+    ...    ${requested_shard_localtion_idx}
+    ...    http_timeout=125
     ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
     BuiltIn.Set_Suite_Variable    ${init_shard_details}

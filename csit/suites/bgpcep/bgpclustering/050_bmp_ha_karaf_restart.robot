@@ -1,42 +1,51 @@
 *** Settings ***
-Documentation     BMP functional HA testing with BMP mock.
+Documentation       BMP functional HA testing with BMP mock.
 ...
-...               Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+...                 Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               This suite uses BMP mock. It is configured to have 3 peers (all 3 nodes of odl).
-...               BMP implemented with singleton accepts only one incomming conection. BMP mock
-...               logs will show that one peer will be connected and two will fail.
-...               After killing karaf which owned connection new owner should be elected and
-...               this new owner should accept incomming BMP connection.
-...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Library           SSHLibrary    timeout=10s
-Library           Collections
-Library           OperatingSystem
-Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/BgpOperations.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/NexusKeywords.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../variables/Variables.robot
+...                 This suite uses BMP mock. It is configured to have 3 peers (all 3 nodes of odl).
+...                 BMP implemented with singleton accepts only one incomming conection. BMP mock
+...                 logs will show that one peer will be connected and two will fail.
+...                 After killing karaf which owned connection new owner should be elected and
+...                 this new owner should accept incomming BMP connection.
+...                 TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
+
+Library             SSHLibrary    timeout=10s
+Library             Collections
+Library             OperatingSystem
+Resource            ../../../libraries/BGPcliKeywords.robot
+Resource            ../../../libraries/BgpOperations.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/NexusKeywords.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 *** Variables ***
-${HOLDTIME}       180
-${BMP_LOG_FILE}    bmpmock.restart.log
-${CONFIG_SESSION}    session
+${HOLDTIME}             180
+${BMP_LOG_FILE}         bmpmock.restart.log
+${CONFIG_SESSION}       session
+
 
 *** Test Cases ***
 Get_Example_Bm_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection.
-    ${bm_owner}    ${bm_candidates}=    Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    bmp-monitors
-    ...    Bgpcep    1
+    ${bm_owner}    ${bm_candidates}=    Wait_Until_Keyword_Succeeds
+    ...    5x
+    ...    2s
+    ...    ClusterManagement.Get_Owner_And_Successors_For_Device
+    ...    bmp-monitors
+    ...    Bgpcep
+    ...    1
     BuiltIn.Set Suite variable    ${bm_owner}
     BuiltIn.Log    ${bm_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${bm_owner}_IP}
@@ -62,7 +71,12 @@ Kill_Current_Owner_Member
 
 Verify_New_Bm_Owner
     [Documentation]    Verifies if new owner of bmp-monitor is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Verify_New_Bm_Owner_Elected    ${old_bm_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    10x
+    ...    5s
+    ...    Verify_New_Bm_Owner_Elected
+    ...    ${old_bm_owner}
+    ...    ${living_node}
 
 Verify_Data_Reported_2
     [Documentation]    Verifies if example-bmp-monitor reported expected data
@@ -74,7 +88,12 @@ Start_Old_Owner_Member
 
 Verify_New_Candidate
     [Documentation]    Verifies started node become candidate for bmp-monitor
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Verify_New_Bm_Candidate_Present    ${old_bm_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    10x
+    ...    5s
+    ...    Verify_New_Bm_Candidate_Present
+    ...    ${old_bm_owner}
+    ...    ${living_node}
 
 Verify_Data_Reported_3
     [Documentation]    Verifies if example-bmp-monitor reported expected data
@@ -83,6 +102,7 @@ Verify_Data_Reported_3
 Stop_Bmp_Mock
     [Documentation]    Send ctrl+c to bmp-mock to stop it
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+
 
 *** Keywords ***
 Setup_Everything
@@ -104,19 +124,26 @@ Teardown_Everything
 
 Start_Bmp_Mock
     [Documentation]    Starts bmp mock
-    ${command}=    BuiltIn.Set_Variable    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_1_IP}:12345,${ODL_SYSTEM_2_IP}:12345,${ODL_SYSTEM_3_IP}:12345 --routers_count 1 --peers_count 1 --log_level INFO 2>&1 | tee ${BMP_LOG_FILE}
+    ${command}=    BuiltIn.Set_Variable
+    ...    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_1_IP}:12345,${ODL_SYSTEM_2_IP}:12345,${ODL_SYSTEM_3_IP}:12345 --routers_count 1 --peers_count 1 --log_level INFO 2>&1 | tee ${BMP_LOG_FILE}
     BGPcliKeywords.Start_Java_Tool_And_Verify_Connection    ${command}    successfully established.
 
 Verify_New_Bm_Owner_Elected
-    [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    bmp-monitors    Bgpcep    ${node_to_ask}
+    [Arguments]    ${old_owner}    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device
+    ...    bmp-monitors
+    ...    Bgpcep
+    ...    ${node_to_ask}
     BuiltIn.Log    ${owner}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Bm_Candidate_Present
-    [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    bmp-monitors    Bgpcep    ${node_to_ask}
+    [Arguments]    ${candidate}    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device
+    ...    bmp-monitors
+    ...    Bgpcep
+    ...    ${node_to_ask}
     BuiltIn.Log    ${owner}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
