@@ -1,8 +1,8 @@
 *** Settings ***
-Documentation     Test suite for Longevity test of cluster datastore
-Library           ../../../../libraries/CrudLibrary.py
+Documentation       Test suite for Longevity test of cluster datastore
 
-*** Variables ***
+Library             ../../../../libraries/CrudLibrary.py
+
 
 *** Test Cases ***
 Run Tests in Loop for Specified Time
