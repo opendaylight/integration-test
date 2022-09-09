@@ -1,22 +1,26 @@
 *** Settings ***
-Documentation     Test suite for NETCONF client
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           OperatingSystem
-Library           String
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for NETCONF client
+
+Library             Collections
+Library             OperatingSystem
+Library             String
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${NETOPEER}       ${TOOLS_SYSTEM_IP}
-${NETOPEER_USER}    ${TOOLS_SYSTEM_USER}
-${FILE}           ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}    /restconf/config/network-topology:network-topology/topology/topology-netconf
-${REST_CONT_OPER}    /restconf/operational/network-topology:network-topology/topology/topology-netconf
-${REST_NTPR_CONF}    node/controller-config/yang-ext:mount/config:modules
-${REST_NTPR_MOUNT}    node/netopeer/yang-ext:mount/
+${NETOPEER}             ${TOOLS_SYSTEM_IP}
+${NETOPEER_USER}        ${TOOLS_SYSTEM_USER}
+${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
+${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
+${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
+${REST_NTPR_CONF}       node/controller-config/yang-ext:mount/config:modules
+${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
+
 
 *** Test Cases ***
 Add NetConf device
@@ -52,6 +56,7 @@ Verify Device Operational data
     Should Contain    ${resp.content}    schema
     Should Contain    ${resp.content}    statistics
     Should Contain    ${resp.content}    datastores
+
 
 *** Keywords ***
 Get Inventory
