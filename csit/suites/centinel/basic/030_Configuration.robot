@@ -1,14 +1,17 @@
 *** Settings ***
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           OperatingSystem
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Library             RequestsLibrary
+Library             OperatingSystem
+Resource            ../../../libraries/KarafKeywords.robot
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
 ${SET_CONFIGURATION}    ${CURDIR}/../../../variables/centinel/set_configuration.json
+
 
 *** Test Cases ***
 Set Configurations
