@@ -1,18 +1,21 @@
 *** Settings ***
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           Collections
-Library           json
-Library           String
-Library           OperatingSystem
-Variables         ../../../variables/Variables.py
+Library             RequestsLibrary
+Library             Collections
+Library             json
+Library             String
+Library             OperatingSystem
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${SET_STREAMRECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_streamRecord.json
-${SET_ALERTFIELDCONTENTRULERECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_alertFieldContentRuleRecord.json
-${SET_ALERTFIELDVALUERULERECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_alertFieldValueRuleRecord.json
-${SET_ALERTMESSAGECOUNTRULERECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_alertMessageCountRuleRecord.json
+${SET_STREAMRECORD_JSON}                    ${CURDIR}/../../../variables/centinel/set_streamRecord.json
+${SET_ALERTFIELDCONTENTRULERECORD_JSON}     ${CURDIR}/../../../variables/centinel/set_alertFieldContentRuleRecord.json
+${SET_ALERTFIELDVALUERULERECORD_JSON}       ${CURDIR}/../../../variables/centinel/set_alertFieldValueRuleRecord.json
+${SET_ALERTMESSAGECOUNTRULERECORD_JSON}     ${CURDIR}/../../../variables/centinel/set_alertMessageCountRuleRecord.json
+
 
 *** Test Cases ***
 Set StreamRecord
