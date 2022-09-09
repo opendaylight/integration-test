@@ -1,28 +1,33 @@
 *** Settings ***
-Documentation     DOMRpcBroker testing: RPC Action Provider Partition And Heal
+Documentation       DOMRpcBroker testing: RPC Action Provider Partition And Heal
 ...
-...               Copyright (c) 2017 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               This tests establishes that the RPC service for actions operates correctly
-...               when faced with node failures.
-...               This suite supports more than three node cluster setup too.
-Suite Setup       Setup_Kw
-Suite Teardown    SSHLibrary.Close_All_Connections
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Default Tags      critical
-Library           SSHLibrary
-Resource          ${CURDIR}/../../../libraries/controller/DrbCommons.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+...                 This tests establishes that the RPC service for actions operates correctly
+...                 when faced with node failures.
+...                 This suite supports more than three node cluster setup too.
+
+Library             SSHLibrary
+Resource            ${CURDIR}/../../../libraries/controller/DrbCommons.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/WaitForFailure.robot
+
+Suite Setup         Setup_Kw
+Suite Teardown      SSHLibrary.Close_All_Connections
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+Default Tags        critical
+
 
 *** Variables ***
-@{INSTALLED_RPC_MEMEBER_IDX_LIST}    ${1}    ${2}
-${TESTED_MEMBER_WITHOUT_RPC_IDX}    ${3}
+@{INSTALLED_RPC_MEMEBER_IDX_LIST}       ${1}    ${2}
+${TESTED_MEMBER_WITHOUT_RPC_IDX}        ${3}
+
 
 *** Test Cases ***
 Register_Rpc_On_Two_Nodes
@@ -56,11 +61,15 @@ Invoke_Rpc_On_Each_Node_Again
     [Documentation]    Invoke rpc get-contexted-constant on every node. When requested on the node with
     ...    local instance the local value is expected. If invoked on the node with no local instance, any remote
     ...    value is expected.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    20s    3s    DrbCommons.Verify_Contexted_Constant_On_Active_Nodes
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout
+    ...    20s
+    ...    3s
+    ...    DrbCommons.Verify_Contexted_Constant_On_Active_Nodes
 
 Unregister_Rpc_On_Each_Node
     [Documentation]    Inregister rpc on both nodes.
     DrbCommons.Unregister_Action_On_Nodes    ${INSTALLED_RPC_MEMEBER_IDX_LIST}
+
 
 *** Keywords ***
 Setup_Kw
