@@ -1,16 +1,19 @@
 *** Settings ***
-Documentation     Test suite for B&R support library itself
-Suite Setup       Run Keywords    Init Suite    ClusterManagement Setup
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/BackupRestoreKeywords.robot
+Documentation       Test suite for B&R support library itself
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/BackupRestoreKeywords.robot
+
+Suite Setup         Run Keywords    Init Suite    ClusterManagement Setup
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
+
 
 *** Test Cases ***
 ConditionalBackupRestoreCheck keyword
@@ -30,12 +33,16 @@ BackupRestoreCheck keyword
     [Documentation]    Demostrates how the BackupRestoreCheck keyword can be used in order to create specific testcases performing backup-restore verification
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Run Keyword And Expect Error    *    BackupRestoreCheck    exclusionsOperationalBefore=../variables/backuprestore/json_prefilter.conf
+    Run Keyword And Expect Error
+    ...    *
+    ...    BackupRestoreCheck
+    ...    exclusionsOperationalBefore=../variables/backuprestore/json_prefilter.conf
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
+
 
 *** Keywords ***
 Init Suite
@@ -44,7 +51,11 @@ Init Suite
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
-    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
-    Set Suite Variable    ${SF_DPI102100_URI}    /restconf/config/service-function:service-functions/service-function/dpi-102-100/
+    Set Suite Variable
+    ...    ${SERVICE_FUNCTIONS_FILE}
+    ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    Set Suite Variable
+    ...    ${SF_DPI102100_URI}
+    ...    /restconf/config/service-function:service-functions/service-function/dpi-102-100/
     Set Suite Variable    ${SF_DPI102100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sf_dpi_102_100.json
     Set Suite Variable    ${SF_DPL101_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sf_dpl_101.json
