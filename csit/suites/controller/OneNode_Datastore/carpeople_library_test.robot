@@ -1,25 +1,29 @@
 *** Settings ***
-Documentation     Basic library verification suite, handling cars/people in 1-node setup.
+Documentation       Basic library verification suite, handling cars/people in 1-node setup.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               This is a lightweight and stripped-down functional analogue of performance suite.
-...               Intention is to use this as a verify suite for changes in TemplatedRequests resource.
-Suite Setup       Start_Suite
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+...                 This is a lightweight and stripped-down functional analogue of performance suite.
+...                 Intention is to use this as a verify suite for changes in TemplatedRequests resource.
+
+Variables           ${CURDIR}/../../../variables/Variables.py
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Start_Suite
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 *** Variables ***
-${VAR_BASE}       ${CURDIR}/../../../variables/carpeople/libtest
-${BULK_SIZE}      2
-${TIMEOUT_BUG_4220}    60s
+${VAR_BASE}             ${CURDIR}/../../../variables/carpeople/libtest
+${BULK_SIZE}            2
+${TIMEOUT_BUG_4220}     60s
+
 
 *** Test Cases ***
 Wait_For_Rpcs
@@ -83,6 +87,7 @@ Delete_People
     TemplatedRequests.Delete_Templated    folder=${VAR_BASE}/people
     # TODO: Add specific error check on Get attempt.
 
+
 *** Keywords ***
 Start_Suite
     [Documentation]    Suite setup keyword
@@ -92,6 +97,9 @@ Start_Suite
 Check_Rpc_Readiness
     [Documentation]    Issue invalid RPC requests and assert appropriate http status code
     # So far only buy-car is checked, but other RPCs such as add-car may be added later.
-    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Post_As_Json_To_Uri    uri=restconf/operations/car-purchase:buy-car    data={"input":{}}
+    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error
+    ...    TemplatedRequests.Post_As_Json_To_Uri
+    ...    uri=restconf/operations/car-purchase:buy-car
+    ...    data={"input":{}}
     # TODO: Create template directory for this?
     BuiltIn.Should_Not_Contain    ${message}    '50
