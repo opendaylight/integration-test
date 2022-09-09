@@ -1,29 +1,33 @@
 *** Settings ***
-Documentation     Test suite: Authentication Support for Keystone
+Documentation       Test suite: Authentication Support for Keystone
 ...
-...               This feature implements the user management for ODL NBI REST APIs integrated with OpenStack, so that
-...               the authentication functionality provided by Keystone can be used. This allows consuming ODL NBI REST
-...               APIs using the same authentication procedures as any OpenStack project, such as Nova, Neutron, etc.
-...               bringing the benefits of a centralized / unified user management framework.
+...                 This feature implements the user management for ODL NBI REST APIs integrated with OpenStack, so that
+...                 the authentication functionality provided by Keystone can be used. This allows consuming ODL NBI REST
+...                 APIs using the same authentication procedures as any OpenStack project, such as Nova, Neutron, etc.
+...                 bringing the benefits of a centralized / unified user management framework.
 ...
-...               As a first step, It shall be possible to authenticate users against Keystone by using passwords
-...               provided by the users.
-Suite Setup       Init Suite
-Suite Teardown    Cleanup Suite
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/AAA/DockerKeystone.robot
+...                 As a first step, It shall be possible to authenticate users against Keystone by using passwords
+...                 provided by the users.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/AAA/DockerKeystone.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Cleanup Suite
+
 
 *** Variables ***
-${URI_CERTIFICATE}    /restconf/operations/aaa-cert-rpc:getODLCertificate
-${URI_RESTCONF}    /restconf/operational/ietf-restconf-monitoring:restconf-state
+${URI_CERTIFICATE}      /restconf/operations/aaa-cert-rpc:getODLCertificate
+${URI_RESTCONF}         /restconf/operational/ietf-restconf-monitoring:restconf-state
+
 
 *** Test Cases ***
 Successful Authentication Including Domain
@@ -39,10 +43,14 @@ Successful Authentication Including Domain
     ...    - URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "sdnadmin" has "admin" role in keystone the access is authorized too
     ...
     ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_SDN_DOMAIN}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Successful Authentication Without Domain
@@ -59,9 +67,9 @@ Successful Authentication Without Domain
     ...
     ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong User
@@ -76,9 +84,9 @@ Unsuccessful Authentication Wrong User
     ...
     ...    Due to authentication fails, authorization is not evaluated
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_INVALID}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 UnSuccessful Authentication Without Domain
@@ -94,9 +102,9 @@ UnSuccessful Authentication Without Domain
     ...
     ...    Due to authentication fails, authorization is not evaluated
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong Domain
@@ -112,10 +120,14 @@ Unsuccessful Authentication Wrong Domain
     ...    Note:
     ...
     ...    Due to authentication fails, authorization is not evaluated
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_WRONG_DOM}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_SDN_WRONG_DOM}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Basic Authorization
@@ -129,10 +141,14 @@ Unsuccessful Basic Authorization
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized becaiuse that URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to all URLs is allowed to all user with "user" role
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp_ok}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_CSC_NO_ADMIN}
+    ...    headers=${HEADERS}
+    ${resp_ok}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp_ok.status_code}
-    ${resp_nook}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
 
 Unsuccessful Dynamic Authorization
@@ -146,10 +162,14 @@ Unsuccessful Dynamic Authorization
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is NOT authorized because although the URL is not specified in shiro.ini, in MDSAL Dynamic Authorization access to all URLs is allowed just for users with "admin" role and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-2.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp_nook}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_CSC_NO_ADMIN}
+    ...    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
-    ${resp_nook}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
 
 Unsuccessful Dynamic Authorization 2
@@ -171,15 +191,23 @@ Unsuccessful Dynamic Authorization 2
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized because the URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "CSC_user_no_admin" does \ have \ "user" role in keystone
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-3.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_SDN_DOMAIN}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_CSC_NO_ADMIN}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful No Keystone Connection
@@ -190,16 +218,25 @@ Unsuccessful No Keystone Connection
     ...    - Put down Keystone
     ...    - All accesses are forbidden
     Cleanup Suite
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_SDN_DOMAIN}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
-    ${resp}=    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH_CSC_NO_ADMIN}
+    ...    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
+
 
 *** Keywords ***
 Init Suite
@@ -214,7 +251,11 @@ Init Suite
     ...    - Provision Keystone: Populate keystone database with the needed users and roles
     ...
     ...    - Install Keystone certificate into ODL so that the protocol used in the ODL-Keystone communication is HTTPS with server certificate authentication
-    ${TOOLS_SYSTEM_NAME}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    hostname -f    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    ${TOOLS_SYSTEM_NAME}    Run Command On Remote System
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    hostname -f
+    ...    user=${TOOLS_SYSTEM_USER}
+    ...    password=${TOOLS_SYSTEM_PASSWORD}
     Run Docker Keystone
     Configure AAA In Controller    ${TOOLS_SYSTEM_NAME}
     Set Suite Variable    ${PUT_KEYSTONE_CERT_FILE}    ${CURDIR}/../../../variables/aaa/put-keystone-cert.json
@@ -227,12 +268,13 @@ Init Suite
 Cleanup Suite
     [Documentation]    Destoy keystone container
     ${result}    Run Keyword And Return Status    Set Domain To False    ${domain}    ${HEADERS_TOKEN}
-    Run Keyword If    ${result} == True    Delete Keystone Domain    ${domain}    ${HEADERS_TOKEN}
-    Run Keyword If    ${result} == True    Destroy Docker Keystone
+    IF    ${result} == True
+        Delete Keystone Domain    ${domain}    ${HEADERS_TOKEN}
+    END
+    IF    ${result} == True    Destroy Docker Keystone
     SSHLibrary.Close All Connections
 
 Configure AAA In Controller
-    [Arguments]    ${TOOLS_SYSTEM_NAME}
     [Documentation]    With this keyword shiro.ini and aaa-cert-config.xml are modified to configure Keystone Authentication Realm using TLS1.2. Here you have the settings:
     ...
     ...    - shiro.ini:
@@ -250,20 +292,29 @@ Configure AAA In Controller
     ...    <use-config>true</use-config>
     ...
     ...    <tls-protocols>TLSv1.2</tls-protocols>
+    [Arguments]    ${TOOLS_SYSTEM_NAME}
     ${shiro_path}    Run Command On Controller    cmd=cd /;find /|grep shiro.ini|grep etc|grep -v denied
     ${cert_path}    Run Command On Controller    cmd=cd /;find /|grep aaa-cert-config.xml|grep etc|grep -v denied
-    ${result}    Run Command On Controller    cmd=sed -ie 's/#keystoneAuthRealm =.*/keystoneAuthRealm = org.opendaylight.aaa.shiro.realm.KeystoneAuthRealm/g' ${shiro_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/#keystoneAuthRealm.url =.*/keystoneAuthRealm.url = https:\\/\\/${TOOLS_SYSTEM_NAME}:35357/g' ${shiro_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/securityManager.realms =.*/securityManager.realms = $tokenAuthRealm, $keystoneAuthRealm/g' ${shiro_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/#keystoneAuthRealm.sslVerification =.*/keystoneAuthRealm.sslVerification = true/g' ${shiro_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/\\/operations\\/aaa-cert-rpc.*/\\/operations\\/aaa-cert-rpc** = authcBasic, roles[admin], dynamicAuthorization/g' ${shiro_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/<use-config>.*/<use-config>true<\\/use-config>/g' ${cert_path}
-    ${result}    Run Command On Controller    cmd=sed -ie 's/<tls-protocols.*/<tls-protocols>TLSv1.2<\\/tls-protocols>/g' ${cert_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/#keystoneAuthRealm =.*/keystoneAuthRealm = org.opendaylight.aaa.shiro.realm.KeystoneAuthRealm/g' ${shiro_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/#keystoneAuthRealm.url =.*/keystoneAuthRealm.url = https:\\/\\/${TOOLS_SYSTEM_NAME}:35357/g' ${shiro_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/securityManager.realms =.*/securityManager.realms = $tokenAuthRealm, $keystoneAuthRealm/g' ${shiro_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/#keystoneAuthRealm.sslVerification =.*/keystoneAuthRealm.sslVerification = true/g' ${shiro_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/\\/operations\\/aaa-cert-rpc.*/\\/operations\\/aaa-cert-rpc** = authcBasic, roles[admin], dynamicAuthorization/g' ${shiro_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/<use-config>.*/<use-config>true<\\/use-config>/g' ${cert_path}
+    ${result}    Run Command On Controller
+    ...    cmd=sed -ie 's/<tls-protocols.*/<tls-protocols>TLSv1.2<\\/tls-protocols>/g' ${cert_path}
     ${result}    Run Command On Controller    cmd=cat ${shiro_path}
     Log    ${result}
     ${result}    Run Command On Controller    cmd=cat ${cert_path}
     Log    ${result}
-    ${result}    Run Command On Controller    cmd=sudo sed -i "2i${TOOLS_SYSTEM_IP} \ \ ${TOOLS_SYSTEM_NAME}" /etc/hosts
+    ${result}    Run Command On Controller
+    ...    cmd=sudo sed -i "2i${TOOLS_SYSTEM_IP} \ \ ${TOOLS_SYSTEM_NAME}" /etc/hosts
     ${result}    Run Command On Controller    cmd=cat /etc/hosts
     Log    ${result}
 
@@ -284,8 +335,9 @@ Provision Keystone
     ${domain_local}    Create Keystone Domain    ${HEADERS_TOKEN}    ${CREATE_DOMAIN_FILE}
     Set Suite Variable    ${domain}    ${domain_local}
     Set Suite Variable    ${CREATE_USERS_FILE}    ${CURDIR}/../../../variables/aaa/create-user.json
-    ${normalized_file}=    OperatingSystem.Normalize Path    ${CREATE_USERS_FILE}
-    ${output}    OperatingSystem.Run    sed -i 's/\"domain_id\".*/\"domain_id\"\: \"${domain}\",/g' ${CREATE_USERS_FILE}
+    ${normalized_file}    OperatingSystem.Normalize Path    ${CREATE_USERS_FILE}
+    ${output}    OperatingSystem.Run
+    ...    sed -i 's/\"domain_id\".*/\"domain_id\"\: \"${domain}\",/g' ${CREATE_USERS_FILE}
     ${user}    Create Keystone User in a Domain    ${HEADERS_TOKEN}    ${CREATE_USERS_FILE}
     Grant Admin Role    ${domain}    ${user}    ${admin_role_id}    ${HEADERS_TOKEN}
 
@@ -294,7 +346,11 @@ Provision MDSAL
     Create Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_URI}    /restconf/config/aaa:http-authorization
     ${body_dyn}    OperatingSystem.Get File    ${PUT_DYNAMIC_AUTH_FILE}
-    ${resp}    RequestsLibrary.Put Request    session_admin    ${PUT_DYNAMIC_AUTH_URI}    data=${body_dyn}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Put Request
+    ...    session_admin
+    ...    ${PUT_DYNAMIC_AUTH_URI}
+    ...    data=${body_dyn}
+    ...    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Delete Request    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 
@@ -311,7 +367,7 @@ Restart Controller
 Get Controller Modules
     [Documentation]    Get the restconf modules, check 200 status and ietf-restconf presence
     Create Session    session1    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${resp} =    RequestsLibrary.Get_Request    session1    ${MODULES_API}
+    ${resp}    RequestsLibrary.Get_Request    session1    ${MODULES_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
