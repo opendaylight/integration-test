@@ -1,15 +1,18 @@
 *** Settings ***
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Library           OperatingSystem
-Library           requests
-Variables         ../../../variables/Variables.py
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Library             OperatingSystem
+Library             requests
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${SET_DASHBOARD_JSON}    ${CURDIR}/../../../variables/centinel/set_dashboard.json
+${SET_DASHBOARD_JSON}       ${CURDIR}/../../../variables/centinel/set_dashboard.json
+
 
 *** Test Cases ***
 Set DashboardRecord
