@@ -1,6 +1,8 @@
 *** Settings ***
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Resource          ../../../libraries/KarafKeywords.robot
+Resource        ../../../libraries/KarafKeywords.robot
+
+Suite Setup     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+
 
 *** Test Cases ***
 Centinel Feature Uninstallation
