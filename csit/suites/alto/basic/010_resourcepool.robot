@@ -1,12 +1,13 @@
 *** Settings ***
-Documentation     Test suite for resourcepool
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Variables         ../../../variables/alto/Variables.py
+Documentation       Test suite for resourcepool
 
-*** Variables ***
+Library             RequestsLibrary
+Variables           ../../../variables/Variables.py
+Variables           ../../../variables/alto/Variables.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Check the resource pool status
