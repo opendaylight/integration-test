@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Test suite for capwap discover functionality
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Library           Collections
-Library           ../../../libraries/CapwapLibrary.py
+Documentation       Test suite for capwap discover functionality
+
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/Utils.robot
+Library             Collections
+Library             ../../../libraries/CapwapLibrary.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
 ${DISC_WTP_REST}    /restconf/operational/capwap-impl:capwap-ac-root/
+
 
 *** Test Cases ***
 Get Discovered WTPs
@@ -22,6 +26,7 @@ Get Specific WTP
     [Documentation]    Get the details of specific WTP.
     send discover    ${ODL_SYSTEM_IP}
     Wait Until Keyword Succeeds    10s    5s    Run Test Get Specifc WTP
+
 
 *** Keywords ***
 Run Test Get Discovered WTP
@@ -42,7 +47,12 @@ Run Test Get Discovered WTP
 
 Run Test Get Specifc WTP
     ${expected_ip_addr}    get simulated wtpip    ${ODL_SYSTEM_IP}
-    ${DISC_SPECIFIC_WTP}    catenate    SEPARATOR=    ${DISC_WTP_REST}    discovered-wtps\/    ${expected_ip_addr}    \/
+    ${DISC_SPECIFIC_WTP}    catenate
+    ...    SEPARATOR=
+    ...    ${DISC_WTP_REST}
+    ...    discovered-wtps\/
+    ...    ${expected_ip_addr}
+    ...    \/
     Log    ${DISC_SPECIFIC_WTP}
     ${resp}    RequestsLibrary.Get Request    session    ${DISC_SPECIFIC_WTP}
     Log    ${resp.content}
