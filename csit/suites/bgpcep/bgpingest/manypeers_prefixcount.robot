@@ -1,94 +1,100 @@
 *** Settings ***
-Documentation     BGP performance of ingesting from many iBGP peers, data change counter NOT used.
+Documentation       BGP performance of ingesting from many iBGP peers, data change counter NOT used.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This suite uses play.py processes as iBGP peers.
-...               This is analogue of single peer performance suite, which uses many peers.
-...               Each peer is of ibgp type, and they contribute to the same example-bgp-rib,
-...               and thus to the same single example-ipv4-topology.
-...               The suite only looks at example-ipv4-topology, so RIB is not examined.
+...                 This suite uses play.py processes as iBGP peers.
+...                 This is analogue of single peer performance suite, which uses many peers.
+...                 Each peer is of ibgp type, and they contribute to the same example-bgp-rib,
+...                 and thus to the same single example-ipv4-topology.
+...                 The suite only looks at example-ipv4-topology, so RIB is not examined.
 ...
-...               The suite consists of two halves, differing on which side initiates BGP connection.
-...               State of "work is being done" is detected by increasing value of prefixes in topology.
-...               The time for Wait_For_Stable_* cases to finish is the main performance metric.
-...               After waiting for stability is done, full check on number of prefixes present is performed.
+...                 The suite consists of two halves, differing on which side initiates BGP connection.
+...                 State of "work is being done" is detected by increasing value of prefixes in topology.
+...                 The time for Wait_For_Stable_* cases to finish is the main performance metric.
+...                 After waiting for stability is done, full check on number of prefixes present is performed.
 ...
-...               TODO: Currently, if a bug causes prefix count to remain at zero,
-...               affected test cases will wait for max time. Reconsider.
-...               If zero is allowed as stable, higher period or repetitions would be required.
+...                 TODO: Currently, if a bug causes prefix count to remain at zero,
+...                 affected test cases will wait for max time. Reconsider.
+...                 If zero is allowed as stable, higher period or repetitions would be required.
 ...
-...               The prefix counting is quite heavyweight and may induce large variation in time.
-...               Try the other version of the suite (manypeers_changecount.robot) to get better precision.
+...                 The prefix counting is quite heavyweight and may induce large variation in time.
+...                 Try the other version of the suite (manypeers_changecount.robot) to get better precision.
 ...
-...               ODL distinguishes peers by their IP addresses.
-...               Currently, this suite requires python utils to be started on ODL System,
-...               to guarantee IP address block is available for them to bind to.
-...               TODO: Figure out how to use Docker and docker IP pool available in RelEng.
+...                 ODL distinguishes peers by their IP addresses.
+...                 Currently, this suite requires python utils to be started on ODL System,
+...                 to guarantee IP address block is available for them to bind to.
+...                 TODO: Figure out how to use Docker and docker IP pool available in RelEng.
 ...
-...               Currently, 127.0.0.1 is hardcoded as the first peer address to use.
-...               TODO: Figure out how to make it configurable.
-...               As peer IP adresses are set incrementally, we need ipaddr to be used in Robot somehow.
+...                 Currently, 127.0.0.1 is hardcoded as the first peer address to use.
+...                 TODO: Figure out how to make it configurable.
+...                 As peer IP adresses are set incrementally, we need ipaddr to be used in Robot somehow.
 ...
-...               Brief description how to configure BGP peer can be found here:
-...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Peer
-...               http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#bgp-peering
+...                 Brief description how to configure BGP peer can be found here:
+...                 https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Peer
+...                 http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#bgp-peering
 ...
-...               TODO: Is there a need for version of this suite where ODL connects to pers?
-...               Note that configuring ODL is slow, which may affect measured performance singificantly.
-...               Advanced TODO: Give manager ability to start pushing on trigger long after connections are established.
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
-Library           DateTime
-Library           RequestsLibrary
-Library           SSHLibrary    timeout=10s
-Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/FailFast.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/KillPythonTool.robot
-Resource          ../../../libraries/PrefixCounting.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+...                 TODO: Is there a need for version of this suite where ODL connects to pers?
+...                 Note that configuring ODL is slow, which may affect measured performance singificantly.
+...                 Advanced TODO: Give manager ability to start pushing on trigger long after connections are established.
+
+Library             DateTime
+Library             RequestsLibrary
+Library             SSHLibrary    timeout=10s
+Resource            ../../../libraries/BGPSpeaker.robot
+Resource            ../../../libraries/FailFast.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/KillPythonTool.robot
+Resource            ../../../libraries/PrefixCounting.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+
 
 *** Variables ***
-${BGP_TOOL_LOG_LEVEL}    info
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    60    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
-${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
-${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          600000
-${COUNT_PREFIX_COUNT}    ${COUNT}
-${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
-${FIRST_PEER_IP}    127.0.0.1
-${HOLDTIME}       180
-${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
-${HOLDTIME_PREFIX_COUNT_MANY}    ${HOLDTIME_PREFIX_COUNT}
-${KARAF_LOG_LEVEL}    INFO
-${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
-${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
-${MULTIPLICITY}    2    # Changed in releng-builder variables
-${MULTIPLICITY_PREFIX_COUNT}    ${MULTIPLICITY}
-${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
-${REPETITIONS}    1
-${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
-${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
-${TEST_DURATION_MULTIPLIER}    1
-${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
-${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${DEVICE_NAME}    controller-config
+${BGP_TOOL_LOG_LEVEL}                               info
+${BGP_VARIABLES_FOLDER}                             ${CURDIR}/../../../variables/bgpuser/
+# ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
+${CHECK_PERIOD}
+...                                                 60
+${CHECK_PERIOD_PREFIX_COUNT}                        ${CHECK_PERIOD}
+${CHECK_PERIOD_PREFIX_COUNT_MANY}                   ${CHECK_PERIOD_PREFIX_COUNT}
+${COUNT}                                            600000
+${COUNT_PREFIX_COUNT}                               ${COUNT}
+${COUNT_PREFIX_COUNT_MANY}                          ${COUNT_PREFIX_COUNT}
+${FIRST_PEER_IP}                                    127.0.0.1
+${HOLDTIME}                                         180
+${HOLDTIME_PREFIX_COUNT}                            ${HOLDTIME}
+${HOLDTIME_PREFIX_COUNT_MANY}                       ${HOLDTIME_PREFIX_COUNT}
+${KARAF_LOG_LEVEL}                                  INFO
+${KARAF_BGPCEP_LOG_LEVEL}                           ${KARAF_LOG_LEVEL}
+${KARAF_PROTOCOL_LOG_LEVEL}                         ${KARAF_BGPCEP_LOG_LEVEL}
+${MULTIPLICITY}                                     2    # Changed in releng-builder variables
+${MULTIPLICITY_PREFIX_COUNT}                        ${MULTIPLICITY}
+${MULTIPLICITY_PREFIX_COUNT_MANY}                   ${MULTIPLICITY_PREFIX_COUNT}
+${REPETITIONS}                                      1
+${REPETITIONS_PREFIX_COUNT}                         ${REPETITIONS}
+${REPETITIONS_PREFIX_COUNT_MANY}                    ${REPETITIONS_PREFIX_COUNT}
+${TEST_DURATION_MULTIPLIER}                         1
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}            ${TEST_DURATION_MULTIPLIER}
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}       ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
+${RIB_INSTANCE}                                     example-bgp-rib
+${PROTOCOL_OPENCONFIG}                              ${RIB_INSTANCE}
+${DEVICE_NAME}                                      controller-config
 # TODO: Option names can be better.
+
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -102,8 +108,16 @@ Reconfigure_ODL_To_Accept_Connections
     FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY}+1
         ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
         ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-        &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY}
-        ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+        &{mapping} =    Create Dictionary
+        ...    DEVICE_NAME=${DEVICE_NAME}
+        ...    BGP_NAME=${peer_name}
+        ...    IP=${peer_ip}
+        ...    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY}
+        ...    PEER_PORT=${BGP_TOOL_PORT}
+        ...    INITIATE=false
+        ...    BGP_RIB=${RIB_INSTANCE}
+        ...    PASSIVE_MODE=true
+        ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
         ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
         TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
         # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
@@ -111,16 +125,23 @@ Reconfigure_ODL_To_Accept_Connections
 
 Change_Karaf_Logging_Levels
     [Documentation]    We may want to set more verbose logging here after configuration is done.
-    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
+    KarafKeywords.Set_Bgpcep_Log_Levels
+    ...    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}
+    ...    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
 
 Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_PREFIX_COUNT_MANY} --multiplicity=${MULTIPLICITY_PREFIX_COUNT_MANY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Manager
+    ...    --amount=${COUNT_PREFIX_COUNT_MANY} --multiplicity=${MULTIPLICITY_PREFIX_COUNT_MANY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}    excluded_count=0
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable
+    ...    timeout=${bgp_filling_timeout}
+    ...    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}
+    ...    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}
+    ...    excluded_count=0
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
@@ -142,7 +163,11 @@ Wait_For_Stable_Ipv4_Topology_After_Talking
     # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
     # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
     # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}    excluded_count=${COUNT_PREFIX_COUNT_MANY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable
+    ...    timeout=${bgp_filling_timeout}
+    ...    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}
+    ...    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}
+    ...    excluded_count=${COUNT_PREFIX_COUNT_MANY}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
@@ -161,9 +186,14 @@ Delete_Bgp_Peer_Configuration
     FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY}+1
         ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
         ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-        &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+        &{mapping} =    BuiltIn.Create_Dictionary
+        ...    DEVICE_NAME=${DEVICE_NAME}
+        ...    BGP_NAME=${peer_name}
+        ...    IP=${peer_ip}
+        ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
         TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
     END
+
 
 *** Keywords ***
 Setup_Everything
@@ -172,7 +202,12 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     TemplatedRequests.Create_Default_Session
     PrefixCounting.PC_Setup
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=125    max_retries=0
+    RequestsLibrary.Create_Session
+    ...    operational
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH}
+    ...    timeout=125
+    ...    max_retries=0
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
@@ -184,9 +219,11 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed.
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_PREFIX_COUNT_MANY}    result_format=number
-    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
+    ${timeout} =    BuiltIn.Evaluate
+    ...    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
+    ${timeout} =    BuiltIn.Evaluate
+    ...    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
 

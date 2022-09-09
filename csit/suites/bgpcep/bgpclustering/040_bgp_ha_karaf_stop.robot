@@ -1,45 +1,54 @@
 *** Settings ***
-Documentation     BGP functional HA testing with one exabgp peer.
+Documentation       BGP functional HA testing with one exabgp peer.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               This suite uses exabgp. It is configured to have 3 peers (all 3 nodes of odl).
-...               Bgp implemented with singleton accepts only one incomming conection. Exabgp
-...               logs will show that one peer will be connected and two will fail.
-...               After stopping karaf which owned connection new owner should be elected and
-...               this new owner should accept incomming bgp connection.
-...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Library           SSHLibrary    timeout=10s
-Library           RequestsLibrary
-Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/ExaBgpLib.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../variables/Variables.robot
+...                 This suite uses exabgp. It is configured to have 3 peers (all 3 nodes of odl).
+...                 Bgp implemented with singleton accepts only one incomming conection. Exabgp
+...                 logs will show that one peer will be connected and two will fail.
+...                 After stopping karaf which owned connection new owner should be elected and
+...                 this new owner should accept incomming bgp connection.
+...                 TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
+
+Library             SSHLibrary    timeout=10s
+Library             RequestsLibrary
+Resource            ../../../libraries/BGPcliKeywords.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/ExaBgpLib.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 *** Variables ***
-${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
-${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
-${DEFAULT_EXA_CFG}    exa.cfg
-${EXA_CMD}        env exabgp.tcp.port=1790 exabgp
-${HOLDTIME}       180
-${RIB_INSTANCE}    example-bgp-rib
+${BGP_VAR_FOLDER}       ${CURDIR}/../../../variables/bgpclustering
+${BGP_PEER_FOLDER}      ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
+${DEFAULT_EXA_CFG}      exa.cfg
+${EXA_CMD}              env exabgp.tcp.port=1790 exabgp
+${HOLDTIME}             180
+${RIB_INSTANCE}         example-bgp-rib
+
 
 *** Test Cases ***
 Get_Example_Bgp_Rib_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection.
-    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
-    ...    Bgpcep    1
+    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    5x
+    ...    5s
+    ...    ClusterManagement.Get_Owner_And_Successors_For_Device
+    ...    example-bgp-rib
+    ...    Bgpcep
+    ...    1
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
     BuiltIn.Set Suite variable    ${rib_candidates}
@@ -50,8 +59,17 @@ Get_Example_Bgp_Rib_Owner
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}    http_timeout=5
+    &{mapping}=    Create Dictionary
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    HOLDTIME=${HOLDTIME}
+    ...    PEER_PORT=${BGP_TOOL_PORT}
+    ...    PASSIVE_MODE=true
+    ...    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated
+    ...    ${BGP_PEER_FOLDER}
+    ...    mapping=${mapping}
+    ...    session=${living_session}
+    ...    http_timeout=5
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Start_ExaBgp_Peer
@@ -75,7 +93,12 @@ Stop_Current_Owner_Member
 
 Verify_New_Rib_Owner
     [Documentation]    Verifies if new owner of example-bgp-rib is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    5x
+    ...    5s
+    ...    Verify_New_Rib_Owner_Elected
+    ...    ${old_rib_owner}
+    ...    ${living_node}
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
@@ -87,7 +110,12 @@ Start_Stopped_Member
 
 Verify_New_Candidate
     [Documentation]    Verifies started node become candidate for example-bgp-rib
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Verify_New_Rib_Candidate_Present    ${old_rib_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    10x
+    ...    5s
+    ...    Verify_New_Rib_Candidate_Present
+    ...    ${old_rib_owner}
+    ...    ${living_node}
 
 Verify_ExaBgp_Still_Connected
     [Documentation]    Verifies exabgp's presence in operational ds
@@ -101,15 +129,23 @@ Stop_ExaBgp_Peer
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
-    &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    IP=${TOOLS_SYSTEM_IP}
-    TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}    http_timeout=5
+    &{mapping}=    Create Dictionary    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    IP=${TOOLS_SYSTEM_IP}
+    TemplatedRequests.Delete_Templated
+    ...    ${BGP_PEER_FOLDER}
+    ...    mapping=${mapping}
+    ...    session=${living_session}
+    ...    http_timeout=5
+
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Initial setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ClusterManagement.ClusterManagement_Setup
-    ${tools_system_conn_id}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
+    ${tools_system_conn_id}=    SSHLibrary.Open_Connection
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    prompt=${DEFAULT_LINUX_PROMPT}
+    ...    timeout=6s
     Builtin.Set_Suite_Variable    ${tools_system_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
@@ -124,13 +160,19 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Verify_New_Rib_Owner_Elected
-    [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
+    [Arguments]    ${old_owner}    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device
+    ...    example-bgp-rib
+    ...    Bgpcep
+    ...    ${node_to_ask}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Rib_Candidate_Present
-    [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
+    [Arguments]    ${candidate}    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device
+    ...    example-bgp-rib
+    ...    Bgpcep
+    ...    ${node_to_ask}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
