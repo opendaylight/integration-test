@@ -1,15 +1,18 @@
 *** Settings ***
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           Collections
-Library           json
-Library           String
-Library           OperatingSystem
-Variables         ../../../variables/Variables.py
+Library             RequestsLibrary
+Library             Collections
+Library             json
+Library             String
+Library             OperatingSystem
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${SET_SUBSCRIBEUSER_JSON}    ${CURDIR}/../../../variables/centinel/set_subscribeUser.json
+${SET_SUBSCRIBEUSER_JSON}       ${CURDIR}/../../../variables/centinel/set_subscribeUser.json
+
 
 *** Test Cases ***
 Set SubscribeUser
