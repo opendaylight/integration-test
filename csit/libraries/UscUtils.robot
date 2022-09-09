@@ -1,28 +1,31 @@
 *** Settings ***
-Library           Collections
-Library           SSHLibrary
-Library           UtilLibrary.py
-Resource          RemoteBash.robot
-Resource          SSHKeywords.robot
+Library     Collections
+Library     SSHLibrary
+Library     UtilLibrary.py
+Resource    RemoteBash.robot
+Resource    SSHKeywords.robot
+
 
 *** Variables ***
-${REST_VIEW_CHANNEL}    /restconf/operations/usc-channel:view-channel
-${REST_ADD_CHANNEL}    /restconf/operations/usc-channel:add-channel
-${REST_REMOVE_CHANNEL}    /restconf/operations/usc-channel:remove-channel
-${REST_REMOVE_SESSION}    /restconf/operations/usc-channel:remove-session
-${REST_SEND_MESSAGE}    /restconf/operations/usc-channel:send-message
-${NAV_USC_TOOLS}    cd ~/usc-tools
-${CLONE_USC_TOOLS}    [ -f ~/usc-tools/UscAgent.jar ] && echo "The usc-tools does exist, done." || git clone https://github.com/victorxu99/usc-tools.git ~/usc-tools
-${ECHO_SERVER_PORT}    2007
+${REST_VIEW_CHANNEL}        /restconf/operations/usc-channel:view-channel
+${REST_ADD_CHANNEL}         /restconf/operations/usc-channel:add-channel
+${REST_REMOVE_CHANNEL}      /restconf/operations/usc-channel:remove-channel
+${REST_REMOVE_SESSION}      /restconf/operations/usc-channel:remove-session
+${REST_SEND_MESSAGE}        /restconf/operations/usc-channel:send-message
+${NAV_USC_TOOLS}            cd ~/usc-tools
+${CLONE_USC_TOOLS}
+...                         [ -f ~/usc-tools/UscAgent.jar ] && echo "The usc-tools does exist, done." || git clone https://github.com/victorxu99/usc-tools.git ~/usc-tools
+${ECHO_SERVER_PORT}         2007
 @{LIST_ECHO_SERVER_PORT}    2007    2008    2009
-${TEST_MESSAGE}    This is a test message.
-${NUM_OF_MESSAGES}    100
-${AgentTcp}       java -jar UscAgent.jar -t true
-${AgentUdp}       java -jar UscAgent.jar -t false
-${AgentTcpCallhome}    java -jar UscAgent.jar -t true -c true -h
-${AgentUdpCallhome}    java -jar UscAgent.jar -t false -c true -h
-${EchoServerTcp}    java -jar EchoServer.jar -t true -p 2007
-${EchoServerUdp}    java -jar EchoServer.jar -t false -p 2007
+${TEST_MESSAGE}             This is a test message.
+${NUM_OF_MESSAGES}          100
+${AgentTcp}                 java -jar UscAgent.jar -t true
+${AgentUdp}                 java -jar UscAgent.jar -t false
+${AgentTcpCallhome}         java -jar UscAgent.jar -t true -c true -h
+${AgentUdpCallhome}         java -jar UscAgent.jar -t false -c true -h
+${EchoServerTcp}            java -jar EchoServer.jar -t true -p 2007
+${EchoServerUdp}            java -jar EchoServer.jar -t false -p 2007
+
 
 *** Keywords ***
 Download Tools
@@ -134,7 +137,7 @@ Start Multiple_Sessions_TCP
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcp}
     Read
-    ${L1}    Create List
+    ${L1}=    Create List
     FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
         Log    ${port_index}
         ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
@@ -156,7 +159,7 @@ Start Multiple_Sessions_UDP
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdp}
     Read
-    ${L1}    Create List
+    ${L1}=    Create List
     FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
         Log    ${port_index}
         ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s

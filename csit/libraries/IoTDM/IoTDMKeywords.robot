@@ -1,22 +1,22 @@
 *** Settings ***
-Documentation     Keywords specific for IoTDM test suites.
-Library           ./criotdm.py
-Library           OperatingSystem
-Library           iotdm_comm.py
+Documentation       Keywords specific for IoTDM test suites.
 
-*** Variables ***
+Library             ./criotdm.py
+Library             OperatingSystem
+Library             iotdm_comm.py
+
 
 *** Keywords ***
 IOTDM Basic Suite Setup
-    [Arguments]    ${odl_ip_address}    ${odl_user_name}    ${odl_password}
     [Documentation]    Set up basic test suite
+    [Arguments]    ${odl_ip_address}    ${odl_user_name}    ${odl_password}
     ${iserver} =    Connect To Iotdm    ${odl_ip_address}    ${odl_user_name}    ${odl_password}    http
     Set Suite Variable    ${iserver}
 
 Resolve Local Ip Address
     [Documentation]    Retrieve list of IP addresses of local host, try to find IP address accessible from the
     ...    host where tested ODL system is running and set it as global variable named local_ip
-    ${ip_list}    OperatingSystem.Run    hostname -I
+    ${ip_list} =    OperatingSystem.Run    hostname -I
     Log    iotdm_ip: ${ODL_SYSTEM_1_IP}
     Log    hostname -I: ${ip_list}
     ${local_ip} =    Get Local Ip From List    ${ODL_SYSTEM_1_IP}    ${ip_list}
