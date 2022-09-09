@@ -1,30 +1,34 @@
 *** Settings ***
-Documentation     Basic tests for odl-bgpcep-pcep-all feature.
+Documentation       Basic tests for odl-bgpcep-pcep-all feature.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
-Suite Setup       Set_It_Up
-Suite Teardown    Tear_It_Down
-Library           OperatingSystem
-Library           SSHLibrary
-Library           RequestsLibrary
-Library           ../../../libraries/norm_json.py
-Resource          ../../../libraries/NexusKeywords.robot
-Resource          ../../../libraries/PcepOperations.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/RemoteBash.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../variables/Variables.robot
-Variables         ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
+
+Library             OperatingSystem
+Library             SSHLibrary
+Library             RequestsLibrary
+Library             ../../../libraries/norm_json.py
+Resource            ../../../libraries/NexusKeywords.robot
+Resource            ../../../libraries/PcepOperations.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/RemoteBash.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../variables/Variables.robot
+Variables           ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
+
+Suite Setup         Set_It_Up
+Suite Teardown      Tear_It_Down
+
 
 *** Variables ***
-${CONFIG_SESSION}    session
-${PATH_SESSION_URI}    node=pcc:%2F%2F${TOOLS_SYSTEM_IP}/network-topology-pcep:path-computation-client
+${CONFIG_SESSION}           session
+${PATH_SESSION_URI}         node=pcc:%2F%2F${TOOLS_SYSTEM_IP}/network-topology-pcep:path-computation-client
 ${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/${ODL_STREAM}
+
 
 *** Test Cases ***
 Topology_Precondition
@@ -35,7 +39,8 @@ Topology_Precondition
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
+    ${command}=    NexusKeywords.Compose_Full_Java_Command
+    ...    -jar ${filename} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
@@ -45,9 +50,14 @@ Start_Pcc_Mock
 Configure_Speaker_Entity_Identifier
     [Documentation]    Additional PCEP Speaker configuration for at least oxygen streams.
     ...    Allows PCEP speaker to determine if state synchronization can be skipped when a PCEP session is restarted.
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
-    TemplatedRequests.Put_As_Xml_Templated    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen
+    ...    BuiltIn.Pass_Execution
+    ...    Test case valid only for versions oxygen and above.
+    &{mapping}=    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
+    TemplatedRequests.Put_As_Xml_Templated
+    ...    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier
+    ...    mapping=${mapping}
+    ...    session=${CONFIG_SESSION}
 
 Topology_Default
     [Documentation]    Compare pcep-topology to default_json, which includes a tunnel from pcc-mock.
@@ -118,6 +128,7 @@ Topology_Postcondition
     [Tags]    critical
     Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${off_json}
 
+
 *** Keywords ***
 Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
@@ -140,13 +151,15 @@ Tear_It_Down
     Close_All_Connections
 
 Compare_Topology
-    [Arguments]    ${exp}    ${uri}=${EMPTY}
     [Documentation]    Get current pcep-topology as json, compare both expected and actual json.
     ...    Error codes and normalized jsons should match exactly.
+    [Arguments]    ${exp}    ${uri}=${EMPTY}
     # TODO: Add Node Session State Check For Oxygen, see tcpmd5user
     # TODO: Possibly remake all tests with TemplatedRequests
-    ${topology_uri}=    BuiltIn.Set_Variable_If    '${uri}'=='${EMPTY}'
-    ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology?content=nonconfig    ${REST_API}/${TOPOLOGY_URL}=pcep-topology/${uri}?content=nonconfig
+    ${topology_uri}=    BuiltIn.Set_Variable_If
+    ...    '${uri}'=='${EMPTY}'
+    ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology?content=nonconfig
+    ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology/${uri}?content=nonconfig
     ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${topology_uri}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp}    ${response.text}

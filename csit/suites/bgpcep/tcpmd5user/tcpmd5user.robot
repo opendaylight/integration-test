@@ -1,54 +1,64 @@
 *** Settings ***
-Documentation     TCPMD5 user-facing feature system tests, using PCEP.
+Documentation       TCPMD5 user-facing feature system tests, using PCEP.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               Test suite performs basic pcep md5 password authorization test cases:
-...               (Run entire basic PCEP suite without passwords.)
-...               Start pcc-mock (reconnecting mode): 1 pcc, 1 lsp, password set, check pcep-topology stays empty.
-...               Use restconf to change PCEP configuration to use a wrong password, check pcep-topology stays empty.
-...               Change ODL PCEP configuration to use the correct password, check pcep-topology shows the lsp.
-...               Stop pcc-mock, check pcep-topology stays empty.
-...               Start pcc-mock with new password, check pcep-topology stays empty.
-...               Change ODL PCEP configuration to use the correct password, check pcep-topology shows the lsp.
-...               Update the lsp, check a change in pcep-topology.
-...               Change ODL PCEP configuration to not use password, pcep-topology empties, kill pcep-pcc-mock.
+...                 Test suite performs basic pcep md5 password authorization test cases:
+...                 (Run entire basic PCEP suite without passwords.)
+...                 Start pcc-mock (reconnecting mode): 1 pcc, 1 lsp, password set, check pcep-topology stays empty.
+...                 Use restconf to change PCEP configuration to use a wrong password, check pcep-topology stays empty.
+...                 Change ODL PCEP configuration to use the correct password, check pcep-topology shows the lsp.
+...                 Stop pcc-mock, check pcep-topology stays empty.
+...                 Start pcc-mock with new password, check pcep-topology stays empty.
+...                 Change ODL PCEP configuration to use the correct password, check pcep-topology shows the lsp.
+...                 Update the lsp, check a change in pcep-topology.
+...                 Change ODL PCEP configuration to not use password, pcep-topology empties, kill pcep-pcc-mock.
 ...
-...               Test cases no longer need netconf-connector-ssh, and they include comparison of
-...               pcep-session-state.
-Suite Setup       Set_It_Up
-Suite Teardown    Tear_It_Down
-Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           SSHLibrary    prompt=]>
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/FailFast.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/NexusKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/RemoteBash.robot
-Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../variables/Variables.robot
-Variables         ../../../variables/tcpmd5user/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
+...                 Test cases no longer need netconf-connector-ssh, and they include comparison of
+...                 pcep-session-state.
+
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             SSHLibrary    prompt=]>
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/FailFast.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/NexusKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/RemoteBash.robot
+Resource            ../../../libraries/WaitForFailure.robot
+Resource            ../../../variables/Variables.robot
+Variables           ../../../variables/tcpmd5user/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
+
+Suite Setup         Set_It_Up
+Suite Teardown      Tear_It_Down
+Test Setup          FailFast.Fail_This_Fast_On_Previous_Error
+Test Teardown       FailFast.Start_Failing_Fast_If_This_Failed
+
 
 *** Variables ***
-${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/tcpmd5user/${ODL_STREAM}
-${CONFIG_SESSION}    session
-${OLD_ERROR_ARGS}    \n"last-received-error": {},\n"last-sent-error": {},
-${NEW_ERROR_ARGS}    ${EMPTY}
+${DIR_WITH_TEMPLATES}       ${CURDIR}/../../../variables/tcpmd5user/${ODL_STREAM}
+${CONFIG_SESSION}           session
+${OLD_ERROR_ARGS}           \n"last-received-error": {},\n"last-sent-error": {},
+${NEW_ERROR_ARGS}           ${EMPTY}
+
 
 *** Test Cases ***
 Topology_Precondition
     [Documentation]    Compare current pcep-topology to empty one.
     ...    Timeout is long enough to see that pcep is ready, with no PCC connected.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    session=${CONFIG_SESSION}    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    300s
+    ...    1s
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}default_off
+    ...    session=${CONFIG_SESSION}
+    ...    verify=True
 
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
@@ -76,8 +86,19 @@ Set_Correct_Password
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    CODE=${pcc_name_code}
+    ...    NAME=${pcc_name}
+    ...    IP_ODL=${ODL_SYSTEM_IP}
+    ...    ERRORS=${ERROR_ARGS}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    30s
+    ...    1s
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}default_on_state
+    ...    ${mapping}
+    ...    ${CONFIG_SESSION}
     ...    verify=True
 
 Stop_Pcc_Mock_1
@@ -109,21 +130,47 @@ Set_Correct_Password_2
 
 Topology_Intercondition_2
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    CODE=${pcc_name_code}
+    ...    NAME=${pcc_name}
+    ...    IP_ODL=${ODL_SYSTEM_IP}
+    ...    ERRORS=${ERROR_ARGS}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    30s
+    ...    1s
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}default_on_state
+    ...    ${mapping}
+    ...    ${CONFIG_SESSION}
     ...    verify=True
 
 Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NAME=${pcc_name}
-    ${response}=    TemplatedRequests.Post_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}update_delegated    ${mapping}    ${CONFIG_SESSION}    verify=False
+    ${response}    TemplatedRequests.Post_As_Xml_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}update_delegated
+    ...    ${mapping}
+    ...    ${CONFIG_SESSION}
+    ...    verify=False
     Log    ${response}
 
 Topology_Updated
     [Documentation]    Compare pcep-topology/path-computation-client to default_on_updated, which includes the updated tunnel.
     [Tags]    critical
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}    ERRORS=${ERROR_ARGS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state    ${mapping}    ${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary
+    ...    IP=${TOOLS_SYSTEM_IP}
+    ...    CODE=${pcc_name_code}
+    ...    NAME=${pcc_name}
+    ...    IP_ODL=${ODL_SYSTEM_IP}
+    ...    ERRORS=${ERROR_ARGS}
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    30s
+    ...    1s
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state
+    ...    ${mapping}
+    ...    ${CONFIG_SESSION}
     ...    verify=True
 
 Unset_Password
@@ -157,6 +204,7 @@ Delete_Pcep_Client_Module
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Delete_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_node    ${mapping}
 
+
 *** Keywords ***
 Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
@@ -165,16 +213,16 @@ Set_It_Up
     KarafKeywords.Setup_Karaf_Keywords
     TemplatedRequests.Create_Default_Session
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
-    ${current_connection}=    SSHLibrary.Get_Connection
-    ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
+    ${current_connection}    SSHLibrary.Get_Connection
+    ${current_prompt}    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
     BuiltIn.Set_Suite_Variable    ${prompt}    ${current_prompt}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
+    ${name}    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     #Setting Pcc Name and its code for mapping for templates
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    ${ERROR_ARGS} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
+    ${ERROR_ARGS}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
     BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
 
 Tear_It_Down
@@ -182,24 +230,27 @@ Tear_It_Down
     ...    Compute and Log the diff between expected and actual normalized responses.
     ...    Close both HTTP client session and SSH connection to Mininet.
     SSHLibrary.Get_File    pccmock.log
-    ${pccmocklog}=    OperatingSystem.Run    cat pccmock.log
+    ${pccmocklog}    OperatingSystem.Run    cat pccmock.log
     BuiltIn.Log    ${pccmocklog}
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
 Test_Unauthorized
     [Documentation]    Try to access pcep topology with wrong password, should get empty topology
-    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_off    session=${CONFIG_SESSION}    verify=True
+    TemplatedRequests.Get_As_Json_Templated
+    ...    ${DIR_WITH_TEMPLATES}${/}default_off
+    ...    session=${CONFIG_SESSION}
+    ...    verify=True
 
 Read_Text_Before_Prompt
     [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
     ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text} =    SSHLibrary.Read_Until_Prompt
+    ${text}    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
 
 Replace_Password_On_Pcep_Node
-    [Arguments]    ${password}
     [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element.
+    [Arguments]    ${password}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${password}
     TemplatedRequests.Put_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_node    mapping=${mapping}
 
@@ -212,12 +263,13 @@ Stop_Pcc_Mock_Tool
     [Documentation]    Send ctrl+c to pcc-mock, fails if no prompt is seen
     ...    after 3 seconds (the default for SSHLibrary)
     RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
+    ${output}    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
 
 Start_Pcc_Mock_Tool_With_Password
-    [Arguments]    ${password}
     [Documentation]    Starts pcc-mock with password argument.
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --password ${password} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
+    [Arguments]    ${password}
+    ${command}    NexusKeywords.Compose_Full_Java_Command
+    ...    -jar ${filename} --password ${password} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
