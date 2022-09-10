@@ -1,19 +1,34 @@
 *** Settings ***
-Documentation     Test suite for HSQLDB DataStore InterfaceMetrics Verification
-Suite Setup       Start Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for HSQLDB DataStore InterfaceMetrics Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
-...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
+@{INTERFACE_METRICS}
+...                     TransmittedPackets
+...                     TransmittedBytes
+...                     TransmitErrors
+...                     TransmitDrops
+...                     ReceivedPackets
+...                     ReceivedBytes
+...                     ReceiveOverRunError
+...                     ReceiveFrameError
+...                     ReceiveErrors
+...                     ReceiveDrops
+...                     ReceiveCrcError
+...                     CollisionCount
+
 
 *** Test Cases ***
 Init Variables
@@ -23,7 +38,12 @@ Init Variables
 Verification of TSDR HSQLDB Feature Installation
     [Documentation]    Install and Verify the TSDR HSQLDB Datastore and JDBC
     COMMENT    Install a Feature    odl-tsdr-hsqldb    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
-    COMMENT    Install a Feature    odl-tsdr-openflow-statistics-collector    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
+    COMMENT
+    ...    Install a Feature
+    ...    odl-tsdr-openflow-statistics-collector
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${KARAF_SHELL_PORT}
+    ...    60
     Verify Feature Is Installed    ${HSQLDB_INSTALL}
     Verify Feature Is Installed    odl-tsdr-core
 
@@ -44,6 +64,7 @@ Verify PortStats On Karaf console
         ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
         Should Contain    ${output}    ${list}
     END
+
 
 *** Keywords ***
 Init Variables Master

@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for Hbase DataStore Flow Table Stats Verification
-Suite Setup       Start Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Hbase DataStore Flow Table Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-${TSDR_FLOWTABLE_STATS}    tsdr:list FLOWTABLESTATS
+${TSDR_FLOWTABLE_STATS}     tsdr:list FLOWTABLESTATS
+
 
 *** Test Cases ***
 Init Variables
@@ -22,7 +26,11 @@ Init Variables
 Verification of TSDR FlowTableMetrics
     [Documentation]    Verify the TSDR FlowTableMetrics
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}    openflow
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console
+    ...    ${TSDR_FLOWTABLE_STATS}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${KARAF_SHELL_PORT}
+    ...    30
     Should Contain    ${output}    openflow
 
 Verification of FlowTableMetrics on Karaf Console
@@ -42,6 +50,7 @@ Verification of FlowTableMetrics-PacketMatch on HBase Client
 Verification of FlowTableMetrics-PacketLookup on HBase Client
     [Documentation]    Verify the FlowTableMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    PacketLookup    ${node_connector}    ${flowtablestats}
+
 
 *** Keywords ***
 Init Variables Master
