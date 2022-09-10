@@ -1,15 +1,18 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Nodes, Operates Nodes from Restconf APIs.
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_NODES_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite for SFC Service Nodes, Operates Nodes from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_NODES_URI}
+
 
 *** Test Cases ***
 Put Service Nodes
@@ -36,7 +39,7 @@ Delete All Service Nodes
 Get one Service Node
     [Documentation]    Get one Service Node
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
-    ${elements}=    Create List    node-101    firewall-101-2    10.3.1.101
+    ${elements}    Create List    node-101    firewall-101-2    10.3.1.101
     Check For Elements At URI    ${SERVICE_NODE_URI}/node-101    ${elements}
 
 Get A Non-existing Service Node
@@ -70,9 +73,10 @@ Delete A Non-existing Service Node
 Put one Service Node
     [Documentation]    Put one Service Node
     Add Elements To URI From File    ${SN_NODE100_URI}    ${SN_NODE100_FILE}
-    ${elements}=    Create List    node-100    10.3.1.100    dpi-100-1    firewall-102-1
+    ${elements}    Create List    node-100    10.3.1.100    dpi-100-1    firewall-102-1
     Check For Elements At URI    ${SN_NODE100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_NODES_URI}    ${elements}
+
 
 *** Keywords ***
 Init Suite

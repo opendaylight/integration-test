@@ -1,27 +1,35 @@
 *** Settings ***
-Documentation     Test suite to verify binding origins checks are performed in master database
-Suite Setup       SxpLib.Setup SXP Environment
-Suite Teardown    SxpLib.Clean SXP Environment
-Test Setup        Clean Bindings
-Library           RequestsLibrary
-Resource          ../../../libraries/SxpLib.robot
+Documentation       Test suite to verify binding origins checks are performed in master database
+
+Library             RequestsLibrary
+Resource            ../../../libraries/SxpLib.robot
+
+Suite Setup         SxpLib.Setup SXP Environment
+Suite Teardown      SxpLib.Clean SXP Environment
+Test Setup          Clean Bindings
+
 
 *** Test Cases ***
 Test Add Lower Priority Binding
     [Documentation]    Test that incoming binding with lower priority does not override already existing
     ...    higher priority binding in master database for the same IP prefix
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Add binding
     SxpLib.Add Bindings    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Try to add binding with lower priority
-    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    origin=NETWORK
+    BuiltIn.Run Keyword And Expect Error
+    ...    RPC result is False
+    ...    SxpLib.Add Bindings
+    ...    20
+    ...    1.1.1.1/32
+    ...    origin=NETWORK
     BuiltIn.Comment    Verify that new binding is not added and previous binding is preserved
     Verify Bindings Content    10    20    1.1.1.1/32
 
 Test Add Higher Priority Binding
     [Documentation]    Test that incoming binding with higher priority overrides already existing
     ...    lower priority binding in master database for the same IP prefix
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Add binding
     SxpLib.Add Bindings    10    1.1.1.1/32    origin=NETWORK
     BuiltIn.Comment    Add binding with higher priority
@@ -31,7 +39,7 @@ Test Add Higher Priority Binding
 
 Test Add Unknown Priority Binding
     [Documentation]    Test that incoming binding with unknown priority cannot be added to master database
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Try to add binding with unknown origin priority
     BuiltIn.Run Keyword And Expect Error    400 != 200    SxpLib.Add Bindings    10    1.1.1.1/32    origin=CLUSTER
     BuiltIn.Comment    Verify that binding is not in master database
@@ -40,18 +48,24 @@ Test Add Unknown Priority Binding
 Test Add Lower Priority Binding To Domain
     [Documentation]    Test that incoming binding with lower priority does not override already existing
     ...    higher priority binding in master database for the same IP prefix
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Create custom domain with binding
     SxpLib.Add Domain    guest    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Try add binding to custom domain with lower priority
-    BuiltIn.Run Keyword And Expect Error    RPC result is False    SxpLib.Add Bindings    20    1.1.1.1/32    domain=guest    origin=NETWORK
+    BuiltIn.Run Keyword And Expect Error
+    ...    RPC result is False
+    ...    SxpLib.Add Bindings
+    ...    20
+    ...    1.1.1.1/32
+    ...    domain=guest
+    ...    origin=NETWORK
     BuiltIn.Comment    Verify that new binding is not added and previous binding is preserved
     Verify Bindings Content    10    20    1.1.1.1/32    guest
 
 Test Add Higher Priority Binding To Domain
     [Documentation]    Test that incoming binding with lower priority does not override already existing
     ...    higher priority binding in master database for the same IP prefix
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Create custom domain with binding
     SxpLib.Add Domain    guest    10    1.1.1.1/32    origin=NETWORK
     BuiltIn.Comment    Add binding to custom domain with higher priority
@@ -61,7 +75,7 @@ Test Add Higher Priority Binding To Domain
 
 Test Get Bindings
     [Documentation]    Test that when requesting for LOCAL bindings then only LOCAL bindings are returned
-    [Tags]    Binding Origins Checks    SXP
+    [Tags]    binding origins checks    sxp
     BuiltIn.Comment    Add LOCAL binding
     SxpLib.Add Bindings    10    1.1.1.1/32    origin=LOCAL
     BuiltIn.Comment    Add NETWORK binding
@@ -70,6 +84,7 @@ Test Get Bindings
     Verify Local Bindings Content    10    1.1.1.1/32    20    2.2.2.2/32
     BuiltIn.Comment    Verify request for ALL bindings
     Verify All Bindings Content    10    1.1.1.1/32    20    2.2.2.2/32
+
 
 *** Keywords ***
 Clean Bindings
