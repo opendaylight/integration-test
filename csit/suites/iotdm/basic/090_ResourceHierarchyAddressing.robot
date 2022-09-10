@@ -1,14 +1,15 @@
 *** Settings ***
-Documentation     Test suite tests addresing of entities (CSE and AE) and addressing of resources according to:
-...               TS-0001: 7.2 M2M-SP-ID, CSE-ID, App-ID and AE-ID and resource Identifier formats
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite tests addresing of entities (CSE and AE) and addressing of resources according to:
+...                 TS-0001: 7.2 M2M-SP-ID, CSE-ID, App-ID and AE-ID and resource Identifier formats
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.01 CRUD cseBase: Target resource ID: Unstructured, CSE-relative
@@ -304,6 +305,7 @@ Resource          ../../../variables/Variables.robot
     ...    4. remoteCSE resource id instead of CSE-ID: Format: //<SP FQDN>/<remoteCSE resource ID>
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
