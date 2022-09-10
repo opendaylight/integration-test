@@ -1,13 +1,17 @@
 *** Settings ***
-Documentation     Test suite to verify Apidocs is OK.
-Suite Setup       TemplatedRequests.Create_Default_Session    timeout=30
-Suite Teardown    RequestsLibrary.Delete_All_Sessions
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../variables/Variables.robot
+Documentation       Test suite to verify Apidocs is OK.
+
+Resource            ${CURDIR}/../../../libraries/CompareStream.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource            ${CURDIR}/../../../variables/Variables.robot
+
+Suite Setup         TemplatedRequests.Create_Default_Session    timeout=30
+Suite Teardown      RequestsLibrary.Delete_All_Sessions
+
 
 *** Variables ***
-${VAR_DIR}        ${CURDIR}/../../../variables/apidoc
+${VAR_DIR}      ${CURDIR}/../../../variables/apidoc
+
 
 *** Test Cases ***
 Get Apidoc Apis
