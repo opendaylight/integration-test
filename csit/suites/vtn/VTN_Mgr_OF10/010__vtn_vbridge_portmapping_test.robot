@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager using OF10
-Suite Setup       Start SuiteVtnMaTest
-Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.robot
+Documentation       Test suite for VTN Manager using OF10
+
+Resource            ../../../libraries/VtnMaKeywords.robot
+
+Suite Setup         Start SuiteVtnMaTest
+Suite Teardown      Stop SuiteVtnMaTest
+
 
 *** Test Cases ***
 Check if switch1 detected
@@ -75,7 +78,7 @@ Get flow
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
-    [Tags]    Switch
+    [Tags]    switch
     Wait_Until_Keyword_Succeeds    20s    1s    Verify FlowMacAddress    h2    h4    OF10
 
 Remove Portmap for If1
