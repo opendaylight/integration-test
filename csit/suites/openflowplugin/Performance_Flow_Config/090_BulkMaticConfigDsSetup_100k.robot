@@ -1,30 +1,35 @@
 *** Settings ***
-Documentation     Suite to measure flow setup rate using operation add-flows-ds
-Suite Setup       Create Http Session And Upload Files
-Suite Teardown    Delete Http Session And Store Plot Data
-Library           OperatingSystem
-Library           XML
-Library           SSHLibrary
-Variables         ../../../variables/Variables.py
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Library           ../../../libraries/ScaleClient.py
+Documentation       Suite to measure flow setup rate using operation add-flows-ds
+
+Library             OperatingSystem
+Library             XML
+Library             SSHLibrary
+Variables           ../../../variables/Variables.py
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Library             ../../../libraries/ScaleClient.py
+
+Suite Setup         Create Http Session And Upload Files
+Suite Teardown      Delete Http Session And Store Plot Data
+
 
 *** Variables ***
-${swnr}           63
-${flnr}           100000
-${fpr}            25
-${nrthreads}      5
-${swspread}       linear
-${tabspread}      first
-@{cntls}          ${ODL_SYSTEM_IP}
-${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
-${getf_cmd}       sh ./get-total-found.sh
-${getr_cmd}       sh ./get-total-reported.sh
-${iperiod}        1s
-${ichange}        450s
-${outfile}        flows_setup_time.csv
-${setuptime}      0
+${swnr}         63
+${flnr}         100000
+${fpr}          25
+${nrthreads}    5
+${swspread}     linear
+${tabspread}    first
+@{cntls}        ${ODL_SYSTEM_IP}
+${start_cmd}
+...             sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+${getf_cmd}     sh ./get-total-found.sh
+${getr_cmd}     sh ./get-total-reported.sh
+${iperiod}      1s
+${ichange}      450s
+${outfile}      flows_setup_time.csv
+${setuptime}    0
+
 
 *** Test Cases ***
 Connect Mininet
@@ -32,10 +37,18 @@ Connect Mininet
 
 Configure Flows
     [Documentation]    Setup of ${flnr} flows using add-flows-ds operation
-    ${flows}    ${notes}=    Generate New Flow Details    flows=${flnr}    switches=${swnr}    swspread=${swspread}    tabspread=${tabspread}
+    ${flows}    ${notes}=    Generate New Flow Details
+    ...    flows=${flnr}
+    ...    switches=${swnr}
+    ...    swspread=${swspread}
+    ...    tabspread=${tabspread}
     Log    ${notes}
     ${starttime}=    Get Time    epoch
-    ${res}=    Operations Add Flows Ds    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
+    ${res}=    Operations Add Flows Ds
+    ...    flow_details=${flows}
+    ...    controllers=@{cntls}
+    ...    nrthreads=${nrthreads}
+    ...    fpr=${fpr}
     Log    ${res}
     Set Suite Variable    ${flows}
     ${http200ok}=    Create List    ${200}
@@ -50,7 +63,11 @@ Wait Stats Collected
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
-    ${res}=    Operations Remove Flows Ds    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
+    ${res}=    Operations Remove Flows Ds
+    ...    flow_details=${flows}
+    ...    controllers=@{cntls}
+    ...    nrthreads=${nrthreads}
+    ...    fpr=${fpr}
     Log    ${res}
     ${http200ok}=    Create List    ${200}
     ${validation}=    Validate Responses    ${res}    ${http200ok}
@@ -63,6 +80,7 @@ Check No Flows In Operational After Remove
 
 Stop Mininet End
     Stop Switches
+
 
 *** Keywords ***
 Connect Switches
@@ -105,23 +123,23 @@ Are Switches Connected Topo
     Should Be Equal As Numbers    ${count}    ${swnr}
 
 Check Flows Inventory
-    [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    Checks in inventory has required state
+    [Arguments]    ${rswitches}    ${rflows}
     ${sw}    ${repf}    ${foundf}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${rswitches}    ${sw}
     Should Be Equal As Numbers    ${rflows}    ${foundf}
 
 Save Setup Time
-    [Arguments]    ${starttime}
     [Documentation]    Count the difference and stores it
+    [Arguments]    ${starttime}
     ${endtime}=    Get Time    epoch
     Log    Stats collection finished at time ${endtime}
     ${setuptime}=    Evaluate    int(${endtime})-int(${starttime})
     Set Suite Variable    ${setuptime}
 
 Inventory Change Reached
-    [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    This keywordwaits till inventory reaches required state
+    [Arguments]    ${rswitches}    ${rflows}
     Wait Until Keyword Succeeds    ${ichange}    ${iperiod}    Check Flows Inventory    ${rswitches}    ${rflows}
 
 Log Switch Details

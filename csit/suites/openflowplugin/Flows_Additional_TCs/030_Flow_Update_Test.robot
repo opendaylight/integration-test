@@ -1,23 +1,27 @@
 *** Settings ***
-Documentation     Test suite with independent flow tests
-Suite Setup       Initialization Phase
-Suite Teardown    Final Phase
-Library           String
-Library           Collections
-Library           XML
-Library           RequestsLibrary
-Library           SSHLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/FlowLib.robot
-Resource          ../../../variables/openflowplugin/Variables.robot
-Variables         ../../../variables/Variables.py
-Library           ../../../libraries/XmlComparator.py
+Documentation       Test suite with independent flow tests
+
+Library             String
+Library             Collections
+Library             XML
+Library             RequestsLibrary
+Library             SSHLibrary
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/FlowLib.robot
+Resource            ../../../variables/openflowplugin/Variables.robot
+Variables           ../../../variables/Variables.py
+Library             ../../../libraries/XmlComparator.py
+
+Suite Setup         Initialization Phase
+Suite Teardown      Final Phase
+
 
 *** Variables ***
-${XmlsDir}        ${CURDIR}/../../../../csit/variables/xmls
-${flowfile}       f2.xml
-${switch_idx}     1
-${switch_name}    s${switch_idx}
+${XmlsDir}          ${CURDIR}/../../../../csit/variables/xmls
+${flowfile}         f2.xml
+${switch_idx}       1
+${switch_name}      s${switch_idx}
+
 
 *** Test Cases ***
 Update With Delete And Add
@@ -33,6 +37,7 @@ Update With Delete And Add
     Log Switch Flows
     Wait Until Keyword Succeeds    30s    1s    Check Operational Flow    ${True}    ${upddata}
     [Teardown]    Delete Flow
+
 
 *** Keywords ***
 Log Switch Flows
@@ -54,7 +59,10 @@ Final Phase
 
 Delete Flow
     [Documentation]    Removes used flow
-    ${resp}=    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ${resp}=    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
     Log    ${resp.content}
-    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
+    ${msg}=    Set Variable
+    ...    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}

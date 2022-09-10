@@ -1,13 +1,17 @@
 *** Settings ***
-Documentation     Test suite for Inventory Scalability
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
-Library           SSHLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Inventory Scalability
+
+Library             SSHLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Suite
+Suite Teardown      Stop Suite
+
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT}
+${start}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT}
+
 
 *** Keywords ***
 Start Suite
