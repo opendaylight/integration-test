@@ -1,44 +1,51 @@
 *** Settings ***
-Documentation     Global variables for GBPSFC 6node topology. Some variables are release specific and their value depend on
-...               ODL_STREAM variable which contains release name and is defined in Jenkins job. Keywords for setting release specific
-...               data are located in this file.
-Variables         ../../../../variables/Variables.py
-Resource          ../../../../libraries/CompareStream.robot
+Documentation       Global variables for GBPSFC 6node topology. Some variables are release specific and their value depend on
+...                 ODL_STREAM variable which contains release name and is defined in Jenkins job. Keywords for setting release specific
+...                 data are located in this file.
+
+Variables           ../../../../variables/Variables.py
+Resource            ../../../../libraries/CompareStream.robot
+
 
 *** Variables ***
-${VM_HOME_FOLDER}    ${WORKSPACE}
-${VM_SCRIPTS_FOLDER}    scripts
-${ODL}            ${ODL_SYSTEM_IP}
-${GBPSFC1}        ${TOOLS_SYSTEM_IP}
-${GBPSFC2}        ${TOOLS_SYSTEM_2_IP}
-${GBPSFC3}        ${TOOLS_SYSTEM_3_IP}
-${GBPSFC4}        ${TOOLS_SYSTEM_4_IP}
-${GBPSFC5}        ${TOOLS_SYSTEM_5_IP}
-${GBPSFC6}        ${TOOLS_SYSTEM_6_IP}
-@{GBPSFCs}        ${GBPSFC1}    ${GBPSFC2}    ${GBPSFC3}    ${GBPSFC4}    ${GBPSFC5}    ${GBPSFC6}
-${OF_OVERLAY_CONFIG_PATH}    /restconf/config/ofoverlay:of-overlay-config
-${TOPOLOGY_PATH}    ${CONFIG_TOPO_API}/topology/ovsdb:1
-${SF_PATH}        /restconf/config/service-function:service-functions
-${SF_FILE}        ${CURDIR}/../../../../variables/gbp/6node/service_functions.json
-${SFF_PATH}       /restconf/config/service-function-forwarder:service-function-forwarders
-${SFF_FILE}       ${CURDIR}/../../../../variables/gbp/6node/service_function_forwarders.json
-${SFC_PATH}       /restconf/config/service-function-chain:service-function-chains
-${TUNNELS_PATH}    ${CONFIG_NODES_API}
-${TUNNELS_FILE}    ${CURDIR}/../../../../variables/gbp/6node/tunnels.json
-${SFC_ASYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_chains.json
-${SFC_SYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_chains.json
-${SFP_PATH}       /restconf/config/service-function-path:service-function-paths
-${SFP_ASYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_paths.json
-${SFP_SYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_paths.json
-${ENDPOINT_REG_PATH}    ${GBP_REGEP_API}
-${ENDPOINT_UNREG_PATH}    ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}    /restconf/operational/endpoint:endpoints
+${VM_HOME_FOLDER}               ${WORKSPACE}
+${VM_SCRIPTS_FOLDER}            scripts
+${ODL}                          ${ODL_SYSTEM_IP}
+${GBPSFC1}                      ${TOOLS_SYSTEM_IP}
+${GBPSFC2}                      ${TOOLS_SYSTEM_2_IP}
+${GBPSFC3}                      ${TOOLS_SYSTEM_3_IP}
+${GBPSFC4}                      ${TOOLS_SYSTEM_4_IP}
+${GBPSFC5}                      ${TOOLS_SYSTEM_5_IP}
+${GBPSFC6}                      ${TOOLS_SYSTEM_6_IP}
+@{GBPSFCs}                      ${GBPSFC1}    ${GBPSFC2}    ${GBPSFC3}    ${GBPSFC4}    ${GBPSFC5}    ${GBPSFC6}
+${OF_OVERLAY_CONFIG_PATH}       /restconf/config/ofoverlay:of-overlay-config
+${TOPOLOGY_PATH}                ${CONFIG_TOPO_API}/topology/ovsdb:1
+${SF_PATH}                      /restconf/config/service-function:service-functions
+${SF_FILE}                      ${CURDIR}/../../../../variables/gbp/6node/service_functions.json
+${SFF_PATH}                     /restconf/config/service-function-forwarder:service-function-forwarders
+${SFF_FILE}                     ${CURDIR}/../../../../variables/gbp/6node/service_function_forwarders.json
+${SFC_PATH}                     /restconf/config/service-function-chain:service-function-chains
+${TUNNELS_PATH}                 ${CONFIG_NODES_API}
+${TUNNELS_FILE}                 ${CURDIR}/../../../../variables/gbp/6node/tunnels.json
+${SFC_ASYMM_FILE}
+...                             ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_chains.json
+${SFC_SYMM_FILE}
+...                             ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_chains.json
+${SFP_PATH}                     /restconf/config/service-function-path:service-function-paths
+${SFP_ASYMM_FILE}
+...                             ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_paths.json
+${SFP_SYMM_FILE}
+...                             ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_paths.json
+${ENDPOINT_REG_PATH}            ${GBP_REGEP_API}
+${ENDPOINT_UNREG_PATH}          ${GBP_UNREGEP_API}
+${ENDPOINTS_OPER_PATH}          /restconf/operational/endpoint:endpoints
+
 
 *** Keywords ***
 Set Test Variables
+    [Documentation]    Sets variables used in 6node test cases.
     [Arguments]    ${client_ip}    ${client_name}    ${server_ip}    ${server_name}    ${ether_type}    ${proto}
     ...    ${service_port}=${EMPTY}    ${vxlan_port}=${EMPTY}    ${vxlan_gpe_port}=${EMPTY}
-    [Documentation]    Sets variables used in 6node test cases.
     Set Global Variable    ${CLIENT_IP}    ${client_ip}
     Set Global Variable    ${CLIENT_NAME}    ${client_name}
     Set Global Variable    ${SERVER_IP}    ${server_ip}
@@ -57,8 +64,18 @@ Set ODL Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Global Variable    ${GBP_TENANT_ID}    tenant-red
     Set Global Variable    ${TENANT_PATH}    ${GBP_TENANTS_API}/tenant/${GBP_TENANT_ID}
-    Set Global Variable    ${TENANT_ASYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/master/tenants.json
-    Set Global Variable    ${TENANT_SYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/master/tenants.json
-    Set Global Variable    ${SFF_FILE}    ${CURDIR}/../../../../variables/gbp/6node/master/service_function_forwarders.json
-    Set Global Variable    ${ENDPOINTS_ASYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/master/
-    Set Global Variable    ${ENDPOINTS_SYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/master/
+    Set Global Variable
+    ...    ${TENANT_ASYMM_FILE}
+    ...    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/master/tenants.json
+    Set Global Variable
+    ...    ${TENANT_SYMM_FILE}
+    ...    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/master/tenants.json
+    Set Global Variable
+    ...    ${SFF_FILE}
+    ...    ${CURDIR}/../../../../variables/gbp/6node/master/service_function_forwarders.json
+    Set Global Variable
+    ...    ${ENDPOINTS_ASYMM_DIR}
+    ...    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/master/
+    Set Global Variable
+    ...    ${ENDPOINTS_SYMM_DIR}
+    ...    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/master/
