@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Test suite for Group Based Policy, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for Group Based Policy, Operates functions from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${REGISTER_ENDPOINT_FILE}    ../../../variables/gbp/register-endpoint.json
-${UNREGISTER_ENDPOINT_FILE}    ../../../variables/gbp/unregister-endpoint.json
+${REGISTER_ENDPOINT_FILE}       ../../../variables/gbp/register-endpoint.json
+${UNREGISTER_ENDPOINT_FILE}     ../../../variables/gbp/unregister-endpoint.json
+
 
 *** Test Cases ***
 Register and Unregister Endpoint

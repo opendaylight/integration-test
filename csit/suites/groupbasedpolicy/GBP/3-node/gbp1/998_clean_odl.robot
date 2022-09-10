@@ -1,17 +1,19 @@
 *** Settings ***
-Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Default Tags      single-tenant    teardown    single-tenant-teardown
-Library           RequestsLibrary
-Library           OperatingSystem
-Library           json
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/RestconfUtils.robot
-Resource          ../Variables.robot
+Documentation       Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
 
-*** Variables ***
+Library             RequestsLibrary
+Library             OperatingSystem
+Library             json
+Variables           ../../../../../variables/Variables.py
+Resource            ../../../../../libraries/Utils.robot
+Resource            ../../../../../libraries/GBP/RestconfUtils.robot
+Resource            ../Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
+Default Tags        single-tenant    teardown    single-tenant-teardown
+
 
 *** Test Cases ***
 Delete Tenant
