@@ -1,21 +1,25 @@
 *** Settings ***
-Documentation     Test suite to verify Domain data consistency during data change
-Test Setup        Setup Nodes Local
-Test Teardown     Clean SXP Environment    14
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           ../../../libraries/Sxp.py
-Resource          ../../../libraries/SxpLib.robot
+Documentation       Test suite to verify Domain data consistency during data change
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             ../../../libraries/Sxp.py
+Resource            ../../../libraries/SxpLib.robot
+
+Test Setup          Setup Nodes Local
+Test Teardown       Clean SXP Environment    14
+
 
 *** Variables ***
-${DOMAIN_1}       guest
-${DOMAIN_2}       trusted
-${DOMAIN_3}       secure
+${DOMAIN_1}     guest
+${DOMAIN_2}     trusted
+${DOMAIN_3}     secure
+
 
 *** Test Cases ***
 Export Separation Node 7 Test
     [Documentation]    Test if Node 7 contains only bindings from global domain and is not affected by changes from other nodes
-    [Tags]    SXP    Domains
+    [Tags]    sxp    domains
     Check Binding Range    20    0    300    127.0.0.7
     Check Binding Range Negative    40    0    300    127.0.0.7
     Check Binding Range Negative    60    0    300    127.0.0.7
@@ -29,7 +33,7 @@ Export Separation Node 7 Test
 
 Export Separation Node 8-9 Test
     [Documentation]    Test if Nodes 8,9 contains consistent data during its update
-    [Tags]    SXP    Domains
+    [Tags]    sxp    domains
     FOR    ${node}    IN RANGE    8    10
         Check Binding Range Negative    20    0    300    127.0.0.${node}
         Check Binding Range    40    0    300    127.0.0.${node}
@@ -49,7 +53,7 @@ Export Separation Node 8-9 Test
 
 Export Separation Node 10 Test
     [Documentation]    Test if Node 10 contains consistent data during its update
-    [Tags]    SXP    Domains
+    [Tags]    sxp    domains
     Check Binding Range Negative    20    0    300    127.0.0.10
     Check Binding Range Negative    40    0    300    127.0.0.10
     Check Binding Range    60    0    300    127.0.0.10
@@ -63,7 +67,7 @@ Export Separation Node 10 Test
 
 Export Separation Node 11-14 Test
     [Documentation]    Test if Nodes 11-14 contains consistent data during its update
-    [Tags]    SXP    Domains
+    [Tags]    sxp    domains
     FOR    ${node}    IN RANGE    11    15
         Check Binding Range Negative    20    0    300    127.0.0.${node}
         Check Binding Range Negative    40    0    300    127.0.0.${node}
@@ -81,10 +85,11 @@ Export Separation Node 11-14 Test
         ...    300    127.0.0.${node}
     END
 
+
 *** Keywords ***
 Setup Nodes Local
-    [Arguments]    ${version}=version4
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data between domains must remain separated.
+    [Arguments]    ${version}=version4
     Setup SXP Environment    14
     FOR    ${node}    IN RANGE    2    7
         Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}

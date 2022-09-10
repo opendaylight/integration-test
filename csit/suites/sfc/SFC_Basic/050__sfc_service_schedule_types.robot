@@ -1,15 +1,18 @@
 *** Settings ***
-Documentation     Test suite for SFC Function Schedule Algorithm Types, Operates types from Restconf APIs.
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_SCHED_TYPES_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite for SFC Function Schedule Algorithm Types, Operates types from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_SCHED_TYPES_URI}
+
 
 *** Test Cases ***
 Add Service Function Schedule Algorithm Types
@@ -36,7 +39,7 @@ Delete All Service Function Schedule Algorithm Types
 Get Ramdom Schedule Algorithm Type
     [Documentation]    Get Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    ${elements}=    Create List    random    "enabled":false    service-function-scheduler-type:random
+    ${elements}    Create List    random    "enabled":false    service-function-scheduler-type:random
     Check For Elements At URI    ${SERVICE_RANDOM_SCHED_TYPE_URI}    ${elements}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_RANDOM_SCHED_TYPE_URI}
 
@@ -50,7 +53,7 @@ Delete Ramdom Schedule Algorithm Type
     [Documentation]    Delete Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
     Remove All Elements At URI    ${SERVICE_RANDOM_SCHED_TYPE_URI}
-    ${elements}=    Create List    random    service-function-scheduler-type:random
+    ${elements}    Create List    random    service-function-scheduler-type:random
     Check For Elements Not At URI    ${SERVICE_SCHED_TYPES_URI}    ${elements}
 
 Delete A Non-existing Service Function Schedule Algorithm Type
@@ -70,9 +73,10 @@ Delete A Non-existing Service Function Schedule Algorithm Type
 Put one Service Function Schedule Algorithm Type
     [Documentation]    Put one Service Function Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_WSP_SCHED_TYPE_URI}    ${SERVICE_WSP_SCHED_TYPE_FILE}
-    ${elements}=    Create List    weighted-shortest-path    service-function-scheduler-type:weighted-shortest-path
+    ${elements}    Create List    weighted-shortest-path    service-function-scheduler-type:weighted-shortest-path
     Check For Elements At URI    ${SERVICE_WSP_SCHED_TYPE_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_SCHED_TYPES_URI}    ${elements}
+
 
 *** Keywords ***
 Init Suite

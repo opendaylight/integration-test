@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Test suite measuring connectivity speed.
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
-Test Teardown     Test Clean
-Library           ../../../libraries/Sxp.py
-Resource          ../../../libraries/SxpLib.robot
-Library           Remote    http://${ODL_SYSTEM_IP}:8270/ConnectionTestLibrary    WITH NAME    ConnectionTestLibrary
+Documentation       Test suite measuring connectivity speed.
+
+Library             ../../../libraries/Sxp.py
+Resource            ../../../libraries/SxpLib.robot
+Library             Remote    http://${ODL_SYSTEM_IP}:8270/ConnectionTestLibrary    WITH NAME    ConnectionTestLibrary
+
+Suite Setup         Setup SXP Environment
+Suite Teardown      Clean SXP Environment
+Test Teardown       Test Clean
+
 
 *** Variables ***
-${TEST_SAMPLES}    5
+${TEST_SAMPLES}     5
+
 
 *** Test Cases ***
 Connectivity Test
@@ -19,10 +23,11 @@ Connectivity TCP-MD5 Test
     [Documentation]    Test covering speed of connecting to remote peers with TCP-MD5
     Check Connectivity    80    70    10    passwd
 
+
 *** Keywords ***
 Setup Topology
-    [Arguments]    ${connections}    ${PASSWORD}    ${version}
     [Documentation]    Adds connections to local and remote nodes
+    [Arguments]    ${connections}    ${PASSWORD}    ${version}
     FOR    ${num}    IN RANGE    0    ${connections}
         ${address}    Get Ip From Number    ${num}    2130771968
         Add Connection    ${version}    listener    ${address}    64999    password=${PASSWORD}
@@ -32,8 +37,8 @@ Setup Topology
     END
 
 Check Connectivity
-    [Arguments]    ${peers}    ${min_peers}    ${min_speed}    ${PASSWORD}=${EMPTY}    ${version}=version4
     [Documentation]    Starts SXP nodes and checks if peers are already connected, this is repeated N times
+    [Arguments]    ${peers}    ${min_peers}    ${min_speed}    ${PASSWORD}=${EMPTY}    ${version}=version4
     @{ITEMS}    Create List
     FOR    ${num}    IN RANGE    0    ${TEST_SAMPLES}
         Setup Topology    ${peers}    ${PASSWORD}    ${version}
@@ -53,7 +58,7 @@ Check Connections Connected
     ${connect_time}    ConnectionTestLibrary.Get Connect Time
     Should Not Be Equal As Numbers    ${connect_time}    0
     ${connectivity_speed}    Evaluate    ${peers_connected}/${connect_time}
-    [Return]    ${connectivity_speed}
+    RETURN    ${connectivity_speed}
 
 Test Clean
     ConnectionTestLibrary.Clean Library

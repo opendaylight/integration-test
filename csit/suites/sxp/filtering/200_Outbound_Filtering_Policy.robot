@@ -1,22 +1,23 @@
 *** Settings ***
-Documentation     Test suite to verify Outbound filtering functionality using manual policy
-Suite Setup       Setup SXP Environment    5
-Suite Teardown    Clean SXP Environment    5
-Test Teardown     Clean Nodes
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           ../../../libraries/Sxp.py
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../libraries/SXP/FilteringResources.robot
+Documentation       Test suite to verify Outbound filtering functionality using manual policy
 
-*** Variables ***
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             ../../../libraries/Sxp.py
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/SxpLib.robot
+Resource            ../../../libraries/WaitForFailure.robot
+Resource            ../../../libraries/SXP/FilteringResources.robot
+
+Suite Setup         Setup SXP Environment    5
+Suite Teardown      Clean SXP Environment    5
+Test Teardown       Clean Nodes
+
 
 *** Test Cases ***
 Access List Filtering
     [Documentation]    Test ACL filter behaviour during filter update
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    acl=10.10.10.0,0.0.0.255
@@ -38,7 +39,7 @@ Access List Filtering
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    acl=10.10.20.0,0.0.0.255
@@ -58,7 +59,7 @@ Access List Sgt Filtering
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    pl=10.10.10.0/24
@@ -80,7 +81,7 @@ Prefix List Filtering
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    pl=10.10.20.0/24
@@ -98,10 +99,11 @@ Prefix List Sgt Filtering
     Reconnect Peers
     Wait Until Keyword Succeeds    4    2    Check Two Group 2-5
 
+
 *** Keywords ***
 Reconnect Peers
-    [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Reconnect all peers connected to node containing filters
+    [Arguments]    ${version}=version4    ${password}=none
     Clean Connections    127.0.0.1
     Add Connection    ${version}    both    127.0.0.2    64999    127.0.0.1    ${password}
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1    ${password}
