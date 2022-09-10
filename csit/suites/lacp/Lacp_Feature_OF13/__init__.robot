@@ -1,13 +1,17 @@
 *** Settings ***
-Documentation     Test suite for MD-SAL LACP mininet OF13
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
-Library           SSHLibrary
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for MD-SAL LACP mininet OF13
+
+Library             SSHLibrary
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Suite
+Suite Teardown      Stop Suite
+
 
 *** Variables ***
-${start}          sudo mn --custom LACP_custom1.py --switch ovsk,protocols=OpenFlow13
-${bond}           "/etc/modprobe.d/bonding.conf"
+${start}    sudo mn --custom LACP_custom1.py --switch ovsk,protocols=OpenFlow13
+${bond}     "/etc/modprobe.d/bonding.conf"
+
 
 *** Keywords ***
 Start Suite
