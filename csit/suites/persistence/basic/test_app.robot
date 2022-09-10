@@ -1,26 +1,30 @@
 *** Settings ***
-Documentation     Basic Tests for Persistence Test APP.
+Documentation       Basic Tests for Persistence Test APP.
 ...
-...               Copyright (c) 2015 Hewlett-Packard Development Company, L.P. and others. All rights reserved.
-Suite Setup       Setup Persistence Test App Environment
-Suite Teardown    Cleanup Persistence Test Database
-Library           SSHLibrary
-Library           Collections
-Library           ../../../libraries/UtilLibrary.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+...                 Copyright (c) 2015 Hewlett-Packard Development Company, L.P. and others. All rights reserved.
+
+Library             SSHLibrary
+Library             Collections
+Library             ../../../libraries/UtilLibrary.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/Utils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Setup Persistence Test App Environment
+Suite Teardown      Cleanup Persistence Test Database
+
 
 *** Variables ***
-${username}       user1
-${password}       user1
-${email_addr}     user1@example.com
-${location1}      BUILDING_1_FIRST_FLOOR
-${location2}      BUILDING_2_FIRST_FLOOR
-${device1_name}    node1
-${device1_ip}     10.1.1.10
-${device2_name}    node2
-${device2_ip}     10.1.1.20
+${username}         user1
+${password}         user1
+${email_addr}       user1@example.com
+${location1}        BUILDING_1_FIRST_FLOOR
+${location2}        BUILDING_2_FIRST_FLOOR
+${device1_name}     node1
+${device1_ip}       10.1.1.10
+${device2_name}     node2
+${device2_ip}       10.1.1.20
+
 
 *** Test Cases ***
 Verify User Test App
@@ -32,7 +36,7 @@ Verify User Test App
     ...    4. Verify unknown user cannot be authenticated
     ...    5. Disable the user
     ...    6. Verify disabled user can be fetched
-    [Tags]    Persistence    TestApp
+    [Tags]    persistence    testapp
     Issue Command On Karaf Console    user:sign-up ${username} ${password} ${email_addr}
     ${output}=    Issue Command On Karaf Console    user:get-enabled
     ${string}=    Extract String To Validate    ${output}    User{username=Username{value=    0
@@ -57,12 +61,12 @@ Verify Network Device Test App
     ...    4. Verify device name
     ...    5. Configure a location
     ...    6. Verify device location
-    [Tags]    Persistence    TestApp
+    [Tags]    persistence    testapp
     Issue Command On Karaf Console    networkdevice:discover ${device1_ip}
     ${output}=    Issue Command On Karaf Console    networkdevice:get-reachable
     ${string}=    Extract String To Validate    ${output}    ipAddress=IpAddress{value=    2
     Should Match    ${string}    ${device1_ip}
-    ${device_id}    Find Device Id    ${device1_ip}
+    ${device_id}=    Find Device Id    ${device1_ip}
     Issue Command On Karaf Console    networkdevice:set-friendly-name ${device_id} ${device1_name}
     ${data}=    Find Device Name    ${device1_ip}
     Should Match    ${data}    ${device1_name}
@@ -78,10 +82,10 @@ Verify Data Persistency
     ...    3. Restart the controller
     ...    4. Verify user name, email address and state are persisted
     ...    5. Verify device name and location are persisted
-    [Tags]    Persistence    TestApp
+    [Tags]    persistence    testapp
     Issue Command On Karaf Console    user:sign-up ${username} ${password} ${email_addr}
     Issue Command On Karaf Console    networkdevice:discover ${device2_ip}
-    ${device_id}    Find Device Id    ${device2_ip}
+    ${device_id}=    Find Device Id    ${device2_ip}
     Issue Command On Karaf Console    networkdevice:set-location ${device_id} ${location2}
     Issue Command On Karaf Console    networkdevice:set-friendly-name ${device_id} ${device2_name}
     Stop One Or More Controllers    ${ODL_SYSTEM_IP}
@@ -101,22 +105,23 @@ Verify Data Persistency
     ${data}=    Find Device Location    ${device2_ip}    ${location2}
     Should Match    ${data}    ${location2}
 
+
 *** Keywords ***
 Extract String To Validate
-    [Arguments]    ${output}    ${splitter}    ${index}
     [Documentation]    Take the output of a content, the string to be splitted and the
     ...    index of the data from the output, parse the strin and return the data that includes
     ...    user's name, user's email address, device's IP address
+    [Arguments]    ${output}    ${splitter}    ${index}
     ${output}=    Split Value from String    ${output}    }
     ${string}=    Get From List    ${output}    ${index}
     ${string}=    Split Value from String    ${string}    ${splitter}
     ${string}=    Get From List    ${string}    1
-    [Return]    ${string}
+    RETURN    ${string}
 
 Find Line
-    [Arguments]    ${device_ip}
     [Documentation]    Take the output of networkdevice:get-reachable, find the line
     ...    with the give IP with the given IP address and return the line
+    [Arguments]    ${device_ip}
     ${output}=    Issue Command On Karaf Console    networkdevice:get-reachable
     ${output}=    Split To Lines    ${output}
     ${length}=    Get Length    ${output}
@@ -125,47 +130,47 @@ Find Line
         ${data}=    Fetch From Right    ${line}    ipAddress=IpAddress{value=
         ${data}=    Split String    ${data}    },
         ${data}=    Get From List    ${data}    0
-        Run Keyword If    '${data}' == '${device_ip}'    Exit For Loop
+        IF    '${data}' == '${device_ip}'            BREAK
     END
-    [Return]    ${line}
+    RETURN    ${line}
 
 Find Device Id
-    [Arguments]    ${device_ip}
     [Documentation]    Find the device ID using its IP address
+    [Arguments]    ${device_ip}
     ${line}=    Find Line    ${device_ip}
     ${id}=    Split String    ${line}    NetworkDevice{id=SerialNumber{value=
     ${id}=    Get From List    ${id}    1
     ${id}=    Fetch from Left    ${id}    }
-    [Return]    ${id}
+    RETURN    ${id}
 
 Find Device Name
-    [Arguments]    ${device_ip}
     [Documentation]    Find the device's name using its IP address
+    [Arguments]    ${device_ip}
     ${line}=    Find Line    ${device_ip}
     ${line}=    Split String    ${line}    ,
     ${line}=    Get From List    ${line}    -2
     ${name}=    Split String    ${line}    friendlyName=
     ${name}=    Get From List    ${name}    1
-    [Return]    ${name}
+    RETURN    ${name}
 
 Find Device Location
-    [Arguments]    ${device_ip}    ${location}
     [Documentation]    Find the device's location using its IP address
+    [Arguments]    ${device_ip}    ${location}
     ${line}=    Find Line    ${device_ip}
     ${line}=    Split String    ${line}    ,
     ${line}=    Get From List    ${line}    3
     ${name}=    Split String    ${line}    location=
     ${name}=    Get From List    ${name}    1
-    [Return]    ${location}
+    RETURN    ${location}
 
 Find User State
-    [Arguments]    ${output}
     [Documentation]    Find the user's state
+    [Arguments]    ${output}
     ${output}=    Split Value from String    ${output}    ,
     ${data}=    Get From List    ${output}    4
     ${data}=    Remove Space on String    ${data}
     ${data}=    Split String    ${data}    }
-    [Return]    ${data}
+    RETURN    ${data}
 
 Setup Persistence Test App Environment
     [Documentation]    Installing Persistence Related features

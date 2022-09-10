@@ -1,18 +1,21 @@
 *** Settings ***
-Documentation     Test suite to verify PeerSequence filtering functionality
-Suite Setup       Setup SXP Environment    5
-Suite Teardown    Clean SXP Environment    5
-Test Teardown     Clean Nodes
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           ../../../libraries/Sxp.py
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/SxpLib.robot
+Documentation       Test suite to verify PeerSequence filtering functionality
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             ../../../libraries/Sxp.py
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/SxpLib.robot
+
+Suite Setup         Setup SXP Environment    5
+Suite Teardown      Clean SXP Environment    5
+Test Teardown       Clean Nodes
+
 
 *** Test Cases ***
 Peer Sequence Filtering
     [Documentation]    Test PeerSequence filter behaviour
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     ${peers} =    Sxp.Add Peers    127.0.0.2
     SxpLib.Add PeerGroup    GROUP    ${peers}
     ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,0
@@ -40,7 +43,7 @@ Peer Sequence Filtering
 
 Inbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
     FOR    ${scope}    IN    @{scopes}
         SxpLib.Add PeerGroup    GROUP
@@ -59,13 +62,13 @@ Inbound PL Combinations Filtering
 
 Inbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     @{scopes} =    BuiltIn.Create List    inbound    inbound-discarding
     FOR    ${scope}    IN    @{scopes}
         ${peers} =    Sxp.Add Peers    127.0.0.2
         SxpLib.Add PeerGroup    GROUP2    ${peers}
         ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=le,2
-        ${entries}    Common.Combine Strings    ${entry1}
+        ${entries} =    Common.Combine Strings    ${entry1}
         SxpLib.Add Filter    GROUP2    ${scope}    ${entries}
         Setup Nodes Inbound Test
         ${entry1} =    Sxp.Get Filter Entry    10    permit    acl=1.1.1.0,0.0.0.255
@@ -82,7 +85,7 @@ Inbound ACL Combinations Filtering
 
 Outbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     SxpLib.Add PeerGroup    GROUP
     ${entry1} =    Sxp.Get Filter Entry    10    permit    pl=1.1.1.0/24
     ${entries} =    Common.Combine Strings    ${entry1}
@@ -97,7 +100,7 @@ Outbound PL Combinations Filtering
 
 Outbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
-    [Tags]    SXP    Filtering
+    [Tags]    sxp    filtering
     SxpLib.Add PeerGroup    GROUP
     ${entry1} =    Sxp.Get Filter Entry    10    permit    ps=eq,0
     ${entry2} =    Sxp.Get Filter Entry    20    permit    ps=ge,2
@@ -111,10 +114,11 @@ Outbound ACL Combinations Filtering
     SxpLib.Add Filter    GROUP2    outbound    ${entries}
     BuiltIn.Wait Until Keyword Succeeds    4    2    Check Outbound ACL Combinations Filtering
 
+
 *** Keywords ***
 Setup Nodes
-    [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for PeerSequence tests
+    [Arguments]    ${version}=version4    ${password}=none
     SxpLib.Add Bindings    10    10.10.10.10/32    127.0.0.1
     SxpLib.Add Bindings    10    10.10.10.0/24    127.0.0.1
     SxpLib.Add Bindings    10    10.10.0.0/16    127.0.0.1
@@ -141,8 +145,8 @@ Setup Nodes
     ...    64999    127.0.0.4
 
 Setup Nodes Inbound Test
-    [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for inbound PeerSequence and other filters tests
+    [Arguments]    ${version}=version4    ${password}=none
     FOR    ${node}    IN RANGE    2    6
         SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
         SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
@@ -169,8 +173,8 @@ Setup Nodes Inbound Test
     ...    64999    127.0.0.4
 
 Setup Nodes Outbound Test
-    [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for outbound PeerSequence and other filters tests
+    [Arguments]    ${version}=version4    ${password}=none
     SxpLib.Add Bindings    10    1.1.1.1/32    127.0.0.1
     SxpLib.Add Bindings    10    1.1.1.0/24    127.0.0.1
     SxpLib.Add Bindings    10    1.1.0.0/16    127.0.0.1
