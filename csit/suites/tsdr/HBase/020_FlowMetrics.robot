@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for Hbase DataStore Flow Stats Verification
-Suite Setup       Start Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Hbase DataStore Flow Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{FLOW_METRICS}    PacketCount    ByteCount
+@{FLOW_METRICS}     PacketCount    ByteCount
+
 
 *** Test Cases ***
 Init Variables
@@ -42,6 +46,7 @@ Verification of FlowMetrics-BytesCount on HBase Client
     ${Line1}=    Get Line    ${output}    0
     Should Contain    ${Line1}    ByteCount
     Verify the Metrics Attributes on Hbase Client    ByteCount    ${node_connector}    ${flowstats}
+
 
 *** Keywords ***
 Init Variables Master

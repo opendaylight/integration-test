@@ -1,9 +1,11 @@
 *** Settings ***
-Documentation     Not a test, it just logs versions of installed Python modules.
-...               Useful when library documentation mentions version-specific behavior.
-Library           OperatingSystem
-Library           SSHLibrary
-Resource          ${CURDIR}/../../libraries/SSHKeywords.robot
+Documentation       Not a test, it just logs versions of installed Python modules.
+...                 Useful when library documentation mentions version-specific behavior.
+
+Library             OperatingSystem
+Library             SSHLibrary
+Resource            ${CURDIR}/../../libraries/SSHKeywords.robot
+
 
 *** Test Cases ***
 Freeze

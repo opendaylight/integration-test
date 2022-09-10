@@ -1,22 +1,37 @@
 *** Settings ***
-Documentation     Test suite for Hbase DataStore PortStats Verification
-Suite Setup       Initialize the Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Hbase DataStore PortStats Verification
+Metadata            https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Initialize the Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
-...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-&{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
+@{INTERFACE_METRICS}
+...                     TransmittedPackets
+...                     TransmittedBytes
+...                     TransmitErrors
+...                     TransmitDrops
+...                     ReceivedPackets
+...                     ReceivedBytes
+...                     ReceiveOverRunError
+...                     ReceiveFrameError
+...                     ReceiveErrors
+...                     ReceiveDrops
+...                     ReceiveCrcError
+...                     CollisionCount
+&{HEADERS_QUERY}        Content-Type=application/json    Content-Type=application/json
+
 
 *** Test Cases ***
 Init Variables
@@ -63,6 +78,7 @@ Verify Configuration Interval-change
     Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    ${default_poll}
     [Teardown]    Report_Failure_Due_To_Bug    5068
 
+
 *** Keywords ***
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
@@ -70,7 +86,9 @@ Init Variables Master
     ...    QUEUESTATS
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
     Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
-    Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
+    Set Suite Variable
+    ...    ${OPER_INTERVAL}
+    ...    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
     Set Suite Variable    ${default_poll}    15000
     set Suite Variable    ${non_default_poll}    20000
     set Suite Variable    ${node_connector}    Node:openflow:1,NodeConnector:1
@@ -82,17 +100,17 @@ Initialize the Tsdr Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
 
 Verify TSDR Configuration Interval
-    [Arguments]    ${interval}
     [Documentation]    Verify Configuration interval of TSDR Collection
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_INTERVAL}
+    [Arguments]    ${interval}
+    ${resp}=    RequestsLibrary.Get Request    session    ${CONFIG_INTERVAL}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${interval}
 
 Post TSDR Configuration Interval
-    [Arguments]    ${interval}
     [Documentation]    Configuration TSDR collection interval ${interval}
-    ${p1}    Create Dictionary    interval=${interval}
-    ${p2}    Create Dictionary    input=${p1}
+    [Arguments]    ${interval}
+    ${p1}=    Create Dictionary    interval=${interval}
+    ${p2}=    Create Dictionary    input=${p1}
     ${p2_json}=    json.dumps    ${p2}
-    ${resp}    RequestsLibrary.Post Request    session    ${OPER_INTERVAL}    data=${p2_json}
+    ${resp}=    RequestsLibrary.Post Request    session    ${OPER_INTERVAL}    data=${p2_json}
     Should Be Equal As Strings    ${resp.status_code}    200

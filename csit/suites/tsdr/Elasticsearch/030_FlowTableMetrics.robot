@@ -1,25 +1,29 @@
 *** Settings ***
-Documentation     Test suite for ElasticSearch DataStore PortStats Verification
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite for ElasticSearch DataStore PortStats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
 @{tsdr_pl}
 @{tsdr_af}
 @{tsdr_pm}
-${packetlookup}    flow-table-statistics/packets-looked-up
-${activeflows}    flow-table-statistics/active-flows
-${packetmatched}    flow-table-statistics/packets-matched
+${packetlookup}                 flow-table-statistics/packets-looked-up
+${activeflows}                  flow-table-statistics/active-flows
+${packetmatched}                flow-table-statistics/packets-matched
 @{openflow_packetlookup}
 @{openflow_activeflows}
 @{openflow_packetmatched}
+
 
 *** Test Cases ***
 Verification of TSDR ElasticSearch Feature Installation
@@ -42,6 +46,7 @@ Comparing Flow Table Metrics
     Should Be Equal As Strings    ${tsdr_pl}    ${openflow_packetlookup}
     Should Be Equal As Strings    ${tsdr_af}    ${openflow_activeflows}
     Should Be Equal As Strings    ${tsdr_pm}    ${openflow_packetmatched}
+
 
 *** Keywords ***
 Getting all Tables from Openflow Plugin
