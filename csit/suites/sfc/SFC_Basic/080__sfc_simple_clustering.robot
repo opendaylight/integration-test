@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for SFC Service Functions, Operates functions from Restconf APIs.
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${SFC_API}        /restconf/config/service-function:service-functions
+${SFC_API}      /restconf/config/service-function:service-functions
+
 
 *** Test Cases ***
 Add Service Functions To First Node
@@ -39,15 +43,18 @@ Read Service Functions From Third Node
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
 
+
 *** Keywords ***
 Read JSON From File
     [Arguments]    ${filepath}
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
-    [Return]    ${jsonbody}
+    RETURN    ${jsonbody}
 
 Init Suite
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    Set Suite Variable
+    ...    ${SFC_FUNCTIONS_FILE}
+    ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
