@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Function ACL, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_FUNCTION_ACLS_URI}
-Test Teardown     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for SFC Service Function ACL, Operates functions from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_FUNCTION_ACLS_URI}
+Test Teardown       Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
+
 
 *** Variables ***
 ${SERVICE_FUNCTION_ACL_FILE}    ${CURDIR}/../../../variables/sfc/master/service-function-acl.json
+
 
 *** Test Cases ***
 Add ACL
@@ -41,7 +45,9 @@ Delete All ACLs
 Get one ACL
     [Documentation]    Get one ACL
     Add Elements To URI From File    ${SERVICE_FUNCTION_ACLS_URI}    ${SERVICE_FUNCTION_ACL_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_ACLS_URI}/acl/ietf-access-control-list:ipv4-acl/ACL1
+    ${resp}    RequestsLibrary.Get Request
+    ...    session
+    ...    ${SERVICE_FUNCTION_ACLS_URI}/acl/ietf-access-control-list:ipv4-acl/ACL1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get A Non-existing ACL

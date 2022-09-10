@@ -1,21 +1,24 @@
 *** Settings ***
-Documentation     Test suite for SFC Rendered Service Paths and Classifiers.
-Suite Setup       Init Suite
-Suite Teardown    Cleanup Suite
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           ../../../libraries/SFC/SfcUtils.py
-Resource          ../../../libraries/SFC/SfcKeywords.robot
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/DataModels.robot
-Resource          ../../../libraries/SFC/DockerSfc.robot
-Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/sfc/Modules.py
+Documentation       Test suite for SFC Rendered Service Paths and Classifiers.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             ../../../libraries/SFC/SfcUtils.py
+Resource            ../../../libraries/SFC/SfcKeywords.robot
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/DataModels.robot
+Resource            ../../../libraries/SFC/DockerSfc.robot
+Resource            ../../../libraries/Utils.robot
+Variables           ../../../variables/sfc/Modules.py
+
+Suite Setup         Init Suite
+Suite Teardown      Cleanup Suite
+
 
 *** Test Cases ***
 Basic Environment Setup Tests
@@ -30,7 +33,10 @@ Basic Environment Setup Tests
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}
     ${rsp_rev_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}    True
     ${mapping} =    BuiltIn.Create Dictionary    RSP1=${rsp_name}    RSP1_Reverse=${rsp_rev_name}
-    ${sf_acl_text} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CONFIG_DIR}    file_name=${SERVICE_FUNCTION_ACLS_FILE}    mapping=${mapping}
+    ${sf_acl_text} =    TemplatedRequests.Resolve_Text_From_Template_File
+    ...    folder=${CONFIG_DIR}
+    ...    file_name=${SERVICE_FUNCTION_ACLS_FILE}
+    ...    mapping=${mapping}
     Utils.Add Elements To URI And Verify    ${SERVICE_FUNCTION_ACLS_URI}    ${sf_acl_text}
 
 Get Rendered Service Path By Name
@@ -40,39 +46,67 @@ Get Rendered Service Path By Name
     Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_name}
     ${rsp_rev_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}    True
     Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_rev_name}
-    ${elements} =    BuiltIn.Create List    ${rsp_name}    "parent-service-function-path":"${SFP_NAME}"    "hop-number":0    "service-index":255    "hop-number":1
+    ${elements} =    BuiltIn.Create List
+    ...    ${rsp_name}
+    ...    "parent-service-function-path":"${SFP_NAME}"
+    ...    "hop-number":0
+    ...    "service-index":255
+    ...    "hop-number":1
     ...    "service-index":254
     Utils.Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
 
 Create and Get Classifiers
     [Documentation]    Apply json file descriptions of ACLs and Classifiers. Full Deploy
     Utils.Add Elements To URI From File    ${SERVICE_CLASSIFIERS_URI}    ${SERVICE_CLASSIFIERS_FILE}
-    ${classifiers}=    BuiltIn.Create List    "service-function-classifiers"    "service-function-classifier"    "type":"ietf-access-control-list:ipv4-acl"    "scl-service-function-forwarder"
+    ${classifiers} =    BuiltIn.Create List
+    ...    "service-function-classifiers"
+    ...    "service-function-classifier"
+    ...    "type":"ietf-access-control-list:ipv4-acl"
+    ...    "scl-service-function-forwarder"
     Append To List    ${classifiers}    "name":"Classifier2"    "name":"ACL2"
     Append To List    ${classifiers}    "name":"Classifier1"    "name":"ACL1"
     Utils.Check For Elements At URI    ${SERVICE_CLASSIFIERS_URI}    ${classifiers}
     BuiltIn.Wait Until Keyword Succeeds    60s    2s    SfcKeywords.Check Classifier Flows
 
+
 *** Keywords ***
 Init Suite
     [Documentation]    Connect Create session and initialize ODL version specific variables
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    RequestsLibrary.Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH}
+    ...    headers=${HEADERS}
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
     SSHKeywords.Flexible Mininet Login
     ${docker_cidr} =    DockerSfc.Get Docker Bridge Subnet
     ${docker_nw} =    SfcUtils.Get Network From Cidr    ${docker_cidr}
     ${docker_mask} =    SfcUtils.Get Mask From Cidr    ${docker_cidr}
-    ${route_to_docker_net} =    BuiltIn.Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
-    Utils.Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
+    ${route_to_docker_net} =    BuiltIn.Set Variable
+    ...    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
+    Utils.Run Command On Remote System
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${route_to_docker_net}
+    ...    ${ODL_SYSTEM_USER}
+    ...    prompt=${ODL_SYSTEM_PROMPT}
     SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
-    ${result} =    SSHLibrary.Execute Command    ./setup-docker-image.sh ${ODL_STREAM} > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    ${result} =    SSHLibrary.Execute Command
+    ...    ./setup-docker-image.sh ${ODL_STREAM} > >(tee myFile.log) 2> >(tee myFile.log)
+    ...    return_stderr=True
+    ...    return_stdout=True
+    ...    return_rc=True
     BuiltIn.log    ${result}
     BuiltIn.Should be equal as integers    ${result[2]}    0
     BuiltIn.Set Suite Variable    @{INTERFACE_NAMES}    v-ovsnsn6g1    v-ovsnsn1g1
     DockerSfc.Docker Ovs Start    nodes=6    guests=1    tunnel=vxlan-gpe    odl_ip=${ODL_SYSTEM_IP}
-    BuiltIn.Wait Until Keyword Succeeds    60s    2s    Utils.Check For Elements At URI    ${OVSDB_TOPOLOGY_URI}    ${INTERFACE_NAMES}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    60s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${OVSDB_TOPOLOGY_URI}
+    ...    ${INTERFACE_NAMES}
     ${docker_name_list} =    DockerSfc.Get Docker Names As List
     BuiltIn.Set Suite Variable    ${DOCKER_NAMES_LIST}    ${docker_name_list}
     BuiltIn.log    ${ODL_STREAM}
