@@ -1,28 +1,32 @@
 *** Settings ***
-Documentation     This is a suite which has both ODL Micro and Netconf Testtool
-...               execution . suite reports failures if functional error
-...               is detected, or if various time limits expire.
-...               For passing test cases, their duration is the performance metric.
-Library           SSHLibrary    timeout=10s
-Library           RequestsLibrary
-Resource          ${CURDIR}/../../libraries/NexusKeywords.robot
-Resource          ${CURDIR}/../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../libraries/ODLMicroKeywords.robot
+Documentation       This is a suite which has both ODL Micro and Netconf Testtool
+...                 execution . suite reports failures if functional error
+...                 is detected, or if various time limits expire.
+...                 For passing test cases, their duration is the performance metric.
+
+Library             SSHLibrary    timeout=10s
+Library             RequestsLibrary
+Resource            ${CURDIR}/../../libraries/NexusKeywords.robot
+Resource            ${CURDIR}/../../libraries/NetconfKeywords.robot
+Resource            ${CURDIR}/../../libraries/ODLMicroKeywords.robot
+
 
 *** Variables ***
-${BASE_URL}       https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/odlmicro/micro-netconf
-${ORG_URL}        ${BASE_URL}/${ODL_MICRO_VERSION}/
-${BUNDLE_URL}     ${BASE_URL}
-${ODL_MICRO_WORKSPACE}    /tmp
-${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
-${device_name}    netconf-test-device
-${device_type}    full-uri-device
-${USE_NETCONF_CONNECTOR}    ${False}
-${RESTCONF_PASSWORD}    ${PWD}    # from Variables.robot
-${RESTCONF_REUSE}    True
-${RESTCONF_SCOPE}    ${EMPTY}
-${RESTCONF_USER}    ${USER}    # from Variables.robot
-${TOOLS_SYSTEM_PROMPT}    ${ODL_SYSTEM_PROMPT}
+${BASE_URL}
+...                                     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/odlmicro/micro-netconf
+${ORG_URL}                              ${BASE_URL}/${ODL_MICRO_VERSION}/
+${BUNDLE_URL}                           ${BASE_URL}
+${ODL_MICRO_WORKSPACE}                  /tmp
+${directory_with_template_folders}      ${CURDIR}/../../../variables/netconf/CRUD
+${device_name}                          netconf-test-device
+${device_type}                          full-uri-device
+${USE_NETCONF_CONNECTOR}                ${False}
+${RESTCONF_PASSWORD}                    ${PWD}    # from Variables.robot
+${RESTCONF_REUSE}                       True
+${RESTCONF_SCOPE}                       ${EMPTY}
+${RESTCONF_USER}                        ${USER}    # from Variables.robot
+${TOOLS_SYSTEM_PROMPT}                  ${ODL_SYSTEM_PROMPT}
+
 
 *** Test Cases ***
 Download and Run ODL Micro
@@ -35,6 +39,7 @@ Download and Run ODL Micro
 Download and Run Netconf Testtool
     [Documentation]    Download and Run Netconf Testtool in Tools VM.
     Download Netconf Testtool
+
 
 *** Keywords ***
 Teardown
