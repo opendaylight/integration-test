@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for GBP Tenants, Operates functions from Restconf APIs.
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Init Variables
@@ -32,12 +35,13 @@ Read Tenant from other node
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
 
+
 *** Keywords ***
 Read JSON From File
     [Arguments]    ${filepath}
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
-    [Return]    ${jsonbody}
+    RETURN    ${jsonbody}
 
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version

@@ -1,28 +1,31 @@
 *** Settings ***
-Documentation     Global variables for GBPSFC 3-node topology
-Variables         ../../../../variables/Variables.py
-Resource          ../../../../libraries/CompareStream.robot
+Documentation       Global variables for GBPSFC 3-node topology
+
+Variables           ../../../../variables/Variables.py
+Resource            ../../../../libraries/CompareStream.robot
+
 
 *** Variables ***
-${VM_HOME_FOLDER}    ${WORKSPACE}
-${VM_SCRIPTS_FOLDER}    scripts
-${ODL}            ${ODL_SYSTEM_IP}
-${GBP1}           ${TOOLS_SYSTEM_IP}
-${GBP2}           ${TOOLS_SYSTEM_2_IP}
-${GBP3}           ${TOOLS_SYSTEM_3_IP}
-@{GBPs}           ${GBP1}    ${GBP2}    ${GBP3}
-${TUNNELS_PATH}    ${CONFIG_NODES_API}
-${ENDPOINT_REG_PATH}    ${GBP_REGEP_API}
-${ENDPOINT_UNREG_PATH}    ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}    /restconf/operational/endpoint:endpoints
-${OF_OVERLAY_CONFIG_PATH}    /restconf/config/ofoverlay:of-overlay-config
-${TUNNELS_FILE}    ${CURDIR}/../../../../variables/gbp/3node/tunnels.json
+${VM_HOME_FOLDER}               ${WORKSPACE}
+${VM_SCRIPTS_FOLDER}            scripts
+${ODL}                          ${ODL_SYSTEM_IP}
+${GBP1}                         ${TOOLS_SYSTEM_IP}
+${GBP2}                         ${TOOLS_SYSTEM_2_IP}
+${GBP3}                         ${TOOLS_SYSTEM_3_IP}
+@{GBPs}                         ${GBP1}    ${GBP2}    ${GBP3}
+${TUNNELS_PATH}                 ${CONFIG_NODES_API}
+${ENDPOINT_REG_PATH}            ${GBP_REGEP_API}
+${ENDPOINT_UNREG_PATH}          ${GBP_UNREGEP_API}
+${ENDPOINTS_OPER_PATH}          /restconf/operational/endpoint:endpoints
+${OF_OVERLAY_CONFIG_PATH}       /restconf/config/ofoverlay:of-overlay-config
+${TUNNELS_FILE}                 ${CURDIR}/../../../../variables/gbp/3node/tunnels.json
+
 
 *** Keywords ***
 Set Test Variables
+    [Documentation]    Sets variables used in 3node test cases.
     [Arguments]    ${client_switch_ip}    ${client_docker}    ${client_ip}    ${client_mac}    ${same_webserver_docker}    ${same_webserver_ip}
     ...    ${same_webserver_mac}    ${diff_webserver_switch_ip}    ${diff_webserver_docker}    ${diff_webserver_ip}    ${diff_webserver_mac}
-    [Documentation]    Sets variables used in 3node test cases.
     Set Global Variable    ${CLIENT_SWITCH_IP}    ${client_switch_ip}
     Set Global Variable    ${CLIENT_DOCKER}    ${client_docker}
     Set Global Variable    ${CLIENT_IP}    ${client_ip}
