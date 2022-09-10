@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for H2 DataStore Flow Metrics Verification
-Suite Setup       Start Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for H2 DataStore Flow Metrics Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{FLOW_METRICS}    PacketCount    ByteCount
-${TSDR_FLOWSTATS}    tsdr:list FlowStats
+@{FLOW_METRICS}         PacketCount    ByteCount
+${TSDR_FLOWSTATS}       tsdr:list FlowStats
+
 
 *** Test Cases ***
 Verification of TSDR FlowMetrics

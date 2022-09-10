@@ -1,25 +1,38 @@
 *** Settings ***
-Documentation     Test suite for H2 DataStore FlowMeter Stats Verification
-Suite Setup       Run Keywords    Start TSDR suite with CPqD Switch    Configuration of FlowMeter on Switch
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for H2 DataStore FlowMeter Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Run Keywords    Start TSDR suite with CPqD Switch    Configuration of FlowMeter on Switch
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{FLOWMETER_METRICS}    ByteInCount    PacketInCount    FlowCount
-${TSDR_FLOWMETERSTATS}    tsdr:list FlowMeterStats
-@{FLOWMETER_HEADER}    MetricName    MetricValue    MetricCategory    MetricDetails
+@{FLOWMETER_METRICS}        ByteInCount    PacketInCount    FlowCount
+${TSDR_FLOWMETERSTATS}      tsdr:list FlowMeterStats
+@{FLOWMETER_HEADER}         MetricName    MetricValue    MetricCategory    MetricDetails
+
 
 *** Test Cases ***
 Verify the FlowMeter Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowMeterStats attributes exist on Karaf Console
-    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWMETERSTATS}    ByteInCount
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWMETERSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+    Wait Until Keyword Succeeds
+    ...    120s
+    ...    1s
+    ...    Verify the Metric is Collected?
+    ...    ${TSDR_FLOWMETERSTATS}
+    ...    ByteInCount
+    ${output}=    Issue Command On Karaf Console
+    ...    ${TSDR_FLOWMETERSTATS}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${KARAF_SHELL_PORT}
+    ...    30
     FOR    ${list}    IN    @{FLOWMETER_METRICS}
         Should Contain    ${output}    ${list}
     END
@@ -54,13 +67,18 @@ Verification TSDR Command shouldnot exist in help
     ${output}=    Issue Command On Karaf Console    tsdr\t    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
     Should not Contain    ${output}    tsdr:list
 
-*** Keyword ***
+
+*** Keywords ***
 Start TSDR suite with CPqD Switch
     Start Tsdr Suite    user
 
 Configuration of FlowMeter on Switch
     [Documentation]    FlowMeter configuration on CPqD
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo dpctl unix:/tmp/s1 meter-mod cmd=add,flags=1,meter=1 drop:rate=100
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo dpctl unix:/tmp/s1 flow-mod table=0,cmd=add in_port=1 meter:1 apply:output=2
+    Run Command On Remote System
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    sudo dpctl unix:/tmp/s1 meter-mod cmd=add,flags=1,meter=1 drop:rate=100
+    Run Command On Remote System
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    sudo dpctl unix:/tmp/s1 flow-mod table=0,cmd=add in_port=1 meter:1 apply:output=2
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo dpctl unix:/tmp/s1 ping 10
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo dpctl unix:/tmp/s2 ping 10

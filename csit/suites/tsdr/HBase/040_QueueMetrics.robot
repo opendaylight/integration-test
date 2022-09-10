@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for Hbase DataStore Queue Stats Verification
-Suite Setup       Run Keywords    Start Tsdr Suite    Configuration of Queue on Switch
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Hbase DataStore Queue Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Run Keywords    Start Tsdr Suite    Configuration of Queue on Switch
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
+
 
 *** Test Cases ***
 Init Variables
@@ -44,6 +48,7 @@ Verification of QueueMetrics-TransmittedBytes on HBase Client
 Verification of QueueMetrics-TransmissionErrors on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    TransmissionErrors    ${node_connector}    ${queuestats}
+
 
 *** Keywords ***
 Configuration of Queue on Switch
