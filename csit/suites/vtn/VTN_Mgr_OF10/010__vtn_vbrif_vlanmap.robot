@@ -1,12 +1,18 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager using OF10
-Suite Setup       Start SuiteVtnMaTest
-Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.robot
+Documentation       Test suite for VTN Manager using OF10
+
+Resource            ../../../libraries/VtnMaKeywords.robot
+
+Suite Setup         Start SuiteVtnMaTest
+Suite Teardown      Stop SuiteVtnMaTest
+
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.5/32"},"index":"1"}]
-${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"6"}}],"index":"1"}]
+${flowconditiondata}
+...                     "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.5/32"},"index":"1"}]
+${flowfiltervlanpcp}
+...                     "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"6"}}],"index":"1"}]
+
 
 *** Test Cases ***
 Start topology
@@ -64,7 +70,12 @@ Add a vbrif flowfilter with vlanpcp
 
 Verify vlanpcp of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for vlanpcp
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    ${vlanpcp_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF10}
+    ...    ${vlanpcp_action}
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter

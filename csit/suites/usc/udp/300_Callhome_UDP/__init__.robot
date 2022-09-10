@@ -1,10 +1,9 @@
 *** Settings ***
-Documentation     Test suite for callhome DTLS channel
-Suite Setup       Start CALLHOME_UDP
-Suite Teardown    Stop Agent_Echo
-Force Tags        UDP_CALLHOME
-Resource          ../../../../libraries/UscUtils.robot
+Documentation       Test suite for callhome DTLS channel
 
-*** Variables ***
+Resource            ../../../../libraries/UscUtils.robot
 
-*** Keywords ***
+Suite Setup         Start CALLHOME_UDP
+Suite Teardown      Stop Agent_Echo
+
+Force Tags          udp_callhome

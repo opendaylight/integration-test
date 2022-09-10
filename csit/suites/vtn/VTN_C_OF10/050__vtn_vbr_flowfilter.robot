@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation     Test suite for VTN Coordinator
-Suite Setup       Start SuiteVtnCoTest
-Suite Teardown    Stop SuiteVtnCoTest
-Resource          ../../../libraries/VtnCoKeywords.robot
+Documentation       Test suite for VTN Coordinator
+
+Resource            ../../../libraries/VtnCoKeywords.robot
+
+Suite Setup         Start SuiteVtnCoTest
+Suite Teardown      Stop SuiteVtnCoTest
+
 
 *** Test Cases ***
 Add a ODL Controller
