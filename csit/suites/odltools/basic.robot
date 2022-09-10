@@ -1,6 +1,8 @@
 *** Settings ***
-Documentation     Test suite to verify odltools
-Resource          ../../libraries/ODLTools.robot
+Documentation       Test suite to verify odltools
+
+Resource            ../../libraries/ODLTools.robot
+
 
 *** Test Cases ***
 Verify Installation
