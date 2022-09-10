@@ -1,35 +1,44 @@
 *** Settings ***
-Documentation     LISP southbound performance tests
-Suite Setup       Prepare Environment
-Suite Teardown    Destroy Environment
-Library           Collections
-Library           DateTime
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           String
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/LISPFlowMapping.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Variables         ../../../variables/Variables.py
+Documentation       LISP southbound performance tests
+
+Library             Collections
+Library             DateTime
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             String
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/LISPFlowMapping.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Prepare Environment
+Suite Teardown      Destroy Environment
+
 
 *** Variables ***
-${MAPPINGS}       10000
-${LISP_SCAPY}     https://raw.githubusercontent.com/ljakab/py-lispnetworking/opendaylight/lisp.py
-${TOOLS_DIR}      ${CURDIR}/../../../../tools/odl-lispflowmapping-performance-tests/
-${PCAP_CREATOR}    ${TOOLS_DIR}/create_lisp_control_plane_pcap.py
-${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
-${REPLAY_PPS}     100000
-${REPLAY_CNT}     1000
-${REPLAY_FILE_MREQ}    encapsulated-map-requests-sequential.pcap
-${REPLAY_FILE_MREG}    map-registers-sequential-no-auth.pcap
-${REPLAY_FILE_MRGA}    map-registers-sequential-sha1-auth.pcap
+${MAPPINGS}             10000
+${LISP_SCAPY}           https://raw.githubusercontent.com/ljakab/py-lispnetworking/opendaylight/lisp.py
+${TOOLS_DIR}            ${CURDIR}/../../../../tools/odl-lispflowmapping-performance-tests/
+${PCAP_CREATOR}         ${TOOLS_DIR}/create_lisp_control_plane_pcap.py
+${MAPPING_BLASTER}      ${TOOLS_DIR}/mapping_blaster.py
+${REPLAY_PPS}           100000
+${REPLAY_CNT}           1000
+${REPLAY_FILE_MREQ}     encapsulated-map-requests-sequential.pcap
+${REPLAY_FILE_MREG}     map-registers-sequential-no-auth.pcap
+${REPLAY_FILE_MRGA}     map-registers-sequential-sha1-auth.pcap
 ${RPCS_RESULTS_FILE}    rpcs.csv
-${PPS_RESULTS_FILE}    pps.csv
+${PPS_RESULTS_FILE}     pps.csv
+
 
 *** Test Cases ***
 Add Simple IPv4 Mappings
     ${start_date}=    Get Current Date
-    Run Process With Logging And Status Check    ${MAPPING_BLASTER}    --host    ${ODL_SYSTEM_IP}    --mappings    ${MAPPINGS}
+    Run Process With Logging And Status Check
+    ...    ${MAPPING_BLASTER}
+    ...    --host
+    ...    ${ODL_SYSTEM_IP}
+    ...    --mappings
+    ...    ${MAPPINGS}
     ${end_date}=    Get Current Date
     ${add_seconds}=    Subtract Date From Date    ${end_date}    ${start_date}
     Log    ${add_seconds}
@@ -51,6 +60,7 @@ Generate Authenticated Map-Register Test Traffic
     ${pps_mnot_auth}=    Lossy Test    4    ${REPLAY_FILE_MRGA}
     Set Suite Variable    ${pps_mnot_auth}
 
+
 *** Keywords ***
 Clean Up
     Clear Config Datastore
@@ -66,29 +76,38 @@ Clear Operational Datastore
     Log    ${resp.content}
 
 Lossy Test
-    [Arguments]    ${lisp_type}    ${replay_file}
     [Documentation]    This test will send traffic at a rate that is known to be
     ...    higher than the capacity of the LISP Flow Mapping service and count
     ...    the reply messages. Using the test's time duration, it computes the
     ...    average reply packet rate in packets per second
+    [Arguments]    ${lisp_type}    ${replay_file}
     ${elapsed_time}=    Generate Test Traffic    ${REPLAY_PPS}    ${REPLAY_CNT}    ${replay_file}
     ${odl_tx_count}=    Get Control Message Stats    ${lisp_type}    tx-count
     ${pps}=    Evaluate    int(${odl_tx_count}/${elapsed_time})
     Log    ${pps}
     Clean Up
-    [Return]    ${pps}
+    RETURN    ${pps}
 
 Generate Test Traffic
     [Arguments]    ${replay_pps}    ${replay_cnt}    ${replay_file}
     Reset Stats
-    ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${replay_pps}    --repeat    ${replay_cnt}
-    ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${replay_file}
+    ${result}=    Run Process With Logging And Status Check
+    ...    /usr/local/bin/udpreplay
+    ...    --pps
+    ...    ${replay_pps}
+    ...    --repeat
+    ...    ${replay_cnt}
+    ...    --host
+    ...    ${ODL_SYSTEM_IP}
+    ...    --port
+    ...    4342
+    ...    ${replay_file}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
     Log    ${partial}
     ${time}=    Fetch From Right    ${partial}    ${SPACE}
     ${time}=    Convert To Number    ${time}
     Log    ${time}
-    [Return]    ${time}
+    RETURN    ${time}
 
 Reset Stats
     [Arguments]    ${status_codes}=${ALLOWED_STATUS_CODES}
@@ -115,7 +134,7 @@ Get Control Message Stats
     ${msg_cnt}=    Get From Dictionary    ${ctrlmsg_type}    ${stat_type}
     ${msg_cnt}=    Convert To Integer    ${msg_cnt}
     Log    ${msg_cnt}
-    [Return]    ${msg_cnt}
+    RETURN    ${msg_cnt}
 
 Prepare Environment
     Create File    ${RPCS_RESULTS_FILE}    store/s\n

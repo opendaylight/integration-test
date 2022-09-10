@@ -1,12 +1,12 @@
 *** Settings ***
-Documentation     Test suite for do pingall test
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for do pingall test
 
-*** Variables ***
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
 
 *** Test Cases ***
 Ping all

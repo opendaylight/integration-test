@@ -1,22 +1,26 @@
 *** Settings ***
-Documentation     Test suite to verify CRUD operations using RPCs
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/LISPFlowMapping__Lithium.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite to verify CRUD operations using RPCs
+
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/LISPFlowMapping__Lithium.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${IPV4_C_KEY}     ${JSON_DIR}/rpc_add-key_ipv4.json
-${IPV4_RD}        ${JSON_DIR}/rpc_get-remove_ipv4.json
-${MISS_RD}        ${JSON_DIR}/rpc_get-remove_missing.json
-${IPV4_U_KEY}     ${JSON_DIR}/rpc_update-key_ipv4.json
-${IPV4_C_MAP}     ${JSON_DIR}/rpc_add-mapping_ipv4_ipv4.json
-${IPV4_U_MAP}     ${JSON_DIR}/rpc_update-mapping_ipv4_ipv4.json
+${IPV4_C_KEY}       ${JSON_DIR}/rpc_add-key_ipv4.json
+${IPV4_RD}          ${JSON_DIR}/rpc_get-remove_ipv4.json
+${MISS_RD}          ${JSON_DIR}/rpc_get-remove_missing.json
+${IPV4_U_KEY}       ${JSON_DIR}/rpc_update-key_ipv4.json
+${IPV4_C_MAP}       ${JSON_DIR}/rpc_add-mapping_ipv4_ipv4.json
+${IPV4_U_MAP}       ${JSON_DIR}/rpc_update-mapping_ipv4_ipv4.json
+
 
 *** Test Cases ***
 Create Key
