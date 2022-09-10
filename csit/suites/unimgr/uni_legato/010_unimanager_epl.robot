@@ -1,19 +1,23 @@
 *** Settings ***
-Documentation     Test suite for legato topology of 1 switch
-Suite Setup       Setup Test Environment
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite for legato topology of 1 switch
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/MininetKeywords.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Setup Test Environment
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${UniMgr_variables_DIR}    ${CURDIR}/../../../variables/unimgr
-${options}        --topo single,2
+${UniMgr_variables_DIR}     ${CURDIR}/../../../variables/unimgr
+${options}                  --topo single,2
+
 
 *** Test Cases ***
 Check no connectivity before creating service
@@ -23,13 +27,27 @@ Check no connectivity before creating service
 Create epl service
     [Documentation]    Create point to point service between the eth ports
     ${interface}    Create List    s1-eth1    s1-eth2
-    Wait Until Keyword Succeeds    12s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
-    ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_epl.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
+    Wait Until Keyword Succeeds
+    ...    12s
+    ...    2s
+    ...    Check For Elements At URI
+    ...    ${CONFIG_API}/mef-interfaces:mef-interfaces/
+    ...    ${interface}
+    ${body}    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_epl.json
+    ${resp}    RequestsLibrary.Put Request
+    ...    session
+    ...    ${CONFIG_API}/mef-services:mef-services/
+    ...    headers=${HEADERS_YANG_JSON}
+    ...    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth1    eth2
-    Wait Until Keyword Succeeds    56s    8s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
+    Wait Until Keyword Succeeds
+    ...    56s
+    ...    8s
+    ...    Check For Elements At URI
+    ...    ${CONFIG_API}/elan:elan-interfaces/
+    ...    ${elements}
 
 Check ping between h1-h2 after service creation
     [Documentation]    Verify ping between the hosts h1 - h2
@@ -38,13 +56,17 @@ Check ping between h1-h2 after service creation
 
 Delete epl service
     [Documentation]    Delete the evc point to point & verify no ping
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${CONFIG_API}/mef-services:mef-services/
+    ...    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Check no connectivity after deleting service
     [Documentation]    Verify no ping after deleteing the eplan service
     Wait Until Keyword Succeeds    8s    2s    MininetKeywords.Verify Mininet No Ping    h1    h2
+
 
 *** Keywords ***
 Setup Test Environment
