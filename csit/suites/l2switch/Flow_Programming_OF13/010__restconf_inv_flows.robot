@@ -1,14 +1,15 @@
 *** Settings ***
-Documentation     Test suite for FlowProgramming in RESTCONF inventory
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/openflowplugin/Variables.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for FlowProgramming in RESTCONF inventory
 
-*** Variables ***
+Library             Collections
+Library             RequestsLibrary
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/openflowplugin/Variables.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Check Stats for node 1
@@ -25,7 +26,13 @@ Check Stats for node 3
 
 Check Flows
     [Documentation]    Check all flows are present
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${RFC8040_OPERATIONAL_NODES_API}    "output-node-connector"    21
+    Wait Until Keyword Succeeds
+    ...    10s
+    ...    2s
+    ...    Check For Specific Number Of Elements At URI
+    ...    ${RFC8040_OPERATIONAL_NODES_API}
+    ...    "output-node-connector"
+    ...    21
 
 Ping All Test
     [Documentation]    Ping all, verify no packet loss or duplicates

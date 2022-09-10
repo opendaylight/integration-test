@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Test suite for RESTCONF inventory
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for RESTCONF inventory
+
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
+${REST_CONTEXT}     /restconf/operational/opendaylight-inventory:nodes
+
 
 *** Test Cases ***
 Get list of nodes
@@ -39,6 +43,7 @@ Get Stats for a node
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
     Wait Until Keyword Succeeds    120s    2s    Check Every Nodes Stats    ${numnodes}
+
 
 *** Keywords ***
 Check Every Nodes
