@@ -1,37 +1,45 @@
 *** Settings ***
-Documentation     Test suite for ODL Upgrade. It is assumed that OLD + OpenStack
-...               integrated environment is deployed and ready.
-Suite Setup       Suite Setup
-Suite Teardown    Upgrade Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Get Test Teardown Debugs
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           SSHLibrary
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for ODL Upgrade. It is assumed that OLD + OpenStack
+...                 integrated environment is deployed and ready.
+
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             SSHLibrary
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/DevstackUtils.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/OpenStackOperations.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Suite Setup
+Suite Teardown      Upgrade Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       Get Test Teardown Debugs
+
 
 *** Variables ***
-${SECURITY_GROUP}    upgrade_sg
-@{NETWORKS}       upgrade_net_1    upgrade_net_2
-@{SUBNETS}        upgrade_sub_1    upgrade_sub_2
-@{NET_1_VMS}      upgrade_net_1_vm_1    upgrade_net_1_vm_2
-@{NET_2_VMS}      upgrade_net_2_vm_1    upgrade_net_2_vm_2
-@{SUBNETS_RANGE}    91.0.0.0/24    92.0.0.0/24
-${ROUTER}         upgrade_router_1
-${TYPE}           tun
-${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
-@{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
-${UPDATE_FLAG_PATH}    /restconf/config/odl-serviceutils-upgrade:upgrade-config
-${GET_ACTIVE_BUNDLE_URI}    /restconf/operations/arbitrator-reconcile:get-active-bundle
-${COMMIT_ACTIVE_BUNDLE_URI}    /restconf/operations/arbitrator-reconcile:commit-active-bundle
-${COMMIT_ACTIVE_BUNDLE_DIR}    ${CURDIR}/../../../variables/netvirt/commit_active_bundle
-${SET_BUNDLE_TIMEOUT}    sudo ovs-vsctl set O . other_config:bundle-idle-timeout=3600
+${SECURITY_GROUP}               upgrade_sg
+@{NETWORKS}                     upgrade_net_1    upgrade_net_2
+@{SUBNETS}                      upgrade_sub_1    upgrade_sub_2
+@{NET_1_VMS}                    upgrade_net_1_vm_1    upgrade_net_1_vm_2
+@{NET_2_VMS}                    upgrade_net_2_vm_1    upgrade_net_2_vm_2
+@{SUBNETS_RANGE}                91.0.0.0/24    92.0.0.0/24
+${ROUTER}                       upgrade_router_1
+${TYPE}                         tun
+${PASSIVE_MANAGER}              ptcp:6641:127.0.0.1
+@{DEBUG_LOG_COMPONENTS}
+...                             org.opendaylight.ovsdb
+...                             org.opendaylight.ovsdb.lib
+...                             org.opendaylight.netvirt
+...                             org.opendaylight.genius
+${UPDATE_FLAG_PATH}             /restconf/config/odl-serviceutils-upgrade:upgrade-config
+${GET_ACTIVE_BUNDLE_URI}        /restconf/operations/arbitrator-reconcile:get-active-bundle
+${COMMIT_ACTIVE_BUNDLE_URI}     /restconf/operations/arbitrator-reconcile:commit-active-bundle
+${COMMIT_ACTIVE_BUNDLE_DIR}     ${CURDIR}/../../../variables/netvirt/commit_active_bundle
+${SET_BUNDLE_TIMEOUT}           sudo ovs-vsctl set O . other_config:bundle-idle-timeout=3600
+
 
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
@@ -68,13 +76,18 @@ Wait For Full Sync
     Wait Until Keyword Succeeds    90s    5s    Canary Network Should Exist
 
 Set Upgrade Flag
-    ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":true}}
+    ${resp} =    RequestsLibrary.Put Request
+    ...    session
+    ...    ${UPDATE_FLAG_PATH}
+    ...    {"upgrade-config":{"upgradeInProgress":true}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     FOR    ${node}    IN    @{OS_ALL_IPS}
-        Utils.Run Command On Remote System And Log    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
+        Utils.Run Command On Remote System And Log
+        ...    ${node}
+        ...    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
     END
     Wait Until Keyword Succeeds    60s    10s    Verify Bundle Active State
     FOR    ${node}    IN    @{OS_ALL_IPS}
@@ -88,13 +101,17 @@ Set OVS Manager And Controller
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
 
 UnSet Upgrade Flag
-    ${resp} =    RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"upgrade-config":{"upgradeInProgress":false}}
+    ${resp} =    RequestsLibrary.Put Request
+    ...    session
+    ...    ${UPDATE_FLAG_PATH}
+    ...    {"upgrade-config":{"upgradeInProgress":false}}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Check Connectivity With Previously Created Resources And br-int Info
     [Documentation]    Check that pre-existing instance connectivity still works after the new controller is brought
     ...    up and config is sync'd
     Wait Until Keyword Succeeds    90s    10s    Check Resource Connectivity
+
 
 *** Keywords ***
 Suite Setup
@@ -113,10 +130,18 @@ Create Resources
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Nano Flavor
     FOR    ${vm}    IN    @{NET_1_VMS}
-        OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${vm}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance On Compute Node
+        ...    ${NETWORKS}[0]
+        ...    ${vm}
+        ...    ${OS_CMP1_HOSTNAME}
+        ...    sg=${SECURITY_GROUP}
     END
     FOR    ${vm}    IN    @{NET_2_VMS}
-        OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${vm}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+        OpenStackOperations.Create Vm Instance On Compute Node
+        ...    ${NETWORKS}[1]
+        ...    ${vm}
+        ...    ${OS_CMP2_HOSTNAME}
+        ...    sg=${SECURITY_GROUP}
     END
     OpenStackOperations.Create Router    ${ROUTER}
     FOR    ${interface}    IN    @{SUBNETS}
@@ -147,9 +172,11 @@ Check OVS Nodes Have Egress Flows
     END
 
 Does OVS Have Multiple Egress Flows
-    [Arguments]    ${ip}
     [Documentation]    Verifies that at least 1 flow exists on the node for the ${EGRESS_L2_FWD_TABLE}
-    ${flows} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
+    [Arguments]    ${ip}
+    ${flows} =    Utils.Run Command On Remote System And Log
+    ...    ${ip}
+    ...    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     ${egress_flows} =    String.Get Lines Containing String    ${flows}    table=${EGRESS_LPORT_DISPATCHER_TABLE}
     ${num_egress_flows} =    String.Get Line Count    ${egress_flows}
     BuiltIn.Should Be True    ${num_egress_flows} > 1
