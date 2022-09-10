@@ -1,15 +1,18 @@
 *** Settings ***
-Documentation     Test suite for Cluster HA - Data Recovery at Leader Follower failover and cluster restart
-Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
-Suite Teardown    Delete All Sessions
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Library           RequestsLibrary
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/ClusterOpenFlow.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/MininetKeywords.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Cluster HA - Data Recovery at Leader Follower failover and cluster restart
+
+Library             RequestsLibrary
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/ClusterOpenFlow.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/MininetKeywords.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Teardown      Delete All Sessions
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+
 
 *** Test Cases ***
 Check Shards Status Before Leader Restart
@@ -20,7 +23,7 @@ Check Shards Status Before Leader Restart
 
 Get inventory Leader Before Leader Restart
     [Documentation]    Find leader in the inventory config shard
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
+    ${inventory_leader}    ${inventory_followers}=    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${inventory_leader_old}    ${inventory_leader}
@@ -30,9 +33,16 @@ Get inventory Leader Before Leader Restart
 
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${follower_node_1}_IP}
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_${follower_node_1}_IP}
     Comment    Wait until switch is available in controller
-    Wait Until Keyword Succeeds    5s    1s    ClusterOpenFlow.Verify Switch Connections Running On Member    1    ${follower_node_1}
+    Wait Until Keyword Succeeds
+    ...    5s
+    ...    1s
+    ...    ClusterOpenFlow.Verify Switch Connections Running On Member
+    ...    1
+    ...    ${follower_node_1}
     Set Suite Variable    ${mininet_conn_id}
 
 Add Flows In Follower Node2 and Verify Before Leader Restart
@@ -51,7 +61,7 @@ Restart Leader From Cluster Node
 
 Get inventory Follower After Leader Restart
     [Documentation]    Find new Followers and Leader in the inventory config shard After Leader Restart.
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
+    ${inventory_leader}    ${inventory_followers}=    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -60,7 +70,9 @@ Get inventory Follower After Leader Restart
 
 Start Mininet Connect To Old Leader
     [Documentation]    Start mininet with connection to cluster old leader.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${inventory_leader_old}_IP}
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_${inventory_leader_old}_IP}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch After Leader Restart
@@ -79,7 +91,7 @@ Restart Follower Node2
 
 Get inventory Follower After Follower Restart
     [Documentation]    Find Followers and Leader in the inventory config shard After Follower Restart.
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
+    ${inventory_leader}    ${inventory_followers}=    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -88,7 +100,9 @@ Get inventory Follower After Follower Restart
 
 Start Mininet Connect To Leader
     [Documentation]    Start mininet with connection to Leader.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${inventory_leader}_IP}
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_${inventory_leader}_IP}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch After Follower Restart
@@ -107,7 +121,7 @@ Restart Full Cluster
 
 Get inventory Status After Cluster Restart
     [Documentation]    Find New Followers and Leader in the inventory config shard After Cluster Restart.
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
+    ${inventory_leader}    ${inventory_followers}=    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -116,7 +130,9 @@ Get inventory Status After Cluster Restart
 
 Start Mininet Connect To Follower Node2 After Cluster Restart
     [Documentation]    Start mininet with connection to cluster Follower Node2.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${follower_node_2}_IP}
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_${follower_node_2}_IP}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch After Cluster Restart

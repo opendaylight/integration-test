@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for finding out max number of switches
-Suite Setup       Workflow Setup
-Suite Teardown    Workflow Teardown
-Library           OperatingSystem
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/WorkflowsOpenFlow.robot
-Resource          ../../../libraries/KarafKeywords.robot
+Documentation       Test suite for finding out max number of switches
+
+Library             OperatingSystem
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/WorkflowsOpenFlow.robot
+Resource            ../../../libraries/KarafKeywords.robot
+
+Suite Setup         Workflow Setup
+Suite Teardown      Workflow Teardown
+
 
 *** Variables ***
-${MIN_SWITCHES}    100
-${MAX_SWITCHES}    800
-${STEP_SWITCHES}    100
-${SWITCHES_RESULT_FILE}    switches.csv
-${TIME_RESULT_FILE}    time.csv
+${MIN_SWITCHES}             100
+${MAX_SWITCHES}             800
+${STEP_SWITCHES}            100
+${SWITCHES_RESULT_FILE}     switches.csv
+${TIME_RESULT_FILE}         time.csv
+
 
 *** Test Cases ***
 Find Max Switches
@@ -24,8 +28,9 @@ Find Max Switches
     ${stop}=    Convert to Integer    ${MAX_SWITCHES}
     ${step}=    Convert to Integer    ${STEP_SWITCHES}
     FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
-        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Linear Topology    ${switches}
-        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${error_message}    ${topology_discover_time}=    WorkflowsOpenFlow.Workflow Linear Topology
+        ...    ${switches}
+        IF    '${status}' == 'FAIL'            BREAK
         ${maximum_switches}=    Set variable    ${switches}
         ${discover_time}=    Set Variable    ${topology_discover_time}
     END

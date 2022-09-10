@@ -1,14 +1,15 @@
 *** Settings ***
-Documentation     Test suite for RESTCONF inventory
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../variables/openflowplugin/Variables.robot
+Documentation       Test suite for RESTCONF inventory
 
-*** Variables ***
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../variables/openflowplugin/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Get list of nodes
@@ -21,7 +22,9 @@ Get list of nodes
 Get nodeconnector for the root node
     [Documentation]    Get the inventory for the root node
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A1?${RFC8040_OPERATIONAL_CONTENT}
+    ${resp}    RequestsLibrary.Get Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A1?${RFC8040_OPERATIONAL_CONTENT}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    30s    2s    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.text}
@@ -40,6 +43,7 @@ Get Stats for a node
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
     Wait Until Keyword Succeeds    120s    2s    Check Every Nodes Stats    ${numnodes}
 
+
 *** Keywords ***
 Check Every Nodes
     [Arguments]    ${numnodes}
@@ -52,7 +56,9 @@ Check Every Nodes
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${IND}?${RFC8040_OPERATIONAL_CONTENT}
+        ${resp}    RequestsLibrary.Get Request
+        ...    session
+        ...    ${RFC8040_NODES_API}/node=openflow%3A${IND}?${RFC8040_OPERATIONAL_CONTENT}
         Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
         Should Contain    ${resp.text}    flow-capable-node-connector-statistics
@@ -62,7 +68,9 @@ Check Every Nodes Stats
 Check Every Nodes Nodeconnector
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    2    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${IND}?${RFC8040_OPERATIONAL_CONTENT}
+        ${resp}    RequestsLibrary.Get Request
+        ...    session
+        ...    ${RFC8040_NODES_API}/node=openflow%3A${IND}?${RFC8040_OPERATIONAL_CONTENT}
         Log    ${resp.text}
         Should Be Equal As Strings    ${resp.status_code}    200
         Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.text}
