@@ -1,31 +1,36 @@
 *** Settings ***
-Documentation     Collection of test cases to validate OVSDB projects bugs.
+Documentation       Collection of test cases to validate OVSDB projects bugs.
 ...
-...               TODO: there seems to be some thoughts around never having one-off bug reproduction
-...               test cases, but rather they should exist as another test case in some appropriate
-...               suite. Also it was suggested that using bug ids for test case names was not ideal
-...               this to-do is written in case it's decided to refactor all of these test cases out
-...               of this suite and/or to rename the test cases at a later time.
-Suite Setup       Suite Setup
-Suite Teardown    Suite Teardown
-Test Setup        Test Setup
-Test Teardown     Test Teardown
-Force Tags        Southbound
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           String
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/ovsdb/Variables.robot
+...                 TODO: there seems to be some thoughts around never having one-off bug reproduction
+...                 test cases, but rather they should exist as another test case in some appropriate
+...                 suite. Also it was suggested that using bug ids for test case names was not ideal
+...                 this to-do is written in case it's decided to refactor all of these test cases out
+...                 of this suite and/or to rename the test cases at a later time.
+
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             String
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/WaitForFailure.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../variables/ovsdb/Variables.robot
+
+Suite Setup         Suite Setup
+Suite Teardown      Suite Teardown
+Test Setup          Test Setup
+Test Teardown       Test Teardown
+
+Force Tags          southbound
+
 
 *** Variables ***
-${BRIDGE}         ovsbug_br
-${OVSDB_UUID}     ${EMPTY}
-${OVSDB_UUID2}    ${EMPTY}
+${BRIDGE}           ovsbug_br
+${OVSDB_UUID}       ${EMPTY}
+${OVSDB_UUID2}      ${EMPTY}
+
 
 *** Test Cases ***
 Bug 7414 Same Endpoint Name
@@ -37,7 +42,9 @@ Bug 7414 Same Endpoint Name
     ${bridge} =    BuiltIn.Set Variable    ovsbug_br_7414
     # connect two ovs
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
-    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
+    Utils.Run Command On Mininet
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
     # add brtest to both
@@ -46,8 +53,18 @@ Bug 7414 Same Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (same name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep1    ${bridge}
     # check that each ovs has the correct endpoint
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    60s
+    ...    10s
+    ...    Verify TEP Creation on OVS
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    60s
+    ...    10s
+    ...    Verify TEP Creation on OVS
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
     ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_TOPO_API}    data=${body}
 
@@ -63,7 +80,9 @@ Bug 7414 Different Endpoint Name
     ${bridge} =    BuiltIn.Set Variable    ovsbug_br_7414
     # connect two ovs
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
-    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
+    Utils.Run Command On Mininet
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
     # add brtest to both
@@ -72,8 +91,18 @@ Bug 7414 Different Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (different name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep2    ${bridge}
     # check that each ovs has the correct endpoint
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    60s
+    ...    10s
+    ...    Verify TEP Creation on OVS
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    60s
+    ...    10s
+    ...    Verify TEP Creation on OVS
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
     ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_TOPO_API}    data=${body}
 
@@ -87,15 +116,43 @@ Bug 5221
     OVSDB.Connect To OVSDB Node    ${TOOLS_SYSTEM_IP}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
     @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
-    OVSDB.Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    ${bridge}    0000000000005221
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    ${list}
+    ...    pretty_print_json=True
+    OVSDB.Add Bridge To Ovsdb Node
+    ...    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${bridge}
+    ...    0000000000005221
     @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}/bridge/${bridge}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    ${list}
+    ...    pretty_print_json=True
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements Not At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    ${list}
+    ...    pretty_print_json=True
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
     # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
-    BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    30s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    ${list}
+    ...    pretty_print_json=True
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
     ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${bridge}
     ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
@@ -121,7 +178,13 @@ Bug 5177
     BuiltIn.Should Contain    ${resp.text}    ${node}/bridge/${BRIDGE}
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     @{list} =    BuiltIn.Create List    ${BRIDGE}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    ${list}
+    ...    pretty_print_json=True
     # Do not cleanup as the next test requires the steps done in this test
     [Teardown]    BuiltIn.Run Keywords    Utils.Report_Failure_Due_To_Bug    5177
     ...    AND    OVSDB.Log Config And Operational Topology
@@ -137,7 +200,12 @@ Bug 4794
     Delete Bridge From Ovsdb Node    ${node_id}    ${BRIDGE}
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
     # If the exception is seen in karaf.log within 10s, the following line will FAIL, which is the point.
-    Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Utils.Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
+    Verify_Keyword_Does_Not_Fail_Within_Timeout
+    ...    10s
+    ...    1s
+    ...    Utils.Check Karaf Log File Does Not Have Messages
+    ...    ${ODL_SYSTEM_IP}
+    ...    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     # TODO: Bug 5178
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
     ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}${node_id}%2Fbridge%2F${BRIDGE}
@@ -189,24 +257,35 @@ Bug 7160
     OVSDB.Log Config And Operational Topology
     OVSDB.Create Qos Linked Queue
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}/queue-list=0
+    ${resp} =    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}/queue-list=0
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}
+    ${resp} =    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${queue}
+    ${resp} =    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${queue}
     OVSDB.Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}
+    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}
     OVSDB.Log Config And Operational Topology
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
     RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
     OVSDB.Log Config And Operational Topology
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Config and Operational Topology Should Be Empty
 
+
 *** Keywords ***
 Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     KarafKeywords.Open Controller Karaf Console On Background
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    RequestsLibrary.Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH}
+    ...    headers=${HEADERS}
     Clean All Ovs Nodes
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
@@ -217,9 +296,13 @@ Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
     Clean All Ovs Nodes
     # Best effort to clean config store, by deleting all the types of nodes that are used in this suite
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE}
     RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
     RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}
     RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
     RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}

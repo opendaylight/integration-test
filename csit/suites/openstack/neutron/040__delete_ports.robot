@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Checking Port deleted in OpenStack are deleted also in OpenDaylight
-Suite Setup       Start Suite
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Documentation       Checking Port deleted in OpenStack are deleted also in OpenDaylight
+
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Start Suite
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${OSREST}         /v2.0/ports/${PORTID}
-${data}           {"port":{"network_id":"${NETID}","admin_state_up": true}}
+${OSREST}       /v2.0/ports/${PORTID}
+${data}         {"port":{"network_id":"${NETID}","admin_state_up": true}}
+
 
 *** Test Cases ***
 Delete New Port
     [Documentation]    Delete previously created port in OpenStack
-    [Tags]    Delete port OpenStack Neutron
+    [Tags]    delete port openstack neutron
     Log    ${data}
     ${resp}    delete request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    204
@@ -21,13 +25,14 @@ Delete New Port
 
 Check Port Deleted
     [Documentation]    Check port deleted in OpenDaylight
-    [Tags]    Check port deleted OpenDaylight
+    [Tags]    check port deleted opendaylight
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}/${PORTID}
     Should be Equal As Strings    ${resp.status_code}    404
+
 
 *** Keywords ***
 Check Port Exists
