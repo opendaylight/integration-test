@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Tests for Application Entity (AE) resource attributes
-Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Tests for Application Entity (AE) resource attributes
+
+Resource            ../../../libraries/SubStrings.robot
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+
 
 *** Test Cases ***
 TODO Refactor test suite and implement TCs
@@ -23,21 +27,31 @@ TODO Refactor test suite and implement TCs
 1.11 If include AE-ID should return error
     [Documentation]    when create AE, AE-ID should not be included
     ${attr} =    Set Variable    "aei":"ODL"
-    ${error} =    Run Keyword And Expect Error    Cannot create this resource [400]*    Create Resource    ${iserver}    InCSE1    ${rt_ae}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot create this resource [400]*
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1
+    ...    ${rt_ae}
     ...    ${attr}
     Should Contain    ${error}    AE_ID
 
 1.21 Missing App-ID should return error
     [Documentation]    when creete AE, Missing APP-ID should return error
     ${attr} =    Set Variable    "apn":"ODL"
-    ${error} =    Run Keyword And Expect Error    Cannot create this resource [400]*    Create Resource    ${iserver}    InCSE1    ${rt_ae}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot create this resource [400]*
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1
+    ...    ${rt_ae}
     ...    ${attr}
     Should Contain    ${error}    APP_ID
 
 1.3 After AE Created, test whether all the mandatory attribtues are exist.
     [Documentation]    mandatory attributes should be there after created
     ${attr} =    Set Variable    "api":"ODL","rr":true,"rn":"AE1"
-    ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=3    ${attr}
+    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=3    ${attr}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
@@ -226,7 +240,9 @@ TODO Refactor test suite and implement TCs
     [Documentation]    when update ae-id epxect error
     ${attr} =    Set Variable    "aei":"aaa"
     ${error} =    Update AE Expect Cannot Update Error    ${attr}
-    Should Contain    ${error}    "error":"CONTENT(pc) AE_ID should be assigned by the system, please do not include aei"
+    Should Contain
+    ...    ${error}
+    ...    "error":"CONTENT(pc) AE_ID should be assigned by the system, please do not include aei"
 
 3.38 LastMoifiedTime --- Special, cannot be modified by the user
     [Documentation]    LastMoifiedTime --- Special, cannot be modified by the user
@@ -263,6 +279,7 @@ TODO Refactor test suite and implement TCs
     #    Finish
     #==================================================
 
+
 *** Keywords ***
 Update And Retrieve AE
     [Arguments]    ${attr}
@@ -272,13 +289,18 @@ Update And Retrieve AE
     ${rr} =    Retrieve Resource    ${iserver}    InCSE1/AE1
     ${text} =    Text    ${rr}
     LOG    ${text}
-    [Return]    ${text}
+    RETURN    ${text}
 
 Update AE Expect Cannot Update Error
     [Arguments]    ${attr}
-    ${error} =    Run Keyword And Expect Error    Cannot update this resource [400]*    Update Resource    ${iserver}    InCSE1/AE1    ${rt_ae}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot update this resource [400]*
+    ...    Update Resource
+    ...    ${iserver}
+    ...    InCSE1/AE1
+    ...    ${rt_ae}
     ...    ${attr}
-    [Return]    ${error}
+    RETURN    ${error}
 
 TODO
     Fail    "Not implemented"

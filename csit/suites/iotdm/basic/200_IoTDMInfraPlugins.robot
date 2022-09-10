@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Test suite testing IoTDM PluginManager RPC calls registrations of default plugins and
-...               communication channels and re-configuration of port of registered plugins
-Suite Setup       Setup Suite
-Suite Teardown    Teardown Suite
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite testing IoTDM PluginManager RPC calls registrations of default plugins and
+...                 communication channels and re-configuration of port of registered plugins
+
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Setup Suite
+Suite Teardown      Teardown Suite
+
 
 *** Variables ***
-${VAR_BASE}       ${CURDIR}/../../../variables/IoTDM/
+${VAR_BASE}             ${CURDIR}/../../../variables/IoTDM/
 # TODO 500 seems to be a bug in ODL, remove when solved
-@{NEGATIVE_RESULTS}    ${500}    ${400}
+@{NEGATIVE_RESULTS}     ${500}    ${400}
+
 
 *** Test Cases ***
 1.00 Default result of onem2m-plugin-manager-plugin-data RPC
@@ -383,8 +387,12 @@ ${VAR_BASE}       ${CURDIR}/../../../variables/IoTDM/
 
 9.11 Test iplugin-cfg-get-startup-config and iplugin-cfg-get-running-config should equal
     [Documentation]    Tests if StartupConfig and running config are the same in content
-    ${resp1} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/simple_config/get_startup/config    verify=True
-    ${resp2} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/simple_config/get_running_config    verify=True
+    ${resp1} =    TemplatedRequests.Post_As_Json_Templated
+    ...    folder=${VAR_BASE}/simple_config/get_startup/config
+    ...    verify=True
+    ${resp2} =    TemplatedRequests.Post_As_Json_Templated
+    ...    folder=${VAR_BASE}/simple_config/get_running_config
+    ...    verify=True
     Should Be Equal    ${resp1}    ${resp2}
 
 9.12 Test onem2m-simple-config:iplugin-cfg-del to delete all the values
@@ -437,6 +445,7 @@ ${VAR_BASE}       ${CURDIR}/../../../variables/IoTDM/
     ...    the system.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
@@ -497,51 +506,54 @@ Verify PluginData After Reconfiguration of All Modules
     Verify PluginData After Reconfiguration of Onem2mExample
 
 Verify RPC Positive
-    [Arguments]    ${variables_folder}
     [Documentation]    Verifies positive RPC scenario
+    [Arguments]    ${variables_folder}
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/${variables_folder}    verify=True
 
 Verify RPC Negative
-    [Arguments]    ${variables_folder}    ${verify}=${false}
     [Documentation]    Verifies negative RPC scenario
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/${variables_folder}    verify=${verify}    explicit_status_codes=${NEGATIVE_RESULTS}
+    [Arguments]    ${variables_folder}    ${verify}=${false}
+    TemplatedRequests.Post_As_Json_Templated
+    ...    folder=${VAR_BASE}/${variables_folder}
+    ...    verify=${verify}
+    ...    explicit_status_codes=${NEGATIVE_RESULTS}
 
 Verify RPC Plugin Data
-    [Arguments]    ${plugin_data_folder}
     [Documentation]    Verifies positive PluginData RPC scenarios described in plugin_data variables directory
+    [Arguments]    ${plugin_data_folder}
     Verify RPC Positive    plugin_data/${plugin_data_folder}
 
 Verify RPC Plugin Registrations
-    [Arguments]    ${plugin_reg_folder}
     [Documentation]    Verifies positive IoTDMPluginRegistrations RPC scenarios described in iotdm_plugin_registrations variables directory
+    [Arguments]    ${plugin_reg_folder}
     Verify RPC Positive    iotdm_plugin_registrations/${plugin_reg_folder}
 
 Verify RPC Db Registrations
-    [Arguments]    ${db_reg_folder}
     [Documentation]    Verifies positive DbRegistrations RPC scenarios described in db_registrations variables directory
+    [Arguments]    ${db_reg_folder}
     Verify RPC Positive    db_registrations/${db_reg_folder}
 
 Verify RPC Comm Channels
-    [Arguments]    ${comm_channel_folder}
     [Documentation]    Verifies positive CommunicationChannels RPC scenarios described in communication_channels variables directory
+    [Arguments]    ${comm_channel_folder}
     Verify RPC Positive    communication_channels/${comm_channel_folder}
 
 Verify RPC Negative TC
-    [Arguments]    ${negative_tc_folder}    ${verify}=${false}
     [Documentation]    Verifies negative re-configuration TCs described in negative_tcs variables directory
+    [Arguments]    ${negative_tc_folder}    ${verify}=${false}
     Verify RPC Negative    negative_tcs/${negative_tc_folder}    verify=${verify}
 
 Verify RPC Simple Config
-    [Arguments]    ${simple_config_folder}
     [Documentation]    Verifies positive SimpleConfig RPC scenarios described in simple_config variables directory
+    [Arguments]    ${simple_config_folder}
     Verify RPC Positive    simple_config/${simple_config_folder}
 
 Verify RPC Negative Simple Config
-    [Arguments]    ${negative_tc_folder}    ${verify}=${false}
     [Documentation]    Verifies negative SimpleConfig RPC scenarios described in simple_config variables directory
+    [Arguments]    ${negative_tc_folder}    ${verify}=${false}
     Verify RPC Negative    simple_config/${negative_tc_folder}    verify=${verify}
 
 Verify RPC Simple Config Key
-    [Arguments]    ${simple_config_key_folder}
     [Documentation]    Verifies positive SimpleConfig Key RPC scenarios described in simple_config_key variables directory
+    [Arguments]    ${simple_config_key_folder}
     Verify RPC Positive    simple_config_key/${simple_config_key_folder}

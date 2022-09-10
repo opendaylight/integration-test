@@ -1,14 +1,15 @@
 *** Settings ***
-Documentation     Tests registration of AE and CSE entities resulting in creation of
-...               AE and remoteCSE resources.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Tests registration of AE and CSE entities resulting in creation of
+...                 AE and remoteCSE resources.
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 Add Test Cases
@@ -87,6 +88,7 @@ Resource          ../../../variables/Variables.robot
     ...    Verify the resource in conflict using retrieve operation before and after registration attempt.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
