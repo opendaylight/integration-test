@@ -1,25 +1,33 @@
 *** Settings ***
-Documentation     Test suite for H2 DataStore Queue Metrics Verification
-Suite Setup       Run Keywords    Start Tsdr Suite    Configuration of Queue on Switch
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for H2 DataStore Queue Metrics Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Run Keywords    Start Tsdr Suite    Configuration of Queue on Switch
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
-${TSDR_QUEUE_STATS}    tsdr:list QueueStats
-@{CMD_LIST}       FlowGroupStats    FlowMeterStats    FlowStats    FlowTableStats    PortStats    QueueStats
+@{QUEUE_METRICS}        TransmittedPackets    TransmittedBytes    TransmissionErrors
+${TSDR_QUEUE_STATS}     tsdr:list QueueStats
+@{CMD_LIST}             FlowGroupStats    FlowMeterStats    FlowStats    FlowTableStats    PortStats    QueueStats
+
 
 *** Test Cases ***
 Verify the Queue Stats attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_QUEUE_STATS}    Transmitted
-    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUE_STATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console
+    ...    ${TSDR_QUEUE_STATS}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${KARAF_SHELL_PORT}
+    ...    30
     FOR    ${list}    IN    @{QUEUE_METRICS}
         Should Contain    ${output}    ${list}
     END
@@ -43,7 +51,8 @@ Verify tsdr:purgeall command
         Should not Contain    ${out}    ${list}
     END
 
-*** Keyword ***
+
+*** Keywords ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
     Configure the Queue on Switch    s2-eth2
