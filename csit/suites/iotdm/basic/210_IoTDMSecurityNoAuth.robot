@@ -1,16 +1,17 @@
 *** Settings ***
-Documentation     Test suite testing IoTDM security methods without authentication of the request sender entity.
-...               Test cases are implemented according to tables in 000_IoTDMSecurityNoAuthTable.txt
-...               TODO: It seems that data driven approach is much more appropriate for implementation
-...               of TCs described below which can be merged as needed.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite testing IoTDM security methods without authentication of the request sender entity.
+...                 Test cases are implemented according to tables in 000_IoTDMSecurityNoAuthTable.txt
+...                 TODO: It seems that data driven approach is much more appropriate for implementation
+...                 of TCs described below which can be merged as needed.
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 L0: Verify configured security level
@@ -191,6 +192,7 @@ Resource          ../../../variables/Variables.robot
     [Documentation]    Changes security level of OneM2M WS module back to L0 and verifies.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO

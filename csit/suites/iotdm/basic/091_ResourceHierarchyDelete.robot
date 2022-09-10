@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Tests deleting resources from multiple places in resource tree
-Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Tests deleting resources from multiple places in resource tree
+
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+
 
 *** Test Cases ***
 4.11 Delete AE without child resource
@@ -397,6 +401,7 @@ ${rt_contentInstance}    4
     Cannot Retrieve Error    InCSE1/Con1/Con4/conIn1
     Cannot Retrieve Error    InCSE1/Con1/Con4/conIn2
     Cannot Retrieve Error    InCSE1/Con1/Con4/conIn3
+
 
 *** Keywords ***
 Response Is Correct

@@ -1,18 +1,19 @@
 *** Settings ***
-Documentation     Test suite tests procedures related to Group resource and its child resources according
-...               to OneM2M specifications:
-...               <group>: (TS-0001: 10.2.7 Group Management Procedures; TS-0004: 7.4.13 Resource Type <group>)
-...               <fanOutPoint>: (TS-0001: 10.2.7.6 <fanOutPoint> Management Procedures; TS-0004: 7.4.14 Resource Type <fanOutPoint>)
-...               <semanticFanOutPoint>: (TS-0001: 10.2.7.14 Retrieve <semanticFanOutPoint>; TS-0004: 7.4.35 Resource Type <semanticFanOutPoint>)
-...               <semanticDescriptor>: (TS-0001: 10.2.32 <semanticDescriptor> Resource Procedures; TS-0004: 7.4.34 Resource Type <semanticDescriptor>)
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite tests procedures related to Group resource and its child resources according
+...                 to OneM2M specifications:
+...                 <group>: (TS-0001: 10.2.7 Group Management Procedures; TS-0004: 7.4.13 Resource Type <group>)
+...                 <fanOutPoint>: (TS-0001: 10.2.7.6 <fanOutPoint> Management Procedures; TS-0004: 7.4.14 Resource Type <fanOutPoint>)
+...                 <semanticFanOutPoint>: (TS-0001: 10.2.7.14 Retrieve <semanticFanOutPoint>; TS-0004: 7.4.35 Resource Type <semanticFanOutPoint>)
+...                 <semanticDescriptor>: (TS-0001: 10.2.32 <semanticDescriptor> Resource Procedures; TS-0004: 7.4.34 Resource Type <semanticDescriptor>)
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 C/R valid Group resource without child resources
@@ -139,6 +140,7 @@ Resource          ../../../variables/Variables.robot
     ...    TODO: Split this TC if needed
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
