@@ -1,31 +1,43 @@
 *** Settings ***
-Documentation     Test suite for SFC Persistency. Checks that system persistency is working as expected
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           ../../../libraries/SFC/SfcUtils.py
-Resource          ../../../libraries/SFC/SfcKeywords.robot
-Resource          ../../../libraries/ClusterOpenFlow.robot
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/SFC/DockerSfc.robot
+Documentation       Test suite for SFC Persistency. Checks that system persistency is working as expected
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             ../../../libraries/SFC/SfcUtils.py
+Resource            ../../../libraries/SFC/SfcKeywords.robot
+Resource            ../../../libraries/ClusterOpenFlow.robot
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/SFC/DockerSfc.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${JSON_DIR}       ${CURDIR}/../../../variables/sfc/master
-${SERVICE_FUNCTIONS_FILE}    ${JSON_DIR}/service-functions.json
-${SERVICE_FORWARDERS_FILE}    ${JSON_DIR}/service-function-forwarders.json
-${SERVICE_NODES_FILE}    ${JSON_DIR}/service-nodes.json
-${SERVICE_CHAINS_FILE}    ${JSON_DIR}/service-function-chains.json
-${SERVICE_FUNCTION_PATHS_FILE}    ${JSON_DIR}/service-function-paths.json
-${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-1"}}
-@{SF_NAMES}       napt44-103-2    napt44-103-1    dpi-102-2    firewall-101-2    napt44-104    dpi-102-1    firewall-104
-...               dpi-102-3    firewall-101-1
+${JSON_DIR}                         ${CURDIR}/../../../variables/sfc/master
+${SERVICE_FUNCTIONS_FILE}           ${JSON_DIR}/service-functions.json
+${SERVICE_FORWARDERS_FILE}          ${JSON_DIR}/service-function-forwarders.json
+${SERVICE_NODES_FILE}               ${JSON_DIR}/service-nodes.json
+${SERVICE_CHAINS_FILE}              ${JSON_DIR}/service-function-chains.json
+${SERVICE_FUNCTION_PATHS_FILE}      ${JSON_DIR}/service-function-paths.json
+${CREATE_RSP1_INPUT}                {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-1"}}
+@{SF_NAMES}
+...                                 napt44-103-2
+...                                 napt44-103-1
+...                                 dpi-102-2
+...                                 firewall-101-2
+...                                 napt44-104
+...                                 dpi-102-1
+...                                 firewall-104
+...                                 dpi-102-3
+...                                 firewall-101-1
+
 
 *** Test Cases ***
 Add SFC Elements and restart cluster
@@ -40,12 +52,28 @@ Add SFC Elements and restart cluster
     Wait Until Keyword Succeeds    2min    5 sec    Check Service Function Types Added    ${SF_NAMES}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_CHAINS_URI}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    Wait until Keyword succeeds
+    ...    2min
+    ...    5 sec
+    ...    TemplatedRequests.Get_As_Json_Templated
+    ...    session=${session}
+    ...    folder=${RESTCONF_MODULES_DIR}
+    ...    verify=False
     # From oxygen, RSPs are persisted between reboots
-    Run_Keyword_If_At_Least_Else    oxygen    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session
+    Run_Keyword_If_At_Least_Else
+    ...    oxygen
+    ...    Wait until Keyword succeeds
+    ...    2min
+    ...    5 sec
+    ...    Get Data From URI
+    ...    session
     ...    ${OPERATIONAL_RSPS_URI}
-    ...    ELSE    No Content From URI    session    ${OPERATIONAL_RSPS_URI}
+    ...    ELSE
+    ...    No Content From URI
+    ...    session
+    ...    ${OPERATIONAL_RSPS_URI}
     [Teardown]    Remove SFC Elements
+
 
 *** Keywords ***
 Init Suite
@@ -73,4 +101,4 @@ Remove SFC Elements
 
 Resolve Http Session for Controller
     ${session} =    Resolve_Http_Session_For_Member    member_index=1
-    [Return]    ${session}
+    RETURN    ${session}
