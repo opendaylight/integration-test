@@ -1,22 +1,26 @@
 *** Settings ***
-Documentation     Test suite for Stats Manager flows collection
-Suite Setup       Initialization Phase
-Suite Teardown    Teardown Phase
-Library           OperatingSystem
-Library           Collections
-Library           XML
-Library           ../../../libraries/XmlComparator.py
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../variables/openflowplugin/Variables.robot
+Documentation       Test suite for Stats Manager flows collection
+
+Library             OperatingSystem
+Library             Collections
+Library             XML
+Library             ../../../libraries/XmlComparator.py
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../variables/openflowplugin/Variables.robot
+
+Suite Setup         Initialization Phase
+Suite Teardown      Teardown Phase
+
 
 *** Variables ***
-${XmlsDir}        ${CURDIR}/../../../variables/xmls
-${switch_idx}     1
-${switch_name}    s${switch_idx}
-@{xml_files}      f1.xml    f2.xml    f3.xml    f5.xml    f7.xml    f8.xml    f9.xml
-...               f10.xml    f11.xml    f14.xml    f17.xml    f19.xml    f24.xml
+${XmlsDir}          ${CURDIR}/../../../variables/xmls
+${switch_idx}       1
+${switch_name}      s${switch_idx}
+@{xml_files}        f1.xml    f2.xml    f3.xml    f5.xml    f7.xml    f8.xml    f9.xml
+...                 f10.xml    f11.xml    f14.xml    f17.xml    f19.xml    f24.xml
+
 
 *** Test Cases ***
 Test Add Flows
@@ -191,6 +195,7 @@ Test Is Flow 24 Deleted
     Check Config Flow    ${False}
     Check Operational Table    ${False}
 
+
 *** Keywords ***
 Init Flow Variables
     [Arguments]    ${file}
@@ -217,13 +222,16 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ...    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
-    Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
+    IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}
     ${pres}    ${msg}=    Is Flow Configured    ${data}    ${resp.content}
-    Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
-    Return From Keyword    ${pres}    ${msg}
+    IF    '''${msg}'''!='${EMPTY}'    Log    ${msg}
+    RETURN    ${pres}    ${msg}
 
 Check Operational Table
     [Arguments]    ${expected}
@@ -237,23 +245,34 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}
+    ...    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
-    Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
+    IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}
     ${pres}    ${msg}=    Is Flow Operational2    ${data}    ${resp.content}
-    Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
-    Return From Keyword    ${pres}    ${msg}
+    IF    '''${msg}'''!='${EMPTY}'    Log    ${msg}
+    RETURN    ${pres}    ${msg}
 
 Add Flow
     Log    ${data}
-    ${resp}=    RequestsLibrary.Put Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}    headers=${HEADERS_XML}    data=${data}
-    ${msg}=    Set Variable    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
+    ${resp}=    RequestsLibrary.Put Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ...    headers=${HEADERS_XML}
+    ...    data=${data}
+    ${msg}=    Set Variable
+    ...    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow
-    ${resp}=    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
-    ${msg}=    Set Variable    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
+    ${resp}=    RequestsLibrary.Delete Request
+    ...    session
+    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ${msg}=    Set Variable
+    ...    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete All Flows
@@ -274,7 +293,12 @@ Teardown Phase
 
 Get Presence Failure Message
     [Arguments]    ${ds}    ${expected}    ${presence}    ${diffmsg}
-    Return From Keyword If    '''${diffmsg}'''!='${EMPTY}'    Flow found in ${ds} data store but: ${diffmsg}
-    ${msgf}=    Set Variable If    ${expected}==${True}    The flow is expected in operational data store, but    The flow is not expected in operational data store, but
+    IF    '''${diffmsg}'''!='${EMPTY}'
+        RETURN    Flow found in ${ds} data store but: ${diffmsg}
+    END
+    ${msgf}=    Set Variable If
+    ...    ${expected}==${True}
+    ...    The flow is expected in operational data store, but
+    ...    The flow is not expected in operational data store, but
     ${msgp}=    Set Variable If    ${presence}==${True}    it is present.    it is not present.
-    Return From Keyword    ${msgf} ${msgp}
+    RETURN    ${msgf} ${msgp}

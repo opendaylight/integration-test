@@ -1,21 +1,30 @@
 *** Settings ***
-Documentation     Test suite for RESTCONF Topology
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../variables/openflowplugin/Variables.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for RESTCONF Topology
+
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../variables/openflowplugin/Variables.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-@{node_list}      openflow:1    openflow:2    openflow:3
+@{node_list}    openflow:1    openflow:2    openflow:3
+
 
 *** Test Cases ***
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${node_list}
+    Wait Until Keyword Succeeds
+    ...    10s
+    ...    2s
+    ...    Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${node_list}
     ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
     Log    ${resp.text}
 
@@ -51,10 +60,10 @@ Link Down
     # shot in the dark.    maybe the "link s1 s2 down" really didn't take the link(s) down?
     # hopefully this output below will show that.
     Write    sh ovs-vsctl find Interface name="s1-eth1"
-    ${output}=    Read Until    mininet>
+    ${output}    Read Until    mininet>
     Log    ${output}
     Write    sh ovs-vsctl find Interface name="s1-eth2"
-    ${output}=    Read Until    mininet>
+    ${output}    Read Until    mininet>
     Log    ${output}
 
 Link Up
@@ -70,7 +79,12 @@ Remove Port
     Write    sh ovs-vsctl del-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow%3A2%3A2
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
+    Wait Until Keyword Succeeds
+    ...    10s
+    ...    2s
+    ...    Check For Elements Not At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${list}
 
 Add Port
     [Documentation]    Add port s2-eth2, new id 5
@@ -79,6 +93,7 @@ Add Port
     Read Until    mininet>
     @{list}    Create List    openflow%3A2%3A5
     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}
+
 
 *** Keywords ***
 Verify Links

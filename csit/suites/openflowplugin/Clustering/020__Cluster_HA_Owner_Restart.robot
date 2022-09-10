@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Test suite for Cluster HA - Device Owner Stop and Start
-Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/ClusterOpenFlow.robot
-Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Cluster HA - Device Owner Stop and Start
+
+Library             RequestsLibrary
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/ClusterOpenFlow.robot
+Resource            ../../../libraries/MininetKeywords.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Check Shards Status Before Stop
@@ -16,13 +19,18 @@ Check Shards Status Before Stop
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet tree,2 with connection to all cluster instances.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    --topo tree,2
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ClusterManagement__member_index_list}
+    ...    --topo tree,2
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
 
 Check Entity Owner Status And Find Owner and Successor Before Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_owner}    ${original_successor_list}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device
+    ...    openflow:1
+    ...    1
     ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
     BuiltIn.Set Suite Variable    ${original_owner}
     BuiltIn.Set Suite Variable    ${original_successor_list}
@@ -30,9 +38,11 @@ Check Entity Owner Status And Find Owner and Successor Before Stop
 
 Reconnect Extra Switches To Successors And Check OVS Connections
     [Documentation]    Connect switches s2 and s3 to successor instances.
-    ${controller_opt} =    BuiltIn.Set Variable
+    ${controller_opt}=    BuiltIn.Set Variable
     FOR    ${index}    IN    @{original_successor_list}
-        ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
+        ${controller_opt}=    BuiltIn.Catenate
+        ...    ${controller_opt}
+        ...    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
         Log    ${controller_opt}
     END
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
@@ -102,7 +112,11 @@ Check Shards Status After Stop
 
 Check Entity Owner Status And Find Owner and Successor After Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor.
-    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
+    ${new_owner}    ${new_successor_list}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device
+    ...    openflow:1
+    ...    ${original_successor}
+    ...    ${new_cluster_list}
+    ...    after_stop=True
     ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
     BuiltIn.Set Suite Variable    ${new_owner}
     BuiltIn.Set Suite Variable    ${new_successor}
@@ -169,7 +183,9 @@ Check Shards Status After Start
 
 Check Entity Owner Status After Start
     [Documentation]    Check Entity Owner Status and identify owner and successor.
-    ${new_owner}    ${new_successors_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${new_owner}    ${new_successors_list}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device
+    ...    openflow:1
+    ...    1
     BuiltIn.Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Start
