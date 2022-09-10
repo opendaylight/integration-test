@@ -1,30 +1,34 @@
 *** Settings ***
-Documentation     Test suite to verify the device mount using public key based auth.
-Suite Setup       Suite Setup
-Suite Teardown    Suite Teardown
-Library           SSHLibrary
-Library           RequestsLibrary
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
-Resource          ${CURDIR}/../../../variables/Variables.robot
+Documentation       Test suite to verify the device mount using public key based auth.
+
+Library             SSHLibrary
+Library             RequestsLibrary
+Resource            ../../../libraries/SSHKeywords.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../variables/Variables.robot
+Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource            ${CURDIR}/../../../libraries/CompareStream.robot
+Resource            ${CURDIR}/../../../variables/Variables.robot
+
+Suite Setup         Suite Setup
+Suite Teardown      Suite Teardown
+
 
 *** Variables ***
-${directory_with_keyauth_template}    ${CURDIR}/../../../variables/netconf/KeyAuth
-${pkPassphrase}    topsecret
-${device_name}    netconf-test-device
-${device_type_passw}    full-uri-device
-${device_type_key}    full-uri-device-key
-${netopeer_port}    830
-${netopeer_username}    netconf
-${netopeer_password}    wrong
-${netopeer_key}    device-key
-${netopeer_image}    sysrepo/sysrepo-netopeer2:latest
-${USE_NETCONF_CONNECTOR}    ${False}
+${directory_with_keyauth_template}      ${CURDIR}/../../../variables/netconf/KeyAuth
+${pkPassphrase}                         topsecret
+${device_name}                          netconf-test-device
+${device_type_passw}                    full-uri-device
+${device_type_key}                      full-uri-device-key
+${netopeer_port}                        830
+${netopeer_username}                    netconf
+${netopeer_password}                    wrong
+${netopeer_key}                         device-key
+${netopeer_image}                       sysrepo/sysrepo-netopeer2:latest
+${USE_NETCONF_CONNECTOR}                ${False}
+
 
 *** Test Cases ***
 Check_Device_Is_Not_Configured_At_Beginning
@@ -59,15 +63,18 @@ Check_Device_Going_To_Be_Gone_After_Deconfiguring
     [Tags]    critical
     NetconfKeywords.Wait_Device_Fully_Removed    ${device_name}
 
+
 *** Keywords ***
 Run Netopeer Docker Container
     [Documentation]    Start a new docker container for netopeer server.
-    ${netopeer_conn_id} =    SSHKeywords.Open_Connection_To_Tools_System
+    ${netopeer_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
     SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key.pub    .
     Builtin.Set Suite Variable    ${netopeer_conn_id}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command
     ...    docker run -dt -p ${netopeer_port}:830 -v /home/${TOOLS_SYSTEM_USER}/sb-rsa-key.pub:/home/${netopeer_username}/.ssh/authorized_keys ${netopeer_image} netopeer2-server -d -v 2
-    ...    return_stdout=True    return_stderr=True    return_rc=True
+    ...    return_stdout=True
+    ...    return_stderr=True
+    ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    docker ps -a
     ...    return_stdout=True    return_stderr=True    return_rc=True
     Log    ${stdout}
@@ -76,8 +83,13 @@ Configure ODL with Key config
     [Documentation]    Configure the ODL with the Southbound key configuration file containing details about private key path and passphrase
     SSHKeywords.Open_Connection_To_ODL_System
     Log    Bundle folder ${WORKSPACE}/${BUNDLEFOLDER}/etc
-    SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/org.opendaylight.netconf.topology.sb.keypair.cfg    ${WORKSPACE}/${BUNDLEFOLDER}/etc/
-    SSHLibrary.Put File    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key    ${WORKSPACE}/${BUNDLEFOLDER}/etc/    400
+    SSHLibrary.Put File
+    ...    ${CURDIR}/../../../variables/netconf/KeyAuth/org.opendaylight.netconf.topology.sb.keypair.cfg
+    ...    ${WORKSPACE}/${BUNDLEFOLDER}/etc/
+    SSHLibrary.Put File
+    ...    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key
+    ...    ${WORKSPACE}/${BUNDLEFOLDER}/etc/
+    ...    400
     ${stdout}=    SSHLibrary.Execute Command    ls -l ${WORKSPACE}/${BUNDLEFOLDER}/etc/    return_stdout=True
     Log    ${stdout}
     Restart Controller
@@ -96,7 +108,7 @@ Restart Controller
 
 Get Controller Modules
     [Documentation]    Get the restconf modules, check 200 status and ietf-restconf presence
-    ${resp} =    RequestsLibrary.Get_Request    default    ${MODULES_API}
+    ${resp}=    RequestsLibrary.Get_Request    default    ${MODULES_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
@@ -110,8 +122,11 @@ Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    ${device_type_passw}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type_passw}
-    ${device_type}    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_passw}    ${device_type_key}
+    ${device_type_passw}=    BuiltIn.Set_Variable_If
+    ...    """${USE_NETCONF_CONNECTOR}""" == """True"""
+    ...    default
+    ...    ${device_type_passw}
+    ${device_type}=    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_passw}    ${device_type_key}
     BuiltIn.Set_Suite_Variable    ${device_type}
     Run Netopeer Docker Container
     CompareStream.Run_Keyword_If_At_Most_Nitrogen    Configure ODL with Key config
