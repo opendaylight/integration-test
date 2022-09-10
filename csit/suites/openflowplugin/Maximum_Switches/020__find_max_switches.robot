@@ -1,20 +1,24 @@
 *** Settings ***
-Documentation     Test suite to find maximum switches which can be connected to the controller
-Suite Setup       Start Suite
-Suite Teardown    Utils.Stop Mininet
-Library           SSHLibrary
-Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
-Library           ../../../libraries/ScaleClient.py
-Library           OperatingSystem
+Documentation       Test suite to find maximum switches which can be connected to the controller
+
+Library             SSHLibrary
+Resource            ../../../libraries/Utils.robot
+Variables           ../../../variables/Variables.py
+Library             ../../../libraries/ScaleClient.py
+Library             OperatingSystem
+
+Suite Setup         Start Suite
+Suite Teardown      Utils.Stop Mininet
+
 
 *** Variables ***
-${start}          sudo python DynamicMininet.py
-${max_sw}         500
-${step_sw}        10
-${init_sw}        10
-${max_found}      0
-${outfile}        max_found.csv
+${start}        sudo python DynamicMininet.py
+${max_sw}       500
+${step_sw}      10
+${init_sw}      10
+${max_found}    0
+${outfile}      max_found.csv
+
 
 *** Test Cases ***
 Find Max Switches
@@ -24,17 +28,18 @@ Find Max Switches
     ${step_sw}    Convert to Integer    ${step_sw}
     FOR    ${exp_sw}    IN RANGE    ${init_sw}    ${max_sw+1}    ${step_sw}
         BuiltIn.Wait Until Keyword Succeeds    120s    1s    Verify Switches Connected    ${exp_sw}
-        ${max_found}=    Set Variable    ${exp_sw}
+        ${max_found}    Set Variable    ${exp_sw}
         Set Suite variable    ${max_found}
         Add Switches    10
     END
     [Teardown]    Log Store Max Found
 
+
 *** Keywords ***
 Start Suite
     [Documentation]    Starts mininet with requested number of switches
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=1800
+    ${mininet_conn_id}    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=1800
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    DynamicMininet.py
@@ -47,15 +52,15 @@ Start Suite
     Wait Until Keyword Succeeds    10s    1s    Verify Switches Connected    ${init_sw}
 
 Add Switches
-    [Arguments]    ${nr_switches}
     [Documentation]    Adds requested number of switches to the network
+    [Arguments]    ${nr_switches}
     Write    add_switches ${nr_switches}
     Read Until    mininet>
 
 Verify Switches Connected
-    [Arguments]    ${exp_switches}
     [Documentation]    Verifies if switches are connected/present in operational inventory
-    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
+    [Arguments]    ${exp_switches}
+    ${sw}    ${rep}    ${found}    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${sw}    ${exp_switches}
 
 Log Store Max Found

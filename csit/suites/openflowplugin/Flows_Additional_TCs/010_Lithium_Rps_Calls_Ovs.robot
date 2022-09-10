@@ -1,30 +1,43 @@
 *** Settings ***
-Documentation     Test suite to test various rcp calls
-Suite Setup       Initialization Phase
-Suite Teardown    Final Phase
-Library           XML
-Library           RequestsLibrary
-Library           SSHLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/FlowLib.robot
-Variables         ../../../variables/ofplugin/RpcVariables.py
+Documentation       Test suite to test various rcp calls
+
+Library             XML
+Library             RequestsLibrary
+Library             SSHLibrary
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/FlowLib.robot
+Variables           ../../../variables/ofplugin/RpcVariables.py
+
+Suite Setup         Initialization Phase
+Suite Teardown      Final Phase
+
 
 *** Variables ***
-${send_barrier_url}    /rests/operations/flow-capable-transaction:send-barrier
-${send_echo_url}    /rests/operations/sal-echo:send-echo
+${send_barrier_url}     /rests/operations/flow-capable-transaction:send-barrier
+${send_echo_url}        /rests/operations/sal-echo:send-echo
+
 
 *** Test Cases ***
 Sending Barrier
     [Documentation]    Test to send barrier
-    ${resp}=    RequestsLibrary.Post Request    session    ${send_barrier_url}    data=${RPC_SEND_BARRIER_DATA}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post Request
+    ...    session
+    ...    ${send_barrier_url}
+    ...    data=${RPC_SEND_BARRIER_DATA}
+    ...    headers=${HEADERS_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Sending Echo
     [Documentation]    Test to send echo
-    ${resp}=    RequestsLibrary.Post Request    session    ${send_echo_url}    data=${RPC_SEND_ECHO_DATA}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post Request
+    ...    session
+    ...    ${send_echo_url}
+    ...    data=${RPC_SEND_ECHO_DATA}
+    ...    headers=${HEADERS_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
+
 
 *** Keywords ***
 Initialization Phase

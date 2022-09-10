@@ -1,20 +1,24 @@
 *** Settings ***
-Documentation     Beta Version of the Longevity Test. Currently it does a single test:
-...               1. runs one iteration of the link scale test based on ${NUM_SWITCHES}
-...               Step 1 runs in a psuedo infinite loop and before each loop is
-...               run, a time check is made against the ${TEST_LENGTH}. If the test duration
-...               has expired, the loop is exited and the test is marked PASS
-Suite Setup       Workflow Setup
-Suite Teardown    Workflow Teardown
-Library           DateTime
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/WorkflowsOpenFlow.robot
-Resource          ../../../libraries/KarafKeywords.robot
+Documentation       Beta Version of the Longevity Test. Currently it does a single test:
+...                 1. runs one iteration of the link scale test based on ${NUM_SWITCHES}
+...                 Step 1 runs in a psuedo infinite loop and before each loop is
+...                 run, a time check is made against the ${TEST_LENGTH}. If the test duration
+...                 has expired, the loop is exited and the test is marked PASS
+
+Library             DateTime
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/WorkflowsOpenFlow.robot
+Resource            ../../../libraries/KarafKeywords.robot
+
+Suite Setup         Workflow Setup
+Suite Teardown      Workflow Teardown
+
 
 *** Variables ***
-${NUM_SWITCHES}    36
-${SUSTAIN_TIME}    60s
-${TEST_LENGTH}    2h
+${NUM_SWITCHES}     36
+${SUSTAIN_TIME}     60s
+${TEST_LENGTH}      2h
+
 
 *** Test Cases ***
 Longevity Test
@@ -25,14 +29,16 @@ Longevity Test
     ${start_time}=    DateTime.Get Current Date
     #    This loop is not infinite, so going "sufficiently large" for now.
     FOR    ${i}    IN RANGE    1    65536
-        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}    ${SUSTAIN_TIME}
+        ${status}    ${error_message}    ${topology_discover_time}=    WorkflowsOpenFlow.Workflow Full Mesh Topology
+        ...    ${switches}
+        ...    ${SUSTAIN_TIME}
         ${current_time}=    DateTime.Get Current Date
         ${duration}=    DateTime.Subtract Date From Date    ${current_time}    ${start_time}    number
-        Exit For Loop If    '${status}' == 'FAIL'
-        Exit For Loop If    ${duration} > ${max_duration}
+        IF    '${status}' == 'FAIL'            BREAK
+        IF    ${duration} > ${max_duration}            BREAK
     END
     ${duration_compact}=    DateTime.Convert Time    ${duration}    compact
     Log to console    ${\n}
     Log To Console    Execution stopped because: ${error_message}
     Log To Console    Test executed for ${duration_compact} seconds
-    Run Keyword If    '${status}' == 'FAIL'    Fail    ${error_message}
+    IF    '${status}' == 'FAIL'    Fail    ${error_message}
