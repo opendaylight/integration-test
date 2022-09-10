@@ -1,16 +1,19 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Function Paths, Operates paths from Restconf APIs.
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_FUNCTION_PATHS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite for SFC Service Function Paths, Operates paths from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_FUNCTION_PATHS_URI}
+
 
 *** Test Cases ***
 Add Service Function Paths
@@ -37,7 +40,7 @@ Delete All Service Function Paths
 Get one Service Function Path
     [Documentation]    Get one Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-    ${elements}=    Create List    SFC1-100    "service-chain-name":"SFC1"
+    ${elements}    Create List    SFC1-100    "service-chain-name":"SFC1"
     Check For Elements At URI    ${SERVICE_FUNCTION_PATH_URI}/SFC1-100    ${elements}
 
 Get A Non-existing Service Function Path
@@ -81,6 +84,7 @@ Put one Service Function
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    SFC1-400
+
 
 *** Keywords ***
 Init Suite

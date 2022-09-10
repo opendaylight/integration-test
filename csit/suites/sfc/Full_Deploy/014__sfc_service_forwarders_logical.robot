@@ -1,23 +1,27 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Function Forwarders, Operates SFFs from Restconf APIs. Logical SFF
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
-Test Teardown     Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite for SFC Service Function Forwarders, Operates SFFs from Restconf APIs. Logical SFF
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
+Test Teardown       Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
+
 
 *** Variables ***
-${VERSION_DIR}    master
-${TEST_DIR}       ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
-${SERVICE_FORWARDERS_FILE}    ${TEST_DIR}/service-function-forwarders-logicallsff.json
-${SFF_SFFLOG_URI}    ${SERVICE_FORWARDER_URI}/sfflogical1
-${SFF_SFFLOG_FILE}    ${TEST_DIR}/service-function-forwarder-logicallsff1.json
+${VERSION_DIR}                  master
+${TEST_DIR}                     ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+${SERVICE_FORWARDERS_FILE}      ${TEST_DIR}/service-function-forwarders-logicallsff.json
+${SFF_SFFLOG_URI}               ${SERVICE_FORWARDER_URI}/sfflogical1
+${SFF_SFFLOG_FILE}              ${TEST_DIR}/service-function-forwarder-logicallsff1.json
+
 
 *** Test Cases ***
 Put Service Function Forwarders
@@ -47,7 +51,7 @@ Get one Service Function Forwarder
     [Documentation]    Get one Service Function Forwarder. Logical SFF
     [Tags]    include
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${elements}=    Create List    sfflogical1
+    ${elements}    Create List    sfflogical1
     Check For Elements At URI    ${SFF_SFFLOG_URI}    ${elements}
 
 Delete A Service Function Forwarder
@@ -66,9 +70,10 @@ Put one Service Function Forwarder
     Add Elements To URI From File    ${SFF_SFFLOG_URI}    ${SFF_SFFLOG_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_SFFLOG_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${elements}=    Create List    sfflogical1
+    ${elements}    Create List    sfflogical1
     Check For Elements At URI    ${SFF_SFFLOG_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}    ${elements}
+
 
 *** Keywords ***
 Init Suite
