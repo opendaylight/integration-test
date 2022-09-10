@@ -1,10 +1,13 @@
 *** Settings ***
-Documentation     Test suite for verifying basic variations of export API including checking statuses
-Suite Setup       ClusterManagement Setup
-Suite Teardown    Delete All Sessions
-Library           OperatingSystem
-Library           DateTime
-Resource          ../../libraries/DaeximKeywords.robot
+Documentation       Test suite for verifying basic variations of export API including checking statuses
+
+Library             OperatingSystem
+Library             DateTime
+Resource            ../../libraries/DaeximKeywords.robot
+
+Suite Setup         ClusterManagement Setup
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Create and Cancel Export
@@ -21,8 +24,18 @@ Schedule Absolute Time Export With UTC
     [Tags]    absolute time export
     ${time}    DateTime.Get Current Date    UTC    00:00:10    %Y-%m-%dT%H:%M:%SZ    ${FALSE}
     DaeximKeywords.Schedule Export    ${FIRST_CONTROLLER_INDEX}    ${time}
-    BuiltIn.Wait Until Keyword Succeeds    20 sec    5 sec    DaeximKeywords.Verify Scheduled Export Timestamp    ${FIRST_CONTROLLER_INDEX}    ${time}
-    Builtin.Wait Until Keyword Succeeds    20 sec    5 sec    DaeximKeywords.Verify Export Status    ${EXPORT_COMPLETE_STATUS}    ${FIRST_CONTROLLER_INDEX}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    20 sec
+    ...    5 sec
+    ...    DaeximKeywords.Verify Scheduled Export Timestamp
+    ...    ${FIRST_CONTROLLER_INDEX}
+    ...    ${time}
+    Builtin.Wait Until Keyword Succeeds
+    ...    20 sec
+    ...    5 sec
+    ...    DaeximKeywords.Verify Export Status
+    ...    ${EXPORT_COMPLETE_STATUS}
+    ...    ${FIRST_CONTROLLER_INDEX}
     DaeximKeywords.Verify Export Files    ${FIRST_CONTROLLER_INDEX}
 
 Schedule Absolute Time Export With Localtime
@@ -43,7 +56,10 @@ Create Module Exclude Export
     ${file1}    DaeximKeywords.Schedule Exclude Export    ${FIRST_CONTROLLER_INDEX}    config    network-topology
     ${lines1}    OperatingSystem.Grep File    ${file1}    network-topology:
     Builtin.Should Be Empty    ${lines1}
-    ${file2}    DaeximKeywords.Schedule Exclude Export    ${FIRST_CONTROLLER_INDEX}    operational    opendaylight-inventory
+    ${file2}    DaeximKeywords.Schedule Exclude Export
+    ...    ${FIRST_CONTROLLER_INDEX}
+    ...    operational
+    ...    opendaylight-inventory
     ${lines2}    OperatingSystem.Grep File    ${file2}    opendaylight-inventory:
     Builtin.Should Be Empty    ${lines2}
 
