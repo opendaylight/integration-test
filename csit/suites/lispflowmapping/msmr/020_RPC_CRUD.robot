@@ -1,16 +1,19 @@
 *** Settings ***
-Documentation     Test suite to verify CRUD operations using RPCs
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Library           ../../../libraries/JsonGenerator.py
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/LISPFlowMapping.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite to verify CRUD operations using RPCs
+
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Library             ../../../libraries/JsonGenerator.py
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/LISPFlowMapping.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Create Key

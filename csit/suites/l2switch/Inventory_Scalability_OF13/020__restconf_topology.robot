@@ -1,15 +1,19 @@
 *** Settings ***
-Documentation     Test suite for RESTCONF topology
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           XML
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for RESTCONF topology
+
+Library             Collections
+Library             XML
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/network-topology:network-topology/topology/flow:1
+${REST_CONTEXT}     /restconf/operational/network-topology:network-topology/topology/flow:1
+
 
 *** Test Cases ***
 Get Nodes Count
@@ -27,11 +31,12 @@ Get Links Count
     ${numlinks}    Evaluate    (${numnodes}-1)*2
     Wait Until Keyword Succeeds    60s    2s    Verify Element Count    ${REST_CONTEXT}    link    ${numlinks}
 
+
 *** Keywords ***
 Verify Element Count
     [Arguments]    ${URI}    ${xpath_location}    ${expected_count}
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Element Count    ${resp.content}    xpath=${xpath_location}
+    ${count}    Get Element Count    ${resp.content}    xpath=${xpath_location}
     Should Be Equal As Numbers    ${count}    ${expected_count}

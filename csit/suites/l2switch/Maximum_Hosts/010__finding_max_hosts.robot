@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for finding out max number of switches
-Suite Setup       Workflow Setup
-Suite Teardown    Workflow Teardown
-Library           OperatingSystem
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/WorkflowsL2switch.robot
-Resource          ../../../libraries/KarafKeywords.robot
+Documentation       Test suite for finding out max number of switches
+
+Library             OperatingSystem
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/WorkflowsL2switch.robot
+Resource            ../../../libraries/KarafKeywords.robot
+
+Suite Setup         Workflow Setup
+Suite Teardown      Workflow Teardown
+
 
 *** Variables ***
-${MIN_HOSTS}      50
-${MAX_HOSTS}      1000
-${STEP_HOSTS}     50
+${MIN_HOSTS}            50
+${MAX_HOSTS}            1000
+${STEP_HOSTS}           50
 ${HOSTS_RESULT_FILE}    hosts.csv
-${TIME_RESULT_FILE}    time.csv
+${TIME_RESULT_FILE}     time.csv
+
 
 *** Test Cases ***
 Find Max Supported Hosts
@@ -24,8 +28,12 @@ Find Max Supported Hosts
     ${stop}=    BuiltIn.Convert to Integer    ${MAX_HOSTS}
     ${step}=    BuiltIn.Convert to Integer    ${STEP_HOSTS}
     FOR    ${hosts}    IN RANGE    ${start}    ${stop+1}    ${step}
-        ${status}    ${error_message}    ${host_discover_time}    WorkflowsL2switch.Workflow Single Switch Multiple Hosts    ${hosts}
-        BuiltIn.Exit For Loop If    '${status}' == 'FAIL'
+        ${status}
+        ...    ${error_message}
+        ...    ${host_discover_time}=
+        ...    WorkflowsL2switch.Workflow Single Switch Multiple Hosts
+        ...    ${hosts}
+        IF    '${status}' == 'FAIL'            BREAK
         ${maximum_hosts}=    BuiltIn.Set variable    ${hosts}
         ${discover_time}=    BuiltIn.Set Variable    ${host_discover_time}
     END

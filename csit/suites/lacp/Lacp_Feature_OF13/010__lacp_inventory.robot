@@ -1,21 +1,25 @@
 *** Settings ***
-Documentation     Test suite for RESTCONF LACP inventory
-Suite Setup       LACP Inventory Suite Setup
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for RESTCONF LACP inventory
+
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Variables           ../../../variables/Variables.py
+
+Suite Setup         LACP Inventory Suite Setup
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${node1}          openflow:1
-${agg-id1}        1
-${agg-id2}        2
-${agg1-connector-id1}    1
-${agg1-connector-id2}    2
-${agg2-connector-id1}    3
-${agg2-connector-id2}    4
+${node1}                    openflow:1
+${agg-id1}                  1
+${agg-id2}                  2
+${agg1-connector-id1}       1
+${agg1-connector-id2}       2
+${agg2-connector-id1}       3
+${agg2-connector-id2}       4
+
 
 *** Test Cases ***
 Get the Specific Node Inventory and Lacp aggregator details
@@ -40,39 +44,48 @@ Get information of each lacp-aggregator for a node
 
 Get node connector data for node 1
     [Documentation]    Get the node connector inventory for node 1
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id1}
+    ${resp}    Get Request
+    ...    session
+    ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id1}
     Verify LACP RESTAPI Response Code for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id1}    agg-id
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id2}
+    ${resp}    Get Request
+    ...    session
+    ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id2}
     Verify LACP RESTAPI Response Code for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id1}    agg-id
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id1}
+    ${resp}    Get Request
+    ...    session
+    ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id1}
     Verify LACP RESTAPI Response Code for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id2}    agg-id
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id2}
+    ${resp}    Get Request
+    ...    session
+    ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id2}
     Verify LACP RESTAPI Response Code for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id2}    agg-id
 
+
 *** Keywords ***
 Verify LACP RESTAPI Response Code for node
-    [Arguments]    ${resp}
     [Documentation]    Will check for the response code of the REST query
+    [Arguments]    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
 
 Verify LACP RESTAPI Aggregator and Tag Contents
-    [Arguments]    ${resp.content}    ${content-lookup}
     [Documentation]    Will check for the LACP Specific tags or Aggregator ID for node
+    [Arguments]    ${resp.content}    ${content-lookup}
     Should Contain    ${resp.content}    ${content-lookup}
 
 Verify LACP connector associated for aggregator
-    [Arguments]    ${resp.content}    ${node}    ${agg-connector-id}
     [Documentation]    Will check for the LACP connector info for each aggregator
+    [Arguments]    ${resp.content}    ${node}    ${agg-connector-id}
     Should Contain    ${resp.content}    ${node}:${agg-connector-id}
 
 Verify specific LACP node connector data for node
-    [Arguments]    ${resp.content}    ${agg-id}    ${connector}
     [Documentation]    Will check for node connectory info for node
+    [Arguments]    ${resp.content}    ${agg-id}    ${connector}
     Should Contain    ${resp.content}    ${connector}='${agg-id}'
 
 Verify LACP Tags Are Formed

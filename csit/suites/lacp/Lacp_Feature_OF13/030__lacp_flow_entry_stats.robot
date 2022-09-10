@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Test suite to verify if the PDU count for the LACP flow entry is getting updated
-Suite Setup       LACP Inventory Suite Setup
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite to verify if the PDU count for the LACP flow entry is getting updated
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         LACP Inventory Suite Setup
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${node1}          openflow:1
+${node1}    openflow:1
+
 
 *** Test Cases ***
 Verify Switch S1 LACP flow entry packet hit doesn't display zero value
@@ -23,7 +27,11 @@ Verify Switch S1 LACP flow entry packet hit doesn't display zero value
 
 Verify Switch S1 Port stats doesn't display zero value
     [Documentation]    Verify the port stats for the Switch S1 doesn't display value with zero
-    ${result}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl dump-ports s1 -O OpenFlow13    ${TOOLS_SYSTEM_USER}    #
+    #
+    ${result}=    Run Command On Remote System
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    sudo ovs-ofctl dump-ports s1 -O OpenFlow13
+    ...    ${TOOLS_SYSTEM_USER}
     Comment    ${result}    Read Until    mininet>
     ${port1}=    Get Lines Containing String    ${result}    1:
     Should Not Contain    ${port1}    rx pkts=0
@@ -38,21 +46,22 @@ Verify Switch S1 Port stats doesn't display zero value
     Should Not Contain    ${port4}    rx pkts=0
     Should Not Contain    ${port4}    bytes=0
 
+
 *** Keywords ***
 Verify LACP RESTAPI Response Code for node
-    [Arguments]    ${resp}
     [Documentation]    Will check for the response code of the REST query
+    [Arguments]    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
 
 Verify LACP RESTAPI Aggregator and Tag Contents
-    [Arguments]    ${resp.content}    ${content-lookup}
     [Documentation]    Will check for the LACP Specific tags or Aggregator ID for node
+    [Arguments]    ${resp.content}    ${content-lookup}
     Should Contain    ${resp.content}    ${content-lookup}
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
