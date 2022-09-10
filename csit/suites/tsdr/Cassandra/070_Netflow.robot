@@ -1,27 +1,31 @@
 *** Settings ***
-Documentation     Test suite for Cassandra DataStore Netflow Stats Verification
-Suite Setup       Initialize Netflow
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Cassandra DataStore Netflow Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Initialize Netflow
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-${IP_1}           10.0.0.1
-${IP_2}           10.0.0.2
-${NODE_ID}        127.0.0.1
-${engine_type}    11
-${engine_id}      11
-${nexthop}        0
-${port}           0
-${prot}           1
-${int1}           1
-${int2}           2
-${version}        5
+${IP_1}             10.0.0.1
+${IP_2}             10.0.0.2
+${NODE_ID}          127.0.0.1
+${engine_type}      11
+${engine_id}        11
+${nexthop}          0
+${port}             0
+${prot}             1
+${int1}             1
+${int2}             2
+${version}          5
+
 
 *** Test Cases ***
 Verifying TSDR Data Store For Netflow Entries
@@ -69,6 +73,7 @@ Verifying TSDR Data Store For Netflow Entries
     Should Contain    ${netflow}    srcAS=0
     Should Contain    ${netflow}    dstMask=0
     Should Contain    ${netflow}    srcMask=0
+
 
 *** Keywords ***
 Initialize Netflow
