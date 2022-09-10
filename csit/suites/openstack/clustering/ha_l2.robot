@@ -1,31 +1,35 @@
 *** Settings ***
-Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           Collections
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/ClusterOvsdb.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/netvirt/Variables.robot
+Documentation       Test suite to verify packet flows between vm instances.
+
+Library             SSHLibrary
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             Collections
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/OpenStackOperations.robot
+Resource            ../../../libraries/DevstackUtils.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/ClusterOvsdb.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../variables/netvirt/Variables.robot
+
+Suite Setup         OpenStackOperations.OpenStack Suite Setup
+Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       OpenStackOperations.Get Test Teardown Debugs
+
 
 *** Variables ***
-${SECURITY_GROUP}    cl2_sg
-@{NETWORKS}       cl2_net_1    cl2_net_2
-@{SUBNETS}        cl2_sub_1    cl2_sub_2
-@{NET_1_VMS}      cl2_net_1_vm_1    cl2_net_1_vm_2    cl2_net_1_vm_3
-@{NET_2_VMS}      cl2_net_2_vm_1    cl2_net_2_vm_2    cl2_net_2_vm_3
-@{SUBNET_CIDRS}    26.0.0.0/24    27.0.0.0/24
+${SECURITY_GROUP}       cl2_sg
+@{NETWORKS}             cl2_net_1    cl2_net_2
+@{SUBNETS}              cl2_sub_1    cl2_sub_2
+@{NET_1_VMS}            cl2_net_1_vm_1    cl2_net_1_vm_2    cl2_net_1_vm_3
+@{NET_2_VMS}            cl2_net_2_vm_1    cl2_net_2_vm_2    cl2_net_2_vm_3
+@{SUBNET_CIDRS}         26.0.0.0/24    27.0.0.0/24
 @{CLUSTER_DOWN_LIST}    ${1}    ${2}
+
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -103,15 +107,39 @@ Take Down ODL2
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[0]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[1]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[2]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[0]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[1]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[2]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
@@ -187,7 +215,10 @@ Connectivity Tests From Vm Instance3 In net_2 In Healthy Cluster
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Stop Single Member
+    ...    1
+    ...    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
 
 Connectivity Tests From Vm Instance1 In net_2 With Two ODLs Down
