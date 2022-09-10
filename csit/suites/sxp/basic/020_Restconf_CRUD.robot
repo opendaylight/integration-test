@@ -1,18 +1,19 @@
 *** Settings ***
-Documentation     Test suite to verify CRUD operations
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
-Test Teardown     Clean Node
-Library           RequestsLibrary
-Library           ../../../libraries/Sxp.py
-Resource          ../../../libraries/SxpLib.robot
+Documentation       Test suite to verify CRUD operations
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Sxp.py
+Resource            ../../../libraries/SxpLib.robot
+
+Suite Setup         Setup SXP Environment
+Suite Teardown      Clean SXP Environment
+Test Teardown       Clean Node
+
 
 *** Test Cases ***
 Test Add Bindings
     [Documentation]    Test if bindings are added to Master DB
-    [Tags]    Restconf CRUD    SXP
+    [Tags]    restconf crud    sxp
     ${resp}    Get Bindings
     Add Bindings    5230    1.1.1.1/32
     Wait Until Keyword Succeeds    30x    1s    Bindings Should Contain    5230    1.1.1.1/32
@@ -21,7 +22,7 @@ Test Add Bindings
 
 Test Update Bindings
     [Documentation]    Test if bindings can be updated to different SGT values by new incoming bindings for the same IP prefix
-    [Tags]    Restconf CRUD    SXP
+    [Tags]    restconf crud    sxp
     Add Bindings    30    1.1.1.10/32
     Wait Until Keyword Succeeds    30x    1s    Bindings Should Contain    30    1.1.1.10/32
     Sleep    1s    New binding must be at least 1s newer
@@ -31,7 +32,7 @@ Test Update Bindings
 
 Test Delete Bindings
     [Documentation]    Test if bindings are deleted from Master DB
-    [Tags]    Restconf CRUD    SXP
+    [Tags]    restconf crud    sxp
     Add Bindings    52301    12.1.1.1/32
     Wait Until Keyword Succeeds    30x    1s    Bindings Should Contain    52301    12.1.1.1/32
     Run Keyword And Expect Error    *    Delete Bindings    2631    12.1.1.1/32
@@ -41,7 +42,7 @@ Test Delete Bindings
 
 Test Add Connection
     [Documentation]    Test if connections are added to Node
-    [Tags]    Restconf CRUD    SXP
+    [Tags]    restconf crud    sxp
     Add Connection    version4    speaker    10.1.0.0    60000
     Wait Until Keyword Succeeds    30x    1s    Connections Should Contain    10.1.0.0    60000    speaker
     ...    version4
@@ -51,7 +52,7 @@ Test Add Connection
 
 Test Delete Connection
     [Documentation]    Test if conncetions are removed from Node
-    [Tags]    Restconf CRUD    SXP
+    [Tags]    restconf crud    sxp
     Add Connection    version4    speaker    127.1.0.30    60000
     Wait Until Keyword Succeeds    30x    1s    Connections Should Contain    127.1.0.30    60000    speaker
     ...    version4
@@ -61,6 +62,7 @@ Test Delete Connection
     Delete Connections    127.1.0.30    60000
     Wait Until Keyword Succeeds    30x    1s    Connections Should Not Contain    127.1.0.30    60000    speaker
     ...    version4
+
 
 *** Keywords ***
 Clean Node

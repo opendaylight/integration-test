@@ -1,15 +1,18 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
-Suite Setup       Init Suite
-Suite Teardown    Delete All Sessions
-Test Setup        Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Documentation       Test suite for SFC Service Functions, Operates functions from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../variables/sfc/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+
+Suite Setup         Init Suite
+Suite Teardown      Delete All Sessions
+Test Setup          Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
+
 
 *** Test Cases ***
 Add Service Functions
@@ -37,7 +40,7 @@ Delete All Service Functions
 Get one Service Function
     [Documentation]    Get one Service Function
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${elements}=    Create List    dpi-102-1    dpi
+    ${elements}    Create List    dpi-102-1    dpi
     Check For Elements At URI    ${SERVICE_FUNCTION_URI}/dpi-102-1    ${elements}
 
 Get A Non-existing Service Function
@@ -71,21 +74,21 @@ Delete A Non-existing Empty Service Function
 Put one Service Function
     [Documentation]    Put one Service Function
     Add Elements To URI From File    ${SF_DPI102100_URI}    ${SF_DPI102100_FILE}
-    ${elements}=    Create List    dpi-102-100    dpi
+    ${elements}    Create List    dpi-102-100    dpi
     Check For Elements At URI    ${SF_DPI102100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_FUNCTIONS_URI}    ${elements}
 
 Get Service Function DPL
     [Documentation]    Get Service Function Data Plane Locator
     Add Elements To URI From File    ${SF_DPI102100_URI}    ${SF_DPI102100_FILE}
-    ${elements}=    Create List    100    10100
+    ${elements}    Create List    100    10100
     Check For Elements At URI    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-100    ${elements}
 
 Put Service Function DPL
     [Documentation]    Put Service Function Data Plane Locator
     Add Elements To URI From File    ${SF_DPI102100_URI}    ${SF_DPI102100_FILE}
     Add Elements To URI From File    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-101    ${SF_DPL101_FILE}
-    ${elements}=    Create List    dpl-101    10101
+    ${elements}    Create List    dpl-101    10101
     Check For Elements At URI    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-101    ${elements}
     Check For Elements At URI    ${SF_DPI102100_URI}    ${elements}
 
@@ -96,7 +99,7 @@ Put Service Function DPL to a Non-existing Service Function
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.text}    dpi-102-100
-    ${elements}=    Create List    dpl-101    10101
+    ${elements}    Create List    dpl-101    10101
     Check For Elements At URI    ${SF_DPI102100_URI}/sf-data-plane-locator/dpl-101    ${elements}
     Check For Elements At URI    ${SF_DPI102100_URI}    ${elements}
 
@@ -107,6 +110,7 @@ Delete Service Function DPL
     ${resp}    RequestsLibrary.Get Request    session    ${SF_DPI102100_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.text}    dpl-100
+
 
 *** Keywords ***
 Init Suite

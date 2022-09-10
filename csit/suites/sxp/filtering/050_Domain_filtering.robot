@@ -1,24 +1,28 @@
 *** Settings ***
-Documentation     Test suite to verify Domain data filtering
-Test Setup        Setup Nodes Local
-Test Teardown     Clean SXP Environment    9
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           ../../../libraries/Sxp.py
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/SxpLib.robot
+Documentation       Test suite to verify Domain data filtering
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             ../../../libraries/Sxp.py
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/SxpLib.robot
+
+Test Setup          Setup Nodes Local
+Test Teardown       Clean SXP Environment    9
+
 
 *** Variables ***
-${DOMAIN_1}       guest
-${DOMAIN_2}       trusted
-${DOMAIN_3}       semitrusted
-${DOMAIN_4}       secure
-${version}        version4
+${DOMAIN_1}     guest
+${DOMAIN_2}     trusted
+${DOMAIN_3}     semitrusted
+${DOMAIN_4}     secure
+${version}      version4
+
 
 *** Test Cases ***
 Non Transitivity Test
     [Documentation]    Test if Bindings are shared according to associated filters
-    [Tags]    SXP    Domains    Filtering
+    [Tags]    sxp    domains    filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
@@ -27,7 +31,7 @@ Non Transitivity Test
 
 Update Messages Test
     [Documentation]    Test if Bindings are shared according to associated filters while bindings are removed/added
-    [Tags]    SXP    Domains    Filtering
+    [Tags]    sxp    domains    filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
@@ -45,7 +49,7 @@ Update Messages Test
 Local Binding Non Transitivity Test
     [Documentation]    Test if Local Bindings are shared according to associated filters,
     ...    and does not colide with other Bindings
-    [Tags]    SXP    Domains    Filtering
+    [Tags]    sxp    domains    filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized Local
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing Local
@@ -54,7 +58,7 @@ Local Binding Non Transitivity Test
 
 Local Binding Update Test
     [Documentation]    Test if Local Bindings are shared according to associated filters while bindings are removed/added
-    [Tags]    SXP    Domains    Filtering
+    [Tags]    sxp    domains    filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized Local
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing Local
@@ -70,7 +74,7 @@ Local Binding Update Test
 Binding Replacement Test
     [Documentation]    Test situation where Local binding is replaced by other shared local binding,
     ...    after shared binding is removed the original binding must be propagated to Peers
-    [Tags]    SXP    Domains    Filtering
+    [Tags]    sxp    domains    filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized After Update
     Add Bindings    400    35.35.35.35/32    127.0.0.4
     Add Bindings    450    35.35.35.35/32    127.0.0.1    domain=${DOMAIN_3}
@@ -79,6 +83,7 @@ Binding Replacement Test
     Wait Until Keyword Succeeds    15    1    Check After Update Part Two
     Delete Bindings    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check After Update Part Three
+
 
 *** Keywords ***
 Setup Nodes Local
