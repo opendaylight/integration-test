@@ -1,19 +1,24 @@
 *** Settings ***
-Documentation     Checking Subnets created in OpenStack are pushed to OpenDaylight
-Suite Setup       Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Documentation       Checking Subnets created in OpenStack are pushed to OpenDaylight
+
+Library             Collections
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${OSREST}         /v2.0/subnets
-${data}           {"subnet":{"network_id":"${NETID}","ip_version":4,"cidr":"172.16.64.0/24","allocation_pools":[{"start":"172.16.64.20","end":"172.16.64.120"}]}}
+${OSREST}       /v2.0/subnets
+${data}
+...             {"subnet":{"network_id":"${NETID}","ip_version":4,"cidr":"172.16.64.0/24","allocation_pools":[{"start":"172.16.64.20","end":"172.16.64.120"}]}}
+
 
 *** Test Cases ***
 Check OpenStack Subnets
     [Documentation]    Checking OpenStack Neutron for known subnets
-    [Tags]    Subnets Neutron OpenStack
+    [Tags]    subnets neutron openstack
     Log    ${X-AUTH}
     ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
@@ -22,7 +27,7 @@ Check OpenStack Subnets
 
 Check OpenDaylight subnets
     [Documentation]    Checking OpenDaylight Neutron API for known subnets
-    [Tags]    Subnets Neutron OpenDaylight
+    [Tags]    subnets neutron opendaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     ${resp}    get request    ODLSession    ${NEUTRON_SUBNETS_API}
     Should be Equal As Strings    ${resp.status_code}    200
@@ -31,7 +36,7 @@ Check OpenDaylight subnets
 
 Create New subnet
     [Documentation]    Create new subnet in OpenStack
-    [Tags]    Create Subnet OpenStack Neutron
+    [Tags]    create subnet openstack neutron
     Log    ${data}
     ${resp}    post request    OSSession    ${OSREST}    data=${data}
     Should be Equal As Strings    ${resp.status_code}    201
@@ -45,6 +50,6 @@ Create New subnet
 
 Check New subnet
     [Documentation]    Check new subnet created in OpenDaylight
-    [Tags]    Check    subnet OpenDaylight
+    [Tags]    check    subnet opendaylight
     ${resp}    get request    ODLSession    ${NEUTRON_SUBNETS_API}/${SUBNETID}
     Should be Equal As Strings    ${resp.status_code}    200

@@ -1,19 +1,23 @@
 *** Settings ***
-Documentation     Checking Port created in OpenStack are pushed to OpenDaylight
-Suite Setup       Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH}
-Suite Teardown    Delete All Sessions
-Library           Collections
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Documentation       Checking Port created in OpenStack are pushed to OpenDaylight
+
+Library             Collections
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${OSREST}         /v2.0/ports
-${data}           {"port":{"network_id":"${NETID}","admin_state_up": true}}
+${OSREST}       /v2.0/ports
+${data}         {"port":{"network_id":"${NETID}","admin_state_up": true}}
+
 
 *** Test Cases ***
 Check OpenStack ports
     [Documentation]    Checking OpenStack Neutron for known ports
-    [Tags]    Ports Neutron OpenStack
+    [Tags]    ports neutron openstack
     Log    ${X-AUTH}
     ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
@@ -22,7 +26,7 @@ Check OpenStack ports
 
 Check OpenDaylight ports
     [Documentation]    Checking OpenDaylight Neutron API for known ports
-    [Tags]    Ports Neutron OpenDaylight
+    [Tags]    ports neutron opendaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}
     Should be Equal As Strings    ${resp.status_code}    200
@@ -31,7 +35,7 @@ Check OpenDaylight ports
 
 Create New Port
     [Documentation]    Create new port in OpenStack
-    [Tags]    Create port OpenStack Neutron
+    [Tags]    create port openstack neutron
     Log    ${data}
     ${resp}    post request    OSSession    ${OSREST}    data=${data}
     Should be Equal As Strings    ${resp.status_code}    201
@@ -45,6 +49,6 @@ Create New Port
 
 Check New Port
     [Documentation]    Check new port created in OpenDaylight
-    [Tags]    Check port OpenDaylight
+    [Tags]    check port opendaylight
     ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}/${PORTID}
     Should be Equal As Strings    ${resp.status_code}    200

@@ -1,8 +1,10 @@
 *** Settings ***
-Suite Setup       Create Session    ODL    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    ODL    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Get the complete list of networks

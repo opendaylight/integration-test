@@ -1,23 +1,28 @@
 *** Settings ***
-Documentation     Test suite for Neutron Plugin
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite for Neutron Plugin
+
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Start Suite
+Suite Teardown      Stop Suite
+
 
 *** Variables ***
-${OSTENANTNAME}    "admin"
-${OSUSERNAME}     "admin"
-${OSPASSWORD}     "admin"
-${OSUSERDOMAINNAME}    "Default"
-${OSPROJECTDOMAINNAME}    "Default"
-${PASSWORD}       {"user":{"name":${OSUSERNAME},"domain":{"name": ${OSUSERDOMAINNAME}},"password":${OSPASSWORD}}}
-${SCOPE}          {"project":{"name":${OSTENANTNAME},"domain":{"name": ${OSPROJECTDOMAINNAME}}}}
-${UserInfo}       {"auth":{"identity":{"methods":["password"],"password":${PASSWORD}},"scope":${SCOPE}}}
-${KEYSTONEURL}    http://${KEYSTONE}:5000
+${OSTENANTNAME}             "admin"
+${OSUSERNAME}               "admin"
+${OSPASSWORD}               "admin"
+${OSUSERDOMAINNAME}         "Default"
+${OSPROJECTDOMAINNAME}      "Default"
+${PASSWORD}
+...                         {"user":{"name":${OSUSERNAME},"domain":{"name": ${OSUSERDOMAINNAME}},"password":${OSPASSWORD}}}
+${SCOPE}                    {"project":{"name":${OSTENANTNAME},"domain":{"name": ${OSPROJECTDOMAINNAME}}}}
+${UserInfo}                 {"auth":{"identity":{"methods":["password"],"password":${PASSWORD}},"scope":${SCOPE}}}
+${KEYSTONEURL}              http://${KEYSTONE}:5000
+
 
 *** Keywords ***
 Start Suite

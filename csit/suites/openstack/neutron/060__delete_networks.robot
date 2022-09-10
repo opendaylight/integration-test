@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Checking Network deleted in OpenStack are deleted also in OpenDaylight
-Suite Setup       Start Suite
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Documentation       Checking Network deleted in OpenStack are deleted also in OpenDaylight
+
+Library             RequestsLibrary
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Start Suite
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${OSREST}         /v2.0/networks/${NETID}
-${postNet}        {"network":{"name":"odl_network","admin_state_up":true}}
+${OSREST}       /v2.0/networks/${NETID}
+${postNet}      {"network":{"name":"odl_network","admin_state_up":true}}
+
 
 *** Test Cases ***
 Delete Network
     [Documentation]    Delete network in OpenStack
-    [Tags]    Delete Network OpenStack Neutron
+    [Tags]    delete network openstack neutron
     Log    ${postNet}
     ${resp}    delete request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    204
@@ -21,13 +25,14 @@ Delete Network
 
 Check Network deleted
     [Documentation]    Check network deleted in OpenDaylight
-    [Tags]    Check Network OpenDaylight
+    [Tags]    check network opendaylight
     ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.text}
     Log    ${ODLResult}
     ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}/${NETID}
     Should be Equal As Strings    ${resp.status_code}    404
+
 
 *** Keywords ***
 Check Network Exists
