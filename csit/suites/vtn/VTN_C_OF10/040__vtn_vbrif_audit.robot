@@ -1,9 +1,12 @@
 *** Settings ***
-Documentation     Test suite for VTN Coordinator
-Suite Setup       Start SuiteVtnCoTest
-Suite Teardown    Stop SuiteVtnCoTest
-Resource          ../../../libraries/VtnCoKeywords.robot
-Resource          ../../../libraries/WaitForFailure.robot
+Documentation       Test suite for VTN Coordinator
+
+Resource            ../../../libraries/VtnCoKeywords.robot
+Resource            ../../../libraries/WaitForFailure.robot
+
+Suite Setup         Start SuiteVtnCoTest
+Suite Teardown      Stop SuiteVtnCoTest
+
 
 *** Test Cases ***
 Add a ODL Controller with Invalid IP
@@ -12,7 +15,12 @@ Add a ODL Controller with Invalid IP
 
 Verify the Controller Status is down
     [Documentation]    Check Controller status
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    12s    1s    Check Controller Status    odc_test    down
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout
+    ...    12s
+    ...    1s
+    ...    Check Controller Status
+    ...    odc_test
+    ...    down
 
 Add a Vtn Tenant1
     [Documentation]    Create Vtn Tenant1

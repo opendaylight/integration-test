@@ -1,3 +1,4 @@
 *** Settings ***
-Suite Setup       Download Tools
-Resource          ../../libraries/UscUtils.robot
+Resource        ../../libraries/UscUtils.robot
+
+Suite Setup     Download Tools
