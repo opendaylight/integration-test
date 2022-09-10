@@ -1,73 +1,77 @@
 *** Settings ***
-Documentation     Basic Tests for DIDM in Beryllium.
+Documentation       Basic Tests for DIDM in Beryllium.
 ...
-...               Copyright (c) 2015 Hewlett Packard Enterprise Development LP and others. All rights reserved.
-...               This program and the accompanying materials are made available under the terms of the Eclipse
-...               Public License v1.0 which accompanies this distribution, and is available at
-...               http://www.eclipse.org/legal/ep1-v10.html
-Suite Setup       Setup DIDM Environment
-Suite Teardown    DIDM Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Library           SSHLibrary
-Library           Collections
-Library           RequestsLibrary
-Resource          ../../../variables/DIDM/Variables.robot
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/DIDMKeywords.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/SetupUtils.robot
+...                 Copyright (c) 2015 Hewlett Packard Enterprise Development LP and others. All rights reserved.
+...                 This program and the accompanying materials are made available under the terms of the Eclipse
+...                 Public License v1.0 which accompanies this distribution, and is available at
+...                 http://www.eclipse.org/legal/ep1-v10.html
+
+Library             SSHLibrary
+Library             Collections
+Library             RequestsLibrary
+Resource            ../../../variables/DIDM/Variables.robot
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/MininetKeywords.robot
+Resource            ../../../libraries/DIDMKeywords.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/SetupUtils.robot
+
+Suite Setup         Setup DIDM Environment
+Suite Teardown      DIDM Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+
 
 *** Test Cases ***
 Identifying Unknown Device
     [Documentation]    Verify other devices are identified as unknown
-    [Tags]    DIDM
+    [Tags]    didm
     ${unknown_device_ip}=    Set Variable    1.1.1.1
     ${device_ip}=    Check Device IP
     Should Not Match    ${device_ip}    ${unknown_device_ip}
 
 Identifying Device Type
     [Documentation]    Verify device type
-    [Tags]    DIDM
+    [Tags]    didm
     ${device_type}=    Find Device Type
     Log    ${device_type}
     Should Match    ${DEVICE_TYPE}    ${device_type}
 
 Identifying Hardware Information
     [Documentation]    Verify device hardware information
-    [Tags]    DIDM
+    [Tags]    didm
     ${device_hw}=    Find Device Hardware
     Log    ${device_hw}
     Should Match    ${DEVICE_HW_INFO}    ${device_hw}
 
 Identifying Manufacturer
     [Documentation]    Verify device manufacturer
-    [Tags]    DIDM
+    [Tags]    didm
     ${manufacture}=    Find Device Manufacturer
     Log    ${manufacture}
     Should Match    ${DEVICE_MANUFACTURE}    ${manufacture}
 
 Identifying Serial Number
     [Documentation]    Verify device serial number
-    [Tags]    DIDM
+    [Tags]    didm
     ${serial_number}=    Find Serial Number
     Log    ${serial_number}
     Should Match    ${DEVICE_SERIAL_NUMBER}    ${serial_number}
 
 Identifying Software Information
     [Documentation]    Verify device software information
-    [Tags]    DIDM
+    [Tags]    didm
     ${device_sw}=    Find Device Software
     Log    ${device_sw}
     Should Match    ${DEVICE_SW_INFO}    ${device_sw}
 
 Identifying Description
     [Documentation]    Verify device description
-    [Tags]    DIDM
+    [Tags]    didm
     ${device_description}=    Find Device Description
     Log    ${device_description}
     Should Match    ${DEVICE_DESCRIPTION}    ${device_description}
+
 
 *** Keywords ***
 DIDM Suite Teardown
@@ -93,6 +97,9 @@ Setup DIDM Environment
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Log    Start device
     ${mininet_topo_opt}=    Set Variable    --topo linear,1
-    ${mininet_conn_id}=    Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${mininet_topo_opt}
+    ${mininet_conn_id}=    Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${mininet_topo_opt}
     Wait Until Keyword Succeeds    11s    1s    Check DIDM Registered With Device
     Set Suite Variable    ${mininet_conn_id}
