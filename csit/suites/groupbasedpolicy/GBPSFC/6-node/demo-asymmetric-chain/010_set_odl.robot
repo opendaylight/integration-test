@@ -1,13 +1,16 @@
 *** Settings ***
-Documentation     Test suite for setting up infrastructure for demo-asymmetric-chain
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           OperatingSystem
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/SSHKeywords.robot
-Resource          ../Variables.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
+Documentation       Test suite for setting up infrastructure for demo-asymmetric-chain
+
+Library             RequestsLibrary
+Library             OperatingSystem
+Variables           ../../../../../variables/Variables.py
+Resource            ../../../../../libraries/SSHKeywords.robot
+Resource            ../Variables.robot
+Resource            ../../../../../libraries/GBP/OpenFlowUtils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Put Service Functions
@@ -59,7 +62,7 @@ Put Tenant
 
 Register Endpoints
     [Documentation]    Endpoints registration
-    @{endpoint_files} =    OperatingSystem.List Files In Directory    ${ENDPOINTS_ASYMM_DIR}    vethl*.*json    absolute
+    @{endpoint_files}    OperatingSystem.List Files In Directory    ${ENDPOINTS_ASYMM_DIR}    vethl*.*json    absolute
     FOR    ${endpoint_file}    IN    @{endpoint_files}
         Post Elements To URI From File    ${ENDPOINT_REG_PATH}    ${endpoint_file}    ${HEADERS_YANG_JSON}
     END
