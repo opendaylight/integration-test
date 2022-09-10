@@ -1,15 +1,16 @@
 *** Settings ***
-Documentation     Every resource type has defined list of allowed child resources, this test suite tests Create
-...               operations of valid and invalid child resources according to TS-0001 and TS-0004 OneM2M specifications.
-...               TODO: add positive and negative TCs for all resource types
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Every resource type has defined list of allowed child resources, this test suite tests Create
+...                 operations of valid and invalid child resources according to TS-0001 and TS-0004 OneM2M specifications.
+...                 TODO: add positive and negative TCs for all resource types
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 C/R: Negative: All resources as root resource
@@ -52,6 +53,7 @@ Resource          ../../../variables/Variables.robot
     ...    Retrieve operation.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO

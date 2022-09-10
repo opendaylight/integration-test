@@ -1,16 +1,17 @@
 *** Settings ***
-Documentation     Test suite tests resource specific operations of the oldest and latest resources according to
-...               OneM2M specifications:
-...               <oldest>: (TS-0001: 10.2.23 <oldest> Resource Procedure; TS-0004: 7.4.28.2 <oldest> Resource Specific Procedure on CRUD Operations)
-...               <latest>: (TS-0001: 10.2.22 <latest> Resource Procedures; TS-0004: 7.4.27.2 <latest> Resource Specific Procedure on CRUD Operations)
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite tests resource specific operations of the oldest and latest resources according to
+...                 OneM2M specifications:
+...                 <oldest>: (TS-0001: 10.2.23 <oldest> Resource Procedure; TS-0004: 7.4.28.2 <oldest> Resource Specific Procedure on CRUD Operations)
+...                 <latest>: (TS-0001: 10.2.22 <latest> Resource Procedures; TS-0004: 7.4.27.2 <latest> Resource Specific Procedure on CRUD Operations)
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 Retrieve Oldest and Latest resources
@@ -61,6 +62,7 @@ Resource          ../../../variables/Variables.robot
     ...    Oldest and Latest has not changed.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
