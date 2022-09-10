@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Tests for Access Control Policy (ACP) resource attributes
-Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Tests for Access Control Policy (ACP) resource attributes
+
+Resource            ../../../libraries/SubStrings.robot
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
-${rt_acp}         1
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+${rt_acp}                   1
+
 
 *** Test Cases ***
 1.0.0 Test whether default ACP exist
@@ -25,8 +29,9 @@ ${rt_acp}         1
 
 1.0.1 ACP C/R resource with mandatory common and specific attributes only
     [Documentation]    After Created, test whether all the mandatory attribtues exist.
-    ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35}, {"acor" : ["111","222"],"acop":35}]}, "pvs":{"acr":[{"acor" : ["111","222"],"acop":7}, {"acor" : ["111","222"],"acop":9}]}, "rn":"Acp1"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
+    ${attr} =    Set Variable
+    ...    "pv":{"acr":[{"acor" : ["111","222"],"acop":35}, {"acor" : ["111","222"],"acop":35}]}, "pvs":{"acr":[{"acor" : ["111","222"],"acop":7}, {"acor" : ["111","222"],"acop":9}]}, "rn":"Acp1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Convert To String    ${r.text}
@@ -122,8 +127,9 @@ ${rt_acp}         1
 
 3.02.01 ACP C/R: priviliges, selfPrivileges attributes: With valid IPv4 acip element
     [Documentation]    After Created, test whether all the mandatory elements exist.
-    ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv4":["127.0.0.1"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
+    ${attr} =    Set Variable
+    ...    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv4":["127.0.0.1"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp2"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Convert To String    ${r.text}
@@ -142,8 +148,9 @@ ${rt_acp}         1
 
 3.02.04 ACP C/R: priviliges, selfPrivileges attributes: With invalid IPv4 acip element
     [Documentation]    NEGATIVE: Create with invalid ipv4 address, check error message and verify by Retrieve operation.
-    ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv4":["127.0.01"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
-    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
+    ${attr} =    Set Variable
+    ...    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv4":["127.0.01"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
+    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
     Should Contain    ${error}    not a valid Ipv4 address
@@ -157,8 +164,9 @@ ${rt_acp}         1
 
 3.02.06 ACP C/R: priviliges, selfPrivileges attributes: With valid IPv6 acip element
     [Documentation]    After Created, test whether all the mandatory elements exist.
-    ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv6":["2001:db8:0:0:0:ff00:42:8329"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp4"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
+    ${attr} =    Set Variable
+    ...    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv6":["2001:db8:0:0:0:ff00:42:8329"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp4"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Convert To String    ${r.text}
@@ -179,8 +187,9 @@ ${rt_acp}         1
 
 3.02.09 ACP C/R: priviliges, selfPrivileges attributes: With invalid IPv6 acip element
     [Documentation]    NEGATIVE: Create with invalid ipv6 address, check error message and verify by Retrieve operation.
-    ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv6":["2001:db8:0:0:0:ff00:42"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
-    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
+    ${attr} =    Set Variable
+    ...    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv6":["2001:db8:0:0:0:ff00:42"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
+    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
     Should Contain    ${error}    not a valid Ipv6 address
@@ -347,6 +356,7 @@ ${rt_acp}         1
     [Documentation]    CRUD operations with all mandatory and optiona common and specific attributes, test all RCN values
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 Connect And Create Resource

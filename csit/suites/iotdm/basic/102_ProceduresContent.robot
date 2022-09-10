@@ -1,15 +1,16 @@
 *** Settings ***
-Documentation     Test suite tests Container and ContentInstance resources according to OneM2M specifications:
-...               <container>: (TS-0001: 10.2.4 <container> Resource Procedures; TS-0004 7.4.6 Resource Type <container>)
-...               <contentInstance>: (TS-0001 10.2.19 <contentInstance> Resource Procedures; TS-0004 7.4.7 Resource Type <contentInstance>)
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite tests Container and ContentInstance resources according to OneM2M specifications:
+...                 <container>: (TS-0001: 10.2.4 <container> Resource Procedures; TS-0004 7.4.6 Resource Type <container>)
+...                 <contentInstance>: (TS-0001 10.2.19 <contentInstance> Resource Procedures; TS-0004 7.4.7 Resource Type <contentInstance>)
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.00 C/R Container, positive: With valid contentInstance resources
@@ -253,6 +254,7 @@ Resource          ../../../variables/Variables.robot
     ...    trigerred notification.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
