@@ -1,29 +1,33 @@
 *** Settings ***
-Documentation     Test suite for Cassandra DataStore Queue Stats Verification
-Suite Setup       Initialize Cassandra Tables Metricval
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Cassandra DataStore Queue Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Initialize Cassandra Tables Metricval
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
-${TSDR_QUEUESTATS}    tsdr:list QueueStats
-${QUERY_HEAD}     ${OPERATIONAL_NODES_API}/node
-${query_head1}    ${QUERY_HEAD}/openflow:2/node-connector/openflow:2:2/queue/
+@{QUEUE_METRICS}            TransmittedPackets    TransmittedBytes    TransmissionErrors
+${TSDR_QUEUESTATS}          tsdr:list QueueStats
+${QUERY_HEAD}               ${OPERATIONAL_NODES_API}/node
+${query_head1}              ${QUERY_HEAD}/openflow:2/node-connector/openflow:2:2/queue/
 @{tsdr_q0}
 @{tsdr_q2}
 @{tsdr_q1}
-${transmittedpackets}    flow-capable-node-connector-queue-statistics/transmitted-packets
-${transmittedbytes}    flow-capable-node-connector-queue-statistics/transmitted-bytes
-${transmittederrors}    flow-capable-node-connector-queue-statistics/transmission-errors
+${transmittedpackets}       flow-capable-node-connector-queue-statistics/transmitted-packets
+${transmittedbytes}         flow-capable-node-connector-queue-statistics/transmitted-bytes
+${transmittederrors}        flow-capable-node-connector-queue-statistics/transmission-errors
 @{openflow_q0}
 @{openflow_q2}
 @{openflow_q1}
+
 
 *** Test Cases ***
 Verification of TSDR Cassandra Feature Installation
@@ -64,22 +68,31 @@ Getting all Tables from Openflow Plugin
 Verification of FlowStats-Attributes on Cassandra Data Store
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
     Append To List    ${tsdr_q0}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
     Append To List    ${tsdr_q0}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
     Append To List    ${tsdr_q0}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
     Append To List    ${tsdr_q1}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
     Append To List    ${tsdr_q1}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:1
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
     Append To List    ${tsdr_q2}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
     Append To List    ${tsdr_q2}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:2
     Append To List    ${tsdr_q2}    ${ret_val1}
 
 Comparing Queue Metrics
@@ -94,7 +107,8 @@ Comparing Queue Metrics
         Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
     END
 
-*** Keyword ***
+
+*** Keywords ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
     Configure the Queue on Switch    s2-eth2
