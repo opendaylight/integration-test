@@ -1,27 +1,35 @@
 *** Settings ***
-Documentation     Suite checks if StatMngr is able to collect flows with linear spread over the switches and linear spread over tables within the switch
-Suite Setup       Connect Switches
-Suite Teardown    Stop Switches
-Library           OperatingSystem
-Library           Collections
-Library           XML
-Library           SSHLibrary
-Library           RequestsLibrary
-Library           ../../../../csit/libraries/Common.py
-Library           ../../../../csit/libraries/ScaleClient.py
-Variables         ../../../../csit/variables/Variables.py
-Resource          ../../../../csit/variables/openflowplugin/Variables.robot
+Documentation       Suite checks if StatMngr is able to collect flows with linear spread over the switches and linear spread over tables within the switch
+
+Library             OperatingSystem
+Library             Collections
+Library             XML
+Library             SSHLibrary
+Library             RequestsLibrary
+Library             ../../../../csit/libraries/Common.py
+Library             ../../../../csit/libraries/ScaleClient.py
+Variables           ../../../../csit/variables/Variables.py
+Resource            ../../../../csit/variables/openflowplugin/Variables.robot
+
+Suite Setup         Connect Switches
+Suite Teardown      Stop Switches
+
 
 *** Variables ***
-${swnr}           17
-${flnr}           17000
-${swspread}       linear
-${tabspread}      linear
-@{cntls}          ${ODL_SYSTEM_IP}
+${swnr}         17
+${flnr}         17000
+${swspread}     linear
+${tabspread}    linear
+@{cntls}        ${ODL_SYSTEM_IP}
+
 
 *** Test Cases ***
 Configure Flows
-    ${flows}    ${notes}=    Generate New Flow Details    flows=${flnr}    switches=${swnr}    swspread=${swspread}    tabspread=${tabspread}
+    ${flows}    ${notes}=    Generate New Flow Details
+    ...    flows=${flnr}
+    ...    switches=${swnr}
+    ...    swspread=${swspread}
+    ...    tabspread=${tabspread}
     Log    ${notes}
     ${res}=    Configure Flows    flow_details=${flows}    controllers=@{cntls}    nrthreads=5
     Log    ${res}
@@ -37,6 +45,7 @@ Deconfigure Flows
 Check No Flows In Operational
     ${noflows}=    Create List
     Wait Until Keyword Succeeds    110s    20s    Check Flows Inventory    ${noflows}    ${ODL_SYSTEM_IP}
+
 
 *** Keywords ***
 Connect Switches
