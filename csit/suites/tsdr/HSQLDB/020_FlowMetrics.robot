@@ -1,18 +1,22 @@
 *** Settings ***
-Documentation     Test suite for HSQLDB DataStore Flow Metrics Verification
-Suite Setup       Start Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for HSQLDB DataStore Flow Metrics Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Start Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-@{FLOW_METRICS}    PacketCount    ByteCount
+@{FLOW_METRICS}     PacketCount    ByteCount
+
 
 *** Test Cases ***
 Init Variables
@@ -26,6 +30,7 @@ Verification of TSDR FlowMetrics
     FOR    ${list}    IN    @{FLOW_METRICS}
         Should Contain    ${output}    ${list}
     END
+
 
 *** Keywords ***
 Init Variables Master

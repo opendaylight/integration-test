@@ -1,12 +1,14 @@
 *** Settings ***
-Documentation     Test suite for HBase Syslog Verification
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for HBase Syslog Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
 
 *** Test Cases ***
 Verification of TSDR HBase Feature Installation

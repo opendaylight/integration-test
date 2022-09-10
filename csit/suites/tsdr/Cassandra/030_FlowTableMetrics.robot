@@ -1,26 +1,30 @@
 *** Settings ***
-Documentation     Test suite for Cassandra DataStore Flow Table Stats Verification
-Suite Setup       Initialize the Tsdr Suite
-Suite Teardown    Stop Tsdr Suite
-Library           SSHLibrary
-Library           Collections
-Library           String
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.robot
-Variables         ../../../variables/Variables.py
+Documentation       Test suite for Cassandra DataStore Flow Table Stats Verification
+
+Library             SSHLibrary
+Library             Collections
+Library             String
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/KarafKeywords.robot
+Resource            ../../../libraries/TsdrUtils.robot
+Variables           ../../../variables/Variables.py
+
+Suite Setup         Initialize the Tsdr Suite
+Suite Teardown      Stop Tsdr Suite
+
 
 *** Variables ***
-${TSDR_FLOWTABLE_STATS}    tsdr:list FlowTableStats
+${TSDR_FLOWTABLE_STATS}         tsdr:list FlowTableStats
 @{tsdr_pl}
 @{tsdr_af}
 @{tsdr_pm}
-${packetlookup}    flow-table-statistics/packets-looked-up
-${activeflows}    flow-table-statistics/active-flows
-${packetmatched}    flow-table-statistics/packets-matched
+${packetlookup}                 flow-table-statistics/packets-looked-up
+${activeflows}                  flow-table-statistics/active-flows
+${packetmatched}                flow-table-statistics/packets-matched
 @{openflow_packetlookup}
 @{openflow_activeflows}
 @{openflow_packetmatched}
+
 
 *** Test Cases ***
 Verification of TSDR Cassandra Feature Installation
@@ -60,23 +64,32 @@ Getting all Tables from Openflow Plugin
 Verification of FlowStats-Attributes on Cassandra Data Store
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:1,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:1,Table:0
     Append To List    ${tsdr_pl}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:2,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:2,Table:0
     Append To List    ${tsdr_pl}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:3,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=PacketLookup | grep RK=Node:openflow:3,Table:0
     Append To List    ${tsdr_pl}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:1,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:1,Table:0
     Append To List    ${tsdr_af}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:2,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:2,Table:0
     Append To List    ${tsdr_af}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:3,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=ActiveFlows | grep RK=Node:openflow:3,Table:0
     Append To List    ${tsdr_af}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:1,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:1 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:1,Table:0
     Append To List    ${tsdr_pm}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:2,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:2 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:2,Table:0
     Append To List    ${tsdr_pm}    ${ret_val1}
-    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:3,Table:0
+    ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client
+    ...    grep NID=openflow:3 | grep DC=FLOWTABLESTATS | grep MN=PacketMatch | grep RK=Node:openflow:3,Table:0
     Append To List    ${tsdr_pm}    ${ret_val1}
 
 Comparing Flow Table Metrics
@@ -90,6 +103,7 @@ Comparing Flow Table Metrics
     FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${openflow_packetmatched}    ${tsdr_pm}
         Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    5
     END
+
 
 *** Keywords ***
 Initialize the Tsdr Suite
