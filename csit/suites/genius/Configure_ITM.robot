@@ -1,25 +1,30 @@
 *** Settings ***
-Documentation     Test Suite for ITM
-Suite Setup       Genius Suite Setup
-Suite Teardown    Genius Suite Teardown
-Test Setup        Genius Test Setup
-Test Teardown     Genius Test Teardown    ${data_models}
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           String
-Resource          ../../libraries/DataModels.robot
-Resource          ../../libraries/Genius.robot
-Resource          ../../libraries/KarafKeywords.robot
-Resource          ../../libraries/ToolsSystem.robot
-Resource          ../../libraries/Utils.robot
-Resource          ../../variables/netvirt/Variables.robot
-Resource          ../../variables/Variables.robot
-Variables         ../../variables/genius/Modules.py
+Documentation       Test Suite for ITM
+
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             String
+Resource            ../../libraries/DataModels.robot
+Resource            ../../libraries/Genius.robot
+Resource            ../../libraries/KarafKeywords.robot
+Resource            ../../libraries/ToolsSystem.robot
+Resource            ../../libraries/Utils.robot
+Resource            ../../variables/netvirt/Variables.robot
+Resource            ../../variables/Variables.robot
+Variables           ../../variables/genius/Modules.py
+
+Suite Setup         Genius Suite Setup
+Suite Teardown      Genius Suite Teardown
+Test Setup          Genius Test Setup
+Test Teardown       Genius Test Teardown    ${data_models}
+
 
 *** Variables ***
-${gateway_regex_IPV4}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
-${gateway_regex_IPV6}    [0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:
+${gateway_regex_IPV4}       [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+${gateway_regex_IPV6}
+...                         [0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:
+
 
 *** Test Cases ***
 Create and Verify VTEP -No Vlan
@@ -43,15 +48,24 @@ Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${tunnel_list} =    Genius.Get Tunnels List
     FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-        CompareStream.Run_Keyword_If_Less_Than_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
-        CompareStream.Run_Keyword_If_At_Least_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
+        CompareStream.Run_Keyword_If_Less_Than_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+        CompareStream.Run_Keyword_If_At_Least_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp} =    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Not Contain    ${resp} =    ${itm_created[0]}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Deleted Tunnels On OVS    ${tunnel_list}    ${resp}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Genius.Verify Deleted Tunnels On OVS
+    ...    ${tunnel_list}
+    ...    ${resp}
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${tunnel_list}
 
 Create and Verify VTEP IPv6 - No Vlan
@@ -63,7 +77,12 @@ Create and Verify VTEP IPv6 - No Vlan
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     Genius.Update Dpn id list and get tunnels    ${type}
     FOR    ${dpn}    IN    @{DPN_ID_LIST}
-        BuiltIn.Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
+        BuiltIn.Wait Until Keyword Succeeds
+        ...    40
+        ...    5
+        ...    Utils.Get Data From URI
+        ...    session
+        ...    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${dpn}/
         ...    headers=${ACCEPT_XML}
     END
     BuiltIn.Wait Until Keyword Succeeds    40    10    OVS Verification Between IPV6
@@ -74,22 +93,38 @@ Create and Verify VTEP IPv6 - No Vlan
     END
     @{network_topology_list} =    BuiltIn.Create List    @{all_tunnels}
     @{network_topology_list} =    Collections.Append To List    ${network_topology_list}    ${Bridge}
-    ${resp} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${OPERATIONAL_TOPO_API}    ${network_topology_list}
+    ${resp} =    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Get Network Topology with Tunnel
+    ...    ${OPERATIONAL_TOPO_API}
+    ...    ${network_topology_list}
 
 Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
     FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-        CompareStream.Run_Keyword_If_Less_Than_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn_id}/${port_name}
-        CompareStream.Run_Keyword_If_At_Least_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
+        CompareStream.Run_Keyword_If_Less_Than_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET_IPV6}%2F16/vteps/${dpn_id}/${port_name}
+        CompareStream.Run_Keyword_If_At_Least_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
-    BuiltIn.Run Keyword And Ignore Error    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    BuiltIn.Run Keyword And Ignore Error
+    ...    Utils.Remove All Elements At URI And Verify
+    ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp} =    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Deleted Tunnels On OVS    ${tunnel_list}    ${resp}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Genius.Verify Deleted Tunnels On OVS
+    ...    ${tunnel_list}
+    ...    ${resp}
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${tunnel_list}
 
 Create and Verify VTEP-Vlan
@@ -109,15 +144,24 @@ Delete and Verify VTEP -Vlan
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
     FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-        CompareStream.Run_Keyword_If_Less_Than_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
-        CompareStream.Run_Keyword_If_At_Least_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
+        CompareStream.Run_Keyword_If_Less_Than_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+        CompareStream.Run_Keyword_If_At_Least_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp} =    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Deleted Tunnels On OVS    ${tunnel_list}    ${resp}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Genius.Verify Deleted Tunnels On OVS
+    ...    ${tunnel_list}
+    ...    ${resp}
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${tunnel_list}
 
 Create VTEP - Vlan and Gateway
@@ -141,21 +185,31 @@ Delete VTEP -Vlan and gateway
     ${type} =    BuiltIn.Set Variable    odl-interface:tunnel-type-vxlan
     ${tunnel_list} =    Genius.Get Tunnels List
     FOR    ${dpn_id}    IN    @{DPN_ID_LIST}
-        CompareStream.Run_Keyword_If_Less_Than_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
-        CompareStream.Run_Keyword_If_At_Least_Sodium    Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
+        CompareStream.Run_Keyword_If_Less_Than_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/subnets/${SUBNET}%2F16/vteps/${dpn_id}/${port_name}
+        CompareStream.Run_Keyword_If_At_Least_Sodium
+        ...    Utils.Remove All Elements At URI And Verify
+        ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/vteps/${dpn_id}
     END
     ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Should Not Contain    ${output}    ${itm_created[0]}
     Utils.Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp} =    Utils.Get Data From URI    session    ${CONFIG_API}/itm:transport-zones/
     BuiltIn.Should Not Contain    ${resp}    ${itm_created[0]}
-    BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Verify Deleted Tunnels On OVS    ${tunnel_list}    ${resp}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Genius.Verify Deleted Tunnels On OVS
+    ...    ${tunnel_list}
+    ...    ${resp}
     BuiltIn.Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${tunnel_list}
+
 
 *** Keywords ***
 Create Vteps IPv6
-    [Arguments]    ${vlan}    ${gateway_ip}    ${tools_ips}
     [Documentation]    This keyword creates VTEPs between IPV6 ip's
+    [Arguments]    ${vlan}    ${gateway_ip}    ${tools_ips}
     ${substr} =    BuiltIn.Should Match Regexp    ${tools_ips}[0]    ${gateway_regex_IPV6}
     ${SUBNET_IPV6} =    BuiltIn.Catenate    ${substr}0
     BuiltIn.Set Suite Variable    ${SUBNET_IPV6}
@@ -163,16 +217,18 @@ Create Vteps IPv6
     Utils.Post Log Check    ${CONFIG_API}/itm:transport-zones/    ${body}    status_codes=${204}
 
 Get Network Topology with Tunnel
-    [Arguments]    ${url}    ${network_topology_list}
     [Documentation]    Returns the Network topology with Tunnel info in it.
+    [Arguments]    ${url}    ${network_topology_list}
     Utils.Check For Elements At URI    ${url}    ${network_topology_list}
 
 Get ITM IPV6
-    [Arguments]    ${itm_created[0]}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
+    [Arguments]    ${itm_created[0]}
     @{Itm-no-vlan} =    Collections.Combine Lists    ${TOOLS_SYSTEM_IPV6_LIST}    ${DPN_ID_LIST}
     Collections.Append To List    ${Itm-no-vlan}    ${itm_created[0]}
-    Utils.Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+    Utils.Check For Elements At URI
+    ...    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}
+    ...    ${Itm-no-vlan}
 
 OVS Verification Between IPV6
     [Documentation]    This keyword will verify tunnels available on ovs
@@ -186,12 +242,25 @@ Verify Network Topology
     @{network_topology_list} =    BuiltIn.Create List
     @{network_topology_list} =    Collections.Append To List    ${network_topology_list}    ${Bridge}
     @{network_topology_list} =    Collections.Combine Lists    ${network_topology_list}    ${all_tunnels}
-    ${resp} =    BuiltIn.Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${OPERATIONAL_TOPO_API}    ${network_topology_list}
+    ${resp} =    BuiltIn.Wait Until Keyword Succeeds
+    ...    40
+    ...    10
+    ...    Get Network Topology with Tunnel
+    ...    ${OPERATIONAL_TOPO_API}
+    ...    ${network_topology_list}
 
 Verify Ietf Interface State
-    Utils.Check For Elements At URI    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/    ${DPN_ID_LIST}    session    True
+    Utils.Check For Elements At URI
+    ...    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
+    ...    ${DPN_ID_LIST}
+    ...    session
+    ...    True
     ${all_tunnels} =    Genius.Get Tunnels List
-    Utils.Check For Elements At URI    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/    ${all_tunnels}    session    True
+    Utils.Check For Elements At URI
+    ...    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
+    ...    ${all_tunnels}
+    ...    session
+    ...    True
 
 Build Tools System IPV6 List
     [Documentation]    Create a list of tools system ips with IPV6.

@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation     Test suite for verifying basic export with a netconf mount on a cluster
-Suite Setup       ClusterManagement Setup
-Suite Teardown    Delete All Sessions
-Resource          ../../libraries/DaeximKeywords.robot
+Documentation       Test suite for verifying basic export with a netconf mount on a cluster
+
+Resource            ../../libraries/DaeximKeywords.robot
+
+Suite Setup         ClusterManagement Setup
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Create Basic Export
@@ -12,6 +15,11 @@ Create Basic Export
     DaeximKeywords.Cleanup Cluster Export Files
     DaeximKeywords.Schedule Export    ${FIRST_CONTROLLER_INDEX}
     DaeximKeywords.Verify Export Status    ${EXPORT_SCHEDULED_STATUS}    ${SECOND_CONTROLLER_INDEX}
-    Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    DaeximKeywords.Verify Export Status    ${EXPORT_COMPLETE_STATUS}    ${FIRST_CONTROLLER_INDEX}
+    Builtin.Wait Until Keyword Succeeds
+    ...    10 sec
+    ...    5 sec
+    ...    DaeximKeywords.Verify Export Status
+    ...    ${EXPORT_COMPLETE_STATUS}
+    ...    ${FIRST_CONTROLLER_INDEX}
     DaeximKeywords.Verify Export Files    ${SECOND_CONTROLLER_INDEX}
     DaeximKeywords.Verify Netconf Mount    ${NETCONF_EP_NAME}    ${THIRD_CONTROLLER_INDEX}
