@@ -1,37 +1,42 @@
 *** Settings ***
-Documentation     Suite checks if StatMngr is able to collect flows correctly
-Suite Setup       Create Http Session And Upload Files
-Suite Teardown    Delete Http Session And Store Plot Data
-Library           OperatingSystem
-Library           XML
-Library           SSHLibrary
-Library           Collections
-Variables         ../../../variables/Variables.py
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Library           ../../../libraries/ScaleClient.py
-Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../variables/openflowplugin/Variables.robot
+Documentation       Suite checks if StatMngr is able to collect flows correctly
+
+Library             OperatingSystem
+Library             XML
+Library             SSHLibrary
+Library             Collections
+Variables           ../../../variables/Variables.py
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Library             ../../../libraries/ScaleClient.py
+Resource            ../../../libraries/WaitForFailure.robot
+Resource            ../../../variables/openflowplugin/Variables.robot
+
+Suite Setup         Create Http Session And Upload Files
+Suite Teardown      Delete Http Session And Store Plot Data
+
 
 *** Variables ***
-${swnr}           32
-${flnr}           100000
-${fpr}            200
-${nrthreads}      5
-${swspread}       linear
-${tabspread}      first
-@{cntls}          ${ODL_SYSTEM_IP}
-${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
-${getf_cmd}       sh ./get-total-found.sh
-${getr_cmd}       sh ./get-total-reported.sh
-${iperiod}        1s
-${imonitor}       60s
-${ichange}        450s
-${ratefile}       stats_rate.csv
-${timefile}       stats_time.csv
-${setuptime}      0
-${inittime}       0
-${restarttime}    0
+${swnr}             32
+${flnr}             100000
+${fpr}              200
+${nrthreads}        5
+${swspread}         linear
+${tabspread}        first
+@{cntls}            ${ODL_SYSTEM_IP}
+${start_cmd}
+...                 sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+${getf_cmd}         sh ./get-total-found.sh
+${getr_cmd}         sh ./get-total-reported.sh
+${iperiod}          1s
+${imonitor}         60s
+${ichange}          450s
+${ratefile}         stats_rate.csv
+${timefile}         stats_time.csv
+${setuptime}        0
+${inittime}         0
+${restarttime}      0
+
 
 *** Test Cases ***
 Connect Mininet
@@ -39,10 +44,18 @@ Connect Mininet
 
 Configure Flows
     [Documentation]    Configuration of ${flnr} flows into config datastore
-    ${flows}    ${notes}=    Generate New Flow Details    flows=${flnr}    switches=${swnr}    swspread=${swspread}    tabspread=${tabspread}
+    ${flows}    ${notes}=    Generate New Flow Details
+    ...    flows=${flnr}
+    ...    switches=${swnr}
+    ...    swspread=${swspread}
+    ...    tabspread=${tabspread}
     Log    ${notes}
     ${starttime}=    Get Time    epoch
-    ${res}=    Configure Flows Bulk    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
+    ${res}=    Configure Flows Bulk
+    ...    flow_details=${flows}
+    ...    controllers=@{cntls}
+    ...    nrthreads=${nrthreads}
+    ...    fpr=${fpr}
     Log    ${res}
     Set Suite Variable    ${flows}
     ${http201ok}=    Create List    ${201}
@@ -90,6 +103,7 @@ Check No Flows In Operational Last
 Stop Mininet End
     Stop Switches
 
+
 *** Keywords ***
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
@@ -101,7 +115,8 @@ Connect Switches
     Write    ${start_cmd}
     Read Until    mininet>
     Comment    Below line disables switch echos
-    Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
+    Write
+    ...    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
     Read Until    mininet>
     Wait Until Keyword Succeeds    20s    1s    Are Switches Connected Topo
 
@@ -137,23 +152,23 @@ Are Switches Connected Topo
     Should Be Equal As Numbers    ${count}    ${swnr}
 
 Check Flows Inventory
-    [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    Checks in inventory has required state
+    [Arguments]    ${rswitches}    ${rflows}
     ${sw}    ${repf}    ${foundf}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${rswitches}    ${sw}
     Should Be Equal As Numbers    ${rflows}    ${foundf}
 
 Measure Setup Time
-    [Arguments]    ${rswitches}    ${rflows}    ${note}
     [Documentation]    This keyword is dedicated to save measured time for plotting
+    [Arguments]    ${rswitches}    ${rflows}    ${note}
     ${starttime}=    Get Time    epoch
     Log    Starting stats collection at time ${starttime}
     Inventory Change Reached    ${rswitches}    ${rflows}
     [Teardown]    Save Setup Time    ${note}    ${starttime}
 
 Save Setup Time
-    [Arguments]    ${note}    ${starttime}
     [Documentation]    Count the difference and stores it
+    [Arguments]    ${note}    ${starttime}
     ${endtime}=    Get Time    epoch
     Log    Stats collection finished at time ${endtime}
     ${res}=    Evaluate    int(${endtime})-int(${starttime})
@@ -165,14 +180,19 @@ Save Setup Time
     Set Suite Variable    ${setuptime}
 
 Inventory Change Reached
-    [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    This keywordwaits till inventory reaches required state
+    [Arguments]    ${rswitches}    ${rflows}
     Wait Until Keyword Succeeds    ${ichange}    ${iperiod}    Check Flows Inventory    ${rswitches}    ${rflows}
 
 Monitor Stable State
-    [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    This keywordwaits till inventory reaches required state
-    Verify Keyword Does Not Fail Within Timeout    ${imonitor}    ${iperiod}    Check Flows Inventory    ${rswitches}    ${rflows}
+    [Arguments]    ${rswitches}    ${rflows}
+    Verify Keyword Does Not Fail Within Timeout
+    ...    ${imonitor}
+    ...    ${iperiod}
+    ...    Check Flows Inventory
+    ...    ${rswitches}
+    ...    ${rflows}
 
 Log Switch Details
     Write    ${getf_cmd}
