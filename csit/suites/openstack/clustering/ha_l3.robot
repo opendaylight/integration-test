@@ -1,50 +1,65 @@
 *** Settings ***
-Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           Collections
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/ClusterOvsdb.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/netvirt/Variables.robot
+Documentation       Test suite to check connectivity in L3 using routers.
+
+Library             SSHLibrary
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             Collections
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/OpenStackOperations.robot
+Resource            ../../../libraries/DevstackUtils.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/ClusterOvsdb.robot
+Resource            ../../../libraries/ClusterManagement.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../variables/netvirt/Variables.robot
+
+Suite Setup         OpenStackOperations.OpenStack Suite Setup
+Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       OpenStackOperations.Get Test Teardown Debugs
+
 
 *** Variables ***
-${SECURITY_GROUP}    cl3_sg
-@{NETWORKS}       cl3_net_1    cl3_net_2
-@{SUBNETS}        cl3_sub_1    cl3_sub_2
-@{ROUTERS}        cl3_router_1    cl3_router_2    cl3_router_3
-@{NET_1_VMS}      cl3_net_1_vm_1    cl3_net_1_vm_2    cl3_net_1_vm_3
-@{NET_2_VMS}      cl3_net_2_vm_1    cl3_net_2_vm_2    cl3_net_2_vm_3
-@{SUBNET_CIDRS}    36.0.0.0/24    37.0.0.0/24
-@{GATEWAY_IPS}    36.0.0.1    37.0.0.1
-@{ODL_1_AND_2_DOWN}    ${1}    ${2}
-@{ODL_2_AND_3_DOWN}    ${2}    ${3}
-@{index_list}     1    2    3
+${SECURITY_GROUP}       cl3_sg
+@{NETWORKS}             cl3_net_1    cl3_net_2
+@{SUBNETS}              cl3_sub_1    cl3_sub_2
+@{ROUTERS}              cl3_router_1    cl3_router_2    cl3_router_3
+@{NET_1_VMS}            cl3_net_1_vm_1    cl3_net_1_vm_2    cl3_net_1_vm_3
+@{NET_2_VMS}            cl3_net_2_vm_1    cl3_net_2_vm_2    cl3_net_2_vm_3
+@{SUBNET_CIDRS}         36.0.0.0/24    37.0.0.0/24
+@{GATEWAY_IPS}          36.0.0.1    37.0.0.1
+@{ODL_1_AND_2_DOWN}     ${1}    ${2}
+@{ODL_2_AND_3_DOWN}     ${2}    ${3}
+@{index_list}           1    2    3
+
 
 *** Test Cases ***
 Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers.
     ClusterManagement.ClusterManagement Setup
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Take Down Leader Of Default Shard
     [Documentation]    Stop the karaf on ODL cluster leader
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ${cluster_leader}    ${followers} =    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
     BuiltIn.Set Suite Variable    ${cluster_leader}
-    ${new_cluster_list} =    ClusterManagement.Stop Single Member    ${cluster_leader}    msg=up: ODL1, ODL2, ODL3, down=none
+    ${new_cluster_list} =    ClusterManagement.Stop Single Member
+    ...    ${cluster_leader}
+    ...    msg=up: ODL1, ODL2, ODL3, down=none
     BuiltIn.Set Suite Variable    ${new_cluster_list}
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Create Networks
     [Documentation]    Create Network with neutron request.
@@ -63,7 +78,10 @@ Create Subnets For net_2
 Bring Up Leader Of Default Shard
     [Documentation]    Bring up on cluster leader
     ClusterManagement.Start Single Member    ${cluster_leader}    msg=up: ${new_cluster_list}, down: ${cluster_leader}
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -71,33 +89,75 @@ Add Ssh Allow All Rule
 
 Take Down ODL1
     [Documentation]    Stop the karaf in First Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[0]    ${NET_1_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[0]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[1]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[0]
+    ...    ${NET_1_VMS}[2]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL2, ODL3, down: ODL1
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Take Down ODL2
     [Documentation]    Stop the karaf in Second Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    ${NETWORKS}[1]    ${NET_2_VMS}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[0]
+    ...    ${OS_CMP1_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[1]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_VMS}[2]
+    ...    ${OS_CMP2_HOSTNAME}
+    ...    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET_1_L3_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
@@ -113,15 +173,27 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Take Down ODL3
     [Documentation]    Stop the karaf in Third Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL2, ODL3, down=none
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -140,15 +212,21 @@ Add Interfaces To Router
 
 Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
-    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
+    ${data} =    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
     Should Contain    ${data}    ${ROUTERS}[2]
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -194,10 +272,16 @@ Connectivity Tests From Vm Instance3 In net_1 In Healthy Cluster
 
 Take Down ODL1 and ODL2
     [Documentation]    Stop the karaf in First and Second Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    1    msg=up: ODL1, ODL2, ODL3, down=none
     ClusterManagement.Stop Single Member    2    msg=up: ODL2, ODL3, down=ODL1
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_1 With Two ODLs Down
@@ -221,63 +305,120 @@ Connectivity Tests From Vm Instance3 In net_1 With Two ODLs Down
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    1    msg=up: ODL3, down: ODL1, ODL2    wait_for_sync=False
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, ODL3, down: ODL2
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down ODL2 and ODL3
     [Documentation]    Stop the karaf in First and Second Controller
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    2    msg=up: ODL1, ODL2, ODL3, down=none
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop Single Member    3    msg=up: ODL1, ODL3, down=ODL2
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[0]    ${dst_list}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    30s
+    ...    10s
+    ...    OpenStackOperations.Test Operations From Vm Instance
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_L3_VM_IPS}[0]
+    ...    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[1]    ${dst_list}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    30s
+    ...    10s
+    ...    OpenStackOperations.Test Operations From Vm Instance
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_L3_VM_IPS}[1]
+    ...    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Test Operations From Vm Instance    ${NETWORKS}[1]    ${NET_2_L3_VM_IPS}[2]    ${dst_list}
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    30s
+    ...    10s
+    ...    OpenStackOperations.Test Operations From Vm Instance
+    ...    ${NETWORKS}[1]
+    ...    ${NET_2_L3_VM_IPS}[2]
+    ...    ${dst_list}
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    2    msg=up: ODL1, down: ODL2, ODL3    wait_for_sync=False
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Single Member    3    msg=up: ODL1, ODL2, down: ODL3
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Stop_Members_From_List_Or_All
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Bring Up All Instances
     [Documentation]    Bring up all controllers. Do not check for cluster sync until all nodes are
     ...    up. akka will not let nodes join until they are all back up if two were down.
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     ClusterManagement.Start Members From List Or All
-    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Get Raft State Of Shard Of All Member Nodes    shard_name=default    shard_type=config
+    BuiltIn.Run Keyword And Ignore Error
+    ...    ClusterManagement.Get Raft State Of Shard Of All Member Nodes
+    ...    shard_name=default
+    ...    shard_type=config
     [Teardown]    OpenStackOperations.Get Test Teardown Debugs    fail=False
 
 Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes

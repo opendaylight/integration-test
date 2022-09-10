@@ -1,21 +1,32 @@
 *** Settings ***
-Documentation     Test suite for Connection Manager
-Suite Setup       OVSDB.Suite Setup
-Suite Teardown    Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Force Tags        Southbound
-Library           RequestsLibrary
-Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/ovsdb/Variables.robot
+Documentation       Test suite for Connection Manager
+
+Library             RequestsLibrary
+Resource            ../../../libraries/MininetKeywords.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../variables/ovsdb/Variables.robot
+
+Suite Setup         OVSDB.Suite Setup
+Suite Teardown      Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+
+Force Tags          southbound
+
 
 *** Variables ***
-@{NODE_LIST}      ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_2_IP}
-${MN_OPTS_S1}     --custom ovsdb.py --topo host,1
-${MN_OPTS_S2}     --custom ovsdb.py --topo host,2
+@{NODE_LIST}
+...                 ${OVSDB_NODE_PORT}
+...                 ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+...                 ${TOOLS_SYSTEM_IP}
+...                 ${OVSDB_NODE_PORT}
+...                 ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_NODE_PORT}
+...                 ${TOOLS_SYSTEM_2_IP}
+${MN_OPTS_S1}       --custom ovsdb.py --topo host,1
+${MN_OPTS_S2}       --custom ovsdb.py --topo host,2
+
 
 *** Test Cases ***
 Make the OVS instance to listen for connection
@@ -34,30 +45,64 @@ Connect controller to OVSDB Node2
 
 Get Operational Topology from OVSDB Node1 and OVSDB Node2
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${NODE_LIST}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${NODE_LIST}
+    ...    pretty_print_json=True
 
 Start the Mininet and create custom topology
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
-    ${conn_id1} =    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${MN_OPTS_S1}    ${OVSDB_CONFIG_DIR}/ovsdb.py
-    ${conn_id2} =    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_2_IP}    ${ODL_SYSTEM_IP}    ${MN_OPTS_S2}    ${OVSDB_CONFIG_DIR}/ovsdb.py
+    ${conn_id1} =    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${MN_OPTS_S1}
+    ...    ${OVSDB_CONFIG_DIR}/ovsdb.py
+    ${conn_id2} =    MininetKeywords.Start Mininet Single Controller
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    ${ODL_SYSTEM_IP}
+    ...    ${MN_OPTS_S2}
+    ...    ${OVSDB_CONFIG_DIR}/ovsdb.py
 
 Get Operational Topology with custom topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to make sure the mininet created custom topology
     @{list} =    BuiltIn.Create List    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${list}
+    ...    pretty_print_json=True
 
 Add the bridge s1 in the config datastore of OVSDB Node1
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
-    OVSDB.Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    s1    0000000000000051
+    OVSDB.Add Bridge To Ovsdb Node
+    ...    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+    ...    ${TOOLS_SYSTEM_IP}
+    ...    s1
+    ...    0000000000000051
 
 Add the bridge s2 in the config datastore of OVSDB Node2
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
-    OVSDB.Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM2_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_2_IP}    s2    0000000000000052
+    OVSDB.Add Bridge To Ovsdb Node
+    ...    ${TOOLS_SYSTEM2_IP}:${OVSDB_NODE_PORT}
+    ...    ${TOOLS_SYSTEM_2_IP}
+    ...    s2
+    ...    0000000000000052
 
 Get Config Topology with s1 and s2 Bridges
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the config data store
     @{list} =    BuiltIn.Create List    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_CONFIG_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_CONFIG_TOPO_API}
+    ...    ${list}
+    ...    pretty_print_json=True
 
 Create Vxlan Port and attach to s1 Bridge
     [Documentation]    This request will create vxlan port/interface for vxlan tunnel and attach it to the specific bridge s1 of OVSDB node 1
@@ -70,37 +115,54 @@ Create Vxlan Port and attach to s2 Bridge
 Get Operational Topology with vxlan tunnel
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify that the vxlan tunnel is created
     @{list} =    BuiltIn.Create List    s1-s2    s2-s1    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${list}
+    ...    pretty_print_json=True
 
 Delete Bridges from config datastore
     [Documentation]    This request will delete the bridges from config data store.
-    [Tags]    Southbound
+    [Tags]    southbound
     OVSDB.Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    s1
     OVSDB.Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}:${OVSDB_NODE_PORT}    s2
 
 Disconnect controller connection from the connected OVSDBs nodes
     [Documentation]    This request will disconnect the controller from the connected OVSDB node for clean startup for next suite.
-    [Tags]    Southbound
+    [Tags]    southbound
     OVSDB.Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_IP}
     OVSDB.Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}
 
 Verify that the operational topology is clean
     [Documentation]    This request will verify the operational toplogy after the mininet is cleaned.
-    [Tags]    Southbound
+    [Tags]    southbound
     @{list} =    BuiltIn.Create List    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    s1    s2
-    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${RFC8040_OPERATIONAL_TOPO_API}    ${list}    pretty_print_json=True
+    BuiltIn.Wait Until Keyword Succeeds
+    ...    8s
+    ...    2s
+    ...    Utils.Check For Elements Not At URI
+    ...    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    ${list}
+    ...    pretty_print_json=True
 
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
     ...    case executed.
-    Utils.Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    SimpleShardDataTreeCohort.*Unexpected failure in validation phase
+    Utils.Check Karaf Log File Does Not Have Messages
+    ...    ${ODL_SYSTEM_IP}
+    ...    SimpleShardDataTreeCohort.*Unexpected failure in validation phase
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4756
 
 Check For Bug 4794
     [Documentation]    bug 4794 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
     ...    case executed.
-    Utils.Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
+    Utils.Check Karaf Log File Does Not Have Messages
+    ...    ${ODL_SYSTEM_IP}
+    ...    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4794
+
 
 *** Keywords ***
 Suite Teardown
