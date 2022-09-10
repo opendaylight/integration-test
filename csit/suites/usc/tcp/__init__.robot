@@ -1,4 +1,6 @@
 *** Settings ***
-Suite Setup       Download Tools
-Force Tags        TCP
-Resource          ../../../libraries/UscUtils.robot
+Resource        ../../../libraries/UscUtils.robot
+
+Suite Setup     Download Tools
+
+Force Tags      tcp

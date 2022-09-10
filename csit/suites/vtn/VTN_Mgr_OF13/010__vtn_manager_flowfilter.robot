@@ -1,19 +1,31 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager using OF13
-Suite Setup       Start SuiteVtnMaTest
-Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for VTN Manager using OF13
+
+Resource            ../../../libraries/VtnMaKeywords.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Start SuiteVtnMaTest
+Suite Teardown      Stop SuiteVtnMaTest
+
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
-${flowfilterInetdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"192.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"192.0.0.2/32"}}],"index": "1"}]
-${flowfilterInetdropdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.2/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.4/32"}}],"index": "1"}]
-${flowfilterIcmpCodedata}    "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
-${flowfilterTpsrcTpdstdata}    "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
-${flowfilterDscpdata}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
-${flowfilterdlsrc}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-dl-src-action": {"address":"00:00:00:00:00:11"}}],"index":"1"}]
-${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
+${flowconditiondata}
+...                             "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowfilterInetdata}
+...                             "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"192.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"192.0.0.2/32"}}],"index": "1"}]
+${flowfilterInetdropdata}
+...                             "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.2/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.4/32"}}],"index": "1"}]
+${flowfilterIcmpCodedata}
+...                             "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
+${flowfilterTpsrcTpdstdata}
+...                             "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
+${flowfilterDscpdata}
+...                             "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
+${flowfilterdlsrc}
+...                             "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-dl-src-action": {"address":"00:00:00:00:00:11"}}],"index":"1"}]
+${flowfiltervlanpcp}
+...                             "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
+
 
 *** Test Cases ***
 Check if switch1 detected
@@ -91,7 +103,12 @@ Add a vtn flowfilter with inet4src and inet4dst
 
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{inet_action}
     [Teardown]    Run Keywords    Report_Failure_Due_To_Bug    6643
     ...    AND    Collect Debug Info
 
@@ -106,7 +123,12 @@ Add a vbr flowfilter with inet4src and inet4dst
 
 Verify inet4src and inet4dst of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{inet_action}
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
@@ -119,7 +141,12 @@ Add a vbrif flowfilter with inet4src and inet4dst
 
 Verify inet4src and inet4dst of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{inet_action}
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter
@@ -133,7 +160,12 @@ Add a vtn flowfilter with Icmp code
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     [Tags]    exclude
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{icmp_action}
 
 Remove vtn Flowfilter index which has ICMP
     [Documentation]    Remove a index of vtn flowfilter which have ICMP
@@ -147,7 +179,12 @@ Add a vbr flowfilter with Icmp code
 Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     [Tags]    exclude
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{icmp_action}
 
 Remove vbr Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbr flowfilter which have ICMP
@@ -161,7 +198,12 @@ Add a vbrif flowfilter with Icmp code
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     [Tags]    exclude
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    Wait_Until_Keyword_Succeeds
+    ...    20s
+    ...    1s
+    ...    Verify Flow Entries for Flowfilter
+    ...    ${FF_DUMPFLOWS_OF13}
+    ...    @{icmp_action}
 
 Remove vbrif Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbrif flowfilter which have ICMP

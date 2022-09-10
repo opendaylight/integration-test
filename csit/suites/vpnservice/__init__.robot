@@ -1,15 +1,21 @@
 *** Settings ***
-Documentation     Test suite for Inventory Scalability
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
-Library           SSHLibrary
-Library           ../../libraries/Common.py
-Variables         ../../variables/Variables.py
-Resource          ../../libraries/Utils.robot
+Documentation       Test suite for Inventory Scalability
+
+Library             SSHLibrary
+Library             ../../libraries/Common.py
+Variables           ../../variables/Variables.py
+Resource            ../../libraries/Utils.robot
+
+Suite Setup         Start Suite
+Suite Teardown      Stop Suite
+
 
 *** Variables ***
-${start1}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
-${start2}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
+${start1}
+...             sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
+${start2}
+...             sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
+
 
 *** Keywords ***
 Start Suite
@@ -26,8 +32,9 @@ Start Suite
     ${mininet1_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
     Set Global Variable    ${mininet1_conn_id_2}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s1 s1-gre1 -- set interface s1-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_2_IP} options:local_ip=${TOOLS_SYSTEM_IP}
-    ${output}    Execute Command    sudo ovs-vsctl show
+    Execute Command
+    ...    sudo ovs-vsctl add-port s1 s1-gre1 -- set interface s1-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_2_IP} options:local_ip=${TOOLS_SYSTEM_IP}
+    ${output}=    Execute Command    sudo ovs-vsctl show
     Log    ${output}
     Execute Command    sudo ovs-ofctl add-flow s1 -O OpenFlow13 arp,actions=FLOOD
     ${mininet2_conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
@@ -40,8 +47,9 @@ Start Suite
     ${mininet2_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
     Set Global Variable    ${mininet2_conn_id_2}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s2 s2-gre1 -- set interface s2-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_IP} options:local_ip=${TOOLS_SYSTEM_2_IP}
-    ${output}    Execute Command    sudo ovs-vsctl show
+    Execute Command
+    ...    sudo ovs-vsctl add-port s2 s2-gre1 -- set interface s2-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_IP} options:local_ip=${TOOLS_SYSTEM_2_IP}
+    ${output}=    Execute Command    sudo ovs-vsctl show
     Log    ${output}
     Execute Command    sudo ovs-ofctl add-flow s2 -O OpenFlow13 arp,actions=FLOOD
 
