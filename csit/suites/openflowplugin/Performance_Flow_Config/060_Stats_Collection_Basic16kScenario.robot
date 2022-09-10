@@ -1,24 +1,29 @@
 *** Settings ***
-Documentation     Suite checks if StatMngr is able to collect flows correctly
-Suite Setup       Create Http Session
-Suite Teardown    Delete Http Session
-Library           OperatingSystem
-Library           Collections
-Library           XML
-Library           SSHLibrary
-Variables         ../../../variables/Variables.py
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Library           ../../../libraries/ScaleClient.py
-Resource          ../../../variables/openflowplugin/Variables.robot
+Documentation       Suite checks if StatMngr is able to collect flows correctly
+
+Library             OperatingSystem
+Library             Collections
+Library             XML
+Library             SSHLibrary
+Variables           ../../../variables/Variables.py
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Library             ../../../libraries/ScaleClient.py
+Resource            ../../../variables/openflowplugin/Variables.robot
+
+Suite Setup         Create Http Session
+Suite Teardown      Delete Http Session
+
 
 *** Variables ***
-${swnr}           16
-${flnr}           16000
-${swspread}       linear
-${tabspread}      linear
-@{cntls}          ${ODL_SYSTEM_IP}
-${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+${swnr}         16
+${flnr}         16000
+${swspread}     linear
+${tabspread}    linear
+@{cntls}        ${ODL_SYSTEM_IP}
+${start_cmd}
+...             sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+
 
 *** Test Cases ***
 Connect Mininet
@@ -26,7 +31,11 @@ Connect Mininet
 
 Configure Flows
     [Documentation]    Configuration of 16k flows into config datastore
-    ${flows}    ${notes}=    Generate New Flow Details    flows=${flnr}    switches=${swnr}    swspread=${swspread}    tabspread=${tabspread}
+    ${flows}    ${notes}=    Generate New Flow Details
+    ...    flows=${flnr}
+    ...    switches=${swnr}
+    ...    swspread=${swspread}
+    ...    tabspread=${tabspread}
     Log    ${notes}
     ${res}=    Configure Flows    flow_details=${flows}    controllers=@{cntls}    nrthreads=5
     Log    ${res}
@@ -83,6 +92,7 @@ Check No Flows In Operational Last
 
 Stop Mininet End
     Stop Switches
+
 
 *** Keywords ***
 Connect Switches
