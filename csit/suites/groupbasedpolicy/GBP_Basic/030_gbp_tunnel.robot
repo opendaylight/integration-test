@@ -1,19 +1,23 @@
 *** Settings ***
-Documentation     Test suite for GBP Tunnels, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for GBP Tunnels, Operates functions from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Variables ***
-${GBP_TUNNELS_FILE}    ../../../variables/gbp/tunnels.json
-${GBP_TUNNEL_ID}    openflow:1
-${GBP_TUNNEL1_URL}    /restconf/config/opendaylight-inventory:nodes/opendaylight-inventory:node/${GBP_TUNNEL_ID}
-${GBP_TUNNEL1_FILE}    ../../../variables/gbp/tunnel1.json
+${GBP_TUNNELS_FILE}     ../../../variables/gbp/tunnels.json
+${GBP_TUNNEL_ID}        openflow:1
+${GBP_TUNNEL1_URL}      /restconf/config/opendaylight-inventory:nodes/opendaylight-inventory:node/${GBP_TUNNEL_ID}
+${GBP_TUNNEL1_FILE}     ../../../variables/gbp/tunnel1.json
+
 
 *** Test Cases ***
 Add Tunnels

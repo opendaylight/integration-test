@@ -1,13 +1,15 @@
 *** Settings ***
-Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
-Resource          ../GBPSFC_6node.robot
+Library         SSHLibrary
+Resource        ../../../../../libraries/Utils.robot
+Resource        ../../../../../libraries/GBP/ConnUtils.robot
+Variables       ../../../../../variables/Variables.py
+Resource        ../Variables.robot
+Resource        ../GBPSFC_6node.robot
+
 
 *** Variables ***
-${timeout}        10s
+${timeout}      10s
+
 
 *** Test Cases ***
 Teardown Suite

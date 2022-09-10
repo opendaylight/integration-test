@@ -1,22 +1,36 @@
 *** Settings ***
-Documentation     Tests for ICMP flow
-Force Tags        multi-tenant    icmp    multi-tenant-main
-Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../../../../../libraries/GBP/DockerUtils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
+Documentation       Tests for ICMP flow
+
+Library             SSHLibrary
+Resource            ../../../../../libraries/Utils.robot
+Resource            ../../../../../libraries/GBP/ConnUtils.robot
+Resource            ../../../../../libraries/GBP/DockerUtils.robot
+Resource            ../../../../../libraries/GBP/OpenFlowUtils.robot
+Variables           ../../../../../variables/Variables.py
+Resource            ../Variables.robot
+
+Force Tags          multi-tenant    icmp    multi-tenant-main
+
 
 *** Variables ***
-${timeout}        10s
+${timeout}      10s
+
 
 *** Test Cases ***
 Setting Variables For Tenant 1
     [Documentation]    Setting variables for tenant 1 related test cases.
-    Set Test Variables    client_switch_ip=${GBP1}    client_docker=h35_2    client_ip=10.0.35.2    client_mac=00:00:00:00:35:02    same_webserver_docker=h36_3    same_webserver_ip=10.0.36.3
-    ...    same_webserver_mac=00:00:00:00:36:03    diff_webserver_switch_ip=${GBP3}    diff_webserver_docker=h36_2    diff_webserver_ip=10.0.36.2    diff_webserver_mac=00:00:00:00:36:02
+    Set Test Variables
+    ...    client_switch_ip=${GBP1}
+    ...    client_docker=h35_2
+    ...    client_ip=10.0.35.2
+    ...    client_mac=00:00:00:00:35:02
+    ...    same_webserver_docker=h36_3
+    ...    same_webserver_ip=10.0.36.3
+    ...    same_webserver_mac=00:00:00:00:36:03
+    ...    diff_webserver_switch_ip=${GBP3}
+    ...    diff_webserver_docker=h36_2
+    ...    diff_webserver_ip=10.0.36.2
+    ...    diff_webserver_mac=00:00:00:00:36:02
 
 Tenant 1 Same switch, ping once from h35_2 to h36_3
     [Documentation]    Ping between endpoints located on the same switch "sw1".
@@ -175,8 +189,18 @@ Tenant 1 Different switches, stop endless ping from h35_2 to h36_2
 
 Setting Variables For Tenant 2
     [Documentation]    Setting variables for tenant 2 related test cases.
-    Set Test Variables    client_switch_ip=${GBP1}    client_docker=h35_8    client_ip=10.0.35.8    client_mac=00:00:00:00:35:08    same_webserver_docker=h36_6    same_webserver_ip=10.0.36.6
-    ...    same_webserver_mac=00:00:00:00:36:06    diff_webserver_switch_ip=${GBP2}    diff_webserver_docker=h36_7    diff_webserver_ip=10.0.36.7    diff_webserver_mac=00:00:00:00:36:07
+    Set Test Variables
+    ...    client_switch_ip=${GBP1}
+    ...    client_docker=h35_8
+    ...    client_ip=10.0.35.8
+    ...    client_mac=00:00:00:00:35:08
+    ...    same_webserver_docker=h36_6
+    ...    same_webserver_ip=10.0.36.6
+    ...    same_webserver_mac=00:00:00:00:36:06
+    ...    diff_webserver_switch_ip=${GBP2}
+    ...    diff_webserver_docker=h36_7
+    ...    diff_webserver_ip=10.0.36.7
+    ...    diff_webserver_mac=00:00:00:00:36:07
 
 Tenant 2 Same switch, ping once from h35_8 to h36_6
     [Documentation]    Same switch (sw1)

@@ -1,15 +1,17 @@
 *** Settings ***
-Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Default Tags      multi-tenant    setup    multi-tenant-setup
-Library           RequestsLibrary
-Library           OperatingSystem
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../Variables.robot
+Documentation       Test suite for GBP Tenants, Operates functions from Restconf APIs.
 
-*** Variables ***
+Library             RequestsLibrary
+Library             OperatingSystem
+Variables           ../../../../../variables/Variables.py
+Resource            ../../../../../libraries/Utils.robot
+Resource            ../Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
+Default Tags        multi-tenant    setup    multi-tenant-setup
+
 
 *** Test Cases ***
 Put Tunnels
@@ -22,7 +24,7 @@ Put Tunnels
 
 Register Endpoints
     [Documentation]    Endpoints registration
-    @{endpoint_files} =    OperatingSystem.List Files In Directory    ${ENDPOINTS_GBP2_DIR}    vethl*.*json    absolute
+    @{endpoint_files}    OperatingSystem.List Files In Directory    ${ENDPOINTS_GBP2_DIR}    vethl*.*json    absolute
     FOR    ${endpoint_file}    IN    @{endpoint_files}
         Post Elements To URI From File    ${ENDPOINT_REG_PATH}    ${endpoint_file}    ${HEADERS_YANG_JSON}
     END

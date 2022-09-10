@@ -1,14 +1,17 @@
 *** Settings ***
-Default Tags      multi-tenant    setup    multi-tenant-setup
-Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
-Resource          ../GBP_3node.robot
+Library         SSHLibrary
+Resource        ../../../../../libraries/Utils.robot
+Resource        ../../../../../libraries/GBP/ConnUtils.robot
+Variables       ../../../../../variables/Variables.py
+Resource        ../Variables.robot
+Resource        ../GBP_3node.robot
+
+Default Tags    multi-tenant    setup    multi-tenant-setup
+
 
 *** Variables ***
-${timeout}        10s
+${timeout}      10s
+
 
 *** Test Cases ***
 Setup Suite

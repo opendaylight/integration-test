@@ -1,30 +1,37 @@
 *** Settings ***
-Documentation     Test suite for Group Based Policy, sxp-ise-adapter component.
-Suite Setup       Setup_Ise_Cohort
-Suite Teardown    Wipe_Clean_Ise_Source_Cohort
-Library           OperatingSystem    WITH NAME    os
-Library           SSHLibrary
-Library           RequestsLibrary
-Library           DateTime
-Library           ../../../libraries/GbpSxp.py    WITH NAME    gbpsxp
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/GbpSxp.robot
+Documentation       Test suite for Group Based Policy, sxp-ise-adapter component.
+
+Library             OperatingSystem    WITH NAME    os
+Library             SSHLibrary
+Library             RequestsLibrary
+Library             DateTime
+Library             ../../../libraries/GbpSxp.py    WITH NAME    gbpsxp
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/TemplatedRequests.robot
+Resource            ../../../libraries/GbpSxp.robot
+
+Suite Setup         Setup_Ise_Cohort
+Suite Teardown      Wipe_Clean_Ise_Source_Cohort
+
 
 *** Variables ***
-${CONFIGURE_ISE_SOURCE_FILE}    ${CURDIR}/../../../variables/gbp/gbpsxp-ise-source.json
+${CONFIGURE_ISE_SOURCE_FILE}            ${CURDIR}/../../../variables/gbp/gbpsxp-ise-source.json
 ${EXPECTED_EP_POLICY_TEMPLATES_FILE}    ${CURDIR}/../../../variables/gbp/gbpsxp-ep-policy-templates.json
-${EXPECTED_TENANT_FILE}    ${CURDIR}/../../../variables/gbp/gbpsxp-tenant.json
-${ISE_API_DIR}    ${CURDIR}/../../../variables/gbp/ise-mock-server-api
-${ISE_MOCK_SERVER_API_FOLDER}    mock-server-tc010
+${EXPECTED_TENANT_FILE}                 ${CURDIR}/../../../variables/gbp/gbpsxp-tenant.json
+${ISE_API_DIR}                          ${CURDIR}/../../../variables/gbp/ise-mock-server-api
+${ISE_MOCK_SERVER_API_FOLDER}           mock-server-tc010
+
 
 *** Test Cases ***
 Configure_Ise_Source_And_Check_Results
     [Documentation]    Configure ise source using JSON file,
     ...    read status of ise-source harvest action (DS/operational/ise-source),
     ...    read+check ep-templates and endpoint-groups
-    ${ise_harvest_status_json}    gbpsxp.Configure_Ise_Source_And_Gain_Harvest_Status    session    ${CONFIGURE_ISE_SOURCE_FILE}    http://${TOOLS_SYSTEM_IP}:${ISE_REST_PORT}
+    ${ise_harvest_status_json}    gbpsxp.Configure_Ise_Source_And_Gain_Harvest_Status
+    ...    session
+    ...    ${CONFIGURE_ISE_SOURCE_FILE}
+    ...    http://${TOOLS_SYSTEM_IP}:${ISE_REST_PORT}
     gbpsxp.Check_Ise_Harvest_Status    ${ise_harvest_status_json}    5
     ${expected_templates}    os.Get_File    ${EXPECTED_EP_POLICY_TEMPLATES_FILE}
     ${actual_templates}    Utils.Get_Data_From_URI    session    ${GBP_EP_TEMPLATES_CONFIG_URI}
@@ -33,10 +40,15 @@ Configure_Ise_Source_And_Check_Results
     ${actual_tenant}    Utils.Get_Data_From_URI    session    ${GBP_TENANT_CONFIG_URI}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_tenant}    ${actual_tenant}
 
+
 *** Keywords ***
 Setup_Ise_Cohort
     [Documentation]    Start ise mock and prepare restconf session
-    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    RequestsLibrary.Create_Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH}
+    ...    headers=${HEADERS}
     GbpSxp.Prepare_Ssh_Tooling
     gbpsxp.Deploy_Ise_Mock_Server    ${ISE_MOCK_SERVER_API_FOLDER}    ${ISE_REST_PORT}
 
