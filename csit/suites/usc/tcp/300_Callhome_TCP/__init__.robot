@@ -1,9 +1,7 @@
 *** Settings ***
-Documentation     Test suite for callhome TLS channel
-Suite Setup       Start CALLHOME_TCP
-Suite Teardown    Stop Agent_Echo
-Resource          ../../../../libraries/UscUtils.robot
+Documentation       Test suite for callhome TLS channel
 
-*** Variables ***
+Resource            ../../../../libraries/UscUtils.robot
 
-*** Keywords ***
+Suite Setup         Start CALLHOME_TCP
+Suite Teardown      Stop Agent_Echo
