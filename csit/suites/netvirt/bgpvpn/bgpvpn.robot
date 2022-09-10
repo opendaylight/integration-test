@@ -1,23 +1,24 @@
 *** Settings ***
-Documentation     Test suite to validate bgpvpn configuration commands in an openstack integrated environment.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/BgpOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Tcpdump.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/VpnOperations.robot
-Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/netvirt/Variables.robot
+Documentation       Test suite to validate bgpvpn configuration commands in an openstack integrated environment.
 
-*** Variables ***
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../../../libraries/BgpOperations.robot
+Resource            ../../../libraries/DevstackUtils.robot
+Resource            ../../../libraries/OpenStackOperations.robot
+Resource            ../../../libraries/OVSDB.robot
+Resource            ../../../libraries/SetupUtils.robot
+Resource            ../../../libraries/Tcpdump.robot
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../libraries/VpnOperations.robot
+Resource            ../../../variables/Variables.robot
+Resource            ../../../variables/netvirt/Variables.robot
+
+Suite Setup         OpenStackOperations.OpenStack Suite Setup
+Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       OpenStackOperations.Get Test Teardown Debugs
+
 
 *** Test Cases ***
 Verify ODL supports VPN creation via neutron bgpvpn create command
