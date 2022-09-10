@@ -1,51 +1,65 @@
 *** Settings ***
-Documentation     netconf-restperfclient Update performance test suite.
+Documentation       netconf-restperfclient Update performance test suite.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Perform given count of update operations on device data mounted onto a
-...               netconf connector (using the netconf-testtool-restperfclient tool) and
-...               see how much time it took. More exactly, it sends the data to a restconf
-...               mountpoint of the netconf connector belonging to the device, which turns
-...               out to turn the first request sent to a "create" request and the
-...               remaining requests to "update" requests (due to how the testtool device
-...               behavior is implemented).
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
-Library           Collections
-Library           RequestsLibrary
-Library           OperatingSystem
-Library           String
-Library           SSHLibrary    timeout=10s
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
-Resource          ${CURDIR}/../../../libraries/RestPerfClient.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+...                 Perform given count of update operations on device data mounted onto a
+...                 netconf connector (using the netconf-testtool-restperfclient tool) and
+...                 see how much time it took. More exactly, it sends the data to a restconf
+...                 mountpoint of the netconf connector belonging to the device, which turns
+...                 out to turn the first request sent to a "create" request and the
+...                 remaining requests to "update" requests (due to how the testtool device
+...                 behavior is implemented).
+
+Library             Collections
+Library             RequestsLibrary
+Library             OperatingSystem
+Library             String
+Library             SSHLibrary    timeout=10s
+Resource            ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource            ${CURDIR}/../../../libraries/NexusKeywords.robot
+Resource            ${CURDIR}/../../../libraries/RestPerfClient.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource            ${CURDIR}/../../../libraries/Utils.robot
+Variables           ${CURDIR}/../../../variables/Variables.py
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+
 
 *** Variables ***
-${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
-${REQUEST_COUNT}    16384
+${DEVICE_NAME}                      ${FIRST_TESTTOOL_PORT}-sim-device
+${REQUEST_COUNT}                    16384
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
-${device_type}    full-uri-device
+${device_type}                      full-uri-device
+
 
 *** Test Cases ***
 Start_Testtool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     # Start test tool
     SSHLibrary.Switch_Connection    ${testtool}
-    Run Keyword If    '${IS_KARAF_APPL}' == 'True'    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    debug=false
-    ...    ELSE    NetconfKeywords.Start_Testtool    ${NETCONF_FILENAME}    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    debug=false
+    IF    '${IS_KARAF_APPL}' == 'True'
+        NetconfKeywords.Install_And_Start_Testtool
+        ...    device-count=1
+        ...    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+        ...    debug=false
+    ELSE
+        NetconfKeywords.Start_Testtool
+        ...    ${NETCONF_FILENAME}
+        ...    device-count=1
+        ...    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+        ...    debug=false
+    END
 
 Configure_Device_On_Netconf
     [Documentation]    Configure the testtool device on Netconf connector.
@@ -62,7 +76,8 @@ Create_Device_Data
 
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
-    ${url}=    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${DEVICE_NAME}/yang-ext:mount/car:cars
+    ${url}=    BuiltIn.Set_Variable
+    ...    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${DEVICE_NAME}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    async=false
 
 Check_For_Failed_Requests
@@ -83,6 +98,7 @@ Cleanup_And_Collect
     RestPerfClient.Collect_From_Restperfclient
     NetconfKeywords.Remove_Device_From_Netconf    ${DEVICE_NAME}
 
+
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
@@ -92,8 +108,13 @@ Setup_Everything
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    Run Keyword If    '${IS_KARAF_APPL}' == 'False'    RestPerfClient.Setup_Restperfclient    build_version=${NETCONF_TESTTOOL_VERSION}    build_location=org/opendaylight/netconf
-    ...    ELSE    RestPerfClient.Setup_Restperfclient
+    IF    '${IS_KARAF_APPL}' == 'False'
+        RestPerfClient.Setup_Restperfclient
+        ...    build_version=${NETCONF_TESTTOOL_VERSION}
+        ...    build_location=org/opendaylight/netconf
+    ELSE
+        RestPerfClient.Setup_Restperfclient
+    END
     # Connect to the tools system (testtool)
     ${testtool}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${testtool}    ${testtool}
