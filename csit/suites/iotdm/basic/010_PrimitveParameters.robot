@@ -1,22 +1,26 @@
 *** Settings ***
-Documentation     Testing of request and response primitives parameters
-...               Check specifications for more details:
-...               Request primitive parameters: TS-0004: 7.2.1.1 Request primitive format
-...               Response primitive parameters: TS-0004: 7.2.1.2 Response primitive format
-...               This test suite should be executed for all supported protocols, communication methods and
-...               content types and so it should cover all scenarios resulting in protocol specific processing.
-Suite Setup       Setup Suite
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Testing of request and response primitives parameters
+...                 Check specifications for more details:
+...                 Request primitive parameters: TS-0004: 7.2.1.1 Request primitive format
+...                 Response primitive parameters: TS-0004: 7.2.1.2 Response primitive format
+...                 This test suite should be executed for all supported protocols, communication methods and
+...                 content types and so it should cover all scenarios resulting in protocol specific processing.
+
+Resource            ../../../libraries/SubStrings.robot
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         Setup Suite
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+
 
 *** Test Cases ***
 1.00 REQ: Create: With mandatory parameters only
@@ -308,7 +312,10 @@ ${rt_contentInstance}    4
 
 2.18.09.01 REQ: Retrieve: With Filter Criteria parameter - element labels (one)
     [Documentation]    Tests Retrieve REQ with Filter Criteria parameter with one labels element.
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&sts=3&lbl=contentInstanceUnderContainerContainer
+    ${r} =    Retrieve Resource With Command
+    ...    ${iserver}
+    ...    InCSE1/Container3
+    ...    rcn=4&sts=3&lbl=contentInstanceUnderContainerContainer
     Log    ${r.text}
     ${rs} =    Child Resource First    ${r}
     ${count} =    Get Length    ${rs}
@@ -317,7 +324,10 @@ ${rt_contentInstance}    4
 
 2.18.09.02 REQ: Retrieve: With Filter Criteria parameter - element labels (two)
     [Documentation]    Tests Retrieve REQ with Filter Criteria parameter with two labels elements.
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    fu=1&rcn=4&sts=4&lbl=contentInstanceUnderContainerContainer&lbl=underCSE
+    ${r} =    Retrieve Resource With Command
+    ...    ${iserver}
+    ...    InCSE1
+    ...    fu=1&rcn=4&sts=4&lbl=contentInstanceUnderContainerContainer&lbl=underCSE
     Log    ${r.text}
     ${count} =    Get Length    ${r.json()}
     Should Be Equal As Integers    ${count}    6
@@ -976,6 +986,7 @@ ${rt_contentInstance}    4
     [Tags]    not-implemented    exclude
     TODO
 
+
 *** Keywords ***
 Connect And Create The Tree
     [Documentation]    Create a tree that contain AE/ container / contentInstance in different layers
@@ -996,10 +1007,12 @@ Connect And Create The Tree
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_container}    ${attr},"rn":"Container7"
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_container}    ${attr},"rn":"Container8"
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_container}    ${attr},"rn":"Container9"
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102","lbl":["contentInstanceUnderAEContainer"]
+    ${attr} =    Set Variable
+    ...    "cnf": "1","or": "http://hey/you","con":"102","lbl":["contentInstanceUnderAEContainer"]
     Create Resource    ${iserver}    InCSE1/AE1/Container1    ${rt_contentInstance}    ${attr},"rn":"conIn1"
     Create Resource    ${iserver}    InCSE1/AE1/Container1    ${rt_contentInstance}    ${attr},"rn":"conIn2"
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102","lbl":["contentInstanceUnderContainerContainer"]
+    ${attr} =    Set Variable
+    ...    "cnf": "1","or": "http://hey/you","con":"102","lbl":["contentInstanceUnderContainerContainer"]
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_contentInstance}    ${attr},"rn":"conIn3"
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_contentInstance}    ${attr},"rn":"conIn4"
     Create Resource    ${iserver}    InCSE1/Container3    ${rt_contentInstance}    ${attr},"rn":"conIn5"

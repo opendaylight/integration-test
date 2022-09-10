@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Tests for Content Instance resource attributes
-Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Tests for Content Instance resource attributes
+
+Resource            ../../../libraries/SubStrings.robot
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+
 
 *** Test Cases ***
 TODO Refactor test suite and implement TCs
@@ -23,12 +27,17 @@ TODO Refactor test suite and implement TCs
 1.1 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
     ${attr} =    Set Variable    "rn":"Container1", "mni": 5
-    ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
+    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${attr} =    Set Variable    "con":"102CSS","rn":"conIn1"
-    ${r} =    Create Resource With Command    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    rcn=3    ${attr}
+    ${r} =    Create Resource With Command
+    ...    ${iserver}
+    ...    InCSE1/Container1
+    ...    ${rt_contentInstance}
+    ...    rcn=3
+    ...    ${attr}
     ${text} =    Text    ${r}
     Should Contain All Sub Strings    ${text}    "ri":    "rn":    "cs":    "lt":    "pi":
     ...    "con":    "ct":    "ty":4
@@ -37,7 +46,12 @@ TODO Refactor test suite and implement TCs
 1.21 Missing content should return error
     [Documentation]    Missing content should return error
     ${attr} =    Set Variable
-    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}
+    ${error} =    Run Keyword And Expect Error
+    ...    *
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1/Container1
+    ...    ${rt_contentInstance}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
     Should Contain    ${error}    CONTENT    missing
@@ -52,7 +66,7 @@ TODO Refactor test suite and implement TCs
     [Documentation]    ContentInfo (cnf) can be added when create
     ${attr} =    Set Variable    "cnf": "1","con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    cnf
 
@@ -69,7 +83,7 @@ Delete the ContenInstance 2.1
     [Documentation]    OntologyRef (or) can be added when create
     ${attr} =    Set Variable    "or": "http://cisco.com","con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    or
 
@@ -85,7 +99,7 @@ Delete the ContenInstance 2.2
 2.31 labels[single] can be added when create
     [Documentation]    create conIn under Container1, labels[single] can be added when create
     ${attr} =    Set Variable    "lbl":["ds"],"con":"102CSS","rn":"conIn2"
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    lbl
 
@@ -102,7 +116,7 @@ Delete the ContenInstance 2.31
     [Documentation]    labels (multiple) can be added when create
     ${attr} =    Set Variable    "lbl":["http://cisco.com","dsds"],"con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    lbl
 
@@ -201,7 +215,7 @@ Delete the ContenInstance 2.33
 4.11 GetLatest Test
     [Documentation]    Set mni to 1 when creating a container, then continue creating <cin> "get latest" should always return the last created <cin>'s "con" value.
     ${attr} =    Set Variable    "mni":1,"rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${random} =    Evaluate    random.randint(0,50)    modules=random
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
@@ -212,7 +226,7 @@ Delete the ContenInstance 2.33
 4.12 GetLatest Loop 50 times Test
     [Documentation]    Just like 4.11, but do 50 times.
     ${attr} =    Set Variable    "mni":1,"rn":"Container3"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     FOR    ${INDEX}    IN RANGE    1    100
         Latest Con Test    ${container}
@@ -222,20 +236,31 @@ Delete the test Container1
     [Documentation]    Delete the test Container1
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/Container1
 
+
 *** Keywords ***
 Cannot Update ContentInstance Error
     [Arguments]    ${attr}
-    ${error} =    Run Keyword And Expect Error    *    update Resource    ${iserver}    InCSE1/Container1/conIn1    ${rt_contentInstance}
+    ${error} =    Run Keyword And Expect Error
+    ...    *
+    ...    update Resource
+    ...    ${iserver}
+    ...    InCSE1/Container1/conIn1
+    ...    ${rt_contentInstance}
     ...    ${attr}
     Should Start with    ${error}    Cannot update this resource [405]
-    [Return]    ${error}
+    RETURN    ${error}
 
 Cannot Craete ContentInstance Error
     [Arguments]    ${attr}
-    ${error} =    Run Keyword And Expect Error    *    create Resource    ${iserver}    InCSE1/Container1/conIn1    ${rt_contentInstance}
+    ${error} =    Run Keyword And Expect Error
+    ...    *
+    ...    create Resource
+    ...    ${iserver}
+    ...    InCSE1/Container1/conIn1
+    ...    ${rt_contentInstance}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
-    [Return]    ${error}
+    RETURN    ${error}
 
 Check Create and Retrieve ContentInstance
     [Arguments]    ${r}
@@ -244,13 +269,13 @@ Check Create and Retrieve ContentInstance
     Should Be Equal As Integers    ${status_code}    201
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
     ${text} =    Text    ${rr}
-    [Return]    ${text}
+    RETURN    ${text}
 
 Get Latest
     [Arguments]    ${resourceURI}
     ${latest} =    Retrieve Resource    ${iserver}    ${resourceURI}/latest
     ${con} =    Content    ${latest}
-    [Return]    ${con}
+    RETURN    ${con}
 
 Latest Con Test
     [Arguments]    ${resourceURI}

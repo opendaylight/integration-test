@@ -1,9 +1,12 @@
 *** Settings ***
-Documentation     Test suite to verify Restconf is OK.
-Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    RequestsLibrary.Delete_All_Sessions
-Library           RequestsLibrary
-Resource          ${CURDIR}/../../../variables/Variables.robot
+Documentation       Test suite to verify Restconf is OK.
+
+Library             RequestsLibrary
+Resource            ${CURDIR}/../../../variables/Variables.robot
+
+Suite Setup         RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      RequestsLibrary.Delete_All_Sessions
+
 
 *** Test Cases ***
 Get Controller Modules

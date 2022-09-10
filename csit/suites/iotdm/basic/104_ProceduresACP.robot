@@ -1,17 +1,18 @@
 *** Settings ***
-Documentation     Test suite tests access controll procedures related to accessControlPolicy resource described
-...               in OneM2M specifications:
-...               TS-0001: 9.6.2 Resource Type accessControlPolicy
-...               TS-0004: 7.3.3.15 Check authorization of the originator
-...               TS-0003: 7.1 Access Control Mechanism
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../variables/Variables.robot
+Documentation       Test suite tests access controll procedures related to accessControlPolicy resource described
+...                 in OneM2M specifications:
+...                 TS-0001: 9.6.2 Resource Type accessControlPolicy
+...                 TS-0004: 7.3.3.15 Check authorization of the originator
+...                 TS-0003: 7.1 Access Control Mechanism
 
-*** Variables ***
+Library             RequestsLibrary
+Library             ../../../libraries/Common.py
+Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/Variables.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 1.01.01 ACP cseBase: Permit: privileges: AE, CRUD
@@ -392,6 +393,7 @@ Resource          ../../../variables/Variables.robot
     ...    Split into multiple TCs if needed.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO

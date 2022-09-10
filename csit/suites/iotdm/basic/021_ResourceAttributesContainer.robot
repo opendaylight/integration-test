@@ -1,17 +1,21 @@
 *** Settings ***
-Documentation     Tests for Container resource attributes
-Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
-Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/IoTDM/criotdm.py
-Library           Collections
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
+Documentation       Tests for Container resource attributes
+
+Resource            ../../../libraries/SubStrings.robot
+Library             ../../../libraries/IoTDM/criotdm.py
+Library             Collections
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/IoTDM/IoTDMKeywords.robot
+
+Suite Setup         IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown      Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
+
 
 *** Variables ***
-${rt_ae}          2
-${rt_container}    3
-${rt_contentInstance}    4
+${rt_ae}                    2
+${rt_container}             3
+${rt_contentInstance}       4
+
 
 *** Test Cases ***
 TODO Refactor test suite and implement TCs
@@ -27,7 +31,7 @@ TODO Refactor test suite and implement TCs
     #==================================================
     # For Creation, there are no mandatory input attribute
     ${attr} =    Set Variable    "rn":"Container1"
-    ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
+    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
@@ -44,7 +48,7 @@ TODO Refactor test suite and implement TCs
     #    create--> delete
     #    update(create)--> update(modified)-->update (delete)
     ${attr} =    Set Variable    "mni":3,"rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${text} =    Check Response and Retrieve Resource    ${r}
     Should Contain    ${text}    "mni"
 
@@ -76,7 +80,7 @@ Delete the Container2-2.1
 2.21 maxByteSize (mbs) can be added when create
     [Documentation]    maxByteSize (mbs) can be added when create
     ${attr} =    Set Variable    "mbs":20,"rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${text} =    Check Response and Retrieve Resource    ${r}
     Should Contain    ${text}    "mbs"
 
@@ -108,7 +112,7 @@ Delete the Container2-2.2
 2.31 ontologyRef(or) can be added when create
     [Documentation]    ontologyRef(or) can be added when create
     ${attr} =    Set Variable    "or":"http://cisco.com","rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container2
     Should Contain    ${text}    "or"
 
@@ -244,7 +248,10 @@ Delete the Container2-2.3
     [Documentation]    update resourceName and expect error
     ${attr} =    Set Variable    "rn":"aaa"
     ${error} =    Update Container Expect Cannot Update Error    ${attr}
-    Should Contain    ${error}    "error":"Resource Name cannot be updated: InCSE1/Container1/aaa"    Error response is not correct
+    Should Contain
+    ...    ${error}
+    ...    "error":"Resource Name cannot be updated: InCSE1/Container1/aaa"
+    ...    Error response is not correct
 
 3.34 parentID cannot be update.
     [Documentation]    update parentID and expect error
@@ -355,7 +362,7 @@ Delete the Container2-2.3
     #    |--Contianer1
     #    |--Container2
     ${attr} =    Set Variable    "rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container1
     ${CSEID} =    Resid    ${oldr}
@@ -369,9 +376,9 @@ Delete the Container2-2.3
     #    |--AE1
     #    |--Container2
     ${attr} =    Set Variable    "api":"ODL","apn":"ODL","rr":true,"rn":"AE1"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
     ${attr} =    Set Variable    "rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1/AE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/AE1    ${rt_container}    ${attr}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/AE1
     ${CSEID} =    Resid    ${oldr}
@@ -386,7 +393,7 @@ Delete the Container2-2.3
     #    |--Container2
     #    |--- Container3
     ${attr} =    Set Variable    "rn":"Container3"
-    ${r}=    Create Resource    ${iserver}    InCSE1/AE1/Container2    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1/AE1/Container2    ${rt_container}    ${attr}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2
     ${CSEID} =    Resid    ${oldr}
@@ -403,7 +410,7 @@ Delete the test AE-4.2
     # CSE
     #    |--Container2
     ${attr} =    Set Variable    "rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    ${container}
@@ -556,7 +563,7 @@ Delete the Container2-4.3
 4.41 when container create, cni should be 0
     [Documentation]    when container create, cni should be 0
     ${attr} =    Set Variable    "rn":"Container2", "mni": 5
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    ${container}
@@ -598,7 +605,7 @@ Delete the Container2-4.4
 4.51 when container create, cbs should be 0
     [Documentation]    when container create, cbs should be 0
     ${attr} =    Set Variable    "rn":"Container2", "mni": 5
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    ${container}
@@ -640,7 +647,7 @@ Delete the Container2-4.5
 4.61 if maxNrOfInstance = 1 , can create 1 contentInstance
     [Documentation]    if maxNrOfInstance = 1 , can create 1 contentInstance
     ${attr} =    Set Variable    "mni":1,"rn":"Container2"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    ${container}
@@ -666,13 +673,13 @@ Delete the Container2-4.5
 4.63 if update to 3 , when create 4 or more contentInstance, the current number instance should be 3
     [Documentation]    if update to 3 , cannot create 4 contentInstance
     ${attr} =    Set Variable    "mni":3
-    ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
+    ${r} =    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102CSS"
     # create 3
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     #Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     ${mni} =    Max Number Of Instances    ${rr}
     ${chr} =    Child Resource    ${rr}
@@ -681,8 +688,8 @@ Delete the Container2-4.5
 4.64 what if alread have 4, then set mni to 1
     [Documentation]    if alread have 4, then set mni to 1, will delete 3 children
     ${attr} =    Set Variable    "mni":1
-    ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${r} =    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
+    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
     ${chr} =    Child Resource    ${rr}
     ${mni} =    Max Number Of Instances    ${rr}
     ${cni} =    Current Number Of Instances    ${rr}
@@ -695,7 +702,7 @@ Delete the Container2-4.6
 4.71 if maxByteSize = 5 , can create contentInstance with contentSize 5
     [Documentation]    if maxByteSize = 5 , can create contentInstance with contentSize 5
     ${attr} =    Set Variable    "mbs":5,"rn":"Container2", "mni": 5
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    ${container}
@@ -706,20 +713,25 @@ Delete the Container2-4.6
     [Documentation]    if maxByteSize = 5 , cannot create contentInstance with contenSize 8
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102C120c"
     # cannot create 2
-    ${error} =    Run Keyword And Expect Error    Cannot create this resource [400]*    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot create this resource [400]*
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1/Container2
+    ...    ${rt_contentInstance}
     ...    ${attr}
 
 4.73 if update to 20 , cannot create another contentInstance
     [Documentation]    if update to 20 , cannot create another contentInstance
     ${attr} =    Set Variable    "mbs":20
-    ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
+    ${r} =    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102CS"
     # create 4 cin
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
     ${cbs} =    Current Byte Size    ${rr}
     ${chr} =    Child Resource    ${rr}
     ${cni} =    Current Number Of Instances    ${rr}
@@ -730,8 +742,8 @@ Delete the Container2-4.6
 4.74 if already have 20, then set mbs to 5，will delete contentInstance until mbs less than 5.
     [Documentation]    what if already have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     ${attr} =    Set Variable    "mbs":5
-    ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${r} =    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
+    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
     Log    ${rr.text}
     ${chr} =    Child Resource    ${rr}
     ${cbs} =    Current Byte Size    ${rr}
@@ -746,7 +758,12 @@ Delete the Container2-4.7
 4.81 creator -- value must be null
     [Documentation]    creator -- value must be null
     ${attr} =    Set Variable    "cr":"VALUE"
-    ${error} =    Run Keyword And Expect Error    Cannot create this resource [400]*    Create Resource    ${iserver}    InCSE1/Container1    ${rt_container}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot create this resource [400]*
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1/Container1
+    ...    ${rt_container}
     ...    ${attr}
     Should Contain All Sub Strings    ${error}    error    cr
     #==================================================
@@ -757,6 +774,7 @@ Delete the test Container1
     [Documentation]    Delete the test Container1
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/Container1
 
+
 *** Keywords ***
 Check Response and Retrieve Resource
     [Arguments]    ${r}
@@ -765,7 +783,7 @@ Check Response and Retrieve Resource
     Should Be True    199 < ${status_code} < 299
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
     ${text} =    Text    ${rr}
-    [Return]    ${text}
+    RETURN    ${text}
 
 Check Response and Retrieve Resource For Update
     [Arguments]    ${r}    ${location}
@@ -773,21 +791,31 @@ Check Response and Retrieve Resource For Update
     Should Be True    199 < ${status_code} < 299
     ${rr} =    Retrieve Resource    ${iserver}    ${location}
     ${text} =    Text    ${rr}
-    [Return]    ${text}
+    RETURN    ${text}
 
 Create Container Expect Cannot Create Error
-    [Arguments]    ${attr}
     [Documentation]    create Container Under InCSE1 and expect error
-    ${error} =    Run Keyword And Expect Error    Cannot create this resource [400]*    Create Resource    ${iserver}    InCSE1    ${rt_container}
+    [Arguments]    ${attr}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot create this resource [400]*
+    ...    Create Resource
+    ...    ${iserver}
+    ...    InCSE1
+    ...    ${rt_container}
     ...    ${attr}
-    [Return]    ${error}
+    RETURN    ${error}
 
 Update Container Expect Cannot Update Error
-    [Arguments]    ${attr}
     [Documentation]    update Container Under InCSE1 and expect error
-    ${error} =    Run Keyword And Expect Error    Cannot update this resource [400]*    Update Resource    ${iserver}    InCSE1/Container1    ${rt_container}
+    [Arguments]    ${attr}
+    ${error} =    Run Keyword And Expect Error
+    ...    Cannot update this resource [400]*
+    ...    Update Resource
+    ...    ${iserver}
+    ...    InCSE1/Container1
+    ...    ${rt_container}
     ...    ${attr}
-    [Return]    ${error}
+    RETURN    ${error}
 
 TODO
     Fail    "Not implemented"
