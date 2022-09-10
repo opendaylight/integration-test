@@ -1,13 +1,13 @@
 *** Settings ***
-Documentation     Deep inspection of HTTP traffic on asymmetric chain.
-...               Nodes are located on different VMs.
-Library           SSHLibrary
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../Variables.robot
-Resource          ../Connections.robot
+Documentation       Deep inspection of HTTP traffic on asymmetric chain.
+...                 Nodes are located on different VMs.
 
-*** Variables ***
+Library             SSHLibrary
+Resource            ../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource            ../../../../../libraries/GBP/ConnUtils.robot
+Resource            ../Variables.robot
+Resource            ../Connections.robot
+
 
 *** Test Cases ***
 Show GBPSFC1 Status
@@ -44,7 +44,11 @@ Show GBPSFC6 Status
 
 Read Tenants Confing From ODL
     [Documentation]    Logs ODL data store.
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+    Create Session
+    ...    session
+    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ...    auth=${AUTH}
+    ...    headers=${HEADERS_YANG_JSON}
     ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
     Log    ${resp.content}
 

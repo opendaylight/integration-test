@@ -1,14 +1,17 @@
 *** Settings ***
-Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/CompareStream.robot
-Resource          ../../../libraries/Utils.robot
+Documentation       Test suite for GBP Tenants, Operates functions from Restconf APIs.
+
+Library             SSHLibrary
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/CompareStream.robot
+Resource            ../../../libraries/Utils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
 
 *** Test Cases ***
 Init Variables
@@ -64,6 +67,7 @@ Delete one Tenant
 Clean Datastore After Tests
     [Documentation]    Clean All Tenants In Datastore After Tests
     Remove All Elements At URI    ${GBP_TENANTS_API}
+
 
 *** Keywords ***
 Init Variables Master
