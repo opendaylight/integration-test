@@ -1,24 +1,29 @@
 *** Settings ***
-Documentation     Test suite for multiple sessions in an USC TLS channel
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Test Timeout      1min
-Library           Collections
-Library           OperatingSystem
-Library           SSHLibrary
-Library           RequestsLibrary
-Library           json
-Library           ../../../../libraries/Common.py
-Variables         ../../../../variables/Variables.py
-Resource          ../../../../libraries/UscUtils.robot
+Documentation       Test suite for multiple sessions in an USC TLS channel
 
-*** Variables ***
+Library             Collections
+Library             OperatingSystem
+Library             SSHLibrary
+Library             RequestsLibrary
+Library             json
+Library             ../../../../libraries/Common.py
+Variables           ../../../../variables/Variables.py
+Resource            ../../../../libraries/UscUtils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+Test Timeout        1min
+
 
 *** Test Cases ***
 Add Channel
     [Documentation]    Add multiple USC DTLS channels
     FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-        ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=false    remote=false
+        ${content}    Create Dictionary
+        ...    hostname=${TOOLS_SYSTEM_IP}
+        ...    port=${port_index}
+        ...    tcp=false
+        ...    remote=false
         ${channel}    Create Dictionary    channel=${content}
         ${input}    Create Dictionary    input=${channel}
         ${data}    json.dumps    ${input}
@@ -44,7 +49,11 @@ Check added Channel
 Send Messages
     [Documentation]    Send test messages multiple times
     FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
-        ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=false    content=${TEST_MESSAGE}
+        ${content}    Create Dictionary
+        ...    hostname=${TOOLS_SYSTEM_IP}
+        ...    port=${port_index}
+        ...    tcp=false
+        ...    content=${TEST_MESSAGE}
         ${channel}    Create Dictionary    channel=${content}
         ${input}    Create Dictionary    input=${channel}
         Send Now    ${input}
@@ -99,6 +108,7 @@ Check Channel
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "topology"
+
 
 *** Keywords ***
 Send Now

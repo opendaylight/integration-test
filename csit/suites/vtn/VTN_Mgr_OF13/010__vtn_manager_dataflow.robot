@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager Data Flow using OF13
-Suite Setup       Start SuiteVtnMaTest
-Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.robot
+Documentation       Test suite for VTN Manager Data Flow using OF13
+
+Resource            ../../../libraries/VtnMaKeywords.robot
+
+Suite Setup         Start SuiteVtnMaTest
+Suite Teardown      Stop SuiteVtnMaTest
+
 
 *** Test Cases ***
 Check if switch1 detected
