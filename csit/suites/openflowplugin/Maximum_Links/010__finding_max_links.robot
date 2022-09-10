@@ -1,16 +1,20 @@
 *** Settings ***
-Documentation     Test suite for finding out max number of Links
-Suite Setup       Workflow Setup
-Suite Teardown    Workflow Teardown
-Library           OperatingSystem
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/WorkflowsOpenFlow.robot
-Resource          ../../../libraries/KarafKeywords.robot
+Documentation       Test suite for finding out max number of Links
+
+Library             OperatingSystem
+Resource            ../../../variables/Variables.robot
+Resource            ../../../libraries/WorkflowsOpenFlow.robot
+Resource            ../../../libraries/KarafKeywords.robot
+
+Suite Setup         Workflow Setup
+Suite Teardown      Workflow Teardown
+
 
 *** Variables ***
-@{SWITCH_LIST}    ${16}    ${32}    ${40}    ${48}    ${52}
+@{SWITCH_LIST}          ${16}    ${32}    ${40}    ${48}    ${52}
 ${LINKS_RESULT_FILE}    links.csv
-${TIME_RESULT_FILE}    time.csv
+${TIME_RESULT_FILE}     time.csv
+
 
 *** Test Cases ***
 Find Max Links
@@ -20,8 +24,9 @@ Find Max Links
     ${maximum_links}=    Set Variable    ${0}
     ${discover_time}=    Set Variable    0
     FOR    ${switches}    IN    @{SWITCH_LIST}
-        ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}
-        Exit For Loop If    '${status}' == 'FAIL'
+        ${status}    ${error_message}    ${topology_discover_time}=    WorkflowsOpenFlow.Workflow Full Mesh Topology
+        ...    ${switches}
+        IF    '${status}' == 'FAIL'            BREAK
         ${maximum_links}=    Evaluate    ${switches} * ${switches-1}
         ${discover_time}=    Set Variable    ${topology_discover_time}
     END
