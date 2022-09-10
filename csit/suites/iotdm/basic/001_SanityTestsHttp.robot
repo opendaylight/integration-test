@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Sanity test suite verifies basic functionality of IoTDM but also
-...               functionality of testing client libraries.
-...               CRUD + N operations are performed on minimal resource tree using HTTP protocol.
-Suite Setup       Setup Suite
-Suite Teardown    End Suite
-Resource          ../../../libraries/IoTDM/iotdm_sanity_tests.robot
-Resource          ../../../libraries/IoTDM/IoTDMResources.robot
+Documentation       Sanity test suite verifies basic functionality of IoTDM but also
+...                 functionality of testing client libraries.
+...                 CRUD + N operations are performed on minimal resource tree using HTTP protocol.
+
+Resource            ../../../libraries/IoTDM/iotdm_sanity_tests.robot
+Resource            ../../../libraries/IoTDM/IoTDMResources.robot
+
+Suite Setup         Setup Suite
+Suite Teardown      End Suite
+
 
 *** Variables ***
-${rx_port}        ${5000}
+${rx_port}      ${5000}
+
 
 *** Test Cases ***
 1.01 HTTP Sanity test - Create AE
@@ -52,6 +56,7 @@ ${rx_port}        ${5000}
     ...    contentInstance resource what will trigger the notification and check if was handled
     ...    automatically.
     Sanity Test Create Content Instance And Use Automatic Notification Response
+
 
 *** Keywords ***
 Setup Suite

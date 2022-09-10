@@ -1,10 +1,11 @@
 *** Settings ***
-Documentation     Test suite testing plugin loaders implemented in IoTDM.
-...               Test cases are testing the BundleLoader and KarafFeatureLoader RPCs.
-...               Suite uses valid and invalid testing plugins from IoTDM repository from iotdm/itcsitdist/iotdmitresources
-...               Invalid plugin means that there is some intentional issue in the implementation of the plugin which
-...               causes failure during plugin loading process and it should be catched by BundleLoader or KarafFeatureLoader
-...               and such plugin must not be loaded to system as well as nothing from its dependencies.
+Documentation       Test suite testing plugin loaders implemented in IoTDM.
+...                 Test cases are testing the BundleLoader and KarafFeatureLoader RPCs.
+...                 Suite uses valid and invalid testing plugins from IoTDM repository from iotdm/itcsitdist/iotdmitresources
+...                 Invalid plugin means that there is some intentional issue in the implementation of the plugin which
+...                 causes failure during plugin loading process and it should be catched by BundleLoader or KarafFeatureLoader
+...                 and such plugin must not be loaded to system as well as nothing from its dependencies.
+
 
 *** Test Cases ***
 1.00 Bundle loader instance has no features loaded
@@ -201,6 +202,7 @@ Documentation     Test suite testing plugin loaders implemented in IoTDM.
     [Documentation]    Check weather there are any KarafLoader instances.
     [Tags]    not-implemented    exclude
     TODO
+
 
 *** Keywords ***
 TODO
