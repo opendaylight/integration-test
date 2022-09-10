@@ -1,85 +1,200 @@
 *** Settings ***
-Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       OpenStackInstallUtils.Get All Ssh Connections
-Suite Teardown    Close All Connections
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../libraries/OpenStackInstallUtils.robot
-Resource          ../libraries/OpenStackOperations.robot
-Resource          ../libraries/SystemUtils.robot
-Resource          ../libraries/Utils.robot
+Documentation       Test suite to verify packet flows between vm instances.
+
+Library             SSHLibrary
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../libraries/OpenStackInstallUtils.robot
+Resource            ../libraries/OpenStackOperations.robot
+Resource            ../libraries/SystemUtils.robot
+Resource            ../libraries/Utils.robot
+
+Suite Setup         OpenStackInstallUtils.Get All Ssh Connections
+Suite Teardown      Close All Connections
+
 
 *** Test Cases ***
 Install Identity
     Create And Configure Keystone Db    ${OS_CONTROL_1_IP}    root    mysql    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_2_IP}    root    mysql    ${OS_CONTROL_2_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_3_IP}    root    mysql    ${OS_CONTROL_3_HOSTNAME}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_4_IP}    root    mysql    ${OS_CONTROL_4_HOSTNAME}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_5_IP}    root    mysql    ${OS_CONTROL_5_HOSTNAME}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_1_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_2_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_3_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_4_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Install Configure Keystone    ${OS_CONTROL_5_IP}    ${HAPROXY_HOSTNAME}
+    IF    2 < ${NUM_CONTROL_NODES}
+        Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_2_IP}    root    mysql    ${OS_CONTROL_2_HOSTNAME}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_3_IP}    root    mysql    ${OS_CONTROL_3_HOSTNAME}
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_4_IP}    root    mysql    ${OS_CONTROL_4_HOSTNAME}
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Create And Configure Keystone Db Other Nodes    ${OS_CONTROL_5_IP}    root    mysql    ${OS_CONTROL_5_HOSTNAME}
+    END
+    IF    2 > ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_1_IP}    ${HAPROXY_HOSTNAME}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_2_IP}    ${HAPROXY_HOSTNAME}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_3_IP}    ${HAPROXY_HOSTNAME}
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_4_IP}    ${HAPROXY_HOSTNAME}
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Install Configure Keystone    ${OS_CONTROL_5_IP}    ${HAPROXY_HOSTNAME}
+    END
     ${token}=    Run Command    ${OS_CONTROL_1_IP}    openssl rand -hex 10
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Set Admin Token    ${OS_CONTROL_1_IP}    ${token}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Set Admin Token    ${OS_CONTROL_2_IP}    ${token}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Set Admin Token    ${OS_CONTROL_3_IP}    ${token}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Set Admin Token    ${OS_CONTROL_4_IP}    ${token}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Set Admin Token    ${OS_CONTROL_5_IP}    ${token}
+    IF    2 < ${NUM_CONTROL_NODES}
+        Set Admin Token    ${OS_CONTROL_1_IP}    ${token}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Set Admin Token    ${OS_CONTROL_2_IP}    ${token}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Set Admin Token    ${OS_CONTROL_3_IP}    ${token}
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Set Admin Token    ${OS_CONTROL_4_IP}    ${token}
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Set Admin Token    ${OS_CONTROL_5_IP}    ${token}
+    END
     Keystone Manage Setup    ${OS_CONTROL_1_IP}    keystone    keystone
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_3_IP}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_4_IP}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_5_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Chown File    ${OS_CONTROL_2_IP}    /etc/keystone/fernet-keys    keystone    keystone
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Chown File    ${OS_CONTROL_3_IP}    /etc/keystone/fernet-keys    keystone    keystone
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Chown File    ${OS_CONTROL_4_IP}    /etc/keystone/fernet-keys    keystone    keystone
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Chown File    ${OS_CONTROL_5_IP}    /etc/keystone/fernet-keys    keystone    keystone
+    IF    2 < ${NUM_CONTROL_NODES}
+        Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_2_IP}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_3_IP}
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_4_IP}
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Copy Fernet Keys    ${OS_CONTROL_1_IP}    ${OS_CONTROL_5_IP}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Chown File    ${OS_CONTROL_2_IP}    /etc/keystone/fernet-keys    keystone    keystone
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Chown File    ${OS_CONTROL_3_IP}    /etc/keystone/fernet-keys    keystone    keystone
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Chown File    ${OS_CONTROL_4_IP}    /etc/keystone/fernet-keys    keystone    keystone
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Chown File    ${OS_CONTROL_5_IP}    /etc/keystone/fernet-keys    keystone    keystone
+    END
     Start Keystone    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Start Keystone    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Start Keystone    ${OS_CONTROL_3_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    35357    keystone-admin
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    5000    keystone-public
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Create stackrc    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create stackrc    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Setup And Bootstrap    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup And Bootstrap    ${OS_CONTROL_1_IP}    ${HAPROXY_HOSTNAME}
+    IF    2 < ${NUM_CONTROL_NODES}    Start Keystone    ${OS_CONTROL_2_IP}
+    IF    2 < ${NUM_CONTROL_NODES}    Start Keystone    ${OS_CONTROL_3_IP}
+    IF    2 < ${NUM_CONTROL_NODES}
+        Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    35357    keystone-admin
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    5000    keystone-public
+    END
+    IF    2 > ${NUM_CONTROL_NODES}    Create stackrc    ${OS_CONTROL_1_HOSTNAME}
+    IF    2 < ${NUM_CONTROL_NODES}    Create stackrc    ${HAPROXY_HOSTNAME}
+    IF    2 > ${NUM_CONTROL_NODES}
+        Setup And Bootstrap    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Setup And Bootstrap    ${OS_CONTROL_1_IP}    ${HAPROXY_HOSTNAME}
+    END
     Create Project Service
+
 
 *** Keywords ***
 Create And Configure Keystone Db
     [Arguments]    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    ${host_name}
     Create Database for Mysql    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone
-    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*    keystone    ${host_name}
+    Grant Privileges To Mysql Database
+    ...    ${os_node_cxn}
+    ...    ${mysql_user}
+    ...    ${mysql_pass}
+    ...    keystone.*
     ...    keystone
-    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*    keystone    localhost
+    ...    ${host_name}
     ...    keystone
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*
-    ...    keystone    ${HAPROXY_HOSTNAME}    keystone
+    Grant Privileges To Mysql Database
+    ...    ${os_node_cxn}
+    ...    ${mysql_user}
+    ...    ${mysql_pass}
+    ...    keystone.*
+    ...    keystone
+    ...    localhost
+    ...    keystone
+    IF    2 < ${NUM_CONTROL_NODES}
+        Grant Privileges To Mysql Database
+        ...    ${os_node_cxn}
+        ...    ${mysql_user}
+        ...    ${mysql_pass}
+        ...    keystone.*
+        ...    keystone
+        ...    ${HAPROXY_HOSTNAME}
+        ...    keystone
+    END
 
 Create And Configure Keystone Db Other Nodes
     [Arguments]    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    ${host_name}
-    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*    keystone    ${host_name}
+    Grant Privileges To Mysql Database
+    ...    ${os_node_cxn}
+    ...    ${mysql_user}
+    ...    ${mysql_pass}
+    ...    keystone.*
     ...    keystone
-    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*    keystone    localhost
+    ...    ${host_name}
     ...    keystone
-    Grant Privileges To Mysql Database    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    keystone.*    keystone    ${HAPROXY_HOSTNAME}
+    Grant Privileges To Mysql Database
+    ...    ${os_node_cxn}
+    ...    ${mysql_user}
+    ...    ${mysql_pass}
+    ...    keystone.*
+    ...    keystone
+    ...    localhost
+    ...    keystone
+    Grant Privileges To Mysql Database
+    ...    ${os_node_cxn}
+    ...    ${mysql_user}
+    ...    ${mysql_pass}
+    ...    keystone.*
+    ...    keystone
+    ...    ${HAPROXY_HOSTNAME}
     ...    keystone
 
 Install Configure Keystone
     [Arguments]    ${os_node_cxn}    ${host_name}
-    Run Keyword If    '${OS_APPS_PRE_INSTALLED}' == 'no'    Install Rpm Package    ${os_node_cxn}    openstack-keystone httpd mod_wsgi rsync
-    Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    database    connection    "mysql+pymysql://keystone:keystone@${host_name}/keystone"
+    IF    '${OS_APPS_PRE_INSTALLED}' == 'no'
+        Install Rpm Package    ${os_node_cxn}    openstack-keystone httpd mod_wsgi rsync
+    END
+    Crudini Edit
+    ...    ${os_node_cxn}
+    ...    /etc/keystone/keystone.conf
+    ...    database
+    ...    connection
+    ...    "mysql+pymysql://keystone:keystone@${host_name}/keystone"
     Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    token    provider    fernet
     Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    catalog    driver    sql
     Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    identity    driver    sql
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    DEFAULT    transport_url
-    ...    "rabbit://openstack:rabbit@${OS_CONTROL_1_HOSTNAME},openstack:rabbit@${OS_CONTROL_2_HOSTNAME},openstack:rabbit@${OS_CONTROL_3_HOSTNAME}"
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    DEFAULT    transport_url
-    ...    "rabbit://openstack:rabbit@${host_name}"
+    IF    2 < ${NUM_CONTROL_NODES}
+        Crudini Edit
+        ...    ${os_node_cxn}
+        ...    /etc/keystone/keystone.conf
+        ...    DEFAULT
+        ...    transport_url
+        ...    "rabbit://openstack:rabbit@${OS_CONTROL_1_HOSTNAME},openstack:rabbit@${OS_CONTROL_2_HOSTNAME},openstack:rabbit@${OS_CONTROL_3_HOSTNAME}"
+    END
+    IF    2 > ${NUM_CONTROL_NODES}
+        Crudini Edit
+        ...    ${os_node_cxn}
+        ...    /etc/keystone/keystone.conf
+        ...    DEFAULT
+        ...    transport_url
+        ...    "rabbit://openstack:rabbit@${host_name}"
+    END
     Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    oslo_messaging_rabbit    rabbit_max_retries    0
     Crudini Edit    ${os_node_cxn}    /etc/keystone/keystone.conf    oslo_messaging_rabbit    rabbit_ha_queues    true
     Create Softlink    ${os_node_cxn}    /usr/share/keystone/wsgi-keystone.conf    /etc/httpd/conf.d/
@@ -120,13 +235,19 @@ Create Project Service
 Keystone Manage Setup
     [Arguments]    ${os_node_cxn}    ${keystone_user}    ${keystone_password}
     Switch Connection    ${os_node_cxn}
-    ${output}    ${rc}=    Execute Command    sudo keystone-manage fernet_setup --keystone-user ${keystone_user} --keystone-group ${keystone_password}    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command
+    ...    sudo keystone-manage fernet_setup --keystone-user ${keystone_user} --keystone-group ${keystone_password}
+    ...    return_rc=True
+    ...    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
 
 Keystone Manage Bootstrap
     [Arguments]    ${os_node_cxn}    ${host_name}    ${region_name}
     Switch Connection    ${os_node_cxn}
-    ${output}    ${rc}=    Execute Command    sudo keystone-manage bootstrap --bootstrap-password admin --bootstrap-admin-url http://${host_name}:35357/v3/ --bootstrap-internal-url http://${host_name}:5000/v3/ --bootstrap-public-url http://${host_name}:5000/v3/ --bootstrap-region-id ${region_name}    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command
+    ...    sudo keystone-manage bootstrap --bootstrap-password admin --bootstrap-admin-url http://${host_name}:35357/v3/ --bootstrap-internal-url http://${host_name}:5000/v3/ --bootstrap-public-url http://${host_name}:5000/v3/ --bootstrap-region-id ${region_name}
+    ...    return_rc=True
+    ...    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}

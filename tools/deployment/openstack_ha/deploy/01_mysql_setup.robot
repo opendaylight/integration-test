@@ -1,34 +1,64 @@
 *** Settings ***
-Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       OpenStackInstallUtils.Get All Ssh Connections
-Suite Teardown    Close All Connections
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../libraries/OpenStackInstallUtils.robot
-Resource          ../libraries/SystemUtils.robot
-Resource          ../libraries/Utils.robot
+Documentation       Test suite to verify packet flows between vm instances.
+
+Library             SSHLibrary
+Library             OperatingSystem
+Library             RequestsLibrary
+Resource            ../libraries/OpenStackInstallUtils.robot
+Resource            ../libraries/SystemUtils.robot
+Resource            ../libraries/Utils.robot
+
+Suite Setup         OpenStackInstallUtils.Get All Ssh Connections
+Suite Teardown      Close All Connections
+
 
 *** Test Cases ***
 Setup MySql
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install MySQl Cluster    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    openstack
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install MySQl Cluster    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    openstack
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install MySQl Cluster    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    openstack
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Install MySQl Cluster    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    openstack
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Install MySQl Cluster    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    openstack
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Configure Cluster Root Node    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}    ${OS_USER}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Enable MySQL non-root nodes    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_HOSTNAME}    ${OS_USER}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Enable MySQL non-root nodes    ${OS_CONTROL_3_IP}    ${OS_CONTROL_2_HOSTNAME}    ${OS_USER}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Enable MySQL non-root nodes    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_HOSTNAME}    ${OS_USER}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Enable MySQL non-root nodes    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_HOSTNAME}    ${OS_USER}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Add HAPROXY Entry for DB    ${HAPROXY_IP}    ${HAPROXY_IP}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Install MySql    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Enable MySql    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}    ${OS_USER}
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install MySQl Cluster    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    openstack
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install MySQl Cluster    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    openstack
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Install MySQl Cluster    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    openstack
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Install MySQl Cluster    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    openstack
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Install MySQl Cluster    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    openstack
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Configure Cluster Root Node    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}    ${OS_USER}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Enable MySQL non-root nodes    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_HOSTNAME}    ${OS_USER}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Enable MySQL non-root nodes    ${OS_CONTROL_3_IP}    ${OS_CONTROL_2_HOSTNAME}    ${OS_USER}
+    END
+    IF    3 < ${NUM_CONTROL_NODES}
+        Enable MySQL non-root nodes    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_HOSTNAME}    ${OS_USER}
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Enable MySQL non-root nodes    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_HOSTNAME}    ${OS_USER}
+    END
+    IF    2 < ${NUM_CONTROL_NODES}
+        Add HAPROXY Entry for DB    ${HAPROXY_IP}    ${HAPROXY_IP}
+    END
+    IF    2 > ${NUM_CONTROL_NODES}    Install MySql    ${OS_CONTROL_1_IP}
+    IF    2 > ${NUM_CONTROL_NODES}
+        Enable MySql    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}    ${OS_USER}
+    END
+
 
 *** Keywords ***
 Install MySQl
     [Arguments]    ${os_node_cxn}
-    Run Keyword If    '${OS_APPS_PRE_INSTALLED}' == 'no'    Install Rpm Package    ${os_node_cxn}    mariadb mariadb-server python2-PyMySQL
+    IF    '${OS_APPS_PRE_INSTALLED}' == 'no'
+        Install Rpm Package    ${os_node_cxn}    mariadb mariadb-server python2-PyMySQL
+    END
     Touch File    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    bind-address    0.0.0.0
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    default-storage-engine    innodb
@@ -49,7 +79,9 @@ Enable MySql
 
 Install MySql Cluster
     [Arguments]    ${os_node_cxn}    ${bindaddress}    ${galera_cluster_name}
-    Run Keyword If    '${OS_APPS_PRE_INSTALLED}' == 'no'    Install Rpm Package    ${os_node_cxn}    mariadb galera mariadb-galera-server python2-PyMySQL mariadb-libs
+    IF    '${OS_APPS_PRE_INSTALLED}' == 'no'
+        Install Rpm Package    ${os_node_cxn}    mariadb galera mariadb-galera-server python2-PyMySQL mariadb-libs
+    END
     Touch File    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    bind-address    0.0.0.0
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    datadir    /var/lib/mysql
@@ -60,13 +92,40 @@ Install MySql Cluster
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    innodb_autoinc_lock_mode    2
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    innodb_flush_log_at_trx_commit    0
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    innodb_buffer_pool_size    122M
-    Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_provider    /usr/lib64/galera/libgalera_smm.so
-    Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_provider_options    "pc.recovery=TRUE;gcache.size=300M"
-    Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_cluster_name    ${galera_cluster_name}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_cluster_address
-    ...    gcomm://${OS_CONTROL_1_IP},${OS_CONTROL_2_IP},${OS_CONTROL_3_IP},${OS_CONTROL_4_IP},${OS_CONTROL_5_IP}
-    Run Keyword If    4 > ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_cluster_address
-    ...    gcomm://${OS_CONTROL_1_IP},${OS_CONTROL_2_IP},${OS_CONTROL_3_IP}
+    Crudini Edit
+    ...    ${os_node_cxn}
+    ...    /etc/my.cnf.d/openstack.cnf
+    ...    mysqld
+    ...    wsrep_provider
+    ...    /usr/lib64/galera/libgalera_smm.so
+    Crudini Edit
+    ...    ${os_node_cxn}
+    ...    /etc/my.cnf.d/openstack.cnf
+    ...    mysqld
+    ...    wsrep_provider_options
+    ...    "pc.recovery=TRUE;gcache.size=300M"
+    Crudini Edit
+    ...    ${os_node_cxn}
+    ...    /etc/my.cnf.d/openstack.cnf
+    ...    mysqld
+    ...    wsrep_cluster_name
+    ...    ${galera_cluster_name}
+    IF    4 < ${NUM_CONTROL_NODES}
+        Crudini Edit
+        ...    ${os_node_cxn}
+        ...    /etc/my.cnf.d/openstack.cnf
+        ...    mysqld
+        ...    wsrep_cluster_address
+        ...    gcomm://${OS_CONTROL_1_IP},${OS_CONTROL_2_IP},${OS_CONTROL_3_IP},${OS_CONTROL_4_IP},${OS_CONTROL_5_IP}
+    END
+    IF    4 > ${NUM_CONTROL_NODES}
+        Crudini Edit
+        ...    ${os_node_cxn}
+        ...    /etc/my.cnf.d/openstack.cnf
+        ...    mysqld
+        ...    wsrep_cluster_address
+        ...    gcomm://${OS_CONTROL_1_IP},${OS_CONTROL_2_IP},${OS_CONTROL_3_IP}
+    END
     Crudini Edit    ${os_node_cxn}    /etc/my.cnf.d/openstack.cnf    mysqld    wsrep_sst_method    rsync
     Crudini Delete    ${os_node_cxn}    /etc/my.cnf.d/auth_gssapi.cnf    mariadb    plugin-load-add
     #Configure Mysql Cluster Check    ${os_node_cxn}
@@ -110,8 +169,12 @@ Add HAPROXY Entry for DB
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera1 ${OS_CONTROL_1_IP}:3306"
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera2 ${OS_CONTROL_2_IP}:3306"
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera3 ${OS_CONTROL_3_IP}:3306"
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera4 ${OS_CONTROL_4_IP}:3306"
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera4 ${OS_CONTROL_5_IP}:3306"
+    IF    3 < ${NUM_CONTROL_NODES}
+        Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera4 ${OS_CONTROL_4_IP}:3306"
+    END
+    IF    4 < ${NUM_CONTROL_NODES}
+        Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    " server galera4 ${OS_CONTROL_5_IP}:3306"
+    END
     Enable Service    ${os_node_cxn}    haproxy
     Restart Service    ${os_node_cxn}    haproxy
 
@@ -122,7 +185,9 @@ Configure Mysql Cluster Check
     Append To File    ${os_node_cxn}    /etc/sysconfig/clustercheck    MYSQL_PASSWORD=my_clustercheck_password
     Append To File    ${os_node_cxn}    /etc/sysconfig/clustercheck    MYSQL_HOST=localhost
     Append To File    ${os_node_cxn}    /etc/sysconfig/clustercheck    MYSQL_PORT=3306
-    Run Keyword If    '${OS_APPS_PRE_INSTALLED}' == 'no'    Install Rpm Package    ${os_node_cxn}    xinetd
+    IF    '${OS_APPS_PRE_INSTALLED}' == 'no'
+        Install Rpm Package    ${os_node_cxn}    xinetd
+    END
     Touch File    ${os_node_cxn}    /etc/xinetd.d/galera-monitor
     Append To File    ${os_node_cxn}    /etc/xinetd.d/galera-monitor    service galera-monitor
     Append To File    ${os_node_cxn}    /etc/xinetd.d/galera-monitor    "{"
