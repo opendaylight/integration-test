@@ -1,11 +1,12 @@
 *** Settings ***
-Documentation     Verification that DLUX cotains Yangman submenu when logged in.
-...               Verification that when Yangman submenu entered, there are certain elements displayed.
-...               Verification that the selected operation is displayed and relevant code mirror(s) is/are displayed.
-Suite Teardown    Close Browser
-Resource          ${CURDIR}/../../../libraries/YangmanKeywords.robot
+Documentation       Verification that DLUX cotains Yangman submenu when logged in.
+...                 Verification that when Yangman submenu entered, there are certain elements displayed.
+...                 Verification that the selected operation is displayed and relevant code mirror(s) is/are displayed.
 
-*** Variables ***
+Resource            ${CURDIR}/../../../libraries/YangmanKeywords.robot
+
+Suite Teardown      Close Browser
+
 
 *** Test Cases ***
 Open dlux and login and verify yangman submenu has been loaded
@@ -23,6 +24,7 @@ Verify operation selection and code mirror displaying works correctly
 Verify that selecting/deselecting show data checkboxes in json view results in displaying/hiding the corresponding code mirror
     Verify Displaying And Hiding Of CMs When Selecting Show Data Checkboxes
 
+
 *** Keywords ***
 Verify Operations Presence In Operation Select Menu
     YangmanKeywords.Expand Operation Select Menu
@@ -38,9 +40,15 @@ Select Each Operation And Verify That Code Mirrors Has Been Displayed Correctly
         ${operation_id}=    Collections.Get From List    ${operation_ids}    ${i}
         ${operation_name}=    Collections.Get From List    ${operation_names}    ${i}
         YangmanKeywords.Expand Operation Select Menu And Select Operation    ${operation_id}    ${operation_name}
-        Run Keyword If    "${operation_name}"=="PUT" or "${operation_name}"=="POST"    BuiltIn.Run Keywords    YangmanKeywords.Verify Sent Data CM Is Displayed
-        ...    AND    YangmanKeywords.Verify Received Data CM Is Displayed
-        Run Keyword If    "${operation_name}"=="GET" or "${operation_name}"=="DELETE"    YangmanKeywords.Verify Received Data CM Is Displayed
+        IF    "${operation_name}"=="PUT" or "${operation_name}"=="POST"
+            BuiltIn.Run Keywords
+            ...    YangmanKeywords.Verify Sent Data CM Is Displayed
+            ...    AND
+            ...    YangmanKeywords.Verify Received Data CM Is Displayed
+        END
+        IF    "${operation_name}"=="GET" or "${operation_name}"=="DELETE"
+            YangmanKeywords.Verify Received Data CM Is Displayed
+        END
     END
 
 Verify Displaying And Hiding Of CMs When Selecting Show Data Checkboxes
