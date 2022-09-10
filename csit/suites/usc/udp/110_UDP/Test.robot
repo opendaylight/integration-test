@@ -1,20 +1,27 @@
 *** Settings ***
-Documentation     Test suite for an USC DTLS channel
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Test Timeout      1min
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           json
-Library           ../../../../libraries/Common.py
-Variables         ../../../../variables/Variables.py
-Resource          ../../../../libraries/UscUtils.robot
+Documentation       Test suite for an USC DTLS channel
+
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             json
+Library             ../../../../libraries/Common.py
+Variables           ../../../../variables/Variables.py
+Resource            ../../../../libraries/UscUtils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+Test Timeout        1min
+
 
 *** Test Cases ***
 Add Channel
     [Documentation]    Add an USC DTLS channel
-    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    tcp=false    port=${ECHO_SERVER_PORT}    remote=false
+    ${content}    Create Dictionary
+    ...    hostname=${TOOLS_SYSTEM_IP}
+    ...    tcp=false
+    ...    port=${ECHO_SERVER_PORT}
+    ...    remote=false
     ${channel}    Create Dictionary    channel=${content}
     ${input}    Create Dictionary    input=${channel}
     ${data}    json.dumps    ${input}
@@ -37,7 +44,11 @@ Check added Channel
 
 Send Messages
     [Documentation]    Send test messages multiple times to multiple sessions
-    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${ECHO_SERVER_PORT}    tcp=false    content=${TEST_MESSAGE}
+    ${content}    Create Dictionary
+    ...    hostname=${TOOLS_SYSTEM_IP}
+    ...    port=${ECHO_SERVER_PORT}
+    ...    tcp=false
+    ...    content=${TEST_MESSAGE}
     ${channel}    Create Dictionary    channel=${content}
     ${input}    Create Dictionary    input=${channel}
     FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}

@@ -1,11 +1,16 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager using OF13
-Suite Setup       Start SuiteVtnMaTest
-Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.robot
+Documentation       Test suite for VTN Manager using OF13
+
+Resource            ../../../libraries/VtnMaKeywords.robot
+
+Suite Setup         Start SuiteVtnMaTest
+Suite Teardown      Stop SuiteVtnMaTest
+
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowconditiondata}
+...                     "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
+
 
 *** Test Cases ***
 Add a flowcondition in restconfig

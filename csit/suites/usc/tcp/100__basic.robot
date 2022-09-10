@@ -1,14 +1,18 @@
 *** Settings ***
-Documentation     Test suite for quicking testing if the environme setup is correct
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
-Default Tags      TCP_BASIC
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Library           json
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/UscUtils.robot
+Documentation       Test suite for quicking testing if the environme setup is correct
+
+Library             Collections
+Library             OperatingSystem
+Library             RequestsLibrary
+Library             json
+Variables           ../../../variables/Variables.py
+Resource            ../../../libraries/UscUtils.robot
+
+Suite Setup         Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown      Delete All Sessions
+
+Default Tags        tcp_basic
+
 
 *** Test Cases ***
 View Channel

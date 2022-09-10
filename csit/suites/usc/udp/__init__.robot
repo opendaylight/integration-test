@@ -1,4 +1,6 @@
 *** Settings ***
-Suite Setup       Download Tools
-Force Tags        UDP
-Resource          ../../../libraries/UscUtils.robot
+Resource        ../../../libraries/UscUtils.robot
+
+Suite Setup     Download Tools
+
+Force Tags      udp
