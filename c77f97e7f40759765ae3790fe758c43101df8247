@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7ce311_0fb84bce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-09-17T23:31:46Z",
+      "side": 1,
+      "message": "Sandbox test:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-chlorine/3/\n\nThis patch only addresses the PUT request errors and there are still failing test cases - GET response does not match the expected. This does not appear to be a test script issue but I\u0027m not quite sure.",
+      "revId": "c77f97e7f40759765ae3790fe758c43101df8247",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
