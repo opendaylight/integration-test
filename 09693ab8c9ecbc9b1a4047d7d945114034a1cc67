@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e674e3c_62d7266f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-09-23T22:06:26Z",
+      "side": 1,
+      "message": "Sandbox test:\n- https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-userfeatures-rfc8040-all-master/13/robot-plugin/log.html.gz\n\nThe test covers both apidoc URI update \u0026 Python setup for NETCONF nofications.\nSome test cases, irrelevant to these changes, failed because the Ubuntu 18.04 Docker image used for testing does not have Java 17.",
+      "revId": "09693ab8c9ecbc9b1a4047d7d945114034a1cc67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
