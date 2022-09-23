@@ -156,10 +156,10 @@ Setup_Everything
     SSHKeywords.Open_Connection_To_Tools_System
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/ssereceiver.py
-    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
-    SSHLibrary.Execute_Command    sudo pip install websocket-client    return_stdout=True    return_stderr=True
-    SSHLibrary.Execute Command    sudo python3 -m pip install asyncio aiohttp aiohttp-sse-client coroutine    return_stdout=True    return_stderr=True
-    RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+    SSHLibrary.Execute_Command    sudo apt-get install -y python3-pip    return_stdout=True    return_stderr=True
+    SSHLibrary.Execute_Command    sudo python3 -m pip install --upgrade pip setuptools wheel    return_stdout=True    return_stderr=True
+    SSHLibrary.Execute_Command    sudo python3 -m pip install websocket-client asyncio aiohttp aiohttp-sse-client coroutine    return_stdout=True    return_stderr=True
+    RequestsLibrary.Create_Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything
