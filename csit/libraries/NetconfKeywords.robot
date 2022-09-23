@@ -229,6 +229,16 @@ Start_Testtool
     BuiltIn.Log    Running testtool: ${command}
     ${logfile}=    Utils.Get_Log_File_Name    testtool
     BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
+    ${java_command}=    NexusKeywords.Compose_Base_Java_Command
+    SSHLibrary.Write    ls -al ${java_command}
+    ${output}=    SSHLibrary.Read
+    Log    ${java_command}
+    Log    ${output}
+    ${java_home}=    NexusKeywords.Compose_Java_Home
+    SSHLibrary.Write    ls -al ${java_home}
+    ${output}=    SSHLibrary.Read
+    Log    ${java_home}
+    Log    ${output}
     SSHLibrary.Write    ${command} >${logfile} 2>&1
     # Store information needed by other keywords.
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
