@@ -1,87 +1,98 @@
 *** Settings ***
-Documentation     Suite for High Availability testing netconf topology owner under stress.
+Documentation       Suite for High Availability testing netconf topology owner under stress.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Suite topology_leader_ha.robot is derived from this suite.
-...               Please, keep the logic in the suites as similar as possible.
+...                 Suite topology_leader_ha.robot is derived from this suite.
+...                 Please, keep the logic in the suites as similar as possible.
 ...
-...               This suite uses a Python utility to continuously configure/deconfigure
-...               device connections against devices simulated by testtool.
-...               The utility sends requests to the member which is leader for topology config shard.
+...                 This suite uses a Python utility to continuously configure/deconfigure
+...                 device connections against devices simulated by testtool.
+...                 The utility sends requests to the member which is leader for topology config shard.
 ...
-...               To avoid excessive resource consumption, the utility deconfigures old devices.
-...               In a stationary state, number of config items oscillates between
-...               ${CONFIGURED_DEVICES_LIMIT} and 1 + ${CONFIGURED_DEVICES_LIMIT}.
+...                 To avoid excessive resource consumption, the utility deconfigures old devices.
+...                 In a stationary state, number of config items oscillates between
+...                 ${CONFIGURED_DEVICES_LIMIT} and 1 + ${CONFIGURED_DEVICES_LIMIT}.
 ...
-...               The only tested HA event so far is reboot of the member
-...               which is the leader of entity-ownership operational shard.
-...               This suite assumes the entity-ownership operational shard leader and
-...               topology config shard leader are not co-located.
+...                 The only tested HA event so far is reboot of the member
+...                 which is the leader of entity-ownership operational shard.
+...                 This suite assumes the entity-ownership operational shard leader and
+...                 topology config shard leader are not co-located.
 ...
-...               Number of devices is configurable, wait times are computed from that,
-...               as it takes some time to initialize connections.
-...               Ideally, the utility should go through half of devices during entity-ownership leader downtime.
+...                 Number of devices is configurable, wait times are computed from that,
+...                 as it takes some time to initialize connections.
+...                 Ideally, the utility should go through half of devices during entity-ownership leader downtime.
 ...
-...               If there is a period when netconf manager ignores deletions in config datastore,
-...               the devices created previously could "leak", meaning the number of
-...               netconf topology items could be higher than 1 + ${CONFIGURED_DEVICES_LIMIT}.
+...                 If there is a period when netconf manager ignores deletions in config datastore,
+...                 the devices created previously could "leak", meaning the number of
+...                 netconf topology items could be higher than 1 + ${CONFIGURED_DEVICES_LIMIT}.
 ...
-...               One check for correctness is the final number of devices in operational netconf topology.
-...               Another check is performed on utility output.
+...                 One check for correctness is the final number of devices in operational netconf topology.
+...                 Another check is performed on utility output.
 ...
-...               Performance can be estimated by the total number of requests processed,
-...               but this suite does not perform such a computation.
+...                 Performance can be estimated by the total number of requests processed,
+...                 but this suite does not perform such a computation.
 ...
-...               TODO: After stopping utility, wait to see mount has succeeded on the devices.
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     ${DEFAULT_TEARDOWN_KEYWORD}
-Default Tags      @{TAGS_CRITICAL}
-Library           OperatingSystem
-Library           SSHLibrary    timeout=10s
-Library           String    # for Get_Regexp_Matches
-Resource          ${CURDIR}/../../../libraries/ClusterAdmin.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+...                 TODO: After stopping utility, wait to see mount has succeeded on the devices.
+
+Library             OperatingSystem
+Library             SSHLibrary    timeout=10s
+Library             String    # for Get_Regexp_Matches
+Resource            ${CURDIR}/../../../libraries/ClusterAdmin.robot
+Resource            ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource            ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource            ${CURDIR}/../../../libraries/RemoteBash.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource            ${CURDIR}/../../../libraries/Utils.robot
+Variables           ${CURDIR}/../../../variables/Variables.py
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       ${DEFAULT_TEARDOWN_KEYWORD}
+
+Default Tags        @{tags_critical}
+
 
 *** Variables ***
-${CONFIGURED_DEVICES_LIMIT}    20
-${CONNECTION_SLEEP}    1.2
-${DEFAULT_TEARDOWN_KEYWORD}    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-${DEVICE_BASE_NAME}    netconf-test-device
-${DEVICE_SET_SIZE}    30
-@{TAGS_CRITICAL}    critical    @{TAGS_NONCRITICAL}
-@{TAGS_NONCRITICAL}    clustering    netconf
+${CONFIGURED_DEVICES_LIMIT}     20
+${CONNECTION_SLEEP}             1.2
+${DEFAULT_TEARDOWN_KEYWORD}     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+${DEVICE_BASE_NAME}             netconf-test-device
+${DEVICE_SET_SIZE}              30
+@{TAGS_CRITICAL}                critical    @{TAGS_NONCRITICAL}
+@{TAGS_NONCRITICAL}             clustering    netconf
+
 
 *** Test Cases ***
 Setup_Leaders_Location
     [Documentation]    Detect location of topology(config) and entity-ownership(operational) leaders and store related data into suite variables.
     ...    This cannot be part of Suite Setup, as Utils.Get_Index_From_List_Of_Dictionaries calls BuiltIn.Set_Test_Variable.
     ...    WUKS are used, as location failures are probably due to booting process, not bugs.
-    ${topology_config_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology
+    ${topology_config_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    3x
+    ...    2s
+    ...    ClusterManagement.Get_Leader_And_Followers_For_Shard
+    ...    shard_name=topology
     ...    shard_type=config
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_index}
-    ${topology_config_leader_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${topology_config_leader_index}
+    ${topology_config_leader_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member
+    ...    ${topology_config_leader_index}
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_ip}
     ${topology_config_leader_http_session} =    Resolve_Http_Session_For_Member    ${topology_config_leader_index}
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_http_session}
-    ${entity_ownership_leader_index}    Change_Entity_Ownership_Leader_If_Needed    ${topology_config_leader_index}
+    ${entity_ownership_leader_index} =    Change_Entity_Ownership_Leader_If_Needed    ${topology_config_leader_index}
     BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_index}
-    ${entity_ownership_leader_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${entity_ownership_leader_index}
+    ${entity_ownership_leader_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member
+    ...    ${entity_ownership_leader_index}
     BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_ip}
     ${entity_ownership_leader_http_session} =    Resolve_Http_Session_For_Member    ${entity_ownership_leader_index}
     BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_http_session}
@@ -89,7 +100,9 @@ Setup_Leaders_Location
 Start_Testtool
     [Documentation]    Deploy and start test tool on its separate SSH session.
     SSHLibrary.Switch_Connection    ${testtool_connection_index}
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_SET_SIZE}    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+    NetconfKeywords.Install_And_Start_Testtool
+    ...    device-count=${DEVICE_SET_SIZE}
+    ...    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
     # TODO: Introduce NetconfKeywords.Safe_Install_And_Start_Testtool to avoid teardown maniputation.
     [Teardown]    BuiltIn.Run_Keywords    SSHLibrary.Switch_Connection    ${configurer_connection_index}
     ...    AND    ${DEFAULT_TEARDOWN_KEYWORD}
@@ -99,11 +112,12 @@ Start_Configurer
     ${log_filename} =    Utils.Get_Log_File_Name    configurer
     BuiltIn.Set_Suite_Variable    \${log_filename}
     # TODO: Should things like restconf port/user/password be set from Variables?
-    ${command} =    BuiltIn.Set_Variable    python configurer.py --odladdress ${topology_config_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}"
+    ${command} =    BuiltIn.Set_Variable
+    ...    python configurer.py --odladdress ${topology_config_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}"
     SSHLibrary.Write    ${command}
     ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
-    BuiltIn.Run_Keyword_If    "${status}" != "FAIL"    BuiltIn.Fail    Prompt happened, see Log.
+    IF    "${status}" != "FAIL"    BuiltIn.Fail    Prompt happened, see Log.
     # Session is kept active.
 
 Wait_For_Config_Items
@@ -114,7 +128,7 @@ Wait_For_Config_Items
 Reboot_Entity_Ownership_Leader
     [Documentation]    Kill and restart member where entity-ownership shard leader was, including removal of persisted data.
     ...    After cluster sync, sleep additional time to ensure entity-ownership shard processes requests with the rebooted member fully rejoined.
-    [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
+    [Tags]    @{tags_noncritical}    # To avoid long WUKS list expanded in log.html
     ClusterManagement.Kill_Single_Member    ${entity_ownership_leader_index}
     ${owner_list} =    BuiltIn.Create_List    ${entity_ownership_leader_index}
     ClusterManagement.Start_Single_Member    ${entity_ownership_leader_index}
@@ -141,6 +155,7 @@ Check_For_Connector_Leak
     # FIXME: Are separate keywords necessary?
     Check_Operational_Items_Upper_Bound
 
+
 *** Keywords ***
 Setup_Everything
     [Documentation]    Initialize libraries and set suite variables..
@@ -163,46 +178,75 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
 
 Count_Substring_Occurence
-    [Arguments]    ${substring}    ${main_string}
     [Documentation]    Apply the length_of_split method for counting how many times ${substring} occures within ${main_string}.
     ...    The method is reliable only if triple-double quotes are not present in either argument.
+    [Arguments]    ${substring}    ${main_string}
     BuiltIn.Comment    TODO: Migrate this keyword into an appropriate Resource.
     BuiltIn.Run_Keyword_And_Return    Builtin.Evaluate    len("""${main_string}""".split("""${substring}""")) - 1
 
 Get_Config_Device_Count
     [Documentation]    Count number of items in config netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${REST_API}/network-topology:network-topology/topology=topology-netconf    session=${topology_config_leader_http_session}
-    BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri
+    ...    ${REST_API}/network-topology:network-topology/topology=topology-netconf
+    ...    session=${topology_config_leader_http_session}
+    BuiltIn.Run_Keyword_And_Return
+    ...    Count_Substring_Occurence
+    ...    substring=${DEVICE_BASE_NAME}
+    ...    main_string=${item_data}
 
 Get_Operational_Device_Count
     [Documentation]    Count number of items in operational netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${REST_API}/network-topology:network-topology/topology=topology-netconf?content=nonconfig    session=${topology_config_leader_http_session}
-    BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri
+    ...    ${REST_API}/network-topology:network-topology/topology=topology-netconf?content=nonconfig
+    ...    session=${topology_config_leader_http_session}
+    BuiltIn.Run_Keyword_And_Return
+    ...    Count_Substring_Occurence
+    ...    substring=${DEVICE_BASE_NAME}
+    ...    main_string=${item_data}
 
 Check_Config_Items_Lower_Bound
     [Documentation]    Count items matching ${DEVICE_BASE_NAME}, fail if less than ${CONFIGURED_DEVICES_LIMIT}
     ${device_count} =    Get_Config_Device_Count
-    BuiltIn.Run_Keyword_If    ${device_count} < ${CONFIGURED_DEVICES_LIMIT}    BuiltIn.Fail    Found ${device_count} config items, should be at least ${CONFIGURED_DEVICES_LIMIT}
+    IF    ${device_count} < ${CONFIGURED_DEVICES_LIMIT}
+        BuiltIn.Fail    Found ${device_count} config items, should be at least ${CONFIGURED_DEVICES_LIMIT}
+    END
 
 Check_Operational_Items_Upper_Bound
     [Documentation]    Count items matching ${DEVICE_BASE_NAME}, fail if more than 1 + ${CONFIGURED_DEVICES_LIMIT}
     ${device_count} =    Get_Operational_Device_Count
-    BuiltIn.Run_Keyword_If    ${device_count} > 1 + ${CONFIGURED_DEVICES_LIMIT}    BuiltIn.Fail    Found ${device_count} config items, should be at most 1 + ${CONFIGURED_DEVICES_LIMIT}
+    IF    ${device_count} > 1 + ${CONFIGURED_DEVICES_LIMIT}
+        BuiltIn.Fail    Found ${device_count} config items, should be at most 1 + ${CONFIGURED_DEVICES_LIMIT}
+    END
 
 Get_Typical_Time
-    [Arguments]    ${coefficient}=1.0
     [Documentation]    Return number of seconds typical for given scale variables.
-    BuiltIn.Run_Keyword_And_Return    BuiltIn.Evaluate    ${coefficient} * ${CONNECTION_SLEEP} * ${CONFIGURED_DEVICES_LIMIT}
+    [Arguments]    ${coefficient}=1.0
+    BuiltIn.Run_Keyword_And_Return
+    ...    BuiltIn.Evaluate
+    ...    ${coefficient} * ${CONNECTION_SLEEP} * ${CONFIGURED_DEVICES_LIMIT}
 
 Change_Entity_Ownership_Leader_If_Needed
-    [Arguments]    ${topology_config_leader_idx}
     [Documentation]    Move entity-ownership (operational) shard leader if it is on the same node as topology (config) shard leader.
     ...    TODO: move keyword to a common resource, e.g. ShardStability
-    ${entity_ownership_leader_index_old}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=entity-ownership
+    [Arguments]    ${topology_config_leader_idx}
+    ${entity_ownership_leader_index_old}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    3x
+    ...    2s
+    ...    ClusterManagement.Get_Leader_And_Followers_For_Shard
+    ...    shard_name=entity-ownership
     ...    shard_type=operational
-    BuiltIn.Return_From_Keyword_If    ${topology_config_leader_idx} != ${entity_ownership_leader_index_old}    ${entity_ownership_leader_index_old}
-    ${idx}=    Collections.Get_From_List    ${candidates}    0
+    IF    ${topology_config_leader_idx} != ${entity_ownership_leader_index_old}
+        RETURN    ${entity_ownership_leader_index_old}
+    END
+    ${idx} =    Collections.Get_From_List    ${candidates}    0
     ClusterAdmin.Make_Leader_Local    ${idx}    entity-ownership    operational
-    ${entity_ownership_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Verify_Shard_Leader_Elected    entity-ownership
-    ...    operational    ${True}    ${entity_ownership_leader_index_old}    verify_restconf=False
-    BuiltIn.Return_From_Keyword    ${entity_ownership_leader_index}
+    ${entity_ownership_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    60s
+    ...    3s
+    ...    ClusterManagement.Verify_Shard_Leader_Elected
+    ...    entity-ownership
+    ...    operational
+    ...    ${True}
+    ...    ${entity_ownership_leader_index_old}
+    ...    verify_restconf=False
+    RETURN    ${entity_ownership_leader_index}
