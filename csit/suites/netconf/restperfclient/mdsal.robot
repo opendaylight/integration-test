@@ -1,41 +1,45 @@
 *** Settings ***
-Documentation     netconf-restperfclient MDSAL performance test suite.
+Documentation       netconf-restperfclient MDSAL performance test suite.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Perform given count of update operations on ODL MDSAL. In first half the
-...               requests are directed directly to MDSAL via Restconf and in the second
-...               half the MDSAL is mounted onto a netconf connector and the reqursts are
-...               directed to that connector. In both cases the netconf-testtool-restperfclient
-...               tool is used to generate and send the requests and the requests are sent
-...               synchronously as the netconf connector mounted MDSAL does not support
-...               asynchronous requests. The restperfclient is used to generate the "update"
-...               requests, the "create" request is issued in a sepate test case.
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
-Library           RequestsLibrary
-Library           OperatingSystem
-Library           SSHLibrary    timeout=10s
-Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
-Resource          ${CURDIR}/../../../libraries/RestPerfClient.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+...                 Perform given count of update operations on ODL MDSAL. In first half the
+...                 requests are directed directly to MDSAL via Restconf and in the second
+...                 half the MDSAL is mounted onto a netconf connector and the reqursts are
+...                 directed to that connector. In both cases the netconf-testtool-restperfclient
+...                 tool is used to generate and send the requests and the requests are sent
+...                 synchronously as the netconf connector mounted MDSAL does not support
+...                 asynchronous requests. The restperfclient is used to generate the "update"
+...                 requests, the "create" request is issued in a sepate test case.
+
+Library             RequestsLibrary
+Library             OperatingSystem
+Library             SSHLibrary    timeout=10s
+Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource            ${CURDIR}/../../../libraries/NexusKeywords.robot
+Resource            ${CURDIR}/../../../libraries/RestPerfClient.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource            ${CURDIR}/../../../libraries/Utils.robot
+Variables           ${CURDIR}/../../../variables/Variables.py
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+
 
 *** Variables ***
-${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/RestPerfClient
-${REQUEST_COUNT}    16384
-${device_type}    full-uri-device
-${test_device}    odl-mdsal-northbound-via-netconf-connector
+${DIRECTORY_WITH_TEMPLATE_FOLDERS}      ${CURDIR}/../../../variables/netconf/RestPerfClient
+${REQUEST_COUNT}                        16384
+${device_type}                          full-uri-device
+${test_device}                          odl-mdsal-northbound-via-netconf-connector
+
 
 *** Test Cases ***
 Create_Test_Data_For_Direct_Access
@@ -73,12 +77,19 @@ Create_Test_Data_For_Connector_Access
 
 Configure_ODL_As_A_Device_On_Netconf
     [Documentation]    Configure ODL MDSAL Northbound as a Netconf device on a Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    ${test_device}    device_type=${device_type}    device_address=${ODL_SYSTEM_IP}    device_port=${ODL_NETCONF_MDSAL_PORT}    device_user=${ODL_NETCONF_USER}    device_password=${ODL_NETCONF_PASSWORD}
+    NetconfKeywords.Configure_Device_In_Netconf
+    ...    ${test_device}
+    ...    device_type=${device_type}
+    ...    device_address=${ODL_SYSTEM_IP}
+    ...    device_port=${ODL_NETCONF_MDSAL_PORT}
+    ...    device_user=${ODL_NETCONF_USER}
+    ...    device_password=${ODL_NETCONF_PASSWORD}
     NetconfKeywords.Wait_Device_Connected    ${test_device}
 
 Run_RestPerfClient_Through_Netconf_Connector
     [Documentation]    Ask RestPerfClient to send the requests to the MDSAL mapped via netconf topology device.
-    ${url}=    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${test_device}/yang-ext:mount/car:cars
+    ${url}=    BuiltIn.Set_Variable
+    ...    /rests/data/network-topology:network-topology/topology\=topology-netconf/node\=${test_device}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    ${url}    testcase=netconf-connector
 
 Check_For_Failed_Netconf_Connector_Requests
@@ -106,6 +117,7 @@ Cleanup_And_Collect_For_Connector_Access
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     RestPerfClient.Collect_From_Restperfclient
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars-delete    {}
+
 
 *** Keywords ***
 Setup_Everything
