@@ -1,53 +1,57 @@
 *** Settings ***
-Documentation     Metconf MDSAL Northbound test suite.
+Documentation       Metconf MDSAL Northbound test suite.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...                 Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
-...               This program and the accompanying materials are made available under the
-...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
-...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...                 This program and the accompanying materials are made available under the
+...                 terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...                 and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               The request produced by test cases "Get Config Running", "Get Config Running
-...               To Confirm No_Edit Before Commit", "Get Config Running To Confirm Delete
-...               After Commit" and "Get Config Candidate To Confirm Discard" all use the same
-...               message id ("empty") for their requests. This is possible because the
-...               requests produced by this suite are strictly serialized. The RFC 6241 does
-...               not state that these IDs are unique, it only requires that each ID used is
-...               "XML attribute normalized" if the client wants it to be returned unmodified.
-...               The RFC specifically says that "the content of this attribute is not
-...               interpreted in any way, it only is stored to be returned with the reply to
-...               the request. The reuse of the "empty" string for the 4 test cases was chosen
-...               for simplicity.
+...                 The request produced by test cases "Get Config Running", "Get Config Running
+...                 To Confirm No_Edit Before Commit", "Get Config Running To Confirm Delete
+...                 After Commit" and "Get Config Candidate To Confirm Discard" all use the same
+...                 message id ("empty") for their requests. This is possible because the
+...                 requests produced by this suite are strictly serialized. The RFC 6241 does
+...                 not state that these IDs are unique, it only requires that each ID used is
+...                 "XML attribute normalized" if the client wants it to be returned unmodified.
+...                 The RFC specifically says that "the content of this attribute is not
+...                 interpreted in any way, it only is stored to be returned with the reply to
+...                 the request. The reuse of the "empty" string for the 4 test cases was chosen
+...                 for simplicity.
 ...
-...               TODO: Change the 4 testcases to use unique message IDs.
+...                 TODO: Change the 4 testcases to use unique message IDs.
 ...
-...               TODO: There are many sections with too many "Should_[Not_]Contain" keyword
-...               invocations (see Check_Multiple_Modules_Merge_Replace for a particularly bad
-...               example). Create a resource that will be able to extract the data from the
-...               requests and search for them in the response, then convert to usage of this
-...               resource (think "Thou shall not repeat yourself"). The following resource was
-...               found when doing research on this:
-...               http://robotframework.org/robotframework/latest/libraries/XML.html
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           String
-Library           XML
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+...                 TODO: There are many sections with too many "Should_[Not_]Contain" keyword
+...                 invocations (see Check_Multiple_Modules_Merge_Replace for a particularly bad
+...                 example). Create a resource that will be able to extract the data from the
+...                 requests and search for them in the response, then convert to usage of this
+...                 resource (think "Thou shall not repeat yourself"). The following resource was
+...                 found when doing research on this:
+...                 http://robotframework.org/robotframework/latest/libraries/XML.html
+
+Library             RequestsLibrary
+Library             SSHLibrary
+Library             String
+Library             XML
+Resource            ${CURDIR}/../../../libraries/CompareStream.robot
+Resource            ${CURDIR}/../../../libraries/FailFast.robot
+Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource            ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource            ${CURDIR}/../../../libraries/Utils.robot
+Variables           ${CURDIR}/../../../variables/Variables.py
+
+Suite Setup         Setup_Everything
+Suite Teardown      Teardown_Everything
+Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 *** Variables ***
-${datadir}        ${CURDIR}/../../../variables/netconf/MDSAL
-${dataext}        msg
-${ssh_netconf_pid}    -1
+${datadir}              ${CURDIR}/../../../variables/netconf/MDSAL
+${dataext}              msg
+${ssh_netconf_pid}      -1
+
 
 *** Test Cases ***
 Connect_To_ODL_Netconf
@@ -318,16 +322,17 @@ Close_Session
     [Documentation]    Close the session and check that it was closed properly.
     Perform_Test    close-session
 
+
 *** Keywords ***
 Get_Data
-    [Arguments]    ${name}
     [Documentation]    Load the specified data from the data directory and return it.
+    [Arguments]    ${name}
     ${data}=    OperatingSystem.Get_File    ${datadir}${/}${name}.${dataext}
-    [Return]    ${data}
+    RETURN    ${data}
 
 Create_ODL_Netconf_Connection
-    [Arguments]    ${host}=${ODL_SYSTEM_IP}    ${port}=${ODL_NETCONF_MDSAL_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
     [Documentation]    Open a netconf connecion to the given machine.
+    [Arguments]    ${host}=${ODL_SYSTEM_IP}    ${port}=${ODL_NETCONF_MDSAL_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
     # The "-s netconf" flag (see the "SSHLibrary.Write" line below)    is not
     # supported by SSHLibrary, therefore we need to use this elaborate and
     # pretty tricky way to connect to the ODL Netconf port.
@@ -353,61 +358,62 @@ Create_ODL_Netconf_Connection
 
 Reopen_ODL_Netconf_Connection
     [Documentation]    Reopen a closed netconf connection.
-    SSHLibrary.Write    sshpass -p ${ssh_password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${ssh_user}\@127.0.0.1 -p ${ssh_port} -s netconf
+    SSHLibrary.Write
+    ...    sshpass -p ${ssh_password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${ssh_user}\@127.0.0.1 -p ${ssh_port} -s netconf
     ${hello}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
     SSHLibrary.Switch_Connection    ${ssh_control}
     ${pid}=    SSHLibrary.Execute_Command    ps -A | grep sshpass | awk '{print $1}'
     BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    ${pid}
     SSHLibrary.Switch_Connection    ${ssh_netconf}
-    [Return]    ${hello}
+    RETURN    ${hello}
 
 Open_ODL_Netconf_Connection
     [Documentation]    Open a prepared netconf connecion.
     ${hello}=    Reopen_ODL_Netconf_Connection
     ${hello_message}=    Get_Data    hello
     Transmit_Message    ${hello_message}
-    [Return]    ${hello}
+    RETURN    ${hello}
 
 Transmit_Message
-    [Arguments]    ${message}
     [Documentation]    Transmit message to Netconf connection and discard the echo of the message.
+    [Arguments]    ${message}
     SSHLibrary.Write    ${message}
     SSHLibrary.Write    ${ODL_NETCONF_PROMPT}
     SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
 
 Send_Message
-    [Arguments]    ${message}
     [Documentation]    Send message to Netconf connection and get the reply.
+    [Arguments]    ${message}
     Transmit_Message    ${message}
     ${reply}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
-    [Return]    ${reply}
+    RETURN    ${reply}
 
 Prepare_For_Search
-    [Arguments]    ${searched_string}
     [Documentation]    Prepare the specified string for searching in Netconf connection replies.
     ...    The string passed to this keyword is coming from a data
     ...    file which has different end of line conventions than
     ...    the actual Netconf reply. This keyword patches the string
     ...    to match what Netconf actually returns.
+    [Arguments]    ${searched_string}
     ${result}=    BuiltIn.Evaluate    "\\r\\n".join("""${searched_string}""".split("\\n"))
-    [Return]    ${result}
+    RETURN    ${result}
 
 Load_And_Send_Message
-    [Arguments]    ${name}
     [Documentation]    Load a message from the data file set, send it to Netconf and return the reply.
+    [Arguments]    ${name}
     ${request}=    Get_Data    ${name}-request
     ${reply}=    Send_Message    ${request}
-    [Return]    ${reply}
+    RETURN    ${reply}
 
 Load_Expected_Reply
-    [Arguments]    ${name}
     [Documentation]    Load the expected reply from the data file set and return it.
+    [Arguments]    ${name}
     ${expected_reply}=    Get_Data    ${name}-reply
-    [Return]    ${expected_reply}
+    RETURN    ${expected_reply}
 
 Abort_ODL_Netconf_Connection
     [Documentation]    Correctly close the Netconf connection and make sure it is really dead.
-    BuiltIn.Return_From_Keyword_If    ${ssh_netconf_pid} == -1
+    IF    ${ssh_netconf_pid} == -1    RETURN
     ${kill_command}=    BuiltIn.Set_Variable    kill ${ssh_netconf_pid}
     BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    -1
     SSHLibrary.Switch_Connection    ${ssh_control}
@@ -497,22 +503,22 @@ Check_Test_Objects_Absent
     BuiltIn.Should_not_Contain    ${reply}    <id>test</id>
 
 Check_Test_Objects_Not_Present_In_Config
-    [Arguments]    ${name}
     [Documentation]    Use dataset with the specified name to get the configuration and check that none of our test objects are there.
+    [Arguments]    ${name}
     ${reply}=    Load_And_Send_Message    ${name}
     Check_Test_Objects_Absent    ${reply}
     BuiltIn.Should_not_Contain    ${reply}    <id>REPLACE</id>
-    [Return]    ${reply}
+    RETURN    ${reply}
 
 Perform_Test
-    [Arguments]    ${name}
     [Documentation]    Load and send the request from the dataset and compare the returned reply to the one stored in the dataset.
+    [Arguments]    ${name}
     ${actual}=    Load_And_Send_Message    ${name}
     ${expected}=    Load_Expected_Reply    ${name}
     ${actual}=    String.Remove String    ${actual}    ]]>]]>
     ${actual}=    String.Strip String    ${actual}    mode=both
     XML.Elements Should Be Equal    ${actual}    ${expected}    normalize_whitespace=True
-    [Return]    ${actual}
+    RETURN    ${actual}
 
 Send_And_Check
     [Arguments]    ${name}    ${expected}
