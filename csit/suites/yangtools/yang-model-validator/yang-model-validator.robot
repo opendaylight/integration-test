@@ -125,9 +125,13 @@ Get_Yang_Files_From_Dirs
 Get_Yang_Model_Validator_Path_Option
     [Documentation]    Return the path option for yang-model-validator from the provided list of YANG paths.
     [Arguments]    ${yang_paths}
+    Log To Console    yang_paths:    ${yang_paths}
     ${separator} =    CompareStream.Set_Variable_If_At_Most_Sulfur    :    ${SPACE}
+    Log To Console    separator:    ${separator}
     ${path_option} =    Evaluate    "${separator}".join(${yang_paths})
+    Log To Console    path_option:    ${path_option}
     ${path_option} =    Catenate    SEPARATOR=${SPACE}    --path    ${path_option}
+    Log To Console    path_option:    ${path_option}
     RETURN    ${path_option}
 
 Wait_Until_Utility_Finishes
