@@ -362,6 +362,9 @@ Kill_Members_From_List_Or_All
     ...    If \${confirm} is True, sleep 1 second and verify killed instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
     ${kill_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    Log  original_index_list ${original_index_list}  console=yes
+    Log  member_index_list ${member_index_list}  console=yes
+    Log  kill_index_list ${kill_index_list}  console=yes
     ${index_list} =    List_Indices_Or_All    given_list=${original_index_list}
     Run_Bash_Command_On_List_Or_All    command=${NODE_KILL_COMMAND}    member_index_list=${member_index_list}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
