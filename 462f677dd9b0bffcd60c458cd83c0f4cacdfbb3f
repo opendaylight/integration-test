@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fbe4717_fbe747e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2022-10-07T04:23:33Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-all-phosphorus/7/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-mixed-all-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-throughpcep-all-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-phosphorus/7/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-3node-clustering-basic-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/jsonrpc-csit-1node-basic-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-rfc8040-all-master/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-cbench-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-bulkomatic-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-stats-collection-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-link-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-switch-only-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-perf-bulkomatic-only-phosphorus/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-1node-upstream-southbound-all-phosphorus/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-3node-upstream-clustering-only-phosphorus/2/\n\nAll the tests above passed.\n\nNote\n- The reason why Phosphorus tests were used, except for netconf-csit-1node-userfeatures-rfc8040-all-master, is because there is no failed tests in the tests, so easier to verify that there is no regression.\n- Some of the transformations (IF/ELSE) were not successful, and some manual corrections had to be made. So it\u0027s possible that there are more transformation errors, but I think this test coverage is pretty decent and any additional errors can be fixed later.",
+      "revId": "462f677dd9b0bffcd60c458cd83c0f4cacdfbb3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
