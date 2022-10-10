@@ -42,9 +42,6 @@ ${CONFIG_SESSION}           config-session
 ${EVPN_DIR}                 ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}       debug
 ${PLAY_SCRIPT}              ${CURDIR}/../../../../tools/fastbgp/play.py
-${SS}                       ${SPACE}${SPACE}${SPACE}${SPACE}
-${PATH_ID_JSON}             ${SS}${SS}"path-id": 0,${\n}
-${PATH_ID_XML}              ${SS}<path-id>0</path-id>${\n}
 ${OLD_EVPN_ROUTES_LINE}     \n"odl-bgp-evpn:evpn-routes": {},
 ${NEW_EVPN_ROUTES_LINE}     ${EMPTY}
 ${OLD_AS_PATH}              ,\n"as-path": {}
@@ -222,10 +219,10 @@ Play_To_Odl_route_mac_rou
     route_mac_rou
 Odl_To_Play_pmsi_rsvp_te_p2mp_lsp
     [Template]    None
-    CompareStream.Run_Keyword_If_At_Least_Fluorine    Odl_To_Play_Template    pmsi_rsvp_te_p2mp_lsp
+    Odl_To_Play_Template    pmsi_rsvp_te_p2mp_lsp
 Play_To_Odl_pmsi_rsvp_te_p2mp_lsp
     [Template]    None
-    CompareStream.Run_Keyword_If_At_Least_Fluorine    Play_To_Odl_Template    pmsi_rsvp_te_p2mp_lsp
+    Play_To_Odl_Template    pmsi_rsvp_te_p2mp_lsp
 Odl_To_Play_pmsi_mldp_p2mp_lsp
     pmsi_mldp_p2mp_lsp
 Play_To_Odl_pmsi_mldp_p2mp_lsp
@@ -327,13 +324,7 @@ Odl_To_Play_Template
     ${announce_hex} =    String.Remove_String    ${announce_hex}    \n
     ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
     ${withdraw_hex} =    String.Remove_String    ${withdraw_hex}    \n
-    ${data_path_xml} =    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    String.Replace_String
-    ...    ${data_xml}
-    ...    ${PATH_ID_XML}
-    ...    ${EMPTY}
-    ${post_data_xml} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_xml}    ${data_path_xml}
-    BuiltIn.Log    ${post_data_xml}
+    BuiltIn.Log    ${data_xml}
     BuiltIn.Log    ${data_json}
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
@@ -341,7 +332,7 @@ Odl_To_Play_Template
     ${resp} =    RequestsLibrary.Post_Request
     ...    ${CONFIG_SESSION}
     ...    ${EVPN_CONF_URL}
-    ...    data=${post_data_xml}
+    ...    data=${data_xml}
     ...    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    201
@@ -371,19 +362,13 @@ Play_To_Odl_Template
     ...    ${mapping}
     ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
-    ${data_path_json} =    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    String.Replace_String
-    ...    ${data_json}
-    ...    ${PATH_ID_JSON}
-    ...    ${EMPTY}
-    ${data_json_exp} =    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_json}    ${data_path_json}
     BuiltIn.Log    ${data_xml}
-    BuiltIn.Log    ${data_json_exp}
+    BuiltIn.Log    ${data_json}
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${data_json_exp}
+    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${data_json}
     BgpRpcClient.play_send    ${withdraw_hex}
     BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Verify_Test_Preconditions
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
