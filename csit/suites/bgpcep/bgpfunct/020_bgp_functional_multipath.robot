@@ -178,13 +178,7 @@ Configure_Odl_Peer_With_Path_Selection_Mode
     ...    PASSIVE_MODE=true
     ...    MULTIPATH=${npaths}
     ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    TemplatedRequests.Put_As_Xml_Templated
-    ...    ${MULT_VAR_FOLDER}/rib
-    ...    mapping=${mapping}
-    ...    session=${CONFIG_SESSION}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    TemplatedRequests.Put_As_Xml_Templated
+    TemplatedRequests.Put_As_Xml_Templated
     ...    ${MULT_VAR_FOLDER}/rib_policies
     ...    mapping=${mapping}
     ...    session=${CONFIG_SESSION}
