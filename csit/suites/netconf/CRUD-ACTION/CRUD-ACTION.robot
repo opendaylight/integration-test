@@ -51,7 +51,7 @@ Configure_Device_On_Netconf
     [Tags]    critical
     NetconfKeywords.Configure_Device_In_Netconf
     ...    ${DEVICE_NAME}
-    ...    device_type=${DEVICE_TYPE}
+    ...    device_type=${DEVICE_TYPE_RPC_CREATE}
     ...    http_timeout=2
     ...    http_method=post
 
@@ -100,12 +100,7 @@ Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen
-    ...    NetconfKeywords.Remove_Device_From_Netconf
-    ...    ${DEVICE_NAME}
-    ...    location=${DELETE_LOCATION}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen
-    ...    NetconfKeywords.Configure_Device_In_Netconf
+    NetconfKeywords.Configure_Device_In_Netconf
     ...    ${DEVICE_NAME}
     ...    device_type=${DEVICE_TYPE_RPC_DELETE}
     ...    http_timeout=2
@@ -134,10 +129,6 @@ Setup_Everything
     ...    """${USE_NETCONF_CONNECTOR}""" == """True"""
     ...    default
     ...    ${DEVICE_TYPE_RPC}
-    ${DEVICE_TYPE} =    CompareStream.Set_Variable_If_At_Most_Nitrogen
-    ...    ${DEVICE_TYPE_RPC}
-    ...    ${DEVICE_TYPE_RPC_CREATE}
-    BuiltIn.Set_Suite_Variable    ${DEVICE_TYPE}
     OperatingSystem.File Should Exist    ${RPC_FILE}
     NetconfKeywords.Install_And_Start_Testtool
     ...    device-count=1
