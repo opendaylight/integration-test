@@ -380,9 +380,7 @@ Get_ODL_Versions_From_Nexus
     @{elements} =    XML.Get_Elements    ${root}    .//version
     ${versions} =    BuiltIn.Create_List
     FOR    ${element}    IN    @{elements}
-        IF    'Carbon' not in $element.text
-            Collections.Append_To_List    ${versions}    ${element.text}
-        END
+        Collections.Append_To_List    ${versions}    ${element.text}
     END
     Collections.Sort_List    ${versions}
     BuiltIn.Log_Many    @{versions}
