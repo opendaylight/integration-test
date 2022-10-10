@@ -2,7 +2,6 @@
 Documentation       Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 
 Library             SSHLibrary
-Resource            CompareStream.robot
 Resource            Utils.robot
 Resource            TemplatedRequests.robot
 Resource            KarafKeywords.robot
@@ -133,15 +132,8 @@ Dissociate L3VPN From Networks
 Associate VPN to Router
     [Documentation]    Associate the created L3VPN to a router-id received as argument
     [Arguments]    &{Kwargs}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    TemplatedRequests.Post_As_Json_Templated
+    TemplatedRequests.Post_As_Json_Templated
     ...    folder=${VAR_BASE}/assoc_two_router_l3vpn
-    ...    mapping=${Kwargs}
-    ...    session=default
-    ...    http_timeout=${SESSION_TIMEOUT}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    TemplatedRequests.Post_As_Json_Templated
-    ...    folder=${VAR_BASE}/assoc_router_l3vpn
     ...    mapping=${Kwargs}
     ...    session=default
     ...    http_timeout=${SESSION_TIMEOUT}
@@ -149,15 +141,8 @@ Associate VPN to Router
 Dissociate VPN to Router
     [Documentation]    Dissociate the already associated routers from L3VPN
     [Arguments]    &{Kwargs}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    TemplatedRequests.Post_As_Json_Templated
+    TemplatedRequests.Post_As_Json_Templated
     ...    folder=${VAR_BASE}/dissoc_two_router_l3vpn
-    ...    mapping=${Kwargs}
-    ...    session=default
-    ...    http_timeout=${SESSION_TIMEOUT}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    TemplatedRequests.Post_As_Json_Templated
-    ...    folder=${VAR_BASE}/dissoc_router_l3vpn
     ...    mapping=${Kwargs}
     ...    session=default
     ...    http_timeout=${SESSION_TIMEOUT}
@@ -260,12 +245,7 @@ Verify ARP REQUEST in groupTable
     Should Contain    ${group_output}    group_id=${Group-ID}
     ${arp_group} =    Get Lines Containing String    ${group_output}    group_id=${Group-ID}
     Log    ${arp_group}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    BuiltIn.Should Match Regexp
-    ...    ${arp_group}
-    ...    ${ARP_REQUEST_GROUP_REGEX}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    BuiltIn.Should Match Regexp
+    BuiltIn.Should Match Regexp
     ...    ${arp_group}
     ...    ${ARP_REQUEST_GROUP_REGEX_FLUORINE}
 
@@ -368,17 +348,11 @@ Verify GWMAC Flow Entry On Flow Table
     #Verify ARP_CHECK_TABLE - 43
     #arp request and response
     ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    BuiltIn.Should Match Regexp
-    ...    ${arpchk_table}
-    ...    ${ARP_RESPONSE_REGEX}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    BuiltIn.Should Match Regexp
+    BuiltIn.Should Match Regexp
     ...    ${arpchk_table}
     ...    ${ARP_RESPONSE_REGEX_FLUORINE}
     ${arppunt_table} =    String.Get Lines Containing String    ${flow_output}    table=${ARP_PUNT_TABLE}
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    BuiltIn.Should Match Regexp
+    BuiltIn.Should Match Regexp
     ...    ${arppunt_table}
     ...    ${ARP_PUNT_RESPONSE_REGEX}
     ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
