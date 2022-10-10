@@ -36,7 +36,6 @@ ${HOLDTIME}                 180
 ${DIR_WITH_TEMPLATES}       ${CURDIR}/../../../variables/bgpclustering/${ODL_STREAM}
 ${PCC_LOG_FILE}             pccmock.stop.log
 ${CONFIG_SESSION}           session
-${OLD_ERROR_ARGS}           \n"last-received-error": {},\n"last-sent-error": {},
 ${NEW_ERROR_ARGS}           ${EMPTY}
 
 
@@ -124,7 +123,7 @@ Setup_Everything
     ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
     BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
     PcepOperations.Pcep_Topology_Precondition    ${CONFIG_SESSION}
-    ${ERROR_ARGS}=    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
+    ${ERROR_ARGS}=    ${NEW_ERROR_ARGS}
     BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
     Start_Pcc_Mock
 
