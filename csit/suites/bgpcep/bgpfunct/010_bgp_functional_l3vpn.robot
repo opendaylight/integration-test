@@ -48,7 +48,6 @@ ${L3VPN_EXA_CFG}                bgp-l3vpn-ipv4.cfg
 ${L3VPN_EXP}                    exa_expected
 ${L3VPN_RSP}                    bgp_l3vpn_ipv4
 ${L3VPN_RSPEMPTY}               bgp_l3vpn_ipv4_empty
-${L3VPN_RSP_PATH}               bgp_l3vpn_ipv4_path
 ${OLD_AS_PATH}                  \n"as-path": {},
 ${NEW_AS_PATH}                  ${EMPTY}
 ${PLAY_SCRIPT}                  ${CURDIR}/../../../../tools/fastbgp/play.py
@@ -75,28 +74,20 @@ Reconfigure_ODL_To_Accept_Connection
     ...    INITIATE=false
     ...    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
     ...    PASSIVE_MODE=true
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    TemplatedRequests.Put_As_Xml_Templated
+    TemplatedRequests.Put_As_Xml_Templated
     ...    ${RT_CONSTRAIN_DIR}/bgp_peer
-    ...    mapping=${mapping}
-    ...    session=${CONFIG_SESSION}
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    TemplatedRequests.Put_As_Xml_Templated
-    ...    ${BGP_VAR_FOLDER}/bgp_peer
     ...    mapping=${mapping}
     ...    session=${CONFIG_SESSION}
 
 L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
     [Setup]    Setup_Testcase    ${L3VPN_EXA_CFG}
-    ${L3VPN_RESPONSE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${L3VPN_RSP_PATH}    ${L3VPN_RSP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify_Reported_Data    ${L3VPN_RESPONSE}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify_Reported_Data    ${L3VPN_RSP}
     [Teardown]    Teardown_Simple
 
 Start_Play
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    "Only run on Fluorine and later"
     SSHLibrary.Put_File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Read
@@ -105,25 +96,15 @@ Start_Play
 Play_To_Odl_rt_constrain_type_0
     [Documentation]    This keyword sends route-target route containg route-target argument so odl
     ...    can identify this peer as appropriate for advertizement when it recieves such route.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    "Only run on Fluorine and later"
     BgpOperations.Play_To_Odl_Non_Removal_Template    rt_constrain_type_0    ${RT_CONSTRAIN_DIR}
-
-Odl_To_Play_l3vpn
-    [Documentation]    Send l3vpn route to app peer, and than checks that app peer advertizes this route.
-    CompareStream.Run_Keyword_If_At_Least_Fluorine    BuiltIn.Pass_Execution    "Only run on less than Fluorine"
-    Setup_Testcase    ${DEFAULT_EXA_CFG}
-    L3vpn_Ipv4_To_App
-    [Teardown]    CompareStream.Run_Keyword_If_Less_Than_Fluorine    Teardowm_With_Remove_Route
 
 Odl_To_Play_l3vpn_rt_arg
     [Documentation]    Same as TC before but fluorine and further this l3vpn route also needs to contain route-target argument.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    "Only run on Fluorine and later"
     BgpOperations.Odl_To_Play_Template    l3vpn_rt_arg    ${RT_CONSTRAIN_DIR}    False
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    "Only run on Fluorine and later"
     BGPSpeaker.Kill_BGP_Speaker
     BGPcliKeywords.Store_File_To_Workspace    play.py.out    010_l3vpn_play.log
 
@@ -193,12 +174,6 @@ Setup_Testcase
     ...    ${CONFIG_SESSION}
     ...    ${TOOLS_SYSTEM_IP}
     ...    connection_retries=${3}
-
-Teardowm_With_Remove_Route
-    [Documentation]    Removes configured route from application peer and stops the exabgp
-    &{mapping}    BuiltIn.Create_Dictionary    APP_PEER_IP=${ODL_SYSTEM_IP}
-    TemplatedRequests.Delete_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    Teardown_Simple
 
 Teardown_Simple
     [Documentation]    Testcse teardown with data verification

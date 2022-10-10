@@ -29,7 +29,6 @@ Library             RequestsLibrary
 Resource            ../../../libraries/BGPcliKeywords.robot
 Resource            ../../../libraries/BgpOperations.robot
 Resource            ../../../libraries/BGPSpeaker.robot
-Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../libraries/FailFast.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/SSHKeywords.robot
@@ -296,9 +295,6 @@ Delete_BGP_Peers_Configuration
 
 TC_LAS_Reconfigure_Odl_To_Accept_Connection
     [Documentation]    Configure neighbors. One ibgp and one ebgp neighbor with local-as configured.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary
     ...    IP=${iBGP_PEER1_IP}
     ...    HOLDTIME=${HOLDTIME}
@@ -320,9 +316,6 @@ TC_LAS_Reconfigure_Odl_To_Accept_Connection
 TC_LAS_Start_iBgp_Speaker_And_Verify_Connected
     [Documentation]    Verify that peer is present in odl's rib. Peer is configured with local-as.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     SSHLibrary.Switch Connection    ibgp_peer1_console
     ${speaker_args}    BuiltIn.Set_Variable
     ...    --firstprefix ${iBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${PREFIX_LEN} --amount 1 --myip=${iBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug
@@ -335,9 +328,6 @@ TC_LAS_Start_iBgp_Speaker_And_Verify_Connected
 TC_LAS_Start_eBgp_Speaker_And_Verify_Connected
     [Documentation]    Verify that peer is present in odl's rib. Peer is configured with local-as.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     SSHLibrary.Switch Connection    ebgp_peer1_console
     ${speaker_args}    BuiltIn.Set_Variable
     ...    --firstprefix ${eBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${PREFIX_LEN} --amount 1 --asnumber=${eBGP_AS} --myip=${eBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug
@@ -350,9 +340,6 @@ TC_LAS_Start_eBgp_Speaker_And_Verify_Connected
 TC_LAS_Verify_iBGP_Rib_Out
     [Documentation]    Verifies iBGP's adj-rib-out output. Expects local-as, and ebgp peer-as presence.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary
     ...    IP=${iBGP_PEER1_IP}
     ...    HOLDTIME=${HOLDTIME}
@@ -373,9 +360,6 @@ TC_LAS_Verify_iBGP_Rib_Out
 TC_LAS_Verify_eBGP_Rib_Out
     [Documentation]    Verifies eBGP's adj-rib-out output. Expects local-as, and ibgp peer-as presence.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary
     ...    IP=${eBGP_PEER1_IP}
     ...    HOLDTIME=${HOLDTIME}
@@ -397,9 +381,6 @@ TC_LAS_Kill_iBgp_Speaker_After_Talking
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     SSHLibrary.Switch Connection    ibgp_peer1_console
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
@@ -410,9 +391,6 @@ TC_LAS_Kill_eBgp_Speaker_After_Talking
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     SSHLibrary.Switch Connection    ebgp_peer1_console
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
@@ -421,9 +399,6 @@ TC_LAS_Kill_eBgp_Speaker_After_Talking
 
 TC_LAS_Delete_Bgp_Peer_Configurations
     [Documentation]    Delete peer configuration.
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary    IP=${iBGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
     &{mapping}    Create Dictionary    IP=${eBGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
