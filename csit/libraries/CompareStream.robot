@@ -47,12 +47,6 @@ Set_Variable_If_At_Most
     ...    ${value_if_true}
     ...    ${value_if_false}
 
-Set_Variable_If_At_Least_Neon
-    [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least neon,
-    ...    return ${value_if_false} otherwise.
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    neon    ${value_if_true}    ${value_if_false}
-
 Set_Variable_If_At_Least_Sodium
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least sodium,
     ...    return ${value_if_false} otherwise.
@@ -88,12 +82,6 @@ Set_Variable_If_At_Least_Chlorine
     [Documentation]    Compare chlorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least chlorine, return ${value_if_false} otherwise.
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    chlorine    ${value_if_true}    ${value_if_false}
-
-Set_Variable_If_At_Most_Fluorine
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most fluorine,
-    ...    return ${value_if_false} otherwise.
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    fluorine    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most neon,
@@ -278,12 +266,6 @@ Run_Keyword_If_Less_Than
     ...    @{varargs}
     ...    &{kwargs}
 
-Run_Keyword_If_At_Least_Neon
-    [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    neon    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_At_Least_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -325,12 +307,6 @@ Run_Keyword_If_At_Least_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    chlorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Fluorine
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is at most fluroine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    fluorine    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most neon,
@@ -380,12 +356,6 @@ Run_Keyword_If_At_Most_Chlorine
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    chlorine    ${kw_name}    @{varargs}    &{kwargs}
 
-Run_Keyword_If_More_Than_Fluorine
-    [Documentation]    Compare fluorine to ${ODL_STREAM} and in case ${ODL_STREAM} is more than fluorine,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    fluorine    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_More_Than_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than neon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -433,12 +403,6 @@ Run_Keyword_If_More_Than_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Neon
-    [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than neon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    neon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_Less_Than_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sodium,

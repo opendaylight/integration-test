@@ -18,11 +18,9 @@ ${BGP_RIB_URI}              bgp-rib:bgp-rib/rib=example-bgp-rib
 ${BGP_TOPOLOGY_URI}         ${TOPOLOGY_URL}=example-ipv4-topology
 ${VAR_BASE_BGP}             ${CURDIR}/../variables/bgpfunctional
 ${RIB_NAME}                 example-bgp-rib
-${OLD_AS_PATH}              \n"as-path": {},
 ${NEW_AS_PATH}              ${EMPTY}
 &{APP_PEER}                 IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
 ${NEW_IPV4_ROUTES_LINE}     ${EMPTY}
-${OLD_IPV4_ROUTES_LINE}     \n"bgp-inet:ipv4-routes": {},
 ${BGP_CONFIG_SERVER_CMD}    bgp-connect -h ${ODL_SYSTEM_IP} -p 7644 add
 ${VPNV4_ADDR_FAMILY}        vpnv4
 ${DISPLAY_VPN4_ALL}         show-bgp --cmd "ip bgp ${VPNV4_ADDR_FAMILY} all"
@@ -367,9 +365,7 @@ Bmp_Monitor_Precondition
 Bmp_Monitor_Postcondition
     [Documentation]    Verifies if example-bmp-monitor data contains one peer.
     [Arguments]    ${session}
-    ${routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon
-    ...    ${NEW_IPV4_ROUTES_LINE}
-    ...    ${OLD_IPV4_ROUTES_LINE}
+    ${routes_line} =    ${NEW_IPV4_ROUTES_LINE}
     &{mapping} =    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}    ROUTES_LINE=${routes_line}
     ${output} =    BuiltIn.Wait_Until_Keyword_Succeeds
     ...    10x
@@ -399,7 +395,7 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
-    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    ${as_path} =    ${NEW_AS_PATH}
     &{adj_rib_in} =    BuiltIn.Create_Dictionary
     ...    PATH=peer\=bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in
     ...    BGP_RIB=${RIB_NAME}
@@ -453,7 +449,7 @@ Play_To_Odl_Non_Removal_Template
     ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    ${as_path} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
+    ${as_path} =    ${NEW_AS_PATH}
     &{loc_rib} =    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${as_path}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
