@@ -48,8 +48,6 @@ ${L3VPN_EXA_CFG}                bgp-l3vpn-ipv4.cfg
 ${L3VPN_EXP}                    exa_expected
 ${L3VPN_RSP}                    bgp_l3vpn_ipv4
 ${L3VPN_RSPEMPTY}               bgp_l3vpn_ipv4_empty
-${OLD_AS_PATH}                  \n"as-path": {},
-${NEW_AS_PATH}                  ${EMPTY}
 ${PLAY_SCRIPT}                  ${CURDIR}/../../../../tools/fastbgp/play.py
 ${RIB_INSTANCE}                 example-bgp-rib
 ${RT_CONSTRAIN_DIR}             ${CURDIR}/../../../variables/bgpfunctional/rt_constrain
@@ -140,8 +138,6 @@ Start_Suite
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
-    ${AS_PATH}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    BuiltIn.Set_Suite_Variable    ${AS_PATH}
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -192,20 +188,13 @@ Verify_ExaBgp_Received_Update
 
 Verify_Empty_Reported_Data
     [Documentation]    Verfiy empty data response
-    CompareStream.Run_Keyword_If_At_Most_Fluorine
-    ...    TemplatedRequests.Get_As_Json_Templated
-    ...    ${BGP_L3VPN_DIR}${/}${L3VPN_RSPEMPTY}
-    ...    session=${CONFIG_SESSION}
-    ...    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Neon    Verify_Empty_Data_Neon
+    Verify_Empty_Data_Neon
 
 Verify_Reported_Data
     [Documentation]    Verifies expected response
     [Arguments]    ${exprspdir}
-    &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
     TemplatedRequests.Get_As_Json_Templated
     ...    ${BGP_L3VPN_DIR}${/}${exprspdir}
-    ...    mapping=${mapping}
     ...    session=${CONFIG_SESSION}
     ...    verify=True
 

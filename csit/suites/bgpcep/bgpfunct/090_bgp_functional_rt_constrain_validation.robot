@@ -45,8 +45,6 @@ ${RIB_NAME}                 example-bgp-rib
 ${ODL_2_IP}                 127.0.0.2
 ${ODL_3_IP}                 127.0.0.3
 ${ODL_4_IP}                 127.0.0.4
-${OLD_AS_PATH}              \n"as-path": {},
-${NEW_AS_PATH}              ${EMPTY}
 @{BGP_PEER_TYPES}           external    internal    internal
 @{BGP_PEER_AS_NUMBERS}      65000    64496    64496
 @{ODL_IP_INDICES_ALL}       2    3    4
@@ -88,7 +86,6 @@ Play_To_Odl_ext_l3vpn_rt_arg
     &{effective_rib_in} =    BuiltIn.Create_Dictionary
     ...    PATH=peer\=bgp:%2F%2F${ODL_2_IP}/effective-rib-in
     ...    BGP_RIB=${RIB_NAME}
-    ...    AS_PATH=${AS_PATH}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    2s
@@ -101,7 +98,7 @@ Play_To_Odl_ext_l3vpn_rt_arg
 Play_To_Odl_rt_constrain_type_0
     [Documentation]    Sends RT route from node 2 to odl and then checks that odl advertizes l3vpn route from previous TC.
     Play_To_Odl_Non_Removal_BgpRpcClient3    rt_constrain_type_0    ${RT_CONSTRAIN_DIR}
-    &{loc_rib} =    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}    AS_PATH=${AS_PATH}
+    &{loc_rib} =    BuiltIn.Create_Dictionary    PATH=loc-rib    BGP_RIB=${RIB_NAME}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    2s
@@ -135,7 +132,6 @@ Play_To_Odl_rt_constrain_type_1
     &{effective_rib_in} =    BuiltIn.Create_Dictionary
     ...    PATH=peer\=bgp:%2F%2F${ODL_4_IP}/effective-rib-in
     ...    BGP_RIB=${RIB_NAME}
-    ...    AS_PATH=${AS_PATH}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    2s
@@ -145,22 +141,11 @@ Play_To_Odl_rt_constrain_type_1
     ...    session=${CONFIG_SESSION}
     ...    verify=True
     ${update} =    BgpRpcClient4.play_get
-    Comment    From neon onwards there is extra BGP End-Of-RIB message
-    CompareStream.Run_Keyword_If_At_Most_Fluorine    BuiltIn.Should_Be_Equal    ${update}    ${Empty}
 
 Play_To_Odl_remove_rt
     [Documentation]    Removes RT from odl and then checks that second node withdrew l3vpn route and third node did not receive any message.
     BgpRpcClient3.play_clean
     Play_To_Odl_Routes_Removal_Template_BgpRpcClient3    rt_constrain_type_0    ${RT_CONSTRAIN_DIR}
-    Comment    From neon onwards there is extra BGP End-Of-RIB message
-    CompareStream.Run_Keyword_If_At_Most_Fluorine
-    ...    BuiltIn.Wait_Until_Keyword_Succeeds
-    ...    3x
-    ...    2s
-    ...    Verify_Empty_Reported_Data
-    ${update} =    BgpRpcClient4.play_get
-    Comment    From neon onwards there is extra BGP End-Of-RIB message
-    CompareStream.Run_Keyword_If_At_Most_Fluorine    BuiltIn.Should_Be_Equal    ${update}    ${Empty}
 
 Play_To_Odl_remove_routes
     [Documentation]    Removes rt arguments from odl.
@@ -201,8 +186,6 @@ Start_Suite
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put_File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    BuiltIn.Set_Suite_Variable    ${AS_PATH}
 
 Stop_Suite
     [Documentation]    Suite teardown keyword

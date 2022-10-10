@@ -67,8 +67,7 @@ Wait_For_Device_To_Become_Connected
 
 Check_Device_Data_Is_Empty
     [Documentation]    Get the device data and make sure it is empty.
-    Run_Keyword_If_Less_Than_Neon    Check_Config_Data    <data xmlns\="${ODL_NETCONF_NAMESPACE}"></data>
-    Run_Keyword_If_At_Least_Neon    Check_Config_Data    <data xmlns\="${ODL_NETCONF_NAMESPACE}"/>
+    Check_Config_Data    <data xmlns\="${ODL_NETCONF_NAMESPACE}"/>
 
 Invoke_Yang1.1_Action_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.

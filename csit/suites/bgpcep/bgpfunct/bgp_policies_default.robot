@@ -34,8 +34,6 @@ ${CMD}                  env exabgp.tcp.port=1790 exabgp --debug
 ${HOLDTIME}             180
 ${RIB_INSTANCE}         example-bgp-rib
 ${CONFIG_SESSION}       config-session
-${OLD_AS_PATH}          \n"as-path": {},
-${NEW_AS_PATH}          ${EMPTY}
 
 
 *** Test Cases ***
@@ -148,9 +146,8 @@ Verify_Rib_Status
     # gets and outputs full rib output for debug purposes if one of the peers reports faulty data.
     ${output}    TemplatedRequests.Get_As_Json_Templated    ${POLICIES_VAR}/rib_state    session=${CONFIG_SESSION}
     BuiltIn.Log    ${output}
-    ${AS_PATH}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
     FOR    ${index}    IN    @{NUMBERS}
-        &{mapping}    BuiltIn.Create_Dictionary    IP=127.0.0.${index}    AS_PATH=${AS_PATH}
+        &{mapping}    BuiltIn.Create_Dictionary    IP=127.0.0.${index}
         BuiltIn.Wait_Until_Keyword_Succeeds
         ...    5x
         ...    3s
@@ -160,7 +157,7 @@ Verify_Rib_Status
         ...    session=${CONFIG_SESSION}
         ...    verify=True
     END
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}    AS_PATH=${AS_PATH}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
     # application peer verification
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    5x

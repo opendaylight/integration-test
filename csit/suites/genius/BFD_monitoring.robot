@@ -50,40 +50,21 @@ BFD_TC00 Create ITM between DPNs
 
 BFD_TC01 Verify default BFD monitoring status on Controller
     [Documentation]    Verify the default value of BFD monitoring \ on the Controller
-    CompareStream.Run_Keyword_If_At_Least_Neon
-    ...    BuiltIn.Wait Until Keyword Succeeds
+    BuiltIn.Wait Until Keyword Succeeds
     ...    10s
     ...    2s
     ...    Genius.Verify Tunnel Monitoring Status
     ...    ${TUNNEL_MONITOR_OFF}
-    CompareStream.Run_Keyword_If_Less_Than_Neon
-    ...    BuiltIn.Wait Until Keyword Succeeds
-    ...    10s
-    ...    2s
-    ...    Genius.Verify Tunnel Monitoring Status
-    ...    ${TUNNEL_MONITOR_ON}
-    CompareStream.Run_Keyword_If_At_Least_Neon
-    ...    BuiltIn.Wait Until Keyword Succeeds
+    BuiltIn.Wait Until Keyword Succeeds
     ...    10s
     ...    2s
     ...    Verify Config Ietf Interface Output
     ...    ${INTERFACE_DS_MONI_FALSE}
     ...    ${INTERFACE_DS_MONI_INT_1000}
     ...    ${TUNNEL_MONI_PROTO}
-    CompareStream.Run_Keyword_If_Less_Than_Neon
-    ...    BuiltIn.Wait Until Keyword Succeeds
-    ...    10s
-    ...    2s
-    ...    Verify Config Ietf Interface Output
-    ...    ${INTERFACE_DS_MONI_TRUE}
-    ...    ${INTERFACE_DS_MONI_INT_1000}
-    ...    ${TUNNEL_MONI_PROTO}
 
 BFD_TC02 Enable BFD Monitoring And Verify On Controller
     [Documentation]    Enable BFD monitoring in branches greater than neon and verify that BFD is enabled in the controller.
-    CompareStream.Run_Keyword_If_Less_Than_Neon
-    ...    BuiltIn.Pass Execution
-    ...    Test case valid only for versions Neon and above
     Enable BFD And Verify    ${INTERFACE_DS_MONI_INT_1000}
 
 BFD_TC03 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
@@ -166,8 +147,7 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
 
 BFD_TC07 Set BFD monitoring To Default Value
     [Documentation]    Disable BFD monitoring(setting it to default value) and verify that BFD is disabled on the controller.
-    CompareStream.Run_Keyword_If_At_Least_Neon    Disable BFD And Verify
-    CompareStream.Run_Keyword_If_Less_Than_Neon    Enable BFD And Verify    ${INTERFACE_DS_MONI_INT_5000}
+    Disable BFD And Verify
 
 
 *** Keywords ***

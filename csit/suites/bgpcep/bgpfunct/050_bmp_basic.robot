@@ -29,12 +29,10 @@ Suite Teardown      Tear_It_Down
 
 
 *** Variables ***
-${CONFIG_SESSION}           config-session
-${BGP_BMP_DIR}              ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
-${BGP_BMP_FEAT_DIR}         ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
-${BMP_LOG_FILE}             bmpmock.log
-${NEW_IPV4_ROUTES_LINE}     ${EMPTY}
-${OLD_IPV4_ROUTES_LINE}     \n"bgp-inet:ipv4-routes": {},
+${CONFIG_SESSION}       config-session
+${BGP_BMP_DIR}          ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
+${BGP_BMP_FEAT_DIR}     ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
+${BMP_LOG_FILE}         bmpmock.log
 
 
 *** Test Cases ***
@@ -62,10 +60,7 @@ Start_Bmp_Mock
 
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data
-    ${IPV4_ROUTES_LINE}=    CompareStream.Set_Variable_If_At_Least_Neon
-    ...    ${NEW_IPV4_ROUTES_LINE}
-    ...    ${OLD_IPV4_ROUTES_LINE}
-    &{mapping}=    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}    ROUTES_LINE=${IPV4_ROUTES_LINE}
+    &{mapping}=    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    2s

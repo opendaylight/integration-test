@@ -42,10 +42,6 @@ ${CONFIG_SESSION}           config-session
 ${EVPN_DIR}                 ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}       debug
 ${PLAY_SCRIPT}              ${CURDIR}/../../../../tools/fastbgp/play.py
-${OLD_EVPN_ROUTES_LINE}     \n"odl-bgp-evpn:evpn-routes": {},
-${NEW_EVPN_ROUTES_LINE}     ${EMPTY}
-${OLD_AS_PATH}              ,\n"as-path": {}
-${NEW_AS_PATH}              ${EMPTY}
 
 
 *** Test Cases ***
@@ -295,14 +291,9 @@ Start_Suite
     BuiltIn.Set_Suite_Variable
     ...    ${EVPN_FAMILY_LOC_RIB}
     ...    /rests/data/bgp-rib:bgp-rib/rib=${RIB_NAME}/loc-rib/tables=odl-bgp-evpn%3Al2vpn-address-family,odl-bgp-evpn%3Aevpn-subsequent-address-family?content=nonconfig
-    ${evpn_routes_line} =    CompareStream.Set_Variable_If_At_Least_Neon
-    ...    ${NEW_EVPN_ROUTES_LINE}
-    ...    ${OLD_EVPN_ROUTES_LINE}
-    &{mapping} =    BuiltIn.Create_Dictionary    EVPN_ROUTES=${evpn_routes_line}
     ${EMPTY_ROUTES} =    TemplatedRequests.Resolve_Text_From_Template_File
     ...    ${EVPN_DIR}/empty_routes
     ...    empty_routes.json
-    ...    ${mapping}
     BuiltIn.Set_Suite_Variable    ${EMPTY_ROUTES}
 
 Stop_Suite
@@ -354,12 +345,9 @@ Odl_To_Play_Template
 Play_To_Odl_Template
     [Arguments]    ${totest}
     ${data_xml} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.xml
-    ${AS_PATH} =    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    &{mapping} =    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
     ${data_json} =    TemplatedRequests.Resolve_Text_From_Template_File
     ...    ${EVPN_DIR}/${totest}
     ...    ${totest}.json
-    ...    ${mapping}
     ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
     ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
     BuiltIn.Log    ${data_xml}
