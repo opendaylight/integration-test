@@ -7,7 +7,6 @@ Library             RequestsLibrary
 Library             SSHLibrary
 Library             string
 Resource            ClusterManagement.robot
-Resource            CompareStream.robot
 Resource            DataModels.robot
 Resource            KarafKeywords.robot
 Resource            ODLTools.robot
@@ -53,8 +52,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen
-    ...    Wait Until Keyword Succeeds
+    Wait Until Keyword Succeeds
     ...    60
     ...    2
     ...    ClusterManagement.Check Status Of Services Is OPERATIONAL

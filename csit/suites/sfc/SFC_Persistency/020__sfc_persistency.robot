@@ -8,7 +8,6 @@ Library             RequestsLibrary
 Library             ../../../libraries/SFC/SfcUtils.py
 Resource            ../../../libraries/SFC/SfcKeywords.robot
 Resource            ../../../libraries/ClusterOpenFlow.robot
-Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../variables/sfc/Variables.robot
 Resource            ../../../libraries/Utils.robot
@@ -59,17 +58,10 @@ Add SFC Elements and restart cluster
     ...    session=${session}
     ...    folder=${RESTCONF_MODULES_DIR}
     ...    verify=False
-    # From oxygen, RSPs are persisted between reboots
-    Run_Keyword_If_At_Least_Else
-    ...    oxygen
-    ...    Wait until Keyword succeeds
+    Wait until Keyword succeeds
     ...    2min
     ...    5 sec
     ...    Get Data From URI
-    ...    session
-    ...    ${OPERATIONAL_RSPS_URI}
-    ...    ELSE
-    ...    No Content From URI
     ...    session
     ...    ${OPERATIONAL_RSPS_URI}
     [Teardown]    Remove SFC Elements
