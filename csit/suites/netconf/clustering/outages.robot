@@ -92,7 +92,6 @@ Create_Device_Data_With_node1_Down
     [Documentation]    Check that the create requests work when node 1 is down.
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
-    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
     ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
     BuiltIn.Wait_Until_Keyword_Succeeds
@@ -143,7 +142,6 @@ Modify_Device_Data_With_node2_Down
     [Documentation]    Check that the modification requests work when node 2 is down.
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
-    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${MASTER_CONNECT_TIMEOUT}
@@ -195,7 +193,6 @@ Delete_Device_Data_With_node3_Down
     [Documentation]    Check that the data removal requests work when node 3 is down.
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
-    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${MASTER_CONNECT_TIMEOUT}

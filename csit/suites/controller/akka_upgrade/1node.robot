@@ -41,7 +41,6 @@ Documentation       Suite for testing upgrading persisted data from earlier rele
 
 Library             String
 Library             SSHLibrary
-Resource            ${CURDIR}/../../../libraries/CompareStream.robot
 Resource            ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource            ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -108,9 +107,7 @@ Install_Older_Odl
     ...    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
     ${karaf4_features} =    Extract_Karaf4_Boot_Features    ${csit_line}
     # TODO: this works only if old odl is karaf3. Once old and new odl both are e.g. karaf4 this will create invalid line.
-    ${new_csit_line} =    CompareStream.Set_Variable_If_At_Least_Nitrogen
-    ...    ${vanilla_line},${karaf4_features}
-    ...    ${csit_line}
+    ${new_csit_line} =    ${vanilla_line},${karaf4_features}
     # Replace the vanilla line.
     SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${new_csit_line}/g' "${cfg_older}"
     # Verify the replaced line.

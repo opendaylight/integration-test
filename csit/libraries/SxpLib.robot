@@ -203,20 +203,12 @@ Update Filter
 Prepare Add/Update Filter Data
     [Documentation]    Prepare XML payload for add-filter and update-filter RPCs. Payloads for both RPCs are the same.
     [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${policy}=auto-update
-    ${data} =    CompareStream.Run_Keyword_If_At_Least_Else
-    ...    carbon
-    ...    Add Filter Xml
+    ${data} =    Add Filter Xml
     ...    ${name}
     ...    ${type}
     ...    ${entries}
     ...    ${node}
     ...    ${policy}
-    ...    ELSE
-    ...    Add Filter Xml
-    ...    ${name}
-    ...    ${type}
-    ...    ${entries}
-    ...    ${node}
     RETURN    ${data}
 
 Add Domain Filter
