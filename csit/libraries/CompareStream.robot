@@ -48,18 +48,6 @@ Set_Variable_If_At_Most
     ...    ${value_if_true}
     ...    ${value_if_false}
 
-Set_Variable_If_At_Least_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least carbon,
-    ...    return ${value_if_false} otherwise.
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    carbon    ${value_if_true}    ${value_if_false}
-
-Set_Variable_If_At_Least_Nitrogen
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least nitrogen,
-    ...    return ${value_if_false} otherwise.
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    nitrogen    ${value_if_true}    ${value_if_false}
-
 Set_Variable_If_At_Least_Oxygen
     [Documentation]    Compare oxygen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least oxygen,
     ...    return ${value_if_false} otherwise.
@@ -113,12 +101,6 @@ Set_Variable_If_At_Least_Chlorine
     [Documentation]    Compare chlorine to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least chlorine, return ${value_if_false} otherwise.
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    chlorine    ${value_if_true}    ${value_if_false}
-
-Set_Variable_If_At_Most_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
-    ...    return ${value_if_false} otherwise.
-    [Arguments]    ${value_if_true}    ${value_if_false}
-    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    carbon    ${value_if_true}    ${value_if_false}
 
 Set_Variable_If_At_Most_Nitrogen
     [Documentation]    Compare nitrogen to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most nitrogen,
@@ -321,18 +303,6 @@ Run_Keyword_If_Less_Than
     ...    @{varargs}
     ...    &{kwargs}
 
-Run_Keyword_If_At_Least_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Least_Nitrogen
-    [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is at least nitrogen,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    nitrogen    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_At_Least_Oxygen
     [Documentation]    Compare oxygen to ${ODL_STREAM} and in case ${ODL_STREAM} is at least oxygen,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -392,12 +362,6 @@ Run_Keyword_If_At_Least_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    chlorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_At_Most_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    carbon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_At_Most_Nitrogen
     [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is at most nitrogen,
@@ -465,12 +429,6 @@ Run_Keyword_If_At_Most_Chlorine
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    chlorine    ${kw_name}    @{varargs}    &{kwargs}
 
-Run_Keyword_If_More_Than_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    carbon    ${kw_name}    @{varargs}    &{kwargs}
-
 Run_Keyword_If_More_Than_Nitrogen
     [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is more than nitrogen,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -536,12 +494,6 @@ Run_Keyword_If_More_Than_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
-
-Run_Keyword_If_Less_Than_Carbon
-    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
-    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
-    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
-    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    carbon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_Less_Than_Nitrogen
     [Documentation]    Compare nitrogen to ${ODL_STREAM} and in case ${ODL_STREAM} is less than nitrogen,
