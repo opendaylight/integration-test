@@ -86,10 +86,10 @@ Exa_To_Send_Route_Refresh
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
     Comment    From neon onwards there are extra BGP End-Of-RIB message
-    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    ${update_count}    BuiltIn.Set_Variable    3
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${update_count}
     Comment    From neon onwards there are extra BGP End-Of-RIB message per address family
-    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    4    7
+    ${update_count}    BuiltIn.Set_Variable    7
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    5s
@@ -111,7 +111,7 @@ Odl_To_Send_Route_Refresh
     ...    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Route_Refresh    1
     Comment    From neon onwards there are extra BGP End-Of-RIB message per address family
-    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    4    9
+    ${update_count}    BuiltIn.Set_Variable    9
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    3x
     ...    5s
@@ -189,7 +189,7 @@ Configure_Routes_And_Start_ExaBgp
     END
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     Comment    From neon onwards there are extra BGP End-Of-RIB message per address family
-    ${update_count}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    4
+    ${update_count}    BuiltIn.Set_Variable    4
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${update_count}
 
 Deconfigure_Routes_And_Stop_ExaBgp

@@ -24,7 +24,6 @@ Documentation       TCPMD5 user-facing feature system tests, using PCEP.
 Library             OperatingSystem
 Library             RequestsLibrary
 Library             SSHLibrary    prompt=]>
-Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../libraries/FailFast.robot
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../libraries/NexusKeywords.robot
@@ -43,8 +42,7 @@ Test Teardown       FailFast.Start_Failing_Fast_If_This_Failed
 *** Variables ***
 ${DIR_WITH_TEMPLATES}       ${CURDIR}/../../../variables/tcpmd5user/${ODL_STREAM}
 ${CONFIG_SESSION}           session
-${OLD_ERROR_ARGS}           \n"last-received-error": {},\n"last-sent-error": {},
-${NEW_ERROR_ARGS}           ${EMPTY}
+${ERROR_ARGS}               ${EMPTY}
 
 
 *** Test Cases ***
@@ -222,8 +220,6 @@ Set_It_Up
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     #Setting Pcc Name and its code for mapping for templates
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    ${ERROR_ARGS}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_ERROR_ARGS}    ${OLD_ERROR_ARGS}
-    BuiltIn.Set_Suite_Variable    ${ERROR_ARGS}
 
 Tear_It_Down
     [Documentation]    Download pccmock.log and Log its contents.

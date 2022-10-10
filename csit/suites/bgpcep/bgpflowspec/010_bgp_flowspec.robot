@@ -23,8 +23,6 @@ Suite Teardown      Stop_Suite
 ${BGP_VARIABLES_FOLDER}     ${CURDIR}/../../../variables/bgpflowspec/
 ${CMD}                      env exabgp.tcp.port=1790 exabgp --debug
 ${HOLDTIME}                 180
-${OLD_AS_PATH}              \n"as-path": {},
-${NEW_AS_PATH}              ${EMPTY}
 ${EXP0}                     {"bgp-flowspec:flowspec-routes": {}}
 ${CFG1}                     bgp-flowspec.cfg
 ${EXP1}                     bgp_flowspec
@@ -90,8 +88,6 @@ Start_Suite
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files    ${BGP_VARIABLES_FOLDER}
-    ${AS_PATH}    CompareStream.Set_Variable_If_At_Least_Neon    ${NEW_AS_PATH}    ${OLD_AS_PATH}
-    BuiltIn.Set_Suite_Variable    ${AS_PATH}
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -121,17 +117,14 @@ Setup_Testcase
 
 Verify_Empty_Flowspec_Data
     [Documentation]    Verify expected response.
-    CompareStream.Run_Keyword_If_At_Most_Fluorine    Normalize_And_Compare
-    CompareStream.Run_Keyword_If_At_Least_Neon    Verify_Empty_Flowspec_Data_Neon
+    Verify_Empty_Flowspec_Data_Neon
 
 Verify_Flowspec_Data
     [Documentation]    Verify expected response
     [Arguments]    ${exprspdir}
-    &{mapping}    BuiltIn.Create_Dictionary    AS_PATH=${AS_PATH}
     TemplatedRequests.Get_As_Json_Templated
     ...    ${BGP_VARIABLES_FOLDER}${/}${exprspdir}
     ...    session=${CONFIG_SESSION}
-    ...    mapping=${mapping}
     ...    verify=True
 
 Normalize_And_Compare

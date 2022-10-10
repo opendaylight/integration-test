@@ -56,10 +56,8 @@ Verify VTEP After Restarting Controller
 
 Verify Tunnels By Enabling/Disabling BFD
     [Documentation]    Verify tunnel creation by enabling and disabling BFD one after another with respect to the branch in such a way default value is retained at last.
-    CompareStream.Run_Keyword_If_At_Least_Neon    Verify Tunnels By Enabling BFD
-    CompareStream.Run_Keyword_If_At_Least_Neon    Verify Tunnels By Disabling BFD
-    CompareStream.Run_Keyword_If_Less_Than_Neon    Verify Tunnels By Disabling BFD
-    CompareStream.Run_Keyword_If_Less_Than_Neon    Verify Tunnels By Enabling BFD
+    Verify Tunnels By Enabling BFD
+    Verify Tunnels By Disabling BFD
 
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.

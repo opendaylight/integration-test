@@ -460,7 +460,7 @@ TC3_BGP_Peer1_Check_Log_For_No_Updates
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Comment    From neon onwards there is extra BGP End-Of-RIB message
-    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    0    1
+    ${update_messages}    BuiltIn.Set_Variable    1
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${DEFAULT_LOG_CHECK_TIMEOUT}
     ...    ${DEFAULT_LOG_CHECK_PERIOD}
@@ -482,7 +482,7 @@ TC3_BGP_Peer2_Check_Log_For_No_Updates
     SSHLibrary.Switch Connection    bgp_peer2_console
     ${log_check_timeout}    DateTime.Convert_Time    ${DEFAULT_LOG_CHECK_TIMEOUT}    result_format=number
     Comment    From neon onwards there is extra BGP End-Of-RIB message
-    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    0    1
+    ${update_messages}    BuiltIn.Set_Variable    1
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${log_check_timeout*2}
     ...    ${DEFAULT_LOG_CHECK_PERIOD}

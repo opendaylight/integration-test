@@ -112,20 +112,11 @@ Check No OpenFlow Network Operational Information
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances in ${controller_index_list}.
     [Arguments]    ${controller_index_list}=${EMPTY}
     ${dictionary}=    Create Dictionary    openflow=0
-    CompareStream.Run_Keyword_If_At_Least_Neon
-    ...    Wait Until Keyword Succeeds
+    Wait Until Keyword Succeeds
     ...    5s
     ...    1s
     ...    ClusterManagement.Check_No_Content_Member_List_Or_All
     ...    uri=${RFC8040_OPERATIONAL_NODES_API}
-    ...    member_index_list=${controller_index_list}
-    CompareStream.Run_Keyword_If_At_Most_Fluorine
-    ...    Wait Until Keyword Succeeds
-    ...    5s
-    ...    1s
-    ...    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All
-    ...    uri=${RFC8040_OPERATIONAL_NODES_API}
-    ...    dictionary=${dictionary}
     ...    member_index_list=${controller_index_list}
     ${dictionary}=    Create Dictionary    openflow=0
     Wait Until Keyword Succeeds

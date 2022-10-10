@@ -74,7 +74,7 @@ Odl Allpaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     Comment    From neon onwards there is extra BGP End-Of-RIB message
-    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    3    4
+    ${update_messages}    BuiltIn.Set_Variable    4
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
@@ -84,7 +84,7 @@ Odl Npaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     Comment    From neon onwards there is extra BGP End-Of-RIB message
-    ${update_messages}    CompareStream.Set_Variable_If_At_Most_Fluorine    2    3
+    ${update_messages}    BuiltIn.Set_Variable    3
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${update_messages}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
