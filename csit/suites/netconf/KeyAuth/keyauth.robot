@@ -9,7 +9,6 @@ Resource            ../../../variables/Variables.robot
 Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource            ${CURDIR}/../../../libraries/CompareStream.robot
 Resource            ${CURDIR}/../../../variables/Variables.robot
 
 Suite Setup         Suite Setup
@@ -38,7 +37,7 @@ Check_Device_Is_Not_Configured_At_Beginning
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure netconf netopeer with wrong password. Correct auth is netconf/netconf
     ...    ODL should connect to device using public key auth as password auth will fail.
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_key}
     ...    device_port=${netopeer_port}    device_user=${netopeer_username}    device_password=${netopeer_password}
     ...    device_key=${netopeer_key}    http_timeout=2
 
@@ -79,21 +78,6 @@ Run Netopeer Docker Container
     ...    return_stdout=True    return_stderr=True    return_rc=True
     Log    ${stdout}
 
-Configure ODL with Key config
-    [Documentation]    Configure the ODL with the Southbound key configuration file containing details about private key path and passphrase
-    SSHKeywords.Open_Connection_To_ODL_System
-    Log    Bundle folder ${WORKSPACE}/${BUNDLEFOLDER}/etc
-    SSHLibrary.Put File
-    ...    ${CURDIR}/../../../variables/netconf/KeyAuth/org.opendaylight.netconf.topology.sb.keypair.cfg
-    ...    ${WORKSPACE}/${BUNDLEFOLDER}/etc/
-    SSHLibrary.Put File
-    ...    ${CURDIR}/../../../variables/netconf/KeyAuth/sb-rsa-key
-    ...    ${WORKSPACE}/${BUNDLEFOLDER}/etc/
-    ...    400
-    ${stdout}=    SSHLibrary.Execute Command    ls -l ${WORKSPACE}/${BUNDLEFOLDER}/etc/    return_stdout=True
-    Log    ${stdout}
-    Restart Controller
-
 Add Netconf Key
     [Documentation]    Add Netconf Southbound key containing details about device private key and passphrase
     ${mapping}=    BuiltIn.Create_dictionary    DEVICE_KEY=${netopeer_key}
@@ -126,8 +110,5 @@ Suite Setup
     ...    """${USE_NETCONF_CONNECTOR}""" == """True"""
     ...    default
     ...    ${device_type_passw}
-    ${device_type}=    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_passw}    ${device_type_key}
-    BuiltIn.Set_Suite_Variable    ${device_type}
     Run Netopeer Docker Container
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    Configure ODL with Key config
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Add Netconf Key
+    Add Netconf Key

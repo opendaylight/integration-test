@@ -2,7 +2,6 @@
 Documentation       Test Suite for verification of HWVTEP usecases
 
 Resource            ../../libraries/L2GatewayOperations.robot
-Resource            ../../libraries/CompareStream.robot
 
 Suite Setup         Basic Suite Setup
 Suite Teardown      Basic Suite Teardown
@@ -248,7 +247,6 @@ TC13 Ping Between Namespace In Second Network To Vm In First Network
 
 TC14 Create, Update And Attach 2nd Neutron Port to Hwvtep Namespace 1
     [Documentation]    Create and attach 2nd port to HWVTEP in network 1
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     OpenStackOperations.Create Neutron Port With Additional Params
     ...    ${NET_1}
     ...    ${HWVTEP_PORT_3}

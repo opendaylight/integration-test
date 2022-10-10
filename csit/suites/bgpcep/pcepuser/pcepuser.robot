@@ -16,7 +16,6 @@ Resource            ../../../libraries/PcepOperations.robot
 Resource            ../../../libraries/Utils.robot
 Resource            ../../../libraries/RemoteBash.robot
 Resource            ../../../libraries/TemplatedRequests.robot
-Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../variables/Variables.robot
 Variables           ../../../variables/pcepuser/${ODL_STREAM}/variables.py    ${TOOLS_SYSTEM_IP}
 
@@ -50,9 +49,6 @@ Start_Pcc_Mock
 Configure_Speaker_Entity_Identifier
     [Documentation]    Additional PCEP Speaker configuration for at least oxygen streams.
     ...    Allows PCEP speaker to determine if state synchronization can be skipped when a PCEP session is restarted.
-    CompareStream.Run_Keyword_If_Less_Than_Oxygen
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid only for versions oxygen and above.
     &{mapping}=    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated
     ...    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier
