@@ -531,9 +531,6 @@ TC3_Delete_BGP_Peers_Configuration
 TC4_Configure_Two_iBGP_RR_Clients_With_Cluster_Id
     [Documentation]    Configure two iBGP peers as routing reflector clients with cluster-id argument.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary
     ...    IP=${BGP_PEER1_IP}
     ...    HOLDTIME=${HOLDTIME}
@@ -560,9 +557,6 @@ TC4_Configure_Two_iBGP_RR_Clients_With_Cluster_Id
 TC4_Connect_BGP_Peers
     [Documentation]    Connect BGP peers, each set to send 3 prefixes.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     SSHLibrary.Switch Connection    bgp_peer1_console
     BuiltIn.Set_Suite_Variable    ${peer1_cluster_id}    127.0.0.4
     BuiltIn.Set_Suite_Variable    ${default_cluster_id}    192.0.2.2
@@ -587,9 +581,6 @@ TC4_BGP_Peer1_Check_Rib_Out_For_Introduced_Prefixes
     ...    on first peer which should contain default-cluster id from global config reflected
     ...    from the second peer equal to router-id.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary
     ...    IP=${BGP_PEER1_IP}
     ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
@@ -609,9 +600,6 @@ TC4_BGP_Peer2_Check_Rib_Out_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes and respective cluster-ids
     ...    in second peer which has local route-reflector-cluster-id
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary
     ...    IP=${BGP_PEER2_IP}
     ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
@@ -630,9 +618,6 @@ TC4_BGP_Peer2_Check_Rib_Out_For_Introduced_Prefixes
 TC4_Disconnect_BGP_Peers
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     SSHLibrary.Switch Connection    bgp_peer1_console
     BGPCliKeywords.Stop_Console_Tool
     BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc4_${BGP_PEER1_LOG_FILE}
@@ -642,9 +627,6 @@ TC4_Disconnect_BGP_Peers
 
 TC4_Check_for_Empty_IPv4_Topology
     [Documentation]    Checks for empty topology after
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}
     ...    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}
@@ -655,9 +637,6 @@ TC4_Check_for_Empty_IPv4_Topology
 TC4_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
     [Tags]    critical
-    CompareStream.Run_Keyword_If_Less_Than_Fluorine
-    ...    BuiltIn.Pass_Execution
-    ...    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated
     ...    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer

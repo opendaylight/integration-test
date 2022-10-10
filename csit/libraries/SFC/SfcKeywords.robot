@@ -15,8 +15,8 @@ Get JSON Elements From URI
 Check Classifier Flows
     ${flowList} =    DockerSfc.Get Flows In Docker Containers
     BuiltIn.log    ${flowList}
-    ${expected_nsh_pop} =    Set_Variable_If_At_Most    oxygen    *actions=pop_nsh*    *actions=decap(),decap(),*
-    ${expected_nsh_push} =    Set_Variable_If_At_Most    oxygen    *actions=push_nsh*    *actions=encap(nsh*
+    ${expected_nsh_pop} =    BuiltIn.Set_Variable    *actions=decap(),decap(),*
+    ${expected_nsh_push} =    BuiltIn.Set_Variable    *actions=encap(nsh*
     Collections.Should Contain Match    ${flowList}    ${expected_nsh_pop}
     Collections.Should Contain Match    ${flowList}    ${expected_nsh_push}
 

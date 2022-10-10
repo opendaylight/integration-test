@@ -4,7 +4,6 @@ Documentation       Library containing Keywords used for SXP testing
 Library             Collections
 Library             RequestsLibrary
 Library             ./Sxp.py
-Resource            CompareStream.robot
 Resource            KarafKeywords.robot
 Resource            TemplatedRequests.robot
 Resource            Utils.robot
@@ -98,32 +97,18 @@ Verify Connection
 Add Bindings
     [Documentation]    Based on ODL version decide if bindings will be added with or without origin type (introduced in Fluorine)
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${origin}=LOCAL
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    Add Bindings Fluorine
+    Add Bindings Fluorine
     ...    ${sgt}
     ...    ${prefixes}
     ...    ${node}
     ...    ${session}
     ...    ${domain}
     ...    ${origin}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    Add Bindings Oxygen
-    ...    ${sgt}
-    ...    ${prefixes}
-    ...    ${node}
-    ...    ${session}
-    ...    ${domain}
 
 Add Bindings Fluorine
     [Documentation]    Add/Update one or more bindings with origin type via RPC to Master DB of the node
     [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}    ${origin}
     ${data} =    Sxp.Add Bindings Xml Fluorine    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
-    Post To Controller    ${session}    add-bindings    ${data}
-
-Add Bindings Oxygen
-    [Documentation]    Add/Update one or more bindings without origin type via RPC to Master DB of the node
-    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
-    ${data} =    Sxp.Add Bindings Xml Oxygen    ${node}    ${domain}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    add-bindings    ${data}
 
 Get Bindings
@@ -309,19 +294,11 @@ Verify Snapshot Was Pushed
 Add Domain
     [Documentation]    Based on ODL version decide if domain's bindings will be added with or without origin type (introduced in Fluorine)
     [Arguments]    ${domain_name}    ${sgt}=None    ${prefixes}=None    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session
-    CompareStream.Run_Keyword_If_At_Least_Fluorine
-    ...    Add Domain Fluorine
+    Add Domain Fluorine
     ...    ${domain_name}
     ...    ${sgt}
     ...    ${prefixes}
     ...    ${origin}
-    ...    ${node}
-    ...    ${session}
-    CompareStream.Run_Keyword_If_At_Most_Oxygen
-    ...    Add Domain Oxygen
-    ...    ${domain_name}
-    ...    ${sgt}
-    ...    ${prefixes}
     ...    ${node}
     ...    ${session}
 
@@ -329,12 +306,6 @@ Add Domain Fluorine
     [Documentation]    Add Domain with bindings (with origin) via RPC
     [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${origin}    ${node}    ${session}
     ${data} =    Sxp.Add Domain Xml Fluorine    ${node}    ${domain_name}    ${sgt}    ${prefixes}    ${origin}
-    Post To Controller    ${session}    add-domain    ${data}
-
-Add Domain Oxygen
-    [Documentation]    Add Domain with bindings (without origin) via RPC
-    [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${node}    ${session}
-    ${data} =    Sxp.Add Domain Xml Oxygen    ${node}    ${domain_name}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    add-domain    ${data}
 
 Delete Domain

@@ -1091,50 +1091,6 @@ def add_domain_xml_fluorine(node_id, name, sgt, prefixes, origin):
     return data
 
 
-def add_domain_xml_oxygen(node_id, name, sgt, prefixes):
-    """Generate xml for Add Domain request (Oxygen version: bindings without origin)
-
-    :param node_id: Id of node
-    :type node_id: str
-    :param name: Name of Domain
-    :type name: str
-    :param sgt: Security group
-    :type sgt: int
-    :param prefixes: List of ip-prefixes
-    :type prefixes: str
-    :returns: String containing xml data for request
-
-    """
-    master_database = ""
-    if prefixes != "None":
-        xml_prefixes = ""
-        for prefix in prefixes.split(","):
-            xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
-        if xml_prefixes:
-            master_database += """<master-database>
-            <binding>
-                <sgt>$sgt</sgt>
-                $xml_prefixes
-            </binding>
-        </master-database>"""
-            master_database = Template(master_database).substitute(
-                ({"sgt": sgt, "xml_prefixes": xml_prefixes})
-            )
-
-    templ = Template(
-        """<input xmlns="urn:opendaylight:sxp:controller">
-    <node-id>$id</node-id>
-    <domain-name>$name</domain-name>
-    $master_database
-</input>"""
-    )
-
-    data = templ.substitute(
-        {"name": name, "id": node_id, "master_database": master_database}
-    )
-    return data
-
-
 def delete_domain_xml(node_id, name):
     """Generate xml for Remove Domain request
 
@@ -1214,39 +1170,6 @@ def add_bindings_xml_fluorine(node_id, domain, sgt, prefixes, origin):
             "xml_prefixes": xml_prefixes,
             "origin": origin,
         }
-    )
-    return data
-
-
-def add_bindings_xml_oxygen(node_id, domain, sgt, prefixes):
-    """Generate xml for Add Bindings request (Oxygen version without origin type)
-
-    :param node_id: Id of node
-    :type node_id: str
-    :param domain: Name of Domain
-    :type domain: str
-    :param sgt: Security group
-    :type sgt: int
-    :param prefixes: List of ip-prefixes
-    :type prefixes: str
-    :returns: String containing xml data for request
-
-    """
-    xml_prefixes = ""
-    for prefix in prefixes.split(","):
-        xml_prefixes += "\n" + "<ip-prefix>" + prefix + "</ip-prefix>"
-    templ = Template(
-        """<input xmlns="urn:opendaylight:sxp:controller">
-    <node-id>$id</node-id>
-    <domain-name>$name</domain-name>
-        <binding>
-            <sgt>$sgt</sgt>
-            $xml_prefixes
-        </binding>
-</input>"""
-    )
-    data = templ.substitute(
-        {"name": domain, "id": node_id, "sgt": sgt, "xml_prefixes": xml_prefixes}
     )
     return data
 
