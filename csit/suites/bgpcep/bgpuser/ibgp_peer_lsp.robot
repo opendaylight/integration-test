@@ -16,7 +16,6 @@ Library             RequestsLibrary
 Library             DateTime
 Resource            ../../../libraries/BGPcliKeywords.robot
 Resource            ../../../libraries/BgpOperations.robot
-Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/SSHKeywords.robot
@@ -48,8 +47,7 @@ ${CONFIG_SESSION}               config-session
 ${SKIP_PARAMS}                  --skipattr
 ${RIB_INSTANCE}                 example-bgp-rib
 ${PROTOCOL_OPENCONFIG}          ${RIB_INSTANCE}
-${OLD_ROUTE_KEY}                [0, 5, 0, 21, 7, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 0, 1, 0, 1, 5, 6, 7, 8]
-${NEW_ROUTE_KEY}                AAUAFQcAAAAAAAAAAQECAwQAAQABBQYHCA==
+${ROUTE_KEY}                    AAUAFQcAAAAAAAAAAQECAwQAAQABBQYHCA==
 
 
 *** Test Cases ***
@@ -145,8 +143,7 @@ TC2_Connect_BGP_Peer
 TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s) and check all of their attributes.
     [Tags]    critical
-    ${route_key}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${NEW_ROUTE_KEY}    ${OLD_ROUTE_KEY}
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    ROUTE_KEY=${route_key}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    ROUTE_KEY=${ROUTE_KEY}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${DEFAULT_RIB_CHECK_TIMEOUT}
     ...    ${DEFAULT_RIB_CHECK_PERIOD}

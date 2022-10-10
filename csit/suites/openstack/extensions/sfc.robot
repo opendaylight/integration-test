@@ -752,26 +752,6 @@ Create Ports For Testing
     OpenStackOperations.Update Port    p1in    additional_args=--disable-port-security
     OpenStackOperations.Update Port    p1out    additional_args=--no-security-group
     OpenStackOperations.Update Port    p1out    additional_args=--disable-port-security
-    CompareStream.Run_Keyword_If_Equals
-    ...    oxygen
-    ...    OpenStackOperations.Update Port
-    ...    source_vm_port
-    ...    additional_args=--no-security-group
-    CompareStream.Run_Keyword_If_Equals
-    ...    oxygen
-    ...    OpenStackOperations.Update Port
-    ...    source_vm_port
-    ...    additional_args=--disable-port-security
-    CompareStream.Run_Keyword_If_Equals
-    ...    oxygen
-    ...    OpenStackOperations.Update Port
-    ...    dest_vm_port
-    ...    additional_args=--no-security-group
-    CompareStream.Run_Keyword_If_Equals
-    ...    oxygen
-    ...    OpenStackOperations.Update Port
-    ...    dest_vm_port
-    ...    additional_args=--disable-port-security
     OpenStackOperations.Get Suite Debugs
 
 Create Instances For Testing
