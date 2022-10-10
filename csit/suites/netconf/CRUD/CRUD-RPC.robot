@@ -27,7 +27,6 @@ Resource            ${CURDIR}/../../../libraries/FailFast.robot
 Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource            ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource            ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource            ${CURDIR}/../../../libraries/CompareStream.robot
 Resource            ${CURDIR}/../../../variables/Variables.robot
 
 Suite Setup         Setup_Everything
@@ -110,12 +109,7 @@ Deconfigure_Device_From_Netconf_Temporarily
     ...    data was really stored in the device.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen
-    ...    NetconfKeywords.Remove_Device_From_Netconf
-    ...    ${device_name}
-    ...    location=${delete_location}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen
-    ...    NetconfKeywords.Configure_Device_In_Netconf
+    NetconfKeywords.Configure_Device_In_Netconf
     ...    ${device_name}
     ...    device_type=${device_type_rpc_delete}
     ...    http_timeout=2
@@ -242,12 +236,7 @@ Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Most_Nitrogen
-    ...    NetconfKeywords.Remove_Device_From_Netconf
-    ...    ${device_name}
-    ...    location=${delete_location}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen
-    ...    NetconfKeywords.Configure_Device_In_Netconf
+    NetconfKeywords.Configure_Device_In_Netconf
     ...    ${device_name}
     ...    device_type=${device_type_rpc_delete}
     ...    http_timeout=2
@@ -277,9 +266,7 @@ Setup_Everything
     ...    """${USE_NETCONF_CONNECTOR}""" == """True"""
     ...    default
     ...    ${device_type_rpc}
-    ${device_type}=    CompareStream.Set_Variable_If_At_Most_Nitrogen
-    ...    ${device_type_rpc}
-    ...    ${device_type_rpc_create}
+    ${device_type}=    ${device_type_rpc_create}
     BuiltIn.Set_Suite_Variable    ${device_type}
 
 Teardown_Everything
