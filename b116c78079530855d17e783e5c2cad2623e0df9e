@@ -16,6 +16,23 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-rfc8040-all-master/4/",
       "revId": "b116c78079530855d17e783e5c2cad2623e0df9e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2235f4_339ea369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-11-09T10:52:50Z",
+      "side": 1,
+      "message": "There will be more patches fixing it in all files.",
+      "revId": "b116c78079530855d17e783e5c2cad2623e0df9e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
