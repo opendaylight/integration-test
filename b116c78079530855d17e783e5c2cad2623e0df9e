@@ -33,6 +33,23 @@
       "message": "There will be more patches fixing it in all files.",
       "revId": "b116c78079530855d17e783e5c2cad2623e0df9e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc10eb63_1b1be658",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-11-09T11:26:39Z",
+      "side": 1,
+      "message": "sandbox: log.html: https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-userfeatures-rfc8040-all-master/4/robot-plugin/log.html.gz\n\nreleng: https://s3-logs.opendaylight.org/logs/releng/vex-yul-odl-jenkins-1/netconf-csit-1node-userfeatures-rfc8040-all-master/180/robot-plugin/log.html.gz",
+      "revId": "b116c78079530855d17e783e5c2cad2623e0df9e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
