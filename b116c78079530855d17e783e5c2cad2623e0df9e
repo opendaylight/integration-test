@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d84a51c3_f8a78d84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2022-11-09T10:52:32Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-rfc8040-all-master/4/",
+      "revId": "b116c78079530855d17e783e5c2cad2623e0df9e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
