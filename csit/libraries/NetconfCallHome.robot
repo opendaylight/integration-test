@@ -239,8 +239,8 @@ Test Teardown
     ...    return_stderr=True
     ...    return_rc=True
     SSHLibrary.Execute_Command    rm -rf ./configuration-files
-    ${resp}    RequestsLibrary.Delete_Request    session    ${whitelist}
-    ${resp}    RequestsLibrary.Delete_Request    session    ${netconf_keystore_data_url}
+    ${resp}    RequestsLibrary.Delete_On_Session    session    ${whitelist}
+    ${resp}    RequestsLibrary.Delete_On_Session    session    ${netconf_keystore_data_url}
 
 Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.

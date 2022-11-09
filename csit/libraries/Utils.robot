@@ -94,7 +94,7 @@ Check Nodes Stats
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
     [Arguments]    ${node}    ${session}=session
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.Get On Session
     ...    ${session}
     ...    ${RFC8040_NODES_API}/node=${node}?${RFC8040_OPERATIONAL_CONTENT}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -105,7 +105,7 @@ Check For Specific Number Of Elements At URI
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
     [Arguments]    ${uri}    ${element}    ${expected_count}    ${session}=session
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.text}    ${element}    ${expected_count}
@@ -124,7 +124,7 @@ Check For Elements At URI
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
     IF    "${pretty_print_json}" == "True"
         Log Content    ${resp.text}
     ELSE
@@ -141,7 +141,7 @@ Check For Elements Not At URI
     ...    return of 404 is treated as empty list. From Neon onwards, an empty list is always
     ...    returned as null, giving 404 on rest call.
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False    ${check_for_null}=False
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
     IF    "${pretty_print_json}" == "True"
         Log Content    ${resp.text}
     ELSE
@@ -364,26 +364,26 @@ Concatenate the String
 Post Elements To URI
     [Documentation]    Perform a POST rest operation, using the URL and data provided
     [Arguments]    ${rest_uri}    ${data}    ${headers}=${headers}    ${session}=session
-    ${resp}=    RequestsLibrary.Post Request    ${session}    ${rest_uri}    data=${data}    headers=${headers}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${rest_uri}    data=${data}    headers=${headers}
     Log    ${resp.text}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Delete Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Delete On Session    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI And Verify
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Delete Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Delete On Session    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
     Should Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements If Exist
     [Documentation]    Delete all elements from an URI if the configuration was not empty
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
     IF    '${resp.status_code}'!='404' and '${resp.status_code}'!='409'
         Remove All Elements At URI    ${uri}    ${session}
     END
@@ -392,7 +392,7 @@ Add Elements To URI From File
     [Documentation]    Put data from a file to a URI
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
@@ -404,9 +404,9 @@ Add Elements To URI From File And Verify
 Add Elements To URI And Verify
     [Documentation]    Put data to a URI and verify the HTTP response
     [Arguments]    ${dest_uri}    ${data}    ${headers}=${headers}    ${session}=session
-    ${resp}=    RequestsLibrary.Put Request    ${session}    ${dest_uri}    ${data}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    ${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${dest_uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${dest_uri}
     Should Not Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Check Validation Error
@@ -414,7 +414,7 @@ Add Elements To URI From File And Check Validation Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${DATA_VALIDATION_ERROR}    ${resp.status_code}
 
 Add Elements To URI From File And Check Server Error
@@ -423,13 +423,13 @@ Add Elements To URI From File And Check Server Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${INTERNAL_SERVER_ERROR}    ${resp.status_code}
 
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Post Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Run Process With Logging And Status Check
@@ -442,31 +442,31 @@ Run Process With Logging And Status Check
     RETURN    ${result}
 
 Get Data From URI
-    [Documentation]    Issue a GET request and return the data obtained or on error log the error and fail.
-    ...    Issues a GET request for ${uri} in ${session} using headers from
+    [Documentation]    Issue a Get On Session and return the data obtained or on error log the error and fail.
+    ...    Issues a Get On Session for ${uri} in ${session} using headers from
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}
     IF    ${resp.status_code} == 200    RETURN    ${resp.text}
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
 
 Get URI And Verify
-    [Documentation]    Issue a GET request and verify a successfull HTTP return.
-    ...    Issues a GET request for ${uri} in ${session} using headers from ${headers}.
+    [Documentation]    Issue a Get On Session and verify a successfull HTTP return.
+    ...    Issues a Get On Session for ${uri} in ${session} using headers from ${headers}.
     [Arguments]    ${uri}    ${session}=session    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}
     Builtin.Log    ${resp.status_code}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 No Content From URI
-    [Documentation]    Issue a GET request and return on error 404 (No content) or will fail and log the content.
-    ...    Issues a GET request for ${uri} in ${session} using headers from
+    [Documentation]    Issue a Get On Session and return on error 404 (No content) or will fail and log the content.
+    ...    Issues a Get On Session for ${uri} in ${session} using headers from
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}
     IF    ${resp.status_code} == 404 or ${resp.status_code} == 409    RETURN
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
@@ -494,7 +494,7 @@ Check Item Occurrence
 Post Log Check
     [Documentation]    Post body to ${uri}, log response content, and check status
     [Arguments]    ${uri}    ${body}    ${session}=session    ${status_codes}=200
-    ${resp}=    RequestsLibrary.Post Request    ${session}    ${uri}    ${body}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${uri}    ${body}
     Log    ${resp.text}
     TemplatedRequests.Check Status Code    ${resp}    ${status_codes}
     RETURN    ${resp}
@@ -658,7 +658,7 @@ Check Diagstatus
     ...    By default, this keyword will pass if the status code returned is 200, and fail otherwise.
     [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}    ${check_status}=True    ${expected_status}=${200}
     RequestsLibrary.Create Session    diagstatus_session    http://${ip_address}:${RESTCONFPORT}
-    ${resp}=    RequestsLibrary.Get Request    diagstatus_session    /diagstatus
+    ${resp}=    RequestsLibrary.Get On Session    diagstatus_session    /diagstatus
     IF    "${check_status}" == "True"
         BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${expected_status}
     END

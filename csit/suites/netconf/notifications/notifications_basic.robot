@@ -68,7 +68,7 @@ Create_DCN_Stream
     Comment    Create DCN subscription
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
     ${uri} =    Restconf.Generate URI    sal-remote:create-data-change-event-subscription    rpc
-    ${resp} =    RequestsLibrary.Post_Request
+    ${resp} =    RequestsLibrary.Post_On_Session
     ...    restconf
     ...    ${uri}
     ...    headers=${SEND_ACCEPT_XML_HEADERS}
@@ -80,7 +80,7 @@ Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
     [Tags]    critical
     ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${DRAFT_DCN_STREAM_URI}    ${RFC8040_DCN_STREAM_URI}
-    ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${location} =    XML.Get_Element_Text    ${resp.content}
@@ -96,7 +96,7 @@ List_DCN_Streams
     ...    "${USE_RFC8040}" == "False"
     ...    ${DRAFT_STREAMS_URI}
     ...    ${RFC8040_STREAMS_URI}
-    ${resp} =    RequestsLibrary.Get_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Comment    Stream only shows in RFC URL.
@@ -124,7 +124,7 @@ Change_DS_Config
     ...    "${USE_RFC8040}" == "False"
     ...    /restconf/config/network-topology:network-topology
     ...    /rests/data/network-topology:network-topology
-    ${resp} =    RequestsLibrary.Put_Request
+    ${resp} =    RequestsLibrary.Put_On_Session
     ...    restconf
     ...    ${uri}
     ...    headers=${SEND_ACCEPT_XML_HEADERS}
@@ -135,7 +135,7 @@ Change_DS_Config
     ...    "${USE_RFC8040}" == "False"
     ...    /restconf/config/network-topology:network-topology/topology/netconf-notif
     ...    /rests/data/network-topology:network-topology/topology=netconf-notif
-    ${resp} =    RequestsLibrary.Delete_Request    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Delete_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
