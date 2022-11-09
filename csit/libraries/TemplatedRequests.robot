@@ -507,9 +507,9 @@ Delete_From_Uri
     [Arguments]    ${uri}    ${session}=default    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
     BuiltIn.Log    ${uri}
     IF    """${http_timeout}""" == """${EMPTY}"""
-        ${response} =    RequestsLibrary.Delete_Request    alias=${session}    uri=${uri}
+        ${response} =    RequestsLibrary.Delete_On_Session    ${session}    ${uri}
     ELSE
-        ${response} =    RequestsLibrary.Delete_Request    alias=${session}    uri=${uri}    timeout=${http_timeout}
+        ${response} =    RequestsLibrary.Delete_On_Session    ${session}    ${uri}    timeout=${http_timeout}
     END
     Check_Status_Code    ${response}    additional_allowed_status_codes=${additional_allowed_status_codes}
     RETURN    ${response.text}
@@ -664,11 +664,11 @@ Get_From_Uri
     BuiltIn.Log    ${uri}
     BuiltIn.Log    ${accept}
     IF    """${http_timeout}""" == """${EMPTY}"""
-        ${response} =    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
+        ${response} =    RequestsLibrary.Get_On_Session    ${session}    ${uri}    headers=${accept}
     ELSE
-        ${response} =    RequestsLibrary.Get_Request
-        ...    alias=${session}
-        ...    uri=${uri}
+        ${response} =    RequestsLibrary.Get_On_Session
+        ...    ${session}
+        ...    ${uri}
         ...    headers=${accept}
         ...    timeout=${http_timeout}
     END
@@ -692,15 +692,15 @@ Put_To_Uri
     BuiltIn.Log    ${accept}
     ${headers} =    Join_Two_Headers    first=${content_type}    second=${accept}
     IF    """${http_timeout}""" == """${EMPTY}"""
-        ${response} =    RequestsLibrary.Put_Request
-        ...    alias=${session}
-        ...    uri=${uri}
+        ${response} =    RequestsLibrary.Put_On_Session
+        ...    ${session}
+        ...    ${uri}
         ...    data=${data}
         ...    headers=${headers}
     ELSE
-        ${response} =    RequestsLibrary.Put_Request
-        ...    alias=${session}
-        ...    uri=${uri}
+        ${response} =    RequestsLibrary.Put_On_Session
+        ...    ${session}
+        ...    ${uri}
         ...    data=${data}
         ...    headers=${headers}
         ...    timeout=${http_timeout}
@@ -722,15 +722,15 @@ Post_To_Uri
     BuiltIn.Log    ${accept}
     ${headers} =    Join_Two_Headers    first=${content_type}    second=${accept}
     IF    """${http_timeout}""" == """${EMPTY}"""
-        ${response} =    RequestsLibrary.Post_Request
-        ...    alias=${session}
-        ...    uri=${uri}
+        ${response} =    RequestsLibrary.Post_On_Session
+        ...    ${session}
+        ...    ${uri}
         ...    data=${data}
         ...    headers=${headers}
     ELSE
-        ${response} =    RequestsLibrary.Post_Request
-        ...    alias=${session}
-        ...    uri=${uri}
+        ${response} =    RequestsLibrary.Post_On_Session
+        ...    ${session}
+        ...    ${uri}
         ...    data=${data}
         ...    headers=${headers}
         ...    timeout=${http_timeout}
