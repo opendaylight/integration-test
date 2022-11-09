@@ -237,7 +237,7 @@ Wait_Netconf_Device_Mounted
 Check_Netconf_Up_And_Running
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
     [Arguments]    ${pretty_print}=${EMPTY}
-    ${response}=    RequestsLibrary.Get_Request
+    ${response}=    RequestsLibrary.Get_On_Session
     ...    ses
     ...    rests/data/network-topology:network-topology/topology\=topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}

@@ -108,7 +108,7 @@ Restart Controller
 
 Get Controller Modules
     [Documentation]    Get the restconf modules, check 200 status and ietf-restconf presence
-    ${resp}=    RequestsLibrary.Get_Request    default    ${MODULES_API}
+    ${resp}=    RequestsLibrary.Get_On_Session    default    ${MODULES_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
