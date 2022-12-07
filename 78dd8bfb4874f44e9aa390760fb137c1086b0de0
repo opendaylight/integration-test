@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "252952be_4fe351ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2022-12-07T15:46:09Z",
+      "side": 1,
+      "message": "jjb-deploy controller-csit-1node-rest-cars-perf-all-argon",
+      "revId": "78dd8bfb4874f44e9aa390760fb137c1086b0de0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
