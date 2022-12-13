@@ -2,7 +2,12 @@ import logging
 import os
 
 import pytest
-from src.variables import ODL_SYSTEM_IP, ODL_SYSTEM_PASSWORD, ODL_SYSTEM_USER, TOOLS_SYSTEM_IP
+from src.variables import (
+    ODL_SYSTEM_IP,
+    ODL_SYSTEM_PASSWORD,
+    ODL_SYSTEM_USER,
+    TOOLS_SYSTEM_IP,
+)
 
 
 def pytest_itemcollected(item):
@@ -15,7 +20,11 @@ def pytest_itemcollected(item):
 
 
 def pytest_addoption(parser):
-    parser.addoption("--private_key", action="store", default="{}/.ssh/id_rsa".format(os.getenv("HOME")))
+    parser.addoption(
+        "--private_key",
+        action="store",
+        default="{}/.ssh/id_rsa".format(os.getenv("HOME")),
+    )
     parser.addoption("--user", action="store", default=ODL_SYSTEM_USER)
     parser.addoption("--password", action="store", default=ODL_SYSTEM_PASSWORD)
     parser.addoption("--odl_ip", action="store", default=ODL_SYSTEM_IP)

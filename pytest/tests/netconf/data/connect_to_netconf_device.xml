@@ -1,0 +1,9 @@
+<node xmlns="urn:TBD:params:xml:ns:yang:network-topology">
+  <node-id>netconf-test-device</node-id>
+  <host xmlns="urn:opendaylight:netconf-node-topology">${TOOLS_SYSTEM_IP}</host>
+  <port xmlns="urn:opendaylight:netconf-node-topology">17830</port>
+  <username xmlns="urn:opendaylight:netconf-node-topology">admin</username>
+  <password xmlns="urn:opendaylight:netconf-node-topology">topsecret</password>
+  <tcp-only xmlns="urn:opendaylight:netconf-node-topology">false</tcp-only>
+  <keepalive-delay xmlns="urn:opendaylight:netconf-node-topology">0</keepalive-delay>
+</node>

@@ -12,7 +12,9 @@ def open_connection(ip_address, user, private_key, password):
     if len(password) > 0:
         client.connect(hostname=ip_address, port=22, username=user, password=password)
     else:
-        client.connect(hostname=ip_address, port=22, username=user, key_filename=private_key)
+        client.connect(
+            hostname=ip_address, port=22, username=user, key_filename=private_key
+        )
 
     return client
 
