@@ -136,7 +136,8 @@ Check_Whether_Netconf_Can_Pretty_Print
     IF    not ${netconf_is_ready}
         Fail    Netconf is not ready so it can't pretty-print now.
     END
-    Check_Netconf_Up_And_Running    ?odl-pretty-print=true
+    CompareStream.Run_Keyword_If_At_Least_Phosphorus
+    ...    Check_Netconf_Up_And_Running    pretty_print=odl-pretty-print=true
 
 Wait_For_MDSAL
     [Documentation]    Wait for the MDSAL feature to become online
@@ -239,7 +240,8 @@ Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     ${response}=    RequestsLibrary.Get_On_Session
     ...    ses
-    ...    rests/data/network-topology:network-topology/topology\=topology-netconf${netconf_connector}${pretty_print}
+    ...    url=rests/data/network-topology:network-topology/topology=topology-netconf${netconf_connector}
+    ...    params=${pretty_print}
     BuiltIn.Log    ${response.text}
     ${status}=    BuiltIn.Run_Keyword_And_Return_Status
     ...    BuiltIn.Should_Contain
