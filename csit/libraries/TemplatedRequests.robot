@@ -664,11 +664,11 @@ Get_From_Uri
     BuiltIn.Log    ${uri}
     BuiltIn.Log    ${accept}
     IF    """${http_timeout}""" == """${EMPTY}"""
-        ${response} =    RequestsLibrary.Get_On_Session    ${session}    ${uri}    headers=${accept}
+        ${response} =    RequestsLibrary.Get_On_Session    ${session}    url=${uri}    headers=${accept}
     ELSE
         ${response} =    RequestsLibrary.Get_On_Session
         ...    ${session}
-        ...    ${uri}
+        ...    url=${uri}
         ...    headers=${accept}
         ...    timeout=${http_timeout}
     END

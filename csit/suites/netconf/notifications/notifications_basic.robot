@@ -80,7 +80,7 @@ Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
     [Tags]    critical
     ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${DRAFT_DCN_STREAM_URI}    ${RFC8040_DCN_STREAM_URI}
-    ${resp} =    RequestsLibrary.Get_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${location} =    XML.Get_Element_Text    ${resp.content}
@@ -96,7 +96,7 @@ List_DCN_Streams
     ...    "${USE_RFC8040}" == "False"
     ...    ${DRAFT_STREAMS_URI}
     ...    ${RFC8040_STREAMS_URI}
-    ${resp} =    RequestsLibrary.Get_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Comment    Stream only shows in RFC URL.
