@@ -96,7 +96,8 @@ Check Nodes Stats
     [Arguments]    ${node}    ${session}=session
     ${resp}=    RequestsLibrary.Get On Session
     ...    ${session}
-    ...    ${RFC8040_NODES_API}/node=${node}?${RFC8040_OPERATIONAL_CONTENT}
+    ...    url=${RFC8040_NODES_API}/node=${node}
+    ...    params=${RFC8040_OPERATIONAL_CONTENT}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.text}    flow-capable-node-connector-statistics
     Should Contain    ${resp.text}    flow-table-statistics
@@ -105,7 +106,7 @@ Check For Specific Number Of Elements At URI
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
     [Arguments]    ${uri}    ${element}    ${expected_count}    ${session}=session
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.text}    ${element}    ${expected_count}
@@ -124,7 +125,7 @@ Check For Elements At URI
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     IF    "${pretty_print_json}" == "True"
         Log Content    ${resp.text}
     ELSE
@@ -141,7 +142,7 @@ Check For Elements Not At URI
     ...    return of 404 is treated as empty list. From Neon onwards, an empty list is always
     ...    returned as null, giving 404 on rest call.
     [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False    ${check_for_null}=False
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     IF    "${pretty_print_json}" == "True"
         Log Content    ${resp.text}
     ELSE
@@ -377,13 +378,13 @@ Remove All Elements At URI And Verify
     [Arguments]    ${uri}    ${session}=session
     ${resp}=    RequestsLibrary.Delete On Session    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     Should Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements If Exist
     [Documentation]    Delete all elements from an URI if the configuration was not empty
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     IF    '${resp.status_code}'!='404' and '${resp.status_code}'!='409'
         Remove All Elements At URI    ${uri}    ${session}
     END
@@ -406,7 +407,7 @@ Add Elements To URI And Verify
     [Arguments]    ${dest_uri}    ${data}    ${headers}=${headers}    ${session}=session
     ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    ${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${dest_uri}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${dest_uri}
     Should Not Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Check Validation Error
@@ -447,7 +448,7 @@ Get Data From URI
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}    headers=${headers}
     IF    ${resp.status_code} == 200    RETURN    ${resp.text}
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
@@ -456,7 +457,7 @@ Get URI And Verify
     [Documentation]    Issue a Get On Session and verify a successfull HTTP return.
     ...    Issues a Get On Session for ${uri} in ${session} using headers from ${headers}.
     [Arguments]    ${uri}    ${session}=session    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}    headers=${headers}
     Builtin.Log    ${resp.status_code}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
@@ -466,7 +467,7 @@ No Content From URI
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    ${uri}    ${headers}     expected_status=409
+    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}    expected_status=any    headers=${headers}
     IF    ${resp.status_code} == 404 or ${resp.status_code} == 409    RETURN
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}
@@ -658,7 +659,7 @@ Check Diagstatus
     ...    By default, this keyword will pass if the status code returned is 200, and fail otherwise.
     [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}    ${check_status}=True    ${expected_status}=${200}
     RequestsLibrary.Create Session    diagstatus_session    http://${ip_address}:${RESTCONFPORT}
-    ${resp}=    RequestsLibrary.Get On Session    diagstatus_session    /diagstatus
+    ${resp}=    RequestsLibrary.Get On Session    diagstatus_session    url=/diagstatus
     IF    "${check_status}" == "True"
         BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${expected_status}
     END
