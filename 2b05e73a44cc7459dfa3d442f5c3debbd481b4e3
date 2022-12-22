@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b8166f_50cd82c1",
+        "filename": "pytest/src/rest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "Can you think of a way to make this library more object oriented (OOP), like for example creating a class called RestClient or RestSession, have an object for every REST session and organize below methods in object methods (get, put, delete, etc) and class methods (check_status_code, join_headers, etc). After this, you can have a fixture returning the REST session object that can be used in multiple test.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ef366a_deac21d9",
+        "filename": "pytest/src/rest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "I think this should be headers vs accept",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9684ef5_4617f7e8",
+        "filename": "pytest/src/rest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "I am not sure we should include jmes_path and keys_for_volatiles unless we really needed them for anything.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9d03de_e5d296ac",
+        "filename": "pytest/src/rest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "Same comment on this and other methods, this should be as simple as possible",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060e744f_c0369205",
+        "filename": "pytest/src/rest.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "I believe all the methods from this point are for templated requests, have you tested these methods? the templated framework is complicated, I am not sure we want to include these methods specially if they are not tested.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bc3a375_41d21c8b",
+        "filename": "pytest/src/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "Can you think of a way to make this library more object oriented (OOP), like for example creating a class called SshClient or SshSession, have an object for every SSH session. After this, you can have a fixture returning the SSH session object that can be used in multiple test.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331f7028_b2b0c478",
+        "filename": "pytest/src/ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "where is the remote dir used?",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a45a7f_34e68c31",
+        "filename": "pytest/src/variables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "Would you mind clean this file up? we should have only things we need for current test.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95d3924_1eb28a0a",
+        "filename": "pytest/tests/netconf/test_netconf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "Should not be pytest.odl_ip vs ODL_SYSTEM_IP?",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e28d364_54c3cbdd",
+        "filename": "pytest/tests/netconf/test_netconf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "maybe is more clear connect_to_tools_system_and_start_test_tool or just start_test_tool",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc434b32_61a02cb4",
+        "filename": "pytest/tests/netconf/test_netconf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "I think this should be the pytest.tools_ip vs ODL_SYSTEM_IP",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7930279_355184e8",
+        "filename": "pytest/tests/netconf/test_netconf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "i is not used, maybe a while loop is more appropriate here",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5522e1_2d11cd62",
+        "filename": "pytest/tests/netconf/test_netconf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2022-12-22T05:30:14Z",
+      "side": 1,
+      "message": "This is very common test routine you already used few times just on this test, I think we can convert this to a library method called wait_unit_success(check, interval, max_retries) where check is a function that returns a boolean.",
+      "revId": "2b05e73a44cc7459dfa3d442f5c3debbd481b4e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
