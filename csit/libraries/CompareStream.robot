@@ -23,6 +23,7 @@ Library             String
 ...                 phosphorus=${15}
 ...                 sulfur=${16}
 ...                 chlorine=${17}
+...                 argon=${18}
 ...                 master=${999}
 
 
