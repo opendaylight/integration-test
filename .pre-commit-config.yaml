@@ -25,9 +25,12 @@ repos:
       additional_dependencies: ['robotframework']
 
   - repo: https://github.com/jorisroovers/gitlint
-    rev: v0.17.0
+    rev: v0.19.1
     hooks:
-    - id: gitlint
+      - id: gitlint
+        stages: [commit-msg]
+      - id: gitlint-ci
+        stages: [manual]
 
   - repo: local
     hooks:
