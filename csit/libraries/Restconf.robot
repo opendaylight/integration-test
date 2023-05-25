@@ -1,5 +1,5 @@
 *** Variables ***
-${USE_RFC8040} =    False
+${USE_RFC8040} =    True
 
 
 *** Keywords ***
