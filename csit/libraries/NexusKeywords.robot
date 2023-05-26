@@ -29,7 +29,7 @@ Resource            ${CURDIR}/Utils.robot
 
 *** Variables ***
 &{COMPONENT_MAPPING}
-...                                 netconf=netconf-impl
+...                                 netconf=netconf-api
 ...                                 bgpcep=pcep-impl
 ...                                 carpeople=clustering-it-model
 ...                                 yangtools=yang-data-impl
