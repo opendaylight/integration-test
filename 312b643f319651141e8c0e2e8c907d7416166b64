@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c133c1e_d0b9d4b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-05-26T05:55:01Z",
+      "side": 1,
+      "message": "jjb-deploy netconf-csit-3node-clustering-only-master",
+      "revId": "312b643f319651141e8c0e2e8c907d7416166b64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
