@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "298d9254_61e48534",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2023-05-28T17:20:08Z",
+      "side": 1,
+      "message": "I think Sangwook fixed the pre-commit issue here: https://git.opendaylight.org/gerrit/c/integration/test/+/106158\nYou can rebase you patch.",
+      "revId": "42949abf414e4b544423afe41503222f3f43b972",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
