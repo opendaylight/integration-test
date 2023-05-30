@@ -79,8 +79,7 @@ Create_DCN_Stream
 Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
     [Tags]    critical
-    ${uri} =    Set Variable If    "${USE_RFC8040}" == "False"    ${DRAFT_DCN_STREAM_URI}    ${RFC8040_DCN_STREAM_URI}
-    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${RFC8040_DCN_STREAM_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${location} =    XML.Get_Element_Text    ${resp.content}
@@ -92,26 +91,15 @@ Subscribe_To_DCN_Stream
 List_DCN_Streams
     [Documentation]    List DCN streams.
     [Tags]    critical
-    ${uri} =    BuiltIn.Set_Variable_If
-    ...    "${USE_RFC8040}" == "False"
-    ...    ${DRAFT_STREAMS_URI}
-    ...    ${RFC8040_STREAMS_URI}
-    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_On_Session    restconf    url=${RFC8040_DCN_STREAM_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Comment    Stream only shows in RFC URL.
-    IF    "${USE_RFC8040}" == "True"
-        BuiltIn.Should_Contain    ${resp.text}    ${NODES_STREAM_PATH}
-    END
+    BuiltIn.Should_Contain    ${resp.text}    ${NODES_STREAM_PATH}
 
 Start_Receiver
     [Documentation]    Start the websocket listener
-    IF    "${USE_RFC8040}" == "False"
-        ${output} =    SSHLibrary.Write
-        ...    python3 wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
-    ELSE
-        ${output} =    SSHLibrary.Write    python3 ssereceiver.py --uri ${location} --logfile ${RECEIVER_LOG_FILE}
-    END
+    ${output} =    SSHLibrary.Write    python3 ssereceiver.py --uri ${location} --logfile ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${output}
     ${output} =    SSHLibrary.Read    delay=2s
     BuiltIn.Log    ${output}
@@ -120,10 +108,7 @@ Change_DS_Config
     [Documentation]    Make a change in DS configuration.
     [Tags]    critical
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
-    ${uri} =    BuiltIn.Set_Variable_If
-    ...    "${USE_RFC8040}" == "False"
-    ...    /restconf/config/network-topology:network-topology
-    ...    /rests/data/network-topology:network-topology
+    ${uri} =    /rests/data/network-topology:network-topology
     ${resp} =    RequestsLibrary.Put_On_Session
     ...    restconf
     ...    ${uri}
@@ -131,10 +116,7 @@ Change_DS_Config
     ...    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${uri} =    BuiltIn.Set_Variable_If
-    ...    "${USE_RFC8040}" == "False"
-    ...    /restconf/config/network-topology:network-topology/topology/netconf-notif
-    ...    /rests/data/network-topology:network-topology/topology=netconf-notif
+    ${uri} =    /rests/data/network-topology:network-topology/topology=netconf-notif
     ${resp} =    RequestsLibrary.Delete_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
