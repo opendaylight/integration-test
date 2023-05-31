@@ -16,6 +16,23 @@
       "message": "There are much many occurrences of this variable than this one.",
       "revId": "ae595126e8e1ec7fb0b96afddabdde541bf349fb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758fdc3c_0b592ca1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-05-31T12:43:42Z",
+      "side": 1,
+      "message": "See notifications_basic.robot.",
+      "revId": "ae595126e8e1ec7fb0b96afddabdde541bf349fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
