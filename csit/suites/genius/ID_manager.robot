@@ -24,7 +24,7 @@ ${pool-name}                test-pool
 @{test_keys}                test-key1    test-key2    test-key3
 ${create_json}              createIdpool.json
 ${allocaterange_json}       allocateIdRange.json
-${OPERATIONS_API}           /restconf/operations
+${OPERATIONS_API}           /rests/operations
 
 
 *** Test Cases ***
