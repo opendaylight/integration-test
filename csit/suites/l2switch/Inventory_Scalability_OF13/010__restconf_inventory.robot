@@ -11,7 +11,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CONTEXT}     /restconf/operational/opendaylight-inventory:nodes
+${REST_CONTEXT}     /rests/data/opendaylight-inventory:nodes?content=nonconfig
 
 
 *** Test Cases ***
