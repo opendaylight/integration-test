@@ -85,31 +85,31 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
+    Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /rests/data/service-function:service-functions?content=config
     Set Suite Variable
     ...    ${SERVICE_FUNCTIONS_FILE}
     ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
     Set Suite Variable
     ...    ${SERVICE_FORWARDERS_URI}
-    ...    /restconf/config/service-function-forwarder:service-function-forwarders/
+    ...    /rests/data/service-function-forwarder:service-function-forwarders?content=config
     Set Suite Variable
     ...    ${SERVICE_FORWARDERS_FILE}
     ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders.json
-    Set Suite Variable    ${SERVICE_NODES_URI}    /restconf/config/service-node:service-nodes/
+    Set Suite Variable    ${SERVICE_NODES_URI}    /rests/data/service-node:service-nodes?content=config
     Set Suite Variable    ${SERVICE_NODES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-nodes.json
-    Set Suite Variable    ${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-function-chains/
+    Set Suite Variable    ${SERVICE_CHAINS_URI}    /rests/data/service-function-chain:service-function-chains?content=config
     Set Suite Variable
     ...    ${SERVICE_CHAINS_FILE}
     ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains.json
     Set Suite Variable
     ...    ${SERVICE_FUNCTION_PATHS_URI}
-    ...    /restconf/config/service-function-path:service-function-paths/
+    ...    /rests/data/service-function-path:service-function-paths?content=config
     Set Suite Variable
     ...    ${SERVICE_FUNCTION_PATHS_FILE}
     ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths.json
     Set Suite Variable
     ...    ${SERVICE_SCHED_TYPES_URI}
-    ...    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
+    ...    /rests/data/service-function-scheduler-type:service-function-scheduler-types?content=config
     Set Suite Variable
     ...    ${SERVICE_SCHED_TYPE_URI_BASE}
     ...    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:
@@ -131,16 +131,16 @@ Init Suite
     ...    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-shortestpath-schedule-type.json
     Set Suite Variable
     ...    ${RENDERED_SERVICE_PATHS_URI}
-    ...    /restconf/config/rendered-service-path:rendered-service-paths/
+    ...    /rests/data/rendered-service-path:rendered-service-paths?content=config
     Set Suite Variable
     ...    ${OPERATIONAL_RSPS_URI}
-    ...    /restconf/operational/rendered-service-path:rendered-service-paths/
+    ...    /rests/data/rendered-service-path:rendered-service-paths??content=nonconfig
     Set Suite Variable
     ...    ${OPERATIONS_CREATE_RSP_URI}
-    ...    /restconf/operations/rendered-service-path:create-rendered-path/
+    ...    /rests/operations/rendered-service-path:create-rendered-path/
     Set Suite Variable
     ...    ${OPERATIONS_DELETE_RSP_URI}
-    ...    /restconf/operations/rendered-service-path:delete-rendered-path
+    ...    /rests/operations/rendered-service-path:delete-rendered-path
     Set Suite Variable
     ...    ${CREATE_RSP1_INPUT}
     ...    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-1"}}
