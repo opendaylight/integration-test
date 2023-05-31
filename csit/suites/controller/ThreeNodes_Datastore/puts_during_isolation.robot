@@ -33,7 +33,7 @@ ${ITEM_COUNT}               ${10000}
 ${THREADS}                  10
 ${ADDCMD}
 ...                         python ${TOOL_NAME} --port ${RESTCONFPORT} add-with-retries --itemtype car --itemcount ${ITEM_COUNT} --threads ${THREADS}
-${CARURL}                   /restconf/config/car:cars
+${CARURL}                   /rests/data/car:cars
 ${SHARD_NAME}               car
 ${SHARD_TYPE}               config
 ${TEST_LOG_LEVEL}           info

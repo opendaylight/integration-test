@@ -40,9 +40,9 @@ ${addpeoplecmd}
 ...                         python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add-rpc --itemtype people --itemcount ${ITEM_COUNT} --threads 5
 ${purchasecmd}
 ...                         python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 5
-${carurl}                   /restconf/config/car:cars
-${peopleurl}                /restconf/config/people:people
-${carpeopleurl}             /restconf/config/car-people:car-people
+${carurl}                   /rests/data/car:cars
+${peopleurl}                /rests/data/people:people
+${carpeopleurl}             /rests/data/car-people:car-people
 ${CONTROLLER_LOG_LEVEL}     INFO
 ${TOOL_OPTIONS}             ${EMPTY}
 
