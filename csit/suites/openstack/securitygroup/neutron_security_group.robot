@@ -24,8 +24,8 @@ ${VERIFY_NAME}              SSH_UPDATED
 ${NAME_UPDATE}              --name SSH_UPDATED
 ${SECURITY_FALSE}           --port-security-enabled false
 ${SECURITY_TRUE}            --port-security-enabled true
-${SEC_GROUP_API}            /restconf/config/neutron:neutron/security-groups/
-${SEC_RULE_API}             /restconf/config/neutron:neutron/security-rules/
+${SEC_GROUP_API}            /rests/data/neutron:neutron/security-groups?content=config
+${SEC_RULE_API}             /rests/data/neutron:neutron/security-rules?content=config
 ${ADD_ARG_SSH}              --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
 @{NETWORKS}                 sgs_net_1
 @{SUBNETS}                  sgs_sub_1
