@@ -43,9 +43,9 @@ ${addpeoplecmd}
 ...                         python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype people --itemcount ${ITEM_COUNT} --threads 6
 ${purchasecmd}
 ...                         python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 6
-${carurl}                   /restconf/config/car:cars
-${peopleurl}                /restconf/config/people:people
-${carpeopleurl}             /restconf/config/car-people:car-people
+${carurl}                   /rests/data/car:cars?content=config
+${peopleurl}                /rests/data/people:people?content=config
+${carpeopleurl}             /rests/data/car-people:car-people?content=config
 ${CONTROLLER_LOG_LEVEL}     INFO
 ${TOOL_OPTIONS}             ${EMPTY}
 

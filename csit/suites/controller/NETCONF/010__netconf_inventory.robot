@@ -16,8 +16,8 @@ Suite Teardown      Delete All Sessions
 ${NETOPEER}             ${TOOLS_SYSTEM_IP}
 ${NETOPEER_USER}        ${TOOLS_SYSTEM_USER}
 ${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
-${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
+${REST_CONT_CONF}       /rests/data/network-topology:network-topology/topology/topology-netconf?content=config
+${REST_CONT_OPER}       /rests/data/network-topology:network-topology/topology/topology-netconf?content=nonconfig
 ${REST_NTPR_CONF}       node/controller-config/yang-ext:mount/config:modules
 ${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
 
