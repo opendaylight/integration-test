@@ -34,9 +34,9 @@ ${PASSIVE_MANAGER}              ptcp:6641:127.0.0.1
 ...                             org.opendaylight.ovsdb.lib
 ...                             org.opendaylight.netvirt
 ...                             org.opendaylight.genius
-${UPDATE_FLAG_PATH}             /restconf/config/odl-serviceutils-upgrade:upgrade-config
-${GET_ACTIVE_BUNDLE_URI}        /restconf/operations/arbitrator-reconcile:get-active-bundle
-${COMMIT_ACTIVE_BUNDLE_URI}     /restconf/operations/arbitrator-reconcile:commit-active-bundle
+${UPDATE_FLAG_PATH}             /rests/data/odl-serviceutils-upgrade:upgrade-config
+${GET_ACTIVE_BUNDLE_URI}        /rests/operations/arbitrator-reconcile:get-active-bundle
+${COMMIT_ACTIVE_BUNDLE_URI}     /rests/operations/arbitrator-reconcile:commit-active-bundle
 ${COMMIT_ACTIVE_BUNDLE_DIR}     ${CURDIR}/../../../variables/netvirt/commit_active_bundle
 ${SET_BUNDLE_TIMEOUT}           sudo ovs-vsctl set O . other_config:bundle-idle-timeout=3600
 
