@@ -13,7 +13,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CON}             /restconf/config/
+${RESTS_DATA}             /rests/data/
 @{vpn_inst_values}      testVpn1    1000:1    1000:1,2000:1    3000:1,4000:1
 @{vm_int_values}        s1-eth1    l2vlan    openflow:1:1
 @{vm_vpnint_values}     s1-eth1    testVpn1    10.0.0.1    12:f8:57:a8:b9:a1
@@ -29,13 +29,13 @@ Create VPN Instance
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}l3vpn:vpn-instances/
     ...    data=${body}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-instances/
     ...    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
@@ -47,13 +47,13 @@ Verify VPN instance
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
@@ -65,7 +65,7 @@ Create ietf vm interface
     [Documentation]    Creates ietf interface through the restconf
     [Tags]    post
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vm_interface.json
-    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}ietf-interfaces:interfaces/    data=${body}
+    ${resp}    RequestsLibrary.Post Request    session    ${RESTS_DATA}ietf-interfaces:interfaces/    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify ietf vm interface
@@ -73,7 +73,7 @@ Verify ietf vm interface
     [Tags]    get
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/
+    ...    ${RESTS_DATA}ietf-interfaces:interfaces/interface=${vm_int_values[0]}/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
@@ -89,13 +89,13 @@ Create VPN interface
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn:vpn-interfaces/
     ...    data=${body}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-interfaces/
     ...    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    204
 
@@ -106,13 +106,13 @@ Verify VPN interface
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
@@ -132,12 +132,12 @@ Delete vm vpn interface
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn:vpn-interfaces/
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleteing vm vpn interface
@@ -147,13 +147,13 @@ Verify after deleteing vm vpn interface
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -164,12 +164,12 @@ Delete VPN Instance
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Delete Requestt
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instance
@@ -179,13 +179,13 @@ Verify after deleting the vpn instance
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}l3vpn-instances-interfaces:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ...    ${RESTS_DATA}l3vpn-instances-interfaces:vpn-instances/vpn-instance=${vpn_inst_values[0]}/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -194,7 +194,7 @@ Delete vm ietf interface
     [Tags]    delete
     ${resp}    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
+    ...    ${RESTS_DATA}ietf-interfaces:interfaces/interface=${vm_int_values[0]}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vm ietf interface
@@ -202,7 +202,7 @@ Verify after deleting vm ietf interface
     [Tags]    verify after delete
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
+    ...    ${RESTS_DATA}ietf-interfaces:interfaces/interface=${vm_int_values[0]}
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -218,7 +218,7 @@ Ensure The Fib Entry Is Present
     [Arguments]    ${prefix}
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    /restconf/operational/odl-fib:fibEntries/
+    ...    /rests/data/odl-fib:fibEntries?content=nonconfig
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
@@ -230,7 +230,7 @@ Ensure the Fib Entry Is Removed
     [Arguments]    ${prefix}
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    /restconf/operational/odl-fib:fibEntries/
+    ...    /rests/data/odl-fib:fibEntries?content=nonconfig
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${prefix}
