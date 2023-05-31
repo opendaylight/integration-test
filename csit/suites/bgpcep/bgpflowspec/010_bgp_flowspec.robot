@@ -31,7 +31,7 @@ ${EXP1}                     bgp_flowspec
 ${CFG2}                     bgp-flowspec-redirect.cfg
 ${EXP2}                     bgp_flowspec_redirect
 ${FLOWSPEC_URL}
-...                         /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes
+...                         /rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib/loc-rib/tables=bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes?content=nonconfig
 ${CONFIG_SESSION}           session
 ${DEVICE_NAME}              controller-config
 ${RIB_INSTANCE}             example-bgp-rib
