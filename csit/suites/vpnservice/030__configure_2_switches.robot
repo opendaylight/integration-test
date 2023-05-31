@@ -12,7 +12,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CON}             /restconf/config
+${REST_CON}             /rests/data
 @{vpn_inst_values}      testVpn1    100:1    200:1    300:1    testVpn2    400:1    500:1
 ...                     600:1
 @{ietf_int_values}      s1-eth1    s1-eth2    s1-gre1    s2-eth1    s2-eth2    s2-gre1
@@ -31,7 +31,6 @@ ${REST_CON}             /restconf/config
 ...                     s2-eth2
 ...                     10.0.0.4
 ...                     00:00:00:00:00:04
-${REST_OPER}            /restconf/operational
 @{NODE_ELEMENTS}
 ...                     openflow:1
 ...                     openflow:1:1
@@ -46,7 +45,7 @@ ${REST_OPER}            /restconf/operational
 *** Test Cases ***
 Veirfy The Switches
     [Documentation]    Verifies if the switches and node connectors data is available to the controller
-    Check For Elements At URI    ${REST_OPER}/opendaylight-inventory:nodes/    ${NODE_ELEMENTS}
+    Check For Elements At URI    ${REST_CON}/opendaylight-inventory:nodes/    ${NODE_ELEMENTS}
 
 Create VPN Instances
     [Documentation]    Creates VPN Instances through restconf
@@ -81,7 +80,7 @@ Verify VPN instances
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn:vpn-instances/
+    ...    ${REST_CON}/l3vpn:vpn-instances/
     ...    ${vpn_inst_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
@@ -95,7 +94,7 @@ Verify VPN instances
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
     ...    ${vpn_inst_values}
 
 Create ietf interfaces
@@ -120,14 +119,14 @@ Verify ietf interfaces
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/ietf-interfaces:interfaces-state/
+    ...    ${REST_CON}/ietf-interfaces:interfaces-state/
     ...    ${ietf_int_values}
     @{state}=    Create List    down
     Wait Until Keyword Succeeds
     ...    2s
     ...    1s
     ...    Check For Elements Not At URI
-    ...    ${REST_OPER}/ietf-interfaces:interfaces-state/
+    ...    ${REST_CON}/ietf-interfaces:interfaces-state/
     ...    ${state}
 
 Create VPN interfaces
@@ -162,7 +161,7 @@ Verify VPN interfaces
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn:vpn-interfaces/
+    ...    ${REST_CON}/l3vpn:vpn-interfaces/
     ...    ${vpn_int_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
@@ -176,7 +175,7 @@ Verify VPN interfaces
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
     ...    ${vpn_int_values}
 
 Verify FIB entries after create
@@ -188,13 +187,13 @@ Verify FIB entries after create
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[1]}
+    ...    ${REST_CON}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[1]}
     ...    ${fib_entries1}
     Wait Until Keyword Succeeds
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[5]}
+    ...    ${REST_CON}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[5]}
     ...    ${fib_entries2}
 
 Verify flows
@@ -328,7 +327,7 @@ Verify FIB entries after delete
     ...    3s
     ...    1s
     ...    Check For Elements Not At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/
+    ...    ${REST_CON}/odl-fib:fibEntries/
     ...    ${fib_entries}
 
 Verify flows after delete
