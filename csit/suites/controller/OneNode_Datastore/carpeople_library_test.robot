@@ -99,7 +99,7 @@ Check_Rpc_Readiness
     # So far only buy-car is checked, but other RPCs such as add-car may be added later.
     ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error
     ...    TemplatedRequests.Post_As_Json_To_Uri
-    ...    uri=restconf/operations/car-purchase:buy-car
+    ...    uri=rests/operations/car-purchase:buy-car
     ...    data={"input":{}}
     # TODO: Create template directory for this?
     BuiltIn.Should_Not_Contain    ${message}    '50
