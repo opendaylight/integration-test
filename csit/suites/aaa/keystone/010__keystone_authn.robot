@@ -25,8 +25,8 @@ Suite Teardown      Cleanup Suite
 
 
 *** Variables ***
-${URI_CERTIFICATE}      /restconf/operations/aaa-cert-rpc:getODLCertificate
-${URI_RESTCONF}         /restconf/operational/ietf-restconf-monitoring:restconf-state
+${URI_CERTIFICATE}      /rests/operations/aaa-cert-rpc:getODLCertificate
+${URI_RESTCONF}         /rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig
 
 
 *** Test Cases ***
@@ -40,9 +40,9 @@ Successful Authentication Including Domain
     ...
     ...    Note:
     ...
-    ...    - URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "sdnadmin" has "admin" role in keystone the access is authorized too
+    ...    - URL "/rests/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "sdnadmin" has "admin" role in keystone the access is authorized too
     ...
-    ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
+    ...    - URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
     Create Session
     ...    session
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
@@ -63,9 +63,9 @@ Successful Authentication Without Domain
     ...
     ...    Note:
     ...
-    ...    - URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "CSC_user" has "admin" role in keystone the access is authorized too
+    ...    - URL "/rests/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "CSC_user" has "admin" role in keystone the access is authorized too
     ...
-    ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
+    ...    - URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -137,8 +137,8 @@ Unsuccessful Basic Authorization
     ...
     ...    - Provision MDSAL so that users with role "admin" or "user" are authorized to access all URIs
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
-    ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
-    ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized becaiuse that URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to all URLs is allowed to all user with "user" role
+    ...    - Check that the access to URL "/rests/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
+    ...    - Check that the access to URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is authorized becaiuse that URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to all URLs is allowed to all user with "user" role
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session
@@ -158,8 +158,8 @@ Unsuccessful Dynamic Authorization
     ...
     ...    - Provision MDSAL so that just users with role "admin" are authorized to access all URIs
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
-    ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
-    ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is NOT authorized because although the URL is not specified in shiro.ini, in MDSAL Dynamic Authorization access to all URLs is allowed just for users with "admin" role and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role
+    ...    - Check that the access to URL "/rests/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
+    ...    - Check that the access to URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is NOT authorized because although the URL is not specified in shiro.ini, in MDSAL Dynamic Authorization access to all URLs is allowed just for users with "admin" role and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-2.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session
@@ -178,17 +178,17 @@ Unsuccessful Dynamic Authorization 2
     ...    Steps:
     ...
     ...    - Provision MDSAL so that:
-    ...    \ \ - URI "/restconf/operations/aaa-cert-rpc:getODLCertificate" is authorized just for users with "user" role
-    ...    \ - URI "/restconf/operational/**" is authorized just for users with "user" role
+    ...    \ \ - URI "/rests/operations/aaa-cert-rpc:getODLCertificate" is authorized just for users with "user" role
+    ...    \ - URI "/rests/data/**" is authorized just for users with "user" role
     ...
     ...    - Create an HTTP session with ODL as "sdnadmin" user
-    ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because although in shiro.ini configuration the access is allowed to "admin" roles and "cscadmin" does have \ "admin" role, \ in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "cscadmin" does not have \ "user" role in keystone but "admin" role
-    ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is NOT authorized because although in shiro.ini configuration that URL is not considered, \ in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "cscadmin" does not have \ "user" role in keystone but "admin" role
+    ...    - Check that the access to URL "/rests/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because although in shiro.ini configuration the access is allowed to "admin" roles and "cscadmin" does have \ "admin" role, \ in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "cscadmin" does not have \ "user" role in keystone but "admin" role
+    ...    - Check that the access to URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is NOT authorized because although in shiro.ini configuration that URL is not considered, \ in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "cscadmin" does not have \ "user" role in keystone but "admin" role
     ...
     ...
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
-    ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
-    ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized because the URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "CSC_user_no_admin" does \ have \ "user" role in keystone
+    ...    - Check that the access to URL "/rests/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
+    ...    - Check that the access to URL "/rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig" is authorized because the URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "CSC_user_no_admin" does \ have \ "user" role in keystone
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-3.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session
@@ -344,7 +344,7 @@ Provision Keystone
 Provision MDSAL
     [Arguments]    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Set Suite Variable    ${PUT_DYNAMIC_AUTH_URI}    /restconf/config/aaa:http-authorization
+    Set Suite Variable    ${PUT_DYNAMIC_AUTH_URI}    /rests/data/aaa:http-authorization
     ${body_dyn}    OperatingSystem.Get File    ${PUT_DYNAMIC_AUTH_FILE}
     ${resp}    RequestsLibrary.Put Request
     ...    session_admin
