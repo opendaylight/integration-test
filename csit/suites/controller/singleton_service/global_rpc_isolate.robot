@@ -24,12 +24,12 @@ Default Tags        critical
 
 
 *** Variables ***
-${RPC_URL}                  /restconf/operations/basic-rpc-test:basic-global
+${RPC_URL}                  /rests/operations/basic-rpc-test:basic-global
 &{EMPTY_DICT}
 ${SERVICE}                  Basic-rpc-test']
 ${TEST_LOG_LEVEL}           info
 @{TEST_LOG_COMPONENTS}      org.opendaylight.controller.remote.rpc
-${EOS_URL}                  /restconf/operational/entity-owners:entity-owners
+${EOS_URL}                  /rests/data/entity-owners:entity-owners?content=nonconfig
 ${RPC_STATUS_ISOLATED}      501
 
 
