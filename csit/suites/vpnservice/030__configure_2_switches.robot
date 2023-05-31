@@ -12,7 +12,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CON}             /restconf/config
+${RESTS_DATA}           /rests/data
 @{vpn_inst_values}      testVpn1    100:1    200:1    300:1    testVpn2    400:1    500:1
 ...                     600:1
 @{ietf_int_values}      s1-eth1    s1-eth2    s1-gre1    s2-eth1    s2-eth2    s2-gre1
@@ -31,7 +31,6 @@ ${REST_CON}             /restconf/config
 ...                     s2-eth2
 ...                     10.0.0.4
 ...                     00:00:00:00:00:04
-${REST_OPER}            /restconf/operational
 @{NODE_ELEMENTS}
 ...                     openflow:1
 ...                     openflow:1:1
@@ -46,7 +45,7 @@ ${REST_OPER}            /restconf/operational
 *** Test Cases ***
 Veirfy The Switches
     [Documentation]    Verifies if the switches and node connectors data is available to the controller
-    Check For Elements At URI    ${REST_OPER}/opendaylight-inventory:nodes/    ${NODE_ELEMENTS}
+    Check For Elements At URI    ${RESTS_DATA}/opendaylight-inventory:nodes/    ${NODE_ELEMENTS}
 
 Create VPN Instances
     [Documentation]    Creates VPN Instances through restconf
@@ -55,13 +54,13 @@ Create VPN Instances
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn:vpn-instances/
     ...    data=${vpn_instances}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-instances/
     ...    data=${vpn_instances}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
@@ -74,28 +73,28 @@ Verify VPN instances
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_CON}/l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn:vpn-instances/
     ...    ${vpn_inst_values}
     CompareStream.Run_Keyword_If_Less_Than_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn:vpn-instances/
     ...    ${vpn_inst_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-instances/
     ...    ${vpn_inst_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-instances/
     ...    ${vpn_inst_values}
 
 Create ietf interfaces
@@ -103,7 +102,7 @@ Create ietf interfaces
     [Tags]    post
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}/ietf-interfaces:interfaces/
+    ...    ${RESTS_DATA}/ietf-interfaces:interfaces/
     ...    data=${ietf_interfaces}
     Should Be Equal As Strings    ${resp.status_code}    204
 
@@ -114,20 +113,20 @@ Verify ietf interfaces
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_CON}/ietf-interfaces:interfaces/
+    ...    ${RESTS_DATA}/ietf-interfaces:interfaces/
     ...    ${ietf_int_values}
     Wait Until Keyword Succeeds
     ...    5s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/ietf-interfaces:interfaces-state/
+    ...    ${RESTS_DATA}/ietf-interfaces:interfaces-state/
     ...    ${ietf_int_values}
     @{state}=    Create List    down
     Wait Until Keyword Succeeds
     ...    2s
     ...    1s
     ...    Check For Elements Not At URI
-    ...    ${REST_OPER}/ietf-interfaces:interfaces-state/
+    ...    ${RESTS_DATA}/ietf-interfaces:interfaces-state/
     ...    ${state}
 
 Create VPN interfaces
@@ -137,13 +136,13 @@ Create VPN interfaces
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn:vpn-interfaces/
     ...    data=${vpn_instances}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Post Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-interfaces/
     ...    data=${vpn_instances}
     Should Be Equal As Strings    ${resp.status_code}    204
 
@@ -155,28 +154,28 @@ Verify VPN interfaces
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_CON}/l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn:vpn-interfaces/
     ...    ${vpn_int_values}
     CompareStream.Run_Keyword_If_Less_Than_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn:vpn-interfaces/
     ...    ${vpn_int_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-interfaces/
     ...    ${vpn_int_values}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    Wait Until Keyword Succeeds
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-interfaces/
     ...    ${vpn_int_values}
 
 Verify FIB entries after create
@@ -188,13 +187,13 @@ Verify FIB entries after create
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[1]}
+    ...    ${RESTS_DATA}/odl-fib:fibEntries/vrfTables=${vpn_inst_values[1]}
     ...    ${fib_entries1}
     Wait Until Keyword Succeeds
     ...    3s
     ...    1s
     ...    Check For Elements At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/vrfTables/${vpn_inst_values[5]}
+    ...    ${RESTS_DATA}/odl-fib:fibEntries/vrfTables=${vpn_inst_values[5]}
     ...    ${fib_entries2}
 
 Verify flows
@@ -244,12 +243,12 @@ Delete vpn interfaces
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn:vpn-interfaces/
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vpn interfaces
@@ -259,20 +258,20 @@ Verify after deleting vpn interfaces
     ...    ${resp}
     ...    RequestsLibrary.get Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.get Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-interfaces/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-interfaces/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete ietf interfaces
     [Documentation]    Deletes the ietf interfaces
     [Tags]    delete
-    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CON}/ietf-interfaces:interfaces/
+    ${resp}=    RequestsLibrary.Delete Request    session    ${RESTS_DATA}/ietf-interfaces:interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting ietf interfaces
@@ -280,7 +279,7 @@ Verify after deleting ietf interfaces
     [Tags]    verify after delete
     ${resp}=    RequestsLibrary.get Request
     ...    session
-    ...    ${REST_CON}/ietf-interfaces:interfaces/
+    ...    ${RESTS_DATA}/ietf-interfaces:interfaces/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -291,12 +290,12 @@ Delete VPN Instances
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn:vpn-instances/
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.Delete Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-instances/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instances
@@ -306,13 +305,13 @@ Verify after deleting the vpn instances
     ...    ${resp}
     ...    RequestsLibrary.get Request
     ...    session
-    ...    ${REST_CON}/l3vpn:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn:vpn-instances/
     ...    headers=${ACCEPT_XML}
     CompareStream.Run_Keyword_If_At_Least_Magnesium
     ...    ${resp}
     ...    RequestsLibrary.get Request
     ...    session
-    ...    ${REST_CON}/l3vpn-instances-interfaces:vpn-instances/
+    ...    ${RESTS_DATA}/l3vpn-instances-interfaces:vpn-instances/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -328,7 +327,7 @@ Verify FIB entries after delete
     ...    3s
     ...    1s
     ...    Check For Elements Not At URI
-    ...    ${REST_OPER}/odl-fib:fibEntries/
+    ...    ${RESTS_DATA}/odl-fib:fibEntries/
     ...    ${fib_entries}
 
 Verify flows after delete
