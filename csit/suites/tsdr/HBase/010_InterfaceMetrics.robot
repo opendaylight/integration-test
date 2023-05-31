@@ -85,10 +85,10 @@ Init Variables Master
     Set Suite Variable    @{CATEGORY}    FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS
     ...    QUEUESTATS
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
-    Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
+    Set Suite Variable    ${CONFIG_INTERVAL}    /rests/data/tsdr-openflow-statistics-collector:TSDROSCConfig?content=config
     Set Suite Variable
     ...    ${OPER_INTERVAL}
-    ...    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
+    ...    /rests/operations/tsdr-openflow-statistics-collector:setPollingInterval
     Set Suite Variable    ${default_poll}    15000
     set Suite Variable    ${non_default_poll}    20000
     set Suite Variable    ${node_connector}    Node:openflow:1,NodeConnector:1
