@@ -19,7 +19,7 @@ Suite Teardown      Cleanup Suite
 
 
 *** Variables ***
-${RESTCONF_MONITORING_URI}      /restconf/operational/ietf-restconf-monitoring:restconf-state
+${RESTCONF_MONITORING_URI}      /rests/data/ietf-restconf-monitoring:restconf-state?content=nonconfig
 ${RESTCONF_MONITORING_URL}      https://${ODL_SYSTEM_IP}:${RESTCONFPORT_TLS}${RESTCONF_MONITORING_URI}
 
 
