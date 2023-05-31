@@ -22,7 +22,7 @@ ${NETWORK_NAME}         net123
 ${SUBNET_NAME}          subnet123
 ${CLIENT_SG}            client_sg
 ${SERVER_SG}            server_sg
-${TENANTS_CONF_PATH}    restconf/config/policy:tenants
+${TENANTS_CONF_PATH}    rests/data/policy:tenants?content=config
 ${CLIENT_PORT_IP}       10.0.0.5
 ${SERVER_PORT_IP}       10.0.0.6
 ${CLIENT_PORT_NAME}     client
