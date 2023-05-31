@@ -18,27 +18,27 @@ ${GBPSFC4}                      ${TOOLS_SYSTEM_4_IP}
 ${GBPSFC5}                      ${TOOLS_SYSTEM_5_IP}
 ${GBPSFC6}                      ${TOOLS_SYSTEM_6_IP}
 @{GBPSFCs}                      ${GBPSFC1}    ${GBPSFC2}    ${GBPSFC3}    ${GBPSFC4}    ${GBPSFC5}    ${GBPSFC6}
-${OF_OVERLAY_CONFIG_PATH}       /restconf/config/ofoverlay:of-overlay-config
+${OF_OVERLAY_CONFIG_PATH}       /rests/data/ofoverlay:of-overlay-config?content=config
 ${TOPOLOGY_PATH}                ${CONFIG_TOPO_API}/topology/ovsdb:1
-${SF_PATH}                      /restconf/config/service-function:service-functions
+${SF_PATH}                      /rests/data/service-function:service-functions?content=config
 ${SF_FILE}                      ${CURDIR}/../../../../variables/gbp/6node/service_functions.json
-${SFF_PATH}                     /restconf/config/service-function-forwarder:service-function-forwarders
+${SFF_PATH}                     /rests/data/service-function-forwarder:service-function-forwarders?content=config
 ${SFF_FILE}                     ${CURDIR}/../../../../variables/gbp/6node/service_function_forwarders.json
-${SFC_PATH}                     /restconf/config/service-function-chain:service-function-chains
+${SFC_PATH}                     /rests/data/service-function-chain:service-function-chains?content=config
 ${TUNNELS_PATH}                 ${CONFIG_NODES_API}
 ${TUNNELS_FILE}                 ${CURDIR}/../../../../variables/gbp/6node/tunnels.json
 ${SFC_ASYMM_FILE}
 ...                             ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_chains.json
 ${SFC_SYMM_FILE}
 ...                             ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_chains.json
-${SFP_PATH}                     /restconf/config/service-function-path:service-function-paths
+${SFP_PATH}                     /rests/data/service-function-path:service-function-paths?content=config
 ${SFP_ASYMM_FILE}
 ...                             ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/service_function_paths.json
 ${SFP_SYMM_FILE}
 ...                             ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/service_function_paths.json
 ${ENDPOINT_REG_PATH}            ${GBP_REGEP_API}
 ${ENDPOINT_UNREG_PATH}          ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}          /restconf/operational/endpoint:endpoints
+${ENDPOINTS_OPER_PATH}          /rests/data/endpoint:endpoints?content=nonconfig
 
 
 *** Keywords ***
