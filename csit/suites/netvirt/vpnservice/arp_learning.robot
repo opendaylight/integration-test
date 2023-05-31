@@ -441,7 +441,7 @@ Verify Learnt IP
     [Arguments]    ${ip}    ${session}
     ${resp} =    RequestsLibrary.Get Request
     ...    ${session}
-    ...    /restconf/operational/odl-l3vpn:learnt-vpn-vip-to-port-data/
+    ...    /rests/data/odl-l3vpn:learnt-vpn-vip-to-port-data?content=nonconfig
     BuiltIn.Log    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ${ip}
 
