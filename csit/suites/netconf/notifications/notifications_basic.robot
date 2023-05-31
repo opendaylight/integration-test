@@ -49,7 +49,7 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 
 *** Variables ***
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
-${DRAFT_STREAMS_URI}            restconf/streams
+${DRAFT_STREAMS_URI}            rests/streams
 ${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
 ${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${DRAFT_DCN_STREAM_URI}         ${DRAFT_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
@@ -122,7 +122,7 @@ Change_DS_Config
     ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
     ${uri} =    BuiltIn.Set_Variable_If
     ...    "${USE_RFC8040}" == "False"
-    ...    /restconf/config/network-topology:network-topology
+    ...    /rests/data/network-topology:network-topology?content=config
     ...    /rests/data/network-topology:network-topology
     ${resp} =    RequestsLibrary.Put_On_Session
     ...    restconf
@@ -133,7 +133,7 @@ Change_DS_Config
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${uri} =    BuiltIn.Set_Variable_If
     ...    "${USE_RFC8040}" == "False"
-    ...    /restconf/config/network-topology:network-topology/topology/netconf-notif
+    ...    /ress/data/network-topology:network-topology/topology/netconf-notif?content=config
     ...    /rests/data/network-topology:network-topology/topology=netconf-notif
     ${resp} =    RequestsLibrary.Delete_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
