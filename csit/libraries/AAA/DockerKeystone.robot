@@ -158,7 +158,7 @@ Set Keystone Certificate into ODL
     ...    return_stderr=False
     ...    return_rc=True
     Create Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Set Suite Variable    ${PUT_CERTIFICATE_URI}    /restconf/operations/aaa-cert-rpc:setNodeCertifcate
+    Set Suite Variable    ${PUT_CERTIFICATE_URI}    /rests/operations/aaa-cert-rpc:setNodeCertifcate
     ${normalized_file}    OperatingSystem.Normalize Path    ${PUT_KEYSTONE_CERT_FILE}
     ${output}    OperatingSystem.Run
     ...    sed -i 's#\"node-cert\".*#\"node-cert\"\: \"${keystone_certificate}\",#g' ${PUT_KEYSTONE_CERT_FILE}
