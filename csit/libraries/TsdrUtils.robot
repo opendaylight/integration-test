@@ -663,7 +663,7 @@ Collect Data from SNMP Agent
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    /restconf/operations/snmp:get-interfaces
+    ...    /rests/operations/snmp:get-interfaces
     ...    data=${snmpagentcreate_json}
     ${convert}=    To Json    ${resp.text}
     @{dict1}=    Get Dictionary Keys    ${convert}
