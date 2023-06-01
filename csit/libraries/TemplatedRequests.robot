@@ -64,7 +64,7 @@ Documentation       Resource for supporting http Requests based on data stored i
 ...                 There is a helper Keyword to create the "default" session.
 ...                 The session used is assumed to have most things pre-configured appropriately,
 ...                 which includes auth, host, port and (lack of) base URI.
-...                 It is recommended to have everything past port (for example /restconf) be defined
+...                 It is recommended to have everything past port (for example /rests) be defined
 ...                 not in the session, but in URI data of individual templates.
 ...                 Headers are set in Keywords appropriately. Http session's timout is configurable
 ...                 both on session level (where it becomes a default value for requests) and on request
