@@ -16,6 +16,24 @@
       "message": "Eliminate it and all of its unnecessary logic. We no more need DRAFT_DCN_STREAM_URI.",
       "revId": "cfea80bedb46a26b4e54990df492858abb41a92b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f242105_39c158e0",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-01T08:16:29Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "07268b55_61c333ff",
+      "revId": "cfea80bedb46a26b4e54990df492858abb41a92b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
