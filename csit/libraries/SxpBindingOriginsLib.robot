@@ -6,7 +6,7 @@ Resource            ./SxpLib.robot
 
 
 *** Variables ***
-${CONFIG_REST_CONTEXT}      /restconf/operations/sxp-config-controller
+${CONFIG_REST_CONTEXT}      /rests/operations/sxp-config-controller
 
 
 *** Keywords ***
