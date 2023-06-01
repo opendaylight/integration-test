@@ -17,8 +17,8 @@ Resource        DataModels.robot
 *** Variables ***
 ${vlan_topo}                    --custom vlan_vtn_test.py --topo vlantopo
 ${VERSION_VTN}                  controller/nb/v2/vtn/version
-${VTN_INVENTORY}                restconf/operational/vtn-inventory:vtn-nodes
-${ENTITY_OWNERS}                restconf/operational/entity-owners:entity-owners
+${VTN_INVENTORY}                rests/data/vtn-inventory:vtn-nodes?content=nonconfig
+${ENTITY_OWNERS}                rests/data/entity-owners:entity-owners?content=nonconfig
 ${DUMPFLOWS_OF10}               dpctl dump-flows -OOpenFlow10
 ${DUMPFLOWS_OF13}               dpctl dump-flows -OOpenFlow13
 ${FF_DUMPFLOWS_OF10}            sh ovs-ofctl dump-flows -OOpenFlow10 s3
@@ -101,14 +101,14 @@ Stop SuiteVtnMaTest
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
-    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn:vtns    expected_status=200
+    ${resp}=    RequestsLibrary.GET On Session    session    rests/operational/vtn:vtns?content=nonconfig    expected_status=200
 
 Fetch vtn switch inventory
     [Documentation]    Check if Switch is detected.
     [Arguments]    ${sw_name}
     ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}    expected_status=200
+    ...    rests/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}?content=nonconfig    expected_status=200
 
 Collect Debug Info
     [Documentation]    Check if Switch is detected.
@@ -123,7 +123,7 @@ Add a Topology wait
     [Arguments]    ${topo_wait}
     ${resp}=    RequestsLibrary.Put Request
     ...    session
-    ...    restconf/config/vtn-config:vtn-config
+    ...    rests/data/vtn-config:vtn-config
     ...    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
@@ -132,7 +132,7 @@ Add a Vtn
     [Arguments]    ${vtn_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn:update-vtn
+    ...    rests/operations/vtn:update-vtn
     ...    data={"input": {"tenant-name":${vtn_name}, "update-mode": "CREATE","operation": "SET", "description": "creating vtn", "idle-timeout":300, "hard-timeout":0}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -141,7 +141,7 @@ Add a vBridge
     [Arguments]    ${vtn_name}    ${vbr_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-vbridge:update-vbridge
+    ...    rests/operations/vtn-vbridge:update-vbridge
     ...    data={"input": {"update-mode": "CREATE","operation":"SET", "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "description": "vbrdige created"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -150,7 +150,7 @@ Add a interface
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-vinterface:update-vinterface
+    ...    rests/operations/vtn-vinterface:update-vinterface
     ...    data={"input": {"update-mode":"CREATE","operation":"SET", "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "description": "vbrdige interfacecreated", "enabled":"true", "interface-name": ${interface_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -159,7 +159,7 @@ Add a portmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${node_id}    ${port_id}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-port-map:set-port-map
+    ...    rests/operations/vtn-port-map:set-port-map
     ...    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "node":"${node_id}", "port-name":"${port_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -168,7 +168,7 @@ Delete a Vtn
     [Arguments]    ${vtn_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn:remove-vtn
+    ...    rests/operations/vtn:remove-vtn
     ...    data={"input": {"tenant-name":${vtn_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -177,7 +177,7 @@ Add a vlanmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${vlan_id}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-vlan-map:add-vlan-map
+    ...    rests/operations/vtn-vlan-map:add-vlan-map
     ...    data={"input": {"tenant-name":${vtn_name},"bridge-name":${vbr_name},"vlan-id":${vlan_id}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -186,7 +186,7 @@ Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow:get-data-flow
+    ...    rests/operations/vtn-flow:get-data-flow
     ...    data={"input":{"tenant-name":"${vtn_name}","mode":"UPDATESTATS"}}
     IF    '${vBridge_name}' == 'vBridge1'
         DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
@@ -235,13 +235,13 @@ Add a pathmap
     [Arguments]    ${pathmap_data}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-path-map:set-path-map
+    ...    rests/operations/vtn-path-map:set-path-map
     ...    data=${pathmap_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-path-map:global-path-maps
+    ${resp}=    RequestsLibrary.GET On Session    session    rests/data/vtn-path-map:global-path-maps?content=nonconfig
     FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
         should Contain    ${resp.text}    ${pathElement}
     END
@@ -251,7 +251,7 @@ Add a pathpolicy
     [Arguments]    ${pathpolicy_data}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-path-policy:set-path-policy
+    ...    rests/operations/vtn-path-policy:set-path-policy
     ...    data=${pathpolicy_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -260,7 +260,7 @@ Get a pathpolicy
     [Arguments]    ${pathpolicy_id}
     ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
+    ...    rests/data/vtn-path-policy:vtn-path-policies/vtn-path-policy=${pathpolicy_id}?content=nonconfig
     FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
         should Contain    ${resp.text}    ${pathpolicyElement}
     END
@@ -270,7 +270,7 @@ Delete a pathmap
     [Arguments]    ${tenant_path}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-path-map:remove-path-map
+    ...    rests/operations/vtn-path-map:remove-path-map
     ...    data={"input":{"tenant-name":"${tenant_path}","map-index":["${policy_id}"]}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -279,7 +279,7 @@ Delete a pathpolicy
     [Arguments]    ${policy_id}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-path-policy:remove-path-policy
+    ...    rests/operations/vtn-path-policy:remove-path-policy
     ...    data={"input":{"id":"${policy_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -296,7 +296,7 @@ Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${src_add}    ${dst_add}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-mac-map:set-mac-map
+    ...    rests/operations/vtn-mac-map:set-mac-map
     ...    data={"input":{"operation":"SET","allowed-hosts":["${dst_add}@0","${src_add}@0"],"tenant-name":"${vtn_name}","bridge-name":"${vBridge_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -349,7 +349,7 @@ Get flow
     [Arguments]    ${vtn_name}
     ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
+    ...    rests/data/vtn-flow-impl:vtn-flows/vtn-flow-table=${vtn_name}?content=nonconfig
     ...    expected_status=200
 
 Remove a portmap
@@ -357,7 +357,7 @@ Remove a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-port-map:remove-port-map
+    ...    rests/operations/vtn-port-map:remove-port-map
     ...    data={"input": {"tenant-name":${vtn_name},"bridge-name":${vBridge_name},"interface-name":${interface_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -421,7 +421,7 @@ Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:set-flow-filter
+    ...    rests/operations/vtn-flow-filter:set-flow-filter
     ...    data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -430,7 +430,7 @@ Remove a vtn flowfilter
     [Arguments]    ${vtn_name}    ${filter_index}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:remove-flow-filter
+    ...    rests/operations/vtn-flow-filter:remove-flow-filter
     ...    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -439,7 +439,7 @@ Add a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vbrflowfilter_data}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:set-flow-filter
+    ...    rests/operations/vtn-flow-filter:set-flow-filter
     ...    data={"input": {"tenant-name": "${vtn_name}", "bridge-name": "${vBridge_name}", ${vbrflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -448,7 +448,7 @@ Remove a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${filter_index}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:remove-flow-filter
+    ...    rests/operations/vtn-flow-filter:remove-flow-filter
     ...    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -457,7 +457,7 @@ Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:set-flow-filter
+    ...    rests/operations/vtn-flow-filter:set-flow-filter
     ...    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -466,7 +466,7 @@ Remove a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${filter_index}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-filter:remove-flow-filter
+    ...    rests/operations/vtn-flow-filter:remove-flow-filter
     ...    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}","interface-name": "${interface_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -475,7 +475,7 @@ Add a vlan portmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${id}    ${node_id}    ${port_id}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-port-map:set-port-map
+    ...    rests/operations/vtn-port-map:set-port-map
     ...    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "vlan-id": ${id}, "node":"${node_id}", "port-name":"${port_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -511,7 +511,7 @@ Add a flowcondition
     [Arguments]    ${flowcond_name}    ${flowconditiondata}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-condition:set-flow-condition
+    ...    rests/operations/vtn-flow-condition:set-flow-condition
     ...    data={"input":{"operation":"SET","present":"false","name":"${flowcond_name}",${flowconditiondata}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -519,7 +519,7 @@ Get flowconditions
     [Documentation]    Retrieve the list of flowconditions created
     ${resp}=    RequestsLibrary.Get On Session
     ...    session
-    ...    restconf/operational/vtn-flow-condition:vtn-flow-conditions
+    ...    rests/data/vtn-flow-condition:vtn-flow-conditions
     ...    expected_status=200
 
 Get flowcondition
@@ -528,7 +528,7 @@ Get flowcondition
     [Arguments]    ${flowcond_name}    ${retrieve}
     ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
+    ...    rests/data/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}?content=nonconfig
     ...    expected_status=anything
     IF    '${retrieve}' == 'retrieve'
         Should Be Equal As Strings    ${resp.status_code}    200
@@ -541,6 +541,6 @@ Remove flowcondition
     [Arguments]    ${flowcond_name}
     ${resp}=    RequestsLibrary.Post Request
     ...    session
-    ...    restconf/operations/vtn-flow-condition:remove-flow-condition
+    ...    rests/operations/vtn-flow-condition:remove-flow-condition
     ...    data={"input":{"name":"${flowcond_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200

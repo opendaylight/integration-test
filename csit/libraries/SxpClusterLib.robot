@@ -131,7 +131,7 @@ Check Cluster Node Started
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     ${resp} =    RequestsLibrary.GET On Session
     ...    ${CONTROLLER_SESSION}
-    ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/    expected_status=200
+    ...    /rests/data/network-topology:network-topology/topology/sxp/node/${node}/    expected_status=200
     ${started} =    BuiltIn.Set Variable    ${False}
     FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
         ${rc} =    Utils.Run Command On Remote System
@@ -149,7 +149,7 @@ Check Cluster Node Stopped
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
     ${resp} =    RequestsLibrary.GET On Session
     ...    ${CONTROLLER_SESSION}
-    ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    ...    /rests/data/network-topology:network-topology/topology/sxp/node/${node}/
     ...    expected_status=404
     ${stopped} =    BuiltIn.Set Variable    ${False}
     FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
