@@ -14,26 +14,26 @@ Resource            ./SSHKeywords.robot
 *** Variables ***
 ${ISE_API_DIR}                                      ${CURDIR}/../variables/gbp/ise-mock-server-api
 ${ISE_REST_PORT}                                    9060
-${GBP_ENDPOINTS_URI}                                /restconf/operational/base-endpoint:endpoints
-${GBP_EP_TEMPLATES_CONFIG_URI}                      /restconf/config/sxp-ep-provider-model:sxp-ep-mapper
-${GBP_RENDERER_CONFIG_URI}                          /restconf/config/renderer:renderers/renderer/ios-xe-renderer
+${GBP_ENDPOINTS_URI}                                /rests/data/base-endpoint:endpoints?content=nonconfig
+${GBP_EP_TEMPLATES_CONFIG_URI}                      /rests/data/sxp-ep-provider-model:sxp-ep-mapper?content=config
+${GBP_RENDERER_CONFIG_URI}                          /rests/data/renderer:renderers/renderer=ios-xe-renderer?content=config
 ${GBP_RENDERER_POLICY_OPERATIONAL_URI}
-...                                                 /restconf/operational/renderer:renderers/renderer/ios-xe-renderer/renderer-policy
+...                                                 /rests/data/renderer:renderers/renderer=ios-xe-renderer/renderer-policy?content=nonconfig
 ${GBP_RENDERER_POLICY_STATUS_OPERATIONAL_URI}       ${GBP_RENDERER_POLICY_OPERATIONAL_URI}/status
-${GBP_RPC_UNREGISTER_ENDPOINT_URI}                  /restconf/operations/base-endpoint:unregister-endpoint
-${GBP_TENANT_CONFIG_URI}                            /restconf/config/policy:tenants/tenant/tenant-red
+${GBP_RPC_UNREGISTER_ENDPOINT_URI}                  /rests/operations/base-endpoint:unregister-endpoint
+${GBP_TENANT_CONFIG_URI}                            /rests/data/policy:tenants/tenant=tenant-red?content=config
 ${MOUNTPOINT_IOSXE_SUFFIX}                          yang-ext:mount/ned:native
 ${NETCONF_CONFIG_URI}
-...                                                 /restconf/config/network-topology:network-topology/topology/topology-netconf
+...                                                 /rests/data/network-topology:network-topology/topology=topology-netconf?content=config
 ${NETCONF_OPERATIONAL_URI}
-...                                                 /restconf/operational/network-topology:network-topology/topology/topology-netconf
-${SXP_EP_PROVIDER_CONFIG_URI}                       /restconf/config/sxp-ep-provider-model:sxp-ep-mapper
-${SXP_ISE_ADAPTER_CONFIG_URI}                       /restconf/config/sxp-ise-adapter-model:gbp-sxp-ise-adapter
-${SXP_ISE_ADAPTER_OPERATIONAL_URI}                  /restconf/operational/sxp-ise-adapter-model:gbp-sxp-ise-adapter
-${SXP_NODE_RPC_ADD_ENTRY_URI}                       /restconf/operations/sxp-controller:add-entry
-${SXP_TOPOLOGY_NODE_CONFIG_URI}                     /restconf/config/network-topology:network-topology/topology/sxp
+...                                                 /rests/data/network-topology:network-topology/topology=topology-netconf?content=nonconfig
+${SXP_EP_PROVIDER_CONFIG_URI}                       /rests/data/sxp-ep-provider-model:sxp-ep-mapper?content=config
+${SXP_ISE_ADAPTER_CONFIG_URI}                       /rests/data/sxp-ise-adapter-model:gbp-sxp-ise-adapter?content=config
+${SXP_ISE_ADAPTER_OPERATIONAL_URI}                  /rests/data/sxp-ise-adapter-model:gbp-sxp-ise-adapter?content=nonconfig
+${SXP_NODE_RPC_ADD_ENTRY_URI}                       /rests/operations/sxp-controller:add-entry
+${SXP_TOPOLOGY_NODE_CONFIG_URI}                     /rests/data/network-topology:network-topology/topology=sxp?content=config
 ${SXP_TOPOLOGY_NODE_OPERATIONAL_URI}
-...                                                 /restconf/operational/network-topology:network-topology/topology/sxp
+...                                                 /rests/data/network-topology:network-topology/topology=sxp?content=nonconfig
 
 
 *** Keywords ***
