@@ -6,7 +6,7 @@ Resource            ./SxpLib.robot
 
 
 *** Variables ***
-${CONFIG_REST_CONTEXT}      /restconf/operations/sxp-config-controller
+${CONFIG_REST_CONTEXT}      /rests/operations/sxp-config-controller
 
 
 *** Keywords ***
@@ -28,7 +28,7 @@ Revert To Default Binding Origins Configuration
 Get Binding Origins
     [Documentation]    Gets all binding origins via RPC from configuration
     [Arguments]    ${session}=session
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-config:binding-origins
+    ${resp} =    RequestsLibrary.Get Request    ${session}    /rests/data/sxp-config:binding-origins?content=config
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     RETURN    ${resp}
 
