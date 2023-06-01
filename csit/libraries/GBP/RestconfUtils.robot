@@ -11,7 +11,7 @@ Resource            ../Utils.robot
 
 *** Variables ***
 ${ENDPOINT_UNREG_PATH}      ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}      /restconf/operational/endpoint:endpoints
+${ENDPOINTS_OPER_PATH}      /rests/data/endpoint:endpoints?content=nonconfig
 
 
 *** Keywords ***
@@ -64,12 +64,12 @@ Get Endpoint Path
     [Documentation]    Returns path for a registered endpoint based on key in arguments
     [Arguments]    ${l2-context}    ${mac_address}
     ${mac_address}    Convert To Uppercase    ${mac_address}
-    RETURN    restconf/operational/endpoint:endpoints/endpoint/${l2-context}/${mac_address}
+    RETURN    rests/data/endpoint:endpoints/endpoint/${l2-context}/${mac_address}?content=nonconfig
 
 Get EndpointL3 Path
     [Documentation]    Returns path for a registered endpoint-l3 based on key in arguments
     [Arguments]    ${l3-context}    ${ip_address}
-    RETURN    restconf/operational/endpoint:endpoints/endpoint-l3/${l3-context}/${ip_address}
+    RETURN    rests/data/endpoint:endpoints/endpoint-l3/${l3-context}/${ip_address}?content=nonconfig
 
 Get Tenant Path
     [Documentation]    Returns path for a tenant based on key in arguments
