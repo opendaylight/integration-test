@@ -124,7 +124,7 @@ def start_write_transactions_on_nodes(
         "CHAINED_FLAG": "true" if chained_flag else "false",
     }
     urlt = string.Template(
-        """http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:write-transactions"""
+        """http://$HOST:8181/rests/operations/odl-mdsal-lowlevel-control:write-transactions"""
     )
     _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
@@ -178,7 +178,7 @@ def start_produce_transactions_on_nodes(
         "ISOLATED_TRANSACTIONS": "true" if isolated_transactions_flag else "false",
     }
     urlt = string.Template(
-        """http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:produce-transactions"""
+        """http://$HOST:8181/rests/operations/odl-mdsal-lowlevel-control:produce-transactions"""
     )
     _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
