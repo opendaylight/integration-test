@@ -19,17 +19,25 @@ __email__ = "syedbahm@cisco.com"
 
 def getCarsUrl(hostname, port):
     """Cars resource URL for GET"""
-    return "http://" + hostname + ":" + port + "/rests/data/car:cars"
+    return "http://" + hostname + ":" + port + "/rests/data/car:cars?content=config"
 
 
 def getPersonsUrl(hostname, port):
     """People resouce URL for GET"""
-    return "http://" + hostname + ":" + port + "/rests/data/people:people"
+    return (
+        "http://" + hostname + ":" + port + "/rests/data/people:people?content=config"
+    )
 
 
 def getCarPersonUrl(hostname, port):
     """GET cars persons mapping resource URL"""
-    return "http://" + hostname + ":" + port + "/rests/data/car-people:car-people"
+    return (
+        "http://"
+        + hostname
+        + ":"
+        + port
+        + "/rests/data/car-people:car-people?content=config"
+    )
 
 
 def getAddCarInitUrl(hostname, port):

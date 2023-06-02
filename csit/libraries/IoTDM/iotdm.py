@@ -7,9 +7,9 @@ application = 2
 container = 3
 contentInstance = 4
 
-op_provision = ":8181/restconf/operations/onem2m:onem2m-cse-provisioning"
-op_tree = ":8181/restconf/operational/onem2m:onem2m-resource-tree"
-op_cleanup = ":8181/restconf/operations/onem2m:onem2m-cleanup-store"
+op_provision = ":8181/rests/operations/onem2m:onem2m-cse-provisioning"
+op_tree = ":8181/rests/data/onem2m:onem2m-resource-tree?content=nonconfig"
+op_cleanup = ":8181/rests/operations/onem2m:onem2m-cleanup-store"
 
 cse_payload = """
 {    "input": {
