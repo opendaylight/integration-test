@@ -19,48 +19,48 @@ __email__ = "syedbahm@cisco.com"
 
 def getCarsUrl(hostname, port):
     """Cars resource URL for GET"""
-    return "http://" + hostname + ":" + port + "/restconf/config/car:cars"
+    return "http://" + hostname + ":" + port + "/rests/data/car:cars?content=config"
 
 
 def getPersonsUrl(hostname, port):
     """People resouce URL for GET"""
-    return "http://" + hostname + ":" + port + "/restconf/config/people:people"
+    return "http://" + hostname + ":" + port + "/rests/data/people:people?content=config"
 
 
 def getCarPersonUrl(hostname, port):
     """GET cars persons mapping resource URL"""
-    return "http://" + hostname + ":" + port + "/restconf/config/car-people:car-people"
+    return "http://" + hostname + ":" + port + "/rests/data/car-people:car-people?content=config"
 
 
 def getAddCarInitUrl(hostname, port):
     """POST or DELETE URL"""
-    return "http://" + hostname + ":" + port + "/restconf/config"
+    return "http://" + hostname + ":" + port + "/rests/data"
 
 
 def getAddCarUrl(hostname, port):
     """POST or DELETE URL"""
-    return "http://" + hostname + ":" + port + "/restconf/config/car:cars"
+    return "http://" + hostname + ":" + port + "/rests/data/car:cars?content=config"
 
 
 def getAddPersonUrl(hostname, port):
     """POST or DELETE URL"""
-    return "http://" + hostname + ":" + port + "/restconf/config"
+    return "http://" + hostname + ":" + port + "/rests/data"
 
 
 def getAddPersonRpcUrl(hostname, port):
     """POST URL -using rpc"""
-    return "http://" + hostname + ":" + port + "/restconf/operations/people:add-person"
+    return "http://" + hostname + ":" + port + "/rests/operations/people:add-person"
 
 
 def getAddCarPersonUrl(hostname, port):
     """POST URL for car person mapping"""
-    return "http://" + hostname + ":" + port + "/restconf/config"
+    return "http://" + hostname + ":" + port + "/rests/data"
 
 
 def getBuyCarRpcUrl(hostname, port):
     """POST URL for buy car rpc"""
     return (
-        "http://" + hostname + ":" + port + "/restconf/operations/car-purchase:buy-car"
+        "http://" + hostname + ":" + port + "/rests/operations/car-purchase:buy-car"
     )
 
 
