@@ -27,7 +27,7 @@ def get_basic_info(response):
     """Get basic information of the simple IRD.
 
     Args:
-        :param response: response from restconf/operational/alto-simple-ird:information
+        :param response: response from rests/data/alto-simple-ird:information
             contains context-id and base-url for alto-simple-ird.
     Returns:
         :returns tuple: context-id - Identifier of different implementations of one service.
@@ -45,7 +45,7 @@ def check_ird_configuration_entry(response, ird_resource_id, context_id, resourc
     """Check whether resources we added are in the resource pool.
 
     Args:
-        :param response: response from restconf/operational/alto-resourcepool:context/context-id
+        :param response: response from rests/data/alto-resourcepool:context/context-id
             context-id is from get_basic_info(response).
 
         :param ird_resource_id: ID of the IRD.
