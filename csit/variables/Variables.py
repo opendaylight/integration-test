@@ -112,31 +112,35 @@ FLOWFILTERS_UPDATE = "flowfilterentries"
 
 
 # Common APIs
-CONFIG_NODES_API = "/restconf/config/opendaylight-inventory:nodes"
-OPERATIONAL_NODES_API = "/restconf/operational/opendaylight-inventory:nodes"
+CONFIG_NODES_API = "/rests/data/opendaylight-inventory:nodes?content=config"
+OPERATIONAL_NODES_API = "/rests/data/opendaylight-inventory:nodes?content=nonconfig"
 OPERATIONAL_NODES_NETVIRT = (
-    "/restconf/operational/network-topology:network-topology/topology/netvirt:1"
+    "/rests/data/network-topology:network-topology/topology/netvirt:1?content=nonconfig"
 )
-OPERATIONAL_TOPO_API = "/restconf/operational/network-topology:" "network-topology"
-CONFIG_TOPO_API = "/restconf/config/network-topology:network-topology"
+OPERATIONAL_TOPO_API = (
+    "/rests/data/network-topology:" "network-topology?content=nonconfig"
+)
+CONFIG_TOPO_API = "/rests/data/network-topology:network-topology?content=config"
 CONTROLLER_CONFIG_MOUNT = (
-    "/restconf/config/network-topology:"
+    "/rests/data/network-topology:"
     "network-topology/topology"
     "/topology-netconf/node/"
-    "controller-config/yang-ext:mount"
+    "controller-config/yang-ext:mount?content=config"
 )
-CONFIG_API = "/restconf/config"
-OPERATIONAL_API = "/restconf/operational"
+CONFIG_API = "/rests/data"
+OPERATIONAL_API = "/rests/data"
 MODULES_API = "/rests/data/ietf-yang-library:modules-state"
-VTN_INVENTORY_NODE_API = "/restconf/operational/vtn-inventory:vtn-nodes"
+VTN_INVENTORY_NODE_API = "/rests/data/vtn-inventory:vtn-nodes?content=nonconfig"
 
 # NEMO Variables
-PREDEFINE_ROLE_URI = "/restconf/config/nemo-user:user-roles"
-PREDEFINE_NODE_URI = "/restconf/config/nemo-object:node-definitions"
-PREDEFINE_CONNECTION_URI = "/restconf/config/nemo-object:connection-definitions"
-REGISTER_TENANT_URI = "/restconf/operations/nemo-intent:register-user"
-STRUCTURE_INTENT_URI = "/restconf/operations/nemo-intent:structure-style-nemo-update"
-GET_INTENTS_URI = "/retconf/config/intent:intents"
+PREDEFINE_ROLE_URI = "/rests/data/nemo-user:user-roles?content=config"
+PREDEFINE_NODE_URI = "/rests/data/nemo-object:node-definitions?content=config"
+PREDEFINE_CONNECTION_URI = (
+    "/rests/data/nemo-object:connection-definitions?content=config"
+)
+REGISTER_TENANT_URI = "/rests/operations/nemo-intent:register-user"
+STRUCTURE_INTENT_URI = "/rests/operations/nemo-intent:structure-style-nemo-update"
+GET_INTENTS_URI = "/rests/data/intent:intents?content=config"
 
 # TOKEN
 AUTH_TOKEN_API = "/oauth2/token"
@@ -150,18 +154,18 @@ CREATE_VLAN_TOPOLOGY_FILE_PATH = "MininetTopo/" + CREATE_VLAN_TOPOLOGY_FILE
 CREATE_PATHPOLICY_TOPOLOGY_FILE = "topo-3sw-2host_multipath.py"
 CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH = "MininetTopo/" + CREATE_PATHPOLICY_TOPOLOGY_FILE
 
-GBP_REGEP_API = "/restconf/operations/endpoint:register-endpoint"
-GBP_UNREGEP_API = "/restconf/operations/endpoint:unregister-endpoint"
-GBP_ENDPOINTS_API = "/restconf/operational/endpoint:endpoints"
-GBP_BASE_ENDPOINTS_API = "/restconf/operational/base-endpoint:endpoints"
-GBP_TENANTS_API = "/restconf/config/policy:tenants"
-OPERATIONAL_GBP_TENANTS_API = "/restconf/operational/policy:tenants"
-GBP_TUNNELS_API = "/restconf/config/opendaylight-inventory:nodes"
+GBP_REGEP_API = "/rests/operations/endpoint:register-endpoint"
+GBP_UNREGEP_API = "/rests/operations/endpoint:unregister-endpoint"
+GBP_ENDPOINTS_API = "/rests/data/endpoint:endpoints?content=nonconfig"
+GBP_BASE_ENDPOINTS_API = "/rests/data/base-endpoint:endpoints?content=nonconfig"
+GBP_TENANTS_API = "/rests/data/policy:tenants?content=config"
+OPERATIONAL_GBP_TENANTS_API = "/rests/data/policy:tenants?content=nonconfig"
+GBP_TUNNELS_API = "/rests/data/opendaylight-inventory:nodes?content=config"
 
 # LISP Flow Mapping variables
-LFM_RPC_API = "/restconf/operations/odl-mappingservice"
-LFM_RPC_API_LI = "/restconf/operations/lfm-mapping-database"
-LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
+LFM_RPC_API = "/rests/operations/odl-mappingservice"
+LFM_RPC_API_LI = "/rests/operations/lfm-mapping-database"
+LFM_SB_RPC_API = "/rests/operations/odl-lisp-sb"
 
 # Neutron
 NEUTRON_NB_API = "/controller/nb/v2/neutron"
@@ -228,27 +232,33 @@ CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
 CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
 
 # Centinel Variables
-SET_CONFIGURATION_URI = "/restconf/operations/configuration:set-centinel-configurations"
-GET_CONFIGURATION_URI = "/restconf/operational/configuration:configurationRecord/"
-STREAMRECORD_CONFIG = "/restconf/config/stream:streamRecord"
-SET_STREAMRECORD = "/restconf/operations/stream:set-stream"
-ALERTFIELDCONTENTRULERECORD = "/restconf/config/alertrule:alertFieldContentRuleRecord/"
+SET_CONFIGURATION_URI = "/rests/operations/configuration:set-centinel-configurations"
+GET_CONFIGURATION_URI = (
+    "/rests/data/configuration:configurationRecord?content=nonconfig"
+)
+STREAMRECORD_CONFIG = "/rests/data/stream:streamRecord?content=config"
+SET_STREAMRECORD = "/rests/operations/stream:set-stream"
+ALERTFIELDCONTENTRULERECORD = (
+    "/rests/data/alertrule:alertFieldContentRuleRecord?content=config"
+)
 SET_ALERTFIELDCONTENTRULERECORD = (
-    "/restconf/operations/alertrule:set-alert-field-content-rule"
+    "/rests/operations/alertrule:set-alert-field-content-rule"
 )
-ALERTFIELDVALUERULERECORD = "/restconf/config/alertrule:alertFieldValueRuleRecord"
-SET_ALERTFIELDVALUERULERECORD = (
-    "/restconf/operations/alertrule:set-alert-field-value-rule"
+ALERTFIELDVALUERULERECORD = (
+    "/rests/data/alertrule:alertFieldValueRuleRecord?content=config"
 )
-ALERTMESSAGECOUNTRULERECORD = "/restconf/config/alertrule:alertMessageCountRuleRecord/"
+SET_ALERTFIELDVALUERULERECORD = "/rests/operations/alertrule:set-alert-field-value-rule"
+ALERTMESSAGECOUNTRULERECORD = (
+    "/rests/data/alertrule:alertMessageCountRuleRecord?content=config"
+)
 SET_ALERTMESSAGECOUNTRULERECORD = (
-    "/restconf/operations/alertrule:set-alert-message-count-rule"
+    "/rests/operations/alertrule:set-alert-message-count-rule"
 )
-GET_DASHBOARDRECORD = "/restconf/operational/dashboardrule:dashboardRecord/"
-SET_DASHBOARDRECORD = "/restconf/operations/dashboardrule:set-dashboard"
-DELETE_DASHBOARDRECORD = "/restconf/operations/dashboardrule:delete-dashboard"
-SET_SUBSCRIBEUSER = "/restconf/operations/subscribe:subscribe-user"
-SUBSCRIPTION = "/restconf/config/subscribe:subscription/"
+GET_DASHBOARDRECORD = "/rests/data/dashboardrule:dashboardRecord?content=nonconfig"
+SET_DASHBOARDRECORD = "/rests/operations/dashboardrule:set-dashboard"
+DELETE_DASHBOARDRECORD = "/rests/operations/dashboardrule:delete-dashboard"
+SET_SUBSCRIBEUSER = "/rests/operations/subscribe:subscribe-user"
+SUBSCRIPTION = "/rests/data/subscribe:subscription?content=config"
 
 # Elasticsearch Variables
 ELASTICPORT = 9200
