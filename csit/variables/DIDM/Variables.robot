@@ -6,3 +6,4 @@ ${DEVICE_HW_INFO}           Open vSwitch
 ${DEVICE_SW_INFO}           2.0.0
 ${DEVICE_MANUFACTURE}       Nicira, Inc.
 ${DEVICE_SERIAL_NUMBER}     None
+${OPERATIONAL_NODES_API}    /restconf/operational/opendaylight-inventory:nodes

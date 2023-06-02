@@ -306,9 +306,6 @@ ${ODL_SYSTEM_PROMPT}
 ${OPERATIONAL_API}
 ...                                         /rests/data
 # FIXME: Move to a separate Resource and add description.
-${OPERATIONAL_NODES_API}
-...                                         /rests/data/opendaylight-inventory:nodes
-# FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}
 ...                                         /rests/data/network-topology:network-topology
 ${OS_CMD_SUCCESS}                           Command Returns 0

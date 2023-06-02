@@ -14,6 +14,7 @@ Library             RequestsLibrary
 Library             ../../../libraries/Common.py
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/DIDM/Variables.robot
 Variables           ../../../variables/Variables.py
 
 Suite Setup         Setup Didm Environment

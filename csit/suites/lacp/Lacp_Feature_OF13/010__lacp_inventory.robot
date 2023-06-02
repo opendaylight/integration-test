@@ -5,6 +5,7 @@ Library             SSHLibrary
 Library             Collections
 Library             RequestsLibrary
 Library             ../../../libraries/Common.py
+Resource            ../../../variables/lacp/Variables.robot
 Variables           ../../../variables/Variables.py
 
 Suite Setup         LACP Inventory Suite Setup

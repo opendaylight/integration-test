@@ -7,6 +7,7 @@ Library             String
 Library             RequestsLibrary
 Library             ../../../libraries/Common.py
 Resource            ../../../libraries/Utils.robot
+Resource            ../../../variables/lacp/Variables.robot
 Variables           ../../../variables/Variables.py
 
 Suite Setup         LACP Inventory Suite Setup
