@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0a42260_4c780826",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-05T15:33:36Z",
+      "side": 0,
+      "message": "There is some variables that not used so maybe better just delete instead of updating?",
+      "revId": "cd2f6d50c06efdaf7c44391d1a13811420ab9f27",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
