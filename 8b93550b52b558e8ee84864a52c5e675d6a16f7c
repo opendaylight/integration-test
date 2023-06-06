@@ -22,6 +22,30 @@
       },
       "revId": "8b93550b52b558e8ee84864a52c5e675d6a16f7c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c18b41_989c867f",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-06T11:35:18Z",
+      "side": 1,
+      "message": "Used on another files, e.g. csit/libraries/DatastoreCRUD.robot",
+      "parentUuid": "3f53c98e_17dee85a",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 31
+      },
+      "revId": "8b93550b52b558e8ee84864a52c5e675d6a16f7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
