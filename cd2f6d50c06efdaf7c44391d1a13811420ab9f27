@@ -22,6 +22,30 @@
       },
       "revId": "cd2f6d50c06efdaf7c44391d1a13811420ab9f27",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b2d907_1bcd8aa9",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-06T10:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a19ace5f_21dae2d0",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "cd2f6d50c06efdaf7c44391d1a13811420ab9f27",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
