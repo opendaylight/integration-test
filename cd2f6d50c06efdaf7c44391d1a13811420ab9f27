@@ -34,6 +34,24 @@
       "parentUuid": "e0a42260_4c780826",
       "revId": "cd2f6d50c06efdaf7c44391d1a13811420ab9f27",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad42242_954c8184",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-06T09:11:54Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "23766f5a_176064a6",
+      "revId": "cd2f6d50c06efdaf7c44391d1a13811420ab9f27",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
