@@ -24,6 +24,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3388625d_f127f194",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-06T10:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47e06dc9_87c2aa24",
+      "range": {
+        "startLine": 53,
+        "startChar": 100,
+        "endLine": 53,
+        "endChar": 102
+      },
+      "revId": "2fe69f3c85c177b5fe428cc10023be9f2d75d55c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0426edf3_b70003e9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-05T14:25:43Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 137,
+        "startChar": 67,
+        "endLine": 137,
+        "endChar": 69
+      },
+      "revId": "2fe69f3c85c177b5fe428cc10023be9f2d75d55c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a34a1592_4c1e0ac9",
+        "filename": "csit/suites/backuprestore/br-basic/020__br_sfc_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-06T10:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0426edf3_b70003e9",
       "range": {
         "startLine": 137,
         "startChar": 67,
