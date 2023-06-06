@@ -22,6 +22,30 @@
       },
       "revId": "2664b1e099eba40e116f8f17fd15d60c8f4c4985",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ae7f03d_cf4d8150",
+        "filename": "csit/libraries/AuthStandalone.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-06T11:45:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cb0b295_54bd3463",
+      "range": {
+        "startLine": 164,
+        "startChar": 76,
+        "endLine": 164,
+        "endChar": 84
+      },
+      "revId": "2664b1e099eba40e116f8f17fd15d60c8f4c4985",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
