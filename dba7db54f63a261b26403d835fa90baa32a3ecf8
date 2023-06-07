@@ -16,6 +16,40 @@
       "message": "jjb-deploy netconf-csit-1node-userfeatures-all-master",
       "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e592c26_6d5fcc5f",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-07T22:54:40Z",
+      "side": 1,
+      "message": "Need \u0027BuiltIn.Set_Variable\u0027 keyword.",
+      "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef579e5_4890f8a1",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-07T22:54:40Z",
+      "side": 1,
+      "message": "Need \u0027BuiltIn.Set_Variable\u0027 keyword.",
+      "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
