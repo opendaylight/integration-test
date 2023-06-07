@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df4ed390_fac58f3f",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-06-07T13:50:44Z",
+      "side": 0,
+      "message": "We have to return IF    \"${USE_RFC8040}\" \u003d\u003d \"True\"    RETURN    ${uri}\nand remove the rest of this method.",
+      "revId": "d1aaadfceb50ddb592d1ef0afaa8ac416280ea5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}

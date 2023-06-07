@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a2794e_fbe9d33b",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-06-07T13:50:44Z",
+      "side": 1,
+      "message": "No more true: but older restconf URI will convert the \u0027\u003d\u0027 to a \u0027/\u0027",
+      "revId": "f07080d68f728139534834451768a78b1d7e9cb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d822f0dd_ee2d5015",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-06-07T13:50:44Z",
+      "side": 1,
+      "message": "Removing of CONFIG_API etc. is not mandatory because its a huge task.",
+      "revId": "f07080d68f728139534834451768a78b1d7e9cb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
