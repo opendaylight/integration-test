@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cda9901_4470ffb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-07T22:14:33Z",
+      "side": 1,
+      "message": "jjb-deploy netconf-csit-1node-userfeatures-all-master",
+      "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
