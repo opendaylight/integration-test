@@ -16,6 +16,24 @@
       "message": "We have to return IF    \"${USE_RFC8040}\" \u003d\u003d \"True\"    RETURN    ${uri}\nand remove the rest of this method.",
       "revId": "d1aaadfceb50ddb592d1ef0afaa8ac416280ea5f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3060aba8_a921a203",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-07T13:54:36Z",
+      "side": 0,
+      "message": "But we don\u0027t have USE_RFC8040 anymore.\nIt will be just: RETURN    ${uri}",
+      "parentUuid": "df4ed390_fac58f3f",
+      "revId": "d1aaadfceb50ddb592d1ef0afaa8ac416280ea5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
