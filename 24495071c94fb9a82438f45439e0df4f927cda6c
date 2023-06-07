@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9371227a_d8217e41",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-07T15:20:42Z",
+      "side": 1,
+      "message": "Would be better to use a component like \u0027netconf-api\u0027 to maintain backward compatibility although we have CSIT jobs for the mater branch at the moment.",
+      "revId": "24495071c94fb9a82438f45439e0df4f927cda6c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
