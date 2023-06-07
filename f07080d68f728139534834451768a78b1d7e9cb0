@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15766786_5b3d0c2a",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-07T15:59:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18a2794e_fbe9d33b",
+      "revId": "f07080d68f728139534834451768a78b1d7e9cb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d822f0dd_ee2d5015",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-07T13:50:44Z",
       "side": 1,
       "message": "Removing of CONFIG_API etc. is not mandatory because its a huge task.",
+      "revId": "f07080d68f728139534834451768a78b1d7e9cb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81f2655_9c242754",
+        "filename": "csit/libraries/Restconf.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-07T15:59:00Z",
+      "side": 1,
+      "message": "So I\u0027m ignoring in now?",
+      "parentUuid": "d822f0dd_ee2d5015",
       "revId": "f07080d68f728139534834451768a78b1d7e9cb0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
