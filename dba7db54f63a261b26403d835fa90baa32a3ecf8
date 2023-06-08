@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2cefc73_7789ceb2",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-08T08:09:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e592c26_6d5fcc5f",
+      "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ef579e5_4890f8a1",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-07T22:54:40Z",
       "side": 1,
       "message": "Need \u0027BuiltIn.Set_Variable\u0027 keyword.",
+      "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f689f7b4_4d39df54",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-06-08T08:09:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef579e5_4890f8a1",
       "revId": "dba7db54f63a261b26403d835fa90baa32a3ecf8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
