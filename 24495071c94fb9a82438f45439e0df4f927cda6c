@@ -16,6 +16,24 @@
       "message": "Would be better to use a component like \u0027netconf-api\u0027 to maintain backward compatibility although we have CSIT jobs for the mater branch at the moment.",
       "revId": "24495071c94fb9a82438f45439e0df4f927cda6c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f132541_eeb8da0b",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-06-08T06:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9371227a_d8217e41",
+      "revId": "24495071c94fb9a82438f45439e0df4f927cda6c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
