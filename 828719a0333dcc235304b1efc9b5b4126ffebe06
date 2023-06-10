@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fafe15_e27b73db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-10T21:07:57Z",
+      "side": 1,
+      "message": "The test plans can be removed once Jenkins jobs are removed:\nhttps://git.opendaylight.org/gerrit/c/releng/builder/+/106438",
+      "revId": "828719a0333dcc235304b1efc9b5b4126ffebe06",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
