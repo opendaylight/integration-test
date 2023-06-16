@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5333a92_4c84a5d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:38:09Z",
+      "side": 1,
+      "message": "I have found a lot of code with a \"/restconf/\" in the `libraries` folder.\ne.g: RestconfUtils.robot, GbpSxp.robot, NetconfCallHome.robot ... ",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8fc447_ba8c066b",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:38:09Z",
+      "side": 1,
+      "message": "Do we need those bracelets here?",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbc6044f_a89328a4",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:38:09Z",
+      "side": 1,
+      "message": "Why is it formatted this way?",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1abbbcbe_f0bb4411",
+        "filename": "csit/libraries/UtilLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:38:09Z",
+      "side": 1,
+      "message": "Wrong formatting. List key should be assigned with \"\u003d\".\n\"node\u003dcontroller-config\"",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
