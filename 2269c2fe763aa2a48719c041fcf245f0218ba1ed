@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e925a990_963dff76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:51:28Z",
+      "side": 1,
+      "message": "I have found a lot of code with a \"/restconf/\" in the `variables` folder.",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340c7b2c_aa1598ae",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:51:28Z",
+      "side": 1,
+      "message": "Wrong formatted `topology` key.",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316d97af_02b9dfe2",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:51:28Z",
+      "side": 1,
+      "message": "Wrong formatted list keys.",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174b0919_d52ad165",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:51:28Z",
+      "side": 1,
+      "message": "Probably now we need only one of those. \"/rests/data\"",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3876e20_ff31fa3e",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-16T06:51:28Z",
+      "side": 1,
+      "message": "Why this format change?",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
