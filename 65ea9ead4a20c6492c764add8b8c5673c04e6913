@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd983075_4416483d",
+        "filename": "csit/suites/groupbasedpolicy/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T14:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ab0b703_372a4d88",
+      "revId": "65ea9ead4a20c6492c764add8b8c5673c04e6913",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b57b5981_a0adb4b8",
@@ -35,6 +53,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0a455f_5af6b501",
+        "filename": "csit/suites/groupbasedpolicy/GBP_Basic/020_gbp_tenant.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T14:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57b5981_a0adb4b8",
+      "revId": "65ea9ead4a20c6492c764add8b8c5673c04e6913",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec116a5a_71189345",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-06-19T11:28:12Z",
       "side": 1,
       "message": "Fix list key",
+      "revId": "65ea9ead4a20c6492c764add8b8c5673c04e6913",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf304fa_fafd6b24",
+        "filename": "csit/suites/groupbasedpolicy/GBP_Basic/030_gbp_tunnel.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T14:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec116a5a_71189345",
       "revId": "65ea9ead4a20c6492c764add8b8c5673c04e6913",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
