@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "408b48ae_426c302f",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T06:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "340c7b2c_aa1598ae",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "316d97af_02b9dfe2",
@@ -52,6 +70,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94d9c957_07793363",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T06:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "316d97af_02b9dfe2",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "174b0919_d52ad165",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-06-16T06:51:28Z",
       "side": 1,
       "message": "Probably now we need only one of those. \"/rests/data\"",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5623bdc1_e79065fe",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T06:33:09Z",
+      "side": 1,
+      "message": "This requires additional changes in the logic of tests. Probably it\u0027s for new task.",
+      "parentUuid": "174b0919_d52ad165",
       "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
