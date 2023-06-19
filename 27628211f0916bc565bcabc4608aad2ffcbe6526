@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59d50f85_8fb330a6",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-19T12:24:37Z",
+      "side": 1,
+      "message": "-l, --line-length INTEGER       How many characters per line to allow.\n                                  [default: 88]\n\nIn increase it and you don\u0027t need to make these changes.",
+      "parentUuid": "7d43b6c4_fa085b69",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fbc6044f_a89328a4",
         "filename": "csit/libraries/SettingsLibrary.py",
         "patchSetId": 5
