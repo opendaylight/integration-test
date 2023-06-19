@@ -16,6 +16,24 @@
       "message": "Fix \"topology\" keys in this script",
       "revId": "2914acce7c75f8224a4a28edf9aaf157ddb72b95",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f4a766_91b59db8",
+        "filename": "csit/suites/controller/NETCONF/010__netconf_inventory.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T14:05:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8259ac9_a9a5c8bc",
+      "revId": "2914acce7c75f8224a4a28edf9aaf157ddb72b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
