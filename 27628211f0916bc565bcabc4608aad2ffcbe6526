@@ -71,6 +71,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00242f46_ad6e5a89",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T15:21:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d50f85_8fb330a6",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc6044f_a89328a4",
