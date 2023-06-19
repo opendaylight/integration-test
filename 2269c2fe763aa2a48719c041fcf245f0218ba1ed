@@ -138,6 +138,24 @@
       "message": "Why this format change?",
       "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a51787_b89fb972",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T07:11:40Z",
+      "side": 1,
+      "message": "These changes were made by Black autoformat, in the opposite case, we will have failed format checking.\n```\n09:38:36 flake8...................................................................Passed\n09:38:41 black....................................................................Failed\n09:38:46 - hook id: black\n09:38:46 - files were modified by this hook\n09:38:46 \n09:38:46 reformatted csit/variables/Variables.py\n09:38:46 \n09:38:46 All done! ✨ 🍰 ✨\n09:38:46 1 file reformatted, 145 files left unchanged.\n09:38:46 \n```",
+      "parentUuid": "c3876e20_ff31fa3e",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
