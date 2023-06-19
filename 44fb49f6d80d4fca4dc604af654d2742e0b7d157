@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7145f2be_af54d96f",
+        "filename": "csit/suites/bgpcep/bgpclustering/005_Cluster_Reset_And_Set_Nonreplicated_Bgp_Rib.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-19T11:28:25Z",
+      "side": 1,
+      "message": "Fix key in topology \"topology\u003dexample-ipv4-topology\"",
+      "revId": "44fb49f6d80d4fca4dc604af654d2742e0b7d157",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d04fe10_fac7df94",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-19T11:28:25Z",
+      "side": 1,
+      "message": "Please fix keys in this example.",
+      "revId": "44fb49f6d80d4fca4dc604af654d2742e0b7d157",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5320dce_987ef855",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-19T11:28:25Z",
+      "side": 1,
+      "message": "Fix key in \"rib\" list \"rib\u003dexample-bgp-rib\"",
+      "revId": "44fb49f6d80d4fca4dc604af654d2742e0b7d157",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
