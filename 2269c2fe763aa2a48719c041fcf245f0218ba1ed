@@ -156,6 +156,24 @@
       "parentUuid": "c3876e20_ff31fa3e",
       "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4511c48_7bdec70d",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-19T12:24:19Z",
+      "side": 1,
+      "message": "-l, --line-length INTEGER       How many characters per line to allow.\n                                  [default: 88]\n\nIn increase it and you don\u0027t need to make these changes.",
+      "parentUuid": "80a51787_b89fb972",
+      "revId": "2269c2fe763aa2a48719c041fcf245f0218ba1ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
