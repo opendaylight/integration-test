@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d43b6c4_fa085b69",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T07:11:24Z",
+      "side": 1,
+      "message": "These changes were made by Black autoformat, in the opposite case, we will have failed format checking.\n```\n09:38:36 flake8...................................................................Passed\n09:38:41 black....................................................................Failed\n09:38:46 - hook id: black\n09:38:46 - files were modified by this hook\n09:38:46 \n09:38:46 reformatted csit/variables/Variables.py\n09:38:46 \n09:38:46 All done! ✨ 🍰 ✨\n09:38:46 1 file reformatted, 145 files left unchanged.\n09:38:46 \n```",
+      "parentUuid": "9a8fc447_ba8c066b",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbc6044f_a89328a4",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-06-16T06:38:09Z",
       "side": 1,
       "message": "Why is it formatted this way?",
+      "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "072adf5c_b8081174",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-19T07:11:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbc6044f_a89328a4",
       "revId": "27628211f0916bc565bcabc4608aad2ffcbe6526",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
