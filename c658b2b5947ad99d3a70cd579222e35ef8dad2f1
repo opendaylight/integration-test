@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a962b3_5e238527",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-20T14:01:46Z",
+      "side": 1,
+      "message": "Fix key /tables\u003dbgp-types:ipv4-address-family,bgp-flowspec:flowspec-subsequent-address-family/\n\nhttps://github.com/opendaylight/bgpcep/blob/55dcc6ef3f3b7704437bf6517cb25c6806793c28/bgp/rib-api/src/main/yang/bgp-rib.yang#L78",
+      "revId": "c658b2b5947ad99d3a70cd579222e35ef8dad2f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
