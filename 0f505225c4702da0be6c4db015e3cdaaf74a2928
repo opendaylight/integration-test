@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e66a9d_68d7f182",
+        "filename": "csit/variables/sfc/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-20T14:00:45Z",
+      "side": 1,
+      "message": "Please remove REST_CONFIG and rename REST_OPER to:\n${RESTS_DATA}                                /rests/data\n\nThan replace all ${REST_OPER} and ${REST_CONFIG} with ${RESTS_DATA}",
+      "revId": "0f505225c4702da0be6c4db015e3cdaaf74a2928",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
