@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6678de3_c33ede03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-21T07:22:19Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-all-argon/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-bgp-ingest-mixed-all-argon/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-throughpcep-all-argon/4/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-argon/2/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-3node-clustering-basic-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/4/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-cbench-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-bulkomatic-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-perf-stats-collection-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-link-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-scale-switch-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-bulkomatic-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-perf-bulkomatic-only-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-1node-upstream-southbound-all-argon/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-3node-upstream-clustering-only-argon/1/\n\nNo regression compared to recent Argon test results:\nhttps://jenkins.opendaylight.org/releng/view/integration/job/integration-distribution-test-argon/",
+      "revId": "7af2b6f97c8602b306aac832b63cd812d11c72b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
