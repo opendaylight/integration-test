@@ -67,7 +67,8 @@ Wait_For_Device_To_Become_Connected
 
 Check_Device_Data_Is_Empty
     [Documentation]    Get the device data and make sure it is empty.
-    Check_Config_Data    <data xmlns\="${ODL_NETCONF_NAMESPACE}"/>
+    ${escaped} =    BuiltIn.Regexp_Escape    ${ODL_NETCONF_NAMESPACE}
+    Check_Config_Data    <data xmlns\="${escaped}"(\/>|><\/data>)    ${True}
 
 Invoke_Yang1.1_Action_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
@@ -148,9 +149,12 @@ Get_Config_Data
     RETURN    ${data}
 
 Check_Config_Data
-    [Arguments]    ${expected}    ${contains}=False
+    [Arguments]    ${expected}    ${regex}=False    ${contains}=False
     ${data} =    Get_Config_Data
-    IF    not ${contains}
+    IF    ${regex}
+        BuiltIn.Should Match Regexp    ${data}    ${expected}
+    ELSE IF    ${contains}
+        BuiltIn.Should_Contain    ${data}    ${expected}
+    ELSE
         BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     END
-    IF    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
