@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36340677_ef9f7945",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-22T16:24:35Z",
+      "side": 1,
+      "message": "CSIT test\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/9/\n\nAll the tests are passed.\n\nThe sandbox Jenkins job was created with this patch:\nhttps://git.opendaylight.org/gerrit/c/releng/builder/+/106616",
+      "revId": "ff1bb51a8a14f89ceefd91c6fc535a4bce78e0de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
