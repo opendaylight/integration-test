@@ -80,6 +80,11 @@ Set_Variable_If_At_Least_Chlorine
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    chlorine    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least argon, return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    argon    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most neon,
     ...    return ${value_if_false} otherwise.
@@ -127,6 +132,12 @@ Set_Variable_If_At_Most_Chlorine
     ...    return ${value_if_false} otherwise.
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    chlorine    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most argon,
+    ...    return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    argon    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Documentation]    Splits arguments into args and kwargs is used in Run_Keyword_If_At_Least_Else and Run_Keyword_If_At_Most_Else.
@@ -305,6 +316,12 @@ Run_Keyword_If_At_Least_Chlorine
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    chlorine    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and in case ${ODL_STREAM} is at least argon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    argon    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most neon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -352,6 +369,12 @@ Run_Keyword_If_At_Most_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    chlorine    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most argon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    argon    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than neon,
@@ -401,6 +424,12 @@ Run_Keyword_If_More_Than_Chlorine
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than argon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    argon    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -442,3 +471,9 @@ Run_Keyword_If_Less_Than_Chlorine
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    chlorine    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Argon
+    [Documentation]    Compare argon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than argon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    argon    ${kw_name}    @{varargs}    &{kwargs}
