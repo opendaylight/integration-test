@@ -20,6 +20,7 @@ Library             String
 ...                 sulfur=${16}
 ...                 chlorine=${17}
 ...                 argon=${18}
+...                 potassium=${19}
 ...                 master=${999}
 
 
@@ -85,6 +86,11 @@ Set_Variable_If_At_Least_Argon
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    argon    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least potassium, return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    potassium    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most neon,
     ...    return ${value_if_false} otherwise.
@@ -138,6 +144,12 @@ Set_Variable_If_At_Most_Argon
     ...    return ${value_if_false} otherwise.
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    argon    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most potassium,
+    ...    return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    potassium    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Documentation]    Splits arguments into args and kwargs is used in Run_Keyword_If_At_Least_Else and Run_Keyword_If_At_Most_Else.
@@ -322,6 +334,12 @@ Run_Keyword_If_At_Least_Argon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    argon    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least potassium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    potassium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most neon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -375,6 +393,12 @@ Run_Keyword_If_At_Most_Argon
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    argon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most potassium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    potassium    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than neon,
@@ -430,6 +454,12 @@ Run_Keyword_If_More_Than_Argon
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    argon    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and in case ${ODL_STREAM} is more than potassium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    potassium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -477,3 +507,9 @@ Run_Keyword_If_Less_Than_Argon
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    argon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Potassium
+    [Documentation]    Compare potassium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than potassium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    potassium    ${kw_name}    @{varargs}    &{kwargs}
