@@ -16,6 +16,23 @@
       "message": "CSIT test\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/9/\n\nAll the tests are passed.\n\nThe sandbox Jenkins job was created with this patch:\nhttps://git.opendaylight.org/gerrit/c/releng/builder/+/106616",
       "revId": "ff1bb51a8a14f89ceefd91c6fc535a4bce78e0de",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6cfb9ad_3f8ca9ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-22T16:33:03Z",
+      "side": 1,
+      "message": "Note that when the tests are run with KARAF_VERSION set to karaf4, API Docs test fails because netconf 6.0.0 has not been released and karaf 0.19.0-SNAPSHOT build still includes odl-mdsal-apidocs.",
+      "revId": "ff1bb51a8a14f89ceefd91c6fc535a4bce78e0de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
