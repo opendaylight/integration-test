@@ -33,6 +33,23 @@
       "message": "Note that when the tests are run with KARAF_VERSION set to karaf4, API Docs test fails because netconf 6.0.0 has not been released and karaf 0.19.0-SNAPSHOT build still includes odl-mdsal-apidocs.",
       "revId": "ff1bb51a8a14f89ceefd91c6fc535a4bce78e0de",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0242f584_d35a3991",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2023-06-22T17:16:39Z",
+      "side": 1,
+      "message": "Another CSIT test\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/11/\n\nThis one was run with odl-restconf-openapi removed, hence API Docs fails as expected, but with the feature disabled, empty data is returned like this, e.g.in CRUD-RPC.Check_Device_Data_Is_Empty:\n```\n\u003cdata xmlns\u003d\"urn:ietf:params:xml:ns:netconf:base:1.0\"\u003e\u003c/data\u003e\n```\n\ninstead of the following when the feature is enabled as in \nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-master/9/\n```\n\u003cdata xmlns\u003d\"urn:ietf:params:xml:ns:netconf:base:1.0\"/\u003e\n```\n\nSo the test results show that both formats are supported with this patch.",
+      "revId": "ff1bb51a8a14f89ceefd91c6fc535a4bce78e0de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
