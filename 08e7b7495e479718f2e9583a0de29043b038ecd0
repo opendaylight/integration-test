@@ -16,6 +16,24 @@
       "message": "?content\u003dconfig is only for GET operations",
       "revId": "08e7b7495e479718f2e9583a0de29043b038ecd0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b42f3c8c_e2950b0e",
+        "filename": "csit/libraries/SettingsLibrary.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-23T06:49:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d2b0138_86f1ed5c",
+      "revId": "08e7b7495e479718f2e9583a0de29043b038ecd0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
