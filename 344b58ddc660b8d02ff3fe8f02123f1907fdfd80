@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d71f5d_a6bb1b8a",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-23T07:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff617c3e_c2e56d73",
+      "revId": "344b58ddc660b8d02ff3fe8f02123f1907fdfd80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4852d99_64e3eaf9",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-20T14:01:20Z",
       "side": 1,
       "message": "vrfTables is a list:\nhttps://github.com/opendaylight/netvirt/blob/ef321479a8c84de55e60f69999fb9a0d37637fa9/fibmanager/api/src/main/yang/odl-fib.yang#L103\n\nPlease fix his key",
+      "revId": "344b58ddc660b8d02ff3fe8f02123f1907fdfd80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a60c7dda_595f5c3c",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-23T07:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4852d99_64e3eaf9",
       "revId": "344b58ddc660b8d02ff3fe8f02123f1907fdfd80",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
