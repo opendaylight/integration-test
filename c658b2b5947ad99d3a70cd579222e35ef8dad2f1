@@ -34,6 +34,24 @@
       "parentUuid": "a9a962b3_5e238527",
       "revId": "c658b2b5947ad99d3a70cd579222e35ef8dad2f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c94bcf5b_936b359f",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-26T10:28:07Z",
+      "side": 1,
+      "message": "No, it is not.\nhttps://www.rfc-editor.org/rfc/rfc8040#page-28",
+      "parentUuid": "6dc6cd92_a28d966e",
+      "revId": "c658b2b5947ad99d3a70cd579222e35ef8dad2f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
