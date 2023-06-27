@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4994bcd8_c5ed7a1a",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "865dd393_1c9e8e6b",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d632c60e_5870d504",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-26T15:02:40Z",
       "side": 1,
       "message": "Please fix key for \"vpn-instance\"\nhttps://github.com/opendaylight/netvirt/blob/ef321479a8c84de55e60f69999fb9a0d37637fa9/neutronvpn/api/src/main/yang/l3vpn-instances-interfaces.yang#L27",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58e5c6a4_4bf1fbef",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d632c60e_5870d504",
       "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde611e6_ebd953a4",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19d6ab1b_bd3f6951",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c51fe89_dc200482",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-06-26T15:02:40Z",
       "side": 1,
       "message": "Fix key for vpn-instance",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "658fa80b_e0497967",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c51fe89_dc200482",
       "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02454fa8_97013be3",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f8fb2da_84f62003",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac41e608_bd5954e1",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-06-26T15:02:40Z",
       "side": 1,
       "message": "Fix key for vpn-instance",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3e4e62_dd2e5867",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac41e608_bd5954e1",
       "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -120,6 +228,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21816f0a_54b1f1a6",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac0ee134_340d618d",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1892cab7_8a1d070f",
@@ -137,6 +263,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a16278c9_4bc45926",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1892cab7_8a1d070f",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8803098e_7026bfce",
@@ -150,6 +294,24 @@
       "writtenOn": "2023-06-26T15:02:40Z",
       "side": 1,
       "message": "Fix key for \"interface\" list",
+      "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea781976_ec9680b4",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-06-27T08:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8803098e_7026bfce",
       "revId": "23cf9956abf6c936dc996e09c5cf1fbbfb86b5cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
