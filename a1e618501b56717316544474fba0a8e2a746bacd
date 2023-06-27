@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5407677_dea2007c",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-06-27T14:11:04Z",
+      "side": 1,
+      "message": "Please fix \"tenant\" key:\nhttps://github.com/opendaylight/groupbasedpolicy/blob/9cb35d73911e6a0482089232c453da2a15ccf68e/groupbasedpolicy/src/main/yang/model/policy.yang#L726",
+      "revId": "a1e618501b56717316544474fba0a8e2a746bacd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
