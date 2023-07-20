@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "994f3a7a_7bcfb3b2",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:57:02Z",
+      "side": 1,
+      "message": "Used for delete.",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e6db70e_e519fcfc",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:57:02Z",
+      "side": 1,
+      "message": "Used for delete.",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e6a468_1bba7fa7",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:57:02Z",
+      "side": 1,
+      "message": "Used for delete.",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50252bab_191ebeb1",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:57:02Z",
+      "side": 1,
+      "message": "Check all, please.",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ca3de7_43468b27",
+        "filename": "csit/variables/sfc/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:57:02Z",
+      "side": 1,
+      "message": "For example, this is used for delete operation, too. Check all and fix.",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
