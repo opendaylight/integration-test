@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4266a0c_387f9f29",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:11:56Z",
+      "side": 1,
+      "message": "Its used for delete operation, too.",
+      "revId": "a6230579840c299401525ad83937e1d9353c0c7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a75f894_d6d610a3",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:11:56Z",
+      "side": 1,
+      "message": "Its used for delete operation, too.",
+      "revId": "a6230579840c299401525ad83937e1d9353c0c7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1c8fc6_811f5f8d",
+        "filename": "csit/suites/groupbasedpolicy/GBP_Basic/030_gbp_tunnel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:11:56Z",
+      "side": 1,
+      "message": "Used for delete operation.",
+      "revId": "a6230579840c299401525ad83937e1d9353c0c7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
