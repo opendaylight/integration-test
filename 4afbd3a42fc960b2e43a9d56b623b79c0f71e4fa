@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a1f9d1_033944fc",
+        "filename": "csit/suites/controller/NETCONF/010__netconf_inventory.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "This is used for POST request, no content parameter available.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a65509_2ed42947",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "Used also for delete. Remove content parameter.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7f6407_ec0cd8ce",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "Used also for delete. Remove content parameter.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e35e5f_06305d34",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "Used for delete request, too.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2531b68f_28664b40",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "Used for delete request, too.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dd049c7_36551770",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:04:14Z",
+      "side": 1,
+      "message": "We cannot use content parameter.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
