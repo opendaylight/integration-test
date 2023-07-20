@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f46c8f32_bf8779f5",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "This is used for delete operation, too.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2378a5d8_5a0ee112",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "This is used for delete operation, too.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e53ee6_6788a1f0",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "This is used for delete operation, too.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d74b1df_94dd8454",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "Please verify the other operations as well.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13caa112_109325cd",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "Used for POST, etc. Check the others, too.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829c4510_d76b4092",
+        "filename": "csit/libraries/PacketcableVersion.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "Used for PUT, POST, etc.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df39553_8a2febcd",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "PUT request. Remove content parameter.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c729e16d_2a790426",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:52:43Z",
+      "side": 1,
+      "message": "This is PUT, not GET.",
+      "revId": "d38bf78b116f1128a733f7ef3d89c87e1fe2ec28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
