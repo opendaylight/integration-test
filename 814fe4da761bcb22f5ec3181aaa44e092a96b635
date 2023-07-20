@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15f7e75_c0b4b697",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-20T13:14:27Z",
+      "side": 1,
+      "message": "Used for PUT request.",
+      "revId": "814fe4da761bcb22f5ec3181aaa44e092a96b635",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
