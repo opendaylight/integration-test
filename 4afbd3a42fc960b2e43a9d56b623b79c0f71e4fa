@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0db4969_f6f4f7bf",
+        "filename": "csit/suites/controller/NETCONF/010__netconf_inventory.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68a1f9d1_033944fc",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5a65509_2ed42947",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-20T13:04:14Z",
       "side": 1,
       "message": "Used also for delete. Remove content parameter.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "326cca5c_647147bf",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a65509_2ed42947",
       "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f55f048_510b91df",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b7f6407_ec0cd8ce",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21e35e5f_06305d34",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-07-20T13:04:14Z",
       "side": 1,
       "message": "Used for delete request, too.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6323c94c_5d913c0d",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21e35e5f_06305d34",
       "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78ec5265_5981102b",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2531b68f_28664b40",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dd049c7_36551770",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-07-20T13:04:14Z",
       "side": 1,
       "message": "We cannot use content parameter.",
+      "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda15fe8_5172b392",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T13:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd049c7_36551770",
       "revId": "4afbd3a42fc960b2e43a9d56b623b79c0f71e4fa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
