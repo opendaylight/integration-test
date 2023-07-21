@@ -16,6 +16,24 @@
       "message": "Used for PUT request.",
       "revId": "814fe4da761bcb22f5ec3181aaa44e092a96b635",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98814e2e_e2602eed",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f15f7e75_c0b4b697",
+      "revId": "814fe4da761bcb22f5ec3181aaa44e092a96b635",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
