@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "031bb654_1a99a177",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T14:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00ada16d_23655f7c",
+      "revId": "a803f786e037292c344d95de3641ecd2e39bcca0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c34b363_f6ab2971",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-20T13:13:18Z",
       "side": 1,
       "message": "Delete request.",
+      "revId": "a803f786e037292c344d95de3641ecd2e39bcca0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1541971a_d84deaba",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T14:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c34b363_f6ab2971",
       "revId": "a803f786e037292c344d95de3641ecd2e39bcca0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
