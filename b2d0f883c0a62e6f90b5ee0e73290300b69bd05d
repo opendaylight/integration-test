@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5eda78_b28adae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-07-21T07:42:12Z",
+      "side": 1,
+      "message": "Please check all usages - no cannot use content parameter when used for other than GET requests. IN addition, after applying all patches we can still see /restconf/config/ somewhere in the project.",
+      "revId": "b2d0f883c0a62e6f90b5ee0e73290300b69bd05d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
