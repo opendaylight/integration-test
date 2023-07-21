@@ -16,6 +16,24 @@
       "message": "No content - this is PUT. Not GET.",
       "revId": "a7f938806880521581b327ef407de0e5ef507b13",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e275e96_250d2568",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-21T07:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ef529d0_480b6706",
+      "revId": "a7f938806880521581b327ef407de0e5ef507b13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
