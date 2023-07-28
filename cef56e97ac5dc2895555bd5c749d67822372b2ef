@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2279a22_66c169f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2023-07-28T10:13:57Z",
+      "side": 1,
+      "message": "There are still some python script with /restconf/config/. Please check settings.py, odl_tester.py, replace_cars.py and config_cleanup.py",
+      "revId": "cef56e97ac5dc2895555bd5c749d67822372b2ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
