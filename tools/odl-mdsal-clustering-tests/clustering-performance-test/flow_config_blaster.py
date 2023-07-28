@@ -53,11 +53,9 @@ class FlowConfigBlaster(object):
     putheaders = {"content-type": "application/json"}
     getheaders = {"Accept": "application/json"}
 
-    FLWURL = (
-        "restconf/config/opendaylight-inventory:nodes/node/openflow:%d/table/0/flow/%d"
-    )
-    TBLURL = "restconf/config/opendaylight-inventory:nodes/node/openflow:%d/table/0"
-    INVURL = "restconf/operational/opendaylight-inventory:nodes"
+    FLWURL = "rests/data/opendaylight-inventory:nodes/node=openflow:%d/table=0/flow=%d"
+    TBLURL = "rests/data/opendaylight-inventory:nodes/node=openflow:%d/table=0"
+    INVURL = "rests/data/opendaylight-inventory:nodes?content=nonconfig"
     TIMEOUT = 10
 
     flows = {}
