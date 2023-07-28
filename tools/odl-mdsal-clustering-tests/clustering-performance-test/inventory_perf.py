@@ -49,11 +49,6 @@ total_mb_rate = Counter(0.0)
 putheaders = {"content-type": "application/json"}
 getheaders = {"Accept": "application/json"}
 
-INVENTORY_URL = (
-    "http://localhost:8080/restconf/operational/opendaylight-inventory:nodes"
-)
-N1T0_URL = "http://localhost:8080/restconf/operational/opendaylight-inventory:nodes/node/openflow:1/table/0"
-
 num_threads = 1
 
 print_lock = threading.Lock()
@@ -83,7 +78,7 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
 
             try:
                 results[r.status_code] += 1
-            except (KeyError):
+            except KeyError:
                 results[r.status_code] = 1
 
     total = sum(results.values())
@@ -126,7 +121,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--url",
-        default="restconf/operational/opendaylight-inventory:nodes",
+        default="rests/data/opendaylight-inventory:nodes?content=nonconfig",
         help="Url to send.",
     )
     parser.add_argument(
