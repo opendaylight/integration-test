@@ -19,7 +19,7 @@ flow_template = {
     "priority": 2,
     "table_id": 0,
 }
-odl_node_url = "/restconf/config/opendaylight-inventory:nodes/node/"
+odl_node_url = "/rests/data/opendaylight-inventory:nodes/node="
 
 
 class Timer(object):
@@ -75,7 +75,7 @@ def _prepare_post(cntl, method, flows, template=None):
         flow["match"]["ipv4-destination"] = "%s/32" % str(netaddr.IPAddress(ip))
         flow_list.append(flow)
     body = {"flow": flow_list}
-    url = "http://" + cntl + ":8181" + odl_node_url + dev_id + "/table/0"
+    url = "http://" + cntl + ":8181" + odl_node_url + dev_id + "/table=0"
     req_data = json.dumps(body)
     req = requests.Request(
         method,
@@ -109,7 +109,7 @@ def _prepare_delete(cntl, method, flows, template=None):
         + ":8181"
         + odl_node_url
         + dev_id
-        + "/table/0/flow/"
+        + "/table=0/flow="
         + str(flow_id)
     )
     req = requests.Request(
@@ -192,7 +192,7 @@ def get_device_ids(controller="127.0.0.1", port=8181):
     """Returns a list of switch ids"""
     ids = []
     rsp = requests.get(
-        url="http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes".format(
+        url="http://{0}:{1}/rests/data/opendaylight-inventory:nodes".format(
             controller, port
         ),
         auth=("admin", "admin"),
@@ -213,7 +213,7 @@ def get_flow_ids(controller="127.0.0.1", port=8181):
     device_ids = get_device_ids(controller, port)
     for device_id in device_ids:
         rsp = requests.get(
-            url="http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes/node/%s/table/0".format(
+            url="http://{0}:{1}/rests/data/opendaylight-inventory:nodes/node=%s/table=0?content=nonconfig".format(
                 controller, port
             )
             % device_id,
@@ -407,7 +407,7 @@ def main(*argv):
     with Timer() as tmr:
         if in_args.bulk_delete:
             url = "http://" + in_args.host + ":" + "8181"
-            url += "/restconf/config/opendaylight-inventory:nodes"
+            url += "/rests/data/opendaylight-inventory:nodes"
             rsp = requests.delete(
                 url,
                 headers={"Content-Type": "application/json"},
