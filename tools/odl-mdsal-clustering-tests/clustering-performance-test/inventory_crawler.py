@@ -16,14 +16,14 @@ class InventoryCrawler(object):
     found_flows = 0
     nodes = 0
 
-    INVENTORY_URL = "restconf/%s/opendaylight-inventory:nodes"
+    INVENTORY_URL = "rests/data/opendaylight-inventory:nodes%$"
     hdr = {"Accept": "application/json"}
     OK, ERROR = range(2)
     table_stats_unavailable = 0
     table_stats_fails = []
 
-    def __init__(self, host, port, plevel, datastore, auth, debug):
-        self.url = "http://" + host + ":" + port + "/" + self.INVENTORY_URL % datastore
+    def __init__(self, host, port, plevel, content, auth, debug):
+        self.url = "http://" + host + ":" + port + "/" + self.INVENTORY_URL % content
         self.plevel = plevel
         self.auth = auth
         self.debug = debug
@@ -170,9 +170,9 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--datastore",
-        choices=["operational", "config"],
-        default="operational",
-        help="Which data store to crawl; default operational",
+        choices=["?content=nonconfig", "?content=config"],
+        default="?content=config",
+        help="Which data store to crawl; default config",
     )
     parser.add_argument(
         "--no-auth",
