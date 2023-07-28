@@ -85,13 +85,13 @@ class OvsdbConfigBlaster(object):
         """
         url_prefix = None
         if url_type == "config":
-            url_prefix = "restconf/config/"
+            url_prefix = "rests/data/"
         elif url_type == "oper":
-            url_prefix = "restconf/operational/"
+            url_prefix = "rests/data/"
         ovsdb_url = (
             url_prefix + "network-topology:"
             "network-topology/topology/"
-            "ovsdb:1/node/ovsdb:%2F%2F" + vswitch_ip + ":" + vswitch_ovsdb_port
+            "ovsdb:1/node=ovsdb:%2F%2F" + vswitch_ip + ":" + vswitch_ovsdb_port
         )
         return ovsdb_url
 
