@@ -186,7 +186,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    BASE_URL = "http://%s:%d/restconf/" % (args.host, args.port)
+    BASE_URL = "http://%s:%d/rests/" % (args.host, args.port)
 
     if args.operation == "GLOBAL-RTC":
         servers = [1]
