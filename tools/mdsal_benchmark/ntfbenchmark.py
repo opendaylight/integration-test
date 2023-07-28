@@ -200,7 +200,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    BASE_URL = "http://%s:%d/restconf/" % (args.host, args.port)
+    BASE_URL = "http://%s:%d/rests/" % (args.host, args.port)
 
     # Run the benchmark tests and collect data in a csv file for import into a graphing software
     f = open("test.csv", "wt")
