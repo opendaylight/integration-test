@@ -24,9 +24,7 @@ def cleanup_config_fl(host, port):
 def cleanup_config_odl(host, port, auth):
     global getheaders
 
-    url = (
-        "http://" + host + ":" + port + "/restconf/config/opendaylight-inventory:nodes"
-    )
+    url = "http://" + host + ":" + port + "/rests/data/opendaylight-inventory:nodes"
 
     if not auth:
         r = requests.delete(url, headers=getheaders)
@@ -37,7 +35,6 @@ def cleanup_config_odl(host, port, auth):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="Cleans up the config space")
     parser.add_argument(
         "--host",
