@@ -174,6 +174,24 @@
       "parentUuid": "24ca3de7_43468b27",
       "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb96856f_c3a02caa",
+        "filename": "csit/variables/sfc/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-07-28T09:56:04Z",
+      "side": 1,
+      "message": "These variables has used only in GET requests",
+      "parentUuid": "269409a8_0a68a781",
+      "revId": "6dfd088ad33057b1437527b371fc4bc5c825fd94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
