@@ -53,13 +53,13 @@ def _build_url(odl_ip, port, uri):
 
         :param port: controller's restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         :returns url: full restconf url corresponding to params
     """
 
-    url = "http://" + odl_ip + ":" + port + "/restconf/" + uri
+    url = "http://" + odl_ip + ":" + port + "/rests/" + uri
     return url
 
 
@@ -71,7 +71,7 @@ def _build_post(odl_ip, port, uri, python_data, auth):
 
         :param port: controller's restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
         :param python_data: python object to serialize into textual data
 
@@ -370,7 +370,7 @@ def _build_delete(odl_ip, port, uri):
 
         :param port: restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         None
@@ -469,7 +469,7 @@ def _build_get(odl_ip, port, uri):
 
         :param port: restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         None
