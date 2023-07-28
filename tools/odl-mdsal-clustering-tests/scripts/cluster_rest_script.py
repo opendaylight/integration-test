@@ -53,13 +53,13 @@ def _build_url(odl_ip, port, uri):
 
         :param port: controller's restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         :returns url: full restconf url corresponding to params
     """
 
-    url = "http://" + odl_ip + ":" + port + "/restconf/" + uri
+    url = "http://" + odl_ip + ":" + port + "/rests/" + uri
     return url
 
 
@@ -71,7 +71,7 @@ def _build_post(odl_ip, port, uri, python_data, auth):
 
         :param port: controller's restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
         :param python_data: python object to serialize into textual data
 
@@ -110,7 +110,7 @@ def _prepare_add_car(odl_ip, port, item_list, auth):
         entry["id"] = item
         entry["model"] = "model" + str(item)
         container["car-entry"].append(entry)
-    req = _build_post(odl_ip, port, "config/car:cars", container, auth)
+    req = _build_post(odl_ip, port, "data/car:cars", container, auth)
     return req
 
 
@@ -370,7 +370,7 @@ def _build_delete(odl_ip, port, uri):
 
         :param port: restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         None
@@ -410,7 +410,7 @@ def delete_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
     """
 
     logger.info("Delete all cars from %s:%s", odl_ip, port)
-    _build_delete(odl_ip, port, "config/car:cars")
+    _build_delete(odl_ip, port, "data/car:cars")
 
 
 def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
@@ -434,7 +434,7 @@ def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_reques
     """
 
     logger.info("Delete all people from %s:%s", odl_ip, port)
-    _build_delete(odl_ip, port, "config/people:people")
+    _build_delete(odl_ip, port, "data/people:people")
 
 
 def delete_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
@@ -458,7 +458,7 @@ def delete_car_people(odl_ip, port, thread_count, item_count, auth, items_per_re
     """
 
     logger.info("Delete all purchases from %s:%s", odl_ip, port)
-    _build_delete(odl_ip, port, "config/car-people:car-people")
+    _build_delete(odl_ip, port, "data/car-people:car-people")
 
 
 def _build_get(odl_ip, port, uri):
@@ -469,7 +469,7 @@ def _build_get(odl_ip, port, uri):
 
         :param port: restconf port
 
-        :param uri: URI without /restconf/ to complete URL
+        :param uri: URI without /rests/ to complete URL
 
     Returns:
         None
@@ -512,7 +512,7 @@ def get_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
     """
 
     logger.info("Get all cars from %s:%s", odl_ip, port)
-    _build_get(odl_ip, port, "config/car:cars")
+    _build_get(odl_ip, port, "data/car:cars?content=config")
 
 
 def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
@@ -539,7 +539,7 @@ def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
     """
 
     logger.info("Get all people from %s:%s", odl_ip, port)
-    _build_get(odl_ip, port, "config/people:people")
+    _build_get(odl_ip, port, "data/people:people?content=config")
 
 
 def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
@@ -566,7 +566,7 @@ def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_reque
     """
 
     logger.info("Get all purchases from %s:%s", odl_ip, port)
-    _build_get(odl_ip, port, "config/car-people:car-people")
+    _build_get(odl_ip, port, "data/car-people:car-people?content=config")
 
 
 def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request):

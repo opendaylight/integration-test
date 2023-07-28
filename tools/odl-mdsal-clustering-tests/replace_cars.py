@@ -79,7 +79,7 @@ $ENTRIES
     args = parser.parse_args()
 
     # Logic
-    url = "http://" + args.host + ":" + args.port + "/restconf/config/car:cars"
+    url = "http://" + args.host + ":" + args.port + "/rests/data/car:cars"
     auth = (args.user, args.password)
     headers = {"Content-Type": "application/json"}
     session = requests.Session()
