@@ -16,43 +16,43 @@ def getServer():
 
 
 def getCarsUrl():
-    """Cars resource URL for GET"""
-    return "http://" + getServer() + "/restconf/config/car:cars"
+    """Cars resource URL for CRUD operations"""
+    return "http://" + getServer() + "/rests/data/car:cars"
 
 
 def getPersonsUrl():
-    """People resouce URL for GET"""
-    return "http://" + getServer() + "/restconf/config/people:people"
+    """People resource URL for CRUD operations"""
+    return "http://" + getServer() + "/rests/data/people:people"
 
 
 def getCarPersonUrl():
     """GET cars persons mapping resource URL"""
-    return "http://" + getServer() + "/restconf/config/car-people:car-people"
+    return "http://" + getServer() + "/rests/data/car-people:car-people?content=config"
 
 
 def getAddCarUrl():
     """POST or DELETE URL"""
-    return "http://" + getServer() + "/restconf/config"
+    return "http://" + getServer() + "/rests/data"
 
 
 def getAddPersonUrl():
     """POST or DELETE URL"""
-    return "http://" + getServer() + "/restconf/config"
+    return "http://" + getServer() + "/rests/data"
 
 
 def getAddPersonRpcUrl():
     """POST URL -using rpc"""
-    return "http://" + getServer() + "/restconf/operations/people:add-person"
+    return "http://" + getServer() + "/rests/operations/people:add-person"
 
 
 def getAddCarPersonUrl():
     """POST URL for car person mapping"""
-    return "http://" + getServer() + "/restconf/config"
+    return "http://" + getServer() + "/rests/data"
 
 
 def getBuyCarRpcUrl():
     """POST URL for buy car rpc"""
-    return "http://" + getServer() + "/restconf/operations/car-purchase:buy-car"
+    return "http://" + getServer() + "/rests/operations/car-purchase:buy-car"
 
 
 # Template for Car resource payload
