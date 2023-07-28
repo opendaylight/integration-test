@@ -10,10 +10,10 @@ class FlowConfigBulkBlaster(flow_config_blaster.FlowConfigBlaster):
     Reusing FlowConfigBlaster class providing flow operations based on bulk processing
     """
 
-    FLW_ADD_RPC_URL = "restconf/operations/sal-bulk-flow:add-flows-rpc"
-    FLW_REMOVE_RPC_URL = "restconf/operations/sal-bulk-flow:remove-flows-rpc"
-    FLW_ADD_DS_URL = "restconf/operations/sal-bulk-flow:add-flows-ds"
-    FLW_REMOVE_DS_URL = "restconf/operations/sal-bulk-flow:remove-flows-ds"
+    FLW_ADD_RPC_URL = "rests/operations/sal-bulk-flow:add-flows-rpc"
+    FLW_REMOVE_RPC_URL = "rests/operations/sal-bulk-flow:remove-flows-rpc"
+    FLW_ADD_DS_URL = "rests/operations/sal-bulk-flow:add-flows-ds"
+    FLW_REMOVE_DS_URL = "rests/operations/sal-bulk-flow:remove-flows-ds"
 
     def __init__(self, *args, **kwargs):
         super(FlowConfigBulkBlaster, self).__init__(*args, **kwargs)
