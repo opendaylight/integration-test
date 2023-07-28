@@ -25,7 +25,7 @@ def cleanup_config_odl(host, port, auth):
     global getheaders
 
     url = (
-        "http://" + host + ":" + port + "/restconf/config/opendaylight-inventory:nodes"
+        "http://" + host + ":" + port + "/rests/data/opendaylight-inventory:nodes"
     )
 
     if not auth:

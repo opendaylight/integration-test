@@ -17,7 +17,7 @@ __email__ = "gary.wu1@huawei.com"
 
 GET_HEADERS = {"Accept": "application/json"}
 
-INVENTORY_URL = "http://%s:%d/restconf/%s/opendaylight-inventory:nodes"
+INVENTORY_URL = "http://%s:%d/rests/data/opendaylight-inventory:nodes?content=%s"
 
 
 class Timer(object):
@@ -49,7 +49,7 @@ def read(hosts, port, auth, datastore, print_lock, cycles, results_queue):
         :param auth: The username and password pair to use for basic authentication, or None
             if no authentication is required.
 
-        :param datastore: The datastore (operational/config) to read flows from.
+        :param datastore: The datastore (nonconfig/config) to read flows from.
 
         :param print_lock: The thread lock to allow only one thread to output at a time.
 

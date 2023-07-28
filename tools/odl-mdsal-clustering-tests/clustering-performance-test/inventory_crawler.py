@@ -16,14 +16,14 @@ class InventoryCrawler(object):
     found_flows = 0
     nodes = 0
 
-    INVENTORY_URL = "restconf/%s/opendaylight-inventory:nodes"
+    INVENTORY_URL = "rests/data/opendaylight-inventory:nodes"
     hdr = {"Accept": "application/json"}
     OK, ERROR = range(2)
     table_stats_unavailable = 0
     table_stats_fails = []
 
-    def __init__(self, host, port, plevel, datastore, auth, debug):
-        self.url = "http://" + host + ":" + port + "/" + self.INVENTORY_URL % datastore
+    def __init__(self, host, port, plevel, auth, debug):
+        self.url = "http://" + host + ":" + port + "/" + self.INVENTORY_URL
         self.plevel = plevel
         self.auth = auth
         self.debug = debug
