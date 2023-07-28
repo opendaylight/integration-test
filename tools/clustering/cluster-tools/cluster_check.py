@@ -92,7 +92,7 @@ def list_entity_owners(ipaddress, entity_owner_list):
         ipaddress(str): ip address of the ODL controller
         entity_owner_list(list): list of member role in cluster
     """
-    entity = ":8181/restconf/operational/entity-owners:entity-owners"
+    entity = ":8181/rests/data/entity-owners:entity-owners?content=nonconfig"
     url = "http://" + ipaddress + entity
     resp = requests.get(url, headers=con_header, auth=authentication)
     if resp.status_code != RESP_GET_SUCCESS:
