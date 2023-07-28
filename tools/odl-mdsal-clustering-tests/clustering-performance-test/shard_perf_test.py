@@ -255,9 +255,7 @@ class TopoUrlGenerator(TestUrlGenerator):
 
     def __init__(self, host, port, auth):
         TestUrlGenerator.__init__(self, host, port, auth)
-        self.resource_string = (
-            "restconf/operational/network-topology:network-topology/topology/flow:1"
-        )
+        self.resource_string = "rests/data/network-topology:network-topology/topology=flow:1?content=nonconfig"
 
     def url_generator(self, topo_data):
         url_list = []
@@ -271,7 +269,7 @@ class TopoUrlGenerator(TestUrlGenerator):
                         + self.host
                         + ":"
                         + self.port
-                        + "/restconf/operational/network-topology:network-topology/topology/flow:1/node/"
+                        + "/rests/data/network-topology:network-topology/topology=flow:1/node="
                         + node["node-id"]
                         + "/termination-point/"
                         + tpoint["tp-id"]
@@ -290,7 +288,7 @@ class InvUrlGenerator(TestUrlGenerator):
 
     def __init__(self, host, port, auth):
         TestUrlGenerator.__init__(self, host, port, auth)
-        self.resource_string = "restconf/operational/opendaylight-inventory:nodes"
+        self.resource_string = "rests/data/opendaylight-inventory:nodes"
 
     def url_generator(self, inv_data):
         url_list = []
@@ -304,7 +302,7 @@ class InvUrlGenerator(TestUrlGenerator):
                         + self.host
                         + ":"
                         + self.port
-                        + "/restconf/operational/opendaylight-inventory:nodes/node/"
+                        + "/rests/data/opendaylight-inventory:nodes/node/"
                         + node["id"]
                         + "/node-connector/"
                         + nconn["id"]
