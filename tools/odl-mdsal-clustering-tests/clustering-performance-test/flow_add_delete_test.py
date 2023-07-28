@@ -173,7 +173,7 @@ if __name__ == "__main__":
         flow_template = None
 
     ic = InventoryCrawler(
-        in_args.host, in_args.port, 0, "operational", in_args.auth, False
+        in_args.host, in_args.port, 0, "?content=nonconfig", in_args.auth, False
     )
 
     fct = FlowConfigBlaster(
