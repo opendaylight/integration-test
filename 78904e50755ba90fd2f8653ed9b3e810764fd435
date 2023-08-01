@@ -22,6 +22,30 @@
       },
       "revId": "78904e50755ba90fd2f8653ed9b3e810764fd435",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba8c50a_ae3c42eb",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:06:56Z",
+      "side": 1,
+      "message": "So do I and that is the reason why I did not use \"content\" parameter for this requests.",
+      "parentUuid": "bbd35c68_402b3e79",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 63
+      },
+      "revId": "78904e50755ba90fd2f8653ed9b3e810764fd435",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
