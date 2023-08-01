@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb84a0f_06b9289e",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T16:57:26Z",
+      "side": 1,
+      "message": "What is the point of doing this?",
+      "range": {
+        "startLine": 88,
+        "startChar": 25,
+        "endLine": 90,
+        "endChar": 38
+      },
+      "revId": "2d19ab9197594a58181c8df14743d77ea365c0de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
