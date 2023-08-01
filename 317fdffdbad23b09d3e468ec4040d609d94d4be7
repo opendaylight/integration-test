@@ -41,6 +41,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9b7b7f_ae5a23a2",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:59:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faebdda7_09617341",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af24cb6c_4595f103",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-08-01T17:44:06Z",
       "side": 1,
       "message": "GET request but url does not have content\u003dconfig/nonconfig - will it work?",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 30
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e04dd6_892992b4",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:59:09Z",
+      "side": 1,
+      "message": "GET requests work fine without \u0027content\u0027, as well as with it.",
+      "parentUuid": "af24cb6c_4595f103",
       "range": {
         "startLine": 121,
         "startChar": 27,
@@ -87,6 +135,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "893a6b03_26971386",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:59:09Z",
+      "side": 1,
+      "message": "In these patches, I only adapt requests to RFC 8040. Refactoring using these requests required a new ticket on Jira and separate patches",
+      "parentUuid": "f3ecc856_d96b67ef",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 98
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f339e3_d875df23",
@@ -110,6 +182,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f477e6_723d5b4a",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:59:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5f339e3_d875df23",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 15
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba6f3a6e_c1ac0c9a",
@@ -123,6 +219,24 @@
       "writtenOn": "2023-08-01T17:44:06Z",
       "side": 1,
       "message": "content?",
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5312475_d3c4661d",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:59:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6f3a6e_c1ac0c9a",
       "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
