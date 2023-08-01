@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74306cb0_0fd3f94f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "This needs a lot more work than it has now",
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faebdda7_09617341",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "This is not ok - you changed class init method but didn\u0027t updated it in other places where we are using it. Just by using Ctrl + F in same directory I was able to find two files with not updated initialization of this class. Fix it properly.\n\nAlso consider reverting this parameter and naming it \u0027content\u0027 and use something like \u0027config/nonconfig\u0027 for value - you probably still need \u0027content\u0027 part for GET requests.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af24cb6c_4595f103",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "GET request but url does not have content\u003dconfig/nonconfig - will it work?",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 30
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3ecc856_d96b67ef",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "Are we using these at all?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 98
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f339e3_d875df23",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "GET request \u003d where is \u0027content\u003dnonconfig\u0027?",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 15
+      },
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba6f3a6e_c1ac0c9a",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2023-08-01T17:44:06Z",
+      "side": 1,
+      "message": "content?",
+      "revId": "317fdffdbad23b09d3e468ec4040d609d94d4be7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
