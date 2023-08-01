@@ -16,6 +16,24 @@
       "message": "There are still some python script with /restconf/config/. Please check settings.py, odl_tester.py, replace_cars.py and config_cleanup.py",
       "revId": "cef56e97ac5dc2895555bd5c749d67822372b2ef",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bead7ca_48df81bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-01T18:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2279a22_66c169f4",
+      "revId": "cef56e97ac5dc2895555bd5c749d67822372b2ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
