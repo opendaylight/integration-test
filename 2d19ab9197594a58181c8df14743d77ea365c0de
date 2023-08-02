@@ -22,6 +22,30 @@
       },
       "revId": "2d19ab9197594a58181c8df14743d77ea365c0de",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ed544b_4d8d72d0",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-02T07:42:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fb84a0f_06b9289e",
+      "range": {
+        "startLine": 88,
+        "startChar": 25,
+        "endLine": 90,
+        "endChar": 38
+      },
+      "revId": "2d19ab9197594a58181c8df14743d77ea365c0de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
