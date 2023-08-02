@@ -22,6 +22,30 @@
       },
       "revId": "20eefb680370ab8505ee21db51d21d58fbea93a8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e47fc5a_cb584bdc",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2023-08-02T09:59:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e121042_3e600128",
+      "range": {
+        "startLine": 175,
+        "startChar": 49,
+        "endLine": 175,
+        "endChar": 55
+      },
+      "revId": "20eefb680370ab8505ee21db51d21d58fbea93a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
