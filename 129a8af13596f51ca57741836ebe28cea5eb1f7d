@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4528bff_fd86d85c",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-11T13:39:51Z",
+      "side": 1,
+      "message": "/rests/data/opendaylight-inventory:nodes/node\u003d",
+      "revId": "129a8af13596f51ca57741836ebe28cea5eb1f7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8d7673_9f721c7a",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-11T13:39:51Z",
+      "side": 1,
+      "message": "http://\" + cntl + \":8181\" + odl_node_url + dev_id + \"/table\u003d0",
+      "revId": "129a8af13596f51ca57741836ebe28cea5eb1f7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8402d97b_df09c0f9",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-11T13:39:51Z",
+      "side": 1,
+      "message": "/table\u003d0/flow\u003d",
+      "revId": "129a8af13596f51ca57741836ebe28cea5eb1f7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cdcfd56_04668c4d",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-11T13:39:51Z",
+      "side": 1,
+      "message": "http://{0}:{1}/rests/data/opendaylight-inventory:nodes/node\u003d%s/table\u003d0?content\u003dnonconfig",
+      "revId": "129a8af13596f51ca57741836ebe28cea5eb1f7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d366a8_a0a3371c",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-11T13:39:51Z",
+      "side": 1,
+      "message": "/rests/data/network-topology:network-topology/topology\u003dflow:1/node\u003d",
+      "revId": "129a8af13596f51ca57741836ebe28cea5eb1f7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
