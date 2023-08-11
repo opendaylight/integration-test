@@ -13,7 +13,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${SFC_API}      /restconf/config/service-function:service-functions
+${SFC_API}      /rests/data/service-function:service-functions
 
 
 *** Test Cases ***

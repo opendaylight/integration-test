@@ -1,7 +1,7 @@
 *** Variables ***
 # Generic Service Function Chaining URIs
-${REST_CONFIG}                              /restconf/config
-${REST_OPER}                                /restconf/operational
+${REST_CONFIG}                              /rests/data
+${REST_OPER}                                /rests/data
 ${OPERATIONAL_RSPS_URI}                     ${REST_OPER}/rendered-service-path:rendered-service-paths
 ${OPERATIONAL_RSP_URI}
 ...                                         ${REST_OPER}/rendered-service-path:rendered-service-paths/rendered-service-path

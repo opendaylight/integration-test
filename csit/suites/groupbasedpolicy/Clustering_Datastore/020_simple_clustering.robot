@@ -46,5 +46,5 @@ Read JSON From File
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${GBP_TENANT_ID}    tenant-red
-    Set Suite Variable    ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENANT_ID}
+    Set Suite Variable    ${GBP_TENANT1_API}    /rests/data/policy:tenants/tenant/${GBP_TENANT_ID}
     Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/master/tenant1.json

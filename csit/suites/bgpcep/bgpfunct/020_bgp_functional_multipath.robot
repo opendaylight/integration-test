@@ -198,7 +198,7 @@ Store_Rib_Configuration
 Log_Loc_Rib_Operational
     ${rsp}    RequestsLibrary.Get Request
     ...    ${CONFIG_SESSION}
-    ...    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/
+    ...    /rests/data/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/
     BuiltIn.Log    ${rsp.content}
 
 Configure_App_Peer_With_Routes

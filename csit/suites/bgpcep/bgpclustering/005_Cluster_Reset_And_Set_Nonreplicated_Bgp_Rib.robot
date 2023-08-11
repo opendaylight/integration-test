@@ -66,7 +66,7 @@ Download_Karaf_Log
 Topology_Available
     ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    1
     TemplatedRequests.Get_As_Json_From_Uri
-    ...    /restconf/operational/network-topology:network-topology/topology/example-ipv4-topology
+    ...    /rests/data/network-topology:network-topology/topology/example-ipv4-topology
     ...    session=${session}
 
 Set_Config_Files_With_Nonreplicated_Rib

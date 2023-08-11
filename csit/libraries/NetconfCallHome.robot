@@ -6,10 +6,10 @@ Resource    ../variables/Variables.robot
 
 
 *** Variables ***
-${mount_point_url}              /restconf/operational/network-topology:network-topology/topology/topology-netconf/
-${device_status}                /restconf/operational/odl-netconf-callhome-server:netconf-callhome-server
-${whitelist}                    /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
-${global_config_url}            /restconf/config/odl-netconf-callhome-server:netconf-callhome-server/global/credentials
+${mount_point_url}              /rests/data/network-topology:network-topology/topology/topology-netconf/
+${device_status}                /rests/data/odl-netconf-callhome-server:netconf-callhome-server
+${whitelist}                    /rests/data/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
+${global_config_url}            /rests/data/odl-netconf-callhome-server:netconf-callhome-server/global/credentials
 ${netconf_keystore_url}         /rests/operations/netconf-keystore
 ${netconf_keystore_data_url}    /rests/data/netconf-keystore:keystore
 ${substring1}                   "netconf-node-topology:connection-status":"connected"

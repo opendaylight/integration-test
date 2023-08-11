@@ -29,7 +29,7 @@ ${RPC_URL}                  /restconf/operations/basic-rpc-test:basic-global
 ${SERVICE}                  Basic-rpc-test']
 ${TEST_LOG_LEVEL}           info
 @{TEST_LOG_COMPONENTS}      org.opendaylight.controller.remote.rpc
-${EOS_URL}                  /restconf/operational/entity-owners:entity-owners
+${EOS_URL}                  /rests/data/entity-owners:entity-owners
 ${RPC_STATUS_ISOLATED}      501
 
 

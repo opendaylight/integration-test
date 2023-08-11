@@ -12,7 +12,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CONTEXT}     /restconf/operational/network-topology:network-topology/topology/flow:1
+${REST_CONTEXT}     /rests/data/network-topology:network-topology/topology/flow:1
 
 
 *** Test Cases ***

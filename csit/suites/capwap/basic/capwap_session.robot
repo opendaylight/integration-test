@@ -13,7 +13,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${DISC_WTP_REST}    /restconf/operational/capwap-impl:capwap-ac-root/
+${DISC_WTP_REST}    /rests/data/capwap-impl:capwap-ac-root/
 
 
 *** Test Cases ***

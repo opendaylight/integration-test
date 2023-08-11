@@ -16,8 +16,8 @@ ${GBP3}                         ${TOOLS_SYSTEM_3_IP}
 ${TUNNELS_PATH}                 ${CONFIG_NODES_API}
 ${ENDPOINT_REG_PATH}            ${GBP_REGEP_API}
 ${ENDPOINT_UNREG_PATH}          ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}          /restconf/operational/endpoint:endpoints
-${OF_OVERLAY_CONFIG_PATH}       /restconf/config/ofoverlay:of-overlay-config
+${ENDPOINTS_OPER_PATH}          /rests/data/endpoint:endpoints
+${OF_OVERLAY_CONFIG_PATH}       /rests/data/ofoverlay:of-overlay-config
 ${TUNNELS_FILE}                 ${CURDIR}/../../../../variables/gbp/3node/tunnels.json
 
 

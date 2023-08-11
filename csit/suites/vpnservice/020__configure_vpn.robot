@@ -13,7 +13,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CON}             /restconf/config/
+${REST_CON}             /rests/data/
 @{vpn_inst_values}      testVpn1    1000:1    1000:1,2000:1    3000:1,4000:1
 @{vm_int_values}        s1-eth1    l2vlan    openflow:1:1
 @{vm_vpnint_values}     s1-eth1    testVpn1    10.0.0.1    12:f8:57:a8:b9:a1
@@ -218,7 +218,7 @@ Ensure The Fib Entry Is Present
     [Arguments]    ${prefix}
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    /restconf/operational/odl-fib:fibEntries/
+    ...    /rests/data/odl-fib:fibEntries/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
@@ -230,7 +230,7 @@ Ensure the Fib Entry Is Removed
     [Arguments]    ${prefix}
     ${resp}    RequestsLibrary.Get Request
     ...    session
-    ...    /restconf/operational/odl-fib:fibEntries/
+    ...    /rests/data/odl-fib:fibEntries/
     ...    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${prefix}

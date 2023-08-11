@@ -71,7 +71,7 @@ ${GET_PORT_URL}                         neutron:neutron/ports/port
 ${GREP_OVS}                             ps -ef | grep ovs
 ${GREP_OVSDB_DUMP_MANAGER_TABLE}        sudo ovsdb-client dump hardware_vtep -f csv | grep -A2 "Manager table"
 ${HW_ETHER}                             hw ether
-${HWVTEP_NETWORK_TOPOLOGY}              /restconf/operational/network-topology:network-topology/topology/hwvtep:1/
+${HWVTEP_NETWORK_TOPOLOGY}              /rests/data/network-topology:network-topology/topology/hwvtep:1/
 ${IFCONF}                               ifconfig
 ${INIT_VSCTL}                           sudo ovs-vsctl --no-wait init
 ${IP_LINK_ADD}                          ${IP_LINK} add
@@ -84,8 +84,8 @@ ${KILL_VSWITCHD_PROC}                   sudo killall -9 ovs-vswitchd
 ${KILL_VTEP_PROC}                       sudo killall -9 python
 ${L2GW_CONN_CREATE}                     neutron l2-gateway-connection-create --default-segmentation-id 0
 ${L2GW_CONN_DELETE}                     neutron l2-gateway-connection-delete
-${L2GW_LIST_REST_URL}                   /restconf/config/neutron:neutron/l2gateways/
-${L2GW_CONN_LIST_REST_URL}              /restconf/config/neutron:neutron/l2gatewayConnections/
+${L2GW_LIST_REST_URL}                   /rests/data/neutron:neutron/l2gateways/
+${L2GW_CONN_LIST_REST_URL}              /rests/data/neutron:neutron/l2gatewayConnections/
 ${L2GW_CREATE}                          neutron l2-gateway-create --device
 ${L2GW_UPDATE}                          neutron l2-gateway-update --device
 ${L2GW_DELETE}                          neutron l2-gateway-delete
@@ -110,7 +110,7 @@ ${OVS_SET_CTRLR}                        sudo ovs-vsctl set-controller
 ${OVS_SET_MGR}                          sudo ovs-vsctl set-manager tcp
 ${OVS_SHOW}                             sudo ovs-vsctl show
 ${OVSDB_CLIENT_DUMP}                    sudo ovsdb-client dump hardware_vtep
-${OVSDB_NETWORK_TOPOLOGY}               /restconf/operational/network-topology:network-topology/topology/ovsdb:1/
+${OVSDB_NETWORK_TOPOLOGY}               /rests/data/network-topology:network-topology/topology/ovsdb:1/
 ${REM_OVSDB}                            sudo rm /etc/openvswitch/ovs.db
 ${REM_VTEPDB}                           sudo rm /etc/openvswitch/vtep.db
 ${SET_FAIL_MODE}                        sudo ovs-vsctl set-fail-mode

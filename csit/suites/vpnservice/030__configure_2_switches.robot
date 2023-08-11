@@ -12,7 +12,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CON}             /restconf/config
+${REST_CON}             /rests/data
 @{vpn_inst_values}      testVpn1    100:1    200:1    300:1    testVpn2    400:1    500:1
 ...                     600:1
 @{ietf_int_values}      s1-eth1    s1-eth2    s1-gre1    s2-eth1    s2-eth2    s2-gre1
@@ -31,7 +31,7 @@ ${REST_CON}             /restconf/config
 ...                     s2-eth2
 ...                     10.0.0.4
 ...                     00:00:00:00:00:04
-${REST_OPER}            /restconf/operational
+${REST_OPER}            /rests/data
 @{NODE_ELEMENTS}
 ...                     openflow:1
 ...                     openflow:1:1

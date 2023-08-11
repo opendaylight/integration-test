@@ -17,8 +17,8 @@ Resource        DataModels.robot
 *** Variables ***
 ${vlan_topo}                    --custom vlan_vtn_test.py --topo vlantopo
 ${VERSION_VTN}                  controller/nb/v2/vtn/version
-${VTN_INVENTORY}                restconf/operational/vtn-inventory:vtn-nodes
-${ENTITY_OWNERS}                restconf/operational/entity-owners:entity-owners
+${VTN_INVENTORY}                rests/data/vtn-inventory:vtn-nodes
+${ENTITY_OWNERS}                rests/data/entity-owners:entity-owners
 ${DUMPFLOWS_OF10}               dpctl dump-flows -OOpenFlow10
 ${DUMPFLOWS_OF13}               dpctl dump-flows -OOpenFlow13
 ${FF_DUMPFLOWS_OF10}            sh ovs-ofctl dump-flows -OOpenFlow10 s3
@@ -101,7 +101,7 @@ Stop SuiteVtnMaTest
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn:vtns
+    ${resp}=    RequestsLibrary.Get Request    session    rests/data/vtn:vtns
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Fetch vtn switch inventory
@@ -109,7 +109,7 @@ Fetch vtn switch inventory
     [Arguments]    ${sw_name}
     ${resp}=    RequestsLibrary.Get Request
     ...    session
-    ...    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
+    ...    rests/data/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Collect Debug Info
@@ -125,7 +125,7 @@ Add a Topology wait
     [Arguments]    ${topo_wait}
     ${resp}=    RequestsLibrary.Put Request
     ...    session
-    ...    restconf/config/vtn-config:vtn-config
+    ...    rests/data/vtn-config:vtn-config
     ...    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
@@ -243,7 +243,7 @@ Add a pathmap
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-map:global-path-maps
+    ${resp}=    RequestsLibrary.Get Request    session    rests/data/vtn-path-map:global-path-maps
     FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
         should Contain    ${resp.text}    ${pathElement}
     END
@@ -262,7 +262,7 @@ Get a pathpolicy
     [Arguments]    ${pathpolicy_id}
     ${resp}=    RequestsLibrary.Get Request
     ...    session
-    ...    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
+    ...    rests/data/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
     FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
         should Contain    ${resp.text}    ${pathpolicyElement}
     END
@@ -351,7 +351,7 @@ Get flow
     [Arguments]    ${vtn_name}
     ${resp}=    RequestsLibrary.Get Request
     ...    session
-    ...    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
+    ...    rests/data/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Remove a portmap
@@ -519,7 +519,7 @@ Add a flowcondition
 
 Get flowconditions
     [Documentation]    Retrieve the list of flowconditions created
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions
+    ${resp}=    RequestsLibrary.Get Request    session    rests/data/vtn-flow-condition:vtn-flow-conditions
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get flowcondition
@@ -528,7 +528,7 @@ Get flowcondition
     [Arguments]    ${flowcond_name}    ${retrieve}
     ${resp}=    RequestsLibrary.Get Request
     ...    session
-    ...    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
+    ...    rests/data/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
     IF    '${retrieve}' == 'retrieve'
         Should Be Equal As Strings    ${resp.status_code}    200
     ELSE

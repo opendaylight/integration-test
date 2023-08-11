@@ -28,7 +28,7 @@ Revert To Default Binding Origins Configuration
 Get Binding Origins
     [Documentation]    Gets all binding origins via RPC from configuration
     [Arguments]    ${session}=session
-    ${resp} =    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-config:binding-origins
+    ${resp} =    RequestsLibrary.Get Request    ${session}    /rests/data/sxp-config:binding-origins
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     RETURN    ${resp}
 

@@ -31,13 +31,13 @@ Documentation       Resource consisting purely of variable definitions useful fo
 ...                                         Accept=application/xml
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDCONTENTRULERECORD}
-...                                         /restconf/config/alertrule:alertFieldContentRuleRecord/
+...                                         /rests/data/alertrule:alertFieldContentRuleRecord/
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDVALUERULERECORD}
-...                                         /restconf/config/alertrule:alertFieldValueRuleRecord
+...                                         /rests/data/alertrule:alertFieldValueRuleRecord
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}
-...                                         /restconf/config/alertrule:alertMessageCountRuleRecord/
+...                                         /rests/data/alertrule:alertMessageCountRuleRecord/
 # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 @{AUTH}
 ...                                         ${ODL_RESTCONF_USER}
@@ -82,13 +82,13 @@ ${BUNDLEFOLDER}
 ...                                         /opt/opendaylight
 # FIXME: Move to a separate Resource and add description.
 ${CONFIG_NODES_API}
-...                                         /restconf/config/opendaylight-inventory:nodes
+...                                         /rests/data/opendaylight-inventory:nodes
 # FIXME: Move to a separate Resource and add description.
 ${CONFIG_TOPO_API}
-...                                         /restconf/config/network-topology:network-topology
+...                                         /rests/data/network-topology:network-topology
 # FIXME: Move to a separate Resource and add description.
 ${CONFIG_API}
-...                                         /restconf/config
+...                                         /rests/data
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CONTAINER}
 ...                                         default
@@ -98,7 +98,7 @@ ${CONTROLLER_PROMPT}                        ${DEFAULT_LINUX_PROMPT}    # Depreca
 ${CONTROLLERS}                              ${ODL_SYSTEM_IP_LIST}    # Deprecated. FIXME: Eradicate.
 # FIXME: Move to a separate Resource and add description.
 ${CONTROLLER_CONFIG_MOUNT}
-...                                         /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount
+...                                         /rests/data/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount
 # Max number of seconds test will wait for a controller to stop. FIXME: Hiden into a Resource and rename.
 ${CONTROLLER_STOP_TIMEOUT}
 ...                                         120
@@ -186,19 +186,19 @@ ${FLOWLISTENTRIES_CREATE}
 ...                                         flowlistentries.json
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_BASE_ENDPOINTS_API}
-...                                         /restconf/operational/base-endpoint:endpoints
+...                                         /rests/data/base-endpoint:endpoints
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_ENDPOINTS_API}
-...                                         /restconf/operational/endpoint:endpoints
+...                                         /rests/data/endpoint:endpoints
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_REGEP_API}
 ...                                         /restconf/operations/endpoint:register-endpoint
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_TENANTS_API}
-...                                         /restconf/config/policy:tenants
+...                                         /rests/data/policy:tenants
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_TUNNELS_API}
-...                                         /restconf/config/opendaylight-inventory:nodes
+...                                         /rests/data/opendaylight-inventory:nodes
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_UNREGEP_API}
 ...                                         /restconf/operations/endpoint:unregister-endpoint
@@ -208,10 +208,10 @@ ${GENIUS_ITM_CONFIG_FLAG}
 ...                                         ${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-itm-config.xml
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_CONFIGURATION_URI}
-...                                         /restconf/operational/configuration:configurationRecord/
+...                                         /rests/data/configuration:configurationRecord/
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_DASHBOARDRECORD}
-...                                         /restconf/operational/dashboardrule:dashboardRecord/
+...                                         /rests/data/dashboardrule:dashboardRecord/
 # FIXME: Move to a separate Nemo-related Resource and add description.
 ${GET_INTENTS_URI}
 ...                                         /retconf/config/intent:intents
@@ -332,23 +332,23 @@ ${ODL_SYSTEM_PROMPT}
 ...                                         ${DEFAULT_LINUX_PROMPT}
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_API}
-...                                         /restconf/operational
+...                                         /rests/data
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONS_API}
 ...                                         /restconf/operations
 # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${OPERATIONAL_GBP_TENANTS_API}
-...                                         /restconf/operational/policy:tenants
+...                                         /rests/data/policy:tenants
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_NODES_API}
-...                                         /restconf/operational/opendaylight-inventory:nodes
+...                                         /rests/data/opendaylight-inventory:nodes
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_NODES_NETVIRT}
-...                                         /restconf/operational/network-topology:network-topology/topology/netvirt:1
+...                                         /rests/data/network-topology:network-topology/topology/netvirt:1
 ...                                         \
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}
-...                                         /restconf/operational/network-topology:network-topology
+...                                         /rests/data/network-topology:network-topology
 ${OS_SYSTEM_PROMPT}                         \$    # Prompt substring specific to OpenStack systems.
 ${OS_SYSTEM_PROMPT_STRICT}                  \]$    # Prompt substring specific to OpenStack systems.
 ${OS_CMD_SUCCESS}                           Command Returns 0
@@ -368,13 +368,13 @@ ${PORTS}
 ...                                         ports/detail.json
 # FIXME: Move to a separate Nemo-related Resource and add description.
 ${PREDEFINE_CONNECTION_URI}
-...                                         /restconf/config/nemo-object:connection-definitions
+...                                         /rests/data/nemo-object:connection-definitions
 # FIXME: Move to a separate Nemo-related Resource and add description.
 ${PREDEFINE_NODE_URI}
-...                                         /restconf/config/nemo-object:node-definitions
+...                                         /rests/data/nemo-object:node-definitions
 # FIXME: Move to a separate Nemo-related Resource and add description.
 ${PREDEFINE_ROLE_URI}
-...                                         /restconf/config/nemo-user:user-roles
+...                                         /rests/data/nemo-user:user-roles
 # Deprecated. FIXME: Name is to generic. Eradicate.
 ${PREFIX}
 ...                                         http://${ODL_SYSTEM_IP}:${PORT}
@@ -433,13 +433,13 @@ ${SSH_KEY}
 ...                                         id_rsa
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${STREAMRECORD_CONFIG}
-...                                         /restconf/config/stream:streamRecord
+...                                         /rests/data/stream:streamRecord
 # FIXME: Move to a separate Nemo-related Resource and add description.
 ${STRUCTURE_INTENT_URI}
 ...                                         /restconf/operations/nemo-intent:structure-style-nemo-update
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${SUBSCRIPTION}
-...                                         /restconf/config/subscribe:subscription/
+...                                         /rests/data/subscribe:subscription/
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${SW}
 ...                                         switches
@@ -498,7 +498,7 @@ ${VTNCPORT}
 ...                                         8083
 # Path part of restconf URL towards operational vtn-nodes. TODO: Move to a VTN-specific Resource.
 ${VTN_INVENTORY_NODE_API}
-...                                         /restconf/operational/vtn-inventory:vtn-nodes
+...                                         /rests/data/vtn-inventory:vtn-nodes
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNS}
 ...                                         vtns

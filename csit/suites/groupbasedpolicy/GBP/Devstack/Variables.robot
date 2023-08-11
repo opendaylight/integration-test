@@ -7,8 +7,8 @@ Variables           ../../../../variables/Variables.py
 
 
 *** Variables ***
-${NEURONMAPPER_BOOT_URL}    restconf/config/neutron-mapper:mappings
-${OF_OVERLAY_BOOT_URL}      restconf/config/ofoverlay:of-overlay-config
+${NEURONMAPPER_BOOT_URL}    rests/data/neutron-mapper:mappings
+${OF_OVERLAY_BOOT_URL}      rests/data/ofoverlay:of-overlay-config
 ${PROMPT_TIMEOUT}           ${DEFAULT_TIMEOUT}
 ${DEVSTACK_BRANCH}          ${OPENSTACK_BRANCH}
 ${DEVSTACK_IP}              ${TOOLS_SYSTEM_IP}
