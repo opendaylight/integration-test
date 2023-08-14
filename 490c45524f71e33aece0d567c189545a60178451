@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b5bd73_8d08be8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-14T11:59:47Z",
+      "side": 1,
+      "message": "IIRC entity-owners has been removed. May be addressed in the future.",
+      "revId": "490c45524f71e33aece0d567c189545a60178451",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
