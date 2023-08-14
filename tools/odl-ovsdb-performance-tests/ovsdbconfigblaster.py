@@ -76,22 +76,28 @@ class OvsdbConfigBlaster(object):
             self.connect_vswitch(self.vswitch_dict["ovs-2"])
 
     @staticmethod
-    def return_ovsdb_url(vswitch_ip, vswitch_ovsdb_port, url_type="config"):
+    def return_ovsdb_url(vswitch_ip, vswitch_ovsdb_port, url_type=""):
         """Return an ovsdb restconf url
         Args:
             :param vswitch_ip: The ip of Open vSwitch to use
             :param vswitch_ovsdb_port: The ovsdb port of Open vSwitch to use
-            :param url_tyep: The type of url 'config' | 'oper'
+            :param url_tyep: The type of url 'config' | 'oper' | empty
         """
-        url_prefix = None
+        url_postfix = None
         if url_type == "config":
-            url_prefix = "restconf/config/"
+            url_postfix = "?content=config"
         elif url_type == "oper":
-            url_prefix = "restconf/operational/"
+            url_postfix = "content=noncofig"
+        elif url_type == "":
+            url_postfix = ""  # No postfix added
         ovsdb_url = (
-            url_prefix + "network-topology:"
-            "network-topology/topology/"
-            "ovsdb:1/node/ovsdb:%2F%2F" + vswitch_ip + ":" + vswitch_ovsdb_port
+            "rests/data/network-topology:"
+            "network-topology/topology="
+            "ovsdb:1/node=ovsdb:%2F%2F"
+            + vswitch_ip
+            + ":"
+            + vswitch_ovsdb_port
+            + url_postfix
         )
         return ovsdb_url
 
@@ -120,11 +126,11 @@ class OvsdbConfigBlaster(object):
                     ),
                     "get-config-url": urlprefix
                     + OvsdbConfigBlaster.return_ovsdb_url(
-                        vswitch_ip, vswitch_ovsdb_port
+                        vswitch_ip, vswitch_ovsdb_port, "config"
                     ),
                     "get-oper-url": urlprefix
                     + OvsdbConfigBlaster.return_ovsdb_url(
-                        vswitch_ip, vswitch_ovsdb_port
+                        vswitch_ip, vswitch_ovsdb_port, "oper"
                     ),
                 }
             }
