@@ -118,7 +118,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-BASE_URL = "http://%s:%d/restconf/" % (args.host, args.port)
+BASE_URL = "http://%s:%d/rests/" % (args.host, args.port)
 
 
 def send_clear_request():
