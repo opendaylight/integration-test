@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "541e7948_debd8d4a",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-14T11:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8666834a_17cc71f2",
+      "revId": "d88e776d528c8d48da2f903d4afcbe8887de8934",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ca20a7c_a76bdeb2",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-14T11:18:35Z",
       "side": 1,
       "message": "/node-connector\u003d",
+      "revId": "d88e776d528c8d48da2f903d4afcbe8887de8934",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adac3d17_186cb94e",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-14T11:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ca20a7c_a76bdeb2",
       "revId": "d88e776d528c8d48da2f903d4afcbe8887de8934",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }

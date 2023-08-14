@@ -51,6 +51,24 @@
       "message": "Unnecessary change.",
       "revId": "78904e50755ba90fd2f8653ed9b3e810764fd435",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4c51e2_42f19a4d",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-14T11:52:26Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f4968aa4_71046b08",
+      "revId": "78904e50755ba90fd2f8653ed9b3e810764fd435",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
