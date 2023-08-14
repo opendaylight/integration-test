@@ -27,8 +27,8 @@ class MappingRPCBlaster(object):
     putheaders = {"Content-type": "application/json"}
     getheaders = {"Accept": "application/json"}
 
-    RPC_URL_LI = "restconf/operations/lfm-mapping-database:"
-    RPC_URL_BE = "restconf/operations/odl-mappingservice:"
+    RPC_URL_LI = "rests/operations/lfm-mapping-database:"
+    RPC_URL_BE = "rests/operations/odl-mappingservice:"
     TIMEOUT = 10
 
     # Template for adding mappings
