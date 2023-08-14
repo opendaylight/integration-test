@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6454fb9b_86972573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2023-08-14T15:05:50Z",
+      "side": 1,
+      "message": "Maybe it would be better to split this commit.",
+      "revId": "6663fd97bd0b0c55ca381d45afec48bfd9e3162d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
