@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da37e616_aeea624e",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "i think this should be changed to \"data\" as it\u0027s used as uri in _build_url",
+      "range": {
+        "startLine": 113,
+        "startChar": 37,
+        "endLine": 113,
+        "endChar": 43
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d41e854_2288c20c",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "i think this should be changed to \"data\" as it\u0027s used as uri in _build_url",
+      "range": {
+        "startLine": 413,
+        "startChar": 33,
+        "endLine": 413,
+        "endChar": 39
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f33b0a02_36eaeabb",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "i think this should be changed to \"data\" as it\u0027s used as uri in _build_url",
+      "range": {
+        "startLine": 437,
+        "startChar": 33,
+        "endLine": 437,
+        "endChar": 39
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d802946a_52f346a3",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "i think this should be changed to \"data\" as it\u0027s used as uri in _build_url",
+      "range": {
+        "startLine": 461,
+        "startChar": 33,
+        "endLine": 461,
+        "endChar": 39
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbc6b30_7b15d14b",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "as this is GET this should be \"data/car:cars?content\u003dconfig\"",
+      "range": {
+        "startLine": 515,
+        "startChar": 29,
+        "endLine": 515,
+        "endChar": 46
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9167abda_ab7f34a0",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "data/people:people?content\u003dconfig",
+      "range": {
+        "startLine": 542,
+        "startChar": 29,
+        "endLine": 542,
+        "endChar": 51
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba35d875_f474cae5",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2023-08-17T10:11:59Z",
+      "side": 1,
+      "message": "data/car-people:car-people?content\u003dconfig",
+      "range": {
+        "startLine": 569,
+        "startChar": 29,
+        "endLine": 569,
+        "endChar": 59
+      },
+      "revId": "7d54f9400be612eb16c100b9176e2cfff89cd70c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
