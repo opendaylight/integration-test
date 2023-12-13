@@ -20,7 +20,6 @@ Library             RequestsLibrary
 Library             SSHLibrary
 Resource            ../../../libraries/BGPcliKeywords.robot
 Resource            ../../../libraries/ExaBgpLib.robot
-Resource            ../../../libraries/Genius.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/SSHKeywords.robot
 Resource            ../../../libraries/TemplatedRequests.robot

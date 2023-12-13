@@ -33,7 +33,6 @@ ${PASSIVE_MANAGER}              ptcp:6641:127.0.0.1
 ...                             org.opendaylight.ovsdb
 ...                             org.opendaylight.ovsdb.lib
 ...                             org.opendaylight.netvirt
-...                             org.opendaylight.genius
 ${UPDATE_FLAG_PATH}             /restconf/config/odl-serviceutils-upgrade:upgrade-config
 ${GET_ACTIVE_BUNDLE_URI}        /restconf/operations/arbitrator-reconcile:get-active-bundle
 ${COMMIT_ACTIVE_BUNDLE_URI}     /restconf/operations/arbitrator-reconcile:commit-active-bundle
