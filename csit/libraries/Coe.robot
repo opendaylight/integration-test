@@ -3,7 +3,6 @@ Library         BuiltIn
 Library         SSHLibrary
 Library         String
 Resource        DataModels.robot
-Resource        Genius.robot
 Resource        OVSDB.robot
 Resource        SSHKeywords.robot
 Resource        Utils.robot
