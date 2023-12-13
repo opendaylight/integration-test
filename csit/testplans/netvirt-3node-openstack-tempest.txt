@@ -1,1 +1,0 @@
-netvirt-1node-openstack-tempest.txt
