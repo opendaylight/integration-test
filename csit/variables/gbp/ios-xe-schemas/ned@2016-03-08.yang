@@ -48578,9 +48578,6 @@ module ned {
                   enum "bittorrent-group" {
                     tailf:info "Bittorrent related applications";
                   }
-                  enum "capwap-group" {
-                    tailf:info "CAPWAP related applications";
-                  }
                   enum "cisco-jabber-group" {
                     tailf:info "Cisco jabber related applications";
                   }
