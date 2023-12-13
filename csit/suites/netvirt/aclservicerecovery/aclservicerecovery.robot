@@ -9,7 +9,6 @@ Library             OperatingSystem
 Library             RequestsLibrary
 Library             String
 Resource            ../../../libraries/DevstackUtils.robot
-Resource            ../../../libraries/Genius.robot
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../libraries/OVSDB.robot
 Resource            ../../../libraries/OvsManager.robot
@@ -37,8 +36,6 @@ ${acl_sr_security_group}    acl_sr_sg
 ${TEST_LOG_LEVEL}           trace
 @{TEST_LOG_COMPONENTS}
 ...                         org.opendaylight.netvirt.aclservice
-...                         org.opendaylight.genius.interfacemanager
-...                         org.opendaylight.genius.srm
 
 
 *** Test Cases ***

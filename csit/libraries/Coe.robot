@@ -3,7 +3,6 @@ Library         BuiltIn
 Library         SSHLibrary
 Library         String
 Resource        DataModels.robot
-Resource        Genius.robot
 Resource        OVSDB.robot
 Resource        SSHKeywords.robot
 Resource        Utils.robot
@@ -54,7 +53,6 @@ Start Suite
     ...    2
     ...    ClusterManagement.Check Status Of Services Is OPERATIONAL
     ...    @{COE_DIAG_SERVICES}
-    BuiltIn.Wait Until Keyword Succeeds    85    2    Genius.Verify Tunnel Status As Up
 
 Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .

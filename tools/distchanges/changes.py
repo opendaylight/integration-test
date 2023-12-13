@@ -70,7 +70,6 @@ class Changes(object):
         "controller",
         "dlux",
         "dluxapps",
-        "genius",
         "infrautils",
         "mdsal",
         "netconf",

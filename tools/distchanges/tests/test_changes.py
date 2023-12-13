@@ -12,7 +12,6 @@ NETVIRT_PROJECTS = [
     "controller",
     "dlux",
     "dluxapps",
-    "genius",
     "infrautils",
     "mdsal",
     "netconf",
