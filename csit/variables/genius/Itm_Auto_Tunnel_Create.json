@@ -1,8 +1,0 @@
-{"transport-zone": [
-    {
-      "zone-name": "TZA",
-      "tunnel-type": "odl-interface:tunnel-type-vxlan"
-
-    }
-  ]
-}
