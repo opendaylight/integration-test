@@ -45,7 +45,6 @@ class DistCompare(object):
             "dluxapps",
             "coe",
             "packetcable",
-            "genius",
             "yangtools",
             "infrautils",
             "netvirt",
