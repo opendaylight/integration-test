@@ -12,7 +12,6 @@ Resource            ../../../libraries/OvsManager.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/Utils.robot
 Resource            ../../../variables/Variables.robot
-Resource            ../../../variables/netvirt/Variables.robot
 
 Suite Setup         Start Suite
 Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
@@ -40,6 +39,12 @@ ${ARP_CONFIG}
 ${ARP_SHA}                  arp_sha
 ${ARP}                      arp
 ${TABLE}                    goto_table:217
+${INTEGRATION_BRIDGE}       br-int
+@{DEFAULT_FLOW_TABLES}      18    19    20    22    23    24    43
+...                         45    48    50    51    60    80    81
+...                         90    210    211    212    213    214    215
+...                         216    217    239    240    241    242    243
+...                         244    245    246    247
 
 
 *** Test Cases ***
