@@ -11,11 +11,11 @@ Resource            VpnOperations.robot
 Resource            OpenStackOperations.robot
 Resource            DevstackUtils.robot
 Resource            ../variables/l2gw/Variables.robot
-Resource            ../variables/netvirt/Variables.robot
 
 
 *** Variables ***
-${L2GW_VAR_BASE}    ${CURDIR}/../variables/l2gw
+${L2GW_VAR_BASE}        ${CURDIR}/../variables/l2gw
+${INTEGRATION_BRIDGE}   br-int
 
 
 *** Keywords ***
