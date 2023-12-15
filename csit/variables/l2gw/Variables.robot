@@ -1,7 +1,3 @@
-*** Settings ***
-Resource    ../../variables/netvirt/Variables.robot
-
-
 *** Variables ***
 #Configurable Variables
 ${OS_IP}                                ${OS_CONTROL_NODE_IP}
@@ -65,6 +61,7 @@ ${CREATE_OVS_PORT}                      sudo ovs-vsctl add-port
 ${CREATE_OVSDB}                         sudo ovsdb-tool create /etc/openvswitch/ovs.db ${OVS_HOME}/vswitch.ovsschema
 ${DEL_OVS_BRIDGE}                       sudo ovs-vsctl del-br
 ${DETACH_VSWITCHD}                      sudo ovs-vswitchd --pidfile --detach
+${INTEGRATION_BRIDGE}                   br-int
 ${GET_DPNID}
 ...                                     printf "%d\\n" 0x`sudo ovs-ofctl show -O Openflow13 ${INTEGRATION_BRIDGE} | head -1 | awk -F "dpid:" '{print $2}'`
 ${GET_PORT_URL}                         neutron:neutron/ports/port

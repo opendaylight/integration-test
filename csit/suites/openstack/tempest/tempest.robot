@@ -10,7 +10,6 @@ Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/SSHKeywords.robot
 Resource            ../../../libraries/Tempest.robot
 Resource            ../../../variables/Variables.robot
-Resource            ../../../variables/netvirt/Variables.robot
 
 Suite Setup         Tempest.Suite Setup
 Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
