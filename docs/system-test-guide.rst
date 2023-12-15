@@ -400,14 +400,6 @@ Fill the information as below::
                 openflowplugin-csit-3node-gate-clustering-bulkomatic-only-{stream},
                 openflowplugin-csit-3node-gate-clustering-perf-bulkomatic-only-{stream}
 
-        - netvirt:
-            csit-list: >
-                netvirt-csit-1node-openstack-{os-branch}-gate-stateful-{stream}
-
-        - cluster-netvirt:
-            csit-list: >
-                netvirt-csit-3node-openstack-{os-branch}-gate-stateful-{stream}
-
 Explanation:
 
 * name: give some name like $project-patch-test.

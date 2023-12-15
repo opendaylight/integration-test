@@ -10,12 +10,14 @@ Resource    Utils.robot
 Resource    ${CURDIR}/TemplatedRequests.robot
 Resource    ../variables/Variables.robot
 Resource    ../variables/ovsdb/Variables.robot
-Resource    ../variables/netvirt/Variables.robot
 
 
 *** Variables ***
-${OVSDB_CONFIG_DIR}     ${CURDIR}/../variables/ovsdb
-
+${OVSDB_CONFIG_DIR}         ${CURDIR}/../variables/ovsdb
+${INTEGRATION_BRIDGE}       br-int
+${INTERNAL_TUNNEL_TABLE}    36
+${L3_TABLE}                 21
+${DEFAULT_PING_COUNT}       3
 
 *** Keywords ***
 Log Request

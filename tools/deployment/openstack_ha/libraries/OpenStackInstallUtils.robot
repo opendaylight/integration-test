@@ -6,8 +6,6 @@ Library             SSHLibrary
 Library             OperatingSystem
 Resource            SystemUtils.robot
 Resource            ../variables/Variables.robot
-Resource            ../variables/netvirt/Variables.robot
-Variables           ../variables/netvirt/Modules.py
 
 
 *** Keywords ***
