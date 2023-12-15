@@ -1,6 +1,0 @@
-{
-   "input": {
-      "node": "/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='openflow:DPNID']",
-      "node-id": DPNID
-   }
-}
