@@ -19,8 +19,6 @@ Resource            Tcpdump.robot
 Resource            Utils.robot
 Resource            ../variables/Variables.robot
 Resource            ../variables/openflowplugin/Variables.robot
-Resource            ../variables/netvirt/Variables.robot
-Variables           ../variables/netvirt/Modules.py
 
 
 *** Variables ***
@@ -29,6 +27,7 @@ Variables           ../variables/netvirt/Modules.py
 ...                         Verify Expected Default Tunnels
 ...                         Verify Expected Default Tables On Nodes
 ${VALIDATION_FILE}          /tmp/validations.txt
+@{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 
 *** Keywords ***
@@ -864,26 +863,6 @@ Get OvsDebugInfo
         OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
     END
 
-Get Test Teardown Debugs
-    [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}    ${fail}=${FAIL_ON_EXCEPTIONS}
-    ODLTools.Get All    node_ip=${HA_PROXY_IP}    test_name=${test_name}
-    OpenStackOperations.Get OvsDebugInfo
-    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
-    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}    fail=${fail}
-    FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-        BuiltIn.Run Keyword And Ignore Error
-        ...    Issue_Command_On_Karaf_Console
-        ...    trace:transactions
-        ...    ${ODL_SYSTEM_${i+1}_IP}
-    END
-
-Get Suite Debugs
-    Get Test Teardown Debugs    test_name=${SUITE_NAME}    fail=False
-
-Get Test Teardown Debugs For SFC
-    [Arguments]    ${test_name}=${TEST_NAME}
-    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_sfc_data_models}
-
 Show Debugs
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     [Arguments]    @{vm_indices}
@@ -1694,19 +1673,7 @@ Verify Services
     ...    60
     ...    2
     ...    ClusterManagement.Check Status Of Services Is OPERATIONAL
-    ...    @{NETVIRT_DIAG_SERVICES}
-
-Verify Expected Default Tunnels
-    [Documentation]    Verify if the default tunnels are created.
-    ...    SFC jobs currently fail this validation because it uses of-tunnels.
-    ...    This validation will be blocked for NEtvirt SFC jobs until support for of-tunnels
-    ...    added to odltools.
-    ${check_feature_list} =    BuiltIn.Create List    odl-netvirt-sfc
-    ${is_sfc_enabled} =    OpenStackOperations.Is Feature Installed    features=${check_feature_list}
-    IF    ${is_sfc_enabled} == ${True}    RETURN    ${True}
-    IF    ${OS_NODE_CNT} == ${1}    RETURN    ${True}
-    ${output} =    ODLTools.Analyze Tunnels    test_name=${SUITE_NAME}.Suite Setup
-    BuiltIn.Should Contain    ${output}    All tunnels are up
+    ...    @{DIAG_SERVICES}
 
 Verify Expected Default Tables On Nodes
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes

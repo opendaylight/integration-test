@@ -3,11 +3,12 @@ Documentation       Library to deal with mdsal data models. Initially, as a comm
 ...                 debug a list of data models.
 
 Library             RequestsLibrary
-Resource            ../variables/netvirt/Variables.robot
 
 
 *** Variables ***
 @{internal_data_models}     ${EMPTY}
+${DISPATCHER_TABLE}         17
+${INTEGRATION_BRIDGE}       br-int
 
 
 *** Keywords ***

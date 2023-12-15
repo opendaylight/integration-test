@@ -15,7 +15,6 @@ Resource            ../../../libraries/OvsManager.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/Utils.robot
 Resource            ../../../variables/Variables.robot
-Resource            ../../../variables/netvirt/Variables.robot
 
 Suite Setup         Start Suite
 Suite Teardown      OpenStackOperations.OpenStack Suite Teardown
@@ -40,6 +39,7 @@ ${BCAST_IP}             255.255.255.255
 ${SUBNET1_BCAST_IP}     55.0.0.255
 ${SUBNET2_BCAST_IP}     56.0.0.255
 ${ENABLE_BCAST}         echo 0 | sudo tee /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+${EGRESS_ACL_TABLE}     240
 
 
 *** Test Cases ***

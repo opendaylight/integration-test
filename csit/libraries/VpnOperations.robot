@@ -6,7 +6,6 @@ Resource            Utils.robot
 Resource            TemplatedRequests.robot
 Resource            KarafKeywords.robot
 Resource            ../variables/Variables.robot
-Resource            ../variables/netvirt/Variables.robot
 Library             Collections
 Library             String
 Library             OperatingSystem
@@ -14,31 +13,44 @@ Library             OperatingSystem
 
 *** Variables ***
 &{ITM_CREATE_DEFAULT}
-...                         tunneltype=vxlan
-...                         vlanid=0
-...                         prefix=1.1.1.1/24
-...                         gateway=0.0.0.0
-...                         dpnid1=1
-...                         portname1=BR1-eth1
-...                         ipaddress1=2.2.2.2
-...                         dpnid2=2
-...                         portname2= BR2-eth1
-...                         ipaddress2=3.3.3.3
+...                                     tunneltype=vxlan
+...                                     vlanid=0
+...                                     prefix=1.1.1.1/24
+...                                     gateway=0.0.0.0
+...                                     dpnid1=1
+...                                     portname1=BR1-eth1
+...                                     ipaddress1=2.2.2.2
+...                                     dpnid2=2
+...                                     portname2= BR2-eth1
+...                                     ipaddress2=3.3.3.3
 &{L3VPN_CREATE_DEFAULT}
-...                         vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111
-...                         name=vpn1
-...                         rd=["2200:1"]
-...                         exportrt=["2200:1","8800:1"]
-...                         importrt=["2200:1","8800:1"]
-...                         tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
-${VAR_BASE}                 ${CURDIR}/../variables/vpnservice/
-${ODL_FLOWTABLE_L3VPN}      21
-${STATE_UP}                 UP
-${STATE_DOWN}               DOWN
-${STATE_UNKNOWN}            UNKNOWN
-${STATE_ENABLE}             ENABLED
-${STATE_DISABLE}            DISABLE
-${SESSION_TIMEOUT}          10
+...                                     vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111
+...                                     name=vpn1
+...                                     rd=["2200:1"]
+...                                     exportrt=["2200:1","8800:1"]
+...                                     importrt=["2200:1","8800:1"]
+...                                     tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
+${VAR_BASE}                             ${CURDIR}/../variables/vpnservice/
+${ODL_FLOWTABLE_L3VPN}                  21
+${STATE_UP}                             UP
+${STATE_DOWN}                           DOWN
+${STATE_UNKNOWN}                        UNKNOWN
+${STATE_ENABLE}                         ENABLED
+${STATE_DISABLE}                        DISABLE
+${SESSION_TIMEOUT}                      10
+${INTEGRATION_BRIDGE}                   br-int
+${GWMAC_TABLE}                          19
+${IPV6_TABLE}                           45
+${ARP_RESPONSE_TABLE}                   81
+${ARP_REQUEST_GROUP_REGEX_FLUORINE}     actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
+${TEP_SHOW_STATE}                       tep:show-state
+${IP_REGEX}
+...                                     (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${MAC_REGEX}                            ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
+${ARP_RESPONSE_REGEX_FLUORINE}
+...                                     arp,arp_op=2 actions=resubmit\\(,${ARP_PUNT_TABLE}\\),resubmit\\(,${ARP_LEARN_TABLE}\\),resubmit\\(,${ELAN_BASETABLE}\\)
+${ARP_PUNT_RESPONSE_REGEX}              arp actions=CONTROLLER:65535,learn
+${ARP_REQUEST_REGEX}                    arp,arp_op=1 actions=group:\\d+
 
 
 *** Keywords ***
