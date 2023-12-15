@@ -13,7 +13,6 @@ Resource            ../../../libraries/ClusterOvsdb.robot
 Resource            ../../../libraries/ClusterManagement.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../variables/Variables.robot
-Resource            ../../../variables/netvirt/Variables.robot
 
 Suite Setup         OpenStackOperations.OpenStack Suite Setup
 Suite Teardown      OpenStackOperations.OpenStack Suite Teardown

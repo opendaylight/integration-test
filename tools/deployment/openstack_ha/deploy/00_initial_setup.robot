@@ -342,32 +342,6 @@ Install ODL From CBS or Nexus
     IF    4 < ${NUM_CONTROL_NODES}
         Install Rpm Package    ${OS_CONTROL_5_IP}    ${ODL_RPM}
     END
-    Install Feature as Boot    ${OS_CONTROL_1_IP}    odl-netvirt-openstack
-    IF    1 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_2_IP}    odl-netvirt-openstack
-    END
-    IF    2 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_3_IP}    odl-netvirt-openstack
-    END
-    IF    3 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_4_IP}    odl-netvirt-openstack
-    END
-    IF    4 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_5_IP}    odl-netvirt-openstack
-    END
-    Configure SNAT MODE In Odl    ${OS_CONTROL_1_IP}
-    IF    1 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_2_IP}
-    END
-    IF    2 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_3_IP}
-    END
-    IF    3 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_4_IP}
-    END
-    IF    4 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_5_IP}
-    END
     IF    2 < ${NUM_CONTROL_NODES}
         Configure ODL Clustering    ${OS_CONTROL_1_IP}    1
     END
@@ -427,32 +401,6 @@ Install ODL From Local Rpm
     END
     IF    4 < ${NUM_CONTROL_NODES}
         Install Local Rpm Package    ${OS_CONTROL_5_IP}    ${ODL_RPM}
-    END
-    Install Feature as Boot    ${OS_CONTROL_1_IP}    odl-netvirt-openstack
-    IF    1 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_2_IP}    odl-netvirt-openstack
-    END
-    IF    2 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_3_IP}    odl-netvirt-openstack
-    END
-    IF    3 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_4_IP}    odl-netvirt-openstack
-    END
-    IF    4 < ${NUM_CONTROL_NODES}
-        Install Feature as Boot    ${OS_CONTROL_5_IP}    odl-netvirt-openstack
-    END
-    Configure SNAT MODE In Odl    ${OS_CONTROL_1_IP}
-    IF    1 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_2_IP}
-    END
-    IF    2 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_3_IP}
-    END
-    IF    3 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_4_IP}
-    END
-    IF    4 < ${NUM_CONTROL_NODES}
-        Configure SNAT MODE In Odl    ${OS_CONTROL_5_IP}
     END
     IF    2 < ${NUM_CONTROL_NODES}
         Configure ODL Clustering    ${OS_CONTROL_1_IP}    1
@@ -574,23 +522,3 @@ Install Openstack Base Rpm
     IF    '${OPENSTACK_VERSION}' == 'pike'
         Install Rpm Package    ${os_node_cxn}    centos-release-openstack-pike
     END
-
-Configure SNAT MODE In Odl
-    [Arguments]    ${os_node_cxn}
-    Run Command    ${os_node_cxn}    sudo mkdir -p /opt/opendaylight/etc/opendaylight/datastore/initial/config/
-    Touch File
-    ...    ${os_node_cxn}
-    ...    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml
-    Write To File
-    ...    ${os_node_cxn}
-    ...    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml
-    ...    '<natservice-config xmlns="urn:opendaylight:netvirt:natservice:config">'
-    Append To File
-    ...    ${os_node_cxn}
-    ...    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml
-    ...    '<nat-mode>${ODL_NETVIRT_SNAT_MODE}</nat-mode>'
-    Append To File
-    ...    ${os_node_cxn}
-    ...    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml
-    ...    '</natservice-config>'
-    Run Command    ${os_node_cxn}    sudo chown -R odl:odl /opt/opendaylight/
