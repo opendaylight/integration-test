@@ -339,10 +339,6 @@ ${OPERATIONAL_GBP_TENANTS_API}
 ${OPERATIONAL_NODES_API}
 ...                                         /restconf/operational/opendaylight-inventory:nodes
 # FIXME: Move to a separate Resource and add description.
-${OPERATIONAL_NODES_NETVIRT}
-...                                         /restconf/operational/network-topology:network-topology/topology/netvirt:1
-...                                         \
-# FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}
 ...                                         /restconf/operational/network-topology:network-topology
 ${OS_SYSTEM_PROMPT}                         \$    # Prompt substring specific to OpenStack systems.

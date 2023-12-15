@@ -1,6 +1,9 @@
 *** Settings ***
 Library     SSHLibrary
-Resource    ../../variables/netvirt/Variables.robot
+
+
+*** Variables ***
+${INTEGRATION_BRIDGE}                   br-int
 
 
 *** Keywords ***

@@ -47,7 +47,6 @@ class DistCompare(object):
             "packetcable",
             "yangtools",
             "infrautils",
-            "netvirt",
             "neutron",
             "snmp",
             "bgpcep",
