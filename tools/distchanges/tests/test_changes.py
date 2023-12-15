@@ -8,7 +8,7 @@ import distcompare
 from changes import Changes
 
 REMOTE_URL = "ssh://git.opendaylight.org:29418"
-NETVIRT_PROJECTS = [
+PROJECT_NAMES = [
     "controller",
     "dlux",
     "dluxapps",
@@ -16,7 +16,6 @@ NETVIRT_PROJECTS = [
     "infrautils",
     "mdsal",
     "netconf",
-    "netvirt",
     "neutron",
     "odlparent",
     "openflowplugin",
@@ -24,7 +23,6 @@ NETVIRT_PROJECTS = [
     "sfc",
     "yangtools",
 ]
-PROJECT_NAMES = NETVIRT_PROJECTS
 DISTRO_PATH = "/tmp/distribution-karaf"
 BRANCH = "master"
 LIMIT = 10
@@ -44,13 +42,6 @@ class TestChanges(unittest.TestCase):
         )
         projects = changes.run_cmd()
         changes.pretty_print_projects(projects)
-
-    def test_run_cmd_single(self):
-        project_names = ["netvirt"]
-        branch = BRANCH
-        self.run_cmd(
-            branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, logging.INFO
-        )
 
     def test_run_cmd_multiple(self):
         project_names = PROJECT_NAMES

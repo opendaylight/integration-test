@@ -13,7 +13,6 @@ Resource            ../../../libraries/OpenStackOperations.robot
 Resource            ../../../libraries/SetupUtils.robot
 Resource            ../../../libraries/Utils.robot
 Resource            ../../../libraries/RemoteBash.robot
-Resource            ../../../variables/netvirt/Variables.robot
 
 Suite Setup         Suite Setup
 Suite Teardown      OpenStackOperations.OpenStack Suite Teardown

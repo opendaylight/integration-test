@@ -48,7 +48,6 @@ class DistCompare(object):
             "genius",
             "yangtools",
             "infrautils",
-            "netvirt",
             "neutron",
             "snmp",
             "bgpcep",

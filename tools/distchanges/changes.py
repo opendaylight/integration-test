@@ -62,11 +62,7 @@ class ChangeId(object):
 
 
 class Changes(object):
-    # NETVIRT_PROJECTS, as taken from autorelease dependency info [0]
-    # TODO: it would be nice to fetch the dependency info on the fly in case it changes down the road
-    # [0] https://logs.opendaylight.org/releng/jenkins092/autorelease-release-carbon/127/archives/dependencies.log.gz
-    NETVIRT_PROJECTS = [
-        "netvirt",
+    PROJECT_NAMES = [
         "controller",
         "dlux",
         "dluxapps",
@@ -81,7 +77,6 @@ class Changes(object):
         "sfc",
         "yangtools",
     ]
-    PROJECT_NAMES = NETVIRT_PROJECTS
     VERBOSE = logging.INFO
     DISTRO_PATH = "/tmp/distribution-karaf"
     DISTRO_URL = None
