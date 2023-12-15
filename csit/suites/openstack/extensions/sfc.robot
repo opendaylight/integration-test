@@ -44,7 +44,6 @@ ${WEBSERVER_CMDS}
 ${CLOUD_IMAGE}              "https://artifacts.opnfv.org/sfc/images/sfc_nsh_fraser.qcow2"
 ${CLOUD_IMAGE_NAME}         sfc_nsh_fraser
 ${CLOUD_FLAVOR_NAME}        sfc_nsh_fraser
-@{NETVIRT_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN
 ${ETH_IN}                   eth0
 ${ETH_OUT}                  eth1
 ${CLOUD_IMAGE_USER}         root
