@@ -6,11 +6,9 @@ Resource        DataModels.robot
 Resource        OVSDB.robot
 Resource        SSHKeywords.robot
 Resource        Utils.robot
-Resource        ../variables/netvirt/Variables.robot
 Resource        ../variables/Variables.robot
 Resource        VpnOperations.robot
 Variables       ../variables/coe/Modules.py
-Variables       ../variables/netvirt/Modules.py
 Resource        ToolsSystem.robot
 
 
@@ -163,12 +161,6 @@ Label Nodes
         ${i} =    BuiltIn.Evaluate    ${i}+1
     END
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes --show-labels
-
-Derive Coe Data Models
-    [Documentation]    Data models is created by integrating netvirt and coe data models which is given as input to get the model dumps
-    FOR    ${models}    IN    @{netvirt_data_models}
-        Collections.Append To List    ${coe_data_models}    ${models}
-    END
 
 Check Pod Status Is Running
     [Documentation]    Checks the status of pods.This keyword is repeated until the status of all pods is Running

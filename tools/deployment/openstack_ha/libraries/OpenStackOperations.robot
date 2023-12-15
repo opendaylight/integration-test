@@ -15,8 +15,6 @@ Resource            SSHKeywords.robot
 Resource            Tcpdump.robot
 Resource            Utils.robot
 Resource            ../variables/Variables.robot
-Resource            ../variables/netvirt/Variables.robot
-Variables           ../variables/netvirt/Modules.py
 
 
 *** Keywords ***
@@ -777,16 +775,6 @@ Get OvsDebugInfo
     IF    2 < ${NUM_OS_SYSTEM}
         OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP2_CONN_ID}
     END
-
-Get Test Teardown Debugs
-    [Arguments]    ${test_name}=${TEST_NAME}
-    OpenStackOperations.Get OvsDebugInfo
-    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
-    OpenStackOperations.Get Karaf Log Events From Test Start    ${test_name}
-
-Get Test Teardown Debugs For SFC
-    [Arguments]    ${test_name}=${TEST_NAME}
-    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_sfc_data_models}
 
 Show Debugs
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
