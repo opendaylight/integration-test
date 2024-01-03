@@ -1,3 +1,0 @@
-# Place the suites in run order:
-integration/test/csit/suites/sfc/Full_Deploy
-integration/test/csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot
