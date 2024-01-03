@@ -1,8 +1,0 @@
-{
-   "input":{
-      "vpn-id":"$vpnid",
-      "network-id":[
-         "$networkid"
-      ]
-   }
-}
