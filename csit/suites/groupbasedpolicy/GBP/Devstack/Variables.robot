@@ -10,7 +10,6 @@ Variables           ../../../../variables/Variables.py
 ${NEURONMAPPER_BOOT_URL}    restconf/config/neutron-mapper:mappings
 ${OF_OVERLAY_BOOT_URL}      restconf/config/ofoverlay:of-overlay-config
 ${PROMPT_TIMEOUT}           ${DEFAULT_TIMEOUT}
-${DEVSTACK_BRANCH}          ${OPENSTACK_BRANCH}
 ${DEVSTACK_IP}              ${TOOLS_SYSTEM_IP}
 ${DEVSTACK_USER}            ${TOOLS_SYSTEM_USER}
 ${DEVSTACK_PROMPT}          ${DEFAULT_LINUX_PROMPT}
