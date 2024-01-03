@@ -81,9 +81,6 @@
                         "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:entity-ownership-service?revision=2015-08-10)opendaylight-entity-ownership-service",
                         "capability-origin": "device-advertised"
                     }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-lisp-address-types?revision=2015-11-05)ietf-lisp-address-types",
-                        "capability-origin": "device-advertised"
-                    }, {
                         "capability": "(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-07-12)network-topology",
                         "capability-origin": "device-advertised"
                     }, {
@@ -409,12 +406,6 @@
             "revision": "2016-06-21",
             "schema": "/modules/ietf-yang-library/2016-06-21",
             "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-library",
-            "conformance-type": "import"
-        }, {
-            "name": "ietf-lisp-address-types",
-            "revision": "2015-11-05",
-            "schema": "/modules/ietf-lisp-address-types/2015-11-05",
-            "namespace": "urn:ietf:params:xml:ns:yang:ietf-lisp-address-types",
             "conformance-type": "import"
         }, {
             "name": "ietf-inet-types",
