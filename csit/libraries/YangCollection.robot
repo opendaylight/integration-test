@@ -399,12 +399,6 @@ Delete_Static_Paths
     ## excluded dependency file from test experimental/ietf-extracted-YANG-modules/ietf-gen-oam@2015-04-09.yang, (module ietf-gen-oam)
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass
     ...    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-lime-bfd-extension@2014-08-30.yang
-    ## missing dependency node 'lisp-router-instances' to be augmented
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass
-    ...    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-lisp-petr@2016-06-30.yang
-    ## missing dependency node 'lisp-router-instances' to be augmented
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass
-    ...    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-lisp-pitr@2016-06-30.yang
     ## excluded dependency file from test experimental/ietf-extracted-YANG-modules/iana-civic-address-type@2014-05-08.yang, (module iana-civic-address-type)
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass
     ...    rm -vrf experimental/ietf-extracted-YANG-modules/ietf-location@2014-05-08.yang

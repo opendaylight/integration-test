@@ -227,15 +227,6 @@ ${KEYSTORE_PATH}
 # Relative path of keystore for TLS communication
 ${KEYSTORE_RELATIVE_PATH}
 ...                                         configuration/ssl/.keystore
-# FIXME: Move to a separate LispFlowMapping-related Resource and add description.
-${LFM_RPC_API}
-...                                         /restconf/operations/odl-mappingservice
-# FIXME: Move to a separate LispFlowMapping-related Resource and add description.
-${LFM_RPC_API_LI}
-...                                         /restconf/operations/lfm-mapping-database
-# FIXME: Move to a separate LispFlowMapping-related Resource and add description.
-${LFM_SB_RPC_API}
-...                                         /restconf/operations/odl-lisp-sb
 # FIXME: Move to a separate Resource and add description.
 ${MODULES_API}
 ...                                         /rests/data/ietf-yang-library:modules-state
