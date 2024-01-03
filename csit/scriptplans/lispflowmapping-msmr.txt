@@ -1,2 +1,0 @@
-# Place the scripts in run order:
-integration/test/csit/suites/lispflowmapping/scripts/generate_bindings.sh
