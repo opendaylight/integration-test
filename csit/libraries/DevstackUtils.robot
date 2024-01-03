@@ -3,7 +3,6 @@ Documentation       General Utils library. This library has broad scope, it can 
 
 Library             RequestsLibrary
 Library             SSHLibrary
-Resource            OpenStackOperations.robot
 Resource            ../variables/Variables.robot
 
 
@@ -28,13 +27,6 @@ Open Connection
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     BuiltIn.Set Suite Variable    \${${name}}    ${conn_id}
     RETURN    ${conn_id}
-
-Devstack Suite Setup
-    [Documentation]    Open connections to the nodes
-    [Arguments]    ${odl_ip}=${ODL_SYSTEM_IP}
-    SSHLibrary.Set Default Configuration    timeout=${DEFAULT_DEVSTACK_PROMPT_TIMEOUT}
-    DevstackUtils.Get DevStack Nodes Data
-    RequestsLibrary.Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Write Commands Until Prompt
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
@@ -64,15 +56,6 @@ Log Devstack Nodes Data
     ...    OS_ALL_CONN_IDS: @{OS_ALL_CONN_IDS}
     ...    OS_CMP_CONN_IDS: @{OS_CMP_CONN_IDS}
     BuiltIn.Log    DevStack Nodes Data:\n${output}
-
-Get DevStack Hostnames
-    [Documentation]    Assign hostname global variables for DevStack nodes
-    ${OS_CNTL_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
-    ${OS_CMP1_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
-    ${OS_CMP2_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
-    BuiltIn.Set Suite Variable    ${OS_CNTL_HOSTNAME}
-    BuiltIn.Set Suite Variable    ${OS_CMP1_HOSTNAME}
-    BuiltIn.Set Suite Variable    ${OS_CMP2_HOSTNAME}
 
 Set Node Data For AllinOne Setup
     [Documentation]    Assign global variables for DevStack nodes where the Control Node enables Compute service also.
@@ -106,19 +89,3 @@ Set Node Data For Control And Two Compute Node Setup
     DevstackUtils.Open Connection    OS_CMP2_CONN_ID    ${OS_COMPUTE_2_IP}
     BuiltIn.Set Suite Variable    @{OS_ALL_CONN_IDS}    ${OS_CNTL_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
     BuiltIn.Set Suite Variable    @{OS_CMP_CONN_IDS}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
-
-Get DevStack Nodes Data
-    [Documentation]    Assign global variables for DevStack nodes
-    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
-    DevstackUtils.Open Connection    OS_CNTL_CONN_ID    ${OS_CNTL_IP}
-    IF    "${OPENSTACK_TOPO}" == "1cmb-0ctl-0cmp"
-        DevstackUtils.Set Node Data For AllinOne Setup
-    ELSE IF    "${OPENSTACK_TOPO}" == "1cmb-0ctl-1cmp"
-        DevstackUtils.Set Node Data For Control And Compute Node Setup
-    ELSE IF    "${OPENSTACK_TOPO}" == "0cmb-1ctl-2cmp"
-        DevstackUtils.Set Node Data For Control And Two Compute Node Setup
-    END
-    ${OS_NODE_CNT} =    BuiltIn.Get Length    ${OS_ALL_IPS}
-    BuiltIn.Set Suite Variable    ${OS_NODE_CNT}
-    DevstackUtils.Get DevStack Hostnames
-    DevstackUtils.Log Devstack Nodes Data
