@@ -184,24 +184,6 @@ ${FLOWLISTS_CREATE}
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTENTRIES_CREATE}
 ...                                         flowlistentries.json
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_BASE_ENDPOINTS_API}
-...                                         /restconf/operational/base-endpoint:endpoints
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_ENDPOINTS_API}
-...                                         /restconf/operational/endpoint:endpoints
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_REGEP_API}
-...                                         /restconf/operations/endpoint:register-endpoint
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_TENANTS_API}
-...                                         /restconf/config/policy:tenants
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_TUNNELS_API}
-...                                         /restconf/config/opendaylight-inventory:nodes
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_UNREGEP_API}
-...                                         /restconf/operations/endpoint:unregister-endpoint
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_CONFIGURATION_URI}
 ...                                         /restconf/operational/configuration:configurationRecord/
@@ -332,9 +314,6 @@ ${OPERATIONAL_API}
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONS_API}
 ...                                         /restconf/operations
-# FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${OPERATIONAL_GBP_TENANTS_API}
-...                                         /restconf/operational/policy:tenants
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_NODES_API}
 ...                                         /restconf/operational/opendaylight-inventory:nodes
