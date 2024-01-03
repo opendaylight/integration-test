@@ -41,9 +41,3 @@ Verify No Ingress Dispatcher Non-Default Flow Entries
     ...    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE} table=${DISPATCHER_TABLE} | grep -v "priority=0"
     Log    ${flow_output}
     #Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE} # Skipping test verification until bug 7451 is resolved
-
-Verify Flows Are Cleaned Up On All OpenStack Nodes
-    [Documentation]    Verify flows are cleaned up from all OpenStack nodes
-    FOR    ${ip}    IN    @{OS_ALL_IPS}
-        Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${ip}
-    END
