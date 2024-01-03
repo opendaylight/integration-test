@@ -13,7 +13,6 @@ ${PASSWORD_CIRROS_stable/rocky}         cubswin:)
 ${PASSWORD_CIRROS_stable/queens}        cubswin:)
 ${CIRROS_master}                        cirros-0.4.0-x86_64-disk
 ${DEFAULT_PING_COUNT}                   3
-${PRE_CLEAN_OPENSTACK_ALL}              False
 ${EXTERNAL_NET_NAME}                    external-net
 ${EXTERNAL_SUBNET_NAME}                 external-subnet
 ${INTEGRATION_BRIDGE}                   br-int
