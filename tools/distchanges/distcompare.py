@@ -59,7 +59,6 @@ class DistCompare(object):
             "jsonrpc",
             "p4plugin",
             "odlparent",
-            "l2switch",
             "dlux",
             "controller",
         ]
