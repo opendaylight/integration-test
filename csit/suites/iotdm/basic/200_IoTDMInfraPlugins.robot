@@ -42,11 +42,7 @@ ${VAR_BASE}             ${CURDIR}/../../../variables/IoTDM/
     [Documentation]    Verifies all plugin data about Onem2mExample provider module plugin
     Verify RPC Plugin Data    onem2m_example/filtered
 
-1.06 Plugin data of TSDR - filtered
-    [Documentation]    Verifies all plugin data about Onem2mExample provider module plugin
-    Verify RPC Plugin Data    tsdr/filtered
-
-1.07 Plugin data of SimpleAdapter - filtered
+1.06 Plugin data of SimpleAdapter - filtered
     [Documentation]    Verifies all plugin data about Onem2mExample provider module plugin
     Verify RPC Plugin Data    simple_adapter/filtered
 
@@ -94,11 +90,7 @@ ${VAR_BASE}             ${CURDIR}/../../../variables/IoTDM/
     [Documentation]    Verifies the result of RPC and looks for Onem2mExample registration
     Verify RPC Db Registrations    onem2m_example/filtered
 
-3.00.02 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - TSDR
-    [Documentation]    Verifies the result of RPC and looks for TSDR registration
-    Verify RPC Db Registrations    tsdr/default
-
-3.00.03 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - SimpleAdapter
+3.00.02 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - SimpleAdapter
     [Documentation]    Verifies the result of RPC and looks for SimpleAdapter registration
     Verify RPC Db Registrations    simple_adapter/default
 
@@ -106,11 +98,7 @@ ${VAR_BASE}             ${CURDIR}/../../../variables/IoTDM/
     [Documentation]    Verifies result of RPC with input filter for Onem2mExample
     Verify RPC Db Registrations    onem2m_example/filtered
 
-3.01.01 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - filtered TSDR
-    [Documentation]    Verifies result of RPC with input filter for TSDR
-    Verify RPC Db Registrations    tsdr/filtered
-
-3.01.02 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - filtered SimpleAdapter
+3.01.01 Default result of onem2m-plugin-manager-db-api-client-registrations RPC - filtered SimpleAdapter
     [Documentation]    Verifies result of RPC with input filter for SimpleAdapter
     Verify RPC Db Registrations    simple_adapter/filtered
 
@@ -473,7 +461,6 @@ Verify Default PluginData Output
     Verify RPC Plugin Data    mqtt/default
     Verify RPC Plugin Data    ws/default
     Verify RPC Plugin Data    onem2m_example/default
-    Verify RPC Plugin Data    tsdr/default
     Verify RPC Plugin Data    simple_adapter/default
 
 Verify PluginData After Reconfiguration of HTTP
