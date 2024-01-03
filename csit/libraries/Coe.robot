@@ -7,7 +7,6 @@ Resource        OVSDB.robot
 Resource        SSHKeywords.robot
 Resource        Utils.robot
 Resource        ../variables/Variables.robot
-Resource        VpnOperations.robot
 Variables       ../variables/coe/Modules.py
 Resource        ToolsSystem.robot
 
