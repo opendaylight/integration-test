@@ -19,7 +19,6 @@ PROJECT_NAMES = [
     "odlparent",
     "openflowplugin",
     "ovsdb",
-    "sfc",
     "yangtools",
 ]
 DISTRO_PATH = "/tmp/distribution-karaf"
