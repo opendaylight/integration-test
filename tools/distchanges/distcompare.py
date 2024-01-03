@@ -34,7 +34,6 @@ class DistCompare(object):
             "serviceutils",
             "usc",
             "ovsdb",
-            "lispflowmapping",
             "snmp4sdn",
             "aaa",
             "honeycomb/vbd",
