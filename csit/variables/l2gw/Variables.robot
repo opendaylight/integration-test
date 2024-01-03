@@ -1,7 +1,3 @@
-*** Settings ***
-Resource    ../../variables/netvirt/Variables.robot
-
-
 *** Variables ***
 #Configurable Variables
 ${OS_IP}                                ${OS_CONTROL_NODE_IP}
@@ -56,6 +52,7 @@ ${SUBNET_1}                             HWV-SUB1
 ${SUBNET_2}                             HWV-SUB2
 ${SUBNET_RANGE1}                        13.0.0.0/24
 ${SUBNET_RANGE2}                        14.0.0.0/24
+${INTEGRATION_BRIDGE}                   br-int
 #Dont Change The Below Entries
 ${GREP_OVSDB_DUMP_PHYSICAL_SWITCH}      sudo ovsdb-client dump hardware_vtep -f csv | grep -A2 "Physical_Switch table"
 ${ADD_VTEP_PS}                          sudo vtep-ctl add-ps

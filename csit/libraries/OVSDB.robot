@@ -533,56 +533,6 @@ Verify Dump Flows For Specific Table
         END
     END
 
-Verify Vni Segmentation Id and Tunnel Id
-    [Documentation]    Get tunnel id and packet count from specified table id and destination port mac address
-    [Arguments]    ${port1}    ${port2}    ${net1}    ${net2}    ${vm1_ip}    ${vm2_ip}
-    ...    ${ip}=""
-    ${port_mac1} =    OpenStackOperations.Get Port Mac    ${port1}
-    ${port_mac2} =    OpenStackOperations.Get Port Mac    ${port2}
-    ${segmentation_id1} =    OpenStackOperations.Get Network Segmentation Id    ${net1}
-    ${segmentation_id2} =    OpenStackOperations.Get Network Segmentation Id    ${net2}
-    ${egress_tun_id}    ${before_count_egress_port1} =    OVSDB.Get Tunnel Id And Packet Count
-    ...    ${OS_CMP1_CONN_ID}
-    ...    ${L3_TABLE}
-    ...    tun_id=${segmentation_id2}
-    ...    mac=${port_mac2}
-    BuiltIn.Should Be Equal As Numbers    ${segmentation_id2}    ${egress_tun_id}
-    ${egress_tun_id}    ${before_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count
-    ...    ${OS_CMP2_CONN_ID}
-    ...    ${L3_TABLE}
-    ...    tun_id=${segmentation_id1}
-    ...    mac=${port_mac1}
-    BuiltIn.Should Be Equal As Numbers    ${segmentation_id1}    ${egress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port1} =    OVSDB.Get Tunnel Id And Packet Count
-    ...    ${OS_CMP1_CONN_ID}
-    ...    ${INTERNAL_TUNNEL_TABLE}
-    ...    tun_id=${segmentation_id1}
-    BuiltIn.Should Be Equal As Numbers    ${segmentation_id1}    ${ingress_tun_id}
-    ${ingress_tun_id}    ${before_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count
-    ...    ${OS_CMP2_CONN_ID}
-    ...    ${INTERNAL_TUNNEL_TABLE}
-    ...    tun_id=${segmentation_id2}
-    BuiltIn.Should Be Equal As Numbers    ${segmentation_id2}    ${ingress_tun_id}
-    IF    '${ip}'=='ipv4'
-        ${ping_cmd} =    BuiltIn.Set Variable    ping -c ${DEFAULT_PING_COUNT} ${vm2_ip}
-    ELSE
-        ${ping_cmd} =    BuiltIn.Set Variable    ping6 -c ${DEFAULT_PING_COUNT} ${vm2_ip}
-    END
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net1}    ${vm1_ip}    ${ping_cmd}
-    BuiltIn.Should Contain    ${output}    64 bytes
-    BuiltIn.Wait Until Keyword Succeeds
-    ...    60s
-    ...    5s
-    ...    OVSDB.Verify Vni Packet Count After Traffic
-    ...    ${before_count_egress_port1}
-    ...    ${before_count_egress_port2}
-    ...    ${before_count_ingress_port1}
-    ...    ${before_count_ingress_port2}
-    ...    ${segmentation_id1}
-    ...    ${segmentation_id2}
-    ...    ${port_mac1}
-    ...    ${port_mac2}
-
 Verify Vni Packet Count After Traffic
     [Documentation]    Verify the packet count after the traffic sent
     [Arguments]    ${before_count_egress_port1}    ${before_count_egress_port2}    ${before_count_ingress_port1}    ${before_count_ingress_port2}    ${segmentation_id1}    ${segmentation_id2}
