@@ -147,11 +147,6 @@ CREATE_VLAN_TOPOLOGY_FILE_PATH = "MininetTopo/" + CREATE_VLAN_TOPOLOGY_FILE
 CREATE_PATHPOLICY_TOPOLOGY_FILE = "topo-3sw-2host_multipath.py"
 CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH = "MininetTopo/" + CREATE_PATHPOLICY_TOPOLOGY_FILE
 
-# LISP Flow Mapping variables
-LFM_RPC_API = "/restconf/operations/odl-mappingservice"
-LFM_RPC_API_LI = "/restconf/operations/lfm-mapping-database"
-LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
-
 # Neutron
 NEUTRON_NB_API = "/controller/nb/v2/neutron"
 NEUTRON_NETWORKS_API = NEUTRON_NB_API + "/" + "networks"
