@@ -29,7 +29,6 @@ class DistCompare(object):
             "integration/distribution",
             "mdsal",
             "alto",
-            "sfc",
             "bier",
             "serviceutils",
             "usc",
