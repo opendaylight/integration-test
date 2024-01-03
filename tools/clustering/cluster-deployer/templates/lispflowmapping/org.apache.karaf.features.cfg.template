@@ -36,12 +36,12 @@
 #
 # Comma separated list of features repositories to register by default
 #
-featuresRepositories = mvn:org.apache.karaf.features/standard/3.0.6/xml/features,mvn:org.apache.karaf.features/enterprise/3.0.6/xml/features,mvn:org.ops4j.pax.web/pax-web-features/3.2.6/xml/features,mvn:org.apache.karaf.features/spring/3.0.6/xml/features,mvn:org.opendaylight.lispflowmapping/features-lispflowmapping/1.4.0-SNAPSHOT/xml/features
+featuresRepositories = mvn:org.apache.karaf.features/standard/3.0.6/xml/features,mvn:org.apache.karaf.features/enterprise/3.0.6/xml/features,mvn:org.ops4j.pax.web/pax-web-features/3.2.6/xml/features,mvn:org.apache.karaf.features/spring/3.0.6/xml/features
 
 #
 # Comma separated list of features to install at startup
 #
-featuresBoot = config,standard,region,package,kar,ssh,management,odl-jolokia,odl-lispflowmapping-msmr
+featuresBoot = config,standard,region,package,kar,ssh,management,odl-jolokia
 
 #
 # Defines if the boot features are started in asynchronous mode (in a dedicated thread)
