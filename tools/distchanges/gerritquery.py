@@ -78,7 +78,8 @@ class GerritQuery:
     @staticmethod
     def print_safe_encoding(string):
         try:
-            if type(string) == unicode:
+            # FIXME: Python3 does not have 'unicode'
+            if isinstance(string, unicode):
                 encoding = "utf-8"
                 if hasattr(sys.stdout, "encoding") and sys.stdout.encoding:
                     encoding = sys.stdout.encoding
