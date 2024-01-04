@@ -417,7 +417,7 @@ def _wt_request_sender(
         else:
             if rsp.status_code not in [200, 201, 204]:
                 print(
-                    f"*WARN* [{req_no}] Status code {rsp.status_code}:"
+                    f"*WARN* [{req_no}] Status code {rsp.status_code}: "
                     f" {req.method} {req.url}\n{rsp.text}"
                 )
                 num_errors += 1
