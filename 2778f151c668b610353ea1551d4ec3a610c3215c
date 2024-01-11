@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac1d2a2_461284e6",
+        "filename": "csit/variables/gbp/ios-xe-schemas/ned@2016-03-08.yang",
+        "patchSetId": 2
+      },
+      "lineNbr": 48583,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2024-01-11T16:56:02Z",
+      "side": 0,
+      "message": "Is this going to affect anything? Is this change required?",
+      "revId": "2778f151c668b610353ea1551d4ec3a610c3215c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
