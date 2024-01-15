@@ -17,6 +17,24 @@
       "message": "There are some efforts to revive the l2switch project. So let\u0027s wait on this one.",
       "revId": "4f404f8475ddacdec3fea8476a915d6fd41a11cb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebba01e_5f3e86e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-01-15T10:44:16Z",
+      "side": 1,
+      "message": "Sure - then just ignore this one",
+      "parentUuid": "9064b24f_5a786ae2",
+      "revId": "4f404f8475ddacdec3fea8476a915d6fd41a11cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
