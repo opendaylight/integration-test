@@ -34,6 +34,24 @@
       "parentUuid": "fac1d2a2_461284e6",
       "revId": "2778f151c668b610353ea1551d4ec3a610c3215c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d2e6635_09e600d5",
+        "filename": "csit/variables/gbp/ios-xe-schemas/ned@2016-03-08.yang",
+        "patchSetId": 2
+      },
+      "lineNbr": 48583,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-01-16T22:27:08Z",
+      "side": 0,
+      "message": "The whole file appears to be added for GBP testing:\nhttps://github.com/opendaylight/integration-test/commits/master/csit/variables/gbp/ios-xe-schemas/ned%402016-03-08.yang\n\nand this enum doesn\u0027t seem to be relevant to the capwap tests.",
+      "parentUuid": "4897a658_3c4d1958",
+      "revId": "2778f151c668b610353ea1551d4ec3a610c3215c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
