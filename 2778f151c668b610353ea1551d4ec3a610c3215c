@@ -52,6 +52,24 @@
       "parentUuid": "4897a658_3c4d1958",
       "revId": "2778f151c668b610353ea1551d4ec3a610c3215c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7015df7a_5b9b1542",
+        "filename": "csit/variables/gbp/ios-xe-schemas/ned@2016-03-08.yang",
+        "patchSetId": 2
+      },
+      "lineNbr": 48583,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-01-18T09:20:31Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6d2e6635_09e600d5",
+      "revId": "2778f151c668b610353ea1551d4ec3a610c3215c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
