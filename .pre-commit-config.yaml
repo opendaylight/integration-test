@@ -21,8 +21,8 @@ repos:
   - repo: https://github.com/MarketSquare/robotframework-tidy
     rev: 3.2.0
     hooks:
-    - id: robotidy
-      additional_dependencies: ['robotframework']
+      - id: robotidy
+        additional_dependencies: ['robotframework==6.1.1']
 
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.19.1
