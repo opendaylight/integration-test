@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5683d29_4d5ef393",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-02-16T15:02:43Z",
+      "side": 1,
+      "message": "Not all suites are removed 😊.",
+      "revId": "e61910966aeb8ee72abf5eecd4cda985c3ea4120",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
