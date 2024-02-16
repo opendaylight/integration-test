@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46134b09_fadbd365",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-02-16T11:41:39Z",
+      "side": 1,
+      "message": "Openstack is not and ODL project but part of infrastructure.",
+      "revId": "0a0c823627d6e12aafa6441b0f705050de1655b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
