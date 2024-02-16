@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78cc4d8_ea9c9697",
+        "filename": "csit/suites/openstack/neutron/__init__.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-02-16T11:40:58Z",
+      "side": 0,
+      "message": "https://docs.openstack.org/neutron/latest/",
+      "revId": "23b2cb5c3d5090a9dc3f85d70561318c5b0e52d4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
