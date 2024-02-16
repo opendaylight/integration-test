@@ -341,6 +341,8 @@ ${OPERATIONAL_NODES_API}
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}
 ...                                         /restconf/operational/network-topology:network-topology
+${OS_SYSTEM_PROMPT}                         \$    # Prompt substring specific to OpenStack systems.
+${OS_SYSTEM_PROMPT_STRICT}                  \]$    # Prompt substring specific to OpenStack systems.
 ${OS_CMD_SUCCESS}                           Command Returns 0
 # FIXME: Move to a separate Neutron-related Resource and add description.
 ${OSREST}
