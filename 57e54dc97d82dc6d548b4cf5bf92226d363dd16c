@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f39d8b4c_c9024fcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2024-02-18T18:10:52Z",
+      "side": 1,
+      "message": "Any reason for this revert??\nI do not think these files are needed anymore",
+      "revId": "57e54dc97d82dc6d548b4cf5bf92226d363dd16c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
