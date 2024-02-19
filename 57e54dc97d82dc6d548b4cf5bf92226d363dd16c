@@ -16,6 +16,24 @@
       "message": "Any reason for this revert??\nI do not think these files are needed anymore",
       "revId": "57e54dc97d82dc6d548b4cf5bf92226d363dd16c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d16cb87_068a651f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-02-19T08:10:33Z",
+      "side": 1,
+      "message": "These files looks to be tests for infrastructure (which is using openstack IMO). I have no info about ODL project called \"openstack\". Se we have decided to revert this back and remove https://git.opendaylight.org/gerrit/c/integration/test/+/110256 only.",
+      "parentUuid": "f39d8b4c_c9024fcc",
+      "revId": "57e54dc97d82dc6d548b4cf5bf92226d363dd16c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
