@@ -21,6 +21,7 @@ Library             String
 ...                 chlorine=${17}
 ...                 argon=${18}
 ...                 potassium=${19}
+...                 calcium=${20}
 ...                 master=${999}
 
 
