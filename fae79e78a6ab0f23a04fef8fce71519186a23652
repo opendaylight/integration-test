@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11f6eb9_6cf73f5d",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-07T02:06:11Z",
+      "side": 0,
+      "message": "Can we remove this whole file? Doesn\u0027t look like this is used any more.",
+      "revId": "fae79e78a6ab0f23a04fef8fce71519186a23652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3097d50f_98a0d461",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-07T02:06:11Z",
+      "side": 0,
+      "message": "Can we remove this whole file? Doesn\u0027t look like this is used any more.",
+      "revId": "fae79e78a6ab0f23a04fef8fce71519186a23652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
