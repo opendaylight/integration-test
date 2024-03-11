@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c6a8e29_4acb9815",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-03-11T14:53:15Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e11f6eb9_6cf73f5d",
+      "revId": "fae79e78a6ab0f23a04fef8fce71519186a23652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3097d50f_98a0d461",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-07T02:06:11Z",
       "side": 0,
       "message": "Can we remove this whole file? Doesn\u0027t look like this is used any more.",
+      "revId": "fae79e78a6ab0f23a04fef8fce71519186a23652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86690339_0383fe4b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-03-11T14:53:15Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "3097d50f_98a0d461",
       "revId": "fae79e78a6ab0f23a04fef8fce71519186a23652",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
