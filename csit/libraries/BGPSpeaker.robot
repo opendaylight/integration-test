@@ -65,8 +65,7 @@ Verify_BGP_Speaker_Connection
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
     ${url}=    BuiltIn.Set_Variable
     ...    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F${ip}?content=nonconfig
-    ${response}=    RequestsLibrary.Get_Request    ${session}    ${url}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${response.status_code}
+    ${response}=    RequestsLibrary.GET On Session    ${session}    ${url}    expected_status=${exp_status_code}
     RETURN    ${response.content}
 
 Start_BGP_Manager
