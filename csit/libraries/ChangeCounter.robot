@@ -34,11 +34,7 @@ CC_Setup
 Get_Change_Count
     [Documentation]    GET data change request, assert status 200, return the value.
     [Arguments]    ${session}=operational
-    ${response} =    RequestsLibrary.Get_Request    ${session}    ${CC_DATA_CHANGE_COUNTER_URL}
-    BuiltIn.Should_Be_Equal
-    ...    ${response.status_code}
-    ...    ${200}
-    ...    Got status: ${response.status_code} and message: ${response.text}
+    ${response} =    RequestsLibrary.GET On Session    ${session}    ${CC_DATA_CHANGE_COUNTER_URL}    expected_status=200
     # CompareStream.Set_Variable_If_At_Least_Else cannot be used direcly, because ${response.text}["data-change-counter"]["count"] would be
     # evaluated before the stream comparison and it causes failures
     BuiltIn.Log    ${response.text}
