@@ -610,6 +610,18 @@ Start_Members_From_List_Or_All
     ...    ${service_list}
     [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
 
+Restart_All_Members_Sync
+    [Documentation]    Restart all cluster members.
+    Stop_Members_From_List_Or_All
+    Start_Members_From_List_Or_All
+    BuiltIn.Wait_Until_Keyword_Succeeds
+    ...    300s
+    ...    10s
+    ...    ShardStability.Shards_Stability_Get_Details
+    ...    ${DEFAULT_SHARD_LIST}
+    ...    verify_restconf=True
+    Run_Bash_Command_On_List_Or_All    ps -ef | grep java
+
 Verify_Members_Are_Ready
     [Documentation]    Verifies the specified readiness conditions for the given listed members after startup.
     ...    If ${verify_cluster_sync}, verifies the datastores have synced with the rest of the cluster.
