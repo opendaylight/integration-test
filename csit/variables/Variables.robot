@@ -238,7 +238,7 @@ ${LFM_SB_RPC_API}
 ...                                         /restconf/operations/odl-lisp-sb
 # FIXME: Move to a separate Resource and add description.
 ${MODULES_API}
-...                                         /rests/data/ietf-yang-library:modules-state
+...                                         /rests/data/ietf-yang-library:modules-state?content=nonconfig
 # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON}
 ...                                         127.0.0.1
