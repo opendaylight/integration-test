@@ -4,5 +4,7 @@
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
+# FIXME: legacy test suite testing ask-based and tell-based protocol. Remove as soon as not needed.
 # Place the suites in run order:
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
 integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes_longevity.robot

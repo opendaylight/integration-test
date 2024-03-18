@@ -635,7 +635,9 @@ Check_Status_Of_First_Response
     TemplatedRequests.Check_Status_Code    ${tuple}[2]
 
 Change_Use_Tell_Based_Protocol
-    [Documentation]    Change status use-tell-based-protocol to True or False
+    [Documentation]    Change status use-tell-based-protocol to True or False.
+    ...
+    ...                This keyword has no effect, and should not be used, since 2024.03 Calcium.
     [Arguments]    ${status}    ${DATASTORE_CFG}
     ClusterManagement.Check_Bash_Command_On_List_Or_All
     ...    sed -ie "s/^#use-tell-based-protocol=true/use-tell-based-protocol=true/g" ${DATASTORE_CFG}

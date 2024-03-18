@@ -9,6 +9,8 @@ Documentation       Set tell-based protocol usage
 ...
 ...                 Suite stops all odl nodes, un-comment usage of tell-based protocol in
 ...                 config file (means make it true) and starts all nodes again.
+...
+...                 This suite should not be used since 2024.03 Calcium.
 
 Library             SSHLibrary
 Resource            ${CURDIR}/../../../libraries/ClusterManagement.robot
@@ -33,6 +35,8 @@ Stop_All_Members
 
 Set_Tell_Based_Protocol_Usage
     [Documentation]    Un-comment the flag usage in config file. Also clean most data except data/log/.
+    ...
+    ...                This keyword has no effect, and should not be used, since 2024.03 Calcium.
     DdbCommons.Change_Use_Tell_Based_Protocol    True    ${DATASTORE_CFG}
     ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
