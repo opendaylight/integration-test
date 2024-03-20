@@ -8,6 +8,7 @@ Documentation       Karaf library. General utility keywords for interacting with
 
 Library             SSHLibrary
 Library             OperatingSystem
+Library             ${CURDIR}/excepts.py
 Resource            ${CURDIR}/ClusterManagement.robot
 Resource            ${CURDIR}/SSHKeywords.robot
 Variables           ${CURDIR}/../variables/Variables.py
