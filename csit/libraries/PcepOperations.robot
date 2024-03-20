@@ -26,7 +26,7 @@ Setup_Pcep_Operations
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
     Create_Session
     ...    pcep_session
-    ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations
+    ...    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations/
     ...    headers=${HEADERS_XML}
     ...    auth=${AUTH}
 
@@ -59,7 +59,7 @@ Remove_Xml_Lsp_Return_Json
 Operate_Xml_Lsp_Return_Json
     [Documentation]    Post XML data to given pcep-operations URI, check status_code is 200 and return response text (JSON).
     [Arguments]    ${uri_part}    ${xml_data}
-    ${response}=    RequestsLibrary.Post Request    pcep_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.POST On Session    pcep_session    uri=${uri_part}    data=${xml_data}    expect_status=any
     Log    ${xml_data}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
     RETURN    ${response.text}
