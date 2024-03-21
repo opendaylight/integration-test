@@ -320,13 +320,13 @@ Odl_To_Play_Template
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
     BgpRpcClient.play_clean
-    ${resp} =    RequestsLibrary.Post_Request
-    ...    ${CONFIG_SESSION}
-    ...    ${EVPN_CONF_URL}
+    ${resp} =    RequestsLibrary.POST On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_CONF_URL}
     ...    data=${data_xml}
     ...    headers=${HEADERS_XML}
+    ...    expected_status=201
     BuiltIn.Log    ${resp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    201
     ${resp} =    RequestsLibrary.Get_Request
     ...    ${CONFIG_SESSION}
     ...    ${EVPN_CONF_URL}?content=config
