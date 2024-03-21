@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5c4ac5_3f29f697",
+        "filename": "csit/variables/daexim/daexim/odl_backup_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-03-21T08:41:54Z",
+      "side": 1,
+      "message": "Yes, correct: https://docs.opendaylight.org/projects/netconf/en/latest/user-guide.html#spawning-new-netconf-connectors",
+      "revId": "660ed7cd365bca0b554298847b0a267577a6eaae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
