@@ -62,7 +62,7 @@ Start_BGP_Speaker_And_Verify_Connected
 Verify_BGP_Speaker_Connection
     [Documentation]    Verifies peer's presence in bgp rib.
     [Arguments]    ${session}    ${ip}    ${connected}=${True}
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
+    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    200    404
     ${url}=    BuiltIn.Set_Variable
     ...    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F${ip}?content=nonconfig
     ${response}=    RequestsLibrary.GET On Session    ${session}    ${url}    expected_status=${exp_status_code}
