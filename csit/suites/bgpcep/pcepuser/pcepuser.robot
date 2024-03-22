@@ -156,6 +156,5 @@ Compare_Topology
     ...    '${uri}'=='${EMPTY}'
     ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology?content=nonconfig
     ...    ${REST_API}/${TOPOLOGY_URL}=pcep-topology/${uri}?content=nonconfig
-    ${response}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${topology_uri}
-    BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
+    ${response}=    RequestsLibrary.GET On Session    ${CONFIG_SESSION}    ${topology_uri}    expected_status=200
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp}    ${response.text}
