@@ -371,7 +371,7 @@ Get_ODL_Versions_From_Nexus
     [Documentation]    Returns name of last release found on nexus and list of all versions.
     RequestsLibrary.Create_Session    nexus    ${NEXUS_RELEASES_URL}    verify=${TRUE}
     ${uri} =    BuiltIn.Set_Variable    maven-metadata.xml
-    ${response} =    RequestsLibrary.Get_Request    nexus    ${uri}
+    ${response} =    RequestsLibrary.GET On Session    nexus    ${uri}
     BuiltIn.Log    ${response.text}
     ${root} =    XML.Parse_XML    ${response.text}
     ${element} =    XML.Get_Element    ${root}    versioning/latest
