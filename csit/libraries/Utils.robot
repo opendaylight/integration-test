@@ -365,18 +365,18 @@ Concatenate the String
 Post Elements To URI
     [Documentation]    Perform a POST rest operation, using the URL and data provided
     [Arguments]    ${rest_uri}    ${data}    ${headers}=${headers}    ${session}=session
-    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${rest_uri}    data=${data}    headers=${headers}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    url=${rest_uri}    data=${data}    headers=${headers}
     Log    ${resp.text}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Delete On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Delete On Session    ${session}    url=${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI And Verify
     [Arguments]    ${uri}    ${session}=session
-    ${resp}=    RequestsLibrary.Delete On Session    ${session}    ${uri}
+    ${resp}=    RequestsLibrary.Delete On Session    ${session}    url=${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}
     Should Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
@@ -393,7 +393,7 @@ Add Elements To URI From File
     [Documentation]    Put data from a file to a URI
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    url=${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
@@ -405,7 +405,7 @@ Add Elements To URI From File And Verify
 Add Elements To URI And Verify
     [Documentation]    Put data to a URI and verify the HTTP response
     [Arguments]    ${dest_uri}    ${data}    ${headers}=${headers}    ${session}=session
-    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    ${data}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    url=${dest_uri}    ${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${dest_uri}
     Should Not Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
@@ -415,7 +415,7 @@ Add Elements To URI From File And Check Validation Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    url=${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${DATA_VALIDATION_ERROR}    ${resp.status_code}
 
 Add Elements To URI From File And Check Server Error
@@ -424,13 +424,13 @@ Add Elements To URI From File And Check Server Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Put On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Put On Session    ${session}    url=${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${INTERNAL_SERVER_ERROR}    ${resp.status_code}
 
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}=    OperatingSystem.Get File    ${data_file}
-    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    url=${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Run Process With Logging And Status Check
@@ -495,7 +495,7 @@ Check Item Occurrence
 Post Log Check
     [Documentation]    Post body to ${uri}, log response content, and check status
     [Arguments]    ${uri}    ${body}    ${session}=session    ${status_codes}=200
-    ${resp}=    RequestsLibrary.Post On Session    ${session}    ${uri}    ${body}
+    ${resp}=    RequestsLibrary.Post On Session    ${session}    url=${uri}    data=${body}
     Log    ${resp.text}
     TemplatedRequests.Check Status Code    ${resp}    ${status_codes}
     RETURN    ${resp}
