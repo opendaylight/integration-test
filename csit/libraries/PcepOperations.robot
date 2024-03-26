@@ -23,8 +23,7 @@ ${PCEP_VAR_FOLDER}      ${CURDIR}/../variables/tcpmd5user
 *** Keywords ***
 Setup_Pcep_Operations
     [Documentation]    Creates Requests session to be used by subsequent keywords.
-    # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    Create_Session
+    RequestsLibrary.Create_Session
     ...    alias=pcep_session
     ...    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations/
     ...    headers=${HEADERS_XML}
