@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng ODL
+Code-Review+2: Tomas Cere <tomas.cere@pantheon.tech>
+Verified+1: ODL Required.GHA <releng+odl.required.gha@linuxfoundation.org>
+Submitted-by: Tomas Cere <tomas.cere@pantheon.tech>
+Submitted-at: Tue, 26 Mar 2024 13:47:16 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/111062
+Project: integration/test
+Branch: refs/heads/master
