@@ -125,6 +125,7 @@ Resource            ${CURDIR}/../variables/Variables.robot
 ...                                 ${201}
 ...                                 ${204}
 ...                                 ${404}
+...                                 ${409}
 # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
 @{ALLOWED_STATUS_CODES}
 ...                                 ${200}
