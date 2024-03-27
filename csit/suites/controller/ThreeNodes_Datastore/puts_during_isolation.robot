@@ -88,7 +88,7 @@ Delete Cars
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
     ${rsp} =    RequestsLibrary.Delete Request    ${session}    ${CARURL}
     Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp} =    RequestsLibrary.Get Request    ${session}    ${CARURL}
+    ${rsp} =    RequestsLibrary.GET On Session   ${session}    ${CARURL}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 

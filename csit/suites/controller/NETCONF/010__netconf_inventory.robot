@@ -42,17 +42,15 @@ Get Controller Inventory
 Pull External Device configuration
     [Documentation]    Pull Netopeer configuration
     [Tags]    netconf
-    ${resp}    Get Request    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}
+    ${resp}    GET On Session    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}`   expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    {}
 
 Verify Device Operational data
     [Documentation]    Verify Netopeer operational data
     [Tags]    exclude
-    ${resp}    Get Request    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
+    ${resp}    GET On Session    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    schema
     Should Contain    ${resp.content}    statistics
     Should Contain    ${resp.content}    datastores
@@ -60,9 +58,8 @@ Verify Device Operational data
 
 *** Keywords ***
 Get Inventory
-    ${resp}    Get Request    session    ${REST_CONT_OPER}/node/netopeer
+    ${resp}    GET On Session    session    ${REST_CONT_OPER}/node/netopeer    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "node-id":"netopeer"
     Should Contain    ${resp.content}    "netconf-node-topology:connection-status":"connected"
     Should Contain    ${resp.content}    "netconf-node-topology:available-capabilities"
