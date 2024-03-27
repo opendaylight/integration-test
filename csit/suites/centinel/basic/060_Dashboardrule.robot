@@ -22,13 +22,11 @@ Set DashboardRecord
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get DashboardRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${GET_DASHBOARDRECORD}
+    ${resp}    RequestsLibrary.GET On Session   session    ${GET_DASHBOARDRECORD}   expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete DashboardRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${GET_DASHBOARDRECORD}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    session    ${GET_DASHBOARDRECORD}    expected_status=200
     ${result}    To JSON    ${resp.content}
     ${dashboardRecord}    Get From Dictionary    ${result}    dashboardRecord
     ${dashboardList}    Get From Dictionary    ${dashboardRecord}    dashboardList
