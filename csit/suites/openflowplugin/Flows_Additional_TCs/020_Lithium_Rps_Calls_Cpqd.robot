@@ -20,13 +20,13 @@ ${start}                    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --to
 *** Test Cases ***
 Sending Update Table
     [Documentation]    Test to send table update request
-    ${resp}=    RequestsLibrary.Post Request
+    ${resp}=    RequestsLibrary.POST On Session
     ...    session
-    ...    ${send_update_table_url}
+    ...    url=${send_update_table_url}
     ...    data=${RPC_SEND_UPDATE_TABLE_DATA}
     ...    headers=${HEADERS_XML}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 
 *** Keywords ***

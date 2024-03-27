@@ -222,10 +222,11 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
     ...    headers=${headers}
+    ...    expected_status=anything
     Log    ${resp}
     Log    ${resp.content}
     IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}
@@ -245,10 +246,11 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}
     ...    headers=${headers}
+    ...    expected_status=anything
     Log    ${resp}
     Log    ${resp.content}
     IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}
@@ -258,22 +260,18 @@ Flow Presence Operational Table
 
 Add Flow
     Log    ${data}
-    ${resp}=    RequestsLibrary.Put Request
+    ${resp}=    RequestsLibrary.PUT On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
     ...    headers=${HEADERS_XML}
     ...    data=${data}
-    ${msg}=    Set Variable
-    ...    Adding flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
-    Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
+    ...    expected_status=200
 
 Delete Flow
-    ${resp}=    RequestsLibrary.Delete Request
+    ${resp}=    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
-    ${msg}=    Set Variable
-    ...    Delete flow for ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id} failed, http response ${resp.status_code} received.
-    Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
+    ...    expected_status=200
 
 Delete All Flows
     [Documentation]    Deletes all flows

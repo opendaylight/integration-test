@@ -92,8 +92,7 @@ Check Flows Are Operational Again
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
-    ${resp}=    Delete Request    session    ${RFC8040_NODES_API}
-    Should Be Equal As Numbers    ${resp.status_code}    204
+    ${resp}=    DELETE On Session    session    url=${RFC8040_NODES_API}    expected_status=204
 
 Check No Flows In Operational Last
     [Documentation]    Operational datastore to be without any flows
@@ -146,7 +145,7 @@ Delete Http Session And Store Plot Data
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
+    ${resp}=    GET On Session    session    url=${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    ${swnr}
