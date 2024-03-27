@@ -73,6 +73,6 @@ Verify_GoBgps_Connection
     ...    ${connected}
     ...    ${ALLOWED_STATUS_CODES}
     ...    ${DELETED_STATUS_CODES}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${gobgp_ip}?content=nonconfig
+    ${rsp}=    RequestsLibrary.GET On Session    ${session}    ${peer_check_url}${gobgp_ip}?content=nonconfig
+    ...    expected_status=${exp_status_code}
     BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}

@@ -137,7 +137,8 @@ Verify_Bgp_Peer_Connection
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     ${peer_check_url} =    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
     ${exp_status_code} =    BuiltIn.Set_Variable_If    ${connected}    200    404
-    ${rsp} =    RequestsLibrary.GET On Session    ${session}    ${peer_check_url}${peer_ip}?content=nonconfig    expected_status=${exp_status_code}
+    ${rsp} =    RequestsLibrary.GET On Session    ${session}    ${peer_check_url}${peer_ip}?content=nonconfig
+    ...    expected_status=${exp_status_code}
     BuiltIn.Log    ${rsp.content}
 
 Set_Shard_Leaders_Location_And_Verify
