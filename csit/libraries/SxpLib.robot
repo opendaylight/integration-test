@@ -362,20 +362,20 @@ Setup SXP Environment
 Check Node Started
     [Documentation]    Verify that SxpNode has data writen to Operational datastore and is running
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${session}
     ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ...    expected_status=200
     ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}    ${session}    ${ip}
     BuiltIn.Should Be Equal As Strings    ${rc}    0
 
 Check Node Stopped
     [Documentation]    Verify that SxpNode has data removed from Operational datastore and is not running
     [Arguments]    ${node}    ${port}=64999    ${system}=${node}    ${session}=session    ${ip}=${node}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${session}
     ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
+    ...    expected_status=404
     ${rc} =    Get Node Running Status    ${node}    ${port}    ${system}    ${session}    ${ip}
     BuiltIn.Should Be Equal As Strings    ${rc}    1
 
@@ -403,7 +403,7 @@ Clean SXP Environment
 Get Routing Configuration From Controller
     [Documentation]    Get Routing configuration from config DS
     [Arguments]    ${session}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${session}
     ...    /restconf/config/sxp-cluster-route:sxp-cluster-route/
     ...    headers=${ACCEPT_XML}
@@ -424,7 +424,7 @@ Put Routing Configuration To Controller
 Clean Routing Configuration To Controller
     [Documentation]    Delete Routing configuration from Config DS
     [Arguments]    ${session}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${session}
     ...    /restconf/config/sxp-cluster-route:sxp-cluster-route/
     ...    headers=${ACCEPT_XML}
