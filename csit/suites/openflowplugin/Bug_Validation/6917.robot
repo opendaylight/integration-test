@@ -90,4 +90,4 @@ Add Flow
     ...    ${False}
     ...    ${True}
     Sleep    8
-    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    [Teardown]    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    url=${RFC8040_NODES_API}

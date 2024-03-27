@@ -44,8 +44,11 @@ Get Links Count
 *** Keywords ***
 Verify Element Count
     [Arguments]    ${URI}    ${xpath_location}    ${expected_count}
-    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session
+    ...    session
+    ...    url=${RFC8040_OPERATIONAL_TOPO_FLOW1_API}
+    ...    headers=${ACCEPT_XML}
+    ...    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}    Get Element Count    ${resp.text}    xpath=${xpath_location}
     Should Be Equal As Numbers    ${count}    ${expected_count}

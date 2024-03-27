@@ -93,13 +93,13 @@ Check Linear Topology After Mininet Reconnects
 Remove Flows And Groups After Mininet Reconnects
     [Documentation]    Remove some groups and flows while network is down.
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request
+        RequestsLibrary.DELETE On Session
         ...    session
         ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:table=0/flow=1
-        RequestsLibrary.Delete Request
+        RequestsLibrary.DELETE On Session
         ...    session
         ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1
-        RequestsLibrary.Delete Request
+        RequestsLibrary.DELETE On Session
         ...    session
         ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1000
     END
@@ -176,7 +176,7 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command}    BuiltIn.Set Variable    sudo iptables -v -F
     Utils.Run Command On Controller    cmd=${command}
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    url=${RFC8040_NODES_API}
     RequestsLibrary.Delete All Sessions
 
 Disconnect Controller Mininet

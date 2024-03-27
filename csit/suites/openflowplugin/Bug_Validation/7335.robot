@@ -63,6 +63,6 @@ Initialization Phase
 
 Final Phase
     [Documentation]    Stops mininet.
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    url=${RFC8040_NODES_API}
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     RequestsLibrary.Delete All Sessions

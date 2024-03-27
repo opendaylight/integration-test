@@ -38,19 +38,20 @@ Add a meter
     [Tags]    push
     ${body}    OperatingSystem.Get File    ${METER}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put Request
+    ${resp}    RequestsLibrary.PUT On Session
     ...    session
-    ...    ${REST_CONTEXT}/meter=1
+    ...    url=${REST_CONTEXT}/meter=1
     ...    headers=${HEADERS_XML}
     ...    data=${body}
     Log    ${resp.content}
-    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding meter config
     [Documentation]    Get the meter stat in config
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.GET On Session
+    ...    session
+    ...    url=${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${METER_NAME}
 
 Verify after adding meter operational
@@ -69,22 +70,21 @@ Add a flow that includes a meter
     [Tags]    push
     ${body}    OperatingSystem.Get File    ${FLOW}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put Request
+    ${resp}    RequestsLibrary.PUT On Session
     ...    session
-    ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2
+    ...    url=${REST_CONTEXT}/flow-node-inventory:table=0/flow=2
     ...    headers=${HEADERS_XML}
     ...    data=${body}
     Log    ${resp.content}
-    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
-    ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
+    ...    url=${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
 
 Verify after adding flow operational
@@ -99,26 +99,27 @@ Verify after adding flow operational
 
 Remove the flow
     [Documentation]    Remove the flow
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${REST_CONTEXT}/flow-node-inventory:table=0/flow=2
+    ...    expected_status=200
 
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
-    ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
+    ...    url=${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
 
 Delete the meter
     [Documentation]    Remove the meter
     [Tags]    delete
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/meter=1
+    ${resp}    RequestsLibrary.DELETE On Session    session    url=${REST_CONTEXT}/meter=1    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting meter
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${METER_NAME}
