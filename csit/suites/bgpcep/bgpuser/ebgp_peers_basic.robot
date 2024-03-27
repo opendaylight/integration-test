@@ -145,16 +145,16 @@ Connect_iBGP_Peer1
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    ibgp_peer1_console
-    Start_Console_Tool    ${iBGP_PEER1_COMMAND}    ${iBGP_PEER1_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
+    BGPcliKeywords.Start_Console_Tool    ${iBGP_PEER1_COMMAND}    ${iBGP_PEER1_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
     BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    ${CONFIG_SESSION}    prefix
 
 Connect_eBGP_Peer1
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    ebgp_peer1_console
-    Start_Console_Tool    ${eBGP_PEER1_COMMAND}    ${eBGP_PEER1_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
+    BGPcliKeywords.Start_Console_Tool    ${eBGP_PEER1_COMMAND}    ${eBGP_PEER1_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 Check_IPv4_Topology_For_First_Path
     [Documentation]    The IPv4 topology shall contain the route announced by the first eBGP
@@ -195,8 +195,8 @@ Connect_eBGP_Peer2
     [Documentation]    Connect BGP peer and check empty topology
     [Tags]    critical
     SSHLibrary.Switch Connection    ebgp_peer2_console
-    Start_Console_Tool    ${eBGP_PEER2_COMMAND}    ${eBGP_PEER2_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
+    BGPcliKeywords.Start_Console_Tool    ${eBGP_PEER2_COMMAND}    ${eBGP_PEER2_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 Disconnect_eBGP_Peer1
     [Documentation]    Stop BGP peer, log topology and store logs
@@ -428,12 +428,6 @@ Setup_Everything
     ...    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background
     ...    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Read_Text_Before_Prompt
-    [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
-    ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text}    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${text}
 
 Store_File_To_Workspace
     [Documentation]    Store the ${source_file_name} to the workspace as ${target_file_name}.
