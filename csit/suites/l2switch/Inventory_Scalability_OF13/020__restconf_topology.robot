@@ -12,7 +12,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CONTEXT}     /restconf/operational/network-topology:network-topology/topology/flow:1
+${REST_CONTEXT}     /rests/data/network-topology:network-topology/topology=flow%3A1?content=nonconfig
 
 
 *** Test Cases ***
@@ -35,8 +35,11 @@ Get Links Count
 *** Keywords ***
 Verify Element Count
     [Arguments]    ${URI}    ${xpath_location}    ${expected_count}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.GET On Session
+    ...    session
+    ...    url=${REST_CONTEXT}
+    ...    headers=${ACCEPT_XML}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}    Get Element Count    ${resp.content}    xpath=${xpath_location}
     Should Be Equal As Numbers    ${count}    ${expected_count}
