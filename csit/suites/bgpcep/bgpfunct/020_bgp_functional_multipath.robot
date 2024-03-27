@@ -196,7 +196,7 @@ Store_Rib_Configuration
     BuiltIn.Set_Suite_Variable    ${rib_old}
 
 Log_Loc_Rib_Operational
-    ${rsp}    RequestsLibrary.Get Request
+    ${rsp}    RequestsLibrary.GET On Session
     ...    ${CONFIG_SESSION}
     ...    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/
     BuiltIn.Log    ${rsp.content}
