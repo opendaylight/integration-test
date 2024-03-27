@@ -50,7 +50,8 @@ Successful Authentication Including Domain
     ...    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Successful Authentication Without Domain
@@ -69,7 +70,8 @@ Successful Authentication Without Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong User
@@ -86,7 +88,8 @@ Unsuccessful Authentication Wrong User
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_INVALID}    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 UnSuccessful Authentication Without Domain
@@ -104,7 +107,8 @@ UnSuccessful Authentication Without Domain
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN}    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong Domain
@@ -127,7 +131,8 @@ Unsuccessful Authentication Wrong Domain
     ...    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Basic Authorization
@@ -146,7 +151,8 @@ Unsuccessful Basic Authorization
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp_ok}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_ok}    RequestsLibrary.GET On Session   session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp_ok.status_code}
     ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
@@ -167,7 +173,8 @@ Unsuccessful Dynamic Authorization
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp_nook}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
     ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
@@ -198,14 +205,16 @@ Unsuccessful Dynamic Authorization 2
     ...    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session
     ...    session
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session   session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -225,14 +234,16 @@ Unsuccessful No Keystone Connection
     ...    headers=${HEADERS}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session
     ...    session
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
