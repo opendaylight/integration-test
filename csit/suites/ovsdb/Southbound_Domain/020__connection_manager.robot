@@ -61,9 +61,8 @@ Get Operational Topology to verify the bridge has been added
 
 Get Config Topology to verify the manually added bridge is not added to the config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}    expected_status=200
+    Utils.Log Content    ${resp.text}
     BuiltIn.Should Not Contain    ${resp.text}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}/bridge/${BRIDGE1}
 
 Create a Bridge through controller
@@ -83,9 +82,8 @@ Get Operational Topology to verify the bridge has been added through rest call
 
 Get Config Topology to verify the entry added to the config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}    expected_status=200
+    Utils.Log Content    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ovsdb://uuid/${OVSDB_UUID}/bridge/${BRIDGE2}
 
 Create bridge of already added bridge
@@ -94,9 +92,8 @@ Create bridge of already added bridge
 
 Get Config Topology to verify the entry of existing bridge added to the config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}    expected_status=200
+    Utils.Log Content    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ovsdb://uuid/${OVSDB_UUID}/bridge/${BRIDGE1}
 
 Delete bridge manually
@@ -115,17 +112,16 @@ Get Operational Topology to verify the bridge has been deleted manually
 
 Config Topology Still Contains Bridge
     [Documentation]    This request will fetch the configuration topology from configuration data store
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}    expected_status=200
+    Utils.Log Content    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ovsdb://uuid/${OVSDB_UUID}/bridge/${BRIDGE2}
 
 Delete the Bridge through rest call
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE2}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
+    ...    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE2}
+    ...    expected_status=204
 
 Get Operational Topology after Deletion of Bridge
     [Documentation]    This request will fetch the operational topology after the Bridge is deleted

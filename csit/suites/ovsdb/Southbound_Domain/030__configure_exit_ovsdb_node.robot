@@ -125,10 +125,10 @@ Get Operational Topology with Port
 
 Delete the Port1
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}/termination-point=${PORT1}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}/termination-point=${PORT1}
+    ...    expected_status=204
 
 Get Operational Topology after deletion of Port1
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
@@ -143,10 +143,10 @@ Get Operational Topology after deletion of Port1
 
 Delete the Port2
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}/termination-point=${PORT2}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}/termination-point=${PORT2}
+    ...    expected_status=204
 
 Get Operational Topology after Deletion of Port2
     [Documentation]    This request will fetch the operational topology after the Port is deleted
@@ -161,8 +161,10 @@ Get Operational Topology after Deletion of Port2
 
 Delete the Bridge
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
+    ...    expected_status=204
 
 Get Operational Topology after Deletion of Bridge
     [Documentation]    This request will fetch the operational topology after the Bridge is deleted
@@ -177,8 +179,10 @@ Get Operational Topology after Deletion of Bridge
 
 Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
-    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    204
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    ...    expected_status=204
 
 Get Operational Topology after Deletion of OVSDB Node
     [Documentation]    This request will fetch the operational topology after the OVSDB node is deleted
