@@ -48,9 +48,9 @@ Add a meter
 
 Verify after adding meter config
     [Documentation]    Get the meter stat in config
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${METER_NAME}
 
 Verify after adding meter operational
@@ -80,11 +80,11 @@ Add a flow that includes a meter
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
 
 Verify after adding flow operational
@@ -105,7 +105,7 @@ Remove the flow
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=2?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
@@ -120,5 +120,5 @@ Delete the meter
 Verify after deleting meter
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
+    ${resp}    RequestsLibrary.GET On Session    session    ${REST_CONTEXT}/meter=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${METER_NAME}

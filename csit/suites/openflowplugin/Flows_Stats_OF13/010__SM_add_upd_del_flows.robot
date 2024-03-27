@@ -222,10 +222,11 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}
     ...    headers=${headers}
+    ...    expected_status=anything
     Log    ${resp}
     Log    ${resp.content}
     IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}
@@ -245,10 +246,11 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}?${RFC8040_OPERATIONAL_CONTENT}
     ...    headers=${headers}
+    ...    expected_status=anything
     Log    ${resp}
     Log    ${resp.content}
     IF    ${resp.status_code}!=200    RETURN    ${False}    ${EMPTY}

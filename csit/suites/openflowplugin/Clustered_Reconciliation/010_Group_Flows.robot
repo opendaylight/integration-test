@@ -561,7 +561,7 @@ Extract Flow Duration
     [Documentation]    Extract duration for flow 1 in switch 1.
     [Arguments]    ${member_index}
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    ${session}
     ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=1?content=nonconfig
     ...    headers=${headers}
