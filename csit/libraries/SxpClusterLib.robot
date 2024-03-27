@@ -129,10 +129,9 @@ Clean SXP Cluster
 Check Cluster Node Started
     [Documentation]    Verify that SxpNode has data written to Operational datastore and Node is running on one of cluster nodes
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${CONTROLLER_SESSION}
-    ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/    expected_status=200
     ${started} =    BuiltIn.Set Variable    ${False}
     FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
         ${rc} =    Utils.Run Command On Remote System
@@ -148,10 +147,10 @@ Check Cluster Node Started
 Check Cluster Node Stopped
     [Documentation]    Verify that SxpNode has data removed from Operational datastore and Node is stopped
     [Arguments]    ${node}    ${port}=64999    ${ip}=${node}
-    ${resp} =    RequestsLibrary.Get Request
+    ${resp} =    RequestsLibrary.GET On Session
     ...    ${CONTROLLER_SESSION}
     ...    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    404
+    ...    expected_status=404
     ${stopped} =    BuiltIn.Set Variable    ${False}
     FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
         ${rc} =    Utils.Run Command On Remote System
