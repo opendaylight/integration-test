@@ -13,6 +13,7 @@ Documentation       Robot keyword library (Resource) for handling the GoBgp tool
 ...
 
 Library             Process
+Library             RequestsLibrary
 Library             SSHLibrary
 Resource            ${CURDIR}/BGPcliKeywords.robot
 Resource            ${CURDIR}/RemoteBash.robot
@@ -73,6 +74,9 @@ Verify_GoBgps_Connection
     ...    ${connected}
     ...    ${ALLOWED_STATUS_CODES}
     ...    ${DELETED_STATUS_CODES}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${gobgp_ip}?content=nonconfig
+    ${rsp}=    RequestsLibrary.GET On Session
+    ...    alias=${session}
+    ...    url=${peer_check_url}${gobgp_ip}?content=nonconfig
+    ...    expected_status=any
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
