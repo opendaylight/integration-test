@@ -21,19 +21,6 @@ ${PCEP_VAR_FOLDER}      ${CURDIR}/../variables/tcpmd5user
 
 
 *** Keywords ***
-Setup_Pcep_Operations
-    [Documentation]    Creates Requests session to be used by subsequent keywords.
-    RequestsLibrary.Create_Session
-    ...    alias=pcep_session
-    ...    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations/
-    ...    headers=${HEADERS_XML}
-    ...    auth=${AUTH}
-
-Teardown_Pcep_Operations
-    [Documentation]    Teardown to pair with Setup (otherwise no-op).
-    Log    TODO: The following line does not seem to be implemented by RequestsLibrary. Look for a workaround.
-    # Delete_Session    pcep_session
-
 Add_Xml_Lsp_Return_Json
     [Documentation]    Instantiate LSP according to XML data and return response (json) text.
     [Arguments]    ${xml_data}
@@ -58,7 +45,8 @@ Remove_Xml_Lsp_Return_Json
 Operate_Xml_Lsp_Return_Json
     [Documentation]    Post XML data to given pcep-operations URI, check status_code is 200 and return response text (JSON).
     [Arguments]    ${uri_part}    ${xml_data}
-    ${response}=    RequestsLibrary.POST On Session    alias=pcep_session    url=${uri_part}    data=${xml_data}    expected_status=any
+    ${response}=    RequestsLibrary.POST    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/rests/operations/${uri_part}
+    ...    headers=${HEADERS_XML}    auth=${AUTH}    data=${xml_data}    expected_status=any
     Log    ${xml_data}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
     RETURN    ${response.text}

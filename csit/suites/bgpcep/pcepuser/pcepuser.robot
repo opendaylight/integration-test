@@ -133,7 +133,6 @@ Set_It_Up
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
-    PcepOperations.Setup_Pcep_Operations
 
 Tear_It_Down
     [Documentation]    Download pccmock.log and Log its contents.
@@ -142,7 +141,6 @@ Tear_It_Down
     SSHLibrary.Get_File    pccmock.log
     ${pccmocklog}=    OperatingSystem.Run    cat pccmock.log
     BuiltIn.Log    ${pccmocklog}
-    PcepOperations.Teardown_Pcep_Operations
     Delete_All_Sessions
     Close_All_Connections
 
