@@ -23,9 +23,8 @@ Set StreamRecord
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get StreamRecordConfig
-    ${resp}    RequestsLibrary.Get Request    session    ${STREAMRECORD_CONFIG}
+    ${resp}    RequestsLibrary.GET On Session    session    ${STREAMRECORD_CONFIG}    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete StreamRecord
     ${delresp}    RequestsLibrary.Delete Request    session    ${STREAMRECORD_CONFIG}

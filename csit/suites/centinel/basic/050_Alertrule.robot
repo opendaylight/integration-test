@@ -25,8 +25,7 @@ Set StreamRecord
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Set AlertFieldContentRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${STREAMRECORD_CONFIG}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    session    ${STREAMRECORD_CONFIG}    expected_status=200
     ${result}    To JSON    ${resp.content}
     ${streamRecord}    Get From Dictionary    ${result}    streamRecord
     ${streamList}    Get From Dictionary    ${streamRecord}    streamList
@@ -39,9 +38,8 @@ Set AlertFieldContentRuleRecord
     Should Be Equal As Strings    ${response.status_code}    200
 
 Get AlertFieldContentRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${ALERTFIELDCONTENTRULERECORD}
+    ${resp}    RequestsLibrary.GET On Session   session    ${ALERTFIELDCONTENTRULERECORD}   expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete AlertFieldContentRuleRecord
     ${delresp}    RequestsLibrary.Delete Request    session    ${ALERTFIELDCONTENTRULERECORD}
@@ -49,8 +47,7 @@ Delete AlertFieldContentRuleRecord
     Should Be Equal As Strings    ${delresp.status_code}    200
 
 Set AlertFieldValueRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${STREAMRECORD_CONFIG}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    session    ${STREAMRECORD_CONFIG}    expected_status=200
     ${result}    To JSON    ${resp.content}
     ${streamRecord}    Get From Dictionary    ${result}    streamRecord
     ${streamList}    Get From Dictionary    ${streamRecord}    streamList
@@ -63,9 +60,8 @@ Set AlertFieldValueRuleRecord
     Should Be Equal As Strings    ${response.status_code}    200
 
 Get AlertFieldValueRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${ALERTFIELDVALUERULERECORD}
+    ${resp}    RequestsLibrary.GET On Session    session    ${ALERTFIELDVALUERULERECORD}    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete AlertFieldValueRuleRecord
     ${delresp}    RequestsLibrary.Delete Request    session    ${ALERTFIELDVALUERULERECORD}
@@ -73,8 +69,7 @@ Delete AlertFieldValueRuleRecord
     Should Be Equal As Strings    ${delresp.status_code}    200
 
 Set AlertMessageCountRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${STREAMRECORD_CONFIG}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    session    ${STREAMRECORD_CONFIG}    expected_status=200
     ${result}    To JSON    ${resp.content}
     ${streamRecord}    Get From Dictionary    ${result}    streamRecord
     ${streamList}    Get From Dictionary    ${streamRecord}    streamList
@@ -87,9 +82,8 @@ Set AlertMessageCountRuleRecord
     Should Be Equal As Strings    ${response.status_code}    200
 
 Get AlertMessageCountRuleRecord
-    ${resp}    RequestsLibrary.Get Request    session    ${ALERTMESSAGECOUNTRULERECORD}
+    ${resp}    RequestsLibrary.GET On Session    session    ${ALERTMESSAGECOUNTRULERECORD}    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete AlertMessageCountRuleRecord
     ${delresp}    RequestsLibrary.Delete Request    session    ${ALERTMESSAGECOUNTRULERECORD}
