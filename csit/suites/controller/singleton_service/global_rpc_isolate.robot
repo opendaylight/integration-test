@@ -24,12 +24,12 @@ Default Tags        critical
 
 
 *** Variables ***
-${RPC_URL}                  /restconf/operations/basic-rpc-test:basic-global
+${RPC_URL}                  /rests/operations/basic-rpc-test:basic-global
 &{EMPTY_DICT}
 ${SERVICE}                  Basic-rpc-test']
 ${TEST_LOG_LEVEL}           info
 @{TEST_LOG_COMPONENTS}      org.opendaylight.controller.remote.rpc
-${EOS_URL}                  /restconf/operational/entity-owners:entity-owners
+${EOS_URL}                  /rests/data/entity-owners:entity-owners?content=nonconfig
 ${RPC_STATUS_ISOLATED}      501
 
 
@@ -71,8 +71,8 @@ Rpc_On_Isolated_Node
     ${session} =    Resolve_Http_Session_For_Member    member_index=${old_brt_owner}
     BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     BuiltIn.Pass_Execution    Rpc on isolated node may work for some time(bug 8207), then will fail (bug 8214)
-    ${resp} =    RequestsLibrary.Post Request    ${session}    ${RPC_URL}    data=${EMPTY}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    ${RPC_STATUS_ISOLATED}
+    ${resp} =    RequestsLibrary.POST On Session    ${session}    url=${RPC_URL}    data=${EMPTY}
+    ...    expected_status=${RPC_STATUS_ISOLATED}
 
 Rpc_On_Non_Isolated_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
