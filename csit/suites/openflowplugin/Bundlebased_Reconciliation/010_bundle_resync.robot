@@ -16,16 +16,16 @@ Suite Teardown      End Suite
 
 
 *** Variables ***
-${XMLSDIR}              ${CURDIR}/../../../../csit/variables/openflowplugin
-@{FLOWFILE}             f279.xml    f280.xml    f281.xml    f282.xml    f283.xml    f284.xml    f278.xml
-@{GROUPFILE}            g279.xml    g280.xml    g281.xml
-@{GROUP_ID}             1    2    3
-${FLAG_MSG}             "bundle-based-reconciliation-enabled configuration property was changed to 'true'"
-${STATIC_FLOW}          table=91
+${XMLSDIR}                  ${CURDIR}/../../../../csit/variables/openflowplugin
+@{FLOWFILE}                 f279.xml    f280.xml    f281.xml    f282.xml    f283.xml    f284.xml    f278.xml
+@{GROUPFILE}                g279.xml    g280.xml    g281.xml
+@{GROUP_ID}                 1    2    3
+${FLAG_MSG}                 "bundle-based-reconciliation-enabled configuration property was changed to 'true'"
+${STATIC_FLOW}              table=91
 @{DATA_MODELS}
-...                     data/opendaylight-inventory:nodes?${RFC8040_CONFIG_CONTENT}
-...                     data/opendaylight-inventory:nodes?${RFC8040_OPERATIONAL_CONTENT}
-${INTEGRATION_BRIDGE}   br-int
+...                         data/opendaylight-inventory:nodes?${RFC8040_CONFIG_CONTENT}
+...                         data/opendaylight-inventory:nodes?${RFC8040_OPERATIONAL_CONTENT}
+${INTEGRATION_BRIDGE}       br-int
 
 
 *** Test Cases ***
