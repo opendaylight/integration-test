@@ -34,7 +34,7 @@ Read Records
     ...    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}
     ...    headers=${HEADERS}
     ...    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get Request    session    ${node}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${node}
     RETURN    ${resp.json()}
 
 Update Records

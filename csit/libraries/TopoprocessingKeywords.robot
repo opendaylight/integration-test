@@ -35,8 +35,7 @@ Basic Request Put
 Basic Request Get
     [Documentation]    Send a simple HTTP GET request to a given URL
     [Arguments]    ${overlay_topology_url}
-    ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    Get On Session   session    ${OPERATIONAL_API}/${overlay_topology_url}    expected_status=200
     RETURN    ${resp}
 
 Send Basic Delete Request

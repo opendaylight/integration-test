@@ -28,7 +28,7 @@ Get Model Dump
     ...    timeout=1
     ...    max_retries=0
     FOR    ${model}    IN    @{data_models}
-        ${resp}=    RequestsLibrary.Get Request    model_dump_session    ${restconf_root}/${model}
+        ${resp}=    RequestsLibrary.GET On Session    model_dump_session    ${restconf_root}/${model}
         ${pretty_output}=    To Json    ${resp.text}    pretty_print=True
         Log    ${pretty_output}
     END
