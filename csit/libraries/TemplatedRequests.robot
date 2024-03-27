@@ -119,29 +119,29 @@ Resource            ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
-# List of integers, not strings. Used by DELETE if the resource may be not present.
+# List of strings. Used by DELETE if the resource may be not present.
 @{ALLOWED_DELETE_STATUS_CODES}
-...                                 ${200}
-...                                 ${201}
-...                                 ${204}
-...                                 ${404}
-# List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
+...                                 200
+...                                 201
+...                                 204
+...                                 404
+# List of strings. Used by both PUT and DELETE (if the resource should have been present).
 @{ALLOWED_STATUS_CODES}
-...                                 ${200}
-...                                 ${201}
-...                                 ${204}
-@{DATA_VALIDATION_ERROR}            ${400}    # For testing mildly negative scenarios where ODL reports user error.
-# List of integers, not strings. Used by DELETE if the resource may be not present.
+...                                 200
+...                                 201
+...                                 204
+@{DATA_VALIDATION_ERROR}            400    # For testing mildly negative scenarios where ODL reports user error.
+# List of strings. Used by DELETE if the resource may be not present.
 @{DELETED_STATUS_CODES}
-...                                 ${404}
-...                                 ${409}
+...                                 404
+...                                 409
 # TODO: Add option for delete to require 404.
-@{INTERNAL_SERVER_ERROR}            ${500}    # Only for testing severely negative scenarios where ODL cannot recover.
+@{INTERNAL_SERVER_ERROR}            500   # Only for testing severely negative scenarios where ODL cannot recover.
 @{KEYS_WITH_BITS}                   op    # the default list with keys to be sorted when norm_json libray is used
 @{NO_STATUS_CODES}
-# List of integers, not strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
+# List of strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
 @{UNAUTHORIZED_STATUS_CODES}
-...                                 ${401}
+...                                 401
 
 
 *** Keywords ***
