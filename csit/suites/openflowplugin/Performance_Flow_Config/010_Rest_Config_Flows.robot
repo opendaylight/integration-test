@@ -56,7 +56,7 @@ Start Http Session
 Are Switches Connected
     [Documentation]    Checks Topology Contains a fix number ${switches} of switces.
     [Arguments]    ${switches}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    tcsession
     ...    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}
     ...    headers=${ACCEPT_XML}

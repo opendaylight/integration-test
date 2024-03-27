@@ -48,11 +48,11 @@ Add a group
 
 Verify after adding group config
     [Documentation]    Get the group stat in config
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:group=1?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${GROUP_NAME}
 
 Verify after adding group operational
@@ -82,11 +82,11 @@ Add a flow that includes a group
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1?${RFC8040_CONFIG_CONTENT}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
 
 Verify after adding flow operational
@@ -107,7 +107,7 @@ Remove the flow
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:table=0/flow=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
@@ -122,7 +122,7 @@ Delete the group
 Verify after deleting group
     [Documentation]    Verify the flow removal
     [Tags]    get
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${REST_CONTEXT}/flow-node-inventory:group=1?${RFC8040_CONFIG_CONTENT}
     Should Not Contain    ${resp.content}    ${GROUP_NAME}

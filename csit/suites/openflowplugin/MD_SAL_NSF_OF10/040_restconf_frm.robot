@@ -29,10 +29,10 @@ Add a flow - Output to physical port#
 
 Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    expected_status=200
     Should Contain    ${resp.text}    152
 
 Verify after adding flow operational - Output to physical port#
@@ -54,10 +54,10 @@ Remove a flow - Output to physical port#
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    expected_status=200
     Should Not Contain    ${resp.text}    152
     #    Standing bug #368 - This has been fixed
 

@@ -25,7 +25,7 @@ Get RESTCONF Topology
     ...    Check For Elements At URI
     ...    ${RFC8040_OPERATIONAL_TOPO_API}
     ...    ${node_list}
-    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}
     Log    ${resp.text}
 
 List all the links
@@ -98,9 +98,9 @@ Add Port
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}
+    ${resp}    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_FLOW1_API}
+    ...    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.text}
     Log    ${result}
     ${content}    Get From Dictionary    ${result}    network-topology:topology
