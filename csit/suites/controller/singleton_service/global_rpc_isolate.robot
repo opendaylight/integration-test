@@ -71,8 +71,8 @@ Rpc_On_Isolated_Node
     ${session} =    Resolve_Http_Session_For_Member    member_index=${old_brt_owner}
     BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     BuiltIn.Pass_Execution    Rpc on isolated node may work for some time(bug 8207), then will fail (bug 8214)
-    ${resp} =    RequestsLibrary.Post Request    ${session}    ${RPC_URL}    data=${EMPTY}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    ${RPC_STATUS_ISOLATED}
+    ${resp} =    RequestsLibrary.POST On Session    ${session}    url=${RPC_URL}    data=${EMPTY}
+    ...    expected_status=${RPC_STATUS_ISOLATED}
 
 Rpc_On_Non_Isolated_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
