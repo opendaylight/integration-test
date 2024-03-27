@@ -43,9 +43,12 @@ ${addpeoplecmd}
 ...                         python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype people --itemcount ${ITEM_COUNT} --threads 6
 ${purchasecmd}
 ...                         python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 6
-${carurl}                   /restconf/config/car:cars
-${peopleurl}                /restconf/config/people:people
-${carpeopleurl}             /restconf/config/car-people:car-people
+${carurl}                   /rests/data/car:cars
+${carurl_config}            /rests/data/car:cars?content=config
+${peopleurl}                /rests/data/people:people
+${peopleurl_config}         /rests/data/people:people?content=config
+${carpeopleurl}             /rests/data/car-people:car-people
+${carpeopleurl_config}      /rests/data/car-people:car-people?content=config
 ${CONTROLLER_LOG_LEVEL}     INFO
 ${TOOL_OPTIONS}             ${EMPTY}
 
@@ -61,7 +64,7 @@ Verify Cars
     [Documentation]    Store logs and verify result
     Stop Tool
     Store File To Workspace    cluster_rest_script.log    cluster_rest_script_add_cars.log
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${carurl_config}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-entry
     Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
 
@@ -74,7 +77,7 @@ Verify People
     [Documentation]    Store logs and verify result
     Stop Tool
     Store File To Workspace    cluster_rest_script.log    cluster_rest_script_add_people.log
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${peopleurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${peopleurl_config}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=person
     Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
 
@@ -92,23 +95,20 @@ Verify Purchases
 
 Delete Cars
     [Documentation]    Remove cars from the datastore
-    ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carurl}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carurl}
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${carurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
-    ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${peopleurl}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${peopleurl}
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${peopleurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${peopleurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
-    ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carpeopleurl}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carpeopleurl}
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carpeopleurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${carpeopleurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 
@@ -128,6 +128,7 @@ Start Suite
     SSHLibrary.Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py    .
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
 
 Stop Suite
     [Documentation]    Suite teardown keyword
@@ -149,7 +150,7 @@ Wait_Until_Tool_Finish
 Purchase Is Completed
     [Documentation]    Check purchase of ${item_count} is completed.
     [Arguments]    ${item_count}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carpeopleurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    session    url=${carpeopleurl_config}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-person
     Should Be Equal As Numbers    ${count}    ${item_count}
 
