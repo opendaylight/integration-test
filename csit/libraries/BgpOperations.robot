@@ -273,16 +273,18 @@ AddNeighbor To BGP Configuration On ODL
 Get BGP Configuration On ODL
     [Documentation]    Get bgp configuration
     [Arguments]    ${odl_session}
-    ${resp} =    RequestsLibrary.Get Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.GET On Session    alias=${odl_session}    url=${CONFIG_API}/ebgp:bgp/
     Log    ${resp.text}
     RETURN    ${resp.text}
 
 Delete BGP Configuration On ODL
     [Documentation]    Delete BGP
     [Arguments]    ${odl_session}
-    ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.DELETE On Session
+    ...    alias=${odl_session}
+    ...    url=${CONFIG_API}/ebgp:bgp/
+    ...    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     RETURN    ${resp.text}
 
 Create External Tunnel Endpoint Configuration
@@ -301,13 +303,6 @@ Delete External Tunnel Endpoint Configuration
     ...    mapping=${Kwargs}
     ...    session=session
 
-Get External Tunnel Endpoint Configuration
-    [Documentation]    Get bgp configuration
-    [Arguments]    ${ip}
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
-    Log    ${resp.text}
-    RETURN    ${resp.text}
-
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
     ...    Tear down imported Resources.
@@ -318,7 +313,9 @@ Teardown_Everything
 Check_Example_Bgp_Rib_Content
     [Documentation]    Check the example-bgp-rib content for string
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
-    ${response} =    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_RIB_URI}?content=nonconfig
+    ${response} =    RequestsLibrary.GET On Session
+    ...    alias=${session}
+    ...    url=${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -326,7 +323,9 @@ Check_Example_Bgp_Rib_Content
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Documentation]    Check the example-bgp-rib does not contain the string
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
-    ${response} =    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_RIB_URI}?content=nonconfig
+    ${response} =    RequestsLibrary.GET On Session
+    ...    alias=${session}
+    ...    url=${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -334,7 +333,9 @@ Check_Example_Bgp_Rib_Does_Not_Contain
 Check_Example_IPv4_Topology_Content
     [Documentation]    Check the example-ipv4-topology content for string
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
-    ${response} =    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
+    ${response} =    RequestsLibrary.GET On Session
+    ...    alias=${session}
+    ...    url=${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
@@ -342,7 +343,9 @@ Check_Example_IPv4_Topology_Content
 Check_Example_IPv4_Topology_Does_Not_Contain
     [Documentation]    Check the example-ipv4-topology does not contain the string
     [Arguments]    ${session}    ${string_to_check}
-    ${response} =    RequestsLibrary.Get Request    ${session}    ${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
+    ${response} =    RequestsLibrary.GET On Session
+    ...    alias=${session}
+    ...    url=${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
