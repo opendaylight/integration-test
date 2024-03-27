@@ -196,9 +196,9 @@ Store_Rib_Configuration
     BuiltIn.Set_Suite_Variable    ${rib_old}
 
 Log_Loc_Rib_Operational
-    ${rsp}    RequestsLibrary.Get Request
-    ...    ${CONFIG_SESSION}
-    ...    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/
+    ${rsp}    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=/rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib/loc-rib?content=nonconfig
     BuiltIn.Log    ${rsp.content}
 
 Configure_App_Peer_With_Routes
