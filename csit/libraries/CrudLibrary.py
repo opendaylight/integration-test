@@ -210,7 +210,9 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
 
 def getCars(hostname, port, ignore):
     """Uses the GET on car:cars resource to get all cars in the store using RESTCONF"""
-    resp = UtilLibrary.get(SettingsLibrary.getCarsUrl(hostname, port), "admin", "admin")
+    resp = UtilLibrary.get(
+        SettingsLibrary.getCarsUrl(hostname, port) + "?content=config", "admin", "admin"
+    )
     resp.encoding = "utf-8"
     print(resp.text)
     return resp
@@ -225,7 +227,9 @@ def getPersons(hostname, port, ignore):
     </note>
     """
     resp = UtilLibrary.get(
-        SettingsLibrary.getPersonsUrl(hostname, port), "admin", "admin"
+        SettingsLibrary.getPersonsUrl(hostname, port) + "?content=config",
+        "admin",
+        "admin",
     )
     resp.encoding = "utf-8"
     print(resp.text)
@@ -242,7 +246,9 @@ def getCarPersonMappings(hostname, port, ignore):
     </note>
     """
     resp = UtilLibrary.get(
-        SettingsLibrary.getCarPersonUrl(hostname, port), "admin", "admin"
+        SettingsLibrary.getCarPersonUrl(hostname, port) + "?content=config",
+        "admin",
+        "admin",
     )
     resp.encoding = "utf-8"
     print(resp)
