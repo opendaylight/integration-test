@@ -66,7 +66,7 @@ Bug 7414 Same Endpoint Name
     ...    ${TOOLS_SYSTEM_2_IP}
     ...    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_TOPO_API}    data=${body}
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_TOPO_API}    data=${body}    expected_status=anything
 
 Bug 7414 Different Endpoint Name
     [Documentation]    This test case is supplemental to the other test case for bug 7414. Even when the other
@@ -104,7 +104,7 @@ Bug 7414 Different Endpoint Name
     ...    ${TOOLS_SYSTEM_2_IP}
     ...    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_TOPO_API}    data=${body}
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_TOPO_API}    data=${body}    expected_status=anything
 
 Bug 5221
     [Documentation]    In the case that an ovs node is rebooted, or the ovs service is
@@ -154,8 +154,8 @@ Bug 5221
     ...    ${list}
     ...    pretty_print_json=True
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${bridge}
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${bridge}    expected_status=anything
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}    expected_status=anything
 
 Bug 5177
     [Documentation]    This test case will recreate the bug using the same basic steps as
@@ -172,9 +172,8 @@ Bug 5177
     BuiltIn.Set Suite Variable    ${OVSDB_UUID}
     ${node} =    BuiltIn.Set Variable    uuid/${OVSDB_UUID}
     OVSDB.Add Bridge To Ovsdb Node    ${node}    ${TOOLS_SYSTEM_IP}    ${BRIDGE}    0000000000005177
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}    expected_status=200
+    Utils.Log Content    ${resp.text}
     BuiltIn.Should Contain    ${resp.text}    ${node}/bridge/${BRIDGE}
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     @{list} =    BuiltIn.Create List    ${BRIDGE}
@@ -208,8 +207,8 @@ Bug 4794
     ...    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     # TODO: Bug 5178
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}${node_id}%2Fbridge%2F${BRIDGE}
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}${node_id}
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_API}${node_id}%2Fbridge%2F${BRIDGE}    expected_status=anything
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_API}${node_id}    expected_status=anything
 
 Bug 8280
     [Documentation]    Any config created for a bridge (e.g. added ports) should be reconciled when a bridge is
@@ -237,8 +236,8 @@ Bug 8280
     Utils.Check For Elements At URI    ${RFC8040_CONFIG_TOPO_API}    ${config_store_elements}    pretty_print_json=True
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Ovs-vsctl Output    show    Port "port2"
     [Teardown]    BuiltIn.Run Keywords    Test Teardown
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
-    ...    AND    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}    expected_status=anything
+    ...    AND    RequestsLibrary.DELETE On Session    session    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}    expected_status=anything
 
 Bug 7160
     [Documentation]    If this bug is reproduced, it's possible that the operational store will be
@@ -257,22 +256,26 @@ Bug 7160
     OVSDB.Log Config And Operational Topology
     OVSDB.Create Qos Linked Queue
     OVSDB.Log Config And Operational Topology
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}/queue-list=0
+    ...    url=${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}/queue-list=0
     OVSDB.Log Config And Operational Topology
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}
+    ...    url=${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:qos-entries=${qos}
     OVSDB.Log Config And Operational Topology
-    ${resp} =    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${queue}
+    ...    url=${RFC8040_SOUTHBOUND_NODE_HOST1_API}/ovsdb:queues=${queue}
     OVSDB.Log Config And Operational Topology
-    ${resp} =    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_HOST1_API}
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_HOST1_API}
     OVSDB.Log Config And Operational Topology
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
     OVSDB.Log Config And Operational Topology
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Config and Operational Topology Should Be Empty
 
@@ -296,16 +299,30 @@ Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
     Clean All Ovs Nodes
     # Best effort to clean config store, by deleting all the types of nodes that are used in this suite
-    RequestsLibrary.Delete Request
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}
-    RequestsLibrary.Delete Request
+    ...    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}%2Fbridge%2F${BRIDGE}
+    ...    expected_status=anything
+    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
-    RequestsLibrary.Delete Request    session    ${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    ...    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID}
+    ...    expected_status=anything
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
+    ...    expected_status=anything
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_API}uuid%2F${OVSDB_UUID2}
+    ...    expected_status=anything
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}%2Fbridge%2F${BRIDGE}
+    ...    expected_status=anything
+    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_SOUTHBOUND_NODE_TOOLS_API}
+    ...    expected_status=anything
     OVSDB.Log Config And Operational Topology
     Delete All Sessions
 
