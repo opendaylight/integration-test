@@ -172,9 +172,8 @@ Bug 5177
     BuiltIn.Set Suite Variable    ${OVSDB_UUID}
     ${node} =    BuiltIn.Set Variable    uuid/${OVSDB_UUID}
     OVSDB.Add Bridge To Ovsdb Node    ${node}    ${TOOLS_SYSTEM_IP}    ${BRIDGE}    0000000000005177
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${RFC8040_CONFIG_TOPO_API}    expected_status=200
     OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     BuiltIn.Should Contain    ${resp.text}    ${node}/bridge/${BRIDGE}
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT}
     @{list} =    BuiltIn.Create List    ${BRIDGE}
