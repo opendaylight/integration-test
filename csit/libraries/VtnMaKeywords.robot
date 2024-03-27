@@ -101,16 +101,14 @@ Stop SuiteVtnMaTest
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn:vtns
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn:vtns    expected_status=200
 
 Fetch vtn switch inventory
     [Documentation]    Check if Switch is detected.
     [Arguments]    ${sw_name}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}    expected_status=200
 
 Collect Debug Info
     [Documentation]    Check if Switch is detected.
@@ -243,7 +241,7 @@ Add a pathmap
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-map:global-path-maps
+    ${resp}=    RequestsLibrary.GET On Session    session    restconf/operational/vtn-path-map:global-path-maps
     FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
         should Contain    ${resp.text}    ${pathElement}
     END
@@ -260,7 +258,7 @@ Add a pathpolicy
 Get a pathpolicy
     [Documentation]    Get a pathpolicy for a vtn.
     [Arguments]    ${pathpolicy_id}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
     FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
@@ -349,10 +347,10 @@ Start vlan_topo
 Get flow
     [Documentation]    Get data flow.
     [Arguments]    ${vtn_name}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    expected_status=200
 
 Remove a portmap
     [Documentation]    Remove a portmap for a interface of a vbridge
@@ -519,16 +517,19 @@ Add a flowcondition
 
 Get flowconditions
     [Documentation]    Retrieve the list of flowconditions created
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    RequestsLibrary.Get On Session
+    ...    session
+    ...    restconf/operational/vtn-flow-condition:vtn-flow-conditions
+    ...    expected_status=200
 
 Get flowcondition
     [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition we added "retrieve" argument to differentiate the status code,
     ...    since after removing flowcondition name the status will be different compare to status code when the flowcondition name is present.
     [Arguments]    ${flowcond_name}    ${retrieve}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
+    ...    expected_status=anything
     IF    '${retrieve}' == 'retrieve'
         Should Be Equal As Strings    ${resp.status_code}    200
     ELSE

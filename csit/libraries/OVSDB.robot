@@ -133,9 +133,9 @@ Get OVSDB UUID
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
     [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_http_session}=session
     ${uuid} =    Set Variable    ${EMPTY}
-    ${resp} =    RequestsLibrary.Get Request    ${controller_http_session}    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ${resp} =    RequestsLibrary.GET On Session    ${controller_http_session}    ${RFC8040_OPERATIONAL_TOPO_OVSDB1_API}
+    ...    expected_status=200
     OVSDB.Log Request    ${resp.text}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json} =    RequestsLibrary.To Json    ${resp.text}
     ${topologies} =    Collections.Get From Dictionary    ${resp_json}    network-topology:topology
     ${topology} =    Collections.Get From List    ${topologies}    0
@@ -281,16 +281,16 @@ Get Port Metadata
 
 Log Config And Operational Topology
     [Documentation]    For debugging purposes, this will log both config and operational topo data stores
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session   session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Request    ${resp.text}
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}
     OVSDB.Log Request    ${resp.text}
 
 Config and Operational Topology Should Be Empty
     [Documentation]    This will check that only the expected output is there for both operational and config
     ...    topology data stores. Empty probably means that only ovsdb:1 is there.
-    ${config_resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
-    ${operational_resp} =    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${config_resp} =    RequestsLibrary.GET On Session   session    ${RFC8040_CONFIG_TOPO_API}
+    ${operational_resp} =    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}
     BuiltIn.Should Contain    ${config_resp.text}    {"topology-id":"ovsdb:1"}
     BuiltIn.Should Contain    ${operational_resp.text}    {"topology-id":"ovsdb:1"}
 
@@ -403,7 +403,7 @@ Suite Teardown
     FOR    ${uri}    IN    @{uris}
         RequestsLibrary.Delete Request    session    ${uri}
     END
-    ${resp} =    RequestsLibrary.Get Request    session    ${RFC8040_CONFIG_TOPO_API}
+    ${resp} =    RequestsLibrary.GET On Session    session    ${RFC8040_CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions
 

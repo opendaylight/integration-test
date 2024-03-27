@@ -79,6 +79,7 @@ Verify_ExaBgps_Connection
     ${rsp}=    RequestsLibrary.GET On Session
     ...    alias=${session}
     ...    url=${peer_check_url}${exabgp_ip}?content=nonconfig
+    ...    expected_status=anything
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

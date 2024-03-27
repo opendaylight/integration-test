@@ -308,9 +308,8 @@ Check Linear Topology On Member
     [Documentation]    Check Linear topology.
     [Arguments]    ${switches}    ${member_index}=1
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Contain    ${resp.text}    "node-id":"openflow:${switch}"
         Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:1"
@@ -333,9 +332,8 @@ Check No Switches On Member
     [Documentation]    Check no switch is in topology
     [Arguments]    ${switches}    ${member_index}=1
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Not Contain    ${resp.text}    openflow:${switch}
     END
@@ -344,9 +342,8 @@ Check Number Of Flows On Member
     [Documentation]    Check number of flows in the inventory.
     [Arguments]    ${flows}    ${member_index}=1
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${RFC8040_OPERATIONAL_NODES_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "priority"
     Should Be Equal As Integers    ${count}    ${flows}
 
@@ -354,8 +351,7 @@ Check Number Of Groups On Member
     [Documentation]    Check number of groups in the inventory.
     [Arguments]    ${groups}    ${member_index}=1
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request    ${session}    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    ${session}    ${RFC8040_OPERATIONAL_NODES_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.text}    "group-type"
     Should Be Equal As Integers    ${group_count}    ${groups}
