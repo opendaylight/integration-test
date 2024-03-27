@@ -327,17 +327,17 @@ Odl_To_Play_Template
     ...    headers=${HEADERS_XML}
     ...    expected_status=201
     BuiltIn.Log    ${resp.content}
-    ${resp} =    RequestsLibrary.Get_Request
-    ...    ${CONFIG_SESSION}
-    ...    ${EVPN_CONF_URL}?content=config
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_CONF_URL}?content=config
     ...    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
-    ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
+    ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content    ${ALLOWED_STATUS_CODES}
     BuiltIn.Log    ${aupdate}
     BgpOperations.Verify_Two_Hex_Messages_Are_Equal    ${aupdate}    ${announce_hex}
     BgpRpcClient.play_clean
     Remove_Configured_Routes
-    ${wupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
+    ${wupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content    ${DELETED_STATUS_CODES}
     BuiltIn.Log    ${wupdate}
     BgpOperations.Verify_Two_Hex_Messages_Are_Equal    ${wupdate}    ${withdraw_hex}
     [Teardown]    Remove_Configured_Routes
@@ -362,23 +362,38 @@ Play_To_Odl_Template
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
 
 Verify_Test_Preconditions
-    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}?content=config
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_CONF_URL}?content=config
+    ...    expected_status=any
     BuiltIn.Should_Contain    ${DELETED_STATUS_CODES}    ${resp.status_code}
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_FAMILY_LOC_RIB}    headers=${HEADERS}
-    TemplatedRequests.Normalize_Jsons_And_Compare    ${EMPTY_ROUTES}    ${rsp.content}
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_FAMILY_LOC_RIB}
+    ...    headers=${HEADERS}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${EMPTY_ROUTES}    ${resp.content}
 
 Remove_Configured_Routes
     [Documentation]    Removes the route if present. First GET is for debug purposes.
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS}
-    Log    ${rsp.content}
-    ${rsp} =    RequestsLibrary.Get_Request
-    ...    ${CONFIG_SESSION}
-    ...    ${EVPN_CONF_URL}?content=config
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_LOC_RIB}
     ...    headers=${HEADERS}
-    Log    ${rsp.content}
-    IF    ${rsp.status_code} in ${DELETED_STATUS_CODES}    RETURN
-    ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
+    ...    expected_status=any
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Contain    ${ALLOWED_DELETE_STATUS_CODES}    ${resp.status_code}
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_CONF_URL}?content=config
+    ...    headers=${HEADERS}
+    ...    expected_status=any
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Contain    ${ALLOWED_DELETE_STATUS_CODES}    ${resp.status_code}
+    IF    ${resp.status_code} in ${DELETED_STATUS_CODES}    RETURN
+    ${resp} =    RequestsLibrary.DELETE On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_CONF_URL}
+    ...    expected_status=204
 
 Withdraw_Route_And_Verify
     [Documentation]    Sends withdraw update message from exabgp and verifies route removal from odl's rib
@@ -388,8 +403,14 @@ Withdraw_Route_And_Verify
 
 Get_Update_Content
     [Documentation]    Gets received data from odl's peer
-    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS_XML}
+    [Arguments]    ${expected_status_codes}
+    ${resp} =    RequestsLibrary.GET On Session
+    ...    alias=${CONFIG_SESSION}
+    ...    url=${EVPN_LOC_RIB}
+    ...    headers=${HEADERS_XML}
+    ...    expected_status=any
     BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Contain    ${expected_status_codes}    ${resp.status_code}
     ${update} =    BgpRpcClient.play_get
     BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
     RETURN    ${update}
@@ -397,6 +418,6 @@ Get_Update_Content
 Loc_Rib_Presence
     [Documentation]    Verifies if loc-rib contains expected data
     [Arguments]    ${exp_content}
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB}    headers=${HEADERS}
-    BuiltIn.Log_Many    ${exp_content}    ${rsp.content}
-    TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}
+    ${resp} =    RequestsLibrary.GET On Session    alias=${CONFIG_SESSION}    url=${EVPN_LOC_RIB}    headers=${HEADERS}
+    BuiltIn.Log_Many    ${exp_content}    ${resp.content}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${resp.content}
