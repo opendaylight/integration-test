@@ -24,7 +24,7 @@ ${RANDOM_CONTEXT_ID}                ${EMPTY}
 Check the simple IRD information
     [Documentation]    Get the default IRD information
     Wait Until Keyword Succeeds    20s    2s    Check GET Response Code Equals 200    /${ALTO_SIMPLE_IRD_INFO}
-    ${resp}    RequestsLibrary.Get Request    session    /${ALTO_SIMPLE_IRD_INFO}
+    ${resp}    RequestsLibrary.GET On Session    session    /${ALTO_SIMPLE_IRD_INFO}
     ${context_id}    ${BASE_URL}    Get Basic Info    ${resp.content}
     Set Suite Variable    ${BASE_URL}
     Set Suite Variable    ${RANDOM_CONTEXT_ID}    ${context_id}
@@ -72,8 +72,7 @@ Add one IRD configuration entry in one IRD instance
 *** Keywords ***
 Check GET Response Code Equals 200
     [Arguments]    ${uri_without_ip_port}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri_without_ip_port}
-    Should Be True    ${resp.status_code}==200
+    ${resp}    RequestsLibrary.GET On Session    session    ${uri_without_ip_port}    expected_status=200
 
 Create An IRD
     [Arguments]    ${context_id}    ${IRD_id}
