@@ -48,9 +48,11 @@ Successful Authentication Including Domain
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_SDN_DOMAIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Successful Authentication Without Domain
@@ -67,9 +69,11 @@ Successful Authentication Without Domain
     ...
     ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong User
@@ -84,9 +88,11 @@ Unsuccessful Authentication Wrong User
     ...
     ...    Due to authentication fails, authorization is not evaluated
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_INVALID}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 UnSuccessful Authentication Without Domain
@@ -102,9 +108,11 @@ UnSuccessful Authentication Without Domain
     ...
     ...    Due to authentication fails, authorization is not evaluated
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Authentication Wrong Domain
@@ -125,9 +133,11 @@ Unsuccessful Authentication Wrong Domain
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_SDN_WRONG_DOM}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful Basic Authorization
@@ -146,9 +156,11 @@ Unsuccessful Basic Authorization
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp_ok}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_ok}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp_ok.status_code}
-    ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
 
 Unsuccessful Dynamic Authorization
@@ -167,9 +179,11 @@ Unsuccessful Dynamic Authorization
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp_nook}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
-    ${resp_nook}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp_nook}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp_nook.status_code}
 
 Unsuccessful Dynamic Authorization 2
@@ -196,18 +210,22 @@ Unsuccessful Dynamic Authorization 2
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_SDN_DOMAIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session
     ...    session
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 Unsuccessful No Keystone Connection
@@ -223,18 +241,21 @@ Unsuccessful No Keystone Connection
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_SDN_DOMAIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
     Create Session
     ...    session
     ...    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    auth=${AUTH_CSC_NO_ADMIN}
     ...    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get Request    session    ${URI_RESTCONF}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.GET On Session    session    url=${URI_RESTCONF}    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session    session    url=${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
 
 
@@ -346,13 +367,14 @@ Provision MDSAL
     Create Session    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_URI}    /restconf/config/aaa:http-authorization
     ${body_dyn}    OperatingSystem.Get File    ${PUT_DYNAMIC_AUTH_FILE}
-    ${resp}    RequestsLibrary.Put Request
+    ${resp}    RequestsLibrary.PUT On Session
     ...    session_admin
-    ...    ${PUT_DYNAMIC_AUTH_URI}
+    ...    url=${PUT_DYNAMIC_AUTH_URI}
     ...    data=${body_dyn}
     ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Delete Request    session_admin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    DELETE On Session    session_admin    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 
 Restart Controller
     [Documentation]    Controller restart is needed in order the new shiro.ini config takes effect
@@ -367,7 +389,7 @@ Restart Controller
 Get Controller Modules
     [Documentation]    Get the restconf modules, check 200 status and ietf-restconf presence
     Create Session    session1    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${resp}    RequestsLibrary.Get_Request    session1    ${MODULES_API}
+    ${resp}    RequestsLibrary.GET On Session    session1    url=${MODULES_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
