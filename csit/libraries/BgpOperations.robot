@@ -280,9 +280,8 @@ Get BGP Configuration On ODL
 Delete BGP Configuration On ODL
     [Documentation]    Delete BGP
     [Arguments]    ${odl_session}
-    ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.DELETE On Session    ${odl_session}    url=${CONFIG_API}/ebgp:bgp/    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     RETURN    ${resp.text}
 
 Create External Tunnel Endpoint Configuration
