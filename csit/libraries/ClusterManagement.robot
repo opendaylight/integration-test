@@ -30,7 +30,7 @@ Documentation       Resource housing Keywords common to several suites for clust
 ...
 ...                 TODO: Unify capitalization of Leaders and Followers.
 
-Library             RequestsLibrary    # for Create_Session and To_Json
+Library             RequestsLibrary    # for Create_Session
 Library             Collections
 Library             String
 Library             ClusterEntities.py
@@ -244,7 +244,7 @@ Get_Raft_Property_From_Shard_Member
     ...    uri=${uri}
     ...    session=${session}
     ...    http_timeout=${http_timeout}
-    ${data_object} =    RequestsLibrary.To_Json    ${data_text}
+    ${data_object} =    Utils.Json Parse From String    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
     ${raft_property} =    Collections.Get_From_Dictionary    ${value}    ${property}
     RETURN    ${raft_property}
@@ -1065,7 +1065,7 @@ ClusterManagement__Parse_Sync_Status
     [Documentation]    Return sync status parsed out of given text. Called twice by Get_Sync_Status_Of_Member.
     [Arguments]    ${shard_manager_text}
     BuiltIn.Log    ${shard_manager_text}
-    ${manager_object} =    RequestsLibrary.To_Json    ${shard_manager_text}
+    ${manager_object} =    Utils.Json Parse From String    ${shard_manager_text}
     ${value_object} =    Collections.Get_From_Dictionary    dictionary=${manager_object}    key=value
     ${sync_status} =    Collections.Get_From_Dictionary    dictionary=${value_object}    key=SyncStatus
     RETURN    ${sync_status}
