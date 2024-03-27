@@ -11,7 +11,7 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${REST_CONTEXT}     /restconf/operational/opendaylight-inventory:nodes
+${REST_CONTEXT}     /rests/data/opendaylight-inventory:nodes
 
 
 *** Test Cases ***
@@ -25,9 +25,11 @@ Get list of nodes
 Get nodeconnector for the root node
     [Documentation]    Get the inventory for the root node
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:1
+    ${resp}    RequestsLibrary.GET On Session
+    ...    session
+    ...    url=${REST_CONTEXT}/node=openflow%3A1?content=nonconfig
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    30s    2s    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.content}
 
 Get nodeconnector for a node
@@ -48,8 +50,10 @@ Get Stats for a node
 *** Keywords ***
 Check Every Nodes
     [Arguments]    ${numnodes}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session
+    ...    session
+    ...    url=${REST_CONTEXT}?content=nonconfig
+    ...    expected_status=200
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
         Should Contain    ${resp.content}    openflow:${IND}
     END
@@ -57,9 +61,11 @@ Check Every Nodes
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        ${resp}    RequestsLibrary.GET On Session
+        ...    session
+        ...    url=${REST_CONTEXT}/node=openflow%3A${IND}?content=nonconfig
+        ...    expected_status=200
         Log    ${resp.content}
-        Should Be Equal As Strings    ${resp.status_code}    200
         Should Contain    ${resp.content}    flow-capable-node-connector-statistics
         Should Contain    ${resp.content}    flow-table-statistics
     END
@@ -67,9 +73,11 @@ Check Every Nodes Stats
 Check Every Nodes Nodeconnector
     [Arguments]    ${numnodes}
     FOR    ${IND}    IN RANGE    2    ${numnodes+1}
-        ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:${IND}
+        ${resp}    RequestsLibrary.GET On Session
+        ...    session
+        ...    url=${REST_CONTEXT}/node=openflow%3A${IND}?content=nonconfig
+        ...    expected_status=200
         Log    ${resp.content}
-        Should Be Equal As Strings    ${resp.status_code}    200
         Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}
     END
 
