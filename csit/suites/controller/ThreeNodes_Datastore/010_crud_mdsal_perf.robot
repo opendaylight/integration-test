@@ -61,7 +61,7 @@ Verify Cars
     [Documentation]    Store logs and verify result
     Stop Tool
     Store File To Workspace    cluster_rest_script.log    cluster_rest_script_add_cars.log
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${carurl}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-entry
     Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
 
@@ -74,7 +74,7 @@ Verify People
     [Documentation]    Store logs and verify result
     Stop Tool
     Store File To Workspace    cluster_rest_script.log    cluster_rest_script_add_people.log
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${peopleurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${peopleurl}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=person
     Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
 
@@ -94,21 +94,21 @@ Delete Cars
     [Documentation]    Remove cars from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carurl}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${carurl}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${peopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${peopleurl}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${peopleurl}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    ${car_leader_session}    ${carpeopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carpeopleurl}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${carpeopleurl}   expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 
@@ -149,7 +149,7 @@ Wait_Until_Tool_Finish
 Purchase Is Completed
     [Documentation]    Check purchase of ${item_count} is completed.
     [Arguments]    ${item_count}
-    ${rsp}=    RequestsLibrary.Get Request    ${car_leader_session}    ${carpeopleurl}    headers=${ACCEPT_XML}
+    ${rsp}=    RequestsLibrary.GET On Session    ${car_leader_session}    ${carpeopleurl}    headers=${ACCEPT_XML}
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-person
     Should Be Equal As Numbers    ${count}    ${item_count}
 
