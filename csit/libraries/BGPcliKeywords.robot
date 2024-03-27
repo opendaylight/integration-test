@@ -15,6 +15,7 @@ Documentation       Robot keyword library (Resource) for handling the BGP speake
 Library             SSHLibrary    timeout=10s
 Library             RequestsLibrary
 Resource            ../variables/Variables.robot
+Resource            BGPSpeaker.robot
 Resource            RemoteBash.robot
 Resource            NexusKeywords.robot
 
