@@ -1,4 +1,5 @@
 *** Settings ***
+Library     RequestsLibrary
 Library     SSHLibrary
 Library     Telnet
 
@@ -23,14 +24,14 @@ Get Switch Datapath ID
 Verify Switch In Operational Data Store
     [Documentation]    Verifies the existence of the switch.datapath_id in the operational datastore.
     [Arguments]    ${switch}
-    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
+    ${resp}=    RequestsLibrary.GET On Session    session    url=${REST_CONTEXT}
     Log    ${resp.text}
     Should Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 
 Verify Switch Not In Operational Data Store
     [Documentation]    Verifies that the given switch.datapath_id is not in the operational datastore.
     [Arguments]    ${switch}
-    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
+    ${resp}=    RequestsLibrary.GET On Session    session    url=${REST_CONTEXT}
     Log    ${resp.text}
     Should Not Match Regexp    ${resp.text}    openflow:${switch.datapath_id}
 

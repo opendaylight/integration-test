@@ -20,23 +20,23 @@ ${send_echo_url}        /rests/operations/sal-echo:send-echo
 *** Test Cases ***
 Sending Barrier
     [Documentation]    Test to send barrier
-    ${resp}=    RequestsLibrary.Post Request
+    ${resp}=    RequestsLibrary.POST On Session
     ...    session
-    ...    ${send_barrier_url}
+    ...    url=${send_barrier_url}
     ...    data=${RPC_SEND_BARRIER_DATA}
     ...    headers=${HEADERS_XML}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 Sending Echo
     [Documentation]    Test to send echo
-    ${resp}=    RequestsLibrary.Post Request
+    ${resp}=    RequestsLibrary.POST On Session
     ...    session
-    ...    ${send_echo_url}
+    ...    url=${send_echo_url}
     ...    data=${RPC_SEND_ECHO_DATA}
     ...    headers=${HEADERS_XML}
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
 
 
 *** Keywords ***
