@@ -36,8 +36,8 @@ Get CCAP
     [Documentation]    Get Single CCAP
     [Tags]    packetcable pcmm reset call
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    ${resp}    RequestsLibrary.Get Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    Should be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
+    ...    expected_status=200
 
 Delete CAPP
     [Documentation]    Delete Single CCAP
@@ -61,8 +61,7 @@ Add Multiple.CCAPs
 Get ALL.CCAPs
     [Documentation]    Get ALL CCAPs
     [Tags]    packetcable pcmm reset call
-    ${resp}    RequestsLibrary.Get Request    ODLSession    ${ODLREST_CCAPS}
-    Should be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.GET On Session    ODLSession    ${ODLREST_CCAPS}    expected_status=200
 
 Delete All.CCAPs
     [Documentation]    Delete ALL CCAPs
