@@ -114,7 +114,9 @@ Check For Specific Number Of Elements At URI
 Log Content
     [Arguments]    ${resp_content}
     IF    '''${resp_content}''' != '${EMPTY}'
-        ${resp_json}=    RequestsLibrary.To Json    ${resp_content}    pretty_print=True
+        ${resp_json}=    BuiltIn.Evaluate
+        ...    json.dumps(json.loads('''${resp_content}'''), sort_keys=True, indent=4, separators=(',', ': '))
+        ...    modules=json
     ELSE
         ${resp_json}=    BuiltIn.Set Variable    ${EMPTY}
     END
@@ -176,7 +178,7 @@ Clean Up Ovs
 Extract Value From Content
     [Documentation]    Will take the given response content and return the value at the given index as a string
     [Arguments]    ${content}    ${index}
-    ${JSON}=    Evaluate    json.loads('''${content}''')    json
+    ${JSON}=    BuiltIn.Evaluate    json.loads('''${content}''')    modules=json
     ${value}=    Set Variable    ${JSON${index}}
     RETURN    ${value}
 

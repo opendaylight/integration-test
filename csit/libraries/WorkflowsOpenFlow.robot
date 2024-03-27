@@ -360,6 +360,10 @@ Workflow Setup
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt
-    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    Run Keyword And Ignore Error
+    ...    RequestsLibrary.DELETE On Session
+    ...    session
+    ...    url=${RFC8040_NODES_API}
+    ...    expected_status=anything
     Utils.Clean Mininet System
     RequestsLibrary.Delete All Sessions
