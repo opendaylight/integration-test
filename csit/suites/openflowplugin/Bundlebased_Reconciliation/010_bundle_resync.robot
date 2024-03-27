@@ -93,7 +93,7 @@ Start Suite
 
 End Suite
     [Documentation]    Run at end of the suite
-    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    url=${RFC8040_NODES_API}
     KarafKeywords.Issue_Command_On_Karaf_Console
     ...    log:set INFO org.opendaylight.openflowplugin.applications.frm.impl.FlowNodeReconciliationImpl
     SSHLibrary.Close All Connections
