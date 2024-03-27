@@ -71,8 +71,7 @@ IDM Endpoints Only Available To admin Role
     [Documentation]    A user with a non-"admin" role should not have access to AAA endpoints
     ${auth} =    Create List    ${USER_USER}    ${USER_PW}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
-    ${resp} =    RequestsLibrary.Get Request    httpbin    ${USERS_REST_URL}
-    Should Be Equal As Numbers    ${resp.status_code}    401
+    ${resp} =    RequestsLibrary.GET On Session    httpbin    url=${USERS_REST_URL}    expected_status=401
 
 
 *** Keywords ***
@@ -81,8 +80,7 @@ Auth Should Fail
     [Arguments]    ${url}    ${user}    ${password}
     @{auth} =    Create List    ${user}    ${password}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
-    ${resp} =    RequestsLibrary.Get Request    httpbin    ${url}
-    Should Be Equal As Strings    ${resp.status_code}    401
+    ${resp} =    RequestsLibrary.GET On Session    httpbin    url=${url}    expected_status=401
     ${header_value} =    Convert To Uppercase    ${resp.headers}[www-authenticate]
     Should Contain    ${header_value}    BASIC
     Log    ${resp.content}
@@ -92,5 +90,4 @@ Auth Should Pass
     [Arguments]    ${url}    ${user}    ${password}
     @{auth} =    Create List    ${user}    ${password}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${auth}    headers=${HEADERS}
-    ${resp} =    RequestsLibrary.Get Request    httpbin    ${url}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp} =    RequestsLibrary.GET On Session    httpbin    url=${url}    expected_status=200
