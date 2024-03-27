@@ -24,53 +24,59 @@ ${agg2-connector-id2}       4
 *** Test Cases ***
 Get the Specific Node Inventory and Lacp aggregator details
     [Documentation]    Get the lacp-aggregator data for specific node
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}    GET On Session    session    ${OPERATIONAL_NODES_API}/node/${node1}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    ${agg-id1}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    ${agg-id2}
 
 Get information of each lacp-aggregator for a node
     [Documentation]    Get each lacp-aggregator data for a node
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id1}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}    GET On Session    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id1}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg1-connector-id1}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg1-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}    GET On Session    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
 
 Get node connector data for node 1
     [Documentation]    Get the node connector inventory for node 1
-    ${resp}    Get Request
+    ${resp}    GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id1}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id1}    agg-id
-    ${resp}    Get Request
+    ${resp}    GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg1-connector-id2}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id1}    agg-id
-    ${resp}    Get Request
+    ${resp}    GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id1}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id2}    agg-id
-    ${resp}    Get Request
+    ${resp}    GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/node-connector/${node1}:${agg2-connector-id2}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify specific LACP node connector data for node    ${resp.content}    ${agg-id2}    agg-id
 
 
 *** Keywords ***
-Verify LACP RESTAPI Response Code for node
-    [Documentation]    Will check for the response code of the REST query
+Verify LACP RESTAPI Response Content for node
+    [Documentation]    Will check for the response content of the REST query
     [Arguments]    ${resp}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
 
 Verify LACP RESTAPI Aggregator and Tag Contents
@@ -90,8 +96,8 @@ Verify specific LACP node connector data for node
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}    Get Request    session    ${OPERATIONAL_NODES_API}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}    GET On Session    session    ${OPERATIONAL_NODES_API}    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
 
