@@ -20,7 +20,7 @@ Variables           ../variables/Variables.py
 Check No Switches In Inventory
     [Documentation]    Check no switch is in inventory
     [Arguments]    ${switches}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Not Contain    ${resp.text}    "openflow:${switch}"
@@ -29,9 +29,9 @@ Check No Switches In Inventory
 Check No Switches In Topology
     [Documentation]    Check no switch is in topology
     [Arguments]    ${switches}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ...    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Not Contain    ${resp.text}    openflow:${switch}
     END
@@ -40,9 +40,9 @@ Check Switches In Inventory
     [Documentation]    Check all switches and stats in operational inventory
     [Arguments]    ${switches}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}
+        ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_NODES_API}/node=openflow%3A${switch}
+        ...    expected_status=200
         Log    ${resp.text}
-        Should Be Equal As Strings    ${resp.status_code}    200
         Should Contain    ${resp.text}    flow-capable-node-connector-statistics
         Should Contain    ${resp.text}    flow-table-statistics
     END
@@ -50,27 +50,24 @@ Check Switches In Inventory
 Check Switches In Topology
     [Documentation]    Check switches are in the topology.
     [Arguments]    ${switches}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "node-id":"openflow:
     BuiltIn.Should Be Equal As Numbers    ${count}    ${switches}
 
 Check Number Of Links
     [Documentation]    Check number of links in the topolgy.
     [Arguments]    ${links}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "link-id":"openflow:
     Should Be Equal As Integers    ${count}    ${links}
 
 Check Linear Topology
     [Documentation]    Check Linear topology.
     [Arguments]    ${switches}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     FOR    ${switch}    IN RANGE    1    ${switches+1}
         Should Contain    ${resp.text}    "node-id":"openflow:${switch}"
         Should Contain    ${resp.text}    "tp-id":"openflow:${switch}:1"
@@ -98,44 +95,39 @@ Check Flows Operational Datastore
 Check Number Of Flows
     [Documentation]    Check number of flows in the inventory.
     [Arguments]    ${flows}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_NODES_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "priority"
     Should Be Equal As Integers    ${count}    ${flows}
 
 Check Number Of Groups
     [Documentation]    Check number of groups in the inventory.
     [Arguments]    ${groups}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_NODES_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.text}    "group-type"
     Should Be Equal As Integers    ${group_count}    ${groups}
 
 Check Flow Stats Are Available
     [Documentation]    A GET on the /node=${node_id} inventory API is made and flow stats string is checked for existence.
     [Arguments]    ${node_id}    ${flows}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:table=2
+    ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:table=2    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.text}    priority    ${flows}
 
 Check Number Of Hosts
     [Documentation]    Check number of hosts in topology
     [Arguments]    ${hosts}
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Log    ${resp.text}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.text}    "node-id":"host:
     Should Be Equal As Integers    ${count}    ${hosts}
 
 Check No Hosts
     [Documentation]    Check if all hosts are deleted from inventory
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_TOPO_API}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_TOPO_API}    expected_status=200
     Should Not Contain    ${resp.text}    "node-id":"host:
 
 Add Table Miss Flows
@@ -305,7 +297,7 @@ Add Group To Controller And Verify
     ...    data=${group_body}
     Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:group=${group_id}?content=config
     ...    headers=${ACCEPT_XML}
@@ -323,10 +315,11 @@ Add Flow To Controller And Verify
     ...    data=${flow_body}
     Log    ${resp.text}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:table=${table_id}/flow=${flow_id}?content=config
     ...    headers=${ACCEPT_XML}
+    ...    expected_status=200
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
     Compare Xml    ${flow_body}    ${resp.text}
@@ -349,7 +342,7 @@ Remove Group From Controller And Verify
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:group=${group_id}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.Get On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:group=${group_id}?content=config
     IF    ${resp.status_code} == 404 or ${resp.status_code} == 409    RETURN
@@ -364,7 +357,7 @@ Remove Flow From Controller And Verify
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:table=${table_id}/flow=${flow_id}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.Get On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=${node_id}/flow-node-inventory:table=${table_id}/flow=${flow_id}?content=config
     IF    ${resp.status_code} == 404 or ${resp.status_code} == 409    RETURN
@@ -402,7 +395,7 @@ Remove Default Flows
     ...    headers=${headers}
     Log    ${resp.text}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_NODES_API}
     Log    ${resp.text}
     Should Not Contain    ${resp.text}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER
@@ -440,7 +433,7 @@ Flow Presence In Config Store
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     [Arguments]    ${expvalue}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.Get On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}/flow=${flow_id}?content=config
     ...    headers=${headers}
@@ -456,7 +449,7 @@ Flow Presence In Operational Store
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     [Arguments]    ${expvalue}    ${check_id}=${False}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.Get On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A${switch_idx}/flow-node-inventory:table=${table_id}
     ...    headers=${headers}
@@ -604,7 +597,7 @@ Delete Flow Via Restconf
 Get Flow Id
     [Documentation]    This verifies specific flow-id for particular table-id matching from the flow element
     [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    session
     ...    ${RFC8040_NODES_API}/node=openflow%3A${dpnid}/flow-node-inventory:table=${table_id}?content=config
     BuiltIn.Log    ${resp.text}

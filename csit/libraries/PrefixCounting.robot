@@ -35,7 +35,8 @@ Get_Ipv4_Topology
     ...
     ...    Contrary to Utils.Get_Data_From_URI, this does not Log the (potentially huge) content.
     [Arguments]    ${session}=operational    ${topology}=example-ipv4-topology
-    ${response} =    RequestsLibrary.GET On Session    ${session}    url=${PC_NW_TOPOLOGY}=${topology}?content=nonconfig    expected_status=any
+    ${response} =    RequestsLibrary.GET On Session    ${session}    url=${PC_NW_TOPOLOGY}=${topology}?content=nonconfig
+    ...    expected_status=any
     IF    ${response.status_code} != 200
         Fail    Get on ${topology} returned status code ${response.status_code} with message: ${response.text}
     END

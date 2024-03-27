@@ -74,10 +74,12 @@ Verify_ExaBgps_Connection
     [Documentation]    Checks peer presence in operational datastore
     [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     ${peer_check_url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${peer_check_url}${exabgp_ip}?content=nonconfig
+    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    200    404
+    ${rsp}=    RequestsLibrary.GET On Session
+    ...    ${session}
+    ...    ${peer_check_url}${exabgp_ip}?content=nonconfig
+    ...    expected_status=${exp_status_code}
     BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 
 Upload_ExaBgp_Cluster_Config_Files
     [Documentation]    Uploads exabgp config files.

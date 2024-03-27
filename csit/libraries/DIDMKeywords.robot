@@ -12,8 +12,7 @@ Resource            ../variables/openflowplugin/Variables.robot
 *** Keywords ***
 Check DIDM Registered With Device
     [Documentation]    Check for DIDM registered with the device
-    ${resp}=    RequestsLibrary.Get Request    session    ${RFC8040_OPERATIONAL_NODES_API}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    RequestsLibrary.GET On Session    session    ${RFC8040_OPERATIONAL_NODES_API}    expected_status=200
     Log    ${resp.text}
     Should Contain    ${resp.text}    didm
     RETURN    ${resp.text}

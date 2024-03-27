@@ -10,8 +10,8 @@ Suite Teardown      Delete All Sessions
 *** Test Cases ***
 Create Basic Import
     [Documentation]    schedule a basic import/restore with data containg controller mounting itself as a NETCONF
-    ...                device. The configuration is documented in
-    ...                https://docs.opendaylight.org/projects/netconf/en/latest/user-guide.html#spawning-new-netconf-connectors
+    ...    device. The configuration is documented in
+    ...    https://docs.opendaylight.org/projects/netconf/en/latest/user-guide.html#spawning-new-netconf-connectors
     [Tags]    create restore
     DaeximKeywords.Cleanup The Export Files    ${FIRST_CONTROLLER_INDEX}
     ClusterManagement.Stop_Members_From_List_Or_All
