@@ -3,6 +3,7 @@ Documentation       Bulkomatic Keyword library contains keywords for performing 
 ...                 with a single bulkomatic API we can trigger bulk flows in config datastore which eventually populates switches and operational datastore
 ...                 So far this library is only to be used by MD-SAL clustering and OpenFlowplugin clustering test as it is very specific for these tests
 
+Resource            ClusterManagement.robot
 Resource            Utils.robot
 Variables           ../variables/Variables.py
 
@@ -24,7 +25,7 @@ Operation Status Check
     [Documentation]    Checks to see if read or write operation is successfull in controller node.
     [Arguments]    ${op_status_uri}    ${controller_index}
     ${data}=    ClusterManagement.Get From Member    ${op_status_uri}    ${controller_index}
-    ${json}=    To Json    ${data}
+    ${json}=    Utils.Json Parse From String    ${data}
     ${value}=    Get From Dictionary    ${json}    value
     ${value}=    Convert to String    ${value}
     ${two}=    Convert to String    2
@@ -92,7 +93,7 @@ Verify Flow Count
     [Documentation]    Verify Flow Count in member ${controller_index} matches ${flow_count}.
     [Arguments]    ${flow_count}    ${controller_index}
     ${data}=    Get Bulk Flow Count    ${controller_index}
-    ${json}=    To Json    ${data}
+    ${json}=    Utils.Json Parse From String    ${data}
     ${value}=    Get From Dictionary    ${json}    value
     Should Be Equal As Strings    ${value}    ${flow_count}
 

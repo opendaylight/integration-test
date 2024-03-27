@@ -500,7 +500,7 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command}=    BuiltIn.Set Variable    sudo iptables -v -F
     BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Run_Bash_Command_On_List_Or_All    ${command}
-    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${RFC8040_NODES_API}
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.DELETE On Session    session    url=${RFC8040_NODES_API}
     RequestsLibrary.Delete All Sessions
 
 Add Groups And Flows On Member
@@ -536,15 +536,15 @@ Remove Single Group And Flow On Member
     [Arguments]    ${member_index}=1
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
     FOR    ${switch}    IN RANGE    1    ${switches+1}
-        RequestsLibrary.Delete Request
+        RequestsLibrary.DELETE On Session
         ...    ${session}
-        ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:table=0/flow=1
-        RequestsLibrary.Delete Request
+        ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:table=0/flow=1
+        RequestsLibrary.DELETE On Session
         ...    ${session}
-        ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1
-        RequestsLibrary.Delete Request
+        ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1
+        RequestsLibrary.DELETE On Session
         ...    ${session}
-        ...    ${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1000
+        ...    url=${RFC8040_NODES_API}/node=openflow%3A${switch}/flow-node-inventory:group=1000
     END
 
 Check Flow Stats Are Not Frozen
@@ -561,12 +561,12 @@ Extract Flow Duration
     [Documentation]    Extract duration for flow 1 in switch 1.
     [Arguments]    ${member_index}
     ${session}=    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${resp}=    RequestsLibrary.Get Request
+    ${resp}=    RequestsLibrary.GET On Session
     ...    ${session}
-    ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=1?content=nonconfig
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=1?content=nonconfig
     ...    headers=${headers}
     Log    ${resp.content}
-    ${json_resp}=    RequestsLibrary.To_Json    ${resp.content}
+    ${json_resp}=    Utils.Json Parse From String    ${resp.content}
     ${flow_list}=    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow
     ${flow_stats}=    Collections.Get_From_Dictionary
     ...    ${flow_list}[0]

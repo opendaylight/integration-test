@@ -20,19 +20,18 @@ ${BODY2}
 *** Test Cases ***
 Add a flow - Output to physical port#
     [Documentation]    Push a flow through REST-API
-    ${resp}    RequestsLibrary.Put Request
+    ${resp}    RequestsLibrary.PUT On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=152
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=152
     ...    headers=${HEADERS_XML}
     ...    data=${BODY2}
-    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
+    ...    expected_status=200
     Should Contain    ${resp.text}    152
 
 Verify after adding flow operational - Output to physical port#
@@ -47,17 +46,17 @@ Verify after adding flow operational - Output to physical port#
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
-    ${resp}    RequestsLibrary.Delete Request
+    ${resp}    RequestsLibrary.DELETE On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=152
-    Should Be Equal As Strings    ${resp.status_code}    204
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0/flow=152
+    ...    expected_status=204
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
-    ...    ${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    url=${RFC8040_NODES_API}/node=openflow%3A1/flow-node-inventory:table=0?content=config
+    ...    expected_status=200
     Should Not Contain    ${resp.text}    152
     #    Standing bug #368 - This has been fixed
 
