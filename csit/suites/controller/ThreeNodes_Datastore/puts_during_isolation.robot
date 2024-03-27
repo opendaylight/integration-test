@@ -33,7 +33,8 @@ ${ITEM_COUNT}               ${10000}
 ${THREADS}                  10
 ${ADDCMD}
 ...                         python ${TOOL_NAME} --port ${RESTCONFPORT} add-with-retries --itemtype car --itemcount ${ITEM_COUNT} --threads ${THREADS}
-${CARURL}                   /restconf/config/car:cars
+${CARURL}                   /rests/data/car:cars
+${CARURL_CONFIG}            /rests/data/car:cars?content=config
 ${SHARD_NAME}               car
 ${SHARD_TYPE}               config
 ${TEST_LOG_LEVEL}           info
@@ -86,9 +87,8 @@ Rejoin_Isolated_Member
 Delete Cars
     [Documentation]    Remove cars from the datastore
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
-    ${rsp} =    RequestsLibrary.Delete Request    ${session}    ${CARURL}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp} =    RequestsLibrary.Get Request    ${session}    ${CARURL}
+    ${rsp} =    RequestsLibrary.DELETE On Session    ${session}    url=${CARURL}    expected_status=200
+    ${rsp} =    RequestsLibrary.GET On Session    ${session}    url=${CARURL_CONFIG}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 
@@ -113,7 +113,7 @@ Stop Suite
     Stop_Tool
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
     # best effort to make sure cars are deleted in case more suites will run after this and the delete test case had trouble
-    ${rsp} =    RequestsLibrary.Delete Request    ${session}    ${CARURL}
+    ${rsp} =    RequestsLibrary.DELETE On Session    ${session}    url=${CARURL}    expected_status=anything
     BuiltIn.Log    ${rsp.status_code} : ${rsp.text}
     SSHKeywords.Virtual_Env_Delete
     Store_File_To_Workspace    ${out_file}    ${out_file}
@@ -147,7 +147,7 @@ Verify_Cars_Count
 Get_Cars_Count
     [Documentation]    Count car items in config ds.
     [Arguments]    ${session}
-    ${resp} =    RequestsLibrary.Get_Request    ${session}    ${CARURL}
+    ${resp} =    RequestsLibrary.GET On Session    ${session}    url=${CARURL_CONFIG}
     ${count} =    BuiltIn.Evaluate    len(${resp.json()}[cars][car-entry])
     RETURN    ${count}
 
