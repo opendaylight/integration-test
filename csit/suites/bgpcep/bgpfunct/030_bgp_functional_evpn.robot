@@ -377,8 +377,7 @@ Remove_Configured_Routes
     ...    headers=${HEADERS}
     Log    ${rsp.content}
     IF    ${rsp.status_code} in ${DELETED_STATUS_CODES}    RETURN
-    ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
+    ${resp} =    RequestsLibrary.DELETE On Session    ${CONFIG_SESSION}    url=${EVPN_CONF_URL}    expected_status=204
 
 Withdraw_Route_And_Verify
     [Documentation]    Sends withdraw update message from exabgp and verifies route removal from odl's rib
