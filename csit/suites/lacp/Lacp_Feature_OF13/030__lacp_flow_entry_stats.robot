@@ -48,10 +48,9 @@ Verify Switch S1 Port stats doesn't display zero value
 
 
 *** Keywords ***
-Verify LACP RESTAPI Response Code for node
+Verify LACP RESTAPI Response Content for node
     [Documentation]    Will check for the response code of the REST query
     [Arguments]    ${resp}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
 
 Verify LACP RESTAPI Aggregator and Tag Contents
@@ -61,8 +60,8 @@ Verify LACP RESTAPI Aggregator and Tag Contents
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}=    RequestsLibrary.GET On Session    session    ${OPERATIONAL_NODES_API}   expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
 

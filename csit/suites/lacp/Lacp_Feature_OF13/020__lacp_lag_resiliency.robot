@@ -55,10 +55,9 @@ Verify Switch(S1) Flow and Group tables data after H2 link up scenario
 
 
 *** Keywords ***
-Verify LACP RESTAPI Response Code for node
+Verify LACP RESTAPI Response Content for node
     [Documentation]    Will check for the response code of the REST query
     [Arguments]    ${resp}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
 
 Verify LACP RESTAPI Aggregator and Tag Contents
@@ -73,28 +72,30 @@ Verify LACP RESTAPI connector associated for aggregator
 
 Verify LACP aggregator data is updated post link down scenario
     [Documentation]    Functionality will verify the node conenctor data on the lacp-agg api after link down scenario
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Should not Contain    ${resp.content}    ${node1}:${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
 
 Verify LACP aggregator data is updated post link up scenario
     [Documentation]    Functionality will verify the node connector data on the lacp-agg api after link up scenario
-    ${resp}    RequestsLibrary.Get Request
+    ${resp}    RequestsLibrary.GET On Session
     ...    session
     ...    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ...    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Verify LACP RESTAPI Response Code for node    ${resp}
+    ${resp}    RequestsLibrary.GET On Session    session    ${OPERATIONAL_NODES_API}    expected_status=200
+    Verify LACP RESTAPI Response Content for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
 
