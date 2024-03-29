@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dcb9cc9_6fe6f8a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-29T16:39:51Z",
+      "side": 1,
+      "message": "Will move library files to the relevant project so each change can be tested and merged individually.\n\nAnd alto, centinel, didm, lacp, ocplugin, packetcable all appear to be archived and not developed any more. So I think we can just remove the test scripts for the projects like INTTEST-140.",
+      "revId": "1a0dfc77fd4c04885da45cd25692d51855b52211",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
