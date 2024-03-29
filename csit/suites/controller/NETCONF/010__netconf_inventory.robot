@@ -1,10 +1,12 @@
 *** Settings ***
 Documentation       Test suite for NETCONF client
+...                 FIXME: this test suite is based on the config subsystem, which has been long gone.
+...                 Currently this test suite is not used and hence should be fixed when added back.
 
 Library             Collections
 Library             OperatingSystem
-Library             String
 Library             RequestsLibrary
+Library             String
 Library             ../../../libraries/Common.py
 Variables           ../../../variables/Variables.py
 
@@ -13,13 +15,12 @@ Suite Teardown      Delete All Sessions
 
 
 *** Variables ***
-${NETOPEER}             ${TOOLS_SYSTEM_IP}
-${NETOPEER_USER}        ${TOOLS_SYSTEM_USER}
-${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
-${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
-${REST_NTPR_CONF}       node/controller-config/yang-ext:mount/config:modules
-${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
+${NETOPEER}                 ${TOOLS_SYSTEM_IP}
+${NETOPEER_USER}            ${TOOLS_SYSTEM_USER}
+${FILE}                     ${CURDIR}/../../../variables/xmls/netconf.xml
+${REST_TOPOLOGY_NETCONF}    /rests/data/network-topology:network-topology/topology=topology-netconf
+${REST_NTPR_CONF}           node=controller-config/yang-ext:mount/config:modules
+${REST_NTPR_MOUNT}          node=netopeer/yang-ext:mount
 
 
 *** Test Cases ***
@@ -30,9 +31,12 @@ Add NetConf device
     ${XML2}    Replace String    ${XML1}    127.0.0.1    ${NETOPEER}
     ${body}    Replace String    ${XML2}    mininet    ${NETOPEER_USER}
     Log    ${body}
-    ${resp}    Post Request    session    ${REST_CONT_CONF}/${REST_NTPR_CONF}    data=${body}
+    ${resp}    POST On Session
+    ...    session
+    ...    url=${REST_TOPOLOGY_NETCONF}/${REST_NTPR_CONF}
+    ...    data=${body}
+    ...    expected_status=204
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    204
 
 Get Controller Inventory
     [Documentation]    Get Controller operational inventory
@@ -42,17 +46,21 @@ Get Controller Inventory
 Pull External Device configuration
     [Documentation]    Pull Netopeer configuration
     [Tags]    netconf
-    ${resp}    Get Request    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}
+    ${resp}    GET On Session
+    ...    session
+    ...    url=${REST_TOPOLOGY_NETCONF}/${REST_NTPR_MOUNT}?content=config
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    {}
 
 Verify Device Operational data
     [Documentation]    Verify Netopeer operational data
     [Tags]    exclude
-    ${resp}    Get Request    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
+    ${resp}    GET On Session
+    ...    session
+    ...    url=${REST_TOPOLOGY_NETCONF}/${REST_NTPR_MOUNT}?content=nonconfig
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    schema
     Should Contain    ${resp.content}    statistics
     Should Contain    ${resp.content}    datastores
@@ -60,9 +68,11 @@ Verify Device Operational data
 
 *** Keywords ***
 Get Inventory
-    ${resp}    Get Request    session    ${REST_CONT_OPER}/node/netopeer
+    ${resp}    GET On Session
+    ...    session
+    ...    url=${REST_TOPOLOGY_NETCONF}/node=netopeer?content=nonconfig
+    ...    expected_status=200
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "node-id":"netopeer"
     Should Contain    ${resp.content}    "netconf-node-topology:connection-status":"connected"
     Should Contain    ${resp.content}    "netconf-node-topology:available-capabilities"
