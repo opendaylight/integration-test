@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1711674524 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1711674524-9A4381D16100009F30227572025FDF05E2FB07B0\n\n0000000000000000000000000000000000000000 774006d097a87be268cc3ed4c6829d3bfa4cffa3 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmYGFJ0ACgkQW/Locszz\nk5SAfA/8DIySrLwn65SFNKyXXpIOaGAraAGH2LHfzZgLMuAM4M6DJ/GXzI5+XUnL\njtuJt6y6FVrJ0p69rrikZ2Qs6XNGmJW47IjYxM5LK2JkbLAJtJP6836gVwT5k1hk\nRgiBxo7Xa3z8e6kTeL4V5oYo1gpAysytCLd+IBHKhRKq0p84BRXYarjn4h1D4qnT\nerRv5BrTDss7vTRutVuQt3DObd6kSkyrBdK4oUStnZY8zhRczDzdAKrgjsUbAPJN\nj2oMbaZMLr08W5jrTyANedN8YuvInOF+EtuXKrQhFJMQreRSKHVvNjWzktAnPMwH\n5eTVWNctApHVlJXl1oT6w6rOlQmKqNf6McpAcAvylzSTZ3RtntBeIf8gUP1k0v5w\n4MIPg5irkvn1xWPDOHagj3qBnmb13gM2w01XrT2VaAauLPChvfJ7/tgz8B9JRm1r\nhm1fjkIfdwHSaHLsPYG1oPEiGVCx+A9QN85PtK0UihXIbFDtoL3/2Vnmy/7UFJ0Q\nP5hWv5givwe8b62sZ4Zqfl05KrRcYlW7iY8PkS4vEcYjaPRmcET/p9qsFhuLeBCn\nVNBCzRv6ygFSKXqzRemaL64DKjpqwj8rofYF+WBPsKSa3/XKJTFovKeKopTifk6R\nzFPcHzob/CtxJqH4x+6HINAWXrQ8FNo8UWFOH8QcMUzlrD2E9+o\u003d\n\u003dI7/X\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45f144c_1f1de481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-29T01:25:56Z",
+      "side": 1,
+      "message": "Sandbox test:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/aaa-csit-1node-authn-all-potassium/1/\n\nNo regression and no more deprecation warnings.",
+      "revId": "774006d097a87be268cc3ed4c6829d3bfa4cffa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
