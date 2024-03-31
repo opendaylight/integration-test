@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1711924358 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1711924358-48FCE1BD616A18F3521D3EDDE938F22FB7458A60\n\n0000000000000000000000000000000000000000 e58301bc264aa02fdecfd63e41df0d506d40b623 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmYJ5IYACgkQW/Locszz\nk5Q5BRAArS2waNhyb8+E2OFo2yHrbacYJLSd/76TFqW91k0k7zMVYswPSJ8jXtcC\nLXrF4JWY2fCaQ4D3jYlNGs5kdAiAA5Bi6IhQhQCaG2HkJPgg1ZpvaEpemS/Ytfi1\nS6Vk1DXxyek6Qy+U9XAtYd82CVQOd3JeWotnrmrhe6JFI5Ue9MXpNhvpY+DC1MTV\nWIZbRV07EoK0XKpjbOM1nmxWlrudkl+Les24YzpH95OzAZSf/Bw2plDQ/V3/g+vW\n+WpHSx0uz9vnBXZFFNshgAx8kBUCOsrpJn7r6uni/QS2XQuMSBIDgMPgAWFsRb+7\n1F8ZZr6ehSzTVukqujlWBMomfR3DB6F8EeRYOXvdLnOAnSTOJqnkgVuSEUdY17pp\nMRiGOEGuLb2WLw3zQ46d5zQCAZ3tO/33UuDQbZH4uHFecXkAzMcsevKAFbfuvw3g\naPnciGuB0yk9O58C5Al5AQRTSaPfaTGcIsyw87qFjfyxvIWSEK3kdh7usw/ciXWd\ncph9hHPPuBHcfLrBU6N/qPwlTD5EXs5TiHBoJy7/fPSWXfXQCISG5/d8Zu9Lkdh/\nWTYGVntFeWn8kAe+JNKpmg71zjI1DqBuk1T2y4jM67AMHfOe3j5fO5WrW02igFmf\nucbqPXflFaNQyZ5h2KLvFV1Op/wDxLZzWxshb8jbBlmEUb2NXiQ\u003d\n\u003dH7yn\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05e261b1_2682c78b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-31T22:57:16Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-1node-upstream-southbound-all-potassium/1/\n- https://jenkins.opendaylight.org/sandbox/view/All/job/ovsdb-csit-3node-upstream-clustering-only-potassium/1/\n\nNo more RequestsLibrary warnings and no regression.",
+      "revId": "e58301bc264aa02fdecfd63e41df0d506d40b623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
