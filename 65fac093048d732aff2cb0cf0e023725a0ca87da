@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1711927426 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1711927426-5A60F637D1A4A511B47B8A39BFDB8DAD434C3F82\n\n0000000000000000000000000000000000000000 65fac093048d732aff2cb0cf0e023725a0ca87da refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmYJ8IIACgkQW/Locszz\nk5SkMw/+Mr1WGps3CSascBYIq8e2j9kLqlZ6Cnezu44OqxatV1TjADoXQXug8PNf\nRAwepVUf0cefC/Muy1gypESHetlQYAfm6oOT+q8rJ6nSUr8jYr/zwiHwPjzqoiWF\n8LNKKCZ38zmPEmUtp+H8DtRHwWVrnjQXXUwE8JMfXYzOxaJfWkgFrdfjwTQLeL2v\nd4eAPpXdpH1JiTBB/+du2hDOQvIx/Reh4QN62o8jsA0loxzeXwg6o77ff9maqS8y\nJjaUR6FnwpqNhq6V/uIeeWkcnCiZDTvdmBjho+QhicZyNM1MWYt6CY4CgoRlPtje\nf1FT67ppq0j5GkLUxH/oWw2h5FTBOOoc0mEcQkS8zcuyDCfApLQmol7UJQ+jd5Fz\n2wUbiwna2sDUZ5epGiesd7hN6r35KGouBdLzDLE5tWF+LeXqCTHlGd/eyfLvfiTA\ntm0LRDpNSx6p/iNNmXnzaKUHWnPq2Bh1OFMA5Wh6r1mHNxXTbp2Lv180dP/rUeQU\nwj2/Qk+7S+TQc1pJ8a6zF22HSO2PC5W3odDJ6wPit7F2H9DLvmIFjTTkWKbTcFQQ\nUQ7fmt4YVbtydheENZ8TeiKX0hcv6pJZ8EZSCybvQdkHxMaK+zvPzr7OCyny/NzZ\n0L60vel99jbd57WOxs6gqXgzuDp3aOVUgWcAwAqVP6/Ty2CLfyc\u003d\n\u003d2QLn\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a97f1bd_bab8a097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-03-31T23:36:24Z",
+      "side": 1,
+      "message": "Although there are some efforts to bring L2Switch back, it has a long way to go to catch up on the supported version. Hence it cannot be tested and this is a best-effort update to migrate deprecated RequestsLibrary keywords.",
+      "revId": "65fac093048d732aff2cb0cf0e023725a0ca87da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
