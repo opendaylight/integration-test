@@ -77,8 +77,9 @@ Verify_ExaBgps_Connection
     ${peer_check_url}=    BuiltIn.Set_Variable    ${REST_API}/bgp-rib:bgp-rib/rib=example-bgp-rib/peer=bgp:%2F%2F
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
     ${rsp}=    RequestsLibrary.GET On Session
-    ...    alias=${session}
+    ...    ${session}
     ...    url=${peer_check_url}${exabgp_ip}?content=nonconfig
+    ...    expected_status=anything
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
 

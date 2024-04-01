@@ -273,7 +273,7 @@ AddNeighbor To BGP Configuration On ODL
 Get BGP Configuration On ODL
     [Documentation]    Get bgp configuration
     [Arguments]    ${odl_session}
-    ${resp} =    RequestsLibrary.GET On Session    alias=${odl_session}    url=${CONFIG_API}/ebgp:bgp/
+    ${resp} =    RequestsLibrary.GET On Session    ${odl_session}    url=${CONFIG_API}/ebgp:bgp/
     Log    ${resp.text}
     RETURN    ${resp.text}
 
@@ -281,7 +281,7 @@ Delete BGP Configuration On ODL
     [Documentation]    Delete BGP
     [Arguments]    ${odl_session}
     ${resp} =    RequestsLibrary.DELETE On Session
-    ...    alias=${odl_session}
+    ...    ${odl_session}
     ...    url=${CONFIG_API}/ebgp:bgp/
     ...    expected_status=200
     Log    ${resp.text}
@@ -314,7 +314,7 @@ Check_Example_Bgp_Rib_Content
     [Documentation]    Check the example-bgp-rib content for string
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     ${response} =    RequestsLibrary.GET On Session
-    ...    alias=${session}
+    ...    ${session}
     ...    url=${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
@@ -324,7 +324,7 @@ Check_Example_Bgp_Rib_Does_Not_Contain
     [Documentation]    Check the example-bgp-rib does not contain the string
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     ${response} =    RequestsLibrary.GET On Session
-    ...    alias=${session}
+    ...    ${session}
     ...    url=${REST_API}/${BGP_RIB_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
@@ -334,7 +334,7 @@ Check_Example_IPv4_Topology_Content
     [Documentation]    Check the example-ipv4-topology content for string
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     ${response} =    RequestsLibrary.GET On Session
-    ...    alias=${session}
+    ...    ${session}
     ...    url=${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
@@ -344,7 +344,7 @@ Check_Example_IPv4_Topology_Does_Not_Contain
     [Documentation]    Check the example-ipv4-topology does not contain the string
     [Arguments]    ${session}    ${string_to_check}
     ${response} =    RequestsLibrary.GET On Session
-    ...    alias=${session}
+    ...    ${session}
     ...    url=${REST_API}/${BGP_TOPOLOGY_URI}?content=nonconfig
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}

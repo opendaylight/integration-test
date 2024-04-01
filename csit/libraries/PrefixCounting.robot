@@ -38,7 +38,7 @@ Get_Ipv4_Topology
     ${response} =    RequestsLibrary.GET On Session
     ...    ${session}
     ...    url=${PC_NW_TOPOLOGY}=${topology}?content=nonconfig
-    ...    expected_status=any
+    ...    expected_status=anything
     IF    ${response.status_code} != 200
         Fail    Get on ${topology} returned status code ${response.status_code} with message: ${response.text}
     END
