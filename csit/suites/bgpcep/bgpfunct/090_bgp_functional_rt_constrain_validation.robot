@@ -285,7 +285,7 @@ Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}
     ${expresponse} =    OperatingSystem.Get File    ${exprspfile}
     BuiltIn.Log    expected_response: ${expresponse}
-    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
+    ${rsp} =    RequestsLibrary.GET On Session    ${CONFIG_SESSION}    url=${url}
     BuiltIn.Log    actual_response: ${rsp}
     BuiltIn.Log    actual_response_content: ${rsp.content}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${expresponse}    ${rsp.content}
