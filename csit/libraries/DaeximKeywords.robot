@@ -7,6 +7,7 @@ Resource    ClusterManagement.robot
 Resource    ../variables/daexim/DaeximVariables.robot
 Resource    ../variables/Variables.robot
 Resource    SSHKeywords.robot
+Resource    Utils.robot
 
 
 *** Keywords ***
@@ -234,7 +235,7 @@ Fetch Status Information From Netconf Endpoint
     [Arguments]    ${endpoint}    ${host_index}
     ${resp}    ClusterManagement.Get From Member    ${NETCONF_NODE_URL}=${endpoint}    ${host_index}
     ${output1}    Builtin.Set Variable    ${resp}
-    ${output}    RequestsLibrary.To Json    ${output1}
+    ${output}    Utils.Json Parse From String    ${output1}
     Builtin.Log    ${output}
     ${status}    Collections.Get From Dictionary
     ...    ${output['network-topology:node'][0]}
