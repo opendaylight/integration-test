@@ -129,7 +129,7 @@ Verify_Flowspec_Data
 
 Normalize_And_Compare
     [Documentation]    Verify empty flowspec data
-    ${rsp}    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${FLOWSPEC_URL}
+    ${rsp}    RequestsLibrary.GET On Session    ${CONFIG_SESSION}    url=${FLOWSPEC_URL}
     TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare
     ...    ${EXP0}
     ...    ${rsp.content}

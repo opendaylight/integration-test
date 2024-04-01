@@ -469,7 +469,11 @@ No Content From URI
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}    expected_status=any    headers=${headers}
+    ${resp}=    RequestsLibrary.Get On Session
+    ...    ${session}
+    ...    url=${uri}
+    ...    headers=${headers}
+    ...    expected_status=anything
     IF    ${resp.status_code} == 404 or ${resp.status_code} == 409    RETURN
     Builtin.Log    ${resp.text}
     Builtin.Fail    The request failed with code ${resp.status_code}

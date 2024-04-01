@@ -24,7 +24,7 @@ ${PCEP_VAR_FOLDER}      ${CURDIR}/../variables/tcpmd5user
 Setup_Pcep_Operations
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     RequestsLibrary.Create_Session
-    ...    alias=pcep_session
+    ...    pcep_session
     ...    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     ...    headers=${HEADERS_XML}
     ...    auth=${AUTH}
@@ -59,10 +59,10 @@ Operate_Xml_Lsp_Return_Json
     [Arguments]    ${uri_part}    ${xml_data}
     ${uri_path}=    BuiltIn.Set_Variable    /rests/operations/${uri_part}
     ${response}=    RequestsLibrary.POST On Session
-    ...    alias=pcep_session
+    ...    pcep_session
     ...    url=${uri_path}
     ...    data=${xml_data}
-    ...    expected_status=any
+    ...    expected_status=anything
     Log    ${xml_data}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
     RETURN    ${response.text}
