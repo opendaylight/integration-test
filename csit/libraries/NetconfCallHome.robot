@@ -72,11 +72,12 @@ Register keys and certificates in ODL controller
     ...    return_stderr=True
     ${template}    OperatingSystem.Get File    ${ADD_KEYSTORE_ENTRY_REQ}
     ${body}    Replace String    ${template}    {base64-client-key}    ${base64-client-key}
-    ${resp}    RequestsLibrary.Post Request
+    ${resp}    RequestsLibrary.POST On Session
     ...    session
-    ...    ${netconf_keystore_url}:add-keystore-entry
+    ...    url=${netconf_keystore_url}:add-keystore-entry
     ...    data=${body}
     ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${client-key}    ${stderr}    SSHLibrary.Execute_Command
     ...    sed -u '1d; $d' ./configuration-files/certs/client.key | sed -z 's!\\n!\\\\n!g'
@@ -89,11 +90,12 @@ Register keys and certificates in ODL controller
     ${template}    OperatingSystem.Get File    ${ADD_PRIVATE_KEY_REQ}
     ${body}    Replace String    ${template}    {client-key}    ${client-key}
     ${body}    Replace String    ${body}    {certificate-chain}    ${certificate-chain}
-    ${resp}    RequestsLibrary.Post Request
+    ${resp}    RequestsLibrary.POST On Session
     ...    session
-    ...    ${netconf_keystore_url}:add-private-key
+    ...    url=${netconf_keystore_url}:add-private-key
     ...    data=${body}
     ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${ca-certificate}    ${stderr}    SSHLibrary.Execute_Command
     ...    sed -u '1d; $d' ./configuration-files/certs/ca.pem | sed -z 's!\\n!\\\\n!g'
@@ -106,11 +108,12 @@ Register keys and certificates in ODL controller
     ${template}    OperatingSystem.Get File    ${ADD_TRUSTED_CERTIFICATE}
     ${body}    Replace String    ${template}    {ca-certificate}    ${ca-certificate}
     ${body}    Replace String    ${body}    {device-certificate}    ${device-certificate}
-    ${resp}    RequestsLibrary.Post Request
+    ${resp}    RequestsLibrary.POST On Session
     ...    session
-    ...    ${netconf_keystore_url}:add-trusted-certificate
+    ...    url=${netconf_keystore_url}:add-trusted-certificate
     ...    data=${body}
     ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Register global credentials for SSH call-home devices (APIv1)
@@ -119,7 +122,12 @@ Register global credentials for SSH call-home devices (APIv1)
     ${template}    OperatingSystem.Get File    ${CREATE_GLOBAL_CREDENTIALS_REQ}
     ${body}    Replace String    ${template}    {username}    ${username}
     ${body}    Replace String    ${body}    {password}    ${password}
-    ${resp}    RequestsLibrary.Put Request    session    ${global_config_url}    data=${body}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.PUT On Session
+    ...    session
+    ...    url=${global_config_url}
+    ...    data=${body}
+    ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Register SSH call-home device in ODL controller (APIv1)
@@ -134,7 +142,12 @@ Register SSH call-home device in ODL controller (APIv1)
     ${body}    Replace String    ${body}    {username}    ${username}
     ${body}    Replace String    ${body}    {password}    ${password}
     ${body}    Replace String    ${body}    {hostkey}    ${hostkey}
-    ${resp}    RequestsLibrary.Post Request    session    ${whitelist}    data=${body}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session
+    ...    session
+    ...    url=${whitelist}
+    ...    data=${body}
+    ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get create device request template (APIv1)
@@ -157,7 +170,12 @@ Register SSH call-home device in ODL controller (APIv2)
     ${body}    Replace String    ${body}    {username}    ${username}
     ${body}    Replace String    ${body}    {password}    ${password}
     ${body}    Replace String    ${body}    {hostkey}    ${hostkey}
-    ${resp}    RequestsLibrary.Post Request    session    ${whitelist}    data=${body}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session
+    ...    session
+    ...    url=${whitelist}
+    ...    data=${body}
+    ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get create device request template (APIv2)
@@ -175,7 +193,12 @@ Register TLS call-home device in ODL controller (APIv2)
     ${body}    Replace String    ${template}    {device_name}    ${device_name}
     ${body}    Replace String    ${body}    {key_id}    ${key_id}
     ${body}    Replace String    ${body}    {certificate_id}    ${certificate_id}
-    ${resp}    RequestsLibrary.Post Request    session    ${whitelist}    data=${body}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.POST On Session
+    ...    session
+    ...    url=${whitelist}
+    ...    data=${body}
+    ...    headers=${HEADERS}
+    ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Pull Netopeer2 Docker Image
@@ -239,8 +262,14 @@ Test Teardown
     ...    return_stderr=True
     ...    return_rc=True
     SSHLibrary.Execute_Command    rm -rf ./configuration-files
-    ${resp}    RequestsLibrary.Delete_On_Session    session    ${whitelist}
-    ${resp}    RequestsLibrary.Delete_On_Session    session    ${netconf_keystore_data_url}
+    ${resp}    RequestsLibrary.Delete_On_Session
+    ...    session
+    ...    url=${whitelist}
+    ...    expected_status=anything
+    ${resp}    RequestsLibrary.Delete_On_Session
+    ...    session
+    ...    url=${netconf_keystore_data_url}
+    ...    expected_status=anything
 
 Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.
