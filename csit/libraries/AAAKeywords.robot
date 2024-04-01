@@ -87,7 +87,10 @@ Get User From IDM DB
     [Arguments]    ${user_id}=${EMPTY}
     Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTPORT}
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
-    ${resp}=    RequestsLibrary.GET On Session    httpbin    url=${idmurl}/users/${user_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.GET On Session
+    ...    httpbin
+    ...    url=${idmurl}/users/${user_id}
+    ...    headers=${headers}
     ...    expected_status=200
     Log    ${resp.text}
     RETURN    ${resp}
