@@ -197,7 +197,7 @@ Store_Rib_Configuration
 
 Log_Loc_Rib_Operational
     ${rsp}    RequestsLibrary.GET On Session
-    ...    alias=${CONFIG_SESSION}
+    ...    ${CONFIG_SESSION}
     ...    url=/rests/data/bgp-rib:bgp-rib/rib=example-bgp-rib/loc-rib?content=nonconfig
     BuiltIn.Log    ${rsp.content}
 

@@ -151,7 +151,7 @@ Create_Default_Session
     ...    This Keyword is in this Resource only so that user do not need to call RequestsLibrary directly.
     [Arguments]    ${url}=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    ${auth}=${AUTH}    ${timeout}=${DEFAULT_TIMEOUT_HTTP}    ${max_retries}=0
     RequestsLibrary.Create_Session
-    ...    alias=default
+    ...    default
     ...    url=${url}
     ...    auth=${auth}
     ...    timeout=${timeout}
