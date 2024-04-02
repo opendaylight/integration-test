@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d44080_29198813",
+        "filename": "csit/suites/l2switch/Inventory_Scalability_OF13/010__restconf_inventory.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-04-02T14:17:56Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be the last part in URL? Usages below add some path after this URL like ${REST_CONTEXT}/node/openflow:1 - will it work there?",
+      "range": {
+        "startLine": 14,
+        "startChar": 60,
+        "endLine": 14,
+        "endChar": 78
+      },
+      "revId": "7ef1b285911439761dc0dc8764906df5d1a0067d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
