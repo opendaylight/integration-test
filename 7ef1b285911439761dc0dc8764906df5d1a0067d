@@ -22,6 +22,30 @@
       },
       "revId": "7ef1b285911439761dc0dc8764906df5d1a0067d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ba36b9_1c2df13e",
+        "filename": "csit/suites/l2switch/Inventory_Scalability_OF13/010__restconf_inventory.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-04-03T08:11:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16d44080_29198813",
+      "range": {
+        "startLine": 14,
+        "startChar": 60,
+        "endLine": 14,
+        "endChar": 78
+      },
+      "revId": "7ef1b285911439761dc0dc8764906df5d1a0067d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
