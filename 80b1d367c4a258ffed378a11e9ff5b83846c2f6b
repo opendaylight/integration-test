@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1711753858 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1711753858-27F107BE92DAF5E6B3D04F2055AA93A8457984DB\n\n0000000000000000000000000000000000000000 e3e77fe833f03bda57189d3fb762b49295ec2774 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmYHSoIACgkQW/Locszz\nk5TJChAAgZNl4rWicB8N3SeEeZ1t4/IgKUz+z4YO0p3/Cj961xecZjRxGY9ac1hj\nBpcnN6K7wCuVT9MksR2H1e5YvdTa/fWqd/njIqK+Z/QKJ0tkPWlCo/t+UMmcNH47\n9yKAqM8DiMweWWW2sqeTSqhIZZDmz9FBc9iCCObKF+3uHT0Rkr52CippN5R0/Cjg\nEIK8y8tWk6ofkwx8te7vlaxwFOnuBESB8M/Piz+rDtgeON1EkzYPGHtMZc+vJpjs\nWcfrY2qghCP3pE3qTvQrHb/Z4B2XTS09ESUCKn6ORIHulokHM+A8EcshH+xOHz1m\n4QEVUTToGW3iT9iSejPPQYsJ9EM01qcT68VLV2+VjdJ/WmpDqpk2yPRc2atT0tCW\nh8DR2nr10tmW4YGNB8YLms9G1sFjNV213h0eany5t8nrP0F8GEjUfrN1TlOdgU3M\naQfz5Alo+jYYylPHkkc93fmtyh2T3VTmcGOgPW6prySxOC4erO+APx5ZF2jZ0Vcx\nUVSOGlVB9eg8i3a71nuQEi4pd+Bd0P05AW6HGPNuJ1qGdRR1a2Ybh8KtW9vjxGGX\nCr+sblAb2TjVrJrt6j3dBNRYEON0+Ddc8RtW6S/sBFWR6Gkn5yxYuaoU/3hrw3UY\nV1MLj7CLrEG+I0B+2QVjiJLLrtVNgqS6b1dgY1g3a7pFIoCIRlM\u003d\n\u003doJdi\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dd51e1c_bf928bed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2024-04-04T00:58:45Z",
+      "side": 1,
+      "message": "Actually this is something we want to resurrect. Can we just disable it?",
+      "revId": "80b1d367c4a258ffed378a11e9ff5b83846c2f6b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
