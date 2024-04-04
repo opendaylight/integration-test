@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1711759318 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1711759318-764B11ACBEEDBEE81192629F508FEBAC00B733F9\n\n0000000000000000000000000000000000000000 3d2680b6f763878094a41e65864c68c3ddc56d2f refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmYHX9YACgkQW/Locszz\nk5Rxfw//YLSnFT82qL2/LK60+Dq8FsoX/zmWIJa5CGRG2tzwcizjis39mQBD9rYx\nNsFy0pXwOzskIanPeDKjgR8JKosGwV+Ku0/eFWO8TfCrAj6yAN1i2Dsxfks59YHZ\noUzzSknTu3pqD2N1zrNo5tiI3CzmmeZS0MQIdNliycP8DizkMmO2G9Xiwy2LOSrb\nTnTz73jLMtrnFdNfpa+qYEus6u7yEqYcCtUwDATRqSeDHNPiYRnX2+MLaenAuLiJ\nUPkrHOezYJU6tC9GAFJ8/ZjJpCc2yQ1AXEE+Zbh6xk4glt5gGL9iTJP/twN/KnVs\nUeK83szsuRuQcU7RhtPgA6WTr1mLtDAnyIOCzBIb4ekXn0JZA52XvzYR7g1ubKz2\nb2jAGws8Exz3ajOuKPJ2CenDk0UzxcZS1l2CNh4J99OF7UPsBrDvJc96511oo5ZR\n5V+MX75URkcF3lxW8NjOCY6xCJJuyWiywAt8UVpbAMiEu3NlJUQn1MbJ8uFTdAFX\nYKQz/CUo22EFpigjTZg32xtRCM6ohJQH8m5HH0rbme4drcn2CpUuimLMpy5nE5ba\naXcbc2au0LjmrI3iZxlSdL+LR0U5h5dfsvqK43AQSLM++iZfq0b4SolRRqG7h9Yn\nICQ5ggYCG2j40Rrfm642DIqlNCfxl4X8kUPjj2T4VuzqJ5RVEQ0\u003d\n\u003dAsRK\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f845744_02a47b8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2024-04-04T01:00:01Z",
+      "side": 1,
+      "message": "can you rebase this patch stack without the netconf test removal, please?",
+      "revId": "17d8bdfb829008feb2877922524d44ca29f4f240",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
