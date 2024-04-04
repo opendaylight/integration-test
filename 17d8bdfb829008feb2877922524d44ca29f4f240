@@ -17,6 +17,24 @@
       "message": "can you rebase this patch stack without the netconf test removal, please?",
       "revId": "17d8bdfb829008feb2877922524d44ca29f4f240",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "913e22cd_d5672b49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-04-04T17:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f845744_02a47b8a",
+      "revId": "17d8bdfb829008feb2877922524d44ca29f4f240",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
