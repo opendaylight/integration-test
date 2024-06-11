@@ -50,8 +50,6 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 *** Variables ***
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
 ${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
-${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
-${RFC8040_DCN_STREAM_URI}       ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_SUBSCRIBE_DATA}      subscribe.xml
 ${RESTCONF_CONFIG_DATA}         config_data.xml
 ${RECEIVER_LOG_FILE}            receiver.log
@@ -72,6 +70,9 @@ Create_DCN_Stream
     ...    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${output} =    XML.Parse_XML    ${resp.content}
+    ${uuid} =    XML.Get_Element_Text  ${output}    stream-name
+    BuiltIn.Set_Suite_Variable    ${RFC8040_DCN_STREAM_URI}    ${RFC8040_STREAMS_URI}/stream=${uuid}
 
 Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
@@ -82,10 +83,9 @@ Subscribe_To_DCN_Stream
     ...    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${location} =    XML.Get_Element_Text    ${resp.content}
+    ${output} =    XML.Parse_XML    ${resp.content}
+    ${location} =    XML.Get_Element_Text    ${output}     access[2]/location
     BuiltIn.Log    ${location}
-    BuiltIn.Log    ${resp.headers["Location"]}
-    Should Contain    ${location}    ${resp.headers["Location"]}
     BuiltIn.Set_Suite_Variable    ${location}
 
 List_DCN_Streams
@@ -98,7 +98,7 @@ List_DCN_Streams
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Comment    Stream only shows in RFC URL.
-    BuiltIn.Should_Contain    ${resp.text}    ${NODES_STREAM_PATH}
+    BuiltIn.Should_Contain    ${resp.text}    ${location}
 
 Start_Receiver
     [Documentation]    Start the websocket listener
@@ -127,13 +127,14 @@ Change_DS_Config
 Check_Notification
     [Documentation]    Check the WSS/SSE listener log for a change notification.
     [Tags]    critical
+    SSHKeywords.Open_Connection_To_Tools_System
     ${notification} =    SSHLibrary.Execute_Command    cat ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${notification}
     BuiltIn.Set_Suite_Variable    ${notification}
     BuiltIn.Should_Contain    ${notification}    <notification xmlns=
     BuiltIn.Should_Contain    ${notification}    <eventTime>
     BuiltIn.Should_Contain    ${notification}    <data-changed-notification xmlns=
-    BuiltIn.Should_Contain    ${notification}    <operation>updated</operation>
+    BuiltIn.Should_Contain    ${notification}    <operation>created</operation>
     BuiltIn.Should_Contain    ${notification}    </data-change-event>
     BuiltIn.Should_Contain    ${notification}    </data-changed-notification>
     BuiltIn.Should_Contain    ${notification}    </notification>
@@ -142,20 +143,6 @@ Check_Delete_Notification
     [Documentation]    Check the websocket listener log for a delete notification.
     [Tags]    critical
     BuiltIn.Should_Contain    ${notification}    <operation>deleted</operation>
-
-Check_Bug_3934
-    [Documentation]    Check the websocket listener log for the bug correction.
-    [Tags]    critical
-    ${data} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
-    BuiltIn.Log    ${data}
-    BuiltIn.Log    ${notification}
-    ${packed_data} =    String.Remove_String    ${data}    \n
-    ${packed_data} =    String.Remove_String    ${packed_data}    ${SPACE}
-    ${packed_notification} =    String.Remove_String    ${notification}    \n
-    ${packed_notification} =    String.Remove_String    ${packed_notification}    \\n
-    ${packed_notification} =    String.Remove_String    ${packed_notification}    ${SPACE}
-    BuiltIn.Should_Contain    ${packed_notification}    ${packed_data}
-    [Teardown]    Report_Failure_Due_To_Bug    3934
 
 
 *** Keywords ***
