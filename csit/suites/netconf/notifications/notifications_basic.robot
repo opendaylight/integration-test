@@ -49,7 +49,8 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 
 *** Variables ***
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
-${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
+${ENCODING}                     xml
+${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams/${ENCODING}
 ${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${RFC8040_DCN_STREAM_URI}       ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_SUBSCRIBE_DATA}      subscribe.xml
@@ -72,6 +73,8 @@ Create_DCN_Stream
     ...    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${uuid} =    Get Element Text  ${resp.text}    output/stream-name
+    ${RFC8040_STREAMS_URI}    BuiltIn.Set_Variable    ${RFC8040_STREAMS_URI}/${uuid}
 
 Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
@@ -142,20 +145,6 @@ Check_Delete_Notification
     [Documentation]    Check the websocket listener log for a delete notification.
     [Tags]    critical
     BuiltIn.Should_Contain    ${notification}    <operation>deleted</operation>
-
-Check_Bug_3934
-    [Documentation]    Check the websocket listener log for the bug correction.
-    [Tags]    critical
-    ${data} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
-    BuiltIn.Log    ${data}
-    BuiltIn.Log    ${notification}
-    ${packed_data} =    String.Remove_String    ${data}    \n
-    ${packed_data} =    String.Remove_String    ${packed_data}    ${SPACE}
-    ${packed_notification} =    String.Remove_String    ${notification}    \n
-    ${packed_notification} =    String.Remove_String    ${packed_notification}    \\n
-    ${packed_notification} =    String.Remove_String    ${packed_notification}    ${SPACE}
-    BuiltIn.Should_Contain    ${packed_notification}    ${packed_data}
-    [Teardown]    Report_Failure_Due_To_Bug    3934
 
 
 *** Keywords ***
