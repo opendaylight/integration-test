@@ -30,6 +30,7 @@ Library             OperatingSystem
 Library             RequestsLibrary
 Library             SSHLibrary    timeout=10s
 Library             XML
+Resource            ${CURDIR}/../../../libraries/CompareStream.robot
 Resource            ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource            ${CURDIR}/../../../libraries/FailFast.robot
 Resource            ${CURDIR}/../../../libraries/KarafKeywords.robot
@@ -51,7 +52,6 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
 ${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
 ${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
-${RFC8040_DCN_STREAM_URI}       ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
 ${RESTCONF_SUBSCRIBE_DATA}      subscribe.xml
 ${RESTCONF_CONFIG_DATA}         config_data.xml
 ${RECEIVER_LOG_FILE}            receiver.log
@@ -72,6 +72,13 @@ Create_DCN_Stream
     ...    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${output} =    XML.Parse_XML    ${resp.content}
+    ${uuid} =    XML.Get_Element_Text    ${output}    stream-name
+    ${RFC8040_DCN_STREAM_URI} =    CompareStream.Set_Variable_If_At_Least_Calcium
+    ...    ${RFC8040_STREAMS_URI}/stream=${uuid}
+    ...    ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
+    BuiltIn.Log    ${RFC8040_DCN_STREAM_URI}
+    BuiltIn.Set_Suite_Variable    ${RFC8040_DCN_STREAM_URI}
 
 Subscribe_To_DCN_Stream
     [Documentation]    Subscribe to DCN streams.
@@ -82,11 +89,13 @@ Subscribe_To_DCN_Stream
     ...    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${location} =    XML.Get_Element_Text    ${resp.content}
-    BuiltIn.Log    ${location}
-    BuiltIn.Log    ${resp.headers["Location"]}
-    Should Contain    ${location}    ${resp.headers["Location"]}
-    BuiltIn.Set_Suite_Variable    ${location}
+    ${output} =    XML.Parse_XML    ${resp.content}
+    ${STREAM_LOCATION} =    XML.Get_Element_Text    ${output}
+    ${STREAM_LOCATION} =    CompareStream.Run_Keyword_If_At_Least_Calcium
+    ...    XML.Get_Element_Text
+    ...    ${output}    access[2]/STREAM_LOCATION
+    BuiltIn.Log    ${STREAM_LOCATION}
+    BuiltIn.Set_Suite_Variable    ${STREAM_LOCATION}
 
 List_DCN_Streams
     [Documentation]    List DCN streams.
@@ -98,11 +107,11 @@ List_DCN_Streams
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Comment    Stream only shows in RFC URL.
-    BuiltIn.Should_Contain    ${resp.text}    ${NODES_STREAM_PATH}
+    BuiltIn.Should_Contain    ${resp.text}    ${STREAM_LOCATION}
 
 Start_Receiver
-    [Documentation]    Start the websocket listener
-    ${output} =    SSHLibrary.Write    python3 ssereceiver.py --uri ${location} --logfile ${RECEIVER_LOG_FILE}
+    [Documentation]    Start the WSS/SSE listener
+    ${output} =    SSHLibrary.Write    python3 ssereceiver.py --uri ${STREAM_LOCATION} --logfile ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${output}
     ${output} =    SSHLibrary.Read    delay=2s
     BuiltIn.Log    ${output}
@@ -133,18 +142,19 @@ Check_Notification
     BuiltIn.Should_Contain    ${notification}    <notification xmlns=
     BuiltIn.Should_Contain    ${notification}    <eventTime>
     BuiltIn.Should_Contain    ${notification}    <data-changed-notification xmlns=
-    BuiltIn.Should_Contain    ${notification}    <operation>updated</operation>
+    ${operation} =    CompareStream.Set_Variable_If_At_Least_Calcium    created    updated
+    BuiltIn.Should_Contain    ${notification}    <operation>${operation}</operation>
     BuiltIn.Should_Contain    ${notification}    </data-change-event>
     BuiltIn.Should_Contain    ${notification}    </data-changed-notification>
     BuiltIn.Should_Contain    ${notification}    </notification>
 
 Check_Delete_Notification
-    [Documentation]    Check the websocket listener log for a delete notification.
+    [Documentation]    Check the WSS/SSE listener log for a delete notification.
     [Tags]    critical
     BuiltIn.Should_Contain    ${notification}    <operation>deleted</operation>
 
 Check_Bug_3934
-    [Documentation]    Check the websocket listener log for the bug correction.
+    [Documentation]    Check the WSS/SSE listener log for the bug correction.
     [Tags]    critical
     ${data} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
     BuiltIn.Log    ${data}
