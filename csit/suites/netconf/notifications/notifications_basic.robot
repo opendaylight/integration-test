@@ -49,6 +49,7 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 
 *** Variables ***
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
+${test}                         test
 ${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
 ${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${RFC8040_DCN_STREAM_URI}       ${RFC8040_STREAMS_URI}/stream/data-change-event-subscription/${NODES_STREAM_PATH}
