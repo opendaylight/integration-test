@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30d2fd3_35fdd323",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-06-27T12:31:40Z",
+      "side": 0,
+      "message": "Why removed?\n\nhttps://jira.opendaylight.org/browse/NETCONF-54",
+      "revId": "02dd570f7544c8cd6eb17bda775de9bccc89f923",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
