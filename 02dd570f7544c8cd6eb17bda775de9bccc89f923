@@ -16,6 +16,24 @@
       "message": "Why removed?\n\nhttps://jira.opendaylight.org/browse/NETCONF-54",
       "revId": "02dd570f7544c8cd6eb17bda775de9bccc89f923",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58217984_0a4112d7",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-06-27T14:19:39Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e30d2fd3_35fdd323",
+      "revId": "02dd570f7544c8cd6eb17bda775de9bccc89f923",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
