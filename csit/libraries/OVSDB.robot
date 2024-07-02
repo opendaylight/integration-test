@@ -293,7 +293,7 @@ Log Config And Operational Topology
 Config and Operational Topology Should Be Empty
     [Documentation]    This will check that only the expected output is there for both operational and config
     ...    topology data stores. Empty probably means that only ovsdb:1 is there.
-    ${config_resp} =    RequestsLibrary.GET On Session   session    url=${RFC8040_CONFIG_TOPO_API}
+    ${config_resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_CONFIG_TOPO_API}
     ${operational_resp} =    RequestsLibrary.GET On Session    session    url=${RFC8040_OPERATIONAL_TOPO_API}
     BuiltIn.Should Contain    ${config_resp.text}    {"topology-id":"ovsdb:1"}
     BuiltIn.Should Contain    ${operational_resp.text}    {"topology-id":"ovsdb:1"}
