@@ -16,6 +16,23 @@
       "message": "jjb-deploy daexim-csit-1node-basic-only-calcium",
       "revId": "f10c61041a165824cc75ea878d7e89e39b58d11a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f724b5cd_48fd93af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-02T20:20:57Z",
+      "side": 1,
+      "message": "Sandbox tests:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-calcium/1/\n\nThis patch addresses a false test failure typically seen for the tests run with `BUNDLE_URL` of `last` like this:\nhttps://jenkins.opendaylight.org/releng/view/integration/job/daexim-csit-1node-basic-only-calcium/365/",
+      "revId": "f10c61041a165824cc75ea878d7e89e39b58d11a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
