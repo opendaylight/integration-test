@@ -18,6 +18,7 @@ Create Basic Import
     ClusterManagement.Start_Members_From_List_Or_All
     DaeximKeywords.Copy Config Data To Controller    ${FIRST_CONTROLLER_INDEX}
     DaeximKeywords.Schedule Import    ${FIRST_CONTROLLER_INDEX}
+    Builtin.Sleep    5 sec    Wait for completion of import processing
     Builtin.Wait Until Keyword Succeeds
     ...    30 sec
     ...    5 sec
