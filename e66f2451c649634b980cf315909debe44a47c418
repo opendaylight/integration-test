@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f7b62c7_40d1c693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-03T19:36:56Z",
+      "side": 1,
+      "message": "Run tests in the sandbox for netconf-callhome:\nhttps://jenkins.opendaylight.org/sandbox/",
+      "revId": "e66f2451c649634b980cf315909debe44a47c418",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f596ee1_9199c6ae",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-03T19:36:56Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be used.",
+      "revId": "e66f2451c649634b980cf315909debe44a47c418",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
