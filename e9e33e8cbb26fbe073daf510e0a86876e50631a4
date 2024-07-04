@@ -16,6 +16,24 @@
       "message": "Run tests in the sandbox for the test suites affected by this change:\nhttps://jenkins.opendaylight.org/sandbox/",
       "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a30e995_760881b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-07-04T06:52:36Z",
+      "side": 1,
+      "message": "OK, we will try. IIRC sandbox is more for testing jobs made by builder project and its difficult to find out how to run int/test change.",
+      "parentUuid": "cc5ac5b2_2872dbf3",
+      "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
