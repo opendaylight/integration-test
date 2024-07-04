@@ -34,6 +34,24 @@
       "parentUuid": "cc5ac5b2_2872dbf3",
       "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5aadece_dac639c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-04T07:06:48Z",
+      "side": 1,
+      "message": "You can put integration/test refspec in the `PATCHREFSPEC` parameter: e.g.\n\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-calcium/1/parameters/\n\nis using the following integration/test change for testing:\n\nhttps://git.opendaylight.org/gerrit/c/integration/test/+/112427/1\n\n`refspec` can be found in the `Download patch` commands.",
+      "parentUuid": "7a30e995_760881b1",
+      "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
