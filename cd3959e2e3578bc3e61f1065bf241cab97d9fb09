@@ -16,6 +16,23 @@
       "message": "looks good to me tested it locally",
       "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26874de2_1b1b81ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-05T15:32:29Z",
+      "side": 1,
+      "message": "The change in the stream URI seems to be for Calcium and above. Although we only have test jobs to for the master branch at the moment, I would prefer a change that works for Potassium as well as Calcium, since Potassium hasn\u0027t reached end-of-support yet.\n\nAlso, please show the test results in Sandbox - local test results cannot be reviewed.",
+      "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
