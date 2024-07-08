@@ -33,6 +33,24 @@
       "message": "This doesn\u0027t seem to be used.",
       "revId": "e66f2451c649634b980cf315909debe44a47c418",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab52dead_333e4a1c",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-08T08:31:29Z",
+      "side": 1,
+      "message": "used inside `callhome.robot`",
+      "parentUuid": "9f596ee1_9199c6ae",
+      "revId": "e66f2451c649634b980cf315909debe44a47c418",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
