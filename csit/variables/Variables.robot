@@ -477,4 +477,5 @@ ${VTNS_CREATE}
 # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
 ${VTNWEBAPI}
 ...                                         /vtn-webapi
+
 # Keep this list sorted alphabetically.
