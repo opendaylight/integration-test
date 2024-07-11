@@ -33,6 +33,24 @@
       "message": "The change in the stream URI seems to be for Calcium and above. Although we only have test jobs to for the master branch at the moment, I would prefer a change that works for Potassium as well as Calcium, since Potassium hasn\u0027t reached end-of-support yet.\n\nAlso, please show the test results in Sandbox - local test results cannot be reviewed.",
       "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be85f74_78b87b65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-07-11T08:40:17Z",
+      "side": 1,
+      "message": "OK, we will use `opendaylight/integration-test/csit/libraries/CompareStream.robot` features to make this.",
+      "parentUuid": "26874de2_1b1b81ba",
+      "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
