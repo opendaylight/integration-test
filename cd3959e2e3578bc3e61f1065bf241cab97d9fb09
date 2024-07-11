@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9188e59d_889387ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-07-11T08:40:52Z",
+      "side": 1,
+      "message": "Something more universal, for all branches, not master only.",
+      "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6b892f68_924758a3",
