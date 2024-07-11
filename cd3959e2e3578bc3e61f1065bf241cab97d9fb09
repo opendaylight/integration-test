@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a9309dc8_8b749da2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-07-11T12:21:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9188e59d_889387ec",
+      "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6b892f68_924758a3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 12
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "OK, we will use `opendaylight/integration-test/csit/libraries/CompareStream.robot` features to make this.",
       "parentUuid": "26874de2_1b1b81ba",
+      "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82fd64a5_e2faa93e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-07-11T12:21:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1be85f74_78b87b65",
       "revId": "cd3959e2e3578bc3e61f1065bf241cab97d9fb09",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
