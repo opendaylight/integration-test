@@ -16,6 +16,23 @@
       "message": "jjb-deploy daexim-csit-1node-basic-only-calcium",
       "revId": "6b08e88667e33b9bb7495a6b82fb2937b82d5717",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3cafd6_581b4469",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-15T14:48:21Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "6b08e88667e33b9bb7495a6b82fb2937b82d5717",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
