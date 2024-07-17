@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4ec32c0_1a0686f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-17T07:47:56Z",
+      "side": 1,
+      "message": "does not have related jenkins jobs in releneg/builder",
+      "revId": "8415538b01b616927901ac9811aa4d9d4bcc8942",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
