@@ -88,6 +88,24 @@
       "parentUuid": "4e771319_5f5799b6",
       "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b534947a_ca846643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-17T11:21:23Z",
+      "side": 1,
+      "message": "Adapt robot files to RFC 8040 (libraries) https://git.opendaylight.org/gerrit/gerrit/c/integration/test/+/106341 affects netconf-callhome integration tests which now fail on 500, instead of 404 on master(issue with migration to rfc8040 definitely fixed). https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-scandium/ and https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-calcium/\nWe still have failed tests for callhome feature, this will be fixed in the future.",
+      "parentUuid": "a73a0833_d9c86ccb",
+      "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
