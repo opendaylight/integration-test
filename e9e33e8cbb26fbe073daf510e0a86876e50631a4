@@ -70,6 +70,24 @@
       "parentUuid": "d5aadece_dac639c6",
       "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73a0833_d9c86ccb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-17T07:38:18Z",
+      "side": 1,
+      "message": "This patch affects the testing of the ls2switch, openflowplugin. The result of the running test can be found in https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-1node-flow-services-all-scandium/\nCentiel, nemo and lacp projects are no more active, therefore we don\u0027t check them",
+      "parentUuid": "4e771319_5f5799b6",
+      "revId": "e9e33e8cbb26fbe073daf510e0a86876e50631a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
