@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d12796_39c40b4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-18T17:50:07Z",
+      "side": 1,
+      "message": "Except for `TemplatedRequests.robot` \u0026 `NetconfCallHome.robot`, these robot files will need to be removed for INTTEST-144. So let\u0027s not change it.",
+      "revId": "b62be9e988c823f53c0f5a4d510f9fe2b65af028",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
