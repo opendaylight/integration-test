@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68f7c67_123bc830",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-19T18:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f28c4696_23f23d92",
+      "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a900a6c_c8464a58",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-18T17:43:41Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be used.",
+      "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e75f8c_ac086414",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-19T18:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a900a6c_c8464a58",
       "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6fe1e3_aba0ed7c",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-19T18:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5cfa0cf_b71e840d",
+      "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69cbbe3c_71eaf774",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-07-18T17:43:41Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be used.",
+      "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4595c1d3_05a7fabe",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-19T18:53:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69cbbe3c_71eaf774",
       "revId": "44562691b55cc9b3c2864dd3177fbf9837645f03",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
