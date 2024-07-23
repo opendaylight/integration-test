@@ -16,6 +16,23 @@
       "message": "is not used in .robot files tests",
       "revId": "2faf8a5ddead99ef6ea0085056af64a6c83ce2ac",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "700f6e1a_64f3dabb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-23T12:05:28Z",
+      "side": 1,
+      "message": "There is no usage of this scripts inside any tests.\nCan be deleted in future",
+      "revId": "2faf8a5ddead99ef6ea0085056af64a6c83ce2ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
