@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca2d17e_63b9589d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-23T11:58:25Z",
+      "side": 1,
+      "message": "Is not used in any test suite.\nCan be deleted in future",
+      "revId": "25c683be1836e8e3743074aa93dd8af4760dc742",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
