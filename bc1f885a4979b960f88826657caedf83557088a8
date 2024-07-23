@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6d01be_45760934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-23T07:14:14Z",
+      "side": 1,
+      "message": "sandbox 7 failed tests https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-1node-rest-cars-perf-all-scandium/\nreleng/builder 8 failed tests https://jenkins.opendaylight.org/releng/view/controller/job/controller-csit-1node-rest-cars-perf-all-scandium/",
+      "revId": "bc1f885a4979b960f88826657caedf83557088a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
