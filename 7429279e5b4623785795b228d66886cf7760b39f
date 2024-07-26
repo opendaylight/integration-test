@@ -34,6 +34,227 @@
       "parentUuid": "987490e0_2a820030",
       "revId": "7429279e5b4623785795b228d66886cf7760b39f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd31b17_43df28f7",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_config_blaster.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "`table` is augmented in the `flow-node-inventory` module.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79cf1a57_38be8e55",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_config_blaster.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "`table` is augmented in the `flow-node-inventory` module.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fec9396_2c903301",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Should be `opendaylight-inventory:nodes` instead of `nodes`.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5d6718_37d3382f",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_crawler.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Change the choices to `config` \u0026 `nonconfig` and process the choices internally to generate the content query parameters.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66979e92_182ab68b",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "This is not used.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a900beb8_1f09677f",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "This is not use except for the commented-out code.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faafe0ff_d64c2d5c",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/inventory_perf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Need `?content\u003dnonconfig`.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c242ff_8013a534",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "`table` is augmented in the `flow-node-inventory` module.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6012199d_a43107aa",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "`table` is augmented in the `flow-node-inventory` module.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84788bdf_2fc1992a",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "`table` is augmented in the `flow-node-inventory` module.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d082c69_30cd133b",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Need `?content\u003dnonconfig` at the end.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83e8396b_e3b50cbc",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Need `?content\u003dnonconfig` at the end.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42df605c_8ac72829",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/shard_perf_test.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-26T18:28:52Z",
+      "side": 1,
+      "message": "Need `?content\u003dnonconfig` at the end.",
+      "revId": "7429279e5b4623785795b228d66886cf7760b39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
