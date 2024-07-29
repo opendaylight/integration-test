@@ -16,6 +16,24 @@
       "message": "This URL is not going to work. Consider using a more stable URL like RESTCONF monitoring (https://datatracker.ietf.org/doc/html/rfc8040#section-9):\n```\n/rests/data/ietf-restconf-monitoring:restconf-state/capabilities\n```",
       "revId": "4ee6c4eb4f70afb72bdfafe5850fb5b7d5f70e6d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ede7a5_44e58399",
+        "filename": "csit/libraries/UtilLibrary.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-07-29T18:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19910541_624312da",
+      "revId": "4ee6c4eb4f70afb72bdfafe5850fb5b7d5f70e6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
