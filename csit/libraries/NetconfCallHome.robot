@@ -6,7 +6,8 @@ Resource    ../variables/Variables.robot
 
 
 *** Variables ***
-${mount_point_url}              /rests/data/network-topology:network-topology/topology=topology-netconf?content=nonconfig
+${mount_point_url}
+...                             /rests/data/network-topology:network-topology/topology=topology-netconf?content=nonconfig
 ${device_status}                /rests/data/odl-netconf-callhome-server:netconf-callhome-server?content=nonconfig
 ${whitelist}                    /rests/data/odl-netconf-callhome-server:netconf-callhome-server/allowed-devices
 ${global_config_url}            /rests/data/odl-netconf-callhome-server:netconf-callhome-server/global/credentials
