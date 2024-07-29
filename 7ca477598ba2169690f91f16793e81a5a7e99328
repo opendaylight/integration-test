@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee936c67_d1cb036f",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4da1e8b_cebe1b7b",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d56cb5c6_8f7843bc",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-26T18:28:33Z",
       "side": 1,
       "message": "This doesn\u0027t work because this variable is used to form a new URL appending more. \n\nE.g. `010__lacp_inventory.robot`\n```\n${resp}    Get Request    session    ${OPERATIONAL_NODES_API}/node/${node1}\n```\n\nSimply changing URL variables into RFC 8040 format often doesn\u0027t work especially for operational datastore.",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cd4010_5f27eb30",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d56cb5c6_8f7843bc",
       "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d461a61_8a855c31",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83559d84_c3539b94",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44255935_647457b6",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-07-26T18:28:33Z",
       "side": 1,
       "message": "This variable is mostly used to create Bierman format URLs appending more in `010_unimanager_restconf.robot`.",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ae7ca3c_596001d8",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "unimgr is no more active, but we cannot delete this until we eliminate unimrg project, I would change it to rfc8040, and then we can delete it.",
+      "parentUuid": "44255935_647457b6",
       "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -86,6 +158,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "977ebe79_ce5595de",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e11cc8b_783c1a03",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d592cbe5_43157278",
@@ -103,6 +193,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93e0119_f594b9f7",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d592cbe5_43157278",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b4af982_2c339d95",
@@ -116,6 +224,24 @@
       "writtenOn": "2024-07-26T18:28:33Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be used anywhere.",
+      "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e328f5e_bafe2329",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-07-29T11:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b4af982_2c339d95",
       "revId": "7ca477598ba2169690f91f16793e81a5a7e99328",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
