@@ -16,7 +16,7 @@ def getClusterRoles(
 ):
     """Given a shardname (e.g. shard-inventory-config), number of shards and bunch of ips
 
-    determines what role each ip has in an Akka (Raft based) cluster
+    determines what role each ip has in an Akka/Pekko (Raft based) cluster
     result would look like
     {'10.194.126.118':'Leader', '10.194.126.118':'Follower', '10.194.126.117': None}
     """
