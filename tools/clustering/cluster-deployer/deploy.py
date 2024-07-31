@@ -124,7 +124,7 @@ class TemplateRenderer:
 
 #
 # The array_str method takes an array of strings and formats it into a
-#  string such that it can be used in an akka configuration file
+#  string such that it can be used in an pekko configuration file
 #
 def array_str(arr):
     s = "["
@@ -202,9 +202,9 @@ class Deployer:
 
         # Render all the templates
         renderer = TemplateRenderer(self.template)
-        akka_conf = renderer.render(
-            "akka.conf.template",
-            "akka.conf",
+        pekko_conf = renderer.render(
+            "pekko.conf.template",
+            "pekko.conf",
             {
                 "HOST": self.host,
                 "MEMBER_NAME": "member-" + str(self.member_no),
@@ -261,7 +261,7 @@ class Deployer:
 
         # Copy all the generated files to the server
         self.remote.mkdir(self.dir_name + "/odl/configuration/initial")
-        self.remote.copy_file(akka_conf, self.dir_name + "/odl/configuration/initial/")
+        self.remote.copy_file(pekko_conf, self.dir_name + "/odl/configuration/initial/")
         self.remote.copy_file(
             module_shards_conf, self.dir_name + "/odl/configuration/initial/"
         )
@@ -305,9 +305,9 @@ def main():
 
     for x in range(0, len(hosts)):
         ds_seed_nodes.append(
-            "akka.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550"
+            "pekko.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550"
         )
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
+        rpc_seed_nodes.append("pekko.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):

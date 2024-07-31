@@ -1,6 +1,6 @@
 
 odl-cluster-data {
-  akka {
+  pekko {
     cluster {
       seed-nodes = {{{DS_SEED_NODES}}}
       auto-down-unreachable-after = 30s

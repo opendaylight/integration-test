@@ -8,16 +8,16 @@ odl-cluster-data {
 
   metric-capture-enabled = true
 
-  akka {
+  pekko {
     loglevel = "INFO"
-    loggers = ["akka.event.slf4j.Slf4jLogger"]
+    loggers = ["org.apache.pekko.event.slf4j.Slf4jLogger"]
     logger-startup-timeout = 300s
 
     actor {
-      provider = "akka.cluster.ClusterActorRefProvider"
+      provider = "org.apache.pekko.cluster.ClusterActorRefProvider"
       serializers {
-        java = "akka.serialization.JavaSerializer"
-        proto = "akka.remote.serialization.ProtobufSerializer"
+        java = "org.apache.pekko.serialization.JavaSerializer"
+        proto = "org.apache.pekko.remote.serialization.ProtobufSerializer"
         readylocal = "org.opendaylight.controller.cluster.datastore.messages.ReadyLocalTransactionSerializer"
       }
 
@@ -35,7 +35,7 @@ odl-cluster-data {
       default-mailbox {
         # When not using a BalancingDispatcher it is recommended that we use the SingleConsumerOnlyUnboundedMailbox
         # as it is the most efficient for multiple producer/single consumer use cases
-        mailbox-type="akka.dispatch.SingleConsumerOnlyUnboundedMailbox"
+        mailbox-type="org.apache.pekko.dispatch.SingleConsumerOnlyUnboundedMailbox"
       }
     }
     remote {
@@ -73,7 +73,7 @@ odl-cluster-data {
       journal {
         leveldb {
           # Set native = off to use a Java-only implementation of leveldb.
-          # Note that the Java-only version is not currently considered by Akka to be production quality.
+          # Note that the Java-only version is not currently considered by Pekko to be production quality.
 
           # native = off
         }
@@ -91,13 +91,13 @@ odl-cluster-rpc {
 
   metric-capture-enabled = true
 
-  akka {
+  pekko {
     loglevel = "INFO"
-    loggers = ["akka.event.slf4j.Slf4jLogger"]
+    loggers = ["org.apache.pekko.event.slf4j.Slf4jLogger"]
     log-dead-letters = 10000
 
     actor {
-      provider = "akka.cluster.ClusterActorRefProvider"
+      provider = "org.apache.pekko.cluster.ClusterActorRefProvider"
 
     }
     remote {
