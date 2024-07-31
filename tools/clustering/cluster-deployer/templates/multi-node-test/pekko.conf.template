@@ -1,3 +1,4 @@
+
 odl-cluster-data {
   bounded-mailbox {
     mailbox-type = "org.opendaylight.controller.cluster.common.actor.MeteredBoundedMailbox"
@@ -7,22 +8,23 @@ odl-cluster-data {
 
   metric-capture-enabled = true
 
-  akka {
+  pekko {
     loglevel = "INFO"
-    loggers = ["akka.event.slf4j.Slf4jLogger"]
+    loggers = ["org.apache.pekko.event.slf4j.Slf4jLogger"]
+    logger-startup-timeout = 300s
 
     actor {
-
-      provider = "akka.cluster.ClusterActorRefProvider"
+      provider = "org.apache.pekko.cluster.ClusterActorRefProvider"
       serializers {
-                java = "akka.serialization.JavaSerializer"
-                proto = "akka.remote.serialization.ProtobufSerializer"
-              }
+        java = "org.apache.pekko.serialization.JavaSerializer"
+        proto = "org.apache.pekko.remote.serialization.ProtobufSerializer"
+        readylocal = "org.opendaylight.controller.cluster.datastore.messages.ReadyLocalTransactionSerializer"
+      }
 
-              serialization-bindings {
-                  "com.google.protobuf.Message" = proto
-
-              }
+      serialization-bindings {
+        "com.google.protobuf.Message" = proto
+        "org.opendaylight.controller.cluster.datastore.messages.ReadyLocalTransaction" = readylocal
+      }
 
       default-dispatcher {
         # Setting throughput to 1 makes the dispatcher fair. It processes 1 message from
@@ -33,7 +35,7 @@ odl-cluster-data {
       default-mailbox {
         # When not using a BalancingDispatcher it is recommended that we use the SingleConsumerOnlyUnboundedMailbox
         # as it is the most efficient for multiple producer/single consumer use cases
-        mailbox-type="akka.dispatch.SingleConsumerOnlyUnboundedMailbox"
+        mailbox-type="org.apache.pekko.dispatch.SingleConsumerOnlyUnboundedMailbox"
       }
     }
     remote {
@@ -50,12 +52,32 @@ odl-cluster-data {
     cluster {
       seed-nodes = {{{DS_SEED_NODES}}}
 
+      seed-node-timeout = 12s
+
       auto-down-unreachable-after = 30s
 
       roles = [
         "{{MEMBER_NAME}}"
       ]
 
+    }
+
+    persistence {
+      # By default the snapshots/journal directories live in KARAF_HOME. You can choose to put it somewhere else by
+      # modifying the following two properties. The directory location specified may be a relative or absolute path.
+      # The relative path is always relative to KARAF_HOME.
+
+      # snapshot-store.local.dir = "target/snapshots"
+      # journal.leveldb.dir = "target/journal"
+
+      journal {
+        leveldb {
+          # Set native = off to use a Java-only implementation of leveldb.
+          # Note that the Java-only version is not currently considered by Pekko to be production quality.
+
+          # native = off
+        }
+      }
     }
   }
 }
@@ -69,13 +91,13 @@ odl-cluster-rpc {
 
   metric-capture-enabled = true
 
-  akka {
+  pekko {
     loglevel = "INFO"
-    loggers = ["akka.event.slf4j.Slf4jLogger"]
+    loggers = ["org.apache.pekko.event.slf4j.Slf4jLogger"]
     log-dead-letters = 10000
 
     actor {
-      provider = "akka.cluster.ClusterActorRefProvider"
+      provider = "org.apache.pekko.cluster.ClusterActorRefProvider"
 
     }
     remote {
