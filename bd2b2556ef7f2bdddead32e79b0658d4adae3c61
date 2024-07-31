@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f30c0e_f4254622",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-07-31T13:34:40Z",
+      "side": 1,
+      "message": "Can stay as ODL_PEKKO_PORT",
+      "revId": "bd2b2556ef7f2bdddead32e79b0658d4adae3c61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
