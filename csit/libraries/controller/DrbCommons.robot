@@ -21,7 +21,7 @@ Documentation       DOMRpcBroker testing: Common keywords
 ...                 invalid
 ...                 ${active_indices} - list of indexes of non-isolated, non-stopped/killed nodes
 ...
-...                 Akka can create spurious UnreachableMember events, see
+...                 Pekko can create spurious UnreachableMember events, see
 ...                 https://bugs.opendaylight.org/show_bug.cgi?id=8430
 ...                 so some keywords contain "tolerance" argument which applies BuiltIn.Wait_Until_Keyword_Succeeds.
 ...
