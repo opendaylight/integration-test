@@ -200,7 +200,7 @@ ${LFM_SB_RPC_API}
 # FIXME: Move to a separate Resource and add description.
 ${MODULES_API}
 ...                                 /rests/data/ietf-yang-library:modules-state?content=nonconfig
-${ODL_AKKA_PORT}                    2550    # Port number akka cluster communicates on
+${ODL_AKKA_PORT}                    2550    # Port number pekko cluster communicates on
 ${ODL_BGP_PORT}                     1790    # ODL side of BGP communication listens on this port number.
 # Deprecated. Not clear if this refers to HTTP or SSH sessions. FIXME: Eradicate, or at least convert to a resource-private variable.
 ${ODL_CONTROLLER_SESSION}
