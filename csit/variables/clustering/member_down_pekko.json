@@ -1,0 +1,6 @@
+{
+   "type": "EXEC",
+   "mbean": "pekko:type=Cluster",
+   "operation": "down",
+   "arguments" : ["pekko.tcp://opendaylight-cluster-data@{member_ip}:2550"]
+}
