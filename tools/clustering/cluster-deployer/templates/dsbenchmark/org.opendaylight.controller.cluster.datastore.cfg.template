@@ -53,7 +53,7 @@ operational.persistent=false
 # actor and thus lessens the chance that the transaction actor's mailbox queue could get full.
 #shard-batched-modification-count=1000
 
-# The maximum amount of time for akka operations (remote or local) to complete before failing.
+# The maximum amount of time for akka/pekko operations (remote or local) to complete before failing.
 #operation-timeout-in-seconds=5
 
 # The initial number of transactions per second that are allowed before the data store should begin

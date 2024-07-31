@@ -50,7 +50,10 @@ Stop_Majority_Of_The_Followers
     ...    Mark most of stopped members as explicitly down, to allow the surviving leader make progress.
     ClusterManagement.Stop_Members_From_List_Or_All    member_index_list=${list_of_stopping}    confirm=True
     FOR    ${index}    IN    @{list_of_reviving}
-        ${data} =    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
+
+        ${data} =    CompareStream.Set_Variable_If_At_Least_Scandium
+        ...    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down_pekko.json
+        ...    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down_akka.json
         ${member_ip} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
         ${data} =    String.Replace String    ${data}    {member_ip}    ${member_ip}
         TemplatedRequests.Post_To_Uri

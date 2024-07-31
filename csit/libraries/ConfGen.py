@@ -22,28 +22,28 @@ def _parse_input(file_name):
 
 
 def generate_akka(original_file, node_idx=1, nodes_ip_list=["127.0.0.1"]):
-    """Generates akka.conf content.
+    """Generates pekko.conf content.
 
     Args:
         :param original_file: path to the filename, normally expecting file from system/org/opendaylight...
-                          sal-clustering-config-<version>-akkaconf.xml
+                          sal-clustering-config-<version>-pekkoconf.xml
         :param node_idx: cluster node index for which the file is generated
         :param nodes_ip_list: list of luster nodes ip addresses
 
     Returns:
-        :returns str: akka.conf content
+        :returns str: pekko.conf content
     """
 
     conf = _parse_input(original_file)
-    conf["odl-cluster-data"]["akka"]["remote"]["netty"]["tcp"][
+    conf["odl-cluster-data"]["pekko"]["remote"]["netty"]["tcp"][
         "hostname"
     ] = nodes_ip_list[node_idx - 1]
     seed_nodes = [
-        "akka.tcp://opendaylight-cluster-data@{}:2550".format(ip)
+        "pekko.tcp://opendaylight-cluster-data@{}:2550".format(ip)
         for ip in nodes_ip_list
     ]
-    conf["odl-cluster-data"]["akka"]["cluster"]["seed-nodes"] = seed_nodes
-    conf["odl-cluster-data"]["akka"]["cluster"]["roles"] = [
+    conf["odl-cluster-data"]["pekko"]["cluster"]["seed-nodes"] = seed_nodes
+    conf["odl-cluster-data"]["pekko"]["cluster"]["roles"] = [
         "member-{}".format(node_idx)
     ]
     return pyhocon.tool.HOCONConverter.to_hocon(conf)
