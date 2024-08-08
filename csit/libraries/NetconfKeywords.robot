@@ -312,7 +312,8 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     [Arguments]    ${operation}    ${deadline_Date}    ${log_response}=True
     NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired    ${deadline_Date}
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
-    BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}    log_response=${log_response}
+    ${string_number}=    BuiltIn.Convert To String    ${number}
+    BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${string_number}    log_response=${log_response}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
