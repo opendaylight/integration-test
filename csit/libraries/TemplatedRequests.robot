@@ -880,6 +880,7 @@ Encode_Mapping
     BuiltIn.Log    mapping: ${mapping}
     ${encoded_mapping} =    BuiltIn.Create_Dictionary
     FOR    ${key}    ${value}    IN    &{mapping}
+        ${value} =    BuiltIn.Convert_To_String    ${value}
         ${encoded_value} =    Percent_Encode_String    ${value}
         Collections.Set_To_Dictionary    ${encoded_mapping}    ${key}    ${encoded_value}
     END
