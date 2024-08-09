@@ -1,8 +1,0 @@
-{
-	input:{
-		topology-id:$TOPOLOGYID,
-		node-id:$NODEID,
-		label-base:$LABELBASE,
-		label-range-size:$LABELRANGESIZE
-	}
-}
