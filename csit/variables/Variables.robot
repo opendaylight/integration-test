@@ -29,15 +29,6 @@ Documentation       Resource consisting purely of variable definitions useful fo
 # Header for accepting XML data. TODO: Hide into more specific Resource if possible.
 &{ACCEPT_XML}
 ...                                         Accept=application/xml
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${ALERTFIELDCONTENTRULERECORD}
-...                                         /rests/data/alertrule:alertFieldContentRuleRecord
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${ALERTFIELDVALUERULERECORD}
-...                                         /rests/data/alertrule:alertFieldValueRuleRecord
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${ALERTMESSAGECOUNTRULERECORD}
-...                                         /rests/data/alertrule:alertMessageCountRuleRecord
 # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 @{AUTH}
 ...                                         ${ODL_RESTCONF_USER}
@@ -142,9 +133,6 @@ ${DEFAULT_USER}
 ${DEFAULT_TIMEOUT}
 ...                                         30s
 ${DEFAULT_TIMEOUT_HTTP}                     5    # Used for HTTP connections
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${DELETE_DASHBOARDRECORD}
-...                                         /rests/operations/dashboardrule:delete-dashboard
 # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
 ${ELASTICPORT}
 ...                                         9200
@@ -178,12 +166,6 @@ ${FLOWLISTS_CREATE}
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTENTRIES_CREATE}
 ...                                         flowlistentries.json
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${GET_CONFIGURATION_URI}
-...                                         /rests/data/configuration:configurationRecord/?content=nonconfig
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${GET_DASHBOARDRECORD}
-...                                         /rests/data/dashboardrule:dashboardRecord/?content=nonconfig
 # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 &{HEADERS}
 ...                                         Content-Type=application/json
@@ -325,36 +307,9 @@ ${SCOPE}
 &{SEND_ACCEPT_XML_HEADERS}
 ...                                         Content-Type=application/xml
 ...                                         Accept=application/xml
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_ALERTFIELDCONTENTRULERECORD}
-...                                         /rests/operations/alertrule:set-alert-field-content-rule
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_ALERTFIELDVALUERULERECORD}
-...                                         /rests/operations/alertrule:set-alert-field-value-rule
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_ALERTMESSAGECOUNTRULERECORD}
-...                                         /rests/operations/alertrule:set-alert-message-count-rule
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_CONFIGURATION_URI}
-...                                         /rests/operations/configuration:set-centinel-configurations
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_DASHBOARDRECORD}
-...                                         /rests/operations/dashboardrule:set-dashboard
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_STREAMRECORD}
-...                                         /rests/operations/stream:set-stream
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_SUBSCRIBEUSER}
-...                                         /rests/operations/subscribe:subscribe-user
 # Implementation detail related to SSHLibrary.Login_With_Public_Key. TODO: Hide in SSHKeywords.
 ${SSH_KEY}
 ...                                         id_rsa
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${STREAMRECORD_CONFIG}
-...                                         /rests/data/stream:streamRecord
-# FIXME: Move to a separate Centinel-related Resource and add description.
-${SUBSCRIPTION}
-...                                         /rests/data/subscribe:subscription/
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${SW}
 ...                                         switches
