@@ -233,27 +233,6 @@ ${LFM_SB_RPC_API}
 # FIXME: Move to a separate Resource and add description.
 ${MODULES_API}
 ...                                         /rests/data/ietf-yang-library:modules-state?content=nonconfig
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON}
-...                                         127.0.0.1
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRONURL}
-...                                         http://${NEUTRON}:9696
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON_NB_API}
-...                                         /controller/nb/v2/neutron
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON_NETWORKS_API}
-...                                         ${NEUTRON_NB_API}/networks
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON_SUBNETS_API}
-...                                         ${NEUTRON_NB_API}/subnets
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON_PORTS_API}
-...                                         ${NEUTRON_NB_API}/ports
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${NEUTRON_ROUTERS_API}
-...                                         ${NEUTRON_NB_API}/routers
 ${ODL_AKKA_PORT}                            2550    # Port number akka cluster communicates on
 ${ODL_BGP_PORT}                             1790    # ODL side of BGP communication listens on this port number.
 # Deprecated. Not clear if this refers to HTTP or SSH sessions. FIXME: Eradicate, or at least convert to a resource-private variable.
@@ -309,9 +288,6 @@ ${OPERATIONAL_API}
 ${OPERATIONAL_TOPO_API}
 ...                                         /rests/data/network-topology:network-topology
 ${OS_CMD_SUCCESS}                           Command Returns 0
-# FIXME: Move to a separate Neutron-related Resource and add description.
-${OSREST}
-...                                         /v2.0/networks
 # Port number ODL uses for OVSDB protocol communication. TODO: Move to OVSDB-specific Resource.
 ${OVSDBPORT}
 ...                                         6640

@@ -32,12 +32,3 @@ Get Model Dump
         ${resp}=    RequestsLibrary.GET On Session    model_dump_session    url=${restconf_root}/${model}
         Utils.Log Content    ${resp.text}
     END
-
-Verify No Ingress Dispatcher Non-Default Flow Entries
-    [Documentation]    Verify the ingress dispatcher table has no non-default flows after neutron was cleaned up
-    [Arguments]    ${ovs_ip}
-    ${flow_output}=    Utils.Run Command On Remote System
-    ...    ${ovs_ip}
-    ...    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE} table=${DISPATCHER_TABLE} | grep -v "priority=0"
-    Log    ${flow_output}
-    #Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE} # Skipping test verification until bug 7451 is resolved
