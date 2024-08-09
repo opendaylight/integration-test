@@ -43,7 +43,6 @@ class DistCompare(object):
             "infrautils",
             "snmp",
             "bgpcep",
-            "nemo",
             "netconf",
             "sxp",
             "jsonrpc",

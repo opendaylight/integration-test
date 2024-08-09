@@ -184,9 +184,6 @@ ${GET_CONFIGURATION_URI}
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_DASHBOARDRECORD}
 ...                                         /rests/data/dashboardrule:dashboardRecord/?content=nonconfig
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${GET_INTENTS_URI}
-...                                         /retconf/config/intent:intents
 # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 &{HEADERS}
 ...                                         Content-Type=application/json
@@ -299,15 +296,6 @@ ${PORT}                                     8080    # Deprecated. Generic HTTP p
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${PORTS}
 ...                                         ports/detail.json
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${PREDEFINE_CONNECTION_URI}
-...                                         /rests/data/nemo-object:connection-definitions
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${PREDEFINE_NODE_URI}
-...                                         /rests/data/nemo-object:node-definitions
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${PREDEFINE_ROLE_URI}
-...                                         /rests/data/nemo-user:user-roles
 # Deprecated. FIXME: Name is to generic. Eradicate.
 ${PREFIX}
 ...                                         http://${ODL_SYSTEM_IP}:${PORT}
@@ -321,9 +309,6 @@ ${REGEX_IPV4}                               [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_NAMESERVER}                         nameserver [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_OBTAINED}                           [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3} obtained
 ${REGEX_UUID}                               [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${REGISTER_TENANT_URI}
-...                                         /rests/operations/nemo-intent:register-user
 ${RESTCONFPORT}                             8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}                         8443    # Port for ODL RESTCONF Secure (TLS) operations
 # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
@@ -367,9 +352,6 @@ ${SSH_KEY}
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${STREAMRECORD_CONFIG}
 ...                                         /rests/data/stream:streamRecord
-# FIXME: Move to a separate Nemo-related Resource and add description.
-${STRUCTURE_INTENT_URI}
-...                                         /rests/operations/nemo-intent:structure-style-nemo-update
 # FIXME: Move to a separate Centinel-related Resource and add description.
 ${SUBSCRIPTION}
 ...                                         /rests/data/subscribe:subscription/
