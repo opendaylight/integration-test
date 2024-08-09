@@ -74,12 +74,10 @@ ${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}            -service-group
 ...                                             bgpcep=${EMPTY}
 ...                                             netconf=${SINGLETON_NETCONF_DEVICE_ID_PREFIX}
 ...                                             openflow=${EMPTY}
-...                                             sxp=${EMPTY}
 &{SINGLETON_DEVICE_ID_SUFFIX}
 ...                                             bgpcep=${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
 ...                                             netconf=${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
 ...                                             openflow=${EMPTY}
-...                                             sxp=${EMPTY}
 ${SINGLETON_ELECTION_ENTITY_TYPE}               org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}       org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_ROLE_INDEX_START}                        1
