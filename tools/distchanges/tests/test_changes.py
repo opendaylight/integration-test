@@ -10,8 +10,6 @@ from changes import Changes
 REMOTE_URL = "ssh://git.opendaylight.org:29418"
 PROJECT_NAMES = [
     "controller",
-    "dlux",
-    "dluxapps",
     "infrautils",
     "mdsal",
     "netconf",
