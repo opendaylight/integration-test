@@ -45,7 +45,6 @@ class DistCompare(object):
             "bgpcep",
             "nemo",
             "netconf",
-            "sxp",
             "jsonrpc",
             "p4plugin",
             "odlparent",
