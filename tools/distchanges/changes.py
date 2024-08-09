@@ -64,8 +64,6 @@ class ChangeId(object):
 class Changes(object):
     PROJECT_NAMES = [
         "controller",
-        "dlux",
-        "dluxapps",
         "infrautils",
         "mdsal",
         "netconf",
