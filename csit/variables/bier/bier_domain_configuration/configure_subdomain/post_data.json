@@ -1,8 +1,0 @@
-{
-    input:
-    {
-		topology-id: $TOPOLOGYID,
-		domain-id:$DOMAINID,
-		sub-domain: [$SUBDOMAIN1,$SUBDOMAIN2]
-	}
-}
