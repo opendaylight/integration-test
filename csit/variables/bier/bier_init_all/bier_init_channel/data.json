@@ -1,9 +1,0 @@
-{
-  "bier-network-channel": {
-    "bier-channel": [
-      {
-        "topology-id": "example-linkstate-topology"
-      }
-    ]
-  }
-}
