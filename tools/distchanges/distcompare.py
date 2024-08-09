@@ -38,7 +38,6 @@ class DistCompare(object):
             "of-config",
             "daexim",
             "dluxapps",
-            "packetcable",
             "yangtools",
             "infrautils",
             "neutron",
