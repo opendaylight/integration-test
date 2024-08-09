@@ -37,7 +37,6 @@ class DistCompare(object):
             "openflowplugin",
             "of-config",
             "daexim",
-            "dluxapps",
             "yangtools",
             "infrautils",
             "snmp",
@@ -47,7 +46,6 @@ class DistCompare(object):
             "p4plugin",
             "odlparent",
             "l2switch",
-            "dlux",
             "controller",
         ]
 

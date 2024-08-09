@@ -10,11 +10,6 @@ Resource            ../variables/YangmanGUIVariables.robot
 
 
 *** Keywords ***
-Open DLUX And Login And Navigate To Yangman URL
-    [Documentation]    Launches DLUX page using PhantomJS, or Xvfb, or real browser and navigates to yangman url.
-    GUIKeywords.Open Or Launch DLUX Page And Log In To DLUX
-    GUIKeywords.Navigate To URL    ${YANGMAN_SUBMENU_URL}
-
 Return List Of Operation IDs
     [Documentation]    Returns list of IDs of Get, Put, Post and Delete options in expanded operation select menu.
     ${list}=    BuiltIn.Create List    ${GET_OPTION}    ${PUT_OPTION}    ${POST_OPTION}    ${DELETE_OPTION}
