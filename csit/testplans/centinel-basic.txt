@@ -1,8 +1,0 @@
-# Place the suites in run order:
-integration/test/csit/suites/centinel/basic/020_FeatureInstallation.robot
-integration/test/csit/suites/centinel/basic/030_Configuration.robot
-integration/test/csit/suites/centinel/basic/040_Stream.robot
-integration/test/csit/suites/centinel/basic/050_Alertrule.robot
-integration/test/csit/suites/centinel/basic/060_Dashboardrule.robot
-integration/test/csit/suites/centinel/basic/070_Subscribe.robot
-integration/test/csit/suites/centinel/basic/080_FeatureUninstallation.robot
