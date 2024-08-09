@@ -29,7 +29,6 @@ class DistCompare(object):
             "integration/distribution",
             "mdsal",
             "serviceutils",
-            "usc",
             "ovsdb",
             "lispflowmapping",
             "snmp4sdn",
