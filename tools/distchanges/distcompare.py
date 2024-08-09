@@ -28,7 +28,6 @@ class DistCompare(object):
         return [
             "integration/distribution",
             "mdsal",
-            "alto",
             "bier",
             "serviceutils",
             "usc",
