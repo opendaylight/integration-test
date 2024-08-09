@@ -15,7 +15,6 @@ PROJECT_NAMES = [
     "infrautils",
     "mdsal",
     "netconf",
-    "neutron",
     "odlparent",
     "openflowplugin",
     "ovsdb",
