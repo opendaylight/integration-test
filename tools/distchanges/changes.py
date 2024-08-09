@@ -69,7 +69,6 @@ class Changes(object):
         "infrautils",
         "mdsal",
         "netconf",
-        "neutron",
         "odlparent",
         "openflowplugin",
         "ovsdb",
