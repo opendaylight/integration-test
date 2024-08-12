@@ -48,7 +48,6 @@ ${delete_location}                      delete_location
 *** Test Cases ***
 Start_Testtool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
-    [Tags]    odlmicro_ign
     NetconfKeywords.Install_And_Start_Testtool
     ...    device-count=1
     ...    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
