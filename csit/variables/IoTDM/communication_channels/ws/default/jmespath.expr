@@ -1,1 +1,0 @@
-"output"."onem2m-communication-channel-protocols"[?"communication-channel-protocol" == `websocket`] | [0]."onem2m-communication-channel-addresses"[?"communication-channel-address" == `0.0.0.0`] | [0]."onem2m-communication-channel-ports"[?"onem2m-communication-channel-port" == `8888`] | [0]

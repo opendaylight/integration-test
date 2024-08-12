@@ -1,8 +1,0 @@
-{
-  "output": {
-    "plugin-name": "Onem2mExample",
-    "cfg-val": "Val2",
-    "instance-name": "default",
-    "cfg-key": "testKey2"
-  }
-}
