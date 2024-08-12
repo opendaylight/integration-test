@@ -1,1 +1,0 @@
-"output"."registered-iotdm-plugins-table"[?"plugin-name" == `http(s)-base`] | [0]
