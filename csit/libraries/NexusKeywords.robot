@@ -34,7 +34,6 @@ Resource            ${CURDIR}/Utils.robot
 ...                                 carpeople=clustering-it-model
 ...                                 yangtools=yang-data-impl
 ...                                 bindingv1=mdsal-binding-generator-impl
-...                                 odl-micro=odlmicro-impl
 @{RELEASE_INTEGRATED_COMPONENTS}    mdsal    odlparent    yangtools    carpeople    netconf    bgpcep
 ${JDKVERSION}                       None
 ${JAVA_8_HOME_CENTOS}               /usr/lib/jvm/java-1.8.0

@@ -83,7 +83,6 @@ ${NETCONF_FOLDER}                   ${CURDIR}/../../../variables/netconf/device
 *** Test Cases ***
 Check_Whether_Netconf_Topology_Is_Ready
     [Documentation]    Checks netconf readiness.
-    [Tags]    odlmicro_ign
     BuiltIn.Pass_Execution_If
     ...    ${USE_NETCONF_CONNECTOR}==${True}
     ...    Netconf connector is used. Next testcases do their job in this case.
@@ -141,7 +140,6 @@ Check_Whether_Netconf_Can_Pretty_Print
 
 Wait_For_MDSAL
     [Documentation]    Wait for the MDSAL feature to become online
-    [Tags]    odlmicro_ign
     ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error
     ...    KarafKeywords.Verify_Feature_Is_Installed
     ...    odl-netconf-mdsal
