@@ -1,7 +1,0 @@
-{
-  "input": {
-    "protocol-name": "http",
-    "plugin-name": "http(s)-base",
-    "plugin-instance-name": "default"
-  }
-}
