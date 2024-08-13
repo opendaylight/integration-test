@@ -444,7 +444,7 @@ Run Process With Logging And Status Check
     Should Be Equal As Integers    ${result.rc}    0
     RETURN    ${result}
 
-Get Data From URI
+Get_Data_From_URI
     [Documentation]    Issue a Get On Session and return the data obtained or on error log the error and fail.
     ...    Issues a Get On Session for ${uri} in ${session} using headers from
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
