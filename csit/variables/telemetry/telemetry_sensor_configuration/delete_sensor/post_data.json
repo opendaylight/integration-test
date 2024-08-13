@@ -1,8 +1,0 @@
-{
-    input:
-    {
-              telemetry-sensor-group:[{
-                                   sensor-group-id:$SENSOR
-                                }]
-         }
-}
