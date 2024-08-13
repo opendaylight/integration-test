@@ -27,8 +27,4 @@ Note: to run controller just go to opendaylight folder and type run.sh
 
 Note: Robot test results (saved at ~/) can be opened with a browser
 
-4) VTN Coordinator:
-
-~/integration/vm/scripts/start_vtn_coordinator.sh
-~/integration/vm/scripts/stop_vtn_coordinator.sh
 
