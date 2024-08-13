@@ -51,7 +51,6 @@ ${OPENCONFIG_REPO_COMMIT_HASH}
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/catalog
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/interfaces
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/isis
-...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/lacp
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/lldp
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/local-routing
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/macsec

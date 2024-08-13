@@ -78,11 +78,6 @@ Odl_To_Play_route_es_as
 Play_To_Odl_route_es_as
     [Template]    Play_To_Odl_Template
     route_es_as
-Odl_To_Play_route_es_lacp
-    route_es_lacp
-Play_To_Odl_route_es_lacp
-    [Template]    Play_To_Odl_Template
-    route_es_lacp
 Odl_To_Play_route_es_lan
     route_es_lan
 Play_To_Odl_route_es_lan
@@ -108,36 +103,6 @@ Odl_To_Play_route_eth_as
 Play_To_Odl_route_eth_as
     [Template]    Play_To_Odl_Template
     route_eth_as
-Odl_To_Play_route_eth_lacp
-    route_eth_lacp
-Play_To_Odl_route_eth_lacp
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp
-Odl_To_Play_route_eth_lacp_extdef
-    route_eth_lacp_extdef
-Play_To_Odl_route_eth_lacp_extdef
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp_extdef
-Odl_To_Play_route_eth_lacp_extesilab
-    route_eth_lacp_extesilab
-Play_To_Odl_route_eth_lacp_extesilab
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp_extesilab
-Odl_To_Play_route_eth_lacp_extesr
-    route_eth_lacp_extesr
-Play_To_Odl_route_eth_lacp_extesr
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp_extesr
-Odl_To_Play_route_eth_lacp_extl2
-    route_eth_lacp_extl2
-Play_To_Odl_route_eth_lacp_extl2
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp_extl2
-Odl_To_Play_route_eth_lacp_extmac
-    route_eth_lacp_extmac
-Play_To_Odl_route_eth_lacp_extmac
-    [Template]    Play_To_Odl_Template
-    route_eth_lacp_extmac
 Odl_To_Play_route_eth_lan
     route_eth_lan
 Play_To_Odl_route_eth_lan
@@ -163,11 +128,6 @@ Odl_To_Play_route_inc_as
 Play_To_Odl_route_inc_as
     [Template]    Play_To_Odl_Template
     route_inc_as
-Odl_To_Play_route_inc_lacp
-    route_inc_lacp
-Play_To_Odl_route_inc_lacp
-    [Template]    Play_To_Odl_Template
-    route_inc_lacp
 Odl_To_Play_route_inc_lan
     route_inc_lan
 Play_To_Odl_route_inc_lan
@@ -193,11 +153,6 @@ Odl_To_Play_route_mac_as
 Play_To_Odl_route_mac_as
     [Template]    Play_To_Odl_Template
     route_mac_as
-Odl_To_Play_route_mac_lacp
-    route_mac_lacp
-Play_To_Odl_route_mac_lacp
-    [Template]    Play_To_Odl_Template
-    route_mac_lacp
 Odl_To_Play_route_mac_lan
     route_mac_lan
 Play_To_Odl_route_mac_lan
