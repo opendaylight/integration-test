@@ -82,7 +82,7 @@ Check_Device_Data
     [Documentation]    Opration for getting the configuration data of the device and checking that it matches what is expected.
     [Arguments]    ${current_name}    ${log_response}=True
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
-    ${data}=    Utils.Get_Data_From_URI
+    ${resp}=    RequestsLibrary.Get On Session
     ...    config
     ...    network-topology:network-topology/topology=topology-netconf/node=${current_name}/yang-ext:mount?content=config
     ...    headers=${ACCEPT_XML}
@@ -92,4 +92,4 @@ Check_Device_Data
     ELSE
         ${expected}=    Set Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
     END
-    Should Be Equal As Strings    '${data}'    ${expected}
+    Should Be Equal As Strings    '${resp.body}'    ${expected}

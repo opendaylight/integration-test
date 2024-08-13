@@ -444,17 +444,6 @@ Run Process With Logging And Status Check
     Should Be Equal As Integers    ${result.rc}    0
     RETURN    ${result}
 
-Get Data From URI
-    [Documentation]    Issue a Get On Session and return the data obtained or on error log the error and fail.
-    ...    Issues a Get On Session for ${uri} in ${session} using headers from
-    ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
-    ...    returns the data obtained by the request.
-    [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
-    ${resp}=    RequestsLibrary.Get On Session    ${session}    url=${uri}    headers=${headers}
-    IF    ${resp.status_code} == 200    RETURN    ${resp.text}
-    Builtin.Log    ${resp.text}
-    Builtin.Fail    The request failed with code ${resp.status_code}
-
 Get URI And Verify
     [Documentation]    Issue a Get On Session and verify a successfull HTTP return.
     ...    Issues a Get On Session for ${uri} in ${session} using headers from ${headers}.
