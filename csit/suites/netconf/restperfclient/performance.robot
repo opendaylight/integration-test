@@ -89,7 +89,9 @@ Check_For_Failed_Requests
     BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    RestPerfClient.Grep_Restperfclient_Log    Request failed
     BuiltIn.Should_Be_Equal    '${result}'    ''
-    ${result}=    RestPerfClient.Grep_Restperfclient_Log    Status code
+    ${result}=    RestPerfClient.Grep_Restperfclient_Log    Status code: 50
+    BuiltIn.Should_Be_Equal    '${result}'    ''
+    ${result}=    RestPerfClient.Grep_Restperfclient_Log    Status code: 40
     BuiltIn.Should_Be_Equal    '${result}'    ''
 
 Cleanup_And_Collect
