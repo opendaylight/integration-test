@@ -70,7 +70,6 @@ ${OPENCONFIG_REPO_COMMIT_HASH}
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/segment-routing
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/stp
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/system
-...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/telemetry
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/types
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/vlan
 ...                                 /home/jenkins/src/main/yang/experimental/openconfig/release/models/wifi
