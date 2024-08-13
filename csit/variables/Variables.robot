@@ -94,9 +94,6 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE}
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 ...                                         MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${CREATE_VLAN_TOPOLOGY_FILE}
-...                                         vlan_vtn_test.py
-# A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 ...                                         MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -352,27 +349,4 @@ ${VBRS_CREATE}
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VLANMAP_CREATE}
 ...                                         vlanmaps.json
-# IP address where VTN Coordinator application is running. TODO: Move to a VTN-specific Resource.
-${VTNC}
-...                                         127.0.0.1
-# Dict of headers to use for HTTP requests against VTN Coordinator. TODO: Move to a VTN-specific Resource.
-&{VTNC_HEADERS}
-...                                         Content-Type=application/json
-...                                         username=admin
-...                                         password=adminpass
-# Shorthand for composing HTTP requests. TODO: Move to a VTN-specific Resource.
-${VTNC_PREFIX}
-...                                         http://${VTNC}:${VTNCPORT}
-# Port number VTN Coordinator listens on. TODO: Move to a VTN-specific Resource.
-${VTNCPORT}
-...                                         8083
-# A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${VTNS}
-...                                         vtns
-# A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${VTNS_CREATE}
-...                                         vtns.json
-# Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
-${VTNWEBAPI}
-...                                         /vtn-webapi
 # Keep this list sorted alphabetically.
