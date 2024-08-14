@@ -21,7 +21,7 @@ Resource            ../variables/Variables.robot
 *** Variables ***
 ${SSHKeywords__current_remote_working_directory}    .
 ${SSHKeywords__current_venv_path}                   /tmp/defaultvenv
-${NETSTAT_COMMAND}                                  netstat -punta
+${NETSTAT_COMMAND}                                  ss -punta
 
 
 *** Keywords ***

@@ -110,7 +110,7 @@ Read_Python_Tool_Operation_Result
     ${test}=    String.Split_String    ${test}    |
     ${response}=    Collections.Get_From_List    ${test}    0
     ${message}=    Collections.Get_From_List    ${test}    1
-    IF    '${response}' == 'ERROR'    Fail    Error getting data: ${message}
+    IF    '${response}' == '404'    Fail    Error getting data: ${message}
     ${start}=    Collections.Get_From_List    ${test}    1
     ${stop}=    Collections.Get_From_List    ${test}    2
     ${ellapsed}=    Collections.Get_From_List    ${test}    3

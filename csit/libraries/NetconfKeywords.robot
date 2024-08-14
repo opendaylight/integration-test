@@ -254,7 +254,6 @@ NetconfKeywords__Check_Device_Is_Up
 NetconfKeywords__Wait_Device_Is_Up_And_Running
     [Arguments]    ${device_name}    ${log_response}=True
     ${number}=    BuiltIn.Evaluate    '${device_name}'.split('-').pop()
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_BOOT_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
     [Documentation]    Install and run testtool.
