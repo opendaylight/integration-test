@@ -33,7 +33,6 @@ class DistCompare(object):
             "lispflowmapping",
             "snmp4sdn",
             "aaa",
-            "honeycomb/vbd",
             "openflowplugin",
             "of-config",
             "daexim",
