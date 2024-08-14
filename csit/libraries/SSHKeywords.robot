@@ -197,9 +197,19 @@ Assure_Library_Counter
 Count_Port_Occurences
     [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
     [Arguments]    ${port}    ${state}    ${name}
+    ${netstat_installed} =    SSHLibrary.Execute_Command    netstat --version
+    IF    '${netstat_installed}' != '0'
+        Install_Netstat
+    END
+
     ${output} =    SSHLibrary.Execute_Command
     ...    ${NETSTAT_COMMAND} 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
     RETURN    ${output}
+
+Install_Netstat
+    [Documentation]    Install netstat if it is not already installed.
+    SSHLibrary.Execute_Command    sudo apt-get update
+    SSHLibrary.Execute_Command    sudo apt-get install -y net-tools
 
 Virtual_Env_Set_Path
     [Documentation]    Set \${SSHKeywords__current_venv_path} variable to ${venv_path}. Path should be absolute.
