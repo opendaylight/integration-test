@@ -34,7 +34,6 @@ class DistCompare(object):
             "snmp4sdn",
             "aaa",
             "openflowplugin",
-            "of-config",
             "daexim",
             "yangtools",
             "infrautils",
