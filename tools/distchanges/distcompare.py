@@ -41,7 +41,6 @@ class DistCompare(object):
             "bgpcep",
             "netconf",
             "jsonrpc",
-            "p4plugin",
             "odlparent",
             "l2switch",
             "controller",
