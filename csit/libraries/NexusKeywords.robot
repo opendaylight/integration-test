@@ -267,6 +267,11 @@ Compose_Base_Java_Command
     ...    Compose_Dilemma_Filepath
     ...    ${JAVA_17_HOME_CENTOS}/bin/java
     ...    ${JAVA_17_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If
+        ...    """${openjdk}""" == "openjdk21"
+        ...    Compose_Dilemma_Filepath
+        ...    ${JAVA_17_HOME_CENTOS}/bin/java
+        ...    ${JAVA_17_HOME_UBUNTU}/bin/java
     # Attempt to call plain "java" command directly. If it works, return it.
     ${out}    ${rc} =    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
     IF    ${rc} == 0    RETURN    java
