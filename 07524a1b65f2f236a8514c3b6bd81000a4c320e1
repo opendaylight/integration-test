@@ -16,6 +16,24 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-potassium/7/",
       "revId": "07524a1b65f2f236a8514c3b6bd81000a4c320e1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a0b9ac3_de668a76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9255
+      },
+      "writtenOn": "2024-08-14T14:47:46Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/job/netconf-csit-1node-scale-only-potassium/8/",
+      "parentUuid": "380d4f0c_71160de6",
+      "revId": "07524a1b65f2f236a8514c3b6bd81000a4c320e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
