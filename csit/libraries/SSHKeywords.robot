@@ -21,7 +21,7 @@ Resource            ../variables/Variables.robot
 *** Variables ***
 ${SSHKeywords__current_remote_working_directory}    .
 ${SSHKeywords__current_venv_path}                   /tmp/defaultvenv
-${NETSTAT_COMMAND}                                  netstat -punta
+${NETSTAT_COMMAND}                                  ss -punta
 
 
 *** Keywords ***
@@ -198,7 +198,7 @@ Count_Port_Occurences
     [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
     [Arguments]    ${port}    ${state}    ${name}
     ${output} =    SSHLibrary.Execute_Command
-    ...    ${NETSTAT_COMMAND} 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
+    ...    ${NETSTAT_COMMAND} 2> /dev/null | grep -E ":${port}" | wc -l
     RETURN    ${output}
 
 Virtual_Env_Set_Path
