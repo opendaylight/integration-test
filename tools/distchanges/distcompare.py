@@ -48,7 +48,6 @@ class DistCompare(object):
             "netconf",
             "sxp",
             "jsonrpc",
-            "p4plugin",
             "odlparent",
             "l2switch",
             "dlux",
