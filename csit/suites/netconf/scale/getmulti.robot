@@ -121,4 +121,5 @@ Read_Python_Tool_Operation_Result
     ELSE
         ${expected}=    Set Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"/>'
     END
+    BuiltIn.Log DATA: Device=${number} Data=${data}
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
