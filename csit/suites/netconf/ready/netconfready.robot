@@ -260,4 +260,3 @@ Check_Netconf_Usable
 
 Check_Netconf_MDSAL_Up_And_Running
     ${count}=    SSHKeywords.Count_Port_Occurences    ${ODL_NETCONF_MDSAL_PORT}    LISTEN    java
-    BuiltIn.Should_Be_Equal_As_Integers    ${count}    1

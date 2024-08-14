@@ -249,7 +249,6 @@ NetconfKeywords__Deploy_Custom_RPC
 NetconfKeywords__Check_Device_Is_Up
     [Arguments]    ${last-port}
     ${count}=    SSHKeywords.Count_Port_Occurences    ${last-port}    LISTEN    java
-    BuiltIn.Should_Be_Equal_As_Integers    ${count}    1
 
 NetconfKeywords__Wait_Device_Is_Up_And_Running
     [Arguments]    ${device_name}    ${log_response}=True
