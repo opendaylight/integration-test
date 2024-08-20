@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720a7e8b_56866ad1",
+        "filename": "docs/system-test-guide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 9063
+      },
+      "writtenOn": "2024-08-20T11:03:25Z",
+      "side": 1,
+      "message": "Consider replacing/removing this example",
+      "range": {
+        "startLine": 201,
+        "startChar": 6,
+        "endLine": 201,
+        "endChar": 20
+      },
+      "revId": "a1c66039b75b6d6fff65fc367d16c9a7154b36c1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
