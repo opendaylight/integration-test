@@ -43,6 +43,8 @@ ${JAVA_11_HOME_CENTOS}              /usr/lib/jvm/java-11-openjdk
 ${JAVA_11_HOME_UBUNTU}              /usr/lib/jvm/java-11-openjdk-amd64
 ${JAVA_17_HOME_CENTOS}              /usr/lib/jvm/java-17-openjdk
 ${JAVA_17_HOME_UBUNTU}              /usr/lib/jvm/java-17-openjdk-amd64
+${JAVA_21_HOME_CENTOS}              /usr/lib/jvm/java-21-openjdk
+${JAVA_21_HOME_UBUNTU}              /usr/lib/jvm/java-21-openjdk-amd64
 # Note that '-Xmx=3g' is wrong syntax. Also 3GB heap may not fit in 4GB RAM.
 ${JAVA_OPTIONS}
 ...                                 -Xmx2560m
@@ -267,6 +269,11 @@ Compose_Base_Java_Command
     ...    Compose_Dilemma_Filepath
     ...    ${JAVA_17_HOME_CENTOS}/bin/java
     ...    ${JAVA_17_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If
+    ...    """${openjdk}""" == "openjdk21"
+    ...    Compose_Dilemma_Filepath
+    ...    ${JAVA_21_HOME_CENTOS}/bin/java
+    ...    ${JAVA_21_HOME_UBUNTU}/bin/java
     # Attempt to call plain "java" command directly. If it works, return it.
     ${out}    ${rc} =    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
     IF    ${rc} == 0    RETURN    java
