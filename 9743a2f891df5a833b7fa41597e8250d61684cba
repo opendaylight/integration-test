@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f10d6b_ab833be6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-08-21T07:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec43490e_40a26846",
+      "revId": "9743a2f891df5a833b7fa41597e8250d61684cba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dd7c959_cbef1db1",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-20T14:35:42Z",
       "side": 1,
       "message": "org.apache.pekko",
+      "range": {
+        "startLine": 13,
+        "startChar": 16,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "9743a2f891df5a833b7fa41597e8250d61684cba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac7a19e_4bd6c46d",
+        "filename": "tools/clustering/cluster-deployer/templates/openflow/akka.conf.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-08-21T07:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd7c959_cbef1db1",
       "range": {
         "startLine": 13,
         "startChar": 16,
@@ -64,6 +106,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8f7914c_258b8141",
+        "filename": "tools/clustering/cluster-deployer/templates/openflow/akka.conf.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-08-21T07:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5728027e_0a8d30e6",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 27
+      },
+      "revId": "9743a2f891df5a833b7fa41597e8250d61684cba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53a2a7d5_cea53a0b",
@@ -87,6 +153,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "191cc21a_7a376cc0",
+        "filename": "tools/clustering/cluster-deployer/templates/openflow/akka.conf.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-08-21T07:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a2a7d5_cea53a0b",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 21
+      },
+      "revId": "9743a2f891df5a833b7fa41597e8250d61684cba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89010dd9_58e811eb",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-08-20T14:35:42Z",
       "side": 1,
       "message": "org.apache.pekko",
+      "range": {
+        "startLine": 79,
+        "startChar": 18,
+        "endLine": 79,
+        "endChar": 23
+      },
+      "revId": "9743a2f891df5a833b7fa41597e8250d61684cba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31f1bf0_b9b8746b",
+        "filename": "tools/clustering/cluster-deployer/templates/openflow/akka.conf.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-08-21T07:37:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89010dd9_58e811eb",
       "range": {
         "startLine": 79,
         "startChar": 18,
