@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0685614_5a9792f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-08-22T15:50:22Z",
+      "side": 1,
+      "message": "Relates to https://git.opendaylight.org/gerrit/c/releng/builder/+/113172",
+      "revId": "dcc48b5d9ab5af0f437e974d78380190165afb97",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
