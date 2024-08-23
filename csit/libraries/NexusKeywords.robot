@@ -178,6 +178,7 @@ Deploy_Artifact
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
+    SSHKeywords.Open_Connection_To_ODL_System
     ${metadata} =    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
     ${status}    ${namepart} =    BuiltIn.Run_Keyword_And_Ignore_Error
     ...    SSHKeywords.Execute_Command_Should_Pass
