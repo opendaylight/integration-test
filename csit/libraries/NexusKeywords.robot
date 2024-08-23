@@ -100,7 +100,7 @@ NexusKeywords__Detect_Version_To_Pull
     ${current_ssh_connection} =    SSHLibrary.Get Connection
     SSHKeywords.Open_Connection_To_ODL_System
     ${version}    ${result} =    SSHLibrary.Execute_Command
-    ...    sh search.sh ${WORKSPACE}/${BUNDLEFOLDER}/system ${itemlist}
+    ...    sh search.sh /home/odl/netconf-karaf-8.0.1-SNAPSHOT/system ${itemlist}
     ...    return_rc=True
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
@@ -178,6 +178,7 @@ Deploy_Artifact
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
+    SSHKeywords.Open_Connection_To_ODL_System
     ${metadata} =    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
     ${status}    ${namepart} =    BuiltIn.Run_Keyword_And_Ignore_Error
     ...    SSHKeywords.Execute_Command_Should_Pass
