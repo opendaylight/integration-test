@@ -33,6 +33,23 @@
       "message": "IMO: This would be required by Netty RESTCONF.\n\nBut it looks that we have another issue which is causing tests to fail:\nModuleNotFoundError: No module named \u0027aiohttp\u0027",
       "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0845e5_bda309d8",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-08-26T18:26:45Z",
+      "side": 1,
+      "message": "This request is for a `ietf-restconf-monitoring` stream like [RFC 8040 6.2. Event Streams](https://datatracker.ietf.org/doc/html/rfc8040#section-6.2).\nWhy does this require `text/event-stream`?",
+      "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
