@@ -16,6 +16,23 @@
       "message": "sandbox: https://jenkins.opendaylight.org/sandbox/job/netconf-csit-1node-userfeatures-all-calcium/",
       "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77172047_161780fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-08-26T15:03:01Z",
+      "side": 1,
+      "message": "IMO: This would be required by Netty RESTCONF.\n\nBut it looks that we have another issue which is causing tests to fail:\nModuleNotFoundError: No module named \u0027aiohttp\u0027",
+      "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
