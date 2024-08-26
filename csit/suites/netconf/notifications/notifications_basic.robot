@@ -176,11 +176,11 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/ssereceiver.py
     SSHLibrary.Execute_Command    sudo apt-get install -y python3-pip    return_stdout=True    return_stderr=True
     SSHLibrary.Execute_Command
-    ...    sudo python3 -m pip install --upgrade pip setuptools wheel
+    ...    python3 -m pip install --user --upgrade pip setuptools wheel
     ...    return_stdout=True
     ...    return_stderr=True
     SSHLibrary.Execute_Command
-    ...    sudo python3 -m pip install websocket-client asyncio aiohttp aiohttp-sse-client coroutine
+    ...    python3 -m pip install --user websocket-client asyncio aiohttp aiohttp-sse-client coroutine
     ...    return_stdout=True
     ...    return_stderr=True
     RequestsLibrary.Create_Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
