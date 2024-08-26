@@ -85,7 +85,7 @@ Subscribe_To_DCN_Stream
     ${resp} =    RequestsLibrary.Get_On_Session
     ...    restconf
     ...    url=${RFC8040_DCN_STREAM_URI}
-    ...    headers=${SEND_ACCEPT_XML_HEADERS}
+    ...    headers=${SEND_ACCEPT_TEXT_EVENT_STREAM}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${xpath} =    CompareStream.Set_Variable_If_At_Least_Calcium

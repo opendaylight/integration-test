@@ -193,6 +193,11 @@ SEND_ACCEPT_XML_HEADERS = {
     "Accept": "application/xml",
 }
 
+# accept type for SSE notification stream
+SEND_ACCEPT_TEXT_EVENT_STREAM = {
+    "Accept": "text/event-stream",
+}
+
 # Test deadlines global control
 ENABLE_GLOBAL_TEST_DEADLINES = True
 
