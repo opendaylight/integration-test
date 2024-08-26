@@ -174,15 +174,26 @@ Setup_Everything
     SSHKeywords.Open_Connection_To_Tools_System
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/ssereceiver.py
-    SSHLibrary.Execute_Command    sudo apt-get install -y python3-pip    return_stdout=True    return_stderr=True
-    SSHLibrary.Execute_Command
-    ...    sudo python3 -m pip install --upgrade pip setuptools wheel
+    ${stdout}    ${stderr} =    SSHLibrary.Execute_Command
+    ...    sudo apt-get install -y python3-pip
     ...    return_stdout=True
     ...    return_stderr=True
-    SSHLibrary.Execute_Command
-    ...    sudo python3 -m pip install websocket-client asyncio aiohttp aiohttp-sse-client coroutine
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    # setuptools dependency issue: https://github.com/pypa/setuptools/issues/4478
+    # Make sure to also upgrade setuptools dependencies
+    ${stdout}    ${stderr} =    SSHLibrary.Execute_Command
+    ...    python3 -m pip install --user --upgrade pip setuptools wheel packaging ordered-set more_itertools jaraco.text importlib_resources importlib_metadata tomli platformdirs
     ...    return_stdout=True
     ...    return_stderr=True
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    ${stdout}    ${stderr} =    SSHLibrary.Execute_Command
+    ...    python3 -m pip install --user websocket-client asyncio aiohttp aiohttp-sse-client coroutine
+    ...    return_stdout=True
+    ...    return_stderr=True
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
     RequestsLibrary.Create_Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
