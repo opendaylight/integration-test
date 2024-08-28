@@ -50,6 +50,24 @@
       "message": "This request is for a `ietf-restconf-monitoring` stream like [RFC 8040 6.2. Event Streams](https://datatracker.ietf.org/doc/html/rfc8040#section-6.2).\nWhy does this require `text/event-stream`?",
       "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc767f0_f46d710a",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-08-28T14:33:38Z",
+      "side": 1,
+      "message": "I am sorry.\n\nSeems like: python3 ssereceiver.py --uri ${STREAM_LOCATION} --logfile ${RECEIVER_LOG_FILE}\n\nis thing which listens on event stream available at, for example:\nhttp://10.30.170.222:8181/rests/streams/xml/urn:uuid:b94b432f-9189-4eab-87f4-635dfca47850",
+      "parentUuid": "ee0845e5_bda309d8",
+      "revId": "2bd621eda13ffaec80de03ba7edf0729df100b0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ],
   "submitRequirementResults": [
