@@ -227,11 +227,12 @@ Remove_Netconf_Device
 Wait_Netconf_Device_Mounted
     [Documentation]    Checks weather the device was mounted.
     [Arguments]    ${device_name}    ${session}    ${mapping}    ${timeout}=30s
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${timeout}
     ...    3s
     ...    TemplatedRequests.Get_As_Xml_Templated
-    ...    ${NETCONF_FOLDER}${/}full-uri-mount
+    ...    ${NETCONF_FOLDER}${/}${version}${/}full-uri-mount
     ...    mapping=${mapping}
     ...    session=${session}
 
