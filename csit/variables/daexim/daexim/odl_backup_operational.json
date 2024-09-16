@@ -4,268 +4,356 @@
             "topology-id": "topology-netconf",
             "node": [{
                 "node-id": "CONTROLLER1",
-                "netconf-node-topology:host": "127.0.0.1",
-                "netconf-node-topology:connection-status": "connected",
-                "netconf-node-topology:port": 1830,
-                "netconf-node-topology:available-capabilities": {
-                    "available-capability": [{
-                        "capability": "urn:ietf:params:netconf:base:1.0",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "urn:ietf:params:netconf:base:1.1",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "urn:ietf:params:netconf:capability:exi:1.0",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "urn:ietf:params:netconf:capability:notification:1.0",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "urn:ietf:params:netconf:capability:candidate:1.0",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:cluster:admin?revision=2015-10-13)cluster-admin",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:mdsal:core:general-entity?revision=2015-09-30)odl-general-entity",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:inventory?revision=2013-08-19)opendaylight-inventory",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?revision=2013-10-28)opendaylight-md-sal-binding",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)config",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:netmod:notification?revision=2008-07-14)nc-notifications",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:rpc-context?revision=2013-06-17)rpc-context",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:yang:extension:yang-ext?revision=2013-07-09)yang-ext",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?revision=2010-10-04)ietf-netconf-monitoring",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-inet-types?revision=2010-09-24)ietf-inet-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology?revision=2013-10-21)l3-unicast-igp-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:eventexecutor?revision=2013-11-12)netty-event-executor",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:netconf:base:1.0?revision=2011-06-01)ietf-netconf",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:distributed-datastore-provider?revision=2014-06-12)distributed-datastore-provider",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:md:sal:config:impl:cluster-singleton-service?revision=2016-07-18)cluster-singleton-service-impl",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(config:aaa:authn:encrypt:service:config?revision=2016-09-15)aaa-encrypt-service-config",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-access-control-list?revision=2016-02-18)ietf-access-control-list",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:netconf-node-inventory?revision=2014-01-08)netconf-node-inventory",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:entity-ownership-service?revision=2015-08-10)opendaylight-entity-ownership-service",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-lisp-address-types?revision=2015-11-05)ietf-lisp-address-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-07-12)network-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:yang:aaa:cert:rpc?revision=2015-12-15)aaa-cert-rpc",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-network-topology?revision=2015-06-08)ietf-network-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ospf-topology?revision=2013-07-12)ospf-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:concurrent-data-broker?revision=2014-11-24)odl-concurrent-data-broker-cfg",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:daexim-internal?revision=2016-09-21)data-export-import-internal",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:service?revision=2015-10-05)actor-system-provider-service",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:shutdown:impl?revision=2013-12-18)shutdown-impl",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network:ted?revision=2013-10-21)ted",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network:ted?revision=2013-07-12)ted",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:aaa:app:config?revision=2017-06-19)aaa-app-config",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:clustering:entity-owners?revision=2015-08-04)entity-owners",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-inet-types?revision=2013-07-15)ietf-inet-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:yang:aaa:cert?revision=2015-11-26)aaa-cert",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:yang:aaa:cert:mdsal?revision=2016-03-21)aaa-cert-mdsal",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-library?revision=2016-06-21)ietf-yang-library",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-types?revision=2013-07-15)ietf-yang-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:iana-afn-safi?revision=2013-07-04)iana-afn-safi",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring-extension?revision=2013-12-10)ietf-netconf-monitoring-extension",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:general-entity?revision=2015-08-20)general-entity",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?revision=2012-02-06)ietf-netconf-notifications",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty?revision=2013-11-19)netty",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:threadgroup?revision=2013-11-07)threadgroup",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:config-dom-store?revision=2014-06-17)opendaylight-config-dom-datastore",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:netconf-node-topology?revision=2015-01-14)netconf-node-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology?revision=2013-07-12)l3-unicast-igp-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf?revision=2017-01-26)ietf-restconf",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:sal:restconf:event:subscription?revision=2014-07-08)sal-remote-augment",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:md:sal:config:spi:cluster-singleton-service?revision=2016-07-18)cluster-singleton-service-spi",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring?revision=2017-01-26)ietf-restconf-monitoring",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:v1:codec?revision=2016-07-14)opendaylight-md-sal-binding-v1-codec",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom?revision=2013-10-28)opendaylight-md-sal-dom",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:iana-if-type?revision=2014-05-08)iana-if-type",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:remote?revision=2014-01-14)sal-remote",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-packet-fields?revision=2016-02-18)ietf-packet-fields",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:timer?revision=2013-11-19)netty-timer",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:operational-dom-store?revision=2014-06-17)opendaylight-operational-dom-datastore",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(subscribe:to:notification?revision=2016-10-28)subscribe-to-notification",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(instance:identifier:patch:module?revision=2015-11-21)instance-identifier-patch-module",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-network?revision=2015-06-08)ietf-network",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network:isis-topology?revision=2013-10-21)isis-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:netconf:notification:1.0?revision=2008-07-14)notifications",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:daexim?revision=2016-09-21)data-export-import",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:common?revision=2013-10-28)opendaylight-md-sal-common",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:ospf-topology?revision=2013-10-21)ospf-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:shutdown?revision=2013-12-18)shutdown",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)ietf-interfaces",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:impl?revision=2013-10-28)opendaylight-sal-dom-broker-impl",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:aaa?revision=2016-12-14)aaa",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf?revision=2013-10-19)ietf-restconf",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:impl?revision=2015-10-05)actor-system-provider-impl",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-types?revision=2010-09-24)ietf-yang-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-library?revision=2016-04-09)ietf-yang-library",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:pingpong?revision=2014-11-07)opendaylight-pingpong-broker",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:TBD:params:xml:ns:yang:network:isis-topology?revision=2013-07-12)isis-topology",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:inmemory-datastore-provider?revision=2014-06-17)opendaylight-inmemory-datastore-provider",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:l2:types?revision=2013-08-27)opendaylight-l2-types",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:impl?revision=2013-10-28)opendaylight-sal-binding-broker-impl",
-                        "capability-origin": "device-advertised"
-                    }, {
-                        "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:legacy-entity-ownership-service-provider?revision=2016-02-26)opendaylight-legacy-entity-ownership-service-provider",
-                        "capability-origin": "device-advertised"
-                    }]
-                },
-                "netconf-node-topology:unavailable-capabilities": {}
+                "netconf-node": {
+                    "netconf-node-topology:host": "127.0.0.1",
+                    "netconf-node-topology:connection-status": "connected",
+                    "netconf-node-topology:port": 1830,
+                    "netconf-node-topology:available-capabilities": {
+                        "available-capability": [
+                            {
+                                "capability": "urn:ietf:params:netconf:base:1.0",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "urn:ietf:params:netconf:base:1.1",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "urn:ietf:params:netconf:capability:exi:1.0",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "urn:ietf:params:netconf:capability:notification:1.0",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "urn:ietf:params:netconf:capability:candidate:1.0",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:cluster:admin?revision=2015-10-13)cluster-admin",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:mdsal:core:general-entity?revision=2015-09-30)odl-general-entity",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:inventory?revision=2013-08-19)opendaylight-inventory",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?revision=2013-10-28)opendaylight-md-sal-binding",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)config",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:netmod:notification?revision=2008-07-14)nc-notifications",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:rpc-context?revision=2013-06-17)rpc-context",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:yang:extension:yang-ext?revision=2013-07-09)yang-ext",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?revision=2010-10-04)ietf-netconf-monitoring",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-inet-types?revision=2010-09-24)ietf-inet-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology?revision=2013-10-21)l3-unicast-igp-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:eventexecutor?revision=2013-11-12)netty-event-executor",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:netconf:base:1.0?revision=2011-06-01)ietf-netconf",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:distributed-datastore-provider?revision=2014-06-12)distributed-datastore-provider",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:md:sal:config:impl:cluster-singleton-service?revision=2016-07-18)cluster-singleton-service-impl",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(config:aaa:authn:encrypt:service:config?revision=2016-09-15)aaa-encrypt-service-config",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-access-control-list?revision=2016-02-18)ietf-access-control-list",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:netconf-node-inventory?revision=2014-01-08)netconf-node-inventory",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:entity-ownership-service?revision=2015-08-10)opendaylight-entity-ownership-service",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-lisp-address-types?revision=2015-11-05)ietf-lisp-address-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-07-12)network-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:yang:aaa:cert:rpc?revision=2015-12-15)aaa-cert-rpc",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-network-topology?revision=2015-06-08)ietf-network-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ospf-topology?revision=2013-07-12)ospf-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:concurrent-data-broker?revision=2014-11-24)odl-concurrent-data-broker-cfg",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:daexim-internal?revision=2016-09-21)data-export-import-internal",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:service?revision=2015-10-05)actor-system-provider-service",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:shutdown:impl?revision=2013-12-18)shutdown-impl",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network:ted?revision=2013-10-21)ted",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network:ted?revision=2013-07-12)ted",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:aaa:app:config?revision=2017-06-19)aaa-app-config",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:clustering:entity-owners?revision=2015-08-04)entity-owners",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-inet-types?revision=2013-07-15)ietf-inet-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:yang:aaa:cert?revision=2015-11-26)aaa-cert",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:yang:aaa:cert:mdsal?revision=2016-03-21)aaa-cert-mdsal",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-library?revision=2016-06-21)ietf-yang-library",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-types?revision=2013-07-15)ietf-yang-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:iana-afn-safi?revision=2013-07-04)iana-afn-safi",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring-extension?revision=2013-12-10)ietf-netconf-monitoring-extension",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:general-entity?revision=2015-08-20)general-entity",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?revision=2012-02-06)ietf-netconf-notifications",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty?revision=2013-11-19)netty",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network-topology?revision=2013-10-21)network-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:threadgroup?revision=2013-11-07)threadgroup",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:config-dom-store?revision=2014-06-17)opendaylight-config-dom-datastore",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:netconf-node-topology?revision=2015-01-14)netconf-node-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology?revision=2013-07-12)l3-unicast-igp-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf?revision=2017-01-26)ietf-restconf",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:sal:restconf:event:subscription?revision=2014-07-08)sal-remote-augment",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:md:sal:config:spi:cluster-singleton-service?revision=2016-07-18)cluster-singleton-service-spi",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring?revision=2017-01-26)ietf-restconf-monitoring",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:v1:codec?revision=2016-07-14)opendaylight-md-sal-binding-v1-codec",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom?revision=2013-10-28)opendaylight-md-sal-dom",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:iana-if-type?revision=2014-05-08)iana-if-type",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:remote?revision=2014-01-14)sal-remote",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-packet-fields?revision=2016-02-18)ietf-packet-fields",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:netty:timer?revision=2013-11-19)netty-timer",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:operational-dom-store?revision=2014-06-17)opendaylight-operational-dom-datastore",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(subscribe:to:notification?revision=2016-10-28)subscribe-to-notification",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(instance:identifier:patch:module?revision=2015-11-21)instance-identifier-patch-module",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-network?revision=2015-06-08)ietf-network",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network:isis-topology?revision=2013-10-21)isis-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:netconf:notification:1.0?revision=2008-07-14)notifications",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:daexim?revision=2016-09-21)data-export-import",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:common?revision=2013-10-28)opendaylight-md-sal-common",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:ospf-topology?revision=2013-10-21)ospf-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:shutdown?revision=2013-12-18)shutdown",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)ietf-interfaces",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:impl?revision=2013-10-28)opendaylight-sal-dom-broker-impl",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:aaa?revision=2016-12-14)aaa",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-restconf?revision=2013-10-19)ietf-restconf",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:impl?revision=2015-10-05)actor-system-provider-impl",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-types?revision=2010-09-24)ietf-yang-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:ietf:params:xml:ns:yang:ietf-yang-library?revision=2016-04-09)ietf-yang-library",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:pingpong?revision=2014-11-07)opendaylight-pingpong-broker",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:TBD:params:xml:ns:yang:network:isis-topology?revision=2013-07-12)isis-topology",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:inmemory-datastore-provider?revision=2014-06-17)opendaylight-inmemory-datastore-provider",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:l2:types?revision=2013-08-27)opendaylight-l2-types",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:impl?revision=2013-10-28)opendaylight-sal-binding-broker-impl",
+                                "capability-origin": "device-advertised"
+                            },
+                            {
+                                "capability": "(urn:opendaylight:params:xml:ns:yang:controller:config:legacy-entity-ownership-service-provider?revision=2016-02-26)opendaylight-legacy-entity-ownership-service-provider",
+                                "capability-origin": "device-advertised"
+                            }
+                        ]
+                    },
+                    "netconf-node-topology:unavailable-capabilities": {}
+                }
             }]
         }]
     },
