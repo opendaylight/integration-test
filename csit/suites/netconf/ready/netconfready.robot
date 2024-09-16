@@ -195,13 +195,14 @@ Verify_Netconf_Topology_Ready_For_Node
     Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
     &{mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
     Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
         ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
         BuiltIn.Wait_Until_Keyword_Succeeds
         ...    5x
         ...    3s
         ...    TemplatedRequests.Get_As_Xml_Templated
-        ...    ${NETCONF_FOLDER}${/}netconf-state
+        ...    ${NETCONF_FOLDER}${/}${version}${/}netconf-state
         ...    mapping=${mapping}
         ...    session=${mod_session}
     END
@@ -227,11 +228,12 @@ Remove_Netconf_Device
 Wait_Netconf_Device_Mounted
     [Documentation]    Checks weather the device was mounted.
     [Arguments]    ${device_name}    ${session}    ${mapping}    ${timeout}=30s
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${timeout}
     ...    3s
     ...    TemplatedRequests.Get_As_Xml_Templated
-    ...    ${NETCONF_FOLDER}${/}full-uri-mount
+    ...    ${NETCONF_FOLDER}${/}${version}${/}full-uri-mount
     ...    mapping=${mapping}
     ...    session=${session}
 
