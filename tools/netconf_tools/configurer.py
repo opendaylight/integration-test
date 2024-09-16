@@ -129,12 +129,14 @@ DATA_TEMPLATE = string.Template(
     """{
     "network-topology:node": {
         "node-id": "$DEVICE_NAME",
-        "netconf-node-topology:host": "$DEVICE_IP",
-        "netconf-node-topology:port": $DEVICE_PORT,
-        "netconf-node-topology:username": "$DEVICE_USER",
-        "netconf-node-topology:password": "$DEVICE_PASSWORD",
-        "netconf-node-topology:tcp-only": "false",
-        "netconf-node-topology:keepalive-delay": 0
+        "netconf-node":{
+            "netconf-node-topology:host": "$DEVICE_IP",
+            "netconf-node-topology:port": $DEVICE_PORT,
+            "netconf-node-topology:username": "$DEVICE_USER",
+            "netconf-node-topology:password": "$DEVICE_PASSWORD",
+            "netconf-node-topology:tcp-only": "false",
+            "netconf-node-topology:keepalive-delay": 0
+        }
     }
 }"""
 )
