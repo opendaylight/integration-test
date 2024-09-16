@@ -24,6 +24,7 @@ Resource            SSHKeywords.robot
 Resource            TemplatedRequests.robot
 Resource            Utils.robot
 Resource            RemoteBash.robot
+Resource            ${CURDIR}/CompareStream.robot
 
 
 *** Variables ***
@@ -53,6 +54,7 @@ Configure_Device_In_Netconf
     [Documentation]    Tell Netconf about the specified device so it can add it into its configuration.
     [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
     ...    ${device_key}=device-key    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${http_method}=put
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     ${mapping}=    BuiltIn.Create_dictionary
     ...    DEVICE_IP=${device_address}
     ...    DEVICE_NAME=${device_name}
@@ -64,13 +66,13 @@ Configure_Device_In_Netconf
     # TODO: Is it possible to use &{kwargs} as a mapping directly?
     IF    '${http_method}'=='post'
         TemplatedRequests.Post_As_Xml_Templated
-        ...    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}
+        ...    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${version}${/}${device_type}
         ...    mapping=${mapping}
         ...    session=${session}
         ...    http_timeout=${http_timeout}
     ELSE
         TemplatedRequests.Put_As_Xml_Templated
-        ...    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}
+        ...    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${version}${/}${device_type}
         ...    mapping=${mapping}
         ...    session=${session}
         ...    http_timeout=${http_timeout}
@@ -144,7 +146,7 @@ Check_Device_Connected
     ...    ${uri}
     ...    session=${session}
     ...    log_response=${log_response}
-    Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
+    Builtin.Should_Contain    ${device_status}    "connection-status": "connected"
 
 Wait_Device_Connected
     [Documentation]    Wait for the device to become connected.
@@ -163,8 +165,9 @@ Remove_Device_From_Netconf
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
     ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     TemplatedRequests.Delete_Templated
-    ...    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}
+    ...    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${version}${/}${device_type}
     ...    ${template_as_string}
     ...    session=${session}
     ...    location=${location}
