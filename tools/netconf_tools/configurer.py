@@ -122,19 +122,47 @@ def parse_arguments():
         type=str2bool,
         help="Should single requests session be re-used",
     )
+    parser.add_argument(
+        "--version",
+        default=SCANDIUM,
+        type=int,
+        help="Version of payload data to be used",
+    )
     return parser.parse_args()  # arguments are read
 
 
-DATA_TEMPLATE = string.Template(
+SCANDIUM = 21
+
+CALCIUM_DATA_TEMPLATE = string.Template(
     """{
     "network-topology:node": {
         "node-id": "$DEVICE_NAME",
         "netconf-node-topology:host": "$DEVICE_IP",
         "netconf-node-topology:port": $DEVICE_PORT,
-        "netconf-node-topology:username": "$DEVICE_USER",
-        "netconf-node-topology:password": "$DEVICE_PASSWORD",
+        "netconf-node-topology:login-password-unencrypted": {
+            "username": "$DEVICE_USER",
+            "password": "$DEVICE_PASSWORD",
+        },
         "netconf-node-topology:tcp-only": "false",
         "netconf-node-topology:keepalive-delay": 0
+    }
+}"""
+)
+
+SCANDIUM_DATA_TEMPLATE = string.Template(
+    """{
+    "network-topology:node": {
+        "node-id": "$DEVICE_NAME",
+        "netconf-node-topology:netconf-node":{
+            "host": "$DEVICE_IP",
+            "port": $DEVICE_PORT,
+            "login-password-unencrypted": {
+                "username": "$DEVICE_USER",
+                "password": "$DEVICE_PASSWORD",
+            },
+            "tcp-only": "false",
+            "keepalive-delay": 0
+        }
     }
 }"""
 )
@@ -211,7 +239,10 @@ def main():
             put_name = args.basename + "-" + str(port) + "-" + str(iteration)
             subst_dict["DEVICE_NAME"] = put_name
             subst_dict["DEVICE_PORT"] = str(port)
-            put_data = DATA_TEMPLATE.substitute(subst_dict)
+            if args.version < SCANDIUM:
+                put_data = CALCIUM_DATA_TEMPLATE.substitute(subst_dict)
+            else:
+                put_data = SCANDIUM_DATA_TEMPLATE.substitute(subst_dict)
             uri = uri_part + put_name
             response = AuthStandalone.Put_Using_Session(
                 session, uri, data=put_data, headers=put_headers
