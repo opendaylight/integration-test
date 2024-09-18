@@ -217,7 +217,8 @@ Copy Config Data To Controller
     ${host}    ClusterManagement.Resolve IP Address For Member    ${host_index}
     ${connections}    Return ConnnectionID    ${host}
     SSHLibrary.Switch Connection    ${connections}
-    SSHLibrary.Put Directory    ${CURDIR}/${DAEXIM_DATA_DIRECTORY}    ${WORKSPACE}/${BUNDLEFOLDER}/    mode=664
+    ${dictionary}=    CompareStream.Set_Variable_If_At_Least_Scandium    ${DAEXIM_DATA_DIRECTORY_SCANDIUM}    ${DAEXIM_DATA_DIRECTORY_CALCIUM}
+    SSHLibrary.Put Directory    ${CURDIR}/${dictionary}   ${WORKSPACE}/${BUNDLEFOLDER}/    mode=664
     SSHLibrary.Close Connection
 
 Mount Netconf Endpoint
@@ -237,9 +238,8 @@ Fetch Status Information From Netconf Endpoint
     ${output1}    Builtin.Set Variable    ${resp}
     ${output}    Utils.Json Parse From String    ${output1}
     Builtin.Log    ${output}
-    ${status}    Collections.Get From Dictionary
-    ...    ${output['network-topology:node'][0]}
-    ...    netconf-node-topology:connection-status
+    ${node}    Collections.Get From Dictionary    ${output['network-topology:node'][0]}    netconf-node-topology:netconf-node
+    ${status}    Collections.Get From Dictionary    ${node}    connection-status
     RETURN    ${status}    ${output}
 
 Verify Status Information
@@ -257,7 +257,8 @@ Verify Netconf Mount
     [Arguments]    ${endpoint}    ${host_index}
     ${sts1}    ${output}    Verify Status Information    ${endpoint}    ${host_index}
     ${ep}    Collections.Get From Dictionary    ${output['network-topology:node'][0]}    node-id
-    ${port}    Collections.Get From Dictionary    ${output['network-topology:node'][0]}    netconf-node-topology:port
+    ${node}    Collections.Get From Dictionary    ${output['network-topology:node'][0]}    netconf-node-topology:netconf-node
+    ${port}    Collections.Get From Dictionary    ${node}    port
     ${port}    Builtin.Convert To String    ${port}
     Builtin.Should Be Equal    ${endpoint}    ${ep}
     Builtin.Should Be Equal    ${port}    ${NETCONF_PORT}
