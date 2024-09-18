@@ -15,6 +15,7 @@ Library             Collections
 Library             String
 Library             SSHLibrary    timeout=1000s
 Library             ../../../libraries/TopologyNetconfNodes.py
+Resource            ../../../libraries/CompareStream.robot
 Resource            ../../../libraries/KarafKeywords.robot
 Resource            ../../../libraries/NetconfKeywords.robot
 Resource            ../../../libraries/SetupUtils.robot
@@ -83,12 +84,14 @@ Find Max Netconf Devices
         END
         ${devices_to_configure} =    BuiltIn.Evaluate    ${devices} - len(${device_names})
         ${first_id} =    BuiltIn.Evaluate    len(${device_names}) + 1
+        ${version}=    BuiltIn.Set_Variable    ${Stream_dict}[${ODL_STREAM}]
         ${device_names} =    TopologyNetconfNodes.Configure Device Range
         ...    restconf_url=${restconf_url}
         ...    device_name_prefix=${DEVICE_NAME_BASE}
         ...    device_ipaddress=${TOOLS_SYSTEM_IP}
         ...    device_port=17830
         ...    device_count=${devices_to_configure}
+        ...    version=${version}
         ...    first_device_id=${first_id}
         TopologyNetconfNodes.Await Devices Connected
         ...    restconf_url=${restconf_url}
