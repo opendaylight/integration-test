@@ -83,12 +83,14 @@ Find Max Netconf Devices
         END
         ${devices_to_configure} =    BuiltIn.Evaluate    ${devices} - len(${device_names})
         ${first_id} =    BuiltIn.Evaluate    len(${device_names}) + 1
+        ${use_node_encapsulation}=    CompareStream.Set_Variable_If_At_Least_Scandium    ${True}    ${False}
         ${device_names} =    TopologyNetconfNodes.Configure Device Range
         ...    restconf_url=${restconf_url}
         ...    device_name_prefix=${DEVICE_NAME_BASE}
         ...    device_ipaddress=${TOOLS_SYSTEM_IP}
         ...    device_port=17830
         ...    device_count=${devices_to_configure}
+        ...    use_node_encapsulation=${use_node_encapsulation}
         ...    first_device_id=${first_id}
         TopologyNetconfNodes.Await Devices Connected
         ...    restconf_url=${restconf_url}
