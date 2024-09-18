@@ -16,6 +16,24 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-scandium/",
       "revId": "cea70dcf298723ebb06c926d20d75aca1e75fb96",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac72181_76b947a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-18T08:59:24Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-calcium/",
+      "parentUuid": "02e61046_733cf0ea",
+      "revId": "cea70dcf298723ebb06c926d20d75aca1e75fb96",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
