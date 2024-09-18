@@ -6,8 +6,8 @@
     "tcp-only": "false",
     "keepalive-delay": "0",
     "login-password-unencrypted": {
-        "username": "admin",
-        "password": "admin"
+      "username": "admin",
+      "password": "admin"
     }
   }
 }
