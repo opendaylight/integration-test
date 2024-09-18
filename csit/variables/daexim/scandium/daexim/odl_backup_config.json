@@ -1,0 +1,20 @@
+{
+  "network-topology:network-topology": {
+    "topology": [{
+      "topology-id": "topology-netconf",
+      "node": [{
+        "node-id": "CONTROLLER1",
+        "netconf-node-topology:netconf-node": {
+            "host": "127.0.0.1",
+            "port": 1830,
+            "tcp-only": false,
+            "keepalive-delay": 0,
+            "login-password-unencrypted": {
+                "username": "admin",
+                "password": "admin"
+            }
+        }
+      }]
+    }]
+  }
+}
