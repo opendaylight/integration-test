@@ -1,0 +1,321 @@
+[{
+    "module": "opendaylight-md-sal-common",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:common",
+    "revision-date": "2013-10-28"
+}, {
+    "module": "aaa-encrypt-service-config",
+    "namespace": "config:aaa:authn:encrypt:service:config",
+    "revision-date": "2016-09-15"
+}, {
+    "module": "instance-identifier-patch-module",
+    "namespace": "instance:identifier:patch:module",
+    "revision-date": "2015-11-21"
+}, {
+    "module": "subscribe-to-notification",
+    "namespace": "subscribe:to:notification",
+    "revision-date": "2016-10-28"
+}, {
+    "module": "aaa-app-config",
+    "namespace": "urn:opendaylight:aaa:app:config",
+    "revision-date": "2017-06-19"
+}, {
+    "module": "config",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config",
+    "revision-date": "2013-04-05"
+}, {
+    "module": "actor-system-provider-service",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:service",
+    "revision-date": "2015-10-05"
+}, {
+    "module": "actor-system-provider-impl",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config:actor-system-provider:impl",
+    "revision-date": "2015-10-05"
+}, {
+    "module": "sal-remote",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:remote",
+    "revision-date": "2014-01-14"
+}, {
+    "module": "sal-remote-augment",
+    "namespace": "urn:sal:restconf:event:subscription",
+    "revision-date": "2014-07-08"
+}, {
+    "module": "aaa-cert",
+    "namespace": "urn:opendaylight:yang:aaa:cert",
+    "revision-date": "2015-11-26"
+}, {
+    "module": "opendaylight-entity-ownership-service",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:entity-ownership-service",
+    "revision-date": "2015-08-10"
+}, {
+    "module": "ietf-yang-types",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+    "revision-date": "2013-07-15"
+}, {
+    "module": "cluster-singleton-service-spi",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:md:sal:config:spi:cluster-singleton-service",
+    "revision-date": "2016-07-18"
+}, {
+    "module": "cluster-singleton-service-impl",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:md:sal:config:impl:cluster-singleton-service",
+    "revision-date": "2016-07-18"
+}, {
+    "module": "opendaylight-legacy-entity-ownership-service-provider",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config:legacy-entity-ownership-service-provider",
+    "revision-date": "2016-02-26"
+}, {
+    "module": "ietf-inet-types",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+    "revision-date": "2013-07-15"
+}, {
+    "module": "ietf-netconf",
+    "namespace": "urn:ietf:params:xml:ns:netconf:base:1.0",
+    "revision-date": "2011-06-01"
+}, {
+    "module": "ietf-restconf-monitoring",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring",
+    "revision-date": "2017-01-26"
+}, {
+    "module": "ietf-restconf",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-restconf",
+    "revision-date": "2013-10-19"
+}, {
+    "module": "network-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:network-topology",
+    "revision-date": "2013-07-12"
+}, {
+    "module": "ted",
+    "namespace": "urn:TBD:params:xml:ns:yang:network:ted",
+    "revision-date": "2013-10-21"
+}, {
+    "module": "ietf-yang-library",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-library",
+    "revision-date": "2016-06-21"
+}, {
+    "module": "ietf-lisp-address-types",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-lisp-address-types",
+    "revision-date": "2015-11-05"
+}, {
+    "module": "ietf-inet-types",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+    "revision-date": "2010-09-24"
+}, {
+    "module": "opendaylight-md-sal-binding",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding",
+    "revision-date": "2013-10-28"
+}, {
+    "module": "ietf-yang-library",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-library",
+    "revision-date": "2016-04-09"
+}, {
+    "module": "opendaylight-md-sal-dom",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom",
+    "revision-date": "2013-10-28"
+}, {
+    "module": "aaa-cert-rpc",
+    "namespace": "urn:opendaylight:yang:aaa:cert:rpc",
+    "revision-date": "2015-12-15"
+}, {
+    "module": "data-export-import",
+    "namespace": "urn:opendaylight:daexim",
+    "revision-date": "2016-09-21"
+}, {
+    "module": "ted",
+    "namespace": "urn:TBD:params:xml:ns:yang:network:ted",
+    "revision-date": "2013-07-12"
+}, {
+    "module": "ietf-netconf-monitoring",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring",
+    "revision-date": "2010-10-04"
+}, {
+    "module": "ietf-netconf-monitoring-extension",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring-extension",
+    "revision-date": "2013-12-10"
+}, {
+    "module": "aaa-cert-mdsal",
+    "namespace": "urn:opendaylight:yang:aaa:cert:mdsal",
+    "revision-date": "2016-03-21"
+}, {
+    "module": "opendaylight-config-dom-datastore",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:config-dom-store",
+    "revision-date": "2014-06-17"
+}, {
+    "module": "network-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:network-topology",
+    "revision-date": "2013-10-21"
+}, {
+    "module": "l3-unicast-igp-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology",
+    "revision-date": "2013-10-21"
+}, {
+    "module": "ospf-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:ospf-topology",
+    "revision-date": "2013-10-21"
+}, {
+    "module": "opendaylight-l2-types",
+    "namespace": "urn:opendaylight:l2:types",
+    "revision-date": "2013-08-27"
+}, {
+    "module": "cluster-admin",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:cluster:admin",
+    "revision-date": "2015-10-13"
+}, {
+    "module": "ietf-interfaces",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-interfaces",
+    "revision-date": "2014-05-08"
+}, {
+    "module": "iana-if-type",
+    "namespace": "urn:ietf:params:xml:ns:yang:iana-if-type",
+    "revision-date": "2014-05-08"
+}, {
+    "module": "ietf-packet-fields",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-packet-fields",
+    "revision-date": "2016-02-18"
+}, {
+    "module": "ietf-access-control-list",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-access-control-list",
+    "revision-date": "2016-02-18"
+}, {
+    "module": "notifications",
+    "namespace": "urn:ietf:params:xml:ns:netconf:notification:1.0",
+    "revision-date": "2008-07-14"
+}, {
+    "module": "nc-notifications",
+    "namespace": "urn:ietf:params:xml:ns:netmod:notification",
+    "revision-date": "2008-07-14"
+}, {
+    "module": "ietf-netconf-notifications",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-netconf-notifications",
+    "revision-date": "2012-02-06"
+}, {
+    "module": "isis-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:network:isis-topology",
+    "revision-date": "2013-10-21"
+}, {
+    "module": "rpc-context",
+    "namespace": "urn:ietf:params:xml:ns:yang:rpc-context",
+    "revision-date": "2013-06-17"
+}, {
+    "module": "ietf-yang-types",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+    "revision-date": "2010-09-24"
+}, {
+    "module": "data-export-import-internal",
+    "namespace": "urn:opendaylight:daexim-internal",
+    "revision-date": "2016-09-21"
+}, {
+    "module": "odl-general-entity",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:mdsal:core:general-entity",
+    "revision-date": "2015-09-30"
+}, {
+    "module": "ietf-restconf",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-restconf",
+    "revision-date": "2017-01-26"
+}, {
+    "module": "l3-unicast-igp-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology",
+    "revision-date": "2013-07-12"
+}, {
+    "module": "isis-topology",
+    "namespace": "urn:TBD:params:xml:ns:yang:network:isis-topology",
+    "revision-date": "2013-07-12"
+}, {
+    "module": "ospf-topology",
+    "namespace": "urn:ietf:params:xml:ns:yang:ospf-topology",
+    "revision-date": "2013-07-12"
+}, {
+    "module": "yang-ext",
+    "namespace": "urn:opendaylight:yang:extension:yang-ext",
+    "revision-date": "2013-07-09"
+}, {
+    "module": "netconf-node-topology",
+    "namespace": "urn:opendaylight:netconf-node-topology",
+    "revision-date": "2015-01-14"
+}, {
+    "module": "opendaylight-inventory",
+    "namespace": "urn:opendaylight:inventory",
+    "revision-date": "2013-08-19"
+}, {
+    "module": "netconf-node-inventory",
+    "namespace": "urn:opendaylight:netconf-node-inventory",
+    "revision-date": "2014-01-08"
+}, {
+    "module": "iana-afn-safi",
+    "namespace": "urn:ietf:params:xml:ns:yang:iana-afn-safi",
+    "revision-date": "2013-07-04"
+}, {
+    "module": "opendaylight-operational-dom-datastore",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:spi:operational-dom-store",
+    "revision-date": "2014-06-17"
+}, {
+    "module": "distributed-datastore-provider",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config:distributed-datastore-provider",
+    "revision-date": "2014-06-12"
+}, {
+    "module": "opendaylight-sal-dom-broker-impl",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:impl",
+    "revision-date": "2013-10-28"
+}, {
+    "module": "odl-concurrent-data-broker-cfg",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:config:concurrent-data-broker",
+    "revision-date": "2014-11-24"
+}, {
+    "module": "opendaylight-inmemory-datastore-provider",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:inmemory-datastore-provider",
+    "revision-date": "2014-06-17"
+}, {
+    "module": "entity-owners",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:clustering:entity-owners",
+    "revision-date": "2015-08-04"
+}, {
+    "module": "general-entity",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:core:general-entity",
+    "revision-date": "2015-08-20"
+}, {
+    "module": "opendaylight-md-sal-binding-v1-codec",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:v1:codec",
+    "revision-date": "2016-07-14"
+}, {
+    "module": "opendaylight-sal-binding-broker-impl",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding:impl",
+    "revision-date": "2013-10-28"
+}, {
+    "module": "opendaylight-pingpong-broker",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom:pingpong",
+    "revision-date": "2014-11-07"
+}, {
+    "module": "netty",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:netty",
+    "revision-date": "2013-11-19"
+}, {
+    "module": "threadgroup",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:netty:threadgroup",
+    "revision-date": "2013-11-07"
+}, {
+    "module": "netty-event-executor",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:netty:eventexecutor",
+    "revision-date": "2013-11-12"
+}, {
+    "module": "netty-timer",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:netty:timer",
+    "revision-date": "2013-11-19"
+}, {
+    "module": "aaa",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:aaa",
+    "revision-date": "2016-12-14"
+}, {
+    "module": "shutdown",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:shutdown",
+    "revision-date": "2013-12-18"
+}, {
+    "module": "shutdown-impl",
+    "namespace": "urn:opendaylight:params:xml:ns:yang:controller:shutdown:impl",
+    "revision-date": "2013-12-18"
+}, {
+    "module": "ietf-network",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-network",
+    "revision-date": "2015-06-08"
+}, {
+    "module": "ietf-network-topology",
+    "namespace": "urn:ietf:params:xml:ns:yang:ietf-network-topology",
+    "revision-date": "2015-06-08"
+}]
