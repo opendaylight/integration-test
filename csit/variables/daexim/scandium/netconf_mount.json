@@ -1,0 +1,15 @@
+{
+  "node": {
+    "node-id": "${ENDPOINT}",
+    "netconf-node": {
+        "host": "127.0.0.1",
+        "port": "1830",
+        "tcp-only": "false",
+        "keepalive-delay": "0",
+        "login-password-unencrypted": {
+            "username": "admin",
+            "password": "admin"
+        }
+    }
+  }
+}
