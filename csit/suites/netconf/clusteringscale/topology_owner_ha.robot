@@ -45,6 +45,7 @@ Library             SSHLibrary    timeout=10s
 Library             String    # for Get_Regexp_Matches
 Resource            ${CURDIR}/../../../libraries/ClusterAdmin.robot
 Resource            ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource            ${CURDIR}/../../../libraries/CompareStream.robot
 Resource            ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource            ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource            ${CURDIR}/../../../libraries/RemoteBash.robot
@@ -111,9 +112,10 @@ Start_Configurer
     [Documentation]    Launch Python utility (while copying output to log file) and verify it does not stop by itself.
     ${log_filename} =    Utils.Get_Log_File_Name    configurer
     BuiltIn.Set_Suite_Variable    \${log_filename}
+    ${version}=    BuiltIn.Set_Variable    ${Stream_dict}[${ODL_STREAM}]
     # TODO: Should things like restconf port/user/password be set from Variables?
     ${command} =    BuiltIn.Set_Variable
-    ...    python configurer.py --odladdress ${topology_config_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}"
+    ...    python configurer.py --odladdress ${topology_config_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}" --version ${version}
     SSHLibrary.Write    ${command}
     ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
