@@ -217,7 +217,8 @@ Copy Config Data To Controller
     ${host}    ClusterManagement.Resolve IP Address For Member    ${host_index}
     ${connections}    Return ConnnectionID    ${host}
     SSHLibrary.Switch Connection    ${connections}
-    SSHLibrary.Put Directory    ${CURDIR}/${DAEXIM_DATA_DIRECTORY}    ${WORKSPACE}/${BUNDLEFOLDER}/    mode=664
+    ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
+    SSHLibrary.Put Directory    ${CURDIR}/${DAEXIM_DATA_DIRECTORY}/${version}   ${WORKSPACE}/${BUNDLEFOLDER}/    mode=664
     SSHLibrary.Close Connection
 
 Mount Netconf Endpoint
