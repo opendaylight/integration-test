@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2160ccac_9cff689c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T13:09:17Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-scandium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-calcium/\n\nthese test suites are not successful also on master branch",
+      "revId": "d74c2adf1b659e2becb70aaea4ec99e2a4b18847",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
