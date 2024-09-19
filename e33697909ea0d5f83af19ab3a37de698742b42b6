@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cff846_426e8187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T13:12:34Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-scandium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-calcium/\n\nScandium is not working properly as the encapsulation of netconf-node state is not released yet",
+      "revId": "e33697909ea0d5f83af19ab3a37de698742b42b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
