@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afaba220_01468afe",
+        "filename": "csit/variables/netconf/device/scandium/bug8086/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T07:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c6a92e0_06823e84",
+      "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "092d9264_8be6f176",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-18T17:43:46Z",
       "side": 1,
       "message": "No need for `xmlns` this and the sibling nodes.",
+      "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86d118d_fdd49afa",
+        "filename": "csit/variables/netconf/device/scandium/configure-via-topology/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T07:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "092d9264_8be6f176",
       "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -52,6 +88,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc242d2_1d14ee68",
+        "filename": "csit/variables/netconf/device/scandium/full-uri-device-key/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T07:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df023843_39838618",
+      "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5350a5d8_eb2ab663",
@@ -69,6 +123,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "992ee329_8679df37",
+        "filename": "csit/variables/netconf/device/scandium/full-uri-device/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T07:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5350a5d8_eb2ab663",
+      "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af63611e_280d43ef",
@@ -82,6 +154,24 @@
       "writtenOn": "2024-09-18T17:43:46Z",
       "side": 1,
       "message": "No need for `xmlns` this and the sibling nodes.",
+      "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee2d169_ec20ac31",
+        "filename": "csit/variables/netconf/device/scandium/full-uri-mount/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-19T07:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af63611e_280d43ef",
       "revId": "fc915a34fdb2266871a53eaf6049a2e326013731",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
