@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34a222b_79546177",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-09-23T16:23:19Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-calcium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-1node-basic-only-scandium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-3node-clustering-basic-only-calcium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/daexim-csit-3node-clustering-basic-only-scandium/",
+      "revId": "8004221a209b958d01e793917ecd77dad3fb4be4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
