@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff81b10_07bfb25f",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-02T16:47:28Z",
+      "side": 1,
+      "message": "Should be\n```\n\"target\": \"/node\u003d%s\",\n```",
+      "revId": "0813ca26c05d309055319255fc28d063d0507fcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "891c6035_c24e63bc",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-02T16:47:28Z",
+      "side": 1,
+      "message": "Should be\n```\n\"target\": \"/node\u003d%s\",\n```",
+      "revId": "0813ca26c05d309055319255fc28d063d0507fcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "927c8b2d_3ce34aaf",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-02T16:47:28Z",
+      "side": 1,
+      "message": "Need `netconf-node-topology:` for `netconf-node`,  not its child nodes.",
+      "revId": "0813ca26c05d309055319255fc28d063d0507fcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16c3e09d_5501da6b",
+        "filename": "tools/netconf_tools/configurer.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-02T16:47:28Z",
+      "side": 1,
+      "message": "Need `netconf-node-topology:` for `netconf-node`,  not its child nodes.",
+      "revId": "0813ca26c05d309055319255fc28d063d0507fcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
