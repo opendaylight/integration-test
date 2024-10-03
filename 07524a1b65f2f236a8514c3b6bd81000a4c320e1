@@ -51,6 +51,23 @@
       "message": "https://jenkins.opendaylight.org/sandbox/me/my-views/view/all/job/netconf-csit-1node-scale-only-potassium/3/",
       "revId": "07524a1b65f2f236a8514c3b6bd81000a4c320e1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a67f99_4cfecbae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-03T07:14:37Z",
+      "side": 1,
+      "message": "Needs rebase and rerun in sandbox.",
+      "revId": "07524a1b65f2f236a8514c3b6bd81000a4c320e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
