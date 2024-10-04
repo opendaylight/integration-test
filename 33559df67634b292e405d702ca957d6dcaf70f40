@@ -68,6 +68,24 @@
       "message": "IDK if is it good idea to make int (comparable) something incomparable (in versions meaning) - string.",
       "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1925b796_e5309bbd",
+        "filename": "csit/suites/netconf/clusteringscale/topology_leader_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-04T13:49:39Z",
+      "side": 1,
+      "message": "do you mean something like:\n${version}\u003d    CompareStream.Set_Variable_If_At_Least_Scandium    21   20\n??",
+      "parentUuid": "7a8ddd4e_3a17abef",
+      "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
