@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8fec13d_c627b537",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-04T13:33:46Z",
+      "side": 1,
+      "message": "IMO you can use netconf-node-topology here as well and eliminate it when referring child nodes",
+      "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8ddd4e_3a17abef",
+        "filename": "csit/suites/netconf/clusteringscale/topology_leader_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-04T13:33:46Z",
+      "side": 1,
+      "message": "IDK if is it good idea to make int (comparable) something incomparable (in versions meaning) - string.",
+      "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
