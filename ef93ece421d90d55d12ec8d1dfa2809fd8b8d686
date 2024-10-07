@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1029b9f0_bc3b42fb",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-07T16:52:28Z",
+      "side": 1,
+      "message": "Not sure if `True`/`False` will be translated to boolean, or given as a string to `configure_device_range`. Probably it would be safer to use `${True}`/`${False}` to make it clear that `use_node_encapsulation` is boolean.",
+      "revId": "ef93ece421d90d55d12ec8d1dfa2809fd8b8d686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfe0ae7_121ea78b",
+        "filename": "tools/netconf_tools/configurer.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-07T16:52:28Z",
+      "side": 1,
+      "message": "https://docs.python.org/3/library/argparse.html#type\n\u003e The bool() function is not recommended as a type converter. All it does is convert empty strings to False and non-empty strings to True. This is usually not what is desired.",
+      "revId": "ef93ece421d90d55d12ec8d1dfa2809fd8b8d686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
