@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e205203_4622e9dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-07T10:40:49Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-calcium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-scandium/",
+      "revId": "3074ec8002bf11ce9a8a455b0550f0f3f72765b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
