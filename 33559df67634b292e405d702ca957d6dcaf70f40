@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "756d0af7_3a34d776",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-07T10:39:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "090952b1_823d052d",
+      "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8fec13d_c627b537",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "do you mean something like:\n${version}\u003d    CompareStream.Set_Variable_If_At_Least_Scandium    21   20\n??",
       "parentUuid": "7a8ddd4e_3a17abef",
+      "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e742def_1c01c791",
+        "filename": "csit/suites/netconf/clusteringscale/topology_leader_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-07T10:39:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1925b796_e5309bbd",
       "revId": "33559df67634b292e405d702ca957d6dcaf70f40",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
