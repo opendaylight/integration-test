@@ -16,6 +16,24 @@
       "message": "${use_node_encapsulation} \u003d",
       "revId": "8daf9d39e991762de49935d0971b5115b695ab2e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ba15f1_dd3f1cb7",
+        "filename": "csit/suites/netconf/clusteringscale/topology_leader_ha.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-08T14:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb8ee290_f71fbf23",
+      "revId": "8daf9d39e991762de49935d0971b5115b695ab2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
