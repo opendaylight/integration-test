@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1a81f1d_9a443e0e",
+        "filename": "csit/suites/netconf/clusteringscale/topology_leader_ha.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-08T10:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e4633fc_c57fb3c1",
+      "revId": "ca90180035330064e6c6f3d26668934ae2367148",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aad52591_98dcb30c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-08T10:16:33Z",
       "side": 1,
       "message": "IDK I am used to have redirection to log as the last one",
+      "revId": "ca90180035330064e6c6f3d26668934ae2367148",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb0a9df_b1eb729f",
+        "filename": "csit/suites/netconf/clusteringscale/topology_owner_ha.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-08T10:20:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad52591_98dcb30c",
       "revId": "ca90180035330064e6c6f3d26668934ae2367148",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
