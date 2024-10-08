@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d86fc3_2e9031c9",
+        "filename": "csit/suites/netconf/scale/max_devices.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-08T08:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1029b9f0_bc3b42fb",
+      "revId": "ef93ece421d90d55d12ec8d1dfa2809fd8b8d686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cfe0ae7_121ea78b",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-07T16:52:28Z",
       "side": 1,
       "message": "https://docs.python.org/3/library/argparse.html#type\n\u003e The bool() function is not recommended as a type converter. All it does is convert empty strings to False and non-empty strings to True. This is usually not what is desired.",
+      "revId": "ef93ece421d90d55d12ec8d1dfa2809fd8b8d686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bbffaa1_5a74bd2f",
+        "filename": "tools/netconf_tools/configurer.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 9074
+      },
+      "writtenOn": "2024-10-08T08:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cfe0ae7_121ea78b",
       "revId": "ef93ece421d90d55d12ec8d1dfa2809fd8b8d686",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
