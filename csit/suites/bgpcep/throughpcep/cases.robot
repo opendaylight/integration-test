@@ -159,7 +159,6 @@ ${PCEP_READY_VERIFY_TIMEOUT}        300s
 # Yes, the default timeout is 5 minutes, as this suite might be started eagerly just after ODL starts booting up.
 ${RESTCONF_PASSWORD}                ${PWD}    # from Variables.robot
 ${RESTCONF_REUSE}                   True
-${RESTCONF_SCOPE}                   ${EMPTY}
 ${RESTCONF_USER}                    ${USER}    # from Variables.robot
 ${SEQUENTIAL_ITERATION}             15
 ${TOOLS_SYSTEM_WORKSPACE}           /tmp
@@ -190,12 +189,11 @@ Put_Updater
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
     SSHKeywords.Assure_Library_Ipaddr    target_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
-    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${ODL_SYSTEM_IP}
+    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${ODL_SYSTEM_IP}
     ${session} =    AuthStandalone.Init_Session
     ...    ${ODL_SYSTEM_IP}
     ...    ${RESTCONF_USER}
     ...    ${RESTCONF_PASSWORD}
-    ...    ${RESTCONF_SCOPE}
     BuiltIn.Set_Suite_Variable    ${rest_session}    ${session}
     # TODO: Define http timeouts.
 
@@ -544,7 +542,7 @@ Updater
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
     ${response} =    SSHLibrary.Execute_Command
-    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
+    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
     Check Updater response    ${response}    ${parallel}
 
 Check Updater response
