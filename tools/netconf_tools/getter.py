@@ -59,7 +59,6 @@ def parse_arguments():
     parser.add_argument(
         "--password", default="admin", help="Password for ODL Restconf authentication"
     )
-    parser.add_argument("--scope", help="Scope for ODL Restconf authentication")
     parser.add_argument("--count", type=int, help="Count of devices to query")
     parser.add_argument("--name", help="Name of device without the ID suffix")
     parser.add_argument(
@@ -149,9 +148,9 @@ def run_thread(thread_target, *thread_args):
 args = parse_arguments()
 
 # Construct the work for the workers.
-url_start = "config/network-topology:network-topology/"
-url_start += "topology/topology-netconf/node/"
-url_start += args.name + "-"
+url_start = "data/network-topology:network-topology/"
+url_start += "topology=topology-netconf/"
+url_start += "node=" + args.name + "-"
 url_end = "/yang-ext:mount"
 headers = {"Content-Type": "application/xml", "Accept": "application/xml"}
 kwargs = {"headers": headers}
@@ -175,7 +174,7 @@ for request in requests:
 threads = []
 for queue_messages in list_q_msg:
     session = AuthStandalone.Init_Session(
-        args.odladdress, args.user, args.password, args.scope, args.reuse
+        args.odladdress, args.user, args.password, args.reuse
     )
     thread = run_thread(queued_send, session, queue_messages)
     threads.append(thread)
