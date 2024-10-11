@@ -44,7 +44,7 @@ ${test_device}                          odl-mdsal-northbound-via-netconf-connect
 *** Test Cases ***
 Create_Test_Data_For_Direct_Access
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars    {}
+    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars
 
 Run_RestPerfClient_Directly_On_MDSAL
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the MDSAL via Restconf.
