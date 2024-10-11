@@ -44,7 +44,7 @@ ${test_device}                          odl-mdsal-northbound-via-netconf-connect
 *** Test Cases ***
 Create_Test_Data_For_Direct_Access
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars    {}
+    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars
 
 Run_RestPerfClient_Directly_On_MDSAL
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the MDSAL via Restconf.
@@ -68,12 +68,12 @@ Cleanup_And_Collect_For_Direct_Access
     [Documentation]    Cleanup the test data produced by the direct MDSAL access.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     RestPerfClient.Collect_From_Restperfclient
-    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars-delete    {}
+    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars-delete
 
 Create_Test_Data_For_Connector_Access
     [Documentation]    Create the test data container again so it is ready for the netconf connector test.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars    {}
+    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars
 
 Configure_ODL_As_A_Device_On_Netconf
     [Documentation]    Configure ODL MDSAL Northbound as a Netconf device on a Netconf connector.
@@ -116,7 +116,7 @@ Cleanup_And_Collect_For_Connector_Access
     [Documentation]    Delete the test data produced by the Netconf connector MDSAL access.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     RestPerfClient.Collect_From_Restperfclient
-    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars-delete    {}
+    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars-delete
 
 
 *** Keywords ***

@@ -64,8 +64,6 @@ Deconfigure_Devices_From_Netconf
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Setup resources used by the suite.
-    RequestsLibrary.Create_Session    config    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${REST_API}    auth=${AUTH}
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${REST_API}    auth=${AUTH}
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
@@ -82,9 +80,10 @@ Check_Device_Data
     [Documentation]    Opration for getting the configuration data of the device and checking that it matches what is expected.
     [Arguments]    ${current_name}    ${log_response}=True
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
+    # Use 'default' session created by Setup_Netconf_Keywords
     ${data}=    Utils.Get_Data_From_URI
-    ...    config
-    ...    network-topology:network-topology/topology=topology-netconf/node=${current_name}/yang-ext:mount?content=config
+    ...    default
+    ...    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${current_name}/yang-ext:mount?content=config
     ...    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
     IF    '${IS_KARAF_APPL}' == 'True'
