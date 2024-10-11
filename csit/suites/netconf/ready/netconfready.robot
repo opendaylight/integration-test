@@ -72,8 +72,8 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 ${netconf_is_ready}                 False
 ${NETCONFREADY_WAIT}                60s
 ${NETCONFREADY_FALLBACK_WAIT}       1200s
-${USE_NETCONF_CONNECTOR}            False
-${DEBUG_LOGGING_FOR_EVERYTHING}     False
+${USE_NETCONF_CONNECTOR}            ${False}
+${DEBUG_LOGGING_FOR_EVERYTHING}     ${False}
 ${NETCONFREADY_WAIT_MDSAL}          60s
 ${DEVICE_NAME}                      test-device
 ${DEVICE_PORT}                      2830
@@ -85,7 +85,7 @@ Check_Whether_Netconf_Topology_Is_Ready
     [Documentation]    Checks netconf readiness.
     [Tags]    odlmicro_ign
     BuiltIn.Pass_Execution_If
-    ...    ${USE_NETCONF_CONNECTOR}==${True}
+    ...    ${USE_NETCONF_CONNECTOR}
     ...    Netconf connector is used. Next testcases do their job in this case.
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    1s    Check_Netconf_Topology_Ready
 
@@ -93,7 +93,7 @@ Check_Whether_Netconf_Connector_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
     Check_Netconf_Up_And_Running
-    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    ${True}
 
 Wait_For_Netconf_Connector
     [Documentation]    Wait for the Netconf to go up for configurable time.
@@ -101,7 +101,7 @@ Wait_For_Netconf_Connector
     IF    not ${netconf_is_ready}
         BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
     END
-    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    ${True}
 
 Wait_Even_Longer
     [Documentation]    Bugs such as 7175 may require to wait longer till netconf-connector works.
@@ -110,7 +110,7 @@ Wait_Even_Longer
     ...    ${netconf_is_ready}
     ...    Netconf was detected to be up and running so bug 5014 did not show up.
     BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_FALLBACK_WAIT}    10s    Check_Netconf_Up_And_Running
-    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    ${True}
 
 Check_For_Bug_5014
     [Documentation]    If Netconf appears to be down, it may be due to bug 5014. Check if it is so and fail if yes.
@@ -126,7 +126,7 @@ Check_For_Bug_5014
     ...    Netconf was detected to be up and running so bug 5014 did not show up.
     ${status}    ${error}=    BuiltIn.Run_Keyword_And_Ignore_Error    Check_Netconf_Usable
     IF    '${status}'=='PASS'
-        BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
+        BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    ${True}
     END
     BuiltIn.Should_Be_Equal    '${status}'    'FAIL'
 

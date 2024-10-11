@@ -27,17 +27,17 @@ Documentation       Robot keyword library (Resource) for implementing fail fast 
 *** Keywords ***
 Do_Not_Fail_Fast_From_Now_On
     [Documentation]    Set suite to not fail fast.
-    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    False
+    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    ${False}
 
 Fail_This_Fast_On_Previous_Error
     [Documentation]    Mark (immediately) this test case as failed when fast-fail is enabled in suite.
-    IF    '''${SuiteFastFail}'''=='True'
+    IF    ${SuiteFastFail}
         BuiltIn.Fail    SKIPPED due to a failure in a previous fundamental test case.
     END
 
 Start_Failing_Fast_If_This_Failed
     [Documentation]    Set suite fail fast behavior on, if current test case has failed.
-    BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    True
+    BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    ${True}
 
 Run_Even_When_Failing_Fast
     [Documentation]    This is just a more readable 'None' to override [Setup].

@@ -78,7 +78,7 @@ SetupUtils__Report_Bugs_Causing_Failure
 
 Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
     [Documentation]    Test case teardown. Show linked bugs and start fast failing in case of failure.
-    BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    True
+    BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    ${True}
     SetupUtils__Report_Bugs_Causing_Failure
 
 Teardown_Test_Show_Bugs_If_Test_Failed

@@ -64,7 +64,7 @@ Configure_Device_In_Netconf
     ...    DEVICE_KEY=${device_key}
     ...    SCHEMA_DIRECTORY=${schema_directory}
     # TODO: Is it possible to use &{kwargs} as a mapping directly?
-    IF    '${http_method}'=='post'
+    IF    '${http_method}' == 'post'
         TemplatedRequests.Post_As_Xml_Templated
         ...    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${version}${/}${device_type}
         ...    mapping=${mapping}
