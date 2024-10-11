@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1728587116 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1728587116-D3E399B07A45479BC13F3062D6B4F1D5181A14C0\n\n0000000000000000000000000000000000000000 81d1c78abaefcfcee5806a11388cde64df5c3d86 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmcIJWwACgkQW/Locszz\nk5R0PQ//WNGV5naviAe/aUt3EbCOo8lVRMqwRPxLbyYfTkAYvh3tfCqBdd78+dvQ\na089Q5+AjcbOjgtTwpmGXi+oBrh2xhUfl991JzAugTwB8HJi4la+4zJNsashTww6\nRM3XHTuLyJxPS+EmOMjOf/r0Q6XgUTQvPTtzEUsh421JnBDHi6KjdlewUxqLxsDi\nb08WYy+euh06uRyOSHYeLDLeloIFwJAkU2NjZAj23QSVgx2Hxs2/qm+vDid9/pgb\nWVNUw52uEbUJ7QhtJ/4IOrkih2cUvoz/YxGDSlWqEDlwxU7p1CowoTbX/d+HPNu1\n4djnw6yARtnDVgWj1lPvNmHl/VY0zXCnrrGEzxNrZXLcS019SNeLNHKeX0190+YQ\nl6bjf7pGgz/hCFD8GA9azsCjcBAUOlwLvt+w72C3TsLbkGbtyYQfhGE0rvkQkYQ+\n2FnlUSTFzzVjMzQLL9OSK2LNfsxQ4LvGfSE4Y6Nx3Z7Oz+RxYIvQDoQMwh9q7L3t\nEuDkpg5zNpR2lpgd8AhJoL+CX9TvWC4fVtrZzkBSto6XtycdSADFU2IWHF9TktiW\nND3Y3pNawZMwzsPgOLJ9ztfB8/mQJS+UtKMlV/AyNouWtOpiU33vq4Q2YJ/iK7p+\nwym6X8AjF04se8ZYotx36nObuIaoQWvoB8eBtaMslREoGDszFBI\u003d\n\u003d50vv\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f248afc_4a335c80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-11T03:07:32Z",
+      "side": 1,
+      "message": "This resolves the issues that prevented access to RESTCONF and the `scale-max-devices` test job is running as expected:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-max-devices-only-calcium/6/\n\nNote that the reason why there is a test failure is because controller was not able to support 2000 devices - test was successful for 1000 \u0026 1500:\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-scale-max-devices-only-calcium/6/robot-plugin/log.html.gz#s1-s2-t1-k15-k3\n\nThe same test was successful with netconf `v3.0.9` for the whole test range (1000 - 3000 devices):\nhttps://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/netconf-csit-1node-scale-max-devices-only-sulfur/2/robot-plugin/log.html.gz#s1-s2-t1-k15-k5",
+      "revId": "81d1c78abaefcfcee5806a11388cde64df5c3d86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
