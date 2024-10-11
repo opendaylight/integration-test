@@ -90,7 +90,7 @@ Start_Configurer
     ${use_node_encapsulation} =    CompareStream.Set_Variable_If_At_Least_Scandium    True    False
     # TODO: Should things like restconf port/user/password be set from Variables?
     ${command} =    BuiltIn.Set_Variable
-    ...    python configurer.py --odladdress ${entity_ownership_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} --encapsulation ${use_node_encapsulation}  &> "${log_filename}"
+    ...    python configurer.py --odladdress ${entity_ownership_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} --encapsulation ${use_node_encapsulation} &>"${log_filename}"
     SSHLibrary.Write    ${command}
     ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
