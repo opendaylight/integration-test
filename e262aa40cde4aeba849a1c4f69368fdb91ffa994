@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "70767f91_a81b02ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-15T06:50:43Z",
+      "side": 1,
+      "message": "Explain problem and the solution. Additionally write to JIRA why testcases are still failing.",
+      "revId": "e262aa40cde4aeba849a1c4f69368fdb91ffa994",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dc731dfe_f9a7200f",
