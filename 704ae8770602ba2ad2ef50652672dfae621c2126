@@ -33,6 +33,24 @@
       "message": "Superseded by https://git.opendaylight.org/gerrit/c/integration/test/+/113044",
       "revId": "704ae8770602ba2ad2ef50652672dfae621c2126",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30afb544_ad950eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-16T08:10:37Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/integration/test/+/113956 😊",
+      "parentUuid": "0c27877b_01396694",
+      "revId": "704ae8770602ba2ad2ef50652672dfae621c2126",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ],
   "submitRequirementResults": [
