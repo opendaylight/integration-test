@@ -33,6 +33,23 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-scandium/",
       "revId": "e262aa40cde4aeba849a1c4f69368fdb91ffa994",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28ce713_ca576d8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-10-16T06:50:31Z",
+      "side": 1,
+      "message": "Superseded by https://git.opendaylight.org/gerrit/c/integration/test/+/113956",
+      "revId": "e262aa40cde4aeba849a1c4f69368fdb91ffa994",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
