@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a06cb033_26f7f5e6",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 9362
+      },
+      "writtenOn": "2024-10-17T13:12:55Z",
+      "side": 1,
+      "message": "PS: the error message should look like `raise Exception (....)`, this would print error and return appropriate return code.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "829cd0ae732367f6bd2b3a47ce8aae0aacaa6ee9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b31f421b_c4cf48f0",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 4
