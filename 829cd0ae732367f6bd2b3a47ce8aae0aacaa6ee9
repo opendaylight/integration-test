@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e30221_e5edbf94",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 9362
+      },
+      "writtenOn": "2024-10-17T12:58:08Z",
+      "side": 1,
+      "message": "I think, missing the system_type arg here.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "829cd0ae732367f6bd2b3a47ce8aae0aacaa6ee9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7294a841_6e33b1f3",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 9362
+      },
+      "writtenOn": "2024-10-17T12:58:08Z",
+      "side": 1,
+      "message": "This statement is not needed because we do the exact same thing with arg parser choosing between two options, parser with itself raise error when is incorrect.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "829cd0ae732367f6bd2b3a47ce8aae0aacaa6ee9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31f421b_c4cf48f0",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9362
+      },
+      "writtenOn": "2024-10-17T12:58:08Z",
+      "side": 1,
+      "message": "More pythonic way do these things would be with f-strings: https://docs.python.org/3/tutorial/inputoutput.html",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 87
+      },
+      "revId": "829cd0ae732367f6bd2b3a47ce8aae0aacaa6ee9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
