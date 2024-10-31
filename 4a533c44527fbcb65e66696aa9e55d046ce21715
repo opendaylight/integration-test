@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 5BF2E872CCF39394 1730358436 -0700\npushee ssh://git.opendaylight.org:29418/integration/test\nnonce 1730358436-1A1575E462E2A63437A3CA0BCE2AED92BE5AE231\n\n0000000000000000000000000000000000000000 4a533c44527fbcb65e66696aa9e55d046ce21715 refs/for/master\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEE6VGviOgBMjnZCl/bW/Locszzk5QFAmcjLKQACgkQW/Locszz\nk5QInxAAl+hj2mOcyliF7y+BGT8zuqddPN9fNnUOl0liUKtqYrkgyzEGD/9Shh2O\nR1k8pFSF7XF+bswRSFkT6p/f4/naqh8lnH/yizNoGtaZD/tfrgPOu3PqcESa7xCc\neYo9Cy0SKAaIyuOaTW7aONMda0caxoOog/YheYK+buAv2/F5Idom/qN1IbzUeOis\nul+8XqF4J0Z+hbNV49SWOlEGgXIeFNZu8RoJxtW2A0kMuciuRoEZAjJT/kQzz66d\nad4+PSzN00/hszIo+Z+rra4guB21Xxd/fmxeu6DqyvUUEAK+UG2Hx8BV8HkHY7SK\nDobiE7DQB/WXet8AA6+DGO0oFOH3kZxx4Z5UFSWXHavFvdqzCNQvDr5K8YGts1VM\niz27K7Wa1MV4+a1tKQQznQ76CZmfdU5zaIpqxY4kDDw98E5NbZX+LoWzqqHIFVvh\ntg3NhCh+V+4ZhCM8YncLI3Lh4M7fASSBRDEvbOzr+PZbEkTXTcVnOa0puKo2FUI9\n44+pvS/m4PGdGI426YlcDkWM+DmzEjwF9E7LPxP4piA/TsZONEwZgnq40Hd9urdA\nMuTHWxWQcMDhoVVlO5B+fm8WMeNbQuTPaxP/jNYNYgg4j0QQxYFypb7z5wd+EcRg\n6QpQMHAfrC/1oQL4Tm/IeNmjW+I88f2UiMjYk1dkY8L57F8ebY4\u003d\n\u003dNMRV\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c7c3cc_48d968be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-10-31T14:11:12Z",
+      "side": 1,
+      "message": "Sandbox test:\n- https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-only-scandium/3/\n\nThis change chain fixes `getmulti.Read_Python_Tool_Operation_Result`.",
+      "revId": "4a533c44527fbcb65e66696aa9e55d046ce21715",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
 }
