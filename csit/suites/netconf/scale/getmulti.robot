@@ -109,6 +109,7 @@ Read_Python_Tool_Operation_Result
     ${test}=    SSHLibrary.Read_Until_Regexp    \\n
     ${test}=    String.Split_String    ${test}    |
     ${response}=    Collections.Get_From_List    ${test}    0
+    ${response}=    String.Remove_String_Using_Regexp    ${response}    ^.*2004l\\r
     ${message}=    Collections.Get_From_List    ${test}    1
     IF    '${response}' == 'ERROR'    Fail    Error getting data: ${message}
     ${start}=    Collections.Get_From_List    ${test}    1
