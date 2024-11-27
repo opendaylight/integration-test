@@ -16,6 +16,24 @@
       "message": "1. Describe how you decide to use akka or pekko\n2. Split changes from lithium_all into separate patch - assuming that its only script for manual user usage - you can add paramater there to use pekko or akka\n3. rename lithium_all to something more useful (cluster initial configuration, etc.)",
       "revId": "af0044c839ca151fad198c8083a277ed32eb9ab5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e662bd5_869ea9b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2024-11-27T08:36:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e886340_44752853",
+      "revId": "af0044c839ca151fad198c8083a277ed32eb9ab5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
