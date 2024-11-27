@@ -1,0 +1,12 @@
+
+odl-cluster-data {
+  pekko {
+    cluster {
+      seed-nodes = {{{DS_SEED_NODES}}}
+      auto-down-unreachable-after = 30s
+      roles = [
+        "{{MEMBER_NAME}}"
+      ]
+    }
+  }
+}
