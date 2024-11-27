@@ -79,6 +79,12 @@ parser.add_argument(
     "directory.",
 )
 parser.add_argument(
+    "--cluster-system",
+    choices=("akka", "pekko"),
+    default="pekko",
+    help="Cluster library used by controller ('akka' or 'pekko')",
+)
+parser.add_argument(
     "--rf",
     default=3,
     type=int,
@@ -124,7 +130,7 @@ class TemplateRenderer:
 
 #
 # The array_str method takes an array of strings and formats it into a
-#  string such that it can be used in an akka configuration file
+#  string such that it can be used in an pekko configuration file
 #
 def array_str(arr):
     s = "["
@@ -145,6 +151,7 @@ class Deployer:
         host,
         member_no,
         template,
+        cluster_system,
         user,
         password,
         rootdir,
@@ -159,6 +166,7 @@ class Deployer:
         self.host = host
         self.member_no = member_no
         self.template = template
+        self.cluster_system = cluster_system
         self.user = user
         self.password = password
         self.rootdir = rootdir
@@ -202,9 +210,11 @@ class Deployer:
 
         # Render all the templates
         renderer = TemplateRenderer(self.template)
-        akka_conf = renderer.render(
-            "akka.conf.template",
-            "akka.conf",
+        conf_tpl = f"{self.cluster_system}.conf.template"
+        conf_out = f"{self.cluster_system}.conf"
+        system_conf = renderer.render(
+            conf_tpl,
+            conf_out,
             {
                 "HOST": self.host,
                 "MEMBER_NAME": "member-" + str(self.member_no),
@@ -261,7 +271,9 @@ class Deployer:
 
         # Copy all the generated files to the server
         self.remote.mkdir(self.dir_name + "/odl/configuration/initial")
-        self.remote.copy_file(akka_conf, self.dir_name + "/odl/configuration/initial/")
+        self.remote.copy_file(
+            system_conf, self.dir_name + "/odl/configuration/initial/"
+        )
         self.remote.copy_file(
             module_shards_conf, self.dir_name + "/odl/configuration/initial/"
         )
@@ -305,9 +317,11 @@ def main():
 
     for x in range(0, len(hosts)):
         ds_seed_nodes.append(
-            "akka.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550"
+            f"{args.cluster_system}.tcp://opendaylight-cluster-data@{hosts[x]}:2550"
         )
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
+        rpc_seed_nodes.append(
+            f"{args.cluster_system}.tcp://odl-cluster-rpc@{hosts[x]}:2551"
+        )
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):
@@ -326,6 +340,7 @@ def main():
                 hosts[x],
                 x + 1,
                 args.template,
+                args.cluster_system,
                 args.user,
                 args.password,
                 args.rootdir,
