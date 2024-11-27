@@ -13,6 +13,7 @@ import requests
 import json
 import sys
 import re
+import argparse
 
 
 # response code to check the rest calls
@@ -24,12 +25,15 @@ con_header = {"Accept": "application/json", "content-type": "application/json"}
 authentication = ("admin", "admin")
 
 
-def validate_cluster(ipaddress):
+def validate_cluster(ipaddress, system_type):
     """method to check the cluster status
     Args:
         ipaddress(str): ip address of the ODL controller
+        system_type (str): System type, either 'akka' or 'pekko', specifying the
+                           clustering technology used by the controller.
     """
-    url = "http://" + ipaddress + ":8181/jolokia/read/akka:type=Cluster"
+
+    url = f"http://{ipaddress}:8181/jolokia/read/{system_type}:type=Cluster"
     try:
         resp = requests.get(url, headers=con_header, auth=authentication)
     except requests.exceptions.RequestException:
@@ -55,7 +59,7 @@ def validate_cluster(ipaddress):
     for member in members:
         # spliting the ip address of the node from json object
         # sample json data
-        # "akka.tcp://opendaylight-cluster-data@10.106.138.137:2550"
+        # "pekko.tcp://opendaylight-cluster-data@10.106.138.137:2550"
         ip = re.search("@(.+?):", member["address"]).group(1)
         node_status = ip + "-" + member["status"]
         member_list.append(node_status)
@@ -119,8 +123,13 @@ def list_entity_owners(ipaddress, entity_owner_list):
 # Main Block
 if __name__ == "__main__":
     print("*****Cluster Status******")
-    ipaddress = raw_input("Please enter ipaddress to find Leader Node : ")
-    validate_cluster(ipaddress)
+    parser = argparse.ArgumentParser(description="Cluster Status Checker")
+    parser.add_argument("ipaddress", help="IP address of the ODL controller")
+    parser.add_argument(
+        "system_type", choices=["akka", "pekko"], help="System type: 'akka' or 'pekko'"
+    )
+    args = parser.parse_args()
+    validate_cluster(args.ipaddress, args.system_type)
 
 else:
     print("Cluster checker loaded as Module")
