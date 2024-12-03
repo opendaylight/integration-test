@@ -16,6 +16,23 @@
       "message": "Successful robot run with old value in jankins sandbox environment https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-max-devices-only-calcium/",
       "revId": "9ba147ce90d5edd874439733e7b6d39030e9877e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6ed3e2_4e747d0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2024-12-03T12:48:26Z",
+      "side": 1,
+      "message": "Successful robot run with new value in jankins sandbox environment https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-max-devices-only-scandium/7/",
+      "revId": "9ba147ce90d5edd874439733e7b6d39030e9877e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
