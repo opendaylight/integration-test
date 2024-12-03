@@ -244,7 +244,8 @@ def await_devices_connected(restconf_url, device_names, deadline_seconds):
         # Check all reported nodes
         for node in resp.json()["network-topology:topology"][0]["node"]:
             name = node["node-id"]
-            status = node["netconf-node-topology:connection-status"]
+            print(f"{node=}")
+            status = node["connection-status"]
             debug("Evaluating %s status %s", name, status)
 
             if name in names:
