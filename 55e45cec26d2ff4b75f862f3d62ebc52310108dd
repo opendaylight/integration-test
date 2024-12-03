@@ -33,6 +33,24 @@
       "message": "Maybe I\u0027m wrong, but shouldn\u0027t `use_node_encapsulation` also be set here?",
       "revId": "55e45cec26d2ff4b75f862f3d62ebc52310108dd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cfadaba_ef35cc78",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2024-12-03T15:25:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d7a0d49_3d2cc6a8",
+      "revId": "55e45cec26d2ff4b75f862f3d62ebc52310108dd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
