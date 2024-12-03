@@ -96,6 +96,7 @@ Find Max Netconf Devices
         ...    restconf_url=${restconf_url}
         ...    device_names=${device_names}
         ...    deadline_seconds=${timeout}
+        ...    use_node_encapsulation=${use_node_encapsulation}
         ${status}    ${result} =    Run Keyword And Ignore Error
         ...    Issue_Requests_On_Devices
         ...    ${TOOLS_SYSTEM_IP}
