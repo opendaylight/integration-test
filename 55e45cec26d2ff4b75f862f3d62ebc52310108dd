@@ -16,6 +16,23 @@
       "message": "Now, before scandium and scandium onward work properly.\n\nYou can compare releng:\nhttps://jenkins.opendaylight.org/releng/view/netconf/job/netconf-csit-1node-scale-max-devices-only-calcium/\nhttps://jenkins.opendaylight.org/releng/view/netconf/job/netconf-csit-1node-scale-max-devices-only-scandium/\n\nand sandbox:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-max-devices-only-calcium/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-scale-max-devices-only-scandium/",
       "revId": "55e45cec26d2ff4b75f862f3d62ebc52310108dd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d7a0d49_3d2cc6a8",
+        "filename": "csit/libraries/TopologyNetconfNodes.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 8449
+      },
+      "writtenOn": "2024-12-03T15:11:27Z",
+      "side": 1,
+      "message": "Maybe I\u0027m wrong, but shouldn\u0027t `use_node_encapsulation` also be set here?",
+      "revId": "55e45cec26d2ff4b75f862f3d62ebc52310108dd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
