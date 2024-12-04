@@ -22,11 +22,14 @@ ${substring3}                   "netconf-node-topology:available-capabilities"
 Check Device status
     [Documentation]    Checks the operational device status.
     [Arguments]    ${status}    ${id}=netopeer2
-    @{expectedValues}    Create List    "unique-id":"${id}"    "callhome-status:device-status":"${status}"
+    ${expected_status_field}    CompareStream.Set_Variable_If_At_Least_Scandium
+    ...    "device-status":"${status}"
+    ...    "callhome-status:device-status":"${status}"
+    @{expected_values}    Create List    "unique-id":"${id}"    ${expected_status_field}
     IF    '${status}'=='FAILED_NOT_ALLOWED' or '${status}'=='FAILED_AUTH_FAILURE'
-        Remove Values From List    ${expectedValues}    "unique-id":"${id}"
+        Remove Values From List    ${expected_values}    "unique-id":"${id}"
     END
-    Utils.Check For Elements At URI    ${device_status}    ${expectedValues}
+    Utils.Check For Elements At URI    ${device_status}    ${expected_values}
 
 Apply SSH-based Call-Home configuration
     [Documentation]    Upload netopeer2 configuration files needed for SSH transport
@@ -240,7 +243,7 @@ Test Setup
     [Documentation]    Opens session towards ODL controller, set configuration folder, generates a new host key for the container
     RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Execute_Command    rm -rf ./configuration-files && mkdir configuration-files
-    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -f ./configuration-files/ssh_host_rsa_key
+    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./configuration-files/ssh_host_rsa_key
     ${public_key}    SSHLibrary.Execute_Command    cat configuration-files/ssh_host_rsa_key.pub | awk '{print $2}'
     Set Test Variable    ${NETOPEER_PUB_KEY}    ${public_key}
 
