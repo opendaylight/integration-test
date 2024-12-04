@@ -13,20 +13,20 @@ ${whitelist}                    /rests/data/odl-netconf-callhome-server:netconf-
 ${global_config_url}            /rests/data/odl-netconf-callhome-server:netconf-callhome-server/global/credentials
 ${netconf_keystore_url}         /rests/operations/netconf-keystore
 ${netconf_keystore_data_url}    /rests/data/netconf-keystore:keystore
-${substring1}                   "netconf-node-topology:connection-status":"connected"
-${substring2}                   "node-id":"netopeer2"
-${substring3}                   "netconf-node-topology:available-capabilities"
 
 
 *** Keywords ***
 Check Device status
     [Documentation]    Checks the operational device status.
     [Arguments]    ${status}    ${id}=netopeer2
-    @{expectedValues}    Create List    "unique-id":"${id}"    "callhome-status:device-status":"${status}"
+    ${expected_status_field}    CompareStream.Set_Variable_If_At_Least_Calcium
+    ...    "device-status":"${status}"
+    ...    "callhome-status:device-status":"${status}"
+    @{expected_values}    Create List    "unique-id":"${id}"    ${expected_status_field}
     IF    '${status}'=='FAILED_NOT_ALLOWED' or '${status}'=='FAILED_AUTH_FAILURE'
-        Remove Values From List    ${expectedValues}    "unique-id":"${id}"
+        Remove Values From List    ${expected_values}    "unique-id":"${id}"
     END
-    Utils.Check For Elements At URI    ${device_status}    ${expectedValues}
+    Utils.Check For Elements At URI    ${device_status}    ${expected_values}
 
 Apply SSH-based Call-Home configuration
     [Documentation]    Upload netopeer2 configuration files needed for SSH transport
@@ -67,12 +67,12 @@ Generate certificates for TLS configuration
 
 Register keys and certificates in ODL controller
     [Documentation]    Register pre-configured netopeer2 certificates and key in ODL-netconf keystore
-    ${base64-client-key}    ${stderr}    SSHLibrary.Execute_Command
-    ...    openssl enc -base64 -A -in ./configuration-files/certs/client.key
+    ${pem-client-key}    ${stderr}    SSHLibrary.Execute_Command
+    ...    cat ./configuration-files/certs/client.key
     ...    return_stdout=True
     ...    return_stderr=True
     ${template}    OperatingSystem.Get File    ${ADD_KEYSTORE_ENTRY_REQ}
-    ${body}    Replace String    ${template}    {base64-client-key}    ${base64-client-key}
+    ${body}    Replace String    ${template}    {pem-client-key}    ${pem-client-key}
     ${resp}    RequestsLibrary.POST On Session
     ...    session
     ...    url=${netconf_keystore_url}:add-keystore-entry
@@ -81,11 +81,11 @@ Register keys and certificates in ODL controller
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${client-key}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/client.key | sed -z 's!\\n!\\\\n!g'
+    ...    sed -z 's!\\n!\\\\n!g' ./configuration-files/certs/client.key
     ...    return_stdout=True
     ...    return_stderr=True
     ${certificate-chain}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/client.crt | sed -z 's!\\n!\\\\n!g'
+    ...    sed -z 's!\\n!\\\\n!g' ./configuration-files/certs/client.crt
     ...    return_stdout=True
     ...    return_stderr=True
     ${template}    OperatingSystem.Get File    ${ADD_PRIVATE_KEY_REQ}
@@ -99,11 +99,11 @@ Register keys and certificates in ODL controller
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${ca-certificate}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/ca.pem | sed -z 's!\\n!\\\\n!g'
+    ...    sed -z 's!\\n!\\\\n!g' ./configuration-files/certs/ca.pem
     ...    return_stdout=True
     ...    return_stderr=True
     ${device-certificate}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/server.crt | sed -z 's!\\n!\\\\n!g'
+    ...    sed -z 's!\\n!\\\\n!g' ./configuration-files/certs/server.crt
     ...    return_stdout=True
     ...    return_stderr=True
     ${template}    OperatingSystem.Get File    ${ADD_TRUSTED_CERTIFICATE}
@@ -240,7 +240,7 @@ Test Setup
     [Documentation]    Opens session towards ODL controller, set configuration folder, generates a new host key for the container
     RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Execute_Command    rm -rf ./configuration-files && mkdir configuration-files
-    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -f ./configuration-files/ssh_host_rsa_key
+    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./configuration-files/ssh_host_rsa_key
     ${public_key}    SSHLibrary.Execute_Command    cat configuration-files/ssh_host_rsa_key.pub | awk '{print $2}'
     Set Test Variable    ${NETOPEER_PUB_KEY}    ${public_key}
 
@@ -282,6 +282,13 @@ Suite Setup
     ${netconf_cl_ssh_port}    Set_Variable_If_At_Least_Sulfur    4334    6666
     SSHLibrary.Execute_Command    sed -i -e 's/NETCONF_CH_SSH/${netconf_cl_ssh_port}/g' docker-compose.yaml
     SSHLibrary.Execute_Command    sed -i -e 's/NETCONF_CH_TLS/4335/g' docker-compose.yaml
+    ${substring1}    CompareStream.Set_Variable_If_At_Least_Scandium
+    ...    "connection-status":"connected"
+    ...    "netconf-node-topology:connection-status":"connected"
+    ${substring2}    Set Variable    "node-id":"netopeer2"
+    ${substring3}    CompareStream.Set_Variable_If_At_Least_Scandium
+    ...    "available-capabilities"
+    ...    "netconf-node-topology:available-capabilities"
     ${netconf_mount_expected_values}    Create list    ${substring1}    ${substring2}    ${substring3}
     Set Suite Variable    ${netconf_mount_expected_values}
     Set Suite Variable
@@ -311,6 +318,9 @@ Suite Setup
     Set Suite Variable
     ...    ${ADD_TRUSTED_CERTIFICATE}
     ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_trusted_certificate.json
+    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./incorrect_ssh_host_rsa_key
+    ${incorrect_public_key}    SSHLibrary.Execute_Command    awk '{print $2}' incorrect_ssh_host_rsa_key.pub
+    Set Suite Variable    ${INCORRECT_PUB_KEY}    ${incorrect_public_key}
 
 Suite Teardown
     [Documentation]    Tearing down the setup.
