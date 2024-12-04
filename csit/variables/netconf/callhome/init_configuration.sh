@@ -33,9 +33,20 @@ import_module()
   fi
 
   # Replace placeholders in templates with ENV variables
-  envsubst < $CONFIG_PATH/$MODULE_NAME.xml > $MODULE_NAME.tmp
-  cat $MODULE_NAME.tmp > $CONFIG_PATH/$MODULE_NAME.xml
-  rm $MODULE_NAME.tmp
+  sed -i -e 's|$NP_PRIVKEY|'"$NP_PRIVKEY"'|g' \
+      -e 's|$NP_PUBKEY|'"$NP_PUBKEY"'|g' \
+      -e 's|$NP_CA_CERT|'"$NP_CA_CERT"'|g' \
+      -e 's|$NP_CLIENT_CERT|'"$NP_CLIENT_CERT"'|g' \
+      -e 's|$NP_SERVER_PRIVATE_KEY|'"$NP_SERVER_PRIVATE_KEY"'|g' \
+      -e 's|$NP_SERVER_PUBLIC_KEY|'"$NP_SERVER_PUBLIC_KEY"'|g' \
+      -e 's|$NP_SERVER_CERTIFICATE|'"$NP_SERVER_CERTIFICATE"'|g' \
+      -e 's|$NP_CLIENT_CERT_FINGERPRINT|'"$NP_CLIENT_CERT_FINGERPRINT"'|g' \
+      -e 's|$CALL_HOME_SERVER_IP|'"$CALL_HOME_SERVER_IP"'|g' \
+      -e 's|$CALL_HOME_SSH_PORT|'"$CALL_HOME_SSH_PORT"'|g' \
+      $CONFIG_PATH/$MODULE_NAME.xml
+  #envsubst < $CONFIG_PATH/$MODULE_NAME.xml > $MODULE_NAME.tmp
+  #cat $MODULE_NAME.tmp > $CONFIG_PATH/$MODULE_NAME.xml
+  #rm $MODULE_NAME.tmp
 
   # Import configuration into both datastores
   sysrepocfg --import=$CONFIG_PATH/$MODULE_NAME.xml -m $MODULE_NAME --datastore=startup
