@@ -33,9 +33,21 @@ import_module()
   fi
 
   # Replace placeholders in templates with ENV variables
-  envsubst < $CONFIG_PATH/$MODULE_NAME.xml > $MODULE_NAME.tmp
-  cat $MODULE_NAME.tmp > $CONFIG_PATH/$MODULE_NAME.xml
-  rm $MODULE_NAME.tmp
+  sed -i -e 's|$NP_PRIVKEY|'"$NP_PRIVKEY"'|g' \
+      -e 's|$NP_PUBKEY|'"$NP_PUBKEY"'|g' \
+      -e 's|$NP_CA_CERT|'"$NP_CA_CERT"'|g' \
+      -e 's|$NP_CLIENT_CERT|'"$NP_CLIENT_CERT"'|g' \
+      -e 's|$NP_SERVER_PRIVATE_KEY|'"$NP_SERVER_PRIVATE_KEY"'|g' \
+      -e 's|$NP_SERVER_PUBLIC_KEY|'"$NP_SERVER_PUBLIC_KEY"'|g' \
+      -e 's|$NP_SERVER_CERTIFICATE|'"$NP_SERVER_CERTIFICATE"'|g' \
+      -e 's|$NP_CLIENT_CERT_FINGERPRINT|'"$NP_CLIENT_CERT_FINGERPRINT"'|g' \
+      -e 's|$CALL_HOME_SERVER_IP|'"$CALL_HOME_SERVER_IP"'|g' \
+      -e 's|$CALL_HOME_SSH_PORT|'"$CALL_HOME_SSH_PORT"'|g' \
+      -e 's|$CALL_HOME_TLS_PORT|'"$CALL_HOME_TLS_PORT"'|g' \
+      $CONFIG_PATH/$MODULE_NAME.xml
+  #envsubst < $CONFIG_PATH/$MODULE_NAME.xml > $MODULE_NAME.tmp
+  #cat $MODULE_NAME.tmp > $CONFIG_PATH/$MODULE_NAME.xml
+  #rm $MODULE_NAME.tmp
 
   # Import configuration into both datastores
   sysrepocfg --import=$CONFIG_PATH/$MODULE_NAME.xml -m $MODULE_NAME --datastore=startup
@@ -54,16 +66,16 @@ cp $CONFIG_PATH/ssh_host_rsa_key.pub /etc/ssh/ssh_host_rsa_key.pub
 # These variables will replace corresponding placeholders inside configuration templates
 SAVEIFS=$IFS
 IFS=
-export NP_PRIVKEY=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d'`
-export NP_PUBKEY=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d'`
+export NP_PRIVKEY=`cat /etc/ssh/ssh_host_rsa_key | sed -u '1d; $d' | tr -d '\n'`
+export NP_PUBKEY=`openssl rsa -in /etc/ssh/ssh_host_rsa_key -pubout | sed -u '1d; $d' | tr -d '\n'`
 
 if [ -d "$CONFIG_PATH/certs" ]; then
-    export NP_CA_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/ca.pem`
-    export NP_CLIENT_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/client.crt`
-    export NP_SERVER_PRIVATE_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.key`
-    export NP_SERVER_PUBLIC_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.pub`
-    export NP_SERVER_CERTIFICATE=`sed -u '1d; $d' $CONFIG_PATH/certs/server.crt`
-    export NP_CLIENT_CERT_FINGERPRINT=`openssl x509 -noout -fingerprint -in $CONFIG_PATH/certs/ca.pem -sha1 | cut -d'=' -f2-`
+    export NP_CA_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/ca.pem | tr -d '\n'`
+    export NP_CLIENT_CERT=`sed -u '1d; $d' $CONFIG_PATH/certs/client.crt | tr -d '\n'`
+    export NP_SERVER_PRIVATE_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.key | tr -d '\n'`
+    export NP_SERVER_PUBLIC_KEY=`sed -u '1d; $d' $CONFIG_PATH/certs/server.pub | tr -d '\n'`
+    export NP_SERVER_CERTIFICATE=`sed -u '1d; $d' $CONFIG_PATH/certs/server.crt | tr -d '\n'`
+    export NP_CLIENT_CERT_FINGERPRINT=`openssl x509 -noout -fingerprint -in $CONFIG_PATH/certs/ca.pem -sha1 | cut -d'=' -f2- | tr -d '\n'`
 fi
 IFS=$SAVEIFS
 
