@@ -217,6 +217,47 @@ CallHome over SSH with incorrect global credentials (APIv2)
     ...    ${mount_point_url}
     ...    ${netconf_mount_expected_values}
 
+CallHome with Incorrect Node-id (APIv2)
+    [Documentation]    CallHome from device that does not have an entry in per-device credential with result to mount point failure.
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv2)    incorrect_hostname    ${INCORRECT_PUB_KEY}    root    root
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${NETOPEER_PUB_KEY}
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command
+    ...    docker-compose up -d
+    ...    return_stdout=True
+    ...    return_stderr=True
+    ...    return_rc=True
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    DISCONNECTED
+    Wait Until Keyword Succeeds
+    ...    30s
+    ...    2s
+    ...    Run Keyword And Expect Error
+    ...    *
+    ...    Utils.Check For Elements At URI
+    ...    ${mount_point_url}
+    ...    ${netconf_mount_expected_values}
+
+CallHome with Rogue Devices (APIv2)
+    [Documentation]    A Rogue Device will fail to callhome and wont be able to mount because the keys are not added in whitelist.
+    ...    FAILED_NOT_ALLOWED should be the device status.
+    Apply SSH-based Call-Home configuration
+    Register SSH call-home device in ODL controller (APIv2)    netopeer2    ${INCORRECT_PUB_KEY}    root    root
+    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command
+    ...    docker-compose up -d
+    ...    return_stdout=True
+    ...    return_stderr=True
+    ...    return_rc=True
+    # Next line is commented due to https://jira.opendaylight.org/browse/NETCONF-574
+    Wait Until Keyword Succeeds    90s    2s    NetconfCallHome.Check Device Status    FAILED_NOT_ALLOWED
+    Wait Until Keyword Succeeds
+    ...    30s
+    ...    2s
+    ...    Run Keyword And Expect Error
+    ...    *
+    ...    Utils.Check For Elements At URI
+    ...    ${mount_point_url}
+    ...    ${netconf_mount_expected_values}
+
 CallHome over TLS with correct certificate and key (APIv2)
     [Documentation]    Using correct certificate and key pair should result to successful mount. CONNECTED should be the device status.
     CompareStream.Run_Keyword_If_Less_Than_Silicon
