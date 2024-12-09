@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9a34dd_e9cad4cf",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-12-09T19:50:04Z",
+      "side": 1,
+      "message": "Do we need to keep this? Isn\u0027t this robot file used only for Dlux?",
+      "revId": "82f64c152c73cc78177b17118a9c2651efba70d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
