@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02a636cb_27856103",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-12-10T06:38:25Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "90b73d66_90394c4e",
+      "revId": "d9c4e12dbb76e1bf23211e4bb75e7131c956fcf0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5be8dec1_174e5963",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-09T21:42:46Z",
       "side": 0,
       "message": "This and others in the BGPCEP test suite do not appear to be related to the LACP project.",
+      "revId": "d9c4e12dbb76e1bf23211e4bb75e7131c956fcf0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a5186b8_858231e4",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-12-10T06:38:25Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "5be8dec1_174e5963",
       "revId": "d9c4e12dbb76e1bf23211e4bb75e7131c956fcf0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
