@@ -16,6 +16,24 @@
       "message": "This has nothing to do with the `telemetry` project.",
       "revId": "754d37d6e8ab03c9db4ecbbfa678b215ef0dfc5f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f85c01_5b284b5e",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2024-12-10T06:40:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "571f31b3_fb6ff34e",
+      "revId": "754d37d6e8ab03c9db4ecbbfa678b215ef0dfc5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
