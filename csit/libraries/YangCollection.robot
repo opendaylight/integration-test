@@ -132,6 +132,15 @@ Delete_Static_Paths
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -vrf experimental/ietf-extracted-YANG-modules/@2015-03-09.yang
     ## excluded dependency file from test experimental/ietf-extracted-YANG-modules/l3-unicast-igp-topology@2015-06-08.yang
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass
+    ...    rm -vrf experimental/ietf-extracted-YANG-modules/abstract-topology@2014-07-01.yang
+    ## excluded dependency file from test experimental/ietf-extracted-YANG-modules/alto-service-types@2015-03-22.yang (module alto-service-types)
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass
+    ...    rm -vrf experimental/ietf-extracted-YANG-modules/alto-service@2015-03-22.yang
+    ## missing closing bracket '}' at the end of module
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass
+    ...    rm -vrf experimental/ietf-extracted-YANG-modules/alto-service-types@2015-03-22.yang
+    ## excluded depndency file cisco from test, (module SNMP-FRAMEWORK-MIB)
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass
     ...    rm -vrf experimental/ietf-extracted-YANG-modules/BATTERY-MIB@2015-06-15.yang
     ## excluded dependency file from test experimental/ietf-extracted-YANG-modules/bfd.yang (module bfd)
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass
