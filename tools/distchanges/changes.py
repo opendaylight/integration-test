@@ -70,7 +70,6 @@ class Changes(object):
         "odlparent",
         "openflowplugin",
         "ovsdb",
-        "sfc",
         "yangtools",
     ]
     VERBOSE = logging.INFO
