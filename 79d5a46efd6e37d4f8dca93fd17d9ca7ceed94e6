@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b15b4424_7adfa019",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-02-06T07:25:31Z",
+      "side": 1,
+      "message": "IDK usually we define also \"helper\" methods",
+      "revId": "79d5a46efd6e37d4f8dca93fd17d9ca7ceed94e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
