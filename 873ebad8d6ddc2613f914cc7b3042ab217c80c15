@@ -34,6 +34,57 @@
       "parentUuid": "6f90a984_0d545388",
       "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6db69fa_a3cd5eb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-02-07T20:09:28Z",
+      "side": 1,
+      "message": "After removing APIv1 tests there are unused variables, e.g. `CREATE_SSH_DEVICE_REQ_V1_HOST_KEY_ONLY`, and files, e.g. `apiv1/create_device.json`. The unused variables \u0026 files need to be cleared up. \n\nAnd remove references to `V1` and \u0027V2` in the variable names and consolidate template directories `callhome/json/apiv1` \u0026 `callhome/json/apiv2` into `callhome/json`.",
+      "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c560715_1791f477",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-02-07T20:09:28Z",
+      "side": 1,
+      "message": "We don\u0027t really need to check the stream since all the supported streams (calcium and later) use the same.",
+      "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f015218_6ec4c1a9",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-02-07T20:09:28Z",
+      "side": 1,
+      "message": "This is used 4 times for different files, so probably better to create a keyword to take the file path as an argument.",
+      "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
