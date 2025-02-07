@@ -16,6 +16,24 @@
       "message": "Successfully tested change in sandbox on:\n\nTitanium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-titanium/14/\nScandium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-scandium/11/\nCalcium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-calcium/14/",
       "revId": "d5a75f083c9d3458492762df6d9fb5f5d670100a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2df9ab9_e6237efe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-02-07T07:48:13Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "741232eb_b9955088",
+      "revId": "d5a75f083c9d3458492762df6d9fb5f5d670100a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
