@@ -103,6 +103,23 @@
       "message": "This is used 4 times for different files, so probably better to create a keyword to take the file path as an argument.",
       "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d027c5_ea030ab7",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-02-07T21:42:01Z",
+      "side": 1,
+      "message": "This is unnecessary since all the supported versions are calcium or later, hence always false.",
+      "revId": "873ebad8d6ddc2613f914cc7b3042ab217c80c15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
