@@ -65,14 +65,30 @@ Generate certificates for TLS configuration
     ...    openssl x509 -req -in ./certs/client.csr -CA ./certs/ca.pem -CAkey ./certs/ca.key -CAcreateserial -extfile x509_v3.cfg -out ./certs/client.crt -days 1024 -sha256
     ${stdout}    SSHLibrary.Execute Command    mv ./certs ./configuration-files/certs
 
+Get certificate file content
+    [Documentation]    Get certificate or key file content
+    [Arguments]    ${file_name}
+    ${content}    ${stderr}    CompareStream.Run_Keyword_If_At_Least_Else
+    ...    scandium
+    ...    SSHLibrary.Execute_Command
+    ...    sed -z 's!\\n!\\\\n!g' ./configuration-files/certs/${file_name}
+    ...    return_stdout=True
+    ...    return_stderr=True
+    ...    ELSE
+    ...    SSHLibrary.Execute_Command
+    ...    sed -u '1d; $d' ./configuration-files/certs/${file_name} | sed -z 's!\\n!\\\\n!g'
+    ...    return_stdout=True
+    ...    return_stderr=True
+    RETURN    ${content}
+
 Register keys and certificates in ODL controller
     [Documentation]    Register pre-configured netopeer2 certificates and key in ODL-netconf keystore
-    ${base64-client-key}    ${stderr}    SSHLibrary.Execute_Command
-    ...    openssl enc -base64 -A -in ./configuration-files/certs/client.key
+    ${pem-client-key}    ${stderr}    SSHLibrary.Execute_Command
+    ...    cat ./configuration-files/certs/client.key
     ...    return_stdout=True
     ...    return_stderr=True
     ${template}    OperatingSystem.Get File    ${ADD_KEYSTORE_ENTRY_REQ}
-    ${body}    Replace String    ${template}    {base64-client-key}    ${base64-client-key}
+    ${body}    Replace String    ${template}    {pem-client-key}    ${pem-client-key}
     ${resp}    RequestsLibrary.POST On Session
     ...    session
     ...    url=${netconf_keystore_url}:add-keystore-entry
@@ -80,14 +96,8 @@ Register keys and certificates in ODL controller
     ...    headers=${HEADERS}
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${client-key}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/client.key | sed -z 's!\\n!\\\\n!g'
-    ...    return_stdout=True
-    ...    return_stderr=True
-    ${certificate-chain}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/client.crt | sed -z 's!\\n!\\\\n!g'
-    ...    return_stdout=True
-    ...    return_stderr=True
+    ${client-key}    Get certificate file content    client.key
+    ${certificate-chain}    Get certificate file content    client.crt
     ${template}    OperatingSystem.Get File    ${ADD_PRIVATE_KEY_REQ}
     ${body}    Replace String    ${template}    {client-key}    ${client-key}
     ${body}    Replace String    ${body}    {certificate-chain}    ${certificate-chain}
@@ -98,14 +108,8 @@ Register keys and certificates in ODL controller
     ...    headers=${HEADERS}
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${ca-certificate}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/ca.pem | sed -z 's!\\n!\\\\n!g'
-    ...    return_stdout=True
-    ...    return_stderr=True
-    ${device-certificate}    ${stderr}    SSHLibrary.Execute_Command
-    ...    sed -u '1d; $d' ./configuration-files/certs/server.crt | sed -z 's!\\n!\\\\n!g'
-    ...    return_stdout=True
-    ...    return_stderr=True
+    ${ca-certificate}    Get certificate file content    ca.pem
+    ${device-certificate}    Get certificate file content    server.crt
     ${template}    OperatingSystem.Get File    ${ADD_TRUSTED_CERTIFICATE}
     ${body}    Replace String    ${template}    {ca-certificate}    ${ca-certificate}
     ${body}    Replace String    ${body}    {device-certificate}    ${device-certificate}
@@ -240,7 +244,7 @@ Test Setup
     [Documentation]    Opens session towards ODL controller, set configuration folder, generates a new host key for the container
     RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Execute_Command    rm -rf ./configuration-files && mkdir configuration-files
-    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -f ./configuration-files/ssh_host_rsa_key
+    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./configuration-files/ssh_host_rsa_key
     ${public_key}    SSHLibrary.Execute_Command    cat configuration-files/ssh_host_rsa_key.pub | awk '{print $2}'
     Set Test Variable    ${NETOPEER_PUB_KEY}    ${public_key}
 
@@ -311,6 +315,9 @@ Suite Setup
     Set Suite Variable
     ...    ${ADD_TRUSTED_CERTIFICATE}
     ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_trusted_certificate.json
+    SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./incorrect_ssh_host_rsa_key
+    ${incorrect_public_key}    SSHLibrary.Execute_Command    awk '{print $2}' incorrect_ssh_host_rsa_key.pub
+    Set Suite Variable    ${INCORRECT_PUB_KEY}    ${incorrect_public_key}
 
 Suite Teardown
     [Documentation]    Tearing down the setup.
