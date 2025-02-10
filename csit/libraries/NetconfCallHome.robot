@@ -118,7 +118,7 @@ Register keys and certificates in ODL controller
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Register global credentials for SSH call-home devices (APIv1)
+Register global credentials for SSH call-home devices
     [Documentation]    Set global credentials for SSH call-home devices
     [Arguments]    ${username}    ${password}
     ${template}    OperatingSystem.Get File    ${CREATE_GLOBAL_CREDENTIALS_REQ}
@@ -132,41 +132,13 @@ Register global credentials for SSH call-home devices (APIv1)
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Register SSH call-home device in ODL controller (APIv1)
-    [Documentation]    Registration call-home device with SSH transport
-    [Arguments]    ${device_name}    ${hostkey}    ${username}=${EMPTY}    ${password}=${EMPTY}
-    IF    '${username}' == '${EMPTY}' or '${password}' == '${EMPTY}'
-        Get create device request without credentials template (APIv1)
-    ELSE
-        Get create device request template (APIv1)
-    END
-    ${body}    Replace String    ${template}    {device_name}    ${device_name}
-    ${body}    Replace String    ${body}    {username}    ${username}
-    ${body}    Replace String    ${body}    {password}    ${password}
-    ${body}    Replace String    ${body}    {hostkey}    ${hostkey}
-    ${resp}    RequestsLibrary.POST On Session
-    ...    session
-    ...    url=${whitelist}
-    ...    data=${body}
-    ...    headers=${HEADERS}
-    ...    expected_status=anything
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
-Get create device request template (APIv1)
-    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V1}
-    Set Test Variable    ${template}
-
-Get create device request without credentials template (APIv1)
-    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V1_HOST_KEY_ONLY}
-    Set Test Variable    ${template}
-
-Register SSH call-home device in ODL controller (APIv2)
+Register SSH call-home device in ODL controller
     [Documentation]    Registration call-home device with SSH transport using latest models
     [Arguments]    ${device_name}    ${hostkey}    ${username}=${EMPTY}    ${password}=${EMPTY}
     IF    '${username}' == '${EMPTY}' or '${password}' == '${EMPTY}'
-        Get create device request without credentials template (APIv2)
+        Get create device request without credentials template
     ELSE
-        Get create device request template (APIv2)
+        Get create device request template
     END
     ${body}    Replace String    ${template}    {device_name}    ${device_name}
     ${body}    Replace String    ${body}    {username}    ${username}
@@ -180,15 +152,15 @@ Register SSH call-home device in ODL controller (APIv2)
     ...    expected_status=anything
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Get create device request template (APIv2)
-    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V2}
+Get create device request template
+    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ}
     Set Test Variable    ${template}
 
-Get create device request without credentials template (APIv2)
-    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}
+Get create device request without credentials template
+    ${template}    OperatingSystem.Get File    ${CREATE_SSH_DEVICE_REQ_HOST_KEY_ONLY}
     Set Test Variable    ${template}
 
-Register TLS call-home device in ODL controller (APIv2)
+Register TLS call-home device in ODL controller
     [Documentation]    Registration call-home device with TLS transport
     [Arguments]    ${device_name}    ${key_id}    ${certificate_id}
     ${template}    OperatingSystem.Get File    ${CREATE_TLS_DEVICE_REQ}
@@ -293,32 +265,26 @@ Suite Setup
     ${netconf_mount_expected_values}    Create list    ${substring1}    ${substring2}    ${substring3}
     Set Suite Variable    ${netconf_mount_expected_values}
     Set Suite Variable
-    ...    ${CREATE_SSH_DEVICE_REQ_V1}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_device.json
-    Set Suite Variable
-    ...    ${CREATE_SSH_DEVICE_REQ_V1_HOST_KEY_ONLY}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_device_hostkey_only.json
-    Set Suite Variable
     ...    ${CREATE_GLOBAL_CREDENTIALS_REQ}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv1/create_global_credentials.json
+    ...    ${CURDIR}/../variables/netconf/callhome/json/create_global_credentials.json
     Set Suite Variable
-    ...    ${CREATE_SSH_DEVICE_REQ_V2}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_ssh_device.json
+    ...    ${CREATE_SSH_DEVICE_REQ}
+    ...    ${CURDIR}/../variables/netconf/callhome/json/create_ssh_device.json
     Set Suite Variable
-    ...    ${CREATE_SSH_DEVICE_REQ_V2_HOST_KEY_ONLY}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_device_hostkey_only.json
+    ...    ${CREATE_SSH_DEVICE_REQ_HOST_KEY_ONLY}
+    ...    ${CURDIR}/../variables/netconf/callhome/json/create_device_hostkey_only.json
     Set Suite Variable
     ...    ${CREATE_TLS_DEVICE_REQ}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/create_tls_device.json
+    ...    ${CURDIR}/../variables/netconf/callhome/json/create_tls_device.json
     Set Suite Variable
     ...    ${ADD_KEYSTORE_ENTRY_REQ}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_keystore_entry.json
+    ...    ${CURDIR}/../variables/netconf/callhome/json/add_keystore_entry.json
     Set Suite Variable
     ...    ${ADD_PRIVATE_KEY_REQ}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_private_key.json
+    ...    ${CURDIR}/../variables/netconf/callhome/json/add_private_key.json
     Set Suite Variable
     ...    ${ADD_TRUSTED_CERTIFICATE}
-    ...    ${CURDIR}/../variables/netconf/callhome/json/apiv2/add_trusted_certificate.json
+    ...    ${CURDIR}/../variables/netconf/callhome/json/add_trusted_certificate.json
     SSHLibrary.Execute_Command    ssh-keygen -q -t rsa -b 2048 -N '' -m pem -f ./incorrect_ssh_host_rsa_key
     ${incorrect_public_key}    SSHLibrary.Execute_Command    awk '{print $2}' incorrect_ssh_host_rsa_key.pub
     Set Suite Variable    ${INCORRECT_PUB_KEY}    ${incorrect_public_key}
