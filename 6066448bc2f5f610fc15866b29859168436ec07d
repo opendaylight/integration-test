@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40e8175_b380d87a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-02-11T13:39:23Z",
+      "side": 1,
+      "message": "Successfully tested change in sandbox on:\n\nTitanium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-titanium/1/\nScandium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-scandium/15/\nCalcium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-callhome-only-calcium/18/",
+      "revId": "6066448bc2f5f610fc15866b29859168436ec07d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
