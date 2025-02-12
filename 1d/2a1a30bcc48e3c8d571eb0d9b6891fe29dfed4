@@ -1,0 +1,9 @@
+Code-Review+2: Sangwook Ha <sangwook.ha@verizon.com>
+Verified+1: ODL Required.GHA <releng+odl.required.gha@linuxfoundation.org>
+Verified+1: jenkins-releng ODL
+Code-Review+1: Robert Varga <nite@hq.sk>
+Submitted-by: Sangwook Ha <sangwook.ha@verizon.com>
+Submitted-at: Wed, 12 Feb 2025 14:48:31 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/115358
+Project: integration/test
+Branch: refs/heads/master
