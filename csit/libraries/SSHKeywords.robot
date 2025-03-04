@@ -174,7 +174,7 @@ Execute_Command_At_Cwd_Should_Pass
 
 Require_Python
     [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
-    ${passed} =    Execute_Command_Passes    python3 --help
+    ${passed} =    Execute_Command_Passes    python3 --version
     IF    ${passed}    RETURN
     BuiltIn.Fatal_Error    Python 3 is not installed!
 
