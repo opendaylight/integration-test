@@ -191,7 +191,7 @@ Verify_Netconf_Topology_Ready_For_Node
     [Arguments]    ${node_index}
     ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${node_index}
     Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
-    &{mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    &{mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    RESTCONF_ROOT=${RESTCONF_ROOT}
     Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
     ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
@@ -240,7 +240,7 @@ Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     ${response}=    RequestsLibrary.Get_On_Session
     ...    ses
-    ...    url=rests/data/network-topology:network-topology/topology=topology-netconf${netconf_connector}
+    ...    url=${RESTCONF_ROOT}/data/network-topology:network-topology/topology=topology-netconf${netconf_connector}
     ...    params=${pretty_print}
     BuiltIn.Log    ${response.text}
     ${status}=    BuiltIn.Run_Keyword_And_Return_Status
