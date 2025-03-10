@@ -38,6 +38,7 @@ ${DEVICE_TYPE_RPC_DELETE}               rpc-delete-device
 ${USE_NETCONF_CONNECTOR}                ${False}
 ${DELETE_LOCATION}                      delete_location
 ${RPC_FILE}                             ${CURDIR}/../../../variables/netconf/CRUD/customaction/customaction.xml
+${RESTCONF_PREFIX}                      ${{ "restconf" if $RESTCONFPORT == "8182" else "rests" }}
 
 
 *** Test Cases ***
@@ -72,26 +73,26 @@ Check_Device_Data_Is_Empty
 
 Invoke_Yang1.1_Action_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Xml_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorigaction
     ...    ${template_as_string}
 
 Invoke_Yang1.1_Action_Via_Json_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Json_RFC8040_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorigaction
     ...    ${template_as_string}
 
 Invoke_Yang1.1_Augmentation_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment    ${template_as_string}
 
 Invoke_Yang1.1_Augmentation_Via_Json_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Json_RFC8040_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment
     ...    ${template_as_string}
