@@ -55,6 +55,7 @@ Configure_Device_In_Netconf
     [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
     ...    ${device_key}=device-key    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${http_method}=put
     ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
+    ${restconf_prefix}=    Set_Variable_If    "${RESTCONFPORT}" == "8182"    restconf    rests
     ${mapping}=    BuiltIn.Create_dictionary
     ...    DEVICE_IP=${device_address}
     ...    DEVICE_NAME=${device_name}
@@ -63,6 +64,7 @@ Configure_Device_In_Netconf
     ...    DEVICE_PASSWORD=${device_password}
     ...    DEVICE_KEY=${device_key}
     ...    SCHEMA_DIRECTORY=${schema_directory}
+    ...    RESTCONF_PREFIX=${restconf_prefix}
     # TODO: Is it possible to use &{kwargs} as a mapping directly?
     IF    '${http_method}'=='post'
         TemplatedRequests.Post_As_Xml_Templated
