@@ -73,10 +73,10 @@ ${BUNDLEFOLDER}
 ...                                 /opt/opendaylight
 # FIXME: Move to a separate Resource and add description.
 ${CONFIG_TOPO_API}
-...                                 /rests/data/network-topology:network-topology
+...                                 ${RESTCONF_ROOT}/data/network-topology:network-topology
 # FIXME: Move to a separate Resource and add description.
 ${CONFIG_API}
-...                                 /rests/data
+...                                 ${RESTCONF_ROOT}/data
 # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CONTAINER}
 ...                                 default
@@ -250,10 +250,10 @@ ${ODL_SYSTEM_PROMPT}
 ...                                 ${DEFAULT_LINUX_PROMPT}
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_API}
-...                                 /rests/data
+...                                 ${RESTCONF_ROOT}/data
 # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}
-...                                 /rests/data/network-topology:network-topology
+...                                 ${RESTCONF_ROOT}/data/network-topology:network-topology
 ${OS_CMD_SUCCESS}                   Command Returns 0
 # Port number ODL uses for OVSDB protocol communication. TODO: Move to OVSDB-specific Resource.
 ${OVSDBPORT}
@@ -279,12 +279,13 @@ ${REGEX_IPV4}                       [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]
 ${REGEX_NAMESERVER}                 nameserver [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_OBTAINED}                   [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3} obtained
 ${REGEX_UUID}                       [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+${REST_API}                         ${RESTCONF_ROOT}/data
 ${RESTCONFPORT}                     8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}                 8443    # Port for ODL RESTCONF Secure (TLS) operations
+${RESTCONF_ROOT}                    ${{ "/restconf" if $RESTCONFPORT == "8182" else "/rests" }}
 # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
 ${RESTPORT}
 ...                                 8282
-${REST_API}                         /rests/data
 # FIXME: Move to a separate AAA-related Resource and add description.
 ${REVOKE_TOKEN_API}
 ...                                 /oauth2/revoke
