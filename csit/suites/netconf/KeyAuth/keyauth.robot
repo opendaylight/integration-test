@@ -27,6 +27,7 @@ ${netopeer_password}                    wrong
 ${netopeer_key}                         device-key
 ${netopeer_image}                       sysrepo/sysrepo-netopeer2:latest
 ${USE_NETCONF_CONNECTOR}                ${False}
+${RESTCONF_PREFIX}                      ${{ "restconf" if $RESTCONFPORT == "8182" else "rests" }}
 
 
 *** Test Cases ***
@@ -80,7 +81,7 @@ Run Netopeer Docker Container
 
 Add Netconf Key
     [Documentation]    Add Netconf Southbound key containing details about device private key and passphrase
-    ${mapping}=    BuiltIn.Create_dictionary    DEVICE_KEY=${netopeer_key}
+    ${mapping}=    BuiltIn.Create_dictionary    DEVICE_KEY=${netopeer_key}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Xml_Templated    folder=${directory_with_keyauth_template}    mapping=${mapping}
 
 Restart Controller
