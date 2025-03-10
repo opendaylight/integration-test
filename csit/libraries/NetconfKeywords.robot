@@ -37,6 +37,7 @@ ${DEVICE_NAME_BASE}                     netconf-scaling-device
 ${TESTTOOL_BOOT_TIMEOUT}                60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}          ${ENABLE_GLOBAL_TEST_DEADLINES}
 ${SSE_CFG_FILE}                         ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.restconf.nb.rfc8040.cfg
+${RESTCONF_PREFIX}                      ${{ "restconf" if $RESTCONFPORT == "8182" else "rests" }}
 
 
 *** Keywords ***
@@ -63,6 +64,7 @@ Configure_Device_In_Netconf
     ...    DEVICE_PASSWORD=${device_password}
     ...    DEVICE_KEY=${device_key}
     ...    SCHEMA_DIRECTORY=${schema_directory}
+    ...    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     # TODO: Is it possible to use &{kwargs} as a mapping directly?
     IF    '${http_method}'=='post'
         TemplatedRequests.Post_As_Xml_Templated
@@ -164,11 +166,11 @@ Remove_Device_From_Netconf
     [Documentation]    Tell Netconf to deconfigure the specified device
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     TemplatedRequests.Delete_Templated
     ...    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${version}${/}${device_type}
-    ...    ${template_as_string}
+    ...    ${mapping}
     ...    session=${session}
     ...    location=${location}
 
