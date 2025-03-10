@@ -6,6 +6,9 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Edited: Many times by many people
 """
 
+from robot.libraries.BuiltIn import BuiltIn
+
+
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = ">"
 DEFAULT_LINUX_PROMPT_STRICT = "]>"
@@ -96,12 +99,16 @@ FLOWFILTERS = "flowfilters/in"
 FLOWFILTERS_UPDATE = "flowfilterentries"
 
 
+# RESTCONF port
+RESTCONFPORT = BuiltIn().get_variable_value("${RESTCONFPORT}")
+RESTCONF_ROOT = "/restconf" if RESTCONFPORT == "8182" else "/rests"
+
 # Common APIs
-OPERATIONAL_TOPO_API = "/rests/data/network-topology:network-topology"
-CONFIG_TOPO_API = "/rests/data/network-topology:network-topology"
-CONFIG_API = "/rests/data"
-OPERATIONAL_API = "/rests/data"
-MODULES_API = "/rests/data/ietf-yang-library:modules-state?content=nonconfig"
+OPERATIONAL_TOPO_API = RESTCONF_ROOT + "/data/network-topology:network-topology"
+CONFIG_TOPO_API = RESTCONF_ROOT + "/data/network-topology:network-topology"
+CONFIG_API = RESTCONF_ROOT + "/data"
+OPERATIONAL_API = RESTCONF_ROOT + "/data"
+MODULES_API = RESTCONF_ROOT + "/data/ietf-yang-library:modules-state?content=nonconfig"
 
 # TOKEN
 AUTH_TOKEN_API = "/oauth2/token"
