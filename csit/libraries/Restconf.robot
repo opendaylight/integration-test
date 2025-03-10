@@ -13,11 +13,12 @@ Generate RFC8040 URI
     FOR    ${nv}    IN    @{node_value_list}
         ${node_value_path} =    Set Variable    ${node_value_path}/${nv}
     END
+    ${restconf_prefix}=    Set_Variable_If    "${RESTCONFPORT}" == "8182"    restconf    rests
     IF    "${datastore_flag}" == "config"
-        ${uri} =    Set Variable    rests/data/${identifier}${node_value_path}?content=config
+        ${uri} =    Set Variable    ${restconf_prefix}/data/${identifier}${node_value_path}?content=config
     ELSE IF    "${datastore_flag}"=="operational"
-        ${uri} =    Set Variable    rests/data/${identifier}${node_value_path}?content=nonconfig
+        ${uri} =    Set Variable    ${restconf_prefix}/data/${identifier}${node_value_path}?content=nonconfig
     ELSE
-        ${uri} =    Set Variable    rests/operations/${identifier}
+        ${uri} =    Set Variable    ${restconf_prefix}/operations/${identifier}
     END
     RETURN    ${uri}

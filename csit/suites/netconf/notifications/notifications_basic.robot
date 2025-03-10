@@ -50,7 +50,8 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If
 
 *** Variables ***
 ${TEMPLATE_FOLDER}              ${CURDIR}/templates
-${RFC8040_STREAMS_URI}          rests/data/ietf-restconf-monitoring:restconf-state/streams
+${RESTCONF_PREFIX}              ${{ "restconf" if $RESTCONFPORT == "8182" else "rests" }}
+${RFC8040_STREAMS_URI}          ${RESTCONF_PREFIX}/data/ietf-restconf-monitoring:restconf-state/streams
 ${NODES_STREAM_PATH}            network-topology:network-topology/datastore=CONFIGURATION/scope=BASE
 ${RESTCONF_SUBSCRIBE_DATA}      subscribe.xml
 ${RESTCONF_CONFIG_DATA}         config_data.xml
@@ -125,7 +126,7 @@ Change_DS_Config
     ...    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${uri} =    BuiltIn.Set_Variable    /rests/data/network-topology:network-topology/topology=netconf-notif
+    ${uri} =    BuiltIn.Set_Variable    /${RESTCONF_PREFIX}/data/network-topology:network-topology/topology=netconf-notif
     ${resp} =    RequestsLibrary.Delete_On_Session    restconf    ${uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}

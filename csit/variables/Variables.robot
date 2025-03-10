@@ -284,7 +284,7 @@ ${RESTCONFPORT_TLS}                 8443    # Port for ODL RESTCONF Secure (TLS)
 # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
 ${RESTPORT}
 ...                                 8282
-${REST_API}                         /rests/data
+${REST_API}                         ${{ "restconf/data" if $RESTCONFPORT == "8182" else "/rests/data" }}
 # FIXME: Move to a separate AAA-related Resource and add description.
 ${REVOKE_TOKEN_API}
 ...                                 /oauth2/revoke
