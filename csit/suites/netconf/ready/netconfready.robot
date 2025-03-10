@@ -209,9 +209,10 @@ Verify_Netconf_Topology_Ready_For_Node
 Configure_Netconf_Device
     [Documentation]    Configures the device via REST api.
     [Arguments]    ${device_name}    ${session}    ${device_ip}
+    ${device_type}=   Set_Variable_If    "${RESTCONFPORT}" == "8182"    netty-full-uri-device    full-uri-device
     NetconfKeywords.Configure_Device_In_Netconf
     ...    ${device_name}
-    ...    device_type=full-uri-device
+    ...    device_type=${device_type}
     ...    device_port=${DEVICE_PORT}
     ...    device_address=${device_ip}
     ...    device_user=admin
