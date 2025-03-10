@@ -75,8 +75,8 @@ Check_Device_Data_Is_Empty
 
 Create_Device_Data_Label_Via_Xml
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${mapping}
 
 Check_Device_Data_Label_Is_Created
     [Documentation]    Get the device data label and make sure it contains the created content.
@@ -85,8 +85,8 @@ Check_Device_Data_Label_Is_Created
 
 Modify_Device_Data_Label_Via_Xml
     [Documentation]    Send a request to change the sample test data label and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${mapping}
 
 Check_Device_Data_Label_Is_Modified
     [Documentation]    Get the device data label and make sure it contains the modified content.
@@ -126,8 +126,8 @@ Check_Modified_Device_Data_Is_Still_There
 
 Modify_Device_Data_Again
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Put_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod2    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Put_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod2    ${mapping}
 
 Check_Device_Data_Is_Modified_Again
     [Documentation]    Get the device data and make sure it contains the created content.
@@ -136,10 +136,10 @@ Check_Device_Data_Is_Modified_Again
 
 Modify_Device_Data_Label_Via_Json
     [Documentation]    Send a JSON request to change the sample test data label and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Put_As_Json_Templated
     ...    ${directory_with_template_folders}${/}datamodjson
-    ...    ${template_as_string}
+    ...    ${mapping}
 
 Check_Device_Data_Label_Is_Modified_Via_Json
     [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
@@ -148,8 +148,8 @@ Check_Device_Data_Label_Is_Modified_Via_Json
 
 Create_Car_List
     [Documentation]    Send a request to create a list of cars in the sample test data label and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}cars    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}cars    ${mapping}
 
 Check_Car_List_Created
     [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
@@ -168,8 +168,8 @@ Check_Car_List_Created
 
 Add_Device_Data_Item_1_Via_XML_Post
     [Documentation]    Send a request to create a data item in the test list and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}item1    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}item1    ${mapping}
 
 Check_Item1_Is_Created
     [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
@@ -187,8 +187,8 @@ Check_Item1_Is_Created
 
 Add_Device_Data_Item_2_Via_JSON_Post
     [Documentation]    Send a JSON request to change the sample test data and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Post_As_Json_Templated    ${directory_with_template_folders}${/}item2    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Post_As_Json_Templated    ${directory_with_template_folders}${/}item2    ${mapping}
 
 Check_Item2_Is_Created
     [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
@@ -206,9 +206,9 @@ Check_Item2_Is_Created
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
-    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}item1    ${template_as_string}
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${mapping}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}item1    ${mapping}
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
