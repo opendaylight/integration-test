@@ -78,6 +78,7 @@ ${NETCONFREADY_WAIT_MDSAL}          60s
 ${DEVICE_NAME}                      test-device
 ${DEVICE_PORT}                      2830
 ${NETCONF_FOLDER}                   ${CURDIR}/../../../variables/netconf/device
+${RESTCONF_PREFIX}                  {{ "restconf" if ${RESTCONFPORT} == "8182" else "rests" }}
 
 
 *** Test Cases ***
@@ -157,6 +158,8 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${connector}=    Set_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
+    #${restconf_prefix}=    Set_Variable_If    "${RESTCONFPORT}" == "8182"    restconf    rests
+    #BuiltIn.Set_Suite_Variable    ${restconf_prefix}
     BuiltIn.Comment
     ...    A workaround for EOF error follows. TODO: Create a test case for the EOF bug, possibly tagged "exclude".
     BuiltIn.Wait_Until_Keyword_Succeeds    2x    1s    KarafKeywords.Open_Controller_Karaf_Console_On_Background
@@ -191,7 +194,7 @@ Verify_Netconf_Topology_Ready_For_Node
     [Arguments]    ${node_index}
     ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${node_index}
     Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
-    &{mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    &{mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
     ${version}=    CompareStream.Set_Variable_If_At_Least_Scandium    scandium    calcium
     FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
@@ -209,9 +212,10 @@ Verify_Netconf_Topology_Ready_For_Node
 Configure_Netconf_Device
     [Documentation]    Configures the device via REST api.
     [Arguments]    ${device_name}    ${session}    ${device_ip}
+    ${device_type}=   Set_Variable_If    "${RESTCONFPORT}" == "8182"    netty-full-uri-device    full-uri-device
     NetconfKeywords.Configure_Device_In_Netconf
     ...    ${device_name}
-    ...    device_type=full-uri-device
+    ...    device_type=${device_type}
     ...    device_port=${DEVICE_PORT}
     ...    device_address=${device_ip}
     ...    device_user=admin
@@ -240,7 +244,7 @@ Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     ${response}=    RequestsLibrary.Get_On_Session
     ...    ses
-    ...    url=rests/data/network-topology:network-topology/topology=topology-netconf${netconf_connector}
+    ...    url=${RESTCONF_PREFIX}/data/network-topology:network-topology/topology=topology-netconf${netconf_connector}
     ...    params=${pretty_print}
     BuiltIn.Log    ${response.text}
     ${status}=    BuiltIn.Run_Keyword_And_Return_Status
