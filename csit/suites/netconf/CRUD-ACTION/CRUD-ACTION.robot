@@ -72,29 +72,29 @@ Check_Device_Data_Is_Empty
 
 Invoke_Yang1.1_Action_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Xml_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorigaction
-    ...    ${template_as_string}
+    ...    ${mapping}
 
 Invoke_Yang1.1_Action_Via_Json_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Json_RFC8040_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorigaction
-    ...    ${template_as_string}
+    ...    ${mapping}
 
 Invoke_Yang1.1_Augmentation_Via_Xml_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment    ${template_as_string}
+    ${mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
+    TemplatedRequests.Post_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment    ${mapping}
 
 Invoke_Yang1.1_Augmentation_Via_Json_Post
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
-    ${template_as_string} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_PREFIX=${RESTCONF_PREFIX}
     TemplatedRequests.Post_As_Json_RFC8040_Templated
     ...    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}augment
-    ...    ${template_as_string}
+    ...    ${mapping}
 
 Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
