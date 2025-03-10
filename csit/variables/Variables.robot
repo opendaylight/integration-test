@@ -279,12 +279,13 @@ ${REGEX_IPV4}                       [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]
 ${REGEX_NAMESERVER}                 nameserver [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_OBTAINED}                   [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3} obtained
 ${REGEX_UUID}                       [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+${REST_API}                         /${RESTCONF_PREFIX}/data
 ${RESTCONFPORT}                     8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}                 8443    # Port for ODL RESTCONF Secure (TLS) operations
+${RESTCONF_PREFIX}                  ${{ "restconf" if $RESTCONFPORT == "8182" else "rests" }}
 # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
 ${RESTPORT}
 ...                                 8282
-${REST_API}                         /rests/data
 # FIXME: Move to a separate AAA-related Resource and add description.
 ${REVOKE_TOKEN_API}
 ...                                 /oauth2/revoke
