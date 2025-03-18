@@ -16,6 +16,40 @@
       "message": "please add some sandbox runs",
       "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff5880f_a76a52c4",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-18T21:49:20Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4a916c2_91e56218",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-18T21:49:20Z",
+      "side": 1,
+      "message": "`RESTCONF_ROOT` seems better (`/restconf` or `/rests`):\nhttps://datatracker.ietf.org/doc/html/rfc8040#section-3.1",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
