@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d51e41b_0974442b",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-25T18:57:34Z",
+      "side": 1,
+      "message": "But doesn\u0027t this affect both Netty \u0026 JAX-RS implementations?",
+      "parentUuid": "b8bfc7f3_487ceef2",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4a916c2_91e56218",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 26
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Hi Sangwook, for updating `Variables.py` file it would require to know which RESTCONFPORT value is used. Probably it would be necessary to use something like this:\n```\nfrom robot.libraries.BuiltIn import BuiltIn\nBuiltIn().get_variable_value(\"${RESTCONFPORT }\")\n```\nDoes this align with what you were expecting, or would you like a different approach?\"",
       "parentUuid": "a1ff6b88_1a406dc8",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f81ab21_dc0f3860",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-25T18:57:34Z",
+      "side": 1,
+      "message": "Probably need some testing to see if that would work or not.\n\nAnother option may be setting `${RESTCONF_ROOT}` as well as `${RESTCONFPORT}` when the test is run from Jenkins job:\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/netconf/netconf-userfeatures-netty.yaml#L41",
+      "parentUuid": "23fe01bf_40030cae",
       "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
