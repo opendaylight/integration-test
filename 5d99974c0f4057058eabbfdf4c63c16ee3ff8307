@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7e2ef96_7e43b323",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-03-26T22:02:38Z",
+      "side": 1,
+      "message": "Yes, it would. I have fixed it to only skip this test, if it is netty case and also if it is less then titanium.",
+      "parentUuid": "2d51e41b_0974442b",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4a916c2_91e56218",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 26
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "Probably need some testing to see if that would work or not.\n\nAnother option may be setting `${RESTCONF_ROOT}` as well as `${RESTCONFPORT}` when the test is run from Jenkins job:\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/netconf/netconf-userfeatures-netty.yaml#L41",
       "parentUuid": "23fe01bf_40030cae",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44451338_307b77b3",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-03-26T22:02:38Z",
+      "side": 1,
+      "message": "yes, it would be better to use separate independent parameters, will also update the builder to use proper value.",
+      "parentUuid": "2f81ab21_dc0f3860",
       "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
