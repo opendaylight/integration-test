@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8f81e1_599ae4a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-28T20:19:59Z",
+      "side": 1,
+      "message": "Test done with this releng/builder change:\nhttps://git.opendaylight.org/gerrit/c/releng/builder/+/116106",
+      "parentUuid": "9193ddd3_b2faecf0",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ff5880f_a76a52c4",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "yes, that\u0027s true, it would be just failing with Scandium (using Netty based RESTCONF)",
       "parentUuid": "e7e2ef96_7e43b323",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c07ea9_dab1b0fa",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-28T20:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e92b76b9_91d947c1",
       "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
@@ -210,6 +246,24 @@
       "side": 1,
       "message": "ok, that\u0027s here: https://git.opendaylight.org/gerrit/c/releng/builder/+/116106",
       "parentUuid": "44451338_307b77b3",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d23d2b_ee3416a2",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-03-28T20:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "921a2744_b95a5013",
       "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
