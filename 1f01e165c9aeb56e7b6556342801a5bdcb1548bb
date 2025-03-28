@@ -67,6 +67,24 @@
       "message": "why?\n\n${RESTCONF_ROOT}                    /rests",
       "revId": "1f01e165c9aeb56e7b6556342801a5bdcb1548bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e920a03a_3ac56d90",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-03-28T15:49:56Z",
+      "side": 1,
+      "message": "This will set it to default value as `/rests` if not specified explicitly like using robot argument ` -v RESTCONF_ROOT:/restconf`",
+      "parentUuid": "acb16f8f_ceca161e",
+      "revId": "1f01e165c9aeb56e7b6556342801a5bdcb1548bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
