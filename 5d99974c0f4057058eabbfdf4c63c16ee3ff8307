@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e92b76b9_91d947c1",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-03-28T14:18:49Z",
+      "side": 1,
+      "message": "yes, that\u0027s true, it would be just failing with Scandium (using Netty based RESTCONF)",
+      "parentUuid": "e7e2ef96_7e43b323",
+      "revId": "5d99974c0f4057058eabbfdf4c63c16ee3ff8307",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4a916c2_91e56218",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 26

@@ -33,6 +33,40 @@
       "message": "Had to rerun tests on changed robot options from https://git.opendaylight.org/gerrit/c/releng/builder/+/116106\n\nLatest test runs:\nnetconf-csit-1node-gate-userfeatures-all-calcium: https://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-gate-userfeatures-all-calcium/2/\nnetconf-csit-1node-gate-userfeatures-all-scandium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-gate-userfeatures-all-scandium/1/\nnetconf-csit-1node-gate-userfeatures-all-titanium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-gate-userfeatures-all-titanium/1/\nnetconf-csit-1node-gate-userfeatures-netty-all-scandium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-gate-userfeatures-netty-all-scandium/1/\nnetconf-csit-1node-gate-userfeatures-netty-all-titanium\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-gate-userfeatures-netty-all-titanium/1/\nnetconf-csit-1node-userfeatures-all-calcium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-calcium/1/\nnetconf-csit-1node-userfeatures-all-scandium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-scandium/1/\nnetconf-csit-1node-userfeatures-all-titanium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-all-titanium/1/\nnetconf-csit-1node-userfeatures-netty-all-scandium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-netty-all-scandium/1/\nnetconf-csit-1node-userfeatures-netty-all-titanium:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-1node-userfeatures-netty-all-titanium/1/",
       "revId": "1f01e165c9aeb56e7b6556342801a5bdcb1548bb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeebc569_de9262c0",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-03-28T14:18:49Z",
+      "side": 1,
+      "message": "but why to distinguish using port when we have restconf root?",
+      "revId": "1f01e165c9aeb56e7b6556342801a5bdcb1548bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb16f8f_ceca161e",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-03-28T14:18:49Z",
+      "side": 1,
+      "message": "why?\n\n${RESTCONF_ROOT}                    /rests",
+      "revId": "1f01e165c9aeb56e7b6556342801a5bdcb1548bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
