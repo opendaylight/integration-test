@@ -33,6 +33,8 @@ Start_ExaBgp
     ${start_cmd}=    BuiltIn.Set_Variable    ${CMD} ${cfg_file}
     BuiltIn.Log    ${start_cmd}
     SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
+    ${output}=    SSHLibrary.Execute_Command    ip a
+    BuiltIn.Log    ${output}
     ${output}=    SSHLibrary.Write    ${start_cmd}
     BuiltIn.Log    ${output}
 
