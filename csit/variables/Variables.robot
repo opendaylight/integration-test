@@ -197,6 +197,7 @@ ${LFM_RPC_API_LI}
 # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${LFM_SB_RPC_API}
 ...                                 /rests/operations/odl-lisp-sb
+${MAIN_NET_INTERFACE}               ens3
 # FIXME: Move to a separate Resource and add description.
 ${MODULES_API}
 ...                                 /rests/data/ietf-yang-library:modules-state?content=nonconfig
