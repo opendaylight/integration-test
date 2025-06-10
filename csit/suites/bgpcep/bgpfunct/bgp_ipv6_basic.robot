@@ -540,7 +540,9 @@ Stop_Suite
 
 Configure_Ipv6_Network
     [Documentation]    Reconfigures basic network settings on controller
-    SSHLibrary.Execute_Command    sudo ip -6 addr add ${IPV6_IP}/${IPV6_PREFIX_LENGTH} dev eth0
+    ${main_net_interface}=    SSHLibrary.Execute_Command    ip route | grep '^default' | awk '{print $5}'
+    Log    Using network interface: ${main_net_interface}
+    SSHLibrary.Execute_Command    sudo ip -6 addr add ${IPV6_IP}/${IPV6_PREFIX_LENGTH} dev ${main_net_interface}
     SSHLibrary.Execute_Command    sudo ip -6 route add default via ${IPV6_IP_GW}
     ${stdout}    SSHLibrary.Execute_Command    sudo ip -6 addr show
     Log    ${stdout}
