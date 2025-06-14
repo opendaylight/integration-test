@@ -29,6 +29,7 @@ ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controlle
 *** Test Cases ***
 Stop_All_Members
     [Documentation]    Stop every odl node.
+    ClusterManagement.Verify_Members_Are_Ready
     ClusterManagement.Stop_Members_From_List_Or_All
 
 Set_Tell_Based_Protocol_Usage
