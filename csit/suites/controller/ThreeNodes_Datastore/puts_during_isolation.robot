@@ -148,7 +148,7 @@ Get_Cars_Count
     [Documentation]    Count car items in config ds.
     [Arguments]    ${session}
     ${resp} =    RequestsLibrary.GET On Session    ${session}    url=${CARURL_CONFIG}
-    ${count} =    BuiltIn.Evaluate    len(${resp.json()}[cars][car-entry])
+    ${count} =    BuiltIn.Evaluate    len(${resp.json()}[car:cars][car-entry])
     RETURN    ${count}
 
 Ensure_Cars_Being_Configured
