@@ -537,6 +537,7 @@ Stop_Members_From_List_Or_All
     ...    If \${confirm} is True, verify stopped instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
     [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=360s
+    Sleep    60s
     ${stop_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${index_list} =    List_Indices_Or_All    given_list=${original_index_list}
     Run_Bash_Command_On_List_Or_All    command=${NODE_STOP_COMMAND}    member_index_list=${member_index_list}
