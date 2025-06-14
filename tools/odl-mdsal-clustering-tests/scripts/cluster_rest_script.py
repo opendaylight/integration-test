@@ -3,7 +3,7 @@ The purpose of this script is the ability to perform crud operations over
 the car-people data model.
 """
 import threading
-import Queue
+import queue
 import requests
 import json
 import copy
@@ -221,7 +221,7 @@ def _request_sender(
     while True:
         try:
             item_list = in_queue.get(timeout=1)
-        except Queue.Empty:
+        except queue.Empty:
             if exit_event.is_set() and in_queue.empty():
                 break
             continue
@@ -317,12 +317,12 @@ def _task_executor(
         item_groups.append(items[i : i + items_per_request])
 
     # fill the queue with details needed for one http requests
-    send_queue = Queue.Queue()
+    send_queue = queue.queue()
     for item_list in item_groups:
         send_queue.put(item_list)
 
     # create an empty result queue
-    result_queue = Queue.Queue()
+    result_queue = queue.queue()
     # create exit event
     exit_event = threading.Event()
 
