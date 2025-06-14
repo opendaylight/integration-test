@@ -95,19 +95,19 @@ Verify Purchases
 
 Delete Cars
     [Documentation]    Remove cars from the datastore
-    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carurl}    expected_status=204
     ${rsp}=    RequestsLibrary.GET On Session    session    url=${carurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
-    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${peopleurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${peopleurl}    expected_status=204
     ${rsp}=    RequestsLibrary.GET On Session    session    url=${peopleurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
-    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carpeopleurl}    expected_status=200
+    ${rsp}=    RequestsLibrary.DELETE On Session    session    url=${carpeopleurl}    expected_status=204
     ${rsp}=    RequestsLibrary.GET On Session    session    url=${carpeopleurl_config}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 

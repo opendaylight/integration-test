@@ -62,7 +62,7 @@ Verify_New_Car_Leader_Elected
     [Documentation]    Verify new owner of the car shard is elected.
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    10x
-    ...    5s
+    ...    2s
     ...    ClusterManagement.Verify_Shard_Leader_Elected
     ...    ${SHARD_NAME}
     ...    ${SHARD_TYPE}
@@ -87,7 +87,7 @@ Rejoin_Isolated_Member
 Delete Cars
     [Documentation]    Remove cars from the datastore
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
-    ${rsp} =    RequestsLibrary.DELETE On Session    ${session}    url=${CARURL}    expected_status=200
+    ${rsp} =    RequestsLibrary.DELETE On Session    ${session}    url=${CARURL}    expected_status=204
     ${rsp} =    RequestsLibrary.GET On Session    ${session}    url=${CARURL_CONFIG}    expected_status=anything
     Should Contain    ${DELETED_STATUS_CODES}    ${rsp.status_code}
 
@@ -148,7 +148,7 @@ Get_Cars_Count
     [Documentation]    Count car items in config ds.
     [Arguments]    ${session}
     ${resp} =    RequestsLibrary.GET On Session    ${session}    url=${CARURL_CONFIG}
-    ${count} =    BuiltIn.Evaluate    len(${resp.json()}[cars][car-entry])
+    ${count} =    BuiltIn.Evaluate    len(${resp.json()}[car:cars][car-entry])
     RETURN    ${count}
 
 Ensure_Cars_Being_Configured
