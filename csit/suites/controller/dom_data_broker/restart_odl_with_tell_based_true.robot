@@ -29,7 +29,9 @@ ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controlle
 *** Test Cases ***
 Stop_All_Members
     [Documentation]    Stop every odl node.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    BuiltIn.Sleep    60s
+    Run_Keyword_And_Ignore_Error    ClusterManagement.Stop_Members_From_List_Or_All
+    ClusterManagement.Check_Bash_Command_On_List_Or_All    cat /${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
 
 Set_Tell_Based_Protocol_Usage
     [Documentation]    Un-comment the flag usage in config file. Also clean most data except data/log/.
