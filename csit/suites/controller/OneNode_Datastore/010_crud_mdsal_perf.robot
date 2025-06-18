@@ -31,8 +31,8 @@ Test Teardown       SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 
 *** Variables ***
-${ITEM_COUNT}               ${10000}
-${ITEM_BATCH}               ${10000}
+${ITEM_COUNT}               ${100000}
+${ITEM_BATCH}               ${100000}
 ${PROCEDURE_TIMEOUT}        11m
 ${addcarcmd}
 ...                         python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}

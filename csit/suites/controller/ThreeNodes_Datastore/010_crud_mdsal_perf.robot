@@ -33,8 +33,8 @@ Test Setup          SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 
 
 *** Variables ***
-${ITEM_COUNT}               ${10000}
-${ITEM_BATCH}               ${10000}
+${ITEM_COUNT}               ${1000000}
+${ITEM_BATCH}               ${1000000}
 ${PROCEDURE_TIMEOUT}        5m
 ${threads}                  6    # threads are assigned to cluster nodes in round robin way
 ${addcarcmd}
