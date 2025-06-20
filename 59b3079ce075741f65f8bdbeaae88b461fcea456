@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0be5b1c_54ec31be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-06-20T17:11:50Z",
+      "side": 1,
+      "message": "Retested in sandbox on version: \n- titanium: https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-titanium/17/\n- calcium: https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-calcium/8/\n- scandium: https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-scandium/10/\n\nThis should fix the problem with \"Bgp Ipv6 Basic\" test suite. Result for other test cases may vary since there are still some intermittent failures.",
+      "revId": "59b3079ce075741f65f8bdbeaae88b461fcea456",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
