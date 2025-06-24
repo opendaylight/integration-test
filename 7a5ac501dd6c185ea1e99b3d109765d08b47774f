@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc357b45_ec773690",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-06-24T08:44:54Z",
+      "side": 1,
+      "message": "Tested on controller-csit-1node-rest-cars-perf-all\n\n    calcium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-1node-rest-cars-perf-all-calcium/1/\n    scandium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-1node-rest-cars-perf-all-scandium/2/\n\n    titanium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-1node-rest-cars-perf-all-titanium/8/\n\n    and also on controller-csit-3node-rest-clust-cars-perf-tell-only\n    calcium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-3node-rest-clust-cars-perf-tell-only-calcium/6/\n    scandium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-3node-rest-clust-cars-perf-tell-only-scandium/2/\n    titanium: https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-3node-rest-clust-cars-perf-tell-only-titanium/37/\n\nin controller-csit-3node-rest-clust-cars-perf-tell-only it still has intermittent problem with rejoining isolated member",
+      "revId": "7a5ac501dd6c185ea1e99b3d109765d08b47774f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
