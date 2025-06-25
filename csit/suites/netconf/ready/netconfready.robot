@@ -154,6 +154,8 @@ Wait_For_MDSAL
 *** Keywords ***
 Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup requests library and log into karaf.log that the netconf readiness wait starts.
+    ${response}=    SSHLibrary.Execute_Command    curl --user admin:admin http://127.0.0.1:8181/jolokia/read/java.lang:type=Memory/HeapMemoryUsage
+    BuiltIn.Log    ${response}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${connector}=    Set_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
