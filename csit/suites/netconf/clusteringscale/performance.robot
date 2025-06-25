@@ -139,7 +139,7 @@ Setup_Everything
 Check_Data_Present
     ${url}=    Builtin.Set_Variable
     ...    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
-    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node2
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node1
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 
 Teardown_Everything
