@@ -1,3 +1,6 @@
+*** Settings ***
+Resource            ../variables/Variables.robot
+
 *** Keywords ***
 Generate URI
     [Documentation]    Returns the proper URI to use. Variable input error checking is done to ensure the ${datastore_flag} variable
