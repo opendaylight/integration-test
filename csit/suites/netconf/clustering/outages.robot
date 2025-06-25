@@ -93,13 +93,15 @@ Create_Device_Data_With_node1_Down
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    ${mapping}=    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${MASTER_CONNECT_TIMEOUT}
     ...    1s
     ...    TemplatedRequests.Post_As_Xml_Templated
     ...    ${directory_with_template_folders}${/}dataorig
-    ...    ${template_as_string}
+    ...    ${mapping}
     ...    session=node2
 
 Check_New_Device_Data_Is_Visible_On_Nodes_Without_node1
@@ -143,12 +145,15 @@ Modify_Device_Data_With_node2_Down
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
     [Tags]    critical
+    ${mapping}=    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${DEVICE_NAME}
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${MASTER_CONNECT_TIMEOUT}
     ...    1s
     ...    TemplatedRequests.Put_As_Xml_Templated
     ...    ${directory_with_template_folders}${/}datamod1
-    ...    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ...    ${mapping}
     ...    session=node3
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5762
 
@@ -194,12 +199,13 @@ Delete_Device_Data_With_node3_Down
     ...    As ODL may be in the process of connecting possible new master to the device,
     ...    the action is retried few times.
     [Tags]    critical
+    ${mapping}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    RESTCONF_ROOT=${RESTCONF_ROOT}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    ${MASTER_CONNECT_TIMEOUT}
     ...    1s
     ...    TemplatedRequests.Delete_Templated
     ...    ${directory_with_template_folders}${/}datamod1
-    ...    {'DEVICE_NAME': '${DEVICE_NAME}'}
+    ...    ${mapping}
     ...    session=node1
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5762
 
