@@ -48,6 +48,7 @@ ${DEVICE_NAME}                      ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}                    16384
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
 ${DEVICE_DATA_CONNECT_TIMEOUT}      60s
+@{TEST_LOG_COMPONENTS}              org.opendaylight.netconf
 
 
 *** Test Cases ***
@@ -77,7 +78,7 @@ Wait_For_Device_Data_To_Be_Seen
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device through node 2 and check that the request went OK.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Post_As_Xml_Templated
     ...    ${directory_with_crud_templates}${/}cars
     ...    ${template_as_string}
@@ -135,6 +136,7 @@ Setup_Everything
     ...    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}
     ...    headers=${HEADERS_XML}
     ...    auth=${AUTH}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    DEBUG    ${TEST_LOG_COMPONENTS}
 
 Check_Data_Present
     ${url}=    Builtin.Set_Variable
