@@ -109,7 +109,9 @@ Check_Config_Data_Before_Data_Creation
 
 Create_Device_Data
     [Documentation]    Create some data on the device and propagate it throughout the cluster.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string}=    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${device_name}
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Post_As_Xml_Templated
     ...    ${directory_with_template_folders}${/}dataorig
     ...    ${template_as_string}
@@ -179,7 +181,9 @@ Check_Config_Data_Before_Modification_With_Original_Owner_Down
 
 Modify_Device_Data_When_Original_Owner_Is_Down
     [Documentation]    Attempt to modify the data on the device after recovery and see if it still works.
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string}=    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${device_name}
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Put_As_Xml_Templated
     ...    ${directory_with_template_folders}${/}datamod1
     ...    ${template_as_string}
@@ -218,7 +222,9 @@ Check_Config_Data_After_Original_Owner_Restart
 
 Modify_Device_Data_With_Original_Owner
     [Documentation]    Check that the original owner of the entity is still able to modify the data on the device
-    ${template_as_string}=    BuiltIn.Create_Dictionary    DEVICE_NAME=${device_name}
+    ${template_as_string}=    BuiltIn.Create_Dictionary
+    ...    DEVICE_NAME=${device_name}
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Put_As_Xml_Templated
     ...    ${directory_with_template_folders}${/}datamod2
     ...    ${template_as_string}
