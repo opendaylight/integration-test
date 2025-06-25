@@ -75,6 +75,7 @@ Configure_Netconf_Device
     ...    DEVICE_IP=${ODL_SYSTEM_IP}
     ...    DEVICE_USER=admin
     ...    DEVICE_PASSWORD=admin
+    ...    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
     BuiltIn.Wait_Until_Keyword_Succeeds
     ...    10x
@@ -85,5 +86,5 @@ Configure_Netconf_Device
 
 Remove_Netconf_Device
     [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    &{mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    &{mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    RESTCONF_ROOT=${RESTCONF_ROOT}
     TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
