@@ -48,6 +48,7 @@ ${DEVICE_NAME}                      ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}                    16384
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
 ${DEVICE_DATA_CONNECT_TIMEOUT}      60s
+@{TEST_LOG_COMPONENTS}              org.opendaylight.netconf
 
 
 *** Test Cases ***
@@ -135,11 +136,12 @@ Setup_Everything
     ...    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}
     ...    headers=${HEADERS_XML}
     ...    auth=${AUTH}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    DEBUG    ${TEST_LOG_COMPONENTS}
 
 Check_Data_Present
     ${url}=    Builtin.Set_Variable
     ...    ${REST_API}/network-topology:network-topology/topology=topology-netconf/node=${DEVICE_NAME}/yang-ext:mount?content=config
-    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node2
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node1
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 
 Teardown_Everything
