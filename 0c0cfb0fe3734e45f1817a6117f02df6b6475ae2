@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f323f20_a1a42ea7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-07-11T08:56:47Z",
+      "side": 1,
+      "message": "as Ivan mentioned we have also keywords for `Run_Keyword_If_` like https://github.com/opendaylight/integration-test/blob/master/csit/libraries/CompareStream.robot#L391",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
