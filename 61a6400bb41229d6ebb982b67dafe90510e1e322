@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f82e221d_8dc76ae3",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-07-11T05:53:07Z",
+      "side": 1,
+      "message": "I am afraid this would not work. `Set_Variable_If_At_Least_Scandium` expects as arguments concrete values not keywords which should be executed. Maybe it would be required to do something like this:\n\n```\n${member_down_pekko_json} \u003d   OperatingSystem.Get File    ${CLUSTER_DIR}/member_down_pekko.json\n${member_down_akka_json} \u003d   OperatingSystem.Get File    ${CLUSTER_DIR}/member_down_akka.json\n${data} \u003d    CompareStream.Set_Variable_If_At_Least_Scandium    ${member_down_pekko_json}   ${member_down_akka_json}\n```",
+      "revId": "61a6400bb41229d6ebb982b67dafe90510e1e322",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
