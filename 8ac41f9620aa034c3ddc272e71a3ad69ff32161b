@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a22125a_38258f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2025-07-16T07:28:58Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-3node-rest-clust-cars-perf-tell-only-titanium/",
+      "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
