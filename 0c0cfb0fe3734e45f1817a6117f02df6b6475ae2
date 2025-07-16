@@ -16,6 +16,23 @@
       "message": "as Ivan mentioned we have also keywords for `Run_Keyword_If_` like https://github.com/opendaylight/integration-test/blob/master/csit/libraries/CompareStream.robot#L391",
       "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "145ff33f_b8139590",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2025-07-16T08:25:39Z",
+      "side": 1,
+      "message": "Jobs impacted by these changes:\ncontroller-csit-3node-clustering-ask-all-calcium\ncontroller-csit-3node-clustering-ask-all-scandium\ncontroller-csit-3node-clustering-ask-all-titanium\ncontroller-csit-3node-clustering-tell-all-calcium\ncontroller-csit-3node-clustering-tell-all-scandium\ncontroller-csit-3node-clustering-tell-all-titanium\n\nopenflowplugin-csit-3node-clustering-only-calcium\nopenflowplugin-csit-3node-clustering-only-scandium\nopenflowplugin-csit-3node-clustering-only-titanium\nopenflowplugin-csit-3node-gate-clustering-only-calcium\nopenflowplugin-csit-3node-gate-clustering-only-scandium\nopenflowplugin-csit-3node-gate-clustering-only-titanium",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
