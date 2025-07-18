@@ -16,6 +16,57 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/controller-csit-3node-rest-clust-cars-perf-tell-only-titanium/",
       "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d5021d8_9463a111",
+        "filename": "tools/clustering/cluster-deployer/deploy.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-18T18:05:12Z",
+      "side": 1,
+      "message": "This is not used. Need an argument to choose between \u0027akka\u0027 \u0026 \u0027pekko\u0027 instead.",
+      "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368a3230_fbecd7c0",
+        "filename": "tools/clustering/cluster-deployer/deploy.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-18T18:05:12Z",
+      "side": 1,
+      "message": "`self.template` is for the template folder, not `akka` or `pekko`.",
+      "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5c2236b_c4a0d158",
+        "filename": "tools/clustering/cluster-deployer/deploy.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-18T18:05:12Z",
+      "side": 1,
+      "message": "`args.template` is for the template folder, not `akka` or `pekko`.",
+      "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
