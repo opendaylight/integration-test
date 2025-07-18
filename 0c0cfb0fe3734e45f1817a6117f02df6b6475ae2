@@ -33,6 +33,40 @@
       "message": "Jobs impacted by these changes:\ncontroller-csit-3node-clustering-ask-all-calcium\ncontroller-csit-3node-clustering-ask-all-scandium\ncontroller-csit-3node-clustering-ask-all-titanium\ncontroller-csit-3node-clustering-tell-all-calcium\ncontroller-csit-3node-clustering-tell-all-scandium\ncontroller-csit-3node-clustering-tell-all-titanium\n\nopenflowplugin-csit-3node-clustering-only-calcium\nopenflowplugin-csit-3node-clustering-only-scandium\nopenflowplugin-csit-3node-clustering-only-titanium\nopenflowplugin-csit-3node-gate-clustering-only-calcium\nopenflowplugin-csit-3node-gate-clustering-only-scandium\nopenflowplugin-csit-3node-gate-clustering-only-titanium",
       "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23909f42_73c9eee2",
+        "filename": "csit/scripts/set_akka_debug.sh",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-18T19:03:04Z",
+      "side": 1,
+      "message": "The following should cover both `akka` \u0026 `pekko`:\n```\nsed -i -e \u0027s/\\(akka\\|pekko\\) {/\\1 {\\nloglevel \u003d \"DEBUG\"\\nactor {\\ndebug {\\nautoreceive \u003d on\\nlifecycle \u003d on\\nunhandled \u003d on\\nfsm \u003d on\\nevent-stream \u003d on\\n}\\n}/\u0027 ${AKKACONF}\n```",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d812a7c_6aff6a75",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-18T19:03:04Z",
+      "side": 1,
+      "message": "It would be a little better to set the file name based on the version and then use `Get File` just once.",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
