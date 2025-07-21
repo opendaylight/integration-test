@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdc15ece_dc4c7f75",
+        "filename": "tools/clustering/cluster-deployer/deploy.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-21T20:43:32Z",
+      "side": 1,
+      "message": "Nothing really changed between Patchset 13 \u0026 14.",
+      "parentUuid": "e5845864_7a2daa8a",
+      "revId": "8ac41f9620aa034c3ddc272e71a3ad69ff32161b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "368a3230_fbecd7c0",
         "filename": "tools/clustering/cluster-deployer/deploy.py",
         "patchSetId": 13
