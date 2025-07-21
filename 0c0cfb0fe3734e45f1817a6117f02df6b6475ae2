@@ -52,6 +52,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d40520d6_0d626a66",
+        "filename": "csit/scripts/set_akka_debug.sh",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2025-07-21T19:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23909f42_73c9eee2",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d812a7c_6aff6a75",
@@ -65,6 +83,24 @@
       "writtenOn": "2025-07-18T19:03:04Z",
       "side": 1,
       "message": "It would be a little better to set the file name based on the version and then use `Get File` just once.",
+      "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88927c10_1b93f074",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2025-07-21T19:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d812a7c_6aff6a75",
       "revId": "0c0cfb0fe3734e45f1817a6117f02df6b6475ae2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
