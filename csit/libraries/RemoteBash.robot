@@ -100,5 +100,7 @@ Check_Return_Code
     [Arguments]    ${expected_rc}=0
     SSHLibrary.Write    echo \$?
     ${rc_and_prompt} =    SSHLibrary.Read_Until_Prompt
-    ${rc} =    String.Fetch_From_Left    ${rc_and_prompt}    ${\n}
+    #${rc} =    String.Fetch_From_Left    ${rc_and_prompt}    ${\n}
+    ${matches}=   String.Get Regexp Matches    ${output}    (?m)^\\s*(\\d+)\\s*$
+    ${rc}=        Set Variable    ${matches[0]}
     BuiltIn.Should_Be_Equal_As_Integers    0    ${rc}
