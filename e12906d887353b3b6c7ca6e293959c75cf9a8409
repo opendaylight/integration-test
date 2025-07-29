@@ -16,6 +16,24 @@
       "message": "Please provide sandbox tests after this int/dist change is merged:\nhttps://git.opendaylight.org/gerrit/c/integration/distribution/+/112945",
       "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5afdf981_32caf8cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-07-29T19:28:14Z",
+      "side": 1,
+      "message": "Not resolved yet",
+      "parentUuid": "a615cf15_38564628",
+      "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
