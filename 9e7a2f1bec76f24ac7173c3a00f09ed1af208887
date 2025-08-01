@@ -33,6 +33,24 @@
       "message": "Tested with stable Scandium here: https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-scandium/3/parameters/.",
       "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22cfa0b_40a70976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-01T12:49:41Z",
+      "side": 1,
+      "message": "And..\n\n12:59:45 Dump pekko.conf\n12:59:45 + echo \u0027Dump pekko.conf\u0027\n12:59:45 + cat /tmp/karaf-0.21.3-SNAPSHOT/configuration/initial/pekko.conf\n12:59:45 cat: /tmp/karaf-0.21.3-SNAPSHOT/configuration/initial/pekko.conf: No such file or directory\n\nin https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-scandium/3/consoleFull",
+      "parentUuid": "65fa3644_1db8808d",
+      "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
