@@ -70,6 +70,24 @@
       "parentUuid": "b0940899_a52c8464",
       "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7550118_f2106a0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-01T12:23:31Z",
+      "side": 1,
+      "message": "That seems like we are back to Scandium results: \n\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-3node-clustering-only-scandium/\n\nsince Titanium suffers by usage of non-adapted configuration here: \n\nhttps://jenkins.opendaylight.org/releng/view/openflowplugin/job/openflowplugin-csit-3node-clustering-only-titanium/",
+      "parentUuid": "4dbddc12_ea691539",
+      "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
