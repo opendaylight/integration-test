@@ -16,6 +16,23 @@
       "message": "Tested here: https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-titanium/6/",
       "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fa3644_1db8808d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-01T12:45:27Z",
+      "side": 1,
+      "message": "Tested with stable Scandium here: https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-scandium/3/parameters/.",
+      "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
