@@ -52,6 +52,24 @@
       "parentUuid": "5afdf981_32caf8cb",
       "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dbddc12_ea691539",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9173
+      },
+      "writtenOn": "2025-08-01T08:57:44Z",
+      "side": 1,
+      "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-scandium/",
+      "parentUuid": "b0940899_a52c8464",
+      "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
