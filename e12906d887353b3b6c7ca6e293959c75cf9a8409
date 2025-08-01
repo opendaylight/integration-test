@@ -88,6 +88,24 @@
       "parentUuid": "4dbddc12_ea691539",
       "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9ed931_8b21e37f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-01T12:33:50Z",
+      "side": 1,
+      "message": "Current Titanium fails at releng:\n\n`06:36:25 Dump pekko.conf`\n06:36:25 + echo \u0027Dump pekko.conf\u0027\n06:36:25 + cat /tmp/karaf-0.22.0-SNAPSHOT/configuration/initial/pekko.conf\n06:36:25 cat: /tmp/karaf-0.22.0-SNAPSHOT/configuration/initial/pekko.conf: No such file or directory\n\nOn the other hand in  sandbox we have, correctly:\n\n`10:11:28 Dump pekko.conf`\n10:11:28 + echo \u0027Dump pekko.conf\u0027\n10:11:28 + cat /tmp/karaf-0.23.0-SNAPSHOT/configuration/initial/pekko.conf\n10:11:28 \n10:11:28 odl-cluster-data {\n10:11:28   pekko {\n10:11:28     remote {\n10:11:28       artery {\n10:11:28         enabled \u003d on\n10:11:28         transport \u003d tcp\n10:11:28         canonical.hostname \u003d \"10.30.171.245\"\n10:11:28         canonical.port \u003d 2550\n10:11:28       }\n10:11:28     }",
+      "parentUuid": "e7550118_f2106a0e",
+      "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
