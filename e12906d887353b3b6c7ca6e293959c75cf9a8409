@@ -123,6 +123,23 @@
       "message": "https://jenkins.opendaylight.org/sandbox/view/All/job/openflowplugin-csit-3node-clustering-only-scandium/3/consoleFull\n\n12:59:45 Dump pekko.conf\n12:59:45 + echo \u0027Dump pekko.conf\u0027\n12:59:45 + cat /tmp/karaf-0.21.3-SNAPSHOT/configuration/initial/pekko.conf\n12:59:45 cat: /tmp/karaf-0.21.3-SNAPSHOT/configuration/initial/pekko.conf: No such file or directory",
       "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "017b4e33_c421acb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-04T12:55:55Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/c/releng/builder/+/117297/comments/75b4b061_1c14d3ee",
+      "revId": "e12906d887353b3b6c7ca6e293959c75cf9a8409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
