@@ -51,6 +51,23 @@
       "parentUuid": "65fa3644_1db8808d",
       "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62fa987_77799743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-08-04T12:55:42Z",
+      "side": 1,
+      "message": "Distribution stream recognition has been fixed in https://git.opendaylight.org/gerrit/c/releng/builder/+/117297/comments/75b4b061_1c14d3ee",
+      "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
