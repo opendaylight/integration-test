@@ -1,0 +1,10 @@
+Verified+1: jenkins-releng ODL
+Code-Review+2: Sangwook Ha <sangwook.ha@verizon.com>
+Verified+1: ODL Required.GHA <releng+odl.required.gha@linuxfoundation.org>
+Code-Review+1: Martin Balaz <martin.balaz@pantheon.tech>
+Code-Review+1: Ivan Hrasko <ivan.hrasko@pantheon.tech>
+Submitted-by: Sangwook Ha <sangwook.ha@verizon.com>
+Submitted-at: Tue, 05 Aug 2025 04:38:02 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/c/integration/test/+/114552
+Project: integration/test
+Branch: refs/heads/master
