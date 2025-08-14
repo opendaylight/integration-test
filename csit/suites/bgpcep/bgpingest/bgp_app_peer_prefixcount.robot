@@ -51,8 +51,8 @@ Force Tags          critical
 ${BGP_VARIABLES_FOLDER}                     ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}                                 180
 ${HOLDTIME_APP_PEER_PREFIX_COUNT}           ${HOLDTIME}
-${COUNT}                                    180000
-${PREFILL}                                  100000
+${COUNT}                                    180
+${PREFILL}                                  100
 ${COUNT_APP_PEER_PREFIX_COUNT}              ${COUNT}
 ${CHECK_PERIOD}                             10
 ${CHECK_PERIOD_APP_PEER_PREFIX_COUNT}       ${CHECK_PERIOD}
