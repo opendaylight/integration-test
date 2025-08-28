@@ -1,10 +1,10 @@
 {
-    "topology": [
+    "network-topology:topology": [
         {
             "node": [
                 {
                     "network-pcep-topology-stats:pcep-session-state": {
-                        "delegated-lsps-count": "*",
+                        "delegated-lsps-count": 1,
                         "local-pref": {
                             "deadtimer": 120,
                             "ip-address": "$IP_ODL",
@@ -18,16 +18,16 @@
                             },
                             "last-sent-msg-timestamp": "*",
                             "odl-pcep-stateful-stats:last-received-rpt-msg-timestamp": "*",
-                            "odl-pcep-stateful-stats:received-rpt-msg-count": 2,
+                            "odl-pcep-stateful-stats:received-rpt-msg-count": 3,
                             "odl-pcep-stateful-stats:sent-init-msg-count": 0,
-                            "odl-pcep-stateful-stats:sent-upd-msg-count": 0,
-                            "received-msg-count": "*",
+                            "odl-pcep-stateful-stats:sent-upd-msg-count": 1,
+                            "received-msg-count": 3,
                             "reply-time": {
-                                "average-time": 0,
-                                "max-time": 0,
-                                "min-time": 0
+                                "average-time": "*",
+                                "max-time": "*",
+                                "min-time": "*"
                             },
-                            "sent-msg-count": "*",
+                            "sent-msg-count": 1,
                             "unknown-msg-received": 0
                         },
                         "peer-capabilities": {
@@ -60,13 +60,19 @@
                                                         "ip-prefix": "1.1.1.1/32"
                                                     },
                                                     "loose": false
+                                                },
+                                                {
+                                                    "ip-prefix": {
+                                                        "ip-prefix": "2.2.2.2/32"
+                                                    },
+                                                    "loose": false
                                                 }
                                             ]
                                         },
                                         "lsp-id": 1,
                                         "odl-pcep-ietf-stateful:lsp": {
                                             "administrative": true,
-                                            "delegate": "*",
+                                            "delegate": true,
                                             "ignore": false,
                                             "odl-pcep-ietf-initiated:create": false,
                                             "operational": "up",
