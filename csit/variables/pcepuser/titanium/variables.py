@@ -91,6 +91,7 @@ def get_variables(mininet_ip):
        "ignore": false,
        "odl-pcep-ietf-initiated:create": $CREATED,
        "operational": "up",
+       "pce-allocation": false,
        "plsp-id": $ID,
        "processing-rule": false,
        "remove": false,
