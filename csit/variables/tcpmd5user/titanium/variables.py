@@ -19,12 +19,6 @@ import base64
 from string import Template
 
 
-__author__ = "Vratko Polak"
-__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
-__license__ = "Eclipse Public License v1.0"
-__email__ = "vrpolak@cisco.com"
-
-
 # FIXME: Migrate values shared by other suites to separate Python module.
 
 
@@ -87,6 +81,7 @@ def get_variables(mininet_ip):
            "ignore": false,
            "odl-pcep-ietf-initiated:create": false,
            "operational": "up",
+           "pce-allocation": false,
            "plsp-id": 1,
            "processing-rule": false,
            "remove": false,

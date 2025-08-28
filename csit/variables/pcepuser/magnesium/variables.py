@@ -1,3 +1,9 @@
+# Copyright (c) 2025 PANTHEON.tech, s.r.o. and others.  All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v1.0 which accompanies this distribution,
+# and is available at http://www.eclipse.org/legal/epl-v10.html
+
 """Variables file for pcepuser suite.
 
 Expected JSON templates are fairly long,
@@ -6,11 +12,6 @@ Also, it is needed to generate base64 encoded tunnel name
 from Mininet IP (which is not known beforehand),
 so it is easier to employ Python here,
 than do manipulation in Robot file."""
-# Copyright (c) 2015 Cisco Systems, Inc. and others.  All rights reserved.
-#
-# This program and the accompanying materials are made available under the
-# terms of the Eclipse Public License v1.0 which accompanies this distribution,
-# and is available at http://www.eclipse.org/legal/epl-v10.html
 
 import base64
 from string import Template
