@@ -41,6 +41,30 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee63d1e6_83480951",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-08T09:23:24Z",
+      "side": 1,
+      "message": "I have removed it as we also have the Copyright notice in the header, which I have updated.",
+      "parentUuid": "2f31a990_9e97b396",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "b3d76ae40dbd041cbddc3328cb24ff0f7d003be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac2079ed_5ccdeae2",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-09-08T09:05:45Z",
       "side": 1,
       "message": "same here...",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 31
+      },
+      "revId": "b3d76ae40dbd041cbddc3328cb24ff0f7d003be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec14f56_afe25d0f",
+        "filename": "csit/variables/tcpmd5user/titanium/variables.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-08T09:23:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac2079ed_5ccdeae2",
       "range": {
         "startLine": 21,
         "startChar": 0,
