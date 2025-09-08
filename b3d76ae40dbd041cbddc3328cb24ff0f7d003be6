@@ -16,6 +16,52 @@
       "message": "Tested in sandbox: https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-titanium/5/\n\nFor reference previous run with tests failing on this problem.\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-userfeatures-all-titanium/1/",
       "revId": "b3d76ae40dbd041cbddc3328cb24ff0f7d003be6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f31a990_9e97b396",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9389
+      },
+      "writtenOn": "2025-09-08T09:05:45Z",
+      "side": 1,
+      "message": "do we need these at all? is it used somewhere in tests?\nI\u0027d suggest remove this or change for your creds",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "b3d76ae40dbd041cbddc3328cb24ff0f7d003be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac2079ed_5ccdeae2",
+        "filename": "csit/variables/tcpmd5user/titanium/variables.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9389
+      },
+      "writtenOn": "2025-09-08T09:05:45Z",
+      "side": 1,
+      "message": "same here...",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 31
+      },
+      "revId": "b3d76ae40dbd041cbddc3328cb24ff0f7d003be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
