@@ -16,6 +16,24 @@
       "message": "removing support for previous releases and adding support for new deserves a separate commit",
       "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97cf35d9_4a7bb87c",
+        "filename": "csit/variables/pcepuser/titanium",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-09T13:00:45Z",
+      "side": 0,
+      "message": "It is not really removing anything related to previous release, only the old sim link (`csit/variables/pcepuser/titanium`) which pointed to previous chlorine release (`csit/variables/pcepuser/chlorine/`) is replaced with a whole new copy of those files.\n```\nmartin@martin-VirtualBox:~/test\\\u003e$ ll csit/variables/pcepuser/titanium\nlrwxrwxrwx 1 martin martin 8 sep  9 14:44 csit/variables/pcepuser/titanium -\u003e chlorine/\nmartin@martin-VirtualBox:~/test\\\u003e$ ll csit/variables/pcepuser/chlorine/\ntotal 32\ndrwxrwxr-x 5 martin martin  4096 aug 28 14:05 ./\ndrwxrwxr-x 5 martin martin  4096 sep  9 14:44 ../\ndrwxrwxr-x 2 martin martin  4096 dec  2  2024 node_session_state/\ndrwxrwxr-x 2 martin martin  4096 dec  2  2024 node_speaker_entity_identifier/\ndrwxrwxr-x 2 martin martin  4096 dec  2  2024 pcep_topology/\n-rw-rw-r-- 1 martin martin 11290 aug 28 14:05 variables.py\nmartin@martin-VirtualBox:~/test\\\u003e$\n```",
+      "parentUuid": "49092b6d_6ec8d4d3",
+      "revId": "9e7a2f1bec76f24ac7173c3a00f09ed1af208887",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }

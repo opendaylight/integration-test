@@ -16,6 +16,24 @@
       "message": "copyright used to be first?",
       "revId": "e02681997457b9f0092383c1e78ea60e2ef8bbfd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f2c9c7e_e412b644",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-09T13:00:45Z",
+      "side": 1,
+      "message": "I have moved the copyright notice for all `variables.py` files in `csit/variables` to the top.",
+      "parentUuid": "a217e018_d5d81245",
+      "revId": "e02681997457b9f0092383c1e78ea60e2ef8bbfd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
