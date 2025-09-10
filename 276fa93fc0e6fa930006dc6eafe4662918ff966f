@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7a18791_677759c9",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-10T07:22:53Z",
+      "side": 1,
+      "message": "Done. Thank you for catching it.",
+      "parentUuid": "0ed1c0db_7ee1a29b",
+      "revId": "276fa93fc0e6fa930006dc6eafe4662918ff966f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edd6757a_54d167be",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-09-10T06:59:01Z",
       "side": 1,
       "message": "contains?",
+      "range": {
+        "startLine": 48,
+        "startChar": 55,
+        "endLine": 48,
+        "endChar": 63
+      },
+      "revId": "276fa93fc0e6fa930006dc6eafe4662918ff966f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f445061_a3dea88d",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-10T07:22:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edd6757a_54d167be",
       "range": {
         "startLine": 48,
         "startChar": 55,
