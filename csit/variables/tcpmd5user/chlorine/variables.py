@@ -1,18 +1,19 @@
-"""
-Variables file for tcpmd5user suite.
-
-Expected JSON templates are fairly long,
-therefore there are moved out of testcase file.
-Also, it is needed to generate base64 encoded tunnel name
-from Mininet IP (which is not known beforehand),
-so it is easier to employ Python here,
-than do manipulation in Robot file.
-"""
-# Copyright (c) 2015 Cisco Systems, Inc. and others.  All rights reserved.
+# Copyright (c) 2025 PANTHEON.tech, s.r.o. and others.  All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
+
+"""
+Variables file for tcpmd5user suite.
+
+Expected JSON templates are fairly long,
+therefore they are moved out of the testcase file.
+Also, it is needed to generate base64 encoded tunnel name
+from Mininet IP (which is not known beforehand),
+so it is easier to employ Python here,
+then do manipulation in the Robot file.
+"""
 
 import base64
 from string import Template
@@ -134,8 +135,8 @@ def get_variables(mininet_ip):
     variables["onjson"] = onjsontempl.substitute(repl_dict)
     # The following strings are XML data.
     # See https://wiki.opendaylight.org/view/BGP_LS_PCEP:TCP_MD5_Guide#RESTCONF_Configuration
-    # For curl, string is suitable to became -d argument only after
-    # replacing ' -> '"'"' and enclosing in single quotes.
+    # For curl, string is suitable to become -d argument only after
+    # replacing ' -> '"'"' and enclosing it in single quotes.
     variables[
         "key_access_module"
     ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
@@ -174,7 +175,7 @@ def get_variables(mininet_ip):
         "server_channel_module"
     ] = """<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">"""
-    # What is your favourite way to concatenate strings without resembling tuple?
+    # What is your favourite way to concatenate strings without resembling tuples?
     variables[
         "server_channel_module"
     ] += """prefix:md5-server-channel-factory-impl</type>

@@ -17,12 +17,6 @@ import base64
 from string import Template
 
 
-__author__ = "Vratko Polak"
-__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
-__license__ = "Eclipse Public License v1.0"
-__email__ = "vrpolak@cisco.com"
-
-
 def get_variables(mininet_ip):
     """Return dict of variables for the given IP address of Mininet VM."""
     variables = {}
