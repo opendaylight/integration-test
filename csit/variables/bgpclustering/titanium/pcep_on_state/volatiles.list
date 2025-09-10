@@ -1,0 +1,8 @@
+odl-pcep-stateful-stats:last-received-rpt-msg-timestamp
+session-duration
+session-id
+delegated-lsps-count
+received-msg-count
+sent-msg-count
+delegate
+last-sent-msg-timestamp
