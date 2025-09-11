@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ce138a_68af4088",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-09-11T16:56:11Z",
+      "side": 1,
+      "message": "What about `csit/variables/bgpclustering/titanium`?",
+      "revId": "0478e93f159d297ad6487bbb642268fe913f5a8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b88da56_223a70f1",
+        "filename": "csit/variables/pcepuser/aluminium/variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-09-11T16:56:11Z",
+      "side": 1,
+      "message": "This copyright shouldn\u0027t be changed:\nhttps://docs.opendaylight.org/en/latest/contributor-guides/copyright.html",
+      "revId": "0478e93f159d297ad6487bbb642268fe913f5a8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28249e25_1cf70903",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-09-11T16:56:11Z",
+      "side": 1,
+      "message": "Not sure what should go in here - it\u0027s a new file but exactly the same as the original except for the removal of some metadata.",
+      "revId": "0478e93f159d297ad6487bbb642268fe913f5a8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
