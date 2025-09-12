@@ -33,6 +33,24 @@
       "message": "Shouldn\u0027t this be added only to titanium like other files in `pcepuser` and `tcpmd5user`?",
       "revId": "47afe4608f4ae7e23b82da27b2a4a1a8c3606dff",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c552bbf_3b69a1a2",
+        "filename": "csit/variables/bgpclustering/aluminium/pcep_on_state/data.json",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-12T06:17:49Z",
+      "side": 1,
+      "message": "yes, I did not replace the symlink with full copy of those files for `bgpclustering` the same way as for `pcepuser` and `tcpmd5user` directories. Now it should be fixed.",
+      "parentUuid": "a916f186_c37f46b1",
+      "revId": "47afe4608f4ae7e23b82da27b2a4a1a8c3606dff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
