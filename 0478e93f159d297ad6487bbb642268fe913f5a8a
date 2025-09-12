@@ -104,6 +104,24 @@
       "parentUuid": "62c31bc0_6ca29528",
       "revId": "0478e93f159d297ad6487bbb642268fe913f5a8a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46883cc6_02093284",
+        "filename": "csit/variables/pcepuser/titanium/variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-12T10:39:48Z",
+      "side": 1,
+      "message": "I have moved whole fix for typos into a separate commit.",
+      "parentUuid": "b502538f_5190e6e0",
+      "revId": "0478e93f159d297ad6487bbb642268fe913f5a8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
