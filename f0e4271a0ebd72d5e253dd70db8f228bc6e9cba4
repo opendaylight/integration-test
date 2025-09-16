@@ -18,6 +18,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53cb5413_63623530",
+        "filename": "csit/variables/pcepuser/aluminium/variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-16T08:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d98757b1_36f7d102",
+      "revId": "f0e4271a0ebd72d5e253dd70db8f228bc6e9cba4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de169b28_9a51590a",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-12T16:49:48Z",
       "side": 1,
       "message": "Probably `Discussion about`",
+      "revId": "f0e4271a0ebd72d5e253dd70db8f228bc6e9cba4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baa0ec43_7ea0fae9",
+        "filename": "csit/variables/pcepuser/aluminium/variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2025-09-16T08:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de169b28_9a51590a",
       "revId": "f0e4271a0ebd72d5e253dd70db8f228bc6e9cba4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
