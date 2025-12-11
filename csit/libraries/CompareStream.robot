@@ -24,6 +24,7 @@ Library             String
 ...                 calcium=${20}
 ...                 scandium=${21}
 ...                 titanium=${22}
+...                 vanadium=${23}
 ...                 master=${999}
 
 
@@ -109,6 +110,11 @@ Set_Variable_If_At_Least_Titanium
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    titanium    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_At_Least_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least vanadium, return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Least    vanadium    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most neon,
     ...    return ${value_if_false} otherwise.
@@ -186,6 +192,12 @@ Set_Variable_If_At_Most_Titanium
     ...    return ${value_if_false} otherwise.
     [Arguments]    ${value_if_true}    ${value_if_false}
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    titanium    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_At_Most_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most vanadium,
+    ...    return ${value_if_false} otherwise.
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    vanadium    ${value_if_true}    ${value_if_false}
 
 CompareStream__Convert_Input
     [Documentation]    Splits arguments into args and kwargs is used in Run_Keyword_If_At_Least_Else and Run_Keyword_If_At_Most_Else.
@@ -394,6 +406,12 @@ Run_Keyword_If_At_Least_Titanium
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    titanium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least vanadium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Least    vanadium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Most_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is at most neon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -471,6 +489,12 @@ Run_Keyword_If_At_Most_Titanium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    titanium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and in case ${ODL_STREAM} is at most vanadium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_At_Most    vanadium    ${kw_name}    @{varargs}    &{kwargs}
 
 Run_Keyword_If_More_Than_Neon
     [Documentation]    Compare neon to ${ODL_STREAM} and in case ${ODL_STREAM} is more than neon,
@@ -550,6 +574,12 @@ Run_Keyword_If_More_Than_Titanium
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    titanium    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_More_Than_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and in case ${ODL_STREAM} is more than vanadium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_More_Than    vanadium    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than_Sodium
     [Documentation]    Compare sodium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than sodium,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
@@ -621,3 +651,9 @@ Run_Keyword_If_Less_Than_Titanium
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    titanium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Less_Than_Vanadium
+    [Documentation]    Compare vanadium to ${ODL_STREAM} and in case ${ODL_STREAM} is less than vanadium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    BuiltIn.Run_Keyword_And_Return    Run_Keyword_If_Less_Than    vanadium    ${kw_name}    @{varargs}    &{kwargs}
