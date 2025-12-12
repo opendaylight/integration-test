@@ -170,7 +170,7 @@ Explanation:
 * project: set your your project name here (e.g. openflowplugin).
 * functionality: set the functionality you want to test (e.g. flow-services).
   Note this has also to match the robot test plan name you defined in the earlier
-  section `<Create a test plan_>`_ (e.g. openflowplugin-flow-services.txt)
+  section `<Create a test plan>`_ (e.g. openflowplugin-flow-services.txt)
 * stream: list the project branches you are going to generate system test. Only
   last branch if the project is new.
 * install: this specifies controller installation, 'only' means only features in
