@@ -87,6 +87,24 @@
       "parentUuid": "c76f41a7_86b9964b",
       "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35541a31_0c336047",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-12T13:49:30Z",
+      "side": 1,
+      "message": "ah, that warning only 09:39:42 WARNING:rstcheck_core.checker:An `AttributeError` error occured. This is most probably due to a code block directive (code/code-block/sourcecode) without a specified language. This may result in a false negative for source: \u0027docs/run-test-locally.rst\u0027. The reason can also be another directive. For more information see the FAQ (https://rstcheck-core.rtfd.io/en/latest/faq) or the corresponding github issue: https://github.com/rstcheck/rstcheck-core/issues/3.",
+      "parentUuid": "8541696f_419c01b5",
+      "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
