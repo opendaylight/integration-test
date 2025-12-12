@@ -16,6 +16,23 @@
       "message": "19:10:39 docs/system-test-guide.rst:168: (INFO/1) Duplicate implicit target name: \"create a test plan\".\n19:10:39 docs/system-test-guide.rst:171: (ERROR/3) Indirect hyperlink target (id\u003d\"create-a-test-plan-1\") refers to target \"create a test plan\", which is a duplicate, and cannot be used as a unique reference.\n19:10:39 docs/system-test-guide.rst:171: (ERROR/3) Duplicate target name, cannot be used as a unique reference: \"create a test plan\".\n19:10:39 Error! Issues detected.",
       "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "795133a8_30ef21f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-12T08:36:03Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
