@@ -33,6 +33,24 @@
       "message": "recheck",
       "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5719bfa2_80665f3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2025-12-12T08:38:43Z",
+      "side": 1,
+      "message": "The problem is located somewhere in https://github.com/opendaylight/integration-test/blob/master/docs/run-test-locally.rst",
+      "parentUuid": "e20a853d_6e2a8f30",
+      "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
