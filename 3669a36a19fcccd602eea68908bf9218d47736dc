@@ -105,6 +105,24 @@
       "parentUuid": "8541696f_419c01b5",
       "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e11f0037_2a63ac3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1927
+      },
+      "writtenOn": "2025-12-12T18:48:24Z",
+      "side": 1,
+      "message": "This avoided the error:\nhttps://git.opendaylight.org/gerrit/c/integration/test/+/119818",
+      "parentUuid": "35541a31_0c336047",
+      "revId": "3669a36a19fcccd602eea68908bf9218d47736dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
   ]
 }
