@@ -21,7 +21,7 @@ ______________
 
 For Debian-based distributions
 
-.. code-block::
+.. code-block:: bash
 
     sudo apt-get install python3
     sudo apt-get install python3-pip
@@ -34,7 +34,7 @@ _____________________________________________________
 
   Releng/Builder CI/CD installation options can be checked inside the `integration-install-robotframework.sh <https://github.com/opendaylight/releng-builder/blob/master/jjb/integration/integration-install-robotframework.sh>`_
 
-.. code-block::
+.. code-block:: bash
 
   pip3 install robotframework
   pip3 install robotframework-extendedrequestslibrary
@@ -42,7 +42,7 @@ _____________________________________________________
 Install Libraries needed for test suites
 ________________________________________
 
-.. code-block::
+.. code-block:: bash
 
   pip3 install alabaster Babel docutils imagesize Jinja2 lfdocs-conf
 
@@ -56,14 +56,14 @@ user. Create and add pair of ssh keys. Put them to /home/jenkins/.ssh
 
 Test ssh connection:
 
-.. code-block::
+.. code-block:: bash
 
   ssh jenkins@localhost -i /home/jenkins/.ssh/id-rsa
 
 .. warning::
   If *Robot* can not connect through SSH, but manually connection works ok - update paramiko library:
 
-  .. code-block::
+  .. code-block:: bash
 
     pip3 install --upgrade robotframework-sshlibrary
     pip3 install --upgrade paramiko
@@ -75,7 +75,7 @@ Start `Karaf` and install required features.
 
 Run test:
 
-.. code-block::
+.. code-block:: bash
 
   robot -L debug --variable KARAF_HOME:/home/user/workspace/netconf/karaf/target/assembly/bin --variable USER_HOME:/home/jenkins --variable DEFAULT_LINUX_PROMPT:\$ --variable ODL_SYSTEM_IP:127.0.0.1 --variable ODL_SYSTEM_1_IP:127.0.0.1 --variable RESTCONFPORT:8181 --variable IS_KARAF_APPL:True ./test.robot
 
