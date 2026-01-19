@@ -139,7 +139,7 @@ ${FIRST_PCC_IP}                     ${PCCMOCKVM_IP}
 ${INIT_PCC_DEVICE_COUNT}            ${100}
 ${LOG_NAME}                         throughpcep.log
 ${LOG_PATH}                         ${PCCMOCKVM_WORKSPACE}
-${LSPS}                             65535
+${LSPS}                             10
 #Reduced max pcc device count to 100 for BGPCEP-901
 ${MAX_PCC_DEVICE_COUNT}             ${100}
 ${ODL_SYSTEM_WORKSPACE}             /tmp

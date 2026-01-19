@@ -179,6 +179,7 @@ def iterable_msg(pccs, lsps, workers, hop, delegate):
             whole_data = "".join(list_data)
             worker = (lsp * pccs + pcc) % workers
             post_kwargs = {"data": whole_data, "headers": headers}
+            print(post_kwargs)
             yield worker, post_kwargs
 
 
