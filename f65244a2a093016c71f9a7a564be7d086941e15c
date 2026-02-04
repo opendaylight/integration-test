@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c320ca4_342a5c13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2026-02-04T16:43:47Z",
+      "side": 1,
+      "message": "Tested in sandbox. Previously it had problem with resolving the `RESTCONF_ROOT` variable when it tried to access url like \n`http://10.30.170.188:8181/$RESTCONF_ROOT/data/network-topology:network-topology/topology\u003dtopology-netconf/node\u003dnetconf-test-device/yang-ext:mount`\nnow it uses:\n`http://10.30.170.78:8181/rests/data/network-topology:network-topology/topology\u003dtopology-netconf/node\u003dnetconf-test-device/yang-ext:mount`\n\nPreviously:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-3node-clustering-only-vanadium/1/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-3node-clustering-only-titanium/1/\n\nAfter this fix:\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-3node-clustering-only-vanadium/2/\nhttps://jenkins.opendaylight.org/sandbox/view/All/job/netconf-csit-3node-clustering-only-titanium/2/\n\nThere are still other test failures caused by other issues.",
+      "revId": "f65244a2a093016c71f9a7a564be7d086941e15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
