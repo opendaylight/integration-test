@@ -542,7 +542,7 @@ Updater
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
     ${response} =    SSHLibrary.Execute_Command
-    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
+    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' --stream '${ODL_STREAM}' 2>&1"
     Check Updater response    ${response}    ${parallel}
 
 Check Updater response
@@ -589,7 +589,7 @@ Flap Pcc Mock sessions parallelly with LSP updates
     Set_Hop    0
     Builtin.Wait_Until_Keyword_Succeeds    ${PCEP_READY_VERIFY_TIMEOUT}    5s    Pcep_Off
     SSHLibrary.Start Command
-    ...    sh /tmp/mock.sh ${mock_location} ${mock-ip} ${ODL_SYSTEM_IP} ${pccs} ${lsps} parallel_Execution ${DELAY_TIME} &>1
+    ...    sh /tmp/mock.sh ${mock_location} ${mock-ip} ${ODL_SYSTEM_IP} ${pccs} ${lsps} ${ODL_STREAM} parallel_Execution ${DELAY_TIME} &>1
     FOR    ${i}    IN RANGE    ${PARALLEL_ITERATION}
         ${pid} =    SSHLibrary.Execute Command
         ...    ps -fu ${ODL_SYSTEM_USER} | grep "/home/${ODL_SYSTEM_USER}/${mock_location}" | grep -v "grep" | awk '{print $2}'
