@@ -542,7 +542,7 @@ Updater
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
     ${response} =    SSHLibrary.Execute_Command
-    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' 2>&1"
+    ...    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python3 updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --pccaddress '${mock-ip}' --pccs '${pccs}' --lsps '${lsps}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' --delegate '${delegate}' --pccip '${pccip}' --tunnelnumber '${tunnel_no}' --stream='${ODL_STREAM}' 2>&1"
     Check Updater response    ${response}    ${parallel}
 
 Check Updater response
