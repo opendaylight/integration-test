@@ -100,11 +100,13 @@ parser.add_argument("--pccip", default=None, help="IP address of the simulated P
 parser.add_argument(
     "--tunnelnumber", default=None, help="Tunnel Number for the simulated PCC"
 )
+parser.add_argument("--stream", default="", help="ODL Stream - titanium, vanadium ...")
+
 args = parser.parse_args()  # arguments are read
 
 expected = """{"output":{}}"""
 
-payload_list_data = [
+payload_list_data_titatnium = [
     "{",
     '   "input":{',
     '       "node":"pcc://',
@@ -123,6 +125,49 @@ payload_list_data = [
     "",
     '           ,"administrative":true',
     "},",
+    '"ero":{',
+    '   "subobject":[',
+    "       {",
+    '           "loose":false,',
+    '           "ip-prefix":{',
+    '                "ip-prefix":',
+    '"',
+    "",
+    '"',
+    "           }",
+    "       },",
+    "       {",
+    '           "loose":false,',
+    '           "ip-prefix":{',
+    '                "ip-prefix":"1.1.1.1/32"',
+    "            }",
+    "        }",
+    "        ]",
+    "       }",
+    "   }",
+    " }",
+    "}",
+]
+
+payload_list_data_vanadium = [
+    "{",
+    '   "input":{',
+    '       "node":"pcc://',
+    "",
+    '",',
+    '       "name":"pcc_',
+    "",
+    "_tunnel_",
+    "",
+    '",',
+    '       "network-topology-ref":"/network-topology:network-topology/network-topology:topology',
+    '[network-topology:topology-id=\\"pcep-topology\\"]",',
+    '       "arguments":{',
+    '           "lsp":{',
+    '               "lsp-flags":{' '                   "delegate":',
+    "",
+    '                   ,"administrative":true',
+    "           }" "},",
     '"ero":{',
     '   "subobject":[',
     "       {",
@@ -166,7 +211,10 @@ def iterable_msg(pccs, lsps, workers, hop, delegate):
     # Headers are constant, but it is easier to add them to kwargs in this generator.
     headers = {"Content-Type": "application/json"}
     # TODO: Perhaps external text file with Template? May affect performance.
-    list_data = payload_list_data
+    if args.stream == "titanium":
+        list_data = payload_list_data_titatnium
+    else:
+        list_data = payload_list_data_vanadium
     for lsp in range(1, lsps + 1):
         str_lsp = str(lsp)
         list_data[8] = str_lsp  # Replaces with new pointer.
