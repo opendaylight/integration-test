@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "117b3e77_0fe56d15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2026-02-25T19:27:47Z",
+      "side": 1,
+      "message": "Latest chnages tested on:\ntitanium - https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-throughpcep-all-titanium/7/\nvanadium - https://jenkins.opendaylight.org/sandbox/view/All/job/bgpcep-csit-1node-throughpcep-all-vanadium/7/",
+      "revId": "b95bccc95a9b25b2c72ef5ca8d3bdbc511e9b5ff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
