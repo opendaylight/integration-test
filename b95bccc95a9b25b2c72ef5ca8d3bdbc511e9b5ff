@@ -35,6 +35,24 @@
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "206fb783_d79fadd8",
+        "filename": "tools/pcep_updater/mock.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2026-02-26T21:16:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea5e6b81_0a7f32c3",
+      "revId": "b95bccc95a9b25b2c72ef5ca8d3bdbc511e9b5ff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6f97f35_39404145",
@@ -48,6 +66,24 @@
       "writtenOn": "2026-02-26T16:14:44Z",
       "side": 1,
       "message": "I don\u0027t see `--stream` option for pcep-pcc-mock test tool:\nhttps://github.com/opendaylight/bgpcep/blob/master/pcep/pcc-mock/src/main/java/org/opendaylight/protocol/pcep/pcc/mock/Main.java#L64\n\nCan you point me where the option is defined if I\u0027m missing something?",
+      "revId": "b95bccc95a9b25b2c72ef5ca8d3bdbc511e9b5ff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "213832cd_bab12d7b",
+        "filename": "tools/pcep_updater/mock.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8907
+      },
+      "writtenOn": "2026-02-26T21:16:45Z",
+      "side": 1,
+      "message": "I should not have updated the parameter here. It was a mistake. I didn\u0027t notice it is a parameter for the pcc mock simulator and not the updater.py script, so I have removed it. Thank you for pointing it out.",
+      "parentUuid": "c6f97f35_39404145",
       "revId": "b95bccc95a9b25b2c72ef5ca8d3bdbc511e9b5ff",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
     }
