@@ -1,0 +1,2 @@
+integration/test/csit/suites/bgpcep/bgpingest/manypeers_peercount.robot
+integration-test/csit/suites/bgpcep/bgpfunct/100_bgp_functional_graceful_restart.robot
