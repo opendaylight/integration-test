@@ -25,6 +25,8 @@ Library             String
 ...                 scandium=${21}
 ...                 titanium=${22}
 ...                 vanadium=${23}
+...                 chromium=${24}
+...                 manganese=${25}
 ...                 master=${999}
 
 
