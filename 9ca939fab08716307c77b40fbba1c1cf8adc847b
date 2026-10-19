@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8664240b_17dde8b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2026-10-19T12:26:10Z",
+      "side": 1,
+      "message": "jjb-deploy bgpcep-csit-1node-userfeatures-all-manganese",
+      "revId": "9ca939fab08716307c77b40fbba1c1cf8adc847b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
