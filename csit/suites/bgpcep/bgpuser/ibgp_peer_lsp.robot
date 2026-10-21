@@ -51,67 +51,6 @@ ${ROUTE_KEY}                    AAUAFQcAAAAAAAAAAQECAwQAAQABBQYHCA==
 
 
 *** Test Cases ***
-TC1_Configure_iBGP_Peer
-    [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    [Tags]    critical
-    &{mapping}    Create Dictionary
-    ...    DEVICE_NAME=${DEVICE_NAME}
-    ...    BGP_NAME=${BGP_PEER_NAME}
-    ...    IP=${TOOLS_SYSTEM_IP}
-    ...    HOLDTIME=${HOLDTIME}
-    ...    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false
-    ...    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true
-    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated
-    ...    ${BGP_VARIABLES_FOLDER}${/}bgp_peer
-    ...    mapping=${mapping}
-    ...    session=${CONFIG_SESSION}
-
-TC1_Check_Example_Bgp_Rib_Is_Empty
-    [Documentation]    Check RIB for none linkstate-routes
-    [Tags]    critical
-    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${CONFIG_SESSION}    ${JSONKEYSTR}
-
-TC1_Connect_BGP_Peer
-    [Documentation]    Connect BGP peer with advertising the routes without mandatory params like LOC_PREF.
-    [Tags]    critical
-    BuiltIn.Run_Keyword_And_Ignore_Error
-    ...    KarafKeywords.Log_Message_To_Controller_Karaf
-    ...    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
-    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND} ${SKIP_PARAMS}    ${BGP_PEER_OPTIONS}
-    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
-
-TC1_Check_Example_Bgp_Rib
-    [Documentation]    Check RIB for not containig linkstate-route(s), because update messages were not good.
-    [Tags]    critical
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout
-    ...    ${DEFAULT_RIB_CHECK_TIMEOUT}
-    ...    ${DEFAULT_RIB_CHECK_PERIOD}
-    ...    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain
-    ...    ${CONFIG_SESSION}
-    ...    ${JSONKEYSTR}
-
-TC1_Disconnect_BGP_Peer
-    [Documentation]    Stop BGP peer & store logs
-    [Tags]    critical
-    BGPcliKeywords.Stop_Console_Tool
-    BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc1_${BGP_PEER_LOG_FILE}
-
-TC1_Deconfigure_iBGP_Peer
-    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary
-    ...    DEVICE_NAME=${DEVICE_NAME}
-    ...    BGP_NAME=${BGP_PEER_NAME}
-    ...    IP=${TOOLS_SYSTEM_IP}
-    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated
-    ...    ${BGP_VARIABLES_FOLDER}/bgp_peer
-    ...    mapping=${mapping}
-    ...    session=${CONFIG_SESSION}
-
 TC2_Configure_iBGP_Peer
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
     &{mapping}    BuiltIn.Create_Dictionary
