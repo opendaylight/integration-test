@@ -34,8 +34,7 @@ ${BGP_VARIABLES_FOLDER}         ${CURDIR}/../../../variables/bgpuser/
 ${COUNT}                        1
 ${HOLDTIME}                     180
 ${BGP_PEER_LOG_FILE}            bgp_peer.log
-${BGP_PEER_COMMAND}
-...                             python3 play.py --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${BGP_PEER_LOG_FILE} --bgpls True
+${BGP_PEER_COMMAND}             python3 play3.py --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${BGP_PEER_LOG_FILE} --bgpls True
 ${BGP_PEER_OPTIONS}             &>${BGP_PEER_LOG_FILE}
 ${DEFAULT_RIB_CHECK_PERIOD}     1s
 ${DEFAULT_RIB_CHECK_TIMEOUT}    10s
@@ -182,6 +181,6 @@ Setup_Everything
     SSHKeywords.Flexible_Mininet_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play3.py
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Setup_Karaf_Keywords
