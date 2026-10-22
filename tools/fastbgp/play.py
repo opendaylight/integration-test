@@ -1,4 +1,4 @@
-"""Utility for playing generated BGP data to ODL.
+"""Utility for playing generated BGP data to ODL supporting RFC 9857, RFC 9552, and SRv6 SID (NLRI Type 6).
 
 It needs to be run with sudo-able user when you want to use ports below 1024
 as --myip. This utility is used to avoid excessive waiting times which EXABGP
@@ -10,6 +10,8 @@ EXABGP in this type of scenario."""
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
+
+# FIXME: Add code comments as in play_old.py file, especially TODOs.
 
 from copy import deepcopy
 from xmlrpc.server import SimpleXMLRPCServer
@@ -62,7 +64,7 @@ def parse_arguments():
     parser.add_argument("--asnumber", default=64496, type=int, help=str_help)
     # FIXME: We are acting as iBGP peer,
     # we should mirror AS number from peer's open message.
-    str_help = "Amount of IP prefixes to generate. (negative means " "infinite" ")."
+    str_help = "Amount of IP prefixes to generate. (negative means infinite)."
     parser.add_argument("--amount", default="1", type=int, help=str_help)
     str_help = "Rpc server port."
     parser.add_argument("--port", default="8000", type=int, help=str_help)
@@ -179,29 +181,104 @@ def parse_arguments():
     str_help = "Link-State NLRI supported"
     parser.add_argument("--bgpls", default=False, type=bool, help=str_help)
     str_help = "Link-State NLRI: Identifier"
-    parser.add_argument("-lsid", default="1", type=int, help=str_help)
-    str_help = "Link-State NLRI: Tunnel ID"
-    parser.add_argument("-lstid", default="1", type=int, help=str_help)
-    str_help = "Link-State NLRI: LSP ID"
-    parser.add_argument("-lspid", default="1", type=int, help=str_help)
-    str_help = "Link-State NLRI: IPv4 Tunnel Sender Address"
+    parser.add_argument("-lsid", "--lsid", dest="lsid", default=1, type=int, help=str_help)
+    str_help = "Link-State NLRI: Policy Color"
     parser.add_argument(
-        "--lstsaddr", default="1.2.3.4", type=ipaddr.IPv4Address, help=str_help
+        "--color", "-lstid", dest="color", default=100, type=int, help=str_help
     )
-    str_help = "Link-State NLRI: IPv4 Tunnel End Point Address"
+    str_help = "Link-State NLRI: Discriminator"
     parser.add_argument(
-        "--lsteaddr", default="5.6.7.8", type=ipaddr.IPv4Address, help=str_help
+        "--discriminator",
+        "-lspid",
+        dest="discriminator",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Originator IP Address"
+    parser.add_argument(
+        "--originator-ip",
+        "--lstsaddr",
+        dest="originator_ip",
+        default=ipaddr.IPv4Address("1.2.3.4"),
+        type=ipaddr.IPv4Address,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Endpoint IP Address"
+    parser.add_argument(
+        "--endpoint-ip",
+        "--lsteaddr",
+        dest="endpoint_ip",
+        default=ipaddr.IPv4Address("5.6.7.8"),
+        type=ipaddr.IPv4Address,
+        help=str_help,
     )
     str_help = "Link-State NLRI: Identifier Step"
-    parser.add_argument("-lsidstep", default="1", type=int, help=str_help)
-    str_help = "Link-State NLRI: Tunnel ID Step"
-    parser.add_argument("-lstidstep", default="2", type=int, help=str_help)
-    str_help = "Link-State NLRI: LSP ID Step"
-    parser.add_argument("-lspidstep", default="4", type=int, help=str_help)
-    str_help = "Link-State NLRI: IPv4 Tunnel Sender Address Step"
-    parser.add_argument("-lstsaddrstep", default="16", type=int, help=str_help)
-    str_help = "Link-State NLRI: IPv4 Tunnel End Point Address Step"
-    parser.add_argument("-lsteaddrstep", default="1", type=int, help=str_help)
+    parser.add_argument(
+        "-lsidstep",
+        "--lsidstep",
+        "--lsid-step",
+        dest="lsidstep",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Policy Color Step"
+    parser.add_argument(
+        "--colorstep",
+        "--color-step",
+        "-lstidstep",
+        dest="colorstep",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Discriminator Step"
+    parser.add_argument(
+        "--discriminatorstep",
+        "--discriminator-step",
+        "-lspidstep",
+        dest="discriminatorstep",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Originator IP Address Step"
+    parser.add_argument(
+        "--originator-ip-step",
+        "--originatoripstep",
+        "-lstsaddrstep",
+        dest="originator_ip_step",
+        default=16,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Endpoint IP Address Step"
+    parser.add_argument(
+        "--endpoint-ip-step",
+        "--endpointipstep",
+        "-lsteaddrstep",
+        dest="endpoint_ip_step",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Protocol-Origin (range 0-255)"
+    parser.add_argument(
+        "--proto-origin",
+        dest="proto_origin",
+        default=3,
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Originator AS Number"
+    parser.add_argument(
+        "--originator-asn",
+        dest="originator_asn",
+        default=None,
+        type=int,
+        help=str_help,
+    )
     str_help = "How many play utilities are to be started."
     parser.add_argument("--multiplicity", default="1", type=int, help=str_help)
     str_help = "Open message includes multiprotocol extension capability l2vpn-evpn.\
@@ -233,16 +310,126 @@ def parse_arguments():
     )
     str_help = "Open message includes ipv6-unicast family, without message decoding."
     parser.add_argument("--ipv6", default=False, action="store_true", help=str_help)
+    str_help = (
+        "Open message includes IPv4 BGP Labeled Unicast (BGP-LU) capability, "
+        "without message decoding."
+    )
+    parser.add_argument("--bgplu", default=False, action="store_true", help=str_help)
     str_help = "Add all supported families without message decoding."
     parser.add_argument("--allf", default=False, action="store_true", help=str_help)
     parser.add_argument("--wfr", default=10, type=int, help="Wait for read timeout")
     str_help = "Skipping well known attributes for update message"
     parser.add_argument("--skipattr", default=False, action="store_true", help=str_help)
+
+    # CLI updates for NLRI Type 6 / Type 5 extensions
+    str_help = "Link-State NLRI Type: 5 (SR Policy) or 6 (SRv6 SID)"
+    parser.add_argument(
+        "--nlri-type",
+        default=6,
+        choices=[5, 6],
+        type=int,
+        help=str_help,
+    )
+    str_help = "Link-State NLRI: Protocol-ID (default: 9 for Type 5, 4 for Type 6)"
+    parser.add_argument(
+        "--protocol-id",
+        default=None,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 SID base IPv6 address"
+    parser.add_argument(
+        "--srv6-sid",
+        default=ipaddr.IPv6Address("2001:db8::1"),
+        type=ipaddr.IPv6Address,
+        help=str_help,
+    )
+    str_help = "SRv6 SID step"
+    parser.add_argument(
+        "--srv6-sid-step",
+        "--srv6-sidstep",
+        dest="srv6_sid_step",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Endpoint Behavior"
+    parser.add_argument(
+        "--srv6-endpoint-behavior",
+        default=1,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Algorithm"
+    parser.add_argument(
+        "--srv6-algorithm",
+        default=0,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Locator Block length"
+    parser.add_argument(
+        "--srv6-locator-block-len",
+        default=48,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Locator Node length"
+    parser.add_argument(
+        "--srv6-locator-node-len",
+        default=16,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Function length"
+    parser.add_argument(
+        "--srv6-function-len",
+        default=16,
+        type=int,
+        help=str_help,
+    )
+    str_help = "SRv6 Argument length"
+    parser.add_argument(
+        "--srv6-argument-len",
+        default=0,
+        type=int,
+        help=str_help,
+    )
+
     arguments = parser.parse_args()
     if arguments.multiplicity < 1:
         print("Multiplicity", arguments.multiplicity, "is not positive.")
         raise SystemExit(1)
-    # TODO: Are sanity checks (such as asnumber>=0) required?
+    if arguments.originator_asn is None:
+        arguments.originator_asn = arguments.asnumber
+    if not (0 <= arguments.proto_origin <= 255):
+        print("proto-origin", arguments.proto_origin, "is not in range 0-255.")
+        raise SystemExit(1)
+
+    arguments.color_step = arguments.colorstep
+    arguments.discriminator_step = arguments.discriminatorstep
+    arguments.lsid_step = arguments.lsidstep
+    arguments.originator_ip_step = arguments.originator_ip_step
+    arguments.endpoint_ip_step = arguments.endpoint_ip_step
+
+    # Set default protocol_id based on nlri_type if not specified
+    if arguments.protocol_id is None:
+        arguments.protocol_id = 9 if arguments.nlri_type == 5 else 4
+
+    # Length validation for Type 6
+    if arguments.nlri_type == 6:
+        total_len = (
+            arguments.srv6_locator_block_len
+            + arguments.srv6_locator_node_len
+            + arguments.srv6_function_len
+            + arguments.srv6_argument_len
+        )
+        if total_len > 128:
+            print(
+                f"Sum of SRv6 locator block, node, function, and argument lengths ({total_len}) exceeds 128."
+            )
+            raise SystemExit(1)
+
     return arguments
 
 
@@ -264,11 +451,9 @@ def establish_connection(arguments):
         logger.debug("Local port: " + str(arguments.myport))
         listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         listening_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        # bind need single tuple as argument
         listening_socket.bind((str(arguments.myip), arguments.myport))
         listening_socket.listen(1)
         bgp_socket, _ = listening_socket.accept()
-        # TODO: Verify client IP is cotroller IP.
         listening_socket.close()
     else:
         logger.info("Connecting in the talking mode.")
@@ -278,9 +463,7 @@ def establish_connection(arguments):
         logger.debug("Remote port: " + str(arguments.peerport))
         talking_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         talking_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        # bind to force specified address and port
         talking_socket.bind((str(arguments.myip), arguments.myport))
-        # socket does not spead ipaddr, hence str()
         talking_socket.connect((str(arguments.peerip), arguments.peerport))
         bgp_socket = talking_socket
     logger.info("Connected to ODL.")
@@ -294,7 +477,7 @@ def get_short_int_from_message(message, offset=16):
         :message: given message
         :offset: offset of the short_int inside the message
     Returns:
-        :return: required short_inf value.
+        :return: required short_int value.
     Notes:
         default offset value is the BGP message size offset.
     """
@@ -360,26 +543,21 @@ def read_open_message(bgp_socket):
     Returns:
         :return: received OPEN message.
     Notes:
-        Performs just basic incomming message checks
+        Performs just basic incoming message checks
     """
-    msg_in = bgp_socket.recv(65535)  # TODO: Is smaller buffer size safe?
-    # TODO: Can the incoming open message be split in more than one packet?
-    # Some validation.
+    msg_in = bgp_socket.recv(65535)
     if len(msg_in) < 37:
-        # 37 is minimal length of open message with 4-byte AS number.
         error_msg = (
             "Message length (" + str(len(msg_in)) + ") is smaller than "
             "minimal length of OPEN message with 4-byte AS number (37)"
         )
         logger.error(error_msg + ": " + binascii.hexlify(msg_in).decode())
         raise MessageError(error_msg, msg_in)
-    # TODO: We could check BGP marker, but it is defined only later;
-    # decide what to do.
     reported_length = get_short_int_from_message(msg_in)
     if len(msg_in) != reported_length:
         error_msg = (
             "Expected message length ("
-            + reported_length
+            + str(reported_length)
             + ") does not match actual length ("
             + str(len(msg_in))
             + ")"
@@ -393,22 +571,19 @@ def read_open_message(bgp_socket):
 class MessageGenerator(object):
     """Class which generates messages, holds states and configuration values."""
 
-    # TODO: Define bgp marker as a class (constant) variable.
     def __init__(self, args):
         """Initialisation according to command-line args.
 
         Arguments:
             :args: argsparser's Namespace object which contains command-line
-                options for MesageGenerator initialisation
+                options for MessageGenerator initialisation
         Notes:
             Calculates and stores default values used later on for
             message generation.
         """
         self.total_prefix_amount = args.amount
-        # Number of update messages left to be sent.
         self.remaining_prefixes = self.total_prefix_amount
 
-        # New parameters initialisation
         self.port = args.port
         self.iteration = 0
         self.prefix_base_default = args.firstprefix
@@ -417,7 +592,7 @@ class MessageGenerator(object):
         self.nlri_prefixes_default = []
         self.version_default = 4
         self.my_autonomous_system_default = args.asnumber
-        self.hold_time_default = args.holdtime  # Local hold time.
+        self.hold_time_default = args.holdtime
         self.bgp_identifier_default = int(args.myip)
         self.next_hop_default = args.nexthop
         self.originator_id_default = args.originator
@@ -429,7 +604,6 @@ class MessageGenerator(object):
         if self.prefix_count_to_del_default < 0:
             self.prefix_count_to_del_default = 0
         if self.prefix_count_to_add_default <= self.prefix_count_to_del_default:
-            # total number of prefixes must grow to avoid infinite test loop
             self.prefix_count_to_add_default = self.prefix_count_to_del_default + 1
         self.slot_size_default = self.prefix_count_to_add_default
         self.remaining_prefixes_threshold = self.total_prefix_amount - args.prefill
@@ -443,25 +617,69 @@ class MessageGenerator(object):
         self.l3vpn = args.l3vpn
         self.rt_constrain = args.rt_constrain
         self.ipv6 = args.ipv6
+        self.bgplu = args.bgplu
         self.allf = args.allf
         self.skipattr = args.skipattr
         self.grace = args.grace
+
         # Default values when BGP-LS Attributes are used
         if self.bgpls:
             self.prefix_count_to_add_default = 1
             self.prefix_count_to_del_default = 0
-        self.ls_nlri_default = {
-            "Identifier": args.lsid,
-            "TunnelID": args.lstid,
-            "LSPID": args.lspid,
-            "IPv4TunnelSenderAddress": args.lstsaddr,
-            "IPv4TunnelEndPointAddress": args.lsteaddr,
-        }
-        self.lsid_step = args.lsidstep
-        self.lstid_step = args.lstidstep
-        self.lspid_step = args.lspidstep
-        self.lstsaddr_step = args.lstsaddrstep
-        self.lsteaddr_step = args.lsteaddrstep
+
+        # Store NLRI type and protocol ID
+        self.nlri_type = args.nlri_type
+        self.protocol_id = args.protocol_id
+
+        # Stepping steps
+        self.lsid_step = getattr(args, "lsid_step", getattr(args, "lsidstep", 1))
+        self.srv6_sid_step = getattr(args, "srv6_sid_step", 1)
+
+        # Store base values
+        self.base_identifier = args.lsid
+        self.srv6_base_identifier = args.lsid
+        self.base_sid = getattr(args, "srv6_sid", None)
+        self.srv6_base_sid = getattr(args, "srv6_sid", None)
+
+        if self.nlri_type == 6:
+            self.srv6_nlri_default = {
+                "Behavior": args.srv6_endpoint_behavior,
+                "Algorithm": args.srv6_algorithm,
+                "LB_len": args.srv6_locator_block_len,
+                "LN_len": args.srv6_locator_node_len,
+                "Fun_len": args.srv6_function_len,
+                "Arg_len": args.srv6_argument_len,
+                "NodeASN": args.asnumber,
+                "BgpRouterID": int(args.myip),
+            }
+        else:
+            originator_asn = (
+                args.originator_asn
+                if getattr(args, "originator_asn", None) is not None
+                else args.asnumber
+            )
+            self.ls_nlri_default = {
+                "Identifier": args.lsid,
+                "ProtocolOrigin": args.proto_origin,
+                "Endpoint": args.endpoint_ip,
+                "Color": args.color,
+                "OriginatorASN": originator_asn,
+                "OriginatorAddress": args.originator_ip,
+                "Discriminator": args.discriminator,
+                "NodeASN": args.asnumber,
+                "BgpRouterID": int(args.myip),
+            }
+            self.color_step = getattr(args, "color_step", getattr(args, "colorstep", 1))
+            self.discriminator_step = getattr(
+                args, "discriminator_step", getattr(args, "discriminatorstep", 1)
+            )
+            self.originator_ip_step = getattr(
+                args, "originator_ip_step", getattr(args, "originatoripstep", 16)
+            )
+            self.endpoint_ip_step = getattr(
+                args, "endpoint_ip_step", getattr(args, "endpointipstep", 1)
+            )
+
         # Default values used for randomized part
         s1_slots = (
             int(
@@ -477,8 +695,6 @@ class MessageGenerator(object):
             )
             + 1
         )
-        # S1_First_Index = 0
-        # S1_Last_Index = s1_slots * self.prefix_count_to_add_default - 1
         s2_first_index = s1_slots * self.prefix_count_to_add_default
         s2_last_index = (
             s2_first_index
@@ -495,7 +711,7 @@ class MessageGenerator(object):
         )
         self.randomize_lowest_default = s2_first_index
         self.randomize_highest_default = s2_last_index
-        # Initialising counters
+
         self.phase1_start_time = 0
         self.phase1_stop_time = 0
         self.phase2_start_time = 0
@@ -506,15 +722,6 @@ class MessageGenerator(object):
 
         self.log_info = args.loglevel <= logging.INFO
         self.log_debug = args.loglevel <= logging.DEBUG
-        """
-        Flags needed for the MessageGenerator performance optimization.
-        Calling logger methods each iteration even with proper log level set
-        slows down significantly the MessageGenerator performance.
-        Measured total generation time (1M updates, dry run, error log level):
-        - logging based on basic logger features: 36,2s
-        - logging based on advanced logger features (lazy logging): 21,2s
-        - conditional calling of logger methods enclosed inside condition: 8,6s
-        """
 
         logger.info("Generator initialisation")
         logger.info(
@@ -574,8 +781,6 @@ class MessageGenerator(object):
             logger.info("  Generation of UPDATE messages will be randomized")
         logger.info("  Let's go ...\n")
 
-        # TODO: Notification for hold timer expiration can be handy.
-
     def store_results(self, file_name=None, threshold=None):
         """Stores specified results into files based on file_name value.
 
@@ -583,17 +788,13 @@ class MessageGenerator(object):
             :param file_name: Trailing (common) part of result file names
             :param threshold: Minimum number of sent updates needed for each
                               result to be included into result csv file
-                              (mainly needed because of the result accuracy)
         Returns:
             :return: n/a
         """
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if file_name is None:
             file_name = self.results_file_name_default
         if threshold is None:
             threshold = self.performance_threshold_default
-        # performance calculation
         if self.phase1_updates_sent >= threshold:
             totals1 = self.phase1_updates_sent
             performance1 = int(
@@ -635,7 +836,6 @@ class MessageGenerator(object):
         )
         logger.info("Threshold for performance reporting: " + str(threshold))
 
-        # making labels
         phase1_label = (
             "pre-fill " + str(self.prefix_count_to_add_default) + " route(s) per UPDATE"
         )
@@ -653,7 +853,6 @@ class MessageGenerator(object):
                 + str(self.prefix_count_to_del_default)
                 + " routes in two UPDATEs"
             )
-        # collecting capacity and performance results
         totals = {}
         performance = {}
         if totals1 is not None:
@@ -692,60 +891,68 @@ class MessageGenerator(object):
         finally:
             f.close()
 
-    # Return pseudo-randomized (reproducible) index for selected range
     def randomize_index(self, index, lowest=None, highest=None):
         """Calculates pseudo-randomized index from selected range.
 
         Arguments:
             :param index: input index
-            :param lowest: the lowes index from the randomized area
+            :param lowest: the lowest index from the randomized area
             :param highest: the highest index from the randomized area
         Returns:
             :return: the (pseudo)randomized index
-        Notes:
-            Created just as a fame for future generator enhancement.
         """
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if lowest is None:
             lowest = self.randomize_lowest_default
         if highest is None:
             highest = self.randomize_highest_default
-        # randomize
         if (index >= lowest) and (index <= highest):
-            # we are in the randomized range -> shuffle it inside
-            # the range (now just reverse the order)
             new_index = highest - (index - lowest)
         else:
-            # we are out of the randomized range -> nothing to do
             new_index = index
         return new_index
 
     def get_ls_nlri_values(self, index):
-        """Generates LS-NLRI parameters.
-        http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
+        """Generates LS-NLRI parameters for SR Policy Candidate Path (RFC 9857 / RFC 9552)
+        or SRv6 SID (NLRI Type 6).
 
         Arguments:
             :param index: index (iteration)
         Returns:
             :return: dictionary of LS NLRI parameters and values
         """
-        # generating list of LS NLRI parameters
-        identifier = self.ls_nlri_default["Identifier"] + int(index / self.lsid_step)
-        ipv4_tunnel_sender_address = self.ls_nlri_default[
-            "IPv4TunnelSenderAddress"
-        ] + int(index / self.lstsaddr_step)
-        tunnel_id = self.ls_nlri_default["TunnelID"] + int(index / self.lstid_step)
-        lsp_id = self.ls_nlri_default["LSPID"] + int(index / self.lspid_step)
-        ipv4_tunnel_endpoint_address = self.ls_nlri_default[
-            "IPv4TunnelEndPointAddress"
-        ] + int(index / self.lsteaddr_step)
+        if self.nlri_type == 6:
+            identifier = self.base_identifier + int(index / self.lsid_step)
+            sid = ipaddr.IPv6Address(int(self.base_sid) + int(index / self.srv6_sid_step))
+            srv6_nlri_values = self.srv6_nlri_default.copy()
+            srv6_nlri_values["Identifier"] = identifier
+            srv6_nlri_values["SID"] = sid
+            return srv6_nlri_values
+
+        identifier = self.ls_nlri_default["Identifier"] + int(
+            index / self.lsid_step
+        )
+        color = self.ls_nlri_default["Color"] + int(
+            index / self.color_step
+        )
+        discriminator = self.ls_nlri_default["Discriminator"] + int(
+            index / self.discriminator_step
+        )
+        originator_address = self.ls_nlri_default["OriginatorAddress"] + (
+            int(index / self.originator_ip_step) * 16
+        )
+        endpoint = self.ls_nlri_default["Endpoint"] + (
+            int(index / self.endpoint_ip_step) * 1
+        )
         ls_nlri_values = {
             "Identifier": identifier,
-            "IPv4TunnelSenderAddress": ipv4_tunnel_sender_address,
-            "TunnelID": tunnel_id,
-            "LSPID": lsp_id,
-            "IPv4TunnelEndPointAddress": ipv4_tunnel_endpoint_address,
+            "Color": color,
+            "Discriminator": discriminator,
+            "OriginatorAddress": originator_address,
+            "Endpoint": endpoint,
+            "ProtocolOrigin": self.ls_nlri_default["ProtocolOrigin"],
+            "OriginatorASN": self.ls_nlri_default["OriginatorASN"],
+            "NodeASN": self.ls_nlri_default["NodeASN"],
+            "BgpRouterID": self.ls_nlri_default["BgpRouterID"],
         }
         return ls_nlri_values
 
@@ -766,15 +973,13 @@ class MessageGenerator(object):
                 in [number of included prefixes]
             :param prefix_base: IP address of the first prefix
                 (slot_index = 0, prefix_index = 0)
-            :param prefix_len: length of the prefix in bites
+            :param prefix_len: length of the prefix in bits
                 (the same as size of netmask)
             :param prefix_count: number of prefixes to be returned
                 from the specified slot
         Returns:
             :return: list of generated IP address prefixes
         """
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if slot_size is None:
             slot_size = self.slot_size_default
         if prefix_base is None:
@@ -785,7 +990,7 @@ class MessageGenerator(object):
             prefix_count = slot_size
         if randomize is None:
             randomize = self.randomize_updates_default
-        # generating list of prefixes
+
         indexes = []
         prefixes = []
         prefix_gap = 2 ** (32 - prefix_len)
@@ -813,18 +1018,12 @@ class MessageGenerator(object):
             :param prefix_count_to_del: # of prefixes to put into WITHDRAWN list
         Returns:
             :return: encoded UPDATE message in HEX
-        Notes:
-            Optionally generates separate UPDATEs for NLRI and WITHDRAWN
-            lists or common message wich includes both prefix lists.
-            Updates global counters.
         """
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if prefix_count_to_add is None:
             prefix_count_to_add = self.prefix_count_to_add_default
         if prefix_count_to_del is None:
             prefix_count_to_del = self.prefix_count_to_del_default
-        # logging
+
         if self.log_info and not (self.iteration % 1000):
             logger.info(
                 "Iteration: "
@@ -837,14 +1036,14 @@ class MessageGenerator(object):
                 "#" * 10 + " Iteration: " + str(self.iteration) + " " + "#" * 10
             )
             logger.debug("Remaining prefixes: " + str(self.remaining_prefixes))
-        # scenario type & one-shot counter
+
         straightforward_scenario = (
             self.remaining_prefixes > self.remaining_prefixes_threshold
         )
         if straightforward_scenario:
             prefix_count_to_del = 0
             if self.log_debug:
-                logger.debug("--- STARAIGHTFORWARD SCENARIO ---")
+                logger.debug("--- STRAIGHTFORWARD SCENARIO ---")
             if not self.phase1_start_time:
                 self.phase1_start_time = time.time()
         else:
@@ -852,40 +1051,35 @@ class MessageGenerator(object):
                 logger.debug("--- COMBINED SCENARIO ---")
             if not self.phase2_start_time:
                 self.phase2_start_time = time.time()
-        # tailor the number of prefixes if needed
+
         prefix_count_to_add = prefix_count_to_del + min(
             prefix_count_to_add - prefix_count_to_del, self.remaining_prefixes
         )
-        # prefix slots selection for insertion and withdrawal
+
         slot_index_to_add = self.iteration
         slot_index_to_del = slot_index_to_add - self.slot_gap_default
-        # getting lists of prefixes for insertion in this iteration
+
         if self.log_debug:
             logger.debug("Prefixes to be inserted in this iteration:")
         prefix_list_to_add = self.get_prefix_list(
             slot_index_to_add, prefix_count=prefix_count_to_add
         )
-        # getting lists of prefixes for withdrawal in this iteration
+
         if self.log_debug:
             logger.debug("Prefixes to be withdrawn in this iteration:")
         prefix_list_to_del = self.get_prefix_list(
             slot_index_to_del, prefix_count=prefix_count_to_del
         )
-        # generating the UPDATE mesage with LS-NLRI only
+
         if self.bgpls:
             ls_nlri = self.get_ls_nlri_values(self.iteration)
             msg_out = self.update_message(wr_prefixes=[], nlri_prefixes=[], **ls_nlri)
         else:
-            # generating the UPDATE message with prefix lists
             if self.single_update_default:
-                # Send prefixes to be introduced and withdrawn
-                # in one UPDATE message
                 msg_out = self.update_message(
                     wr_prefixes=prefix_list_to_del, nlri_prefixes=prefix_list_to_add
                 )
             else:
-                # Send prefixes to be introduced and withdrawn
-                # in separate UPDATE messages (if needed)
                 msg_out = self.update_message(
                     wr_prefixes=[], nlri_prefixes=prefix_list_to_add
                 )
@@ -893,20 +1087,17 @@ class MessageGenerator(object):
                     msg_out += self.update_message(
                         wr_prefixes=prefix_list_to_del, nlri_prefixes=[]
                     )
-        # updating counters - who knows ... maybe I am last time here ;)
+
         if straightforward_scenario:
             self.phase1_stop_time = time.time()
             self.phase1_updates_sent = self.updates_sent
         else:
             self.phase2_stop_time = time.time()
             self.phase2_updates_sent = self.updates_sent - self.phase1_updates_sent
-        # updating totals for the next iteration
+
         self.iteration += 1
         self.remaining_prefixes -= prefix_count_to_add - prefix_count_to_del
-        # returning the encoded message
         return msg_out
-
-    # Section of message encoders
 
     def open_message(
         self,
@@ -925,9 +1116,6 @@ class MessageGenerator(object):
         Returns:
             :return: encoded OPEN message in HEX
         """
-
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if version is None:
             version = self.version_default
         if my_autonomous_system is None:
@@ -937,170 +1125,167 @@ class MessageGenerator(object):
         if bgp_identifier is None:
             bgp_identifier = self.bgp_identifier_default
 
-        # Marker
-        marker_hex = b"\xFF" * 16
-
-        # Type
+        marker_hex = b"\xff" * 16
         type = 1
         type_hex = struct.pack("B", type)
-
-        # version
         version_hex = struct.pack("B", version)
 
-        # my_autonomous_system
-        # AS_TRANS value, 23456 decadic.
         my_autonomous_system_2_bytes = 23456
-        # AS number is mappable to 2 bytes
         if my_autonomous_system < 65536:
             my_autonomous_system_2_bytes = my_autonomous_system
         my_autonomous_system_hex_2_bytes = struct.pack(">H", my_autonomous_system)
 
-        # Hold Time
         hold_time_hex = struct.pack(">H", hold_time)
-
-        # BGP Identifier
         bgp_identifier_hex = struct.pack(">I", bgp_identifier)
 
-        # Optional Parameters
         optional_parameters_hex = b""
         if self.rfc4760 or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Capability type (NLRI Unicast),
-                # see RFC 4760, secton 8
-                b"\x04"  # Capability value length
-                b"\x00\x01"  # AFI (Ipv4)
-                b"\x00"  # (reserved)
-                b"\x01"  # SAFI (Unicast)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x01"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.ipv6 or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x02"  # AFI (IPV6)
-                b"\x00"  # (reserved)
-                b"\x01"  # SAFI (UNICAST)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x02"
+                b"\x00"
+                b"\x01"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.bgpls or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Capability type (NLRI Unicast),
-                # see RFC 4760, secton 8
-                b"\x04"  # Capability value length
-                b"\x40\x04"  # AFI (BGP-LS)
-                b"\x00"  # (reserved)
-                b"\x47"  # SAFI (BGP-LS)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x40\x04"
+                b"\x00"
+                b"\x47"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.evpn or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x19"  # AFI (L2-VPN)
-                b"\x00"  # (reserved)
-                b"\x46"  # SAFI (EVPN)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x19"
+                b"\x00"
+                b"\x46"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.mvpn or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x01"  # AFI (IPV4)
-                b"\x00"  # (reserved)
-                b"\x05"  # SAFI (MCAST-VPN)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x05"
             )
             optional_parameters_hex += optional_parameter_hex
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x02"  # AFI (IPV6)
-                b"\x00"  # (reserved)
-                b"\x05"  # SAFI (MCAST-VPN)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x02"
+                b"\x00"
+                b"\x05"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.l3vpn_mcast or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x01"  # AFI (IPV4)
-                b"\x00"  # (reserved)
-                b"\x81"  # SAFI (L3VPN-MCAST)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x81"
             )
             optional_parameters_hex += optional_parameter_hex
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x02"  # AFI (IPV6)
-                b"\x00"  # (reserved)
-                b"\x81"  # SAFI (L3VPN-MCAST)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x02"
+                b"\x00"
+                b"\x81"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.l3vpn or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x01"  # AFI (IPV4)
-                b"\x00"  # (reserved)
-                b"\x80"  # SAFI (L3VPN-UNICAST)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x80"
             )
             optional_parameters_hex += optional_parameter_hex
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x02"  # AFI (IPV6)
-                b"\x00"  # (reserved)
-                b"\x80"  # SAFI (L3VPN-UNICAST)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x02"
+                b"\x00"
+                b"\x80"
             )
             optional_parameters_hex += optional_parameter_hex
 
         if self.rt_constrain or self.allf:
             optional_parameter_hex = (
-                b"\x02"  # Param type ("Capability Ad")
-                b"\x06"  # Length (6 bytes)
-                b"\x01"  # Multiprotocol extetension capability,
-                b"\x04"  # Capability value length
-                b"\x00\x01"  # AFI (IPV4)
-                b"\x00"  # (reserved)
-                b"\x84"  # SAFI (ROUTE-TARGET-CONSTRAIN)
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x84"
+            )
+            optional_parameters_hex += optional_parameter_hex
+
+        if self.bgplu or self.allf:
+            optional_parameter_hex = (
+                b"\x02"
+                b"\x06"
+                b"\x01"
+                b"\x04"
+                b"\x00\x01"
+                b"\x00"
+                b"\x04"
             )
             optional_parameters_hex += optional_parameter_hex
 
         optional_parameter_hex = (
-            b"\x02"  # Param type ("Capability Ad")
-            b"\x06"  # Length (6 bytes)
-            b"\x41"  # "32 bit AS Numbers Support"
-            # (see RFC 6793, section 3)
-            b"\x04"  # Capability value length
+            b"\x02"
+            b"\x06"
+            b"\x41"
+            b"\x04"
         )
         optional_parameter_hex += struct.pack(
             ">I", my_autonomous_system
-        )  # My AS in 32 bit format
+        )
         optional_parameters_hex += optional_parameter_hex
 
         if self.grace != 8:
@@ -1121,27 +1306,14 @@ class MessageGenerator(object):
             else:
                 ll_gr = b""
             logger.debug("Grace parameters list: {}".format(b))
-            # "\x02" Param type ("Capability Ad")
-            # :param length: Length of whole message
-            # "\x40" Graceful-restart capability
-            # "\x06" Length (6 bytes)
-            # "\x00" Restart Flag (customizable - turned on when grace == 2,3,6,7)
-            # "\x05" Restart timer (5sec)
-            # "\x00\x01" AFI (IPV4)
-            # "\x01"  SAFI (Unicast)
-            # "\x00"  Ipv4 Flag (customizable - turned on when grace == 1,3,5,7)
-            # "\x47\x07\x00\x01\x01\x00\x00\x00\x1e" ipv4 ll-graceful-restart capability, timer 30sec
-            # ll-gr turned on when grace is between 4-7
             optional_parameter_hex = (
                 f"\x02{length}\x40\x06{restart_flag}\x00\x01\x01{ipv4_flag}{ll_gr}"
             )
             optional_parameters_hex += optional_parameter_hex
 
-        # Optional Parameters Length
         optional_parameters_length = len(optional_parameters_hex)
         optional_parameters_length_hex = struct.pack("B", optional_parameters_length)
 
-        # Length (big-endian)
         length = (
             len(marker_hex)
             + 2
@@ -1155,7 +1327,6 @@ class MessageGenerator(object):
         )
         length_hex = struct.pack(">H", length)
 
-        # OPEN Message
         message_hex = (
             marker_hex
             + length_hex
@@ -1253,9 +1424,6 @@ class MessageGenerator(object):
         Returns:
             :return: encoded UPDATE message in HEX
         """
-
-        # default values handling
-        # TODO optimize default values handling (use e.g. dicionary.update() approach)
         if wr_prefixes is None:
             wr_prefixes = self.wr_prefixes_default
         if nlri_prefixes is None:
@@ -1272,123 +1440,218 @@ class MessageGenerator(object):
             originator_id = self.originator_id_default
         if cluster_list_item is None:
             cluster_list_item = self.cluster_list_item_default
-        ls_nlri = self.ls_nlri_default.copy()
+
+        if self.nlri_type == 6:
+            ls_nlri = self.srv6_nlri_default.copy()
+            ls_nlri["Identifier"] = self.base_identifier
+            ls_nlri["SID"] = self.base_sid
+        else:
+            ls_nlri = self.ls_nlri_default.copy()
         ls_nlri.update(ls_nlri_params)
 
-        # Marker
-        marker_hex = b"\xFF" * 16
-
-        # Type
+        marker_hex = b"\xff" * 16
         type = 2
         type_hex = struct.pack("B", type)
 
-        # Withdrawn Routes
         withdrawn_routes_hex = b""
         if not self.bgpls:
-            bytes = int((wr_prefix_length - 1) / 8) + 1
+            bytes_count = int((wr_prefix_length - 1) / 8) + 1
             for prefix in wr_prefixes:
                 withdrawn_route_hex = (
                     struct.pack("B", wr_prefix_length)
-                    + struct.pack(">I", int(prefix))[:bytes]
+                    + struct.pack(">I", int(prefix))[:bytes_count]
                 )
                 withdrawn_routes_hex += withdrawn_route_hex
 
-        # Withdrawn Routes Length
         withdrawn_routes_length = len(withdrawn_routes_hex)
         withdrawn_routes_length_hex = struct.pack(">H", withdrawn_routes_length)
 
-        # TODO: to replace hardcoded string by encoding?
-        # Path Attributes
         path_attributes_hex = b""
         if not self.skipattr:
             path_attributes_hex += (
-                b"\x40"  # Flags ("Well-Known")
-                b"\x01"  # Type (ORIGIN)
-                b"\x01"  # Length (1)
-                b"\x00"  # Origin: IGP
+                b"\x40"
+                b"\x01"
+                b"\x01"
+                b"\x00"
             )
             path_attributes_hex += (
-                b"\x40"  # Flags ("Well-Known")
-                b"\x02"  # Type (AS_PATH)
-                b"\x06"  # Length (6)
-                b"\x02"  # AS segment type (AS_SEQUENCE)
-                b"\x01"  # AS segment length (1)
+                b"\x40"
+                b"\x02"
+                b"\x06"
+                b"\x02"
+                b"\x01"
             )
             my_as_hex = struct.pack(">I", my_autonomous_system)
-            path_attributes_hex += my_as_hex  # AS segment (4 bytes)
+            path_attributes_hex += my_as_hex
             path_attributes_hex += (
-                b"\x40"  # Flags ("Well-Known")
-                b"\x05"  # Type (LOCAL_PREF)
-                b"\x04"  # Length (4)
-                b"\x00\x00\x00\x64"  # (100)
+                b"\x40"
+                b"\x05"
+                b"\x04"
+                b"\x00\x00\x00\x64"
             )
         if nlri_prefixes != []:
             path_attributes_hex += (
-                b"\x40"  # Flags ("Well-Known")
-                b"\x03"  # Type (NEXT_HOP)
-                b"\x04"  # Length (4)
+                b"\x40"
+                b"\x03"
+                b"\x04"
             )
             next_hop_hex = struct.pack(">I", int(next_hop))
-            path_attributes_hex += next_hop_hex  # IP address of the next hop (4 bytes)
+            path_attributes_hex += next_hop_hex
             if originator_id is not None:
                 path_attributes_hex += (
-                    b"\x80"  # Flags ("Optional, non-transitive")
-                    b"\x09"  # Type (ORIGINATOR_ID)
-                    b"\x04"  # Length (4)
-                )  # ORIGINATOR_ID (4 bytes)
+                    b"\x80"
+                    b"\x09"
+                    b"\x04"
+                )
                 path_attributes_hex += struct.pack(">I", int(originator_id))
             if cluster_list_item is not None:
                 path_attributes_hex += (
-                    b"\x80"  # Flags ("Optional, non-transitive")
-                    b"\x0a"  # Type (CLUSTER_LIST)
-                    b"\x04"  # Length (4)
-                )  # one CLUSTER_LIST item (4 bytes)
+                    b"\x80"
+                    b"\x0a"
+                    b"\x04"
+                )
                 path_attributes_hex += struct.pack(">I", int(cluster_list_item))
 
         if self.bgpls and not end_of_rib:
-            path_attributes_hex += (
-                b"\x80"  # Flags ("Optional, non-transitive")
-                b"\x0e"  # Type (MP_REACH_NLRI)
-                b"\x22"  # Length (34)
-                b"\x40\x04"  # AFI (BGP-LS)
-                b"\x47"  # SAFI (BGP-LS)
-                b"\x04"  # Next Hop Length (4)
-            )
-            path_attributes_hex += struct.pack(">I", int(next_hop))
-            path_attributes_hex += b"\x00"  # Reserved
-            path_attributes_hex += (
-                b"\x00\x05"  # LS-NLRI.NLRIType (IPv4 TE LSP NLRI)
-                b"\x00\x15"  # LS-NLRI.TotalNLRILength (21)
-                b"\x07"  # LS-NLRI.Variable.ProtocolID (RSVP-TE)
-            )
-            path_attributes_hex += struct.pack(">Q", int(ls_nlri["Identifier"]))
-            path_attributes_hex += struct.pack(
-                ">I", int(ls_nlri["IPv4TunnelSenderAddress"])
-            )
-            path_attributes_hex += struct.pack(">H", int(ls_nlri["TunnelID"]))
-            path_attributes_hex += struct.pack(">H", int(ls_nlri["LSPID"]))
-            path_attributes_hex += struct.pack(
-                ">I", int(ls_nlri["IPv4TunnelEndPointAddress"])
-            )
+            if self.nlri_type == 5:
+                # Branch A (Type 5): Preserved play2.py logic verbatim
+                # Sub-TLVs for Local Node Descriptors TLV (TLV 256)
+                sub_tlv_512 = struct.pack(">HH", 512, 4) + struct.pack(
+                    ">I", int(ls_nlri["NodeASN"])
+                )
+                sub_tlv_516 = struct.pack(">HH", 516, 4) + struct.pack(
+                    ">I", int(ls_nlri["BgpRouterID"])
+                )
+                sub_tlv_1028 = struct.pack(">HH", 1028, 4) + struct.pack(
+                    ">I", int(ls_nlri["OriginatorAddress"])
+                )
+                tlv_256_val = sub_tlv_512 + sub_tlv_516 + sub_tlv_1028
+                tlv_256 = struct.pack(">HH", 256, len(tlv_256_val)) + tlv_256_val
 
-        # Total Path Attributes Length
+                # SR Policy Candidate Path Descriptor TLV (TLV 554)
+                tlv_554_val = (
+                    struct.pack("B", int(ls_nlri["ProtocolOrigin"]))
+                    + b"\x00"
+                    + b"\x00\x00"
+                    + struct.pack(">I", int(ls_nlri["Endpoint"]))
+                    + struct.pack(">I", int(ls_nlri["Color"]))
+                    + struct.pack(">I", int(ls_nlri["OriginatorASN"]))
+                    + struct.pack(">I", int(ls_nlri["OriginatorAddress"]))
+                    + struct.pack(">I", int(ls_nlri["Discriminator"]))
+                )
+                tlv_554 = struct.pack(">HH", 554, len(tlv_554_val)) + tlv_554_val
+
+                # Link-State NLRI Framing (Type 5)
+                nlri_content = (
+                    struct.pack("B", self.protocol_id)
+                    + struct.pack(">Q", int(ls_nlri["Identifier"]))
+                    + tlv_256
+                    + tlv_554
+                )
+                nlri = struct.pack(">HH", 5, len(nlri_content)) + nlri_content
+
+                # MP_REACH_NLRI attribute content
+                mp_reach_content = (
+                    b"\x40\x04"
+                    b"\x47"
+                    b"\x04"
+                    + struct.pack(">I", int(next_hop))
+                    + b"\x00"
+                    + nlri
+                )
+
+                path_attributes_hex += (
+                    b"\x80"
+                    b"\x0e"
+                    + struct.pack("B", len(mp_reach_content))
+                    + mp_reach_content
+                )
+
+            elif self.nlri_type == 6:
+                # Branch B (Type 6): SRv6 SID
+                # 1. TLV 256 (Local Node Descriptors): Sub-TLV 512 + Sub-TLV 516 (no Sub-TLV 1028)
+                sub_tlv_512 = struct.pack(">HH", 512, 4) + struct.pack(
+                    ">I", int(ls_nlri["NodeASN"])
+                )
+                sub_tlv_516 = struct.pack(">HH", 516, 4) + struct.pack(
+                    ">I", int(ls_nlri["BgpRouterID"])
+                )
+                tlv_256_val = sub_tlv_512 + sub_tlv_516
+                tlv_256 = struct.pack(">HH", 256, len(tlv_256_val)) + tlv_256_val
+
+                # 2. TLV 518 (SRv6 SID Info): 16-byte IPv6 SID
+                tlv_518_val = int(ls_nlri["SID"]).to_bytes(16, "big")
+                tlv_518 = struct.pack(">HH", 518, len(tlv_518_val)) + tlv_518_val
+
+                # 3. Link-State NLRI Framing: Protocol-ID + Identifier + TLV 256 + TLV 518
+                nlri_content = (
+                    struct.pack("B", self.protocol_id)
+                    + struct.pack(">Q", int(ls_nlri["Identifier"]))
+                    + tlv_256
+                    + tlv_518
+                )
+                nlri = struct.pack(">HH", 6, len(nlri_content)) + nlri_content
+
+                # 4. MP_REACH_NLRI (Attribute 14)
+                mp_reach_content = (
+                    b"\x40\x04"  # AFI (BGP-LS = 16388)
+                    b"\x47"  # SAFI (BGP-LS = 71)
+                    b"\x04"  # Length of Next Hop Network Address (4 octets)
+                    + struct.pack(">I", int(next_hop))  # Next Hop IPv4 Address
+                    + b"\x00"  # Reserved
+                    + nlri  # 53 octets (4-octet header + 49-octet content)
+                )
+
+                path_attributes_hex += (
+                    b"\x80"
+                    b"\x0e"
+                    + struct.pack("B", len(mp_reach_content))
+                    + mp_reach_content
+                )
+
+                # 5. BGP-LS Attribute (Attribute 29)
+                # TLV 1250 (Endpoint Behavior)
+                tlv_1250_val = (
+                    struct.pack(">H", int(ls_nlri["Behavior"]))
+                    + b"\x00"
+                    + struct.pack("B", int(ls_nlri["Algorithm"]))
+                )
+                tlv_1250 = struct.pack(">HH", 1250, len(tlv_1250_val)) + tlv_1250_val
+
+                # TLV 1252 (SID Structure)
+                tlv_1252_val = struct.pack(
+                    "BBBB",
+                    int(ls_nlri["LB_len"]),
+                    int(ls_nlri["LN_len"]),
+                    int(ls_nlri["Fun_len"]),
+                    int(ls_nlri["Arg_len"]),
+                )
+                tlv_1252 = struct.pack(">HH", 1252, len(tlv_1252_val)) + tlv_1252_val
+
+                # Wrap both TLVs in Attribute 29 header
+                attr_29_content = tlv_1250 + tlv_1252
+                path_attributes_hex += (
+                    b"\x80"
+                    b"\x1d"
+                    + struct.pack("B", len(attr_29_content))
+                    + attr_29_content
+                )
+
         total_path_attributes_length = len(path_attributes_hex)
         total_path_attributes_length_hex = struct.pack(
             ">H", total_path_attributes_length
         )
 
-        # Network Layer Reachability Information
         nlri_hex = b""
         if not self.bgpls:
-            bytes = int((nlri_prefix_length - 1) / 8) + 1
+            bytes_count = int((nlri_prefix_length - 1) / 8) + 1
             for prefix in nlri_prefixes:
                 nlri_prefix_hex = (
                     struct.pack("B", nlri_prefix_length)
-                    + struct.pack(">I", int(prefix))[:bytes]
+                    + struct.pack(">I", int(prefix))[:bytes_count]
                 )
                 nlri_hex += nlri_prefix_hex
 
-        # Length (big-endian)
         length = (
             len(marker_hex)
             + 2
@@ -1401,7 +1664,6 @@ class MessageGenerator(object):
         )
         length_hex = struct.pack(">H", length)
 
-        # UPDATE Message
         message_hex = (
             marker_hex
             + length_hex
@@ -1471,7 +1733,14 @@ class MessageGenerator(object):
                 if cluster_list_item is not None:
                     logger.debug("    Cluster list=" + str(cluster_list_item))
                 if self.bgpls:
-                    logger.debug("    MP_REACH_NLRI: %s", ls_nlri)
+                    if self.nlri_type == 6:
+                        logger.debug(
+                            "    MP_REACH_NLRI: Identifier: %s, SID: %s",
+                            ls_nlri.get("Identifier"),
+                            ls_nlri.get("SID"),
+                        )
+                    else:
+                        logger.debug("    MP_REACH_NLRI: %s", ls_nlri)
             logger.debug(
                 "  Network Layer Reachability Information="
                 + str(nlri_prefixes)
@@ -1485,9 +1754,7 @@ class MessageGenerator(object):
                 "UPDATE message encoded: 0x" + binascii.b2a_hex(message_hex).decode()
             )
 
-        # updating counter
         self.updates_sent += 1
-        # returning encoded message
         return message_hex
 
     def notification_message(self, error_code, error_subcode, data_hex=b""):
@@ -1500,21 +1767,12 @@ class MessageGenerator(object):
         Returns:
             :return: encoded NOTIFICATION message in HEX
         """
-
-        # Marker
-        marker_hex = b"\xFF" * 16
-
-        # Type
+        marker_hex = b"\xff" * 16
         type = 3
         type_hex = struct.pack("B", type)
-
-        # Error Code
         error_code_hex = struct.pack("B", error_code)
-
-        # Error Subode
         error_subcode_hex = struct.pack("B", error_subcode)
 
-        # Length (big-endian)
         length = (
             len(marker_hex)
             + 2
@@ -1525,7 +1783,6 @@ class MessageGenerator(object):
         )
         length_hex = struct.pack(">H", length)
 
-        # NOTIFICATION Message
         message_hex = (
             marker_hex
             + length_hex
@@ -1560,7 +1817,7 @@ class MessageGenerator(object):
                 + ")"
             )
             logger.debug(
-                "  Error Subode="
+                "  Error Subcode="
                 + str(error_subcode)
                 + " (0x"
                 + binascii.hexlify(error_subcode_hex).decode()
@@ -1579,19 +1836,11 @@ class MessageGenerator(object):
         Returns:
             :return: encoded KEEP ALIVE message in HEX
         """
-
-        # Marker
-        marker_hex = b"\xFF" * 16
-
-        # Type
+        marker_hex = b"\xff" * 16
         type = 4
         type_hex = struct.pack("B", type)
-
-        # Length (big-endian)
         length = len(marker_hex) + 2 + len(type_hex)
         length_hex = struct.pack(">H", length)
-
-        # KEEP ALIVE Message
         message_hex = marker_hex + length_hex + type_hex
 
         if self.log_debug:
@@ -1620,26 +1869,16 @@ class MessageGenerator(object):
 
 
 class TimeTracker(object):
-    """Class for tracking timers, both for my keepalives and
-    peer's hold time.
-    """
+    """Class for tracking timers, both for my keepalives and peer's hold time."""
 
     def __init__(self, msg_in):
-        """Initialisation. based on defaults and OPEN message from peer.
+        """Initialisation based on defaults and OPEN message from peer.
 
         Arguments:
             msg_in: the OPEN message received from peer.
         """
-        # Note: Relative time is always named timedelta, to stress that
-        # the (non-delta) time is absolute.
-        self.report_timedelta = 1.0  # In seconds. TODO: Configurable?
-        # Upper bound for being stuck in the same state, we should
-        # at least report something before continuing.
-        # Negotiate the hold timer by taking the smaller
-        # of the 2 values (mine and the peer's).
-        hold_timedelta = 180  # Not an attribute of self yet.
-        # TODO: Make the default value configurable,
-        # default value could mirror what peer said.
+        self.report_timedelta = 1.0
+        hold_timedelta = 180
         peer_hold_timedelta = get_short_int_from_message(msg_in, offset=22)
         if hold_timedelta > peer_hold_timedelta:
             hold_timedelta = peer_hold_timedelta
@@ -1647,30 +1886,19 @@ class TimeTracker(object):
             logger.error("Invalid hold timedelta value: " + str(hold_timedelta))
             raise ValueError("Invalid hold timedelta value: ", hold_timedelta)
         self.hold_timedelta = hold_timedelta
-        # If we do not hear from peer this long, we assume it has died.
         self.keepalive_timedelta = int(hold_timedelta / 3.0)
-        # Upper limit for duration between messages, to avoid being
-        # declared to be dead.
-        # The same as calling snapshot(), but also declares a field.
         self.snapshot_time = time.time()
-        # Sometimes we need to store time. This is where to get
-        # the value from afterwards. Time_keepalive may be too strict.
         self.peer_hold_time = self.snapshot_time + self.hold_timedelta
-        # At this time point, peer will be declared dead.
-        self.my_keepalive_time = None  # to be set later
-        # At this point, we should be sending keepalive message.
+        self.my_keepalive_time = None
 
     def snapshot(self):
         """Store current time in instance data to use later."""
-        # Read as time before something interesting was called.
         self.snapshot_time = time.time()
 
     def reset_peer_hold_time(self):
         """Move hold time to future as peer has just proven it still lives."""
         self.peer_hold_time = time.time() + self.hold_timedelta
 
-    # Some methods could rely on self.snapshot_time, but it is better
-    # to require user to provide it explicitly.
     def reset_my_keepalive_time(self, keepalive_time):
         """Calculate and set the next my KEEP ALIVE timeout time
 
@@ -1680,7 +1908,7 @@ class TimeTracker(object):
         self.my_keepalive_time = keepalive_time + self.keepalive_timedelta
 
     def is_time_for_my_keepalive(self):
-        """Check for my KEEP ALIVE timeout occurence"""
+        """Check for my KEEP ALIVE timeout occurrence"""
         if self.hold_timedelta == 0:
             return False
         return self.snapshot_time >= self.my_keepalive_time
@@ -1693,21 +1921,14 @@ class TimeTracker(object):
 
     def check_peer_hold_time(self, snapshot_time):
         """Raise error if nothing was read from peer until specified time."""
-        # Hold time = 0 means keepalive checking off.
         if self.hold_timedelta != 0:
-            # time.time() may be too strict
             if snapshot_time > self.peer_hold_time:
                 logger.error("Peer has overstepped the hold timer.")
                 raise RuntimeError("Peer has overstepped the hold timer.")
-                # TODO: Include hold_timedelta?
-                # TODO: Add notification sending (attempt). That means
-                # move to write tracker.
 
 
 class ReadTracker(object):
-    """Class for tracking read of mesages chunk by chunk and
-    for idle waiting.
-    """
+    """Class for tracking read of messages chunk by chunk and for idle waiting."""
 
     def __init__(
         self,
@@ -1721,6 +1942,7 @@ class ReadTracker(object):
         l3vpn=False,
         rt_constrain=False,
         ipv6=False,
+        bgplu=False,
         grace=8,
         wait_for_read=10,
     ):
@@ -1736,22 +1958,15 @@ class ReadTracker(object):
             l3vpn_mcast: flag that l3vpn_mcast functionality is tested
             l3vpn: flag that l3vpn unicast functionality is tested
             rt_constrain: flag that rt-constrain functionality is tested
+            bgplu: flag that BGP-LU functionality is tested
             allf: flag for all family testing.
         """
-        # References to outside objects.
         self.socket = bgp_socket
         self.timer = timer
-        # BGP marker length plus length field length.
         self.header_length = 18
-        # TODO: make it class (constant) attribute
-        # Computation of where next chunk ends depends on whether
-        # we are beyond length field.
         self.reading_header = True
-        # Countdown towards next size computation.
         self.bytes_to_read = self.header_length
-        # Incremental buffer for message under read.
         self.msg_in = b""
-        # Initialising counters
         self.updates_received = 0
         self.prefixes_introduced = 0
         self.prefixes_withdrawn = 0
@@ -1764,39 +1979,24 @@ class ReadTracker(object):
         self.l3vpn = l3vpn
         self.rt_constrain = rt_constrain
         self.ipv6 = ipv6
+        self.bgplu = bgplu
         self.allf = allf
         self.wfr = wait_for_read
         self.grace = grace
 
     def read_message_chunk(self):
-        """Read up to one message
-
-        Note:
-            Currently it does not return anything.
-        """
-        # TODO: We could return the whole message, currently not needed.
-        # We assume the socket is readable.
+        """Read up to one message"""
         chunk_message = self.socket.recv(self.bytes_to_read)
         self.msg_in += chunk_message
         self.bytes_to_read -= len(chunk_message)
-        # TODO: bytes_to_read < 0 is not possible, right?
         if not self.bytes_to_read:
-            # Finished reading a logical block.
             if self.reading_header:
-                # The logical block was a BGP header.
-                # Now we know the size of the message.
                 self.reading_header = False
                 self.bytes_to_read = (
                     get_short_int_from_message(self.msg_in) - self.header_length
                 )
-            else:  # We have finished reading the body of the message.
-                # Peer has just proven it is still alive.
+            else:
                 self.timer.reset_peer_hold_time()
-                # TODO: Do we want to count received messages?
-                # This version ignores the received message.
-                # TODO: Should we do validation and exit on anything
-                # besides update or keepalive?
-                # Prepare state for reading another message.
                 message_type_hex = self.msg_in[
                     self.header_length : self.header_length + 1
                 ]
@@ -1829,15 +2029,13 @@ class ReadTracker(object):
                 self.msg_in = b""
                 self.reading_header = True
                 self.bytes_to_read = self.header_length
-        # We should not act upon peer_hold_time if we are reading
-        # something right now.
         return
 
     def decode_path_attributes(self, path_attributes_hex):
         """Decode the Path Attributes field (rfc4271#section-4.3)
 
         Arguments:
-            :path_attributes: path_attributes field to be decoded in hex
+            :path_attributes_hex: path_attributes field to be decoded in hex
         Returns:
             :return: None
         """
@@ -1846,9 +2044,6 @@ class ReadTracker(object):
         while len(hex_to_decode):
             attr_flags_hex = hex_to_decode[0:1]
             attr_flags = int(binascii.b2a_hex(attr_flags_hex), 16)
-            #            attr_optional_bit = attr_flags & 128
-            #            attr_transitive_bit = attr_flags & 64
-            #            attr_partial_bit = attr_flags & 32
             attr_extended_length_bit = attr_flags & 16
 
             attr_type_code_hex = hex_to_decode[1:2]
@@ -1907,19 +2102,19 @@ class ReadTracker(object):
                     binascii.b2a_hex(attr_flags_hex),
                 )
                 logger.debug("Attribute value=0x%s", binascii.b2a_hex(attr_value_hex))
-            elif attr_type_code == 9:  # rfc4456#section-8
+            elif attr_type_code == 9:
                 logger.debug(
                     "Attribute type=9 (ORIGINATOR_ID, flags:0x%s)",
                     binascii.b2a_hex(attr_flags_hex),
                 )
                 logger.debug("Attribute value=0x%s", binascii.b2a_hex(attr_value_hex))
-            elif attr_type_code == 10:  # rfc4456#section-8
+            elif attr_type_code == 10:
                 logger.debug(
                     "Attribute type=10 (CLUSTER_LIST, flags:0x%s)",
                     binascii.b2a_hex(attr_flags_hex),
                 )
                 logger.debug("Attribute value=0x%s", binascii.b2a_hex(attr_value_hex))
-            elif attr_type_code == 14:  # rfc4760#section-3
+            elif attr_type_code == 14:
                 logger.debug(
                     "Attribute type=14 (MP_REACH_NLRI, flags:0x%s)",
                     binascii.b2a_hex(attr_flags_hex),
@@ -1965,8 +2160,8 @@ class ReadTracker(object):
                 logger.debug("  NLRI prefix list: %s", nlri_prefix_list)
                 for prefix in nlri_prefix_list:
                     logger.debug("  nlri_prefix_received: %s", prefix)
-                self.prefixes_introduced += len(nlri_prefix_list)  # update counter
-            elif attr_type_code == 15:  # rfc4760#section-4
+                self.prefixes_introduced += len(nlri_prefix_list)
+            elif attr_type_code == 15:
                 logger.debug(
                     "Attribute type=15 (MP_UNREACH_NLRI, flags:0x%s)",
                     binascii.b2a_hex(attr_flags_hex),
@@ -1988,7 +2183,7 @@ class ReadTracker(object):
                 logger.debug("  Withdrawn routes prefix list: %s", wdr_prefix_list)
                 for prefix in wdr_prefix_list:
                     logger.debug("  withdrawn_prefix_received: %s", prefix)
-                self.prefixes_withdrawn += len(wdr_prefix_list)  # update counter
+                self.prefixes_withdrawn += len(wdr_prefix_list)
             else:
                 logger.debug(
                     "Unknown attribute type=%s, flags:0x%s)",
@@ -2009,21 +2204,17 @@ class ReadTracker(object):
             :return: None
         """
         logger.debug("Decoding update message:")
-        # message header - marker
         marker_hex = msg[:16]
         logger.debug("Message header marker: 0x%s", binascii.b2a_hex(marker_hex))
-        # message header - message length
         msg_length_hex = msg[16:18]
         msg_length = int(binascii.b2a_hex(msg_length_hex), 16)
         logger.debug(
-            "Message lenght: 0x%s (%s)", binascii.b2a_hex(msg_length_hex), msg_length
+            "Message length: 0x%s (%s)", binascii.b2a_hex(msg_length_hex), msg_length
         )
-        # message header - message type
         msg_type_hex = msg[18:19]
         msg_type = int(binascii.b2a_hex(msg_type_hex), 16)
 
         with self.storage as stor:
-            # this will replace the previously stored message
             stor["update"] = binascii.hexlify(msg).decode()
 
         logger.debug("Evpn {}".format(self.evpn))
@@ -2065,6 +2256,11 @@ class ReadTracker(object):
             logger.debug("Skipping update decoding due to Ipv6 data expected")
             return
 
+        logger.debug("BGP-LU {}".format(self.bgplu))
+        if self.bgplu:
+            logger.debug("Skipping update decoding due to BGP-LU data expected")
+            return
+
         logger.debug("Allf {}".format(self.allf))
         if self.allf:
             logger.debug("Skipping update decoding")
@@ -2072,41 +2268,35 @@ class ReadTracker(object):
 
         if msg_type == 2:
             logger.debug("Message type: 0x%s (update)", binascii.b2a_hex(msg_type_hex))
-            # withdrawn routes length
             wdr_length_hex = msg[19:21]
             wdr_length = int(binascii.b2a_hex(wdr_length_hex), 16)
             logger.debug(
-                "Withdrawn routes lenght: 0x%s (%s)",
+                "Withdrawn routes length: 0x%s (%s)",
                 binascii.b2a_hex(wdr_length_hex),
                 wdr_length,
             )
-            # withdrawn routes
             wdr_hex = msg[21 : 21 + wdr_length]
             logger.debug("Withdrawn routes: 0x%s", binascii.b2a_hex(wdr_hex))
             wdr_prefix_list = get_prefix_list_from_hex(wdr_hex)
             logger.debug("Withdrawn routes prefix list: %s", wdr_prefix_list)
             for prefix in wdr_prefix_list:
                 logger.debug("withdrawn_prefix_received: %s", prefix)
-            # total path attribute length
             total_pa_length_offset = 21 + wdr_length
             total_pa_length_hex = msg[
                 total_pa_length_offset : total_pa_length_offset + 2
             ]
             total_pa_length = int(binascii.b2a_hex(total_pa_length_hex), 16)
             logger.debug(
-                "Total path attribute lenght: 0x%s (%s)",
+                "Total path attribute length: 0x%s (%s)",
                 binascii.b2a_hex(total_pa_length_hex),
                 total_pa_length,
             )
-            # path attributes
             pa_offset = total_pa_length_offset + 2
             pa_hex = msg[pa_offset : pa_offset + total_pa_length]
             logger.debug("Path attributes: 0x%s", binascii.b2a_hex(pa_hex))
             self.decode_path_attributes(pa_hex)
-            # network layer reachability information length
             nlri_length = msg_length - 23 - total_pa_length - wdr_length
             logger.debug("Calculated NLRI length: %s", nlri_length)
-            # network layer reachability information
             nlri_offset = pa_offset + total_pa_length
             nlri_hex = msg[nlri_offset : nlri_offset + nlri_length]
             logger.debug("NLRI: 0x%s", binascii.b2a_hex(nlri_hex))
@@ -2114,40 +2304,24 @@ class ReadTracker(object):
             logger.debug("NLRI prefix list: %s", nlri_prefix_list)
             for prefix in nlri_prefix_list:
                 logger.debug("nlri_prefix_received: %s", prefix)
-            # Updating counters
             self.updates_received += 1
             self.prefixes_introduced += len(nlri_prefix_list)
             self.prefixes_withdrawn += len(wdr_prefix_list)
         else:
             logger.error(
-                "Unexpeced message type 0x%s in 0x%s",
+                "Unexpected message type 0x%s in 0x%s",
                 binascii.b2a_hex(msg_type_hex),
                 binascii.b2a_hex(msg),
             )
 
     def wait_for_read(self):
-        """Read message until timeout (next expected event).
-
-        Note:
-            Used when no more updates has to be sent to avoid busy-wait.
-            Currently it does not return anything.
-        """
-        # Compute time to the first predictable state change
+        """Read message until timeout (next expected event)."""
         event_time = self.timer.get_next_event_time()
-        # snapshot_time would be imprecise
         wait_timedelta = min(event_time - time.time(), self.wfr)
         if wait_timedelta < 0:
-            # The program got around to waiting to an event in "very near
-            # future" so late that it became a "past" event, thus tell
-            # "select" to not wait at all. Passing negative timedelta to
-            # select() would lead to either waiting forever (for -1) or
-            # select.error("Invalid parameter") (for everything else).
             wait_timedelta = 0
-        # And wait for event or something to read.
 
         if not self.rx_activity_detected or not (self.updates_received % 100):
-            # right time to write statistics to the log (not for every update and
-            # not too frequently to avoid having large log files)
             logger.info(
                 "total_received_update_message_counter: %s", self.updates_received
             )
@@ -2165,8 +2339,6 @@ class ReadTracker(object):
         self.rx_activity_detected = timedelta < 1
 
         if not self.rx_activity_detected or not (self.updates_received % 100):
-            # right time to write statistics to the log (not for every update and
-            # not too frequently to avoid having large log files)
             logger.info("... idle for %.3fs", timedelta)
             logger.info("total_rx_idle_time_counter: %.3fs", self.rx_idle_time)
         return
@@ -2176,19 +2348,16 @@ class WriteTracker(object):
     """Class tracking enqueueing messages and sending chunks of them."""
 
     def __init__(self, bgp_socket, generator, timer):
-        """The writter initialisation.
+        """The writer initialisation.
 
         Arguments:
             bgp_socket: socket to be used for sending
             generator: generator to be used for message generation
             timer: timer to be used for scheduling
         """
-        # References to outside objects,
         self.socket = bgp_socket
         self.generator = generator
         self.timer = timer
-        # Really new fields.
-        # TODO: Would attribute docstrings add anything substantial?
         self.sending_message = False
         self.bytes_to_send = 0
         self.msg_out = b""
@@ -2209,18 +2378,13 @@ class WriteTracker(object):
         Returns:
             :return: true if no remaining data to send
         """
-        # We assume there is a msg_out to send and socket is writable.
         self.timer.snapshot()
         bytes_sent = self.socket.send(self.msg_out)
-        # Forget the part of message that was sent.
         self.msg_out = self.msg_out[bytes_sent:]
         self.bytes_to_send -= bytes_sent
         if not self.bytes_to_send:
-            # TODO: Is it possible to hit negative bytes_to_send?
             self.sending_message = False
-            # We should have reset hold timer on peer side.
             self.timer.reset_my_keepalive_time(self.timer.snapshot_time)
-            # The possible reason for not prioritizing reads is gone.
             return True
         return False
 
@@ -2239,11 +2403,9 @@ class StateTracker(object):
             storage: thread safe dict to store data for the rpc server
             cliargs: cli args from the user
         """
-        # References to outside objects.
         self.socket = bgp_socket
         self.generator = generator
         self.timer = timer
-        # Sub-trackers.
         self.reader = ReadTracker(
             bgp_socket,
             timer,
@@ -2255,21 +2417,12 @@ class StateTracker(object):
             allf=cliargs.allf,
             rt_constrain=cliargs.rt_constrain,
             ipv6=cliargs.ipv6,
+            bgplu=cliargs.bgplu,
             grace=cliargs.grace,
             wait_for_read=cliargs.wfr,
         )
         self.writer = WriteTracker(bgp_socket, generator, timer)
-        # Prioritization state.
         self.prioritize_writing = False
-        # In general, we prioritize reading over writing. But in order
-        # not to get blocked by neverending reads, we should
-        # check whether we are not risking running out of holdtime.
-        # So in some situations, this field is set to True to attempt
-        # finishing sending a message, after which this field resets
-        # back to False.
-        # TODO: Alternative is to switch fairly between reading and
-        # writing (called round robin from now on).
-        # Message counting is done in generator.
         self.inqueue = inqueue
 
     def perform_one_loop_iteration(self):
@@ -2283,12 +2436,10 @@ class StateTracker(object):
         if not self.prioritize_writing:
             if self.timer.is_time_for_my_keepalive():
                 if not self.writer.sending_message:
-                    # We need to schedule a keepalive ASAP.
                     self.writer.enqueue_message_for_sending(
                         self.generator.keepalive_message()
                     )
                     logger.info("KEEP ALIVE is sent.")
-                # We are sending a message now, so let's prioritize it.
                 self.prioritize_writing = True
 
         try:
@@ -2298,51 +2449,30 @@ class StateTracker(object):
             self.writer.enqueue_message_for_sending(msgbin)
         except queue.Empty:
             pass
-        # Now we know what our priorities are, we have to check
-        # which actions are available.
-        # socket.socket() returns three lists,
-        # we store them to list of lists.
+
         list_list = select.select(
             [self.socket], [self.socket], [self.socket], self.timer.report_timedelta
         )
         read_list, write_list, except_list = list_list
-        # Lists are unpacked, each is either [] or [self.socket],
-        # so we will test them as boolean.
         if except_list:
             logger.error("Exceptional state on the socket.")
             raise RuntimeError("Exceptional state on socket", self.socket)
-        # We will do either read or write.
+
         if not (self.prioritize_writing and write_list):
-            # Either we have no reason to rush writes,
-            # or the socket is not writable.
-            # We are focusing on reading here.
-            if read_list:  # there is something to read indeed
-                # In this case we want to read chunk of message
-                # and repeat the select,
+            if read_list:
                 self.reader.read_message_chunk()
                 return
-            # We were focusing on reading, but nothing to read was there.
-            # Good time to check peer for hold timer.
             self.timer.check_peer_hold_time(self.timer.snapshot_time)
-            # Quiet on the read front, we can have attempt to write.
+
         if write_list:
-            # Either we really want to reset peer's view of our hold
-            # timer, or there was nothing to read.
-            # Were we in the middle of sending a message?
             if self.writer.sending_message:
-                # Was it the end of a message?
                 whole = self.writer.send_message_chunk_is_whole()
-                # We were pressed to send something and we did it.
                 if self.prioritize_writing and whole:
-                    # We prioritize reading again.
                     self.prioritize_writing = False
                 return
-            # Finally to check if still update messages to be generated.
             if self.generator.remaining_prefixes:
                 msg_out = self.generator.compose_update_message()
                 if not self.generator.remaining_prefixes:
-                    # We have just finished update generation,
-                    # end-of-rib is due.
                     logger.info("All update messages generated.")
                     logger.info("Storing performance results.")
                     self.generator.store_results()
@@ -2351,20 +2481,15 @@ class StateTracker(object):
                         wr_prefixes=[], nlri_prefixes=[], end_of_rib=True
                     )
                 self.writer.enqueue_message_for_sending(msg_out)
-                # Attempt for real sending to be done in next iteration.
                 return
-            # Nothing to write anymore.
-            # To avoid busy loop, we do idle waiting here.
             self.reader.wait_for_read()
             return
-        # We can neither read nor write.
+
         logger.warning(
             "Input and output both blocked for "
             + str(self.timer.report_timedelta)
             + " seconds."
         )
-        # FIXME: Are we sure select has been really waiting
-        # the whole period?
         return
 
 
@@ -2393,21 +2518,15 @@ def create_logger(loglevel, logfile):
 
 def job(arguments, inqueue, storage):
     """One time initialisation and iterations looping.
-    Notes:
-        Establish BGP connection and run iterations.
 
     Arguments:
         :arguments: Command line arguments
-        :inqueue: Data to be sent from play.py
+        :inqueue: Data to be sent from play3.py
         :storage: Shared dict for rpc server
     Returns:
         :return: None
     """
     bgp_socket = establish_connection(arguments)
-    # Initial handshake phase. TODO: Can it be also moved to StateTracker?
-    # Receive open message before sending anything.
-    # FIXME: Add parameter to send default open message first,
-    # to work with "you first" peers.
     msg_in = read_open_message(bgp_socket)
     logger.info(binascii.hexlify(msg_in).decode())
     storage["open"] = binascii.hexlify(msg_in).decode()
@@ -2415,74 +2534,75 @@ def job(arguments, inqueue, storage):
     generator = MessageGenerator(arguments)
     msg_out = generator.open_message()
     logger.debug("Sending the OPEN message: " + binascii.hexlify(msg_out).decode())
-    # Send our open message to the peer.
     bgp_socket.send(msg_out)
-    # Wait for confirming keepalive.
-    # TODO: Surely in just one packet?
-    # Using exact keepalive length to not to see possible updates.
+
     msg_in = bgp_socket.recv(19)
     if msg_in != generator.keepalive_message():
         error_msg = "Open not confirmed by keepalive, instead got"
         logger.error(error_msg + ": " + binascii.hexlify(msg_in).decode())
         raise MessageError(error_msg, msg_in)
     timer.reset_peer_hold_time()
-    # Send the keepalive to indicate the connection is accepted.
-    timer.snapshot()  # Remember this time.
+    timer.snapshot()
     msg_out = generator.keepalive_message()
     logger.debug("Sending a KEEP ALIVE message: " + binascii.hexlify(msg_out).decode())
     bgp_socket.send(msg_out)
-    # Use the remembered time.
     timer.reset_my_keepalive_time(timer.snapshot_time)
-    # End of initial handshake phase.
+
     state = StateTracker(bgp_socket, generator, timer, inqueue, storage, arguments)
-    while True:  # main reactor loop
+    while True:
         state.perform_one_loop_iteration()
 
 
 class Rpcs:
     """Handler for SimpleXMLRPCServer"""
 
-    def __init__(self, sendqueue, storage):
+    def __init__(self, sendqueues, storages):
         """Init method
 
         Arguments:
-            :sendqueue: queue for data to be sent towards odl
-            :storage: thread safe dict
+            :sendqueues: queues for data to be sent towards odl
+            :storages: thread safe dicts
         """
-        self.queue = sendqueue
-        self.storage = storage
+        self.queues = sendqueues
+        self.storages = storages
 
-    def send(self, text):
+    def send(self, text, peer_id=0):
         """Data to be sent
 
         Arguments:
-            :text: hes string of the data to be sent
+            :text: hex string of the data to be sent
+            :peer_id: peer order number
         """
-        self.queue.put(text)
+        self.queues[peer_id].put(text)
 
-    def get(self, text=""):
-        """Reads data form the storage
-
-        - returns stored data or an empty string, at the moment only
-          'update' is stored
+    def get(self, text="", peer_id=0):
+        """Reads data from the storage
 
         Arguments:
             :text: a key to the storage to get the data
+            :peer_id: peer order number
         Returns:
             :data: stored data
         """
-        with self.storage as stor:
+        with self.storages[peer_id] as stor:
             return stor.get(text, "")
 
-    def clean(self, text=""):
-        """Cleans data form the storage
+    def clean(self, text="", peer_id=None):
+        """Cleans data from the storage
 
         Arguments:
             :text: a key to the storage to clean the data
+            :peer_id: peer order number
         """
-        with self.storage as stor:
-            if text in stor:
-                del stor[text]
+        if peer_id is not None:
+            with self.storages[peer_id] as stor:
+                if text in stor:
+                    del stor[text]
+        else:
+            for storage in self.storages:
+                with storage as stor:
+                    if text in stor:
+                        del stor[text]
 
 
 def threaded_job(arguments):
@@ -2497,13 +2617,17 @@ def threaded_job(arguments):
     utils_left = arguments.multiplicity
     prefix_current = arguments.firstprefix
     myip_current = arguments.myip
+    peerip_current = arguments.peerip
     port = arguments.port
     thread_args = []
-    rpcqueue = queue.Queue()
-    storage = SafeDict()
+    rpcqueues = []
+    peers_storages = []
 
     while 1:
-        amount_per_util = int((amount_left - 1) / utils_left) + 1  # round up
+        if amount_left <= 0:
+            amount_per_util = 0
+        else:
+            amount_per_util = int((amount_left - 1) / utils_left) + 1
         amount_left -= amount_per_util
         utils_left -= 1
 
@@ -2511,18 +2635,33 @@ def threaded_job(arguments):
         args.amount = amount_per_util
         args.firstprefix = prefix_current
         args.myip = myip_current
+        args.peerip = peerip_current
         thread_args.append(args)
 
         if not utils_left:
             break
-        prefix_current += amount_per_util * 16
+
+        count_to_be_added_in_iterations = amount_per_util - args.prefill
+        number_of_iterations = (
+            int((count_to_be_added_in_iterations - 1) / (args.insert - args.withdraw))
+            + 1
+        )
+        prefix_current += ((number_of_iterations * args.insert) + args.prefill) * 16
         myip_current += 1
+        if args.listen:
+            peerip_current += 1
 
     try:
-        # Create threads
-        for t in thread_args:
+        for index, t in enumerate(thread_args, start=1):
+            storage = SafeDict()
+            peers_storages.append(storage)
+            rpcqueue = queue.Queue()
+            rpcqueues.append(rpcqueue)
             threading.Thread(
-                target=job, args=(t, rpcqueue, storage), daemon=True
+                target=job,
+                args=(t, rpcqueue, storage),
+                name=f"Peer-{index}",
+                daemon=True,
             ).start()
     except Exception:
         print("Error: unable to start thread.")
@@ -2533,7 +2672,7 @@ def threaded_job(arguments):
     else:
         ip = arguments.myip
     rpcserver = SimpleXMLRPCServer((ip.compressed, port), allow_none=True)
-    rpcserver.register_instance(Rpcs(rpcqueue, storage))
+    rpcserver.register_instance(Rpcs(rpcqueues, peers_storages))
     rpcserver.serve_forever()
 
 
