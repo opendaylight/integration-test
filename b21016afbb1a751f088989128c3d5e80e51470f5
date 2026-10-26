@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa641667_5c90224f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2026-10-26T12:10:08Z",
+      "side": 1,
+      "message": "I have a passing suite in Sandbox [3], but last week I saw some inconsistencies in earlier streams and reduced testplans, so this change as a whole will need more verification. I suspect the bgpcep pytest change at [4] will get verified faster (currently not fully ready either).\n\n[3] https://s3-logs.opendaylight.org/logs/sandbox/vex-yul-odl-jenkins-2/bgpcep-csit-1node-userfeatures-all-manganese/18/robot-plugin/log.html.gz#s1-s11\n[4] https://git.opendaylight.org/gerrit/c/bgpcep/+/127016",
+      "revId": "b21016afbb1a751f088989128c3d5e80e51470f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
