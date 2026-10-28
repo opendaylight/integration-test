@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c24e322f_204cefea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2026-10-28T14:23:16Z",
+      "side": 1,
+      "message": "Waiting for https://git.opendaylight.org/gerrit/c/bgpcep/+/127016 getting reviewed first.",
+      "revId": "45a2857e47200ac6c6c243c4d678a8603a3b60c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81"
+    }
+  ]
+}
